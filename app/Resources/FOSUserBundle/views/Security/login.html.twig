@@ -1,0 +1,41 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <div class="box-login">
+        <h3>Authentification</h3>
+        <p>
+            S'il vous plaît entrer votre nom et mot de passe pour vous connecter.
+        </p>
+        <form class="form-login" action="{{ path("fos_user_security_check") }}" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            {% if error %}
+                <div class="errorHandler alert alert-danger">
+                    <i class="fa fa-remove-sign"></i>{{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+            <fieldset>
+                <div class="form-group">
+                    <span class="input-icon">
+                        <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" required="required" />
+                        <i class="fa fa-user"></i> </span>
+                </div>
+                <div class="form-group form-actions">
+                    <span class="input-icon">
+                        <input type="password" class="form-control password" id="password" name="_password" required="required" />
+                        <i class="fa fa-lock"></i>
+                </div>
+                <div class="form-actions">
+                    <label for="remember" class="checkbox-inline">
+                        <input type="checkbox" class="grey remember" id="remember_me" name="_remember_me" value="on" />
+                        Rester connecté
+                    </label>
+                    <button type="submit" class="btn btn-bricky pull-right">
+                        S'authentifier <i class="fa fa-arrow-circle-right"></i>
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+{% endblock fos_user_content %}

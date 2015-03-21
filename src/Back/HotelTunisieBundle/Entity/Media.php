@@ -14,6 +14,7 @@ use Symfony\Component\validator\Constraints as Assert;
  */
 class Media
 {
+
     /**
      * @var integer
      *
@@ -29,7 +30,7 @@ class Media
      * @ORM\COlumn(name="updated_at",type="datetime", nullable=true) 
      */
     private $updateAt;
-    
+
     /**
      * @ORM\PostLoad()
      */
@@ -37,38 +38,38 @@ class Media
     {
         $this->updateAt = new \DateTime();
     }
-    
+
     /**
      * @ORM\Column(type="integer", options={"default":1}, nullable=true) 
      */
-    public $type=1;
-    
+    public $type = 1;
+
     /**
      * @ORM\Column(type="string",length=255, nullable=true) 
      */
     public $path;
-    
     public $file;
+
     public function __construct()
     {
-        $this->type=1;
+        $this->type = 1;
     }
 
-        public function getUploadRootDir()
+    public function getUploadRootDir()
     {
-        return __dir__.'/../../../../web/uploads/media';
+        return __dir__ . '/../../../../web/uploads/media';
     }
-    
+
     public function getAbsolutePath()
     {
-        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+        return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
     }
-    
+
     public function getAssetPath()
     {
-        return 'uploads/media/'.$this->path;
+        return 'uploads/media/' . $this->path;
     }
-    
+
     /**
      * @ORM\Prepersist()
      * @ORM\Preupdate() 
@@ -78,25 +79,26 @@ class Media
         $this->tempFile = $this->getAbsolutePath();
         $this->oldFile = $this->getPath();
         $this->updateAt = new \DateTime();
-        
-        if (null !== $this->file) 
-            $this->path = sha1(uniqid(mt_rand(),true)).'.'.$this->file->guessExtension();
+
+        if ( null !== $this->file )
+            $this->path = sha1(uniqid(mt_rand(), true)) . '.' . $this->file->guessExtension();
     }
-    
+
     /**
      * @ORM\PostPersist()
      * @ORM\PostUpdate() 
      */
     public function upload()
     {
-        if (null !== $this->file) {
-            $this->file->move($this->getUploadRootDir(),$this->path);
+        if ( null !== $this->file )
+        {
+            $this->file->move($this->getUploadRootDir(), $this->path);
             unset($this->file);
-            
-            if ($this->oldFile != null) unlink($this->tempFile);
+            if ( $this->oldFile != null && file_exists($this->tempFile) )
+                unlink($this->tempFile);
         }
     }
-    
+
     /**
      * @ORM\PreRemove() 
      */
@@ -104,13 +106,14 @@ class Media
     {
         $this->tempFile = $this->getAbsolutePath();
     }
-    
+
     /**
      * @ORM\PostRemove() 
      */
     public function removeUpload()
     {
-        if (file_exists($this->tempFile)) unlink($this->tempFile);
+        if ( file_exists($this->tempFile) )
+            unlink($this->tempFile);
     }
 
     /**
@@ -122,14 +125,15 @@ class Media
     {
         return $this->id;
     }
-    
+
     public function getPath()
     {
         return $this->path;
     }
-    
+
     public function getType()
     {
         return $this->type;
     }
+
 }
