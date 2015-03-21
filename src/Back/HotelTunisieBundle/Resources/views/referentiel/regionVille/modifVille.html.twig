@@ -1,0 +1,31 @@
+{% extends "BackHotelTunisieBundle:referentiel/regionVille:listeVille.html.twig" %}
+{% block title %}Gestion des villes{% endblock %}
+{% block description %}Modifier une villes{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ ville.libelle }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="{{ path('modif_villes',{'id':ville.id}) }}" {{ form_enctype(form) }} method="post" role="form" id="form">
+                        {{ form_widget(form._token) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
+                            {{ formulaire.input("col-md-3","Pays",form.pays,true) }}
+                            {{ formulaire.input("col-md-3","Région",form.region,true) }}
+                            {{ formulaire.input("col-md-3","¨Photo",form.image.file,false) }}
+                        </div>
+                        {{ formulaire.submit("Modifier") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% macro input(class,label,from,required) %}
+    <div class="{{class}}">
+        <div class="form-group">
+            <label class="control-label">
+                {{label}} {% if required==true %}<span class="symbol required"></span>{% endif %}
+            </label>
+            {{ form_widget(from) | raw  }}
+            {{ form_errors(from) | raw  }}
+        </div>
+    </div>
+{% endmacro %}
+
+
+{% macro submit(label) %}
+<hr>
+<div class="row">
+    <div class="col-md-8">
+        <p>
+            <span class="symbol required"></span>Champs obligatoires
+        </p>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-green btn-block" type="submit">
+            {{ label }} <i class="fa fa-arrow-circle-right"></i>
+        </button>
+    </div>
+</div>
+{% endmacro %}

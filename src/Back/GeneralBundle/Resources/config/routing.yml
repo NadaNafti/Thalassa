@@ -1,0 +1,3 @@
+tableaubord:
+    path:     /
+    defaults: { _controller: BackGeneralBundle:Default:index }

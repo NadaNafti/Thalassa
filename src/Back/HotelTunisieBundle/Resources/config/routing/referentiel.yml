@@ -1,0 +1,48 @@
+# Categorie ***************************************************************************************************************
+gestion_categories:
+    path:     /categories
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:categorie }
+
+ajout_categorie:
+    path:     /categories/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:categorieAjouter }
+
+modif_categorie:
+    path:     /categories/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:categorieModifier }
+
+supprimer_categorie:
+    path:     /categories/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:categorieSupprimer }
+# Région ***************************************************************************************************************
+gestion_regions:
+    path:     /regions
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:regions }
+
+ajout_regions:
+    path:     /regions/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:regionsAjouter }
+
+modif_regions:
+    path:     /regions/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:regionsModifier }
+
+supprimer_regions:
+    path:     /regions/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:regionsSupprimer }
+# Ville ***************************************************************************************************************
+gestion_villes:
+    path:     /villes
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:villes }
+
+ajout_villes:
+    path:     /villes/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:villesAjouter }
+
+modif_villes:
+    path:     /villes/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:villesModifier }
+
+supprimer_villes:
+    path:     /villes/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:villesSupprimer }

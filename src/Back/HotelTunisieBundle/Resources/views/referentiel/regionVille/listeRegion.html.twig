@@ -1,0 +1,53 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Gestion des Régions{% endblock %}
+{% block description %}Liste{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="{{ path('gestion_regions') }}" >Régions</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="btn btn-xs btn-link" href="{{ path('ajout_regions') }}"> <i class="fa fa-plus"></i> Ajouter une nouvelle Région </a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover"  id="sample_1">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Libellé</th>
+                                <th>Villes</th>
+                                <th class="center" >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for region in regions %}
+                                <tr>
+                                    <td>{{ region.id }}</td>
+                                    <td>{{ region.libelle }}</td>
+                                    <td>{% for ville in region.villes %}- {{ ville.libelle }}</br> {% endfor %}</td>
+                                    <td class="TableAction">
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                            {{ macros.tableEdit(path('modif_regions',{'id':region.id})) }}
+                                            {{ macros.tableDelete(path('supprimer_regions',{'id':region.id})) }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end: DYNAMIC TABLE PANEL -->
+        </div>
+    </div>
+
+
+{% endblock %}

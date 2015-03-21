@@ -1,0 +1,58 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Gestion des Villes{% endblock %}
+{% block description %}Liste{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="{{ path('gestion_villes') }}" >Villes</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="btn btn-xs btn-link" href="{{ path('ajout_villes') }}"> <i class="fa fa-plus"></i> Ajouter une nouvelle Ville </a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover"  id="sample_1">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Photo</th>
+                                <th>Libellé</th>
+                                <th>Pays</th>
+                                <th>Région</th>
+                                <th class="center" >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ville in villes %}
+                                <tr>
+                                    <td>{{ ville.id }}</td>
+                                    <td class="center" >
+                                        {% if ville.image.getAssetPath is defined %}
+                                            <img width="50px" height="50px" src="{{ ville.image.getAssetPath | imagine_filter('small') }}" />
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ ville.libelle }}</td>
+                                    <td>{{ ville.pays.libelle }}</td>
+                                    <td>{{ ville.region }}</td>
+                                    <td class="TableAction">
+                                        {{ macros.tableEdit(path('modif_villes',{'id':ville.id})) }}
+                                        {{ macros.tableDelete(path('supprimer_villes',{'id':ville.id})) }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

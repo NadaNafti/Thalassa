@@ -1,0 +1,8 @@
+/web/bundles/
+/app/bootstrap*
+/app/cache/*
+/app/logs/*
+/web/media/*
+/web/uploads/*
+/vendor/
+/app/config/parameters.yml

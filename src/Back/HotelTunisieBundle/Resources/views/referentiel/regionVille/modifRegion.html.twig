@@ -1,0 +1,28 @@
+{% extends "BackHotelTunisieBundle:referentiel/regionVille:listeRegion.html.twig" %}
+{% block title %}Gestion des régions{% endblock %}
+{% block description %}Modifier une régions{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ region.libelle }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="{{ path('modif_regions',{'id':region.id}) }}" method="post" role="form" id="form">
+                        {{ form_widget(form._token) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-6","Libellé",form.libelle,true) }}
+                        </div>
+                        {{ formulaire.submit("Modifier") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
