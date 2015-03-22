@@ -9,6 +9,9 @@ use Back\HotelTunisieBundle\Entity\Pays;
 use Back\HotelTunisieBundle\Entity\Region;
 use Back\HotelTunisieBundle\Entity\Categorie;
 use Back\HotelTunisieBundle\Entity\Ville;
+use Back\HotelTunisieBundle\Entity\Amenagement;
+use Back\HotelTunisieBundle\Entity\TypeAmenagement;
+
 class FixtureData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
@@ -54,6 +57,28 @@ class FixtureData extends AbstractFixture implements OrderedFixtureInterface
         $ville= new Ville();
         $manager->persist($ville->setPays($pays2)->setRegion($region1)->setLibelle("Paris"));
 
+        $typeAmenagement=new TypeAmenagement();
+        $manager->persist($typeAmenagement->setLibelle("Vue"));
+        $typeAmenagement1=new TypeAmenagement();
+        $manager->persist($typeAmenagement1->setLibelle("Restauration"));
+        $typeAmenagement2=new TypeAmenagement();
+        $manager->persist($typeAmenagement2->setLibelle("En extérieur"));
+        
+        $Amenagement= new Amenagement();
+        $manager->persist($Amenagement->setLibelle("Vue sur la ville")->setTypeAmenagement($typeAmenagement));
+        $Amenagement= new Amenagement();
+        $manager->persist($Amenagement->setLibelle("Vue mer + piscine + balcon")->setTypeAmenagement($typeAmenagement));
+        $Amenagement= new Amenagement();
+        $manager->persist($Amenagement->setLibelle("Vue jardin + Terrasse")->setTypeAmenagement($typeAmenagement));
+        $Amenagement= new Amenagement();
+        $manager->persist($Amenagement->setLibelle("Salon de thé")->setTypeAmenagement($typeAmenagement1));
+        $Amenagement= new Amenagement();
+        $manager->persist($Amenagement->setLibelle("Restaurant à la carte")->setTypeAmenagement($typeAmenagement1));
+        $Amenagement= new Amenagement();
+        $manager->persist($Amenagement->setLibelle("Installation barbecue")->setTypeAmenagement($typeAmenagement2));
+        $Amenagement= new Amenagement();
+        $manager->persist($Amenagement->setLibelle("terrains de volley-ball")->setTypeAmenagement($typeAmenagement2));
+        
         $manager->flush();
     }
 
