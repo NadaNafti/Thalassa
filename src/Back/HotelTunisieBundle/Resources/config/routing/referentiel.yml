@@ -46,3 +46,35 @@ modif_villes:
 supprimer_villes:
     path:     /villes/supprimer/{id}
     defaults: { _controller: BackHotelTunisieBundle:Referentiel:villesSupprimer }
+# Type amenagament ***************************************************************************************************************
+gestion_type_amenagement:
+    path:     /type_amenagement
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:typeAmenagement }
+
+ajout_type_amenagement:
+    path:     /type_amenagement/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:typeAmenagementAjouter }
+
+modif_type_amenagement:
+    path:     /type_amenagement/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:typeAmenagementModifier }
+
+supprimer_type_amenagement:
+    path:     /type_amenagement/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:typeAmenagementSupprimer }
+# Amenagament ***************************************************************************************************************
+gestion_amenagement:
+    path:     /amenagement
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:amenagement }
+
+ajout_amenagement:
+    path:     /amenagement/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:amenagementAjouter }
+
+modif_amenagement:
+    path:     /amenagement/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:amenagementModifier }
+
+supprimer_amenagement:
+    path:     /amenagement/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:amenagementSupprimer }

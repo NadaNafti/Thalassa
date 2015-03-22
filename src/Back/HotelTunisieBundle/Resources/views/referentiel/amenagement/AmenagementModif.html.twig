@@ -1,0 +1,29 @@
+{% extends "BackHotelTunisieBundle:referentiel/amenagement:Amenagementliste.html.twig" %}
+{% block title %}Gestion des aménagmenets{% endblock %}
+{% block description %}modifier un améngament{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ amenagement.libelle }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="{{ path('modif_amenagement',{'id':amenagement.id}) }}" method="post" role="form" id="form">
+                        {{ form_widget(form._token) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
+                            {{ formulaire.selectSearch("col-md-3","Type aménagement",form.typeAmenagement,true) }}
+                        </div>
+                        {{ formulaire.submit("Modifier") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

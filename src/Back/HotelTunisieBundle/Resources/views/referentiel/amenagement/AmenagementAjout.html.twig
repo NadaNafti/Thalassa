@@ -1,6 +1,6 @@
-{% extends "BackHotelTunisieBundle:referentiel/amenagement:TypeAmenagementliste.html.html.twig" %}
-{% block title %}Gestion des catégories{% endblock %}
-{% block description %}Ajouter une catégorie{% endblock %}
+{% extends "BackHotelTunisieBundle:referentiel/amenagement:Amenagementliste.html.twig" %}
+{% block title %}Gestion des aménagmenets{% endblock %}
+{% block description %}Ajouter un améngament{% endblock %}
 {% block topbody %}   
     {{ parent() }}
     <li>
@@ -13,10 +13,11 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form action="{{ path('ajout_type_amenagement') }}" method="post" role="form" id="form">
+                    <form action="{{ path('ajout_amenagement') }}" method="post" role="form" id="form">
                         {{ form_widget(form._token) }}
                         <div class="row">
-                            {{ formulaire.input("col-md-6","Libellé",form.libelle,true) }}
+                            {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
+                            {{ formulaire.selectSearch("col-md-3","Type aménagement",form.typeAmenagement,true) }}
                         </div>
                         {{ formulaire.submit("Ajouter") }}
                     </form>

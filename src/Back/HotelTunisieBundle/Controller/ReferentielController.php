@@ -9,6 +9,10 @@ use Back\HotelTunisieBundle\Entity\Ville;
 use Back\HotelTunisieBundle\Form\VilleType;
 use Back\HotelTunisieBundle\Entity\Categorie;
 use Back\HotelTunisieBundle\Form\CategorieType;
+use Back\HotelTunisieBundle\Entity\TypeAmenagement;
+use Back\HotelTunisieBundle\Form\TypeAmenagementType;
+use Back\HotelTunisieBundle\Entity\Amenagement;
+use Back\HotelTunisieBundle\Form\AmenagementType;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class ReferentielController extends Controller
@@ -267,6 +271,142 @@ class ReferentielController extends Controller
                     'form' => $form->createView(),
                     'ville' => $ville,
         ));
+    }
+
+// Type amenagement    ****************************************************************************************************************
+    public function typeAmenagementAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $typeAmenegaments = $em->getRepository("BackHotelTunisieBundle:TypeAmenagement")->findAll();
+        return $this->render('BackHotelTunisieBundle:referentiel/amenagement:TypeAmenagementliste.html.twig', array(
+                    'typeAmenegaments' => $typeAmenegaments,
+        ));
+    }
+
+    public function typeAmenagementAjouterAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $typeAmenagement = new TypeAmenagement();
+        $form = $this->createForm(new TypeAmenagementType, $typeAmenagement);
+        $request = $this->getRequest();
+        if ( $request->isMethod("POST") )
+        {
+            $form->bind($request);
+            if ( $form->isValid() )
+            {
+                $typeAmenagement = $form->getData();
+                $em->persist($typeAmenagement);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre type a été ajoutée avec succées ");
+                return $this->redirect($this->generateUrl("gestion_type_amenagement"));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:referentiel/amenagement:TypeAmenagementAjout.html.twig', array(
+                    'form' => $form->createView(),
+        ));
+    }
+
+    public function typeAmenagementModifierAction(TypeAmenagement $typeAmenagement)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $form = $this->createForm(new TypeAmenagementType, $typeAmenagement);
+        $request = $this->getRequest();
+        if ( $request->isMethod("POST") )
+        {
+            $form->bind($request);
+            if ( $form->isValid() )
+            {
+                $typeAmenagement = $form->getData();
+                $em->persist($typeAmenagement);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre type a été ajouté avec succées ");
+                return $this->redirect($this->generateUrl("gestion_type_amenagement"));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:referentiel/amenagement:TypeAmenagementModif.html.twig', array(
+                    'form' => $form->createView(),
+                    'typeAmenagement' => $typeAmenagement
+        ));
+    }
+
+    public function typeAmenagementSupprimerAction(TypeAmenagement $typeAmenagement)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $em->remove($typeAmenagement);
+        $em->flush();
+        $session->getFlashBag()->add('success', " Votre type a été supprimé avec succées ");
+        return $this->redirect($this->generateUrl("gestion_type_amenagement"));
+    }
+
+// Amenagement    ****************************************************************************************************************
+    public function amenagementAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $amenegaments = $em->getRepository("BackHotelTunisieBundle:Amenagement")->findAll();
+        return $this->render('BackHotelTunisieBundle:referentiel/amenagement:Amenagementliste.html.twig', array(
+                    'amenegaments' => $amenegaments,
+        ));
+    }
+
+    public function amenagementAjouterAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $amenagement = new Amenagement();
+        $form = $this->createForm(new AmenagementType, $amenagement);
+        $request = $this->getRequest();
+        if ( $request->isMethod("POST") )
+        {
+            $form->bind($request);
+            if ( $form->isValid() )
+            {
+                $amenagement = $form->getData();
+                $em->persist($amenagement);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre aménagement a été ajoutée avec succées ");
+                return $this->redirect($this->generateUrl("gestion_amenagement"));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:referentiel/amenagement:AmenagementAjout.html.twig', array(
+                    'form' => $form->createView(),
+        ));
+    }
+
+    public function amenagementModifierAction(Amenagement $amenagement)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $form = $this->createForm(new AmenagementType, $amenagement);
+        $request = $this->getRequest();
+        if ( $request->isMethod("POST") )
+        {
+            $form->bind($request);
+            if ( $form->isValid() )
+            {
+                $amenagement = $form->getData();
+                $em->persist($amenagement);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre améngament a été ajouté avec succées ");
+                return $this->redirect($this->generateUrl("gestion_amenagement"));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:referentiel/amenagement:AmenagementModif.html.twig', array(
+                    'form' => $form->createView(),
+                    'amenagement' => $amenagement
+        ));
+    }
+
+    public function amenagementSupprimerAction(Amenagement $amenagement)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $em->remove($amenagement);
+        $em->flush();
+        $session->getFlashBag()->add('success', " Votre aménagement a été supprimé avec succées ");
+        return $this->redirect($this->generateUrl("gestion_amenagement"));
     }
 
 }

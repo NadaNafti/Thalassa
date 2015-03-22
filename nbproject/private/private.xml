@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/TravelOs/src/Back/HotelTunisieBundle/DataFixtures/ORM/PaysData.php</file>
-            <file>file:/C:/wamp/www/TravelOs/app/config/parameters.yml</file>
+            <file>file:/C:/wamp/www/TravelOs/app/Resources/views/base.html.twig</file>
+            <file>file:/C:/wamp/www/TravelOs/app/Resources/views/Back/login.html.twig</file>
+            <file>file:/C:/wamp/www/TravelOs/app/Resources/views/Back/base.html.twig</file>
+            <file>file:/C:/wamp/www/TravelOs/app/Resources/FOSUserBundle/views/layout.html.twig</file>
+            <file>file:/C:/wamp/www/TravelOs/app/Resources/FOSUserBundle/views/Security/login.html.twig</file>
+            <file>file:/C:/wamp/www/TravelOs/app/Resources/views/Back/header.html.twig</file>
         </group>
     </open-files>
 </project-private>

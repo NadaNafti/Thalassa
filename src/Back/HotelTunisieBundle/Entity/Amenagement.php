@@ -4,16 +4,18 @@ namespace Back\HotelTunisieBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Categorie
+ * Amenagement
  *
- * @ORM\Table(name="ost_sht_categorie")
+ * @ORM\Table(name="ost_sht_amenagement")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
-class Categorie
+class Amenagement
 {
+
     /**
      * @var integer
      *
@@ -26,34 +28,39 @@ class Categorie
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle", type="string", length=100)
+     * @ORM\Column(name="libelle", type="string", length=255)
      */
     private $libelle;
-    
+
+    /**
+     * @ORM\ManyToOne(targetEntity="TypeAmenagement", inversedBy="amenagements", fetch="EAGER")
+     * @ORM\JoinColumn(name="id_typeamenagement", referencedColumnName="id")
+     * @Assert\NotBlank()
+     */
+    protected $typeAmenagement;
+
     /**
      * @Gedmo\slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
     private $slug;
 
-    
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column( type="datetime")
      */
     private $created;
-    
+
     /**
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column( type="datetime")
      */
     private $updated;
-    
+
     /**
      * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
      */
     private $deletedAt;
-    
 
     /**
      * Get id
@@ -69,12 +76,12 @@ class Categorie
      * Set libelle
      *
      * @param string $libelle
-     * @return Categorie
+     * @return Amenagement
      */
     public function setLibelle($libelle)
     {
         $this->libelle = $libelle;
-    
+
         return $this;
     }
 
@@ -87,18 +94,12 @@ class Categorie
     {
         return $this->libelle;
     }
-    
-    
-    public function showEtat()
-    {
-        return "Active";
-    }
 
     /**
      * Set slug
      *
      * @param string $slug
-     * @return Categorie
+     * @return Amenagement
      */
     public function setSlug($slug)
     {
@@ -121,7 +122,7 @@ class Categorie
      * Set created
      *
      * @param \DateTime $created
-     * @return Categorie
+     * @return Amenagement
      */
     public function setCreated($created)
     {
@@ -144,7 +145,7 @@ class Categorie
      * Set updated
      *
      * @param \DateTime $updated
-     * @return Categorie
+     * @return Amenagement
      */
     public function setUpdated($updated)
     {
@@ -164,25 +165,25 @@ class Categorie
     }
 
     /**
-     * Set deletedAt
+     * Set typeAmenagement
      *
-     * @param \DateTime $deletedAt
-     * @return Categorie
+     * @param \Back\HotelTunisieBundle\Entity\TypeAmenagement $typeAmenagement
+     * @return Amenagement
      */
-    public function setDeletedAt($deletedAt)
+    public function setTypeAmenagement(\Back\HotelTunisieBundle\Entity\TypeAmenagement $typeAmenagement = null)
     {
-        $this->deletedAt = $deletedAt;
-
+        $this->typeAmenagement = $typeAmenagement;
         return $this;
     }
 
     /**
-     * Get deletedAt
+     * Get typeAmenagement
      *
-     * @return \DateTime 
+     * @return \Back\HotelTunisieBundle\Entity\TypeAmenagement 
      */
-    public function getDeletedAt()
+    public function getTypeAmenagement()
     {
-        return $this->deletedAt;
+        return $this->typeAmenagement;
     }
+
 }

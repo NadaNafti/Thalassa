@@ -44,6 +44,20 @@
                                 </a>
                             </li>
                         </ul>
+                        <ul class="sub-menu">
+                            <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/type_amenagement')|length > 1 %} class="open"{% endif %}>
+                                <a href="{{ path('gestion_type_amenagement') }}">
+                                    <span class="title">Type Améneagement</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="sub-menu">
+                            <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/amenagement')|length > 1 %} class="open"{% endif %}>
+                                <a href="{{ path('gestion_amenagement') }}">
+                                    <span class="title">Améneagement</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>

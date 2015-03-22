@@ -10,6 +10,17 @@
     </div>
 {% endmacro %}
 
+{% macro selectSearch(class,label,from,required) %}
+    <div class="{{class}}">
+        <div class="form-group">
+            <label class="control-label">
+                {{label}} {% if required==true %}<span class="symbol required"></span>{% endif %}
+            </label>
+            {{ form_widget(from, {'attr': {'class': 'search-select'}}) }}
+            {{ form_errors(from) | raw  }}
+        </div>
+    </div>
+{% endmacro %}
 
 {% macro submit(label) %}
 <hr>

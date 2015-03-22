@@ -6,13 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Categorie
+ * Amenagement
  *
- * @ORM\Table(name="ost_sht_categorie")
+ * @ORM\Table(name="ost_sht_amenagement")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
-class Categorie
+class Amenagement
 {
     /**
      * @var integer
@@ -26,9 +26,18 @@ class Categorie
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle", type="string", length=100)
+     * @ORM\Column(name="libelle", type="string", length=255)
      */
     private $libelle;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="TyepAmenagement", inversedBy="amenagements", fetch="EAGER")
+     * @ORM\JoinColumn(name="id_typeamenagement", referencedColumnName="id")
+     */
+    protected $typeAmenagement;
+
+
     
     /**
      * @Gedmo\slug(fields={"libelle"})
@@ -36,7 +45,6 @@ class Categorie
      */
     private $slug;
 
-    
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column( type="datetime")
@@ -52,8 +60,7 @@ class Categorie
     /**
      * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
      */
-    private $deletedAt;
-    
+
 
     /**
      * Get id
@@ -69,12 +76,12 @@ class Categorie
      * Set libelle
      *
      * @param string $libelle
-     * @return Categorie
+     * @return Amenagement
      */
     public function setLibelle($libelle)
     {
         $this->libelle = $libelle;
-    
+
         return $this;
     }
 
@@ -87,18 +94,12 @@ class Categorie
     {
         return $this->libelle;
     }
-    
-    
-    public function showEtat()
-    {
-        return "Active";
-    }
 
     /**
      * Set slug
      *
      * @param string $slug
-     * @return Categorie
+     * @return Amenagement
      */
     public function setSlug($slug)
     {
@@ -121,7 +122,7 @@ class Categorie
      * Set created
      *
      * @param \DateTime $created
-     * @return Categorie
+     * @return Amenagement
      */
     public function setCreated($created)
     {
@@ -144,7 +145,7 @@ class Categorie
      * Set updated
      *
      * @param \DateTime $updated
-     * @return Categorie
+     * @return Amenagement
      */
     public function setUpdated($updated)
     {
@@ -161,28 +162,5 @@ class Categorie
     public function getUpdated()
     {
         return $this->updated;
-    }
-
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     * @return Categorie
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 }
