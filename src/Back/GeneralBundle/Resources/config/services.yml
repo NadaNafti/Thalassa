@@ -8,6 +8,18 @@ services:
       class: Back\GeneralBundle\Twig\Extension\TesteExtension
       tags:
         - { name: twig.extension }
+    
+    form.ckeditor:
+        class: Back\GeneralBundle\Form\Type\CkeditorType
+        tags:
+            - { name: form.type, alias: ckeditor }
+
+
+
+
+
+
+
 
     gedmo.listener.blameable:
         class: Gedmo\Blameable\BlameableListener
