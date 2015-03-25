@@ -3,6 +3,11 @@ services:
       class: Back\GeneralBundle\Twig\Extension\PriceExtension
       tags:
         - { name: twig.extension }
+    
+    teste:
+      class: Back\GeneralBundle\Twig\Extension\TesteExtension
+      tags:
+        - { name: twig.extension }
 
     gedmo.listener.blameable:
         class: Gedmo\Blameable\BlameableListener
