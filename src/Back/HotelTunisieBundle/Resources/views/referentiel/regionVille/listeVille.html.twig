@@ -38,6 +38,7 @@
                                     <td class="TableAction">
                                         {{ macros.tableEdit(path('modif_villes',{'id':ville.id})) }}
                                         {{ macros.tableDelete(path('supprimer_villes',{'id':ville.id})) }}
+                                        {{ macros.tablePhoto(path('photos_villes',{'id':ville.id})) }}
                                     </td>
                                 </tr>
                             {% endfor %}
