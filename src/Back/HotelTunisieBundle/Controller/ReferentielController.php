@@ -27,9 +27,6 @@ class ReferentielController extends Controller
         //Appeler la liste des catégories
         $categories = $em->getRepository("BackHotelTunisieBundle:Categorie")->findAll();
 
-        //Débuger la variable en mode dev
-        dump($categories);
-
         //Appeler la page twig 
         return $this->render('BackHotelTunisieBundle:referentiel/categorie:liste.html.twig', array(
                     'categories' => $categories,
@@ -203,7 +200,6 @@ class ReferentielController extends Controller
 //        $filters = $em->getFilters();
 //        $filters->disable('softdeleteable');
         $villes = $em->getRepository("BackHotelTunisieBundle:Ville")->findAll();
-        dump($villes);
         return $this->render('BackHotelTunisieBundle:referentiel/regionVille:listeVille.html.twig', array(
                     'villes' => $villes,
         ));
