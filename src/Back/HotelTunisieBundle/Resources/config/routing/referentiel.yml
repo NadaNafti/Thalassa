@@ -1,3 +1,7 @@
+#media
+deletephoto:
+    path:     /DeleteMedia/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:deletePhoto }
 # Categorie ***************************************************************************************************************
 gestion_categories:
     path:     /categories
@@ -46,6 +50,10 @@ modif_villes:
 supprimer_villes:
     path:     /villes/supprimer/{id}
     defaults: { _controller: BackHotelTunisieBundle:Referentiel:villesSupprimer }
+
+photos_villes:
+    path:     /villes/modif/{id}/photos
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:villesphoto }
 # Type amenagament ***************************************************************************************************************
 gestion_type_amenagement:
     path:     /type_amenagement

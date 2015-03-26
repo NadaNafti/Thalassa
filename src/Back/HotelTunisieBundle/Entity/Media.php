@@ -32,17 +32,23 @@ class Media
     private $updateAt;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Ville", inversedBy="images")
+     * @ORM\JoinColumn(name="ville_id", referencedColumnName="id")
+     */
+    protected $ville;
+
+    /**
      * @ORM\PostLoad()
      */
     public function postLoad()
     {
-        $this->updateAt = new \DateTime();
+        $this->updateAt=new \DateTime();
     }
 
     /**
      * @ORM\Column(type="integer", options={"default":1}, nullable=true) 
      */
-    public $type = 1;
+    public $type=1;
 
     /**
      * @ORM\Column(type="string",length=255, nullable=true) 
@@ -52,22 +58,30 @@ class Media
 
     public function __construct()
     {
-        $this->type = 1;
+        $this->type=1;
     }
 
     public function getUploadRootDir()
     {
-        return __dir__ . '/../../../../web/uploads/media';
+        return __dir__.'/../../../../web/'.$this->getDirectory();
     }
 
-    public function getAbsolutePath()
+    public function getDirectory()
     {
-        return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
+        if($this->ville)
+            return 'uploads/ville';
+        else
+            return 'uploads';
     }
 
     public function getAssetPath()
     {
-        return 'uploads/media/' . $this->path;
+        return $this->getDirectory().'/'.$this->path;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null===$this->path?null:$this->getUploadRootDir().'/'.$this->path;
     }
 
     /**
@@ -76,12 +90,12 @@ class Media
      */
     public function preUpload()
     {
-        $this->tempFile = $this->getAbsolutePath();
-        $this->oldFile = $this->getPath();
-        $this->updateAt = new \DateTime();
+        $this->tempFile=$this->getAbsolutePath();
+        $this->oldFile=$this->getPath();
+        $this->updateAt=new \DateTime();
 
-        if ( null !== $this->file )
-            $this->path = sha1(uniqid(mt_rand(), true)) . '.' . $this->file->guessExtension();
+        if(null!==$this->file)
+            $this->path=sha1(uniqid(mt_rand(), true)).'.'.$this->file->guessExtension();
     }
 
     /**
@@ -90,11 +104,11 @@ class Media
      */
     public function upload()
     {
-        if ( null !== $this->file )
+        if(null!==$this->file)
         {
             $this->file->move($this->getUploadRootDir(), $this->path);
             unset($this->file);
-            if ( $this->oldFile != null && file_exists($this->tempFile) )
+            if($this->oldFile!=null&&file_exists($this->tempFile))
                 unlink($this->tempFile);
         }
     }
@@ -104,7 +118,7 @@ class Media
      */
     public function preRemoveUpload()
     {
-        $this->tempFile = $this->getAbsolutePath();
+        $this->tempFile=$this->getAbsolutePath();
     }
 
     /**
@@ -112,7 +126,7 @@ class Media
      */
     public function removeUpload()
     {
-        if ( file_exists($this->tempFile) )
+        if(file_exists($this->tempFile))
             unlink($this->tempFile);
     }
 
@@ -134,6 +148,88 @@ class Media
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set updateAt
+     *
+     * @param \DateTime $updateAt
+     * @return Media
+     */
+    public function setUpdateAt($updateAt)
+    {
+        $this->updateAt=$updateAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updateAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdateAt()
+    {
+        return $this->updateAt;
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     * @return Media
+     */
+    public function setType($type)
+    {
+        $this->type=$type;
+
+        return $this;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Media
+     */
+    public function setPath($path)
+    {
+        $this->path=$path;
+
+        return $this;
+    }
+
+    /**
+     * Set ville
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ville $ville
+     * @return Media
+     */
+    public function setVille(\Back\HotelTunisieBundle\Entity\ville $ville=null)
+    {
+        $this->ville=$ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return \Back\HotelTunisieBundle\Entity\ville 
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+    
+    
+    public function showType()
+    {
+        if($this->type==1)
+            return 'Pricipale';
+        if($this->type==2)
+            return 'Album';
+        
     }
 
 }

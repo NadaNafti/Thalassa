@@ -16,8 +16,11 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('file', 'file', array('required' => false))
-                ->add('type' )
+                ->add('file', 'file', array('required'=>true))
+                ->add('type', 'choice', array(
+                    'choices' =>array('1'=>'Principale', '2'=>'Album'),
+                    'required'=>true,
+                ))
         ;
     }
 
@@ -27,7 +30,7 @@ class MediaType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Back\HotelTunisieBundle\Entity\Media'
+            'data_class'=>'Back\HotelTunisieBundle\Entity\Media'
         ));
     }
 

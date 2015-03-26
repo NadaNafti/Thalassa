@@ -55,10 +55,9 @@ class Ville
     protected $pays;
 
     /**
-     * @ORM\OneToOne(targetEntity="Media", cascade={"persist","remove"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToMany(targetEntity="Media", mappedBy="ville")
      */
-    private $image;
+    private $images;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -95,7 +94,7 @@ class Ville
      */
     public function setLibelle($libelle)
     {
-        $this->libelle = $libelle;
+        $this->libelle=$libelle;
 
         return $this;
     }
@@ -116,9 +115,9 @@ class Ville
      * @param \Back\HotelTunisieBundle\Entity\Region $region
      * @return Ville
      */
-    public function setRegion(\Back\HotelTunisieBundle\Entity\Region $region = null)
+    public function setRegion(\Back\HotelTunisieBundle\Entity\Region $region=null)
     {
-        $this->region = $region;
+        $this->region=$region;
 
         return $this;
     }
@@ -139,9 +138,9 @@ class Ville
      * @param \Back\HotelTunisieBundle\Entity\Pays $pays
      * @return Ville
      */
-    public function setPays(\Back\HotelTunisieBundle\Entity\Pays $pays = null)
+    public function setPays(\Back\HotelTunisieBundle\Entity\Pays $pays=null)
     {
-        $this->pays = $pays;
+        $this->pays=$pays;
 
         return $this;
     }
@@ -156,7 +155,6 @@ class Ville
         return $this->pays;
     }
 
-
     /**
      * Set slug
      *
@@ -165,7 +163,7 @@ class Ville
      */
     public function setSlug($slug)
     {
-        $this->slug = $slug;
+        $this->slug=$slug;
 
         return $this;
     }
@@ -188,7 +186,7 @@ class Ville
      */
     public function setCreated($created)
     {
-        $this->created = $created;
+        $this->created=$created;
 
         return $this;
     }
@@ -211,7 +209,7 @@ class Ville
      */
     public function setUpdated($updated)
     {
-        $this->updated = $updated;
+        $this->updated=$updated;
 
         return $this;
     }
@@ -234,7 +232,7 @@ class Ville
      */
     public function setDeletedAt($deletedAt)
     {
-        $this->deletedAt = $deletedAt;
+        $this->deletedAt=$deletedAt;
 
         return $this;
     }
@@ -257,7 +255,7 @@ class Ville
      */
     public function setImage(\Back\HotelTunisieBundle\Entity\Media $image)
     {
-        $this->image = $image;
+        $this->image=$image;
 
         return $this;
     }
@@ -271,4 +269,5 @@ class Ville
     {
         return $this->image;
     }
+
 }

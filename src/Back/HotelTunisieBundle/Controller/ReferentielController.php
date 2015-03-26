@@ -14,32 +14,43 @@ use Back\HotelTunisieBundle\Form\TypeAmenagementType;
 use Back\HotelTunisieBundle\Entity\Amenagement;
 use Back\HotelTunisieBundle\Form\AmenagementType;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Back\HotelTunisieBundle\Entity\Media;
+use Back\HotelTunisieBundle\Form\MediaType;
 
 class ReferentielController extends Controller
 {
 
+    public function deletePhotoAction(Media $media)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em->remove($media);
+        $em->flush();
+        $session->getFlashBag()->add('success', " Votre photo a été supprimé avec succées ");
+        return $this->redirect($session->get("routing"));
+    }
 //  Categorie    ********************************************************************************************************************
     Public function categorieAction()
     {
         //appeler le entity manager
-        $em = $this->getDoctrine()->getManager();
+        $em=$this->getDoctrine()->getManager();
 
         //Appeler la liste des catégories
-        $categories = $em->getRepository("BackHotelTunisieBundle:Categorie")->findAll();
+        $categories=$em->getRepository("BackHotelTunisieBundle:Categorie")->findAll();
 
         //Appeler la page twig 
         return $this->render('BackHotelTunisieBundle:referentiel/categorie:liste.html.twig', array(
-                    'categories' => $categories,
+                    'categories'=>$categories,
         ));
     }
 
     public function categorieSupprimerAction(Categorie $categorie)
     {
         //appeler la session
-        $session = $this->getRequest()->getSession();
+        $session=$this->getRequest()->getSession();
 
         //appeler le entity manager
-        $em = $this->getDoctrine()->getManager();
+        $em=$this->getDoctrine()->getManager();
 
         try
         {
@@ -49,7 +60,8 @@ class ReferentielController extends Controller
             $em->flush();
             //afficher la message de succes
             $session->getFlashBag()->add('success', " Votre catégorie a été supprimée avec succées ");
-        } catch (\Exception $ex)
+        }
+        catch(\Exception $ex)
         {
             //afficher la message d'erreur
             $session->getFlashBag()->add('danger', $ex->getMessage());
@@ -61,22 +73,22 @@ class ReferentielController extends Controller
 
     public function categorieAjouterAction()
     {
-        $session = $this->getRequest()->getSession();
-        $em = $this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
         //instencer un objet categorie
-        $categorie = new Categorie();
+        $categorie=new Categorie();
         //Creation d'un formulaire 
-        $form = $this->createForm(new CategorieType, $categorie);
+        $form=$this->createForm(new CategorieType, $categorie);
 
-        $request = $this->getRequest();
+        $request=$this->getRequest();
         //verifier si on a des post
-        if ( $request->isMethod("POST") )
+        if($request->isMethod("POST"))
         {
             //metre le request dans le formulaire
             $form->bind($request);
-            if ( $form->isValid() )
+            if($form->isValid())
             {
-                $categorie = $form->getData();
+                $categorie=$form->getData();
                 $em->persist($categorie);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre catégorie a été ajoutée avec succées ");
@@ -85,25 +97,25 @@ class ReferentielController extends Controller
         }
         //Appeler la page twig 
         return $this->render('BackHotelTunisieBundle:referentiel/categorie:ajout.html.twig', array(
-                    'form' => $form->createView(),
+                    'form'=>$form->createView(),
         ));
     }
 
     public function categorieModifierAction(Categorie $categorie)
     {
-        $session = $this->getRequest()->getSession();
-        $em = $this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
         //Creation d'un formulaire 
-        $form = $this->createForm(new CategorieType, $categorie);
-        $request = $this->getRequest();
+        $form=$this->createForm(new CategorieType, $categorie);
+        $request=$this->getRequest();
         //verifier si on a des post
-        if ( $request->isMethod("POST") )
+        if($request->isMethod("POST"))
         {
             //metre le request dans le formulaire
             $form->bind($request);
-            if ( $form->isValid() )
+            if($form->isValid())
             {
-                $categorie = $form->getData();
+                $categorie=$form->getData();
                 $em->persist($categorie);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre catégorie a été modifiée avec succées ");
@@ -112,8 +124,8 @@ class ReferentielController extends Controller
         }
         //Appeler la page twig 
         return $this->render('BackHotelTunisieBundle:referentiel/categorie:modif.html.twig', array(
-                    'form' => $form->createView(),
-                    'categorie' => $categorie,
+                    'form'     =>$form->createView(),
+                    'categorie'=>$categorie,
         ));
     }
 
@@ -121,26 +133,26 @@ class ReferentielController extends Controller
 
     public function regionsAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $regions = $em->getRepository("BackHotelTunisieBundle:Region")->findAll();
+        $em=$this->getDoctrine()->getManager();
+        $regions=$em->getRepository("BackHotelTunisieBundle:Region")->findAll();
         return $this->render('BackHotelTunisieBundle:referentiel/regionVille:listeRegion.html.twig', array(
-                    'regions' => $regions,
+                    'regions'=>$regions,
         ));
     }
 
     public function regionsAjouterAction()
     {
-        $session = $this->getRequest()->getSession();
-        $em = $this->getDoctrine()->getManager();
-        $region = new Region();
-        $form = $this->createForm(new RegionType, $region);
-        $request = $this->getRequest();
-        if ( $request->isMethod("POST") )
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        $region=new Region();
+        $form=$this->createForm(new RegionType, $region);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
         {
             $form->bind($request);
-            if ( $form->isValid() )
+            if($form->isValid())
             {
-                $region = $form->getData();
+                $region=$form->getData();
                 $em->persist($region);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre Région a été ajoutée avec succées ");
@@ -148,20 +160,21 @@ class ReferentielController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:referentiel/regionVille:ajoutRegion.html.twig', array(
-                    'form' => $form->createView(),
+                    'form'=>$form->createView(),
         ));
     }
 
     public function regionsSupprimerAction(Region $region)
     {
-        $session = $this->getRequest()->getSession();
-        $em = $this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
         try
         {
             $em->remove($region);
             $em->flush();
             $session->getFlashBag()->add('success', " Votre région a été supprimée avec succées ");
-        } catch (\Exception $ex)
+        }
+        catch(\Exception $ex)
         {
             $session->getFlashBag()->add('danger', $ex->getMessage());
         }
@@ -170,16 +183,16 @@ class ReferentielController extends Controller
 
     public function regionsModifierAction(Region $region)
     {
-        $session = $this->getRequest()->getSession();
-        $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(new RegionType, $region);
-        $request = $this->getRequest();
-        if ( $request->isMethod("POST") )
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        $form=$this->createForm(new RegionType, $region);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
         {
             $form->bind($request);
-            if ( $form->isValid() )
+            if($form->isValid())
             {
-                $categorie = $form->getData();
+                $categorie=$form->getData();
                 $em->persist($region);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre Région a été modifiée avec succées ");
@@ -187,8 +200,8 @@ class ReferentielController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:referentiel/regionVille:modifRegion.html.twig', array(
-                    'form' => $form->createView(),
-                    'region' => $region,
+                    'form'  =>$form->createView(),
+                    'region'=>$region,
         ));
     }
 
@@ -196,28 +209,28 @@ class ReferentielController extends Controller
 
     public function villesAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em=$this->getDoctrine()->getManager();
 //        $filters = $em->getFilters();
 //        $filters->disable('softdeleteable');
-        $villes = $em->getRepository("BackHotelTunisieBundle:Ville")->findAll();
+        $villes=$em->getRepository("BackHotelTunisieBundle:Ville")->findAll();
         return $this->render('BackHotelTunisieBundle:referentiel/regionVille:listeVille.html.twig', array(
-                    'villes' => $villes,
+                    'villes'=>$villes,
         ));
     }
 
     public function villesAjouterAction()
     {
-        $session = $this->getRequest()->getSession();
-        $em = $this->getDoctrine()->getManager();
-        $ville = new Ville();
-        $form = $this->createForm(new VilleType, $ville);
-        $request = $this->getRequest();
-        if ( $request->isMethod("POST") )
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        $ville=new Ville();
+        $form=$this->createForm(new VilleType, $ville);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
         {
             $form->bind($request);
-            if ( $form->isValid() )
+            if($form->isValid())
             {
-                $ville = $form->getData();
+                $ville=$form->getData();
                 $em->persist($ville);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre ville a été ajoutée avec succées ");
@@ -225,20 +238,21 @@ class ReferentielController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:referentiel/regionVille:ajoutVille.html.twig', array(
-                    'form' => $form->createView(),
+                    'form'=>$form->createView(),
         ));
     }
 
     public function villesSupprimerAction(Ville $ville)
     {
-        $session = $this->getRequest()->getSession();
-        $em = $this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
         try
         {
             $em->remove($ville);
             $em->flush();
             $session->getFlashBag()->add('success', " Votre ville a été supprimée avec succées ");
-        } catch (\Exception $ex)
+        }
+        catch(\Exception $ex)
         {
             $session->getFlashBag()->add('danger', $ex->getMessage());
         }
@@ -247,16 +261,16 @@ class ReferentielController extends Controller
 
     public function villesModifierAction(Ville $ville)
     {
-        $session = $this->getRequest()->getSession();
-        $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(new VilleType, $ville);
-        $request = $this->getRequest();
-        if ( $request->isMethod("POST") )
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        $form=$this->createForm(new VilleType, $ville);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
         {
             $form->bind($request);
-            if ( $form->isValid() )
+            if($form->isValid())
             {
-                $categorie = $form->getData();
+                $categorie=$form->getData();
                 $em->persist($ville);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre ville a été modifiée avec succées ");
@@ -264,34 +278,63 @@ class ReferentielController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:referentiel/regionVille:modifVille.html.twig', array(
-                    'form' => $form->createView(),
-                    'ville' => $ville,
+                    'form' =>$form->createView(),
+                    'ville'=>$ville,
+        ));
+    }
+
+    public function villesphotoAction(Ville $ville)
+    {
+        $session=$this->getRequest()->getSession();
+        $session->set("routing",  $this->generateUrl("photos_villes",array('id'=>$ville->getId())));
+        $em=$this->getDoctrine()->getManager();
+        $media=new Media();
+        $media->setVille($ville);
+        $form=$this->createForm(new MediaType(), $media);
+        $images=$em->getRepository("BackHotelTunisieBundle:Media")->findBy(array('ville'=>$ville));
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $media=$form->getData();
+                $em->persist($media);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre Photo a été ajoutée avec succées ");
+                return $this->redirect($this->generateUrl("photos_villes", array('id'=>$ville->getId())));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:referentiel/regionVille:photoVille.html.twig', array(
+                    'ville' =>$ville,
+                    'form'  =>$form->createView(),
+                    'images'=>$images,
         ));
     }
 
 // Type amenagement    ****************************************************************************************************************
     public function typeAmenagementAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $typeAmenegaments = $em->getRepository("BackHotelTunisieBundle:TypeAmenagement")->findAll();
+        $em=$this->getDoctrine()->getManager();
+        $typeAmenegaments=$em->getRepository("BackHotelTunisieBundle:TypeAmenagement")->findAll();
         return $this->render('BackHotelTunisieBundle:referentiel/amenagement:TypeAmenagementliste.html.twig', array(
-                    'typeAmenegaments' => $typeAmenegaments,
+                    'typeAmenegaments'=>$typeAmenegaments,
         ));
     }
 
     public function typeAmenagementAjouterAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
-        $typeAmenagement = new TypeAmenagement();
-        $form = $this->createForm(new TypeAmenagementType, $typeAmenagement);
-        $request = $this->getRequest();
-        if ( $request->isMethod("POST") )
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $typeAmenagement=new TypeAmenagement();
+        $form=$this->createForm(new TypeAmenagementType, $typeAmenagement);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
         {
             $form->bind($request);
-            if ( $form->isValid() )
+            if($form->isValid())
             {
-                $typeAmenagement = $form->getData();
+                $typeAmenagement=$form->getData();
                 $em->persist($typeAmenagement);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre type a été ajoutée avec succées ");
@@ -299,22 +342,22 @@ class ReferentielController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:referentiel/amenagement:TypeAmenagementAjout.html.twig', array(
-                    'form' => $form->createView(),
+                    'form'=>$form->createView(),
         ));
     }
 
     public function typeAmenagementModifierAction(TypeAmenagement $typeAmenagement)
     {
-        $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
-        $form = $this->createForm(new TypeAmenagementType, $typeAmenagement);
-        $request = $this->getRequest();
-        if ( $request->isMethod("POST") )
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $form=$this->createForm(new TypeAmenagementType, $typeAmenagement);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
         {
             $form->bind($request);
-            if ( $form->isValid() )
+            if($form->isValid())
             {
-                $typeAmenagement = $form->getData();
+                $typeAmenagement=$form->getData();
                 $em->persist($typeAmenagement);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre type a été ajouté avec succées ");
@@ -322,15 +365,15 @@ class ReferentielController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:referentiel/amenagement:TypeAmenagementModif.html.twig', array(
-                    'form' => $form->createView(),
-                    'typeAmenagement' => $typeAmenagement
+                    'form'           =>$form->createView(),
+                    'typeAmenagement'=>$typeAmenagement
         ));
     }
 
     public function typeAmenagementSupprimerAction(TypeAmenagement $typeAmenagement)
     {
-        $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
         $em->remove($typeAmenagement);
         $em->flush();
         $session->getFlashBag()->add('success', " Votre type a été supprimé avec succées ");
@@ -340,26 +383,26 @@ class ReferentielController extends Controller
 // Amenagement    ****************************************************************************************************************
     public function amenagementAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $amenegaments = $em->getRepository("BackHotelTunisieBundle:Amenagement")->findAll();
+        $em=$this->getDoctrine()->getManager();
+        $amenegaments=$em->getRepository("BackHotelTunisieBundle:Amenagement")->findAll();
         return $this->render('BackHotelTunisieBundle:referentiel/amenagement:Amenagementliste.html.twig', array(
-                    'amenegaments' => $amenegaments,
+                    'amenegaments'=>$amenegaments,
         ));
     }
 
     public function amenagementAjouterAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
-        $amenagement = new Amenagement();
-        $form = $this->createForm(new AmenagementType, $amenagement);
-        $request = $this->getRequest();
-        if ( $request->isMethod("POST") )
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $amenagement=new Amenagement();
+        $form=$this->createForm(new AmenagementType, $amenagement);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
         {
             $form->bind($request);
-            if ( $form->isValid() )
+            if($form->isValid())
             {
-                $amenagement = $form->getData();
+                $amenagement=$form->getData();
                 $em->persist($amenagement);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre aménagement a été ajoutée avec succées ");
@@ -367,22 +410,22 @@ class ReferentielController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:referentiel/amenagement:AmenagementAjout.html.twig', array(
-                    'form' => $form->createView(),
+                    'form'=>$form->createView(),
         ));
     }
 
     public function amenagementModifierAction(Amenagement $amenagement)
     {
-        $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
-        $form = $this->createForm(new AmenagementType, $amenagement);
-        $request = $this->getRequest();
-        if ( $request->isMethod("POST") )
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $form=$this->createForm(new AmenagementType, $amenagement);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
         {
             $form->bind($request);
-            if ( $form->isValid() )
+            if($form->isValid())
             {
-                $amenagement = $form->getData();
+                $amenagement=$form->getData();
                 $em->persist($amenagement);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre améngament a été ajouté avec succées ");
@@ -390,15 +433,15 @@ class ReferentielController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:referentiel/amenagement:AmenagementModif.html.twig', array(
-                    'form' => $form->createView(),
-                    'amenagement' => $amenagement
+                    'form'       =>$form->createView(),
+                    'amenagement'=>$amenagement
         ));
     }
 
     public function amenagementSupprimerAction(Amenagement $amenagement)
     {
-        $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
         $em->remove($amenagement);
         $em->flush();
         $session->getFlashBag()->add('success', " Votre aménagement a été supprimé avec succées ");

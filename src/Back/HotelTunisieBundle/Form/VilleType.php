@@ -5,7 +5,6 @@ namespace Back\HotelTunisieBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Back\HotelTunisieBundle\Form\MediaType;
 class VilleType extends AbstractType
 {
 
@@ -19,7 +18,6 @@ class VilleType extends AbstractType
                 ->add('libelle')
                 ->add('region')
                 ->add('pays')
-                ->add('image', new MediaType())
         ;
     }
 

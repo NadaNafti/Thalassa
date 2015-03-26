@@ -22,7 +22,6 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Photo</th>
                                 <th>Libellé</th>
                                 <th>Pays</th>
                                 <th>Région</th>
@@ -33,11 +32,6 @@
                             {% for ville in villes %}
                                 <tr>
                                     <td>{{ ville.id }}</td>
-                                    <td class="center" >
-                                        {% if ville.image.getAssetPath is defined %}
-                                            <img width="50px" height="50px" src="{{ ville.image.getAssetPath | imagine_filter('small') }}" />
-                                        {% endif %}
-                                    </td>
                                     <td>{{ ville.libelle }}</td>
                                     <td>{{ ville.pays.libelle }}</td>
                                     <td>{{ ville.region }}</td>
