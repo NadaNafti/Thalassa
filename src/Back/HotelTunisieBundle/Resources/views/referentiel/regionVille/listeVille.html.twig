@@ -23,6 +23,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Libellé</th>
+                                <th>Nbr photos</th>
                                 <th>Pays</th>
                                 <th>Région</th>
                                 <th class="center" >Action</th>
@@ -33,6 +34,7 @@
                                 <tr>
                                     <td>{{ ville.id }}</td>
                                     <td>{{ ville.libelle }}</td>
+                                    <td>{{ ville.images|length }}</td>
                                     <td>{{ ville.pays.libelle }}</td>
                                     <td>{{ ville.region }}</td>
                                     <td class="TableAction">

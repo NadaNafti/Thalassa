@@ -5,4 +5,5 @@
 /web/media/*
 /web/uploads/*
 /vendor/
+nbproject/
 /app/config/parameters.yml

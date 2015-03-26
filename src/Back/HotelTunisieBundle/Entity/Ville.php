@@ -94,7 +94,7 @@ class Ville
      */
     public function setLibelle($libelle)
     {
-        $this->libelle=$libelle;
+        $this->libelle = $libelle;
 
         return $this;
     }
@@ -115,9 +115,9 @@ class Ville
      * @param \Back\HotelTunisieBundle\Entity\Region $region
      * @return Ville
      */
-    public function setRegion(\Back\HotelTunisieBundle\Entity\Region $region=null)
+    public function setRegion(\Back\HotelTunisieBundle\Entity\Region $region = null)
     {
-        $this->region=$region;
+        $this->region = $region;
 
         return $this;
     }
@@ -138,9 +138,9 @@ class Ville
      * @param \Back\HotelTunisieBundle\Entity\Pays $pays
      * @return Ville
      */
-    public function setPays(\Back\HotelTunisieBundle\Entity\Pays $pays=null)
+    public function setPays(\Back\HotelTunisieBundle\Entity\Pays $pays = null)
     {
-        $this->pays=$pays;
+        $this->pays = $pays;
 
         return $this;
     }
@@ -163,7 +163,7 @@ class Ville
      */
     public function setSlug($slug)
     {
-        $this->slug=$slug;
+        $this->slug = $slug;
 
         return $this;
     }
@@ -186,7 +186,7 @@ class Ville
      */
     public function setCreated($created)
     {
-        $this->created=$created;
+        $this->created = $created;
 
         return $this;
     }
@@ -209,7 +209,7 @@ class Ville
      */
     public function setUpdated($updated)
     {
-        $this->updated=$updated;
+        $this->updated = $updated;
 
         return $this;
     }
@@ -232,7 +232,7 @@ class Ville
      */
     public function setDeletedAt($deletedAt)
     {
-        $this->deletedAt=$deletedAt;
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }
@@ -246,28 +246,44 @@ class Ville
     {
         return $this->deletedAt;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
-     * Set image
+     * Add images
      *
-     * @param \Back\HotelTunisieBundle\Entity\Media $image
+     * @param \Back\HotelTunisieBundle\Entity\Media $images
      * @return Ville
      */
-    public function setImage(\Back\HotelTunisieBundle\Entity\Media $image)
+    public function addImage(\Back\HotelTunisieBundle\Entity\Media $images)
     {
-        $this->image=$image;
+        $this->images[] = $images;
 
         return $this;
     }
 
     /**
-     * Get image
+     * Remove images
      *
-     * @return \Back\HotelTunisieBundle\Entity\Media 
+     * @param \Back\HotelTunisieBundle\Entity\Media $images
      */
-    public function getImage()
+    public function removeImage(\Back\HotelTunisieBundle\Entity\Media $images)
     {
-        return $this->image;
+        $this->images->removeElement($images);
     }
 
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
 }

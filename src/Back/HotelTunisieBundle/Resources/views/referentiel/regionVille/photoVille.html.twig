@@ -15,7 +15,7 @@
                     <form action="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
                         {{ form_widget(form._token) }}
                         <div class="row">
-                            {{ formulaire.input("col-md-3","Photo",form.file,true) }}
+                            {{ formulaire.file("col-md-4","Photo",form.file,true) }}
                             {{ formulaire.input("col-md-3","Type",form.type,true) }}
                         </div>
                         {{ formulaire.submit("Ajouter") }}
@@ -26,19 +26,7 @@
     </div>
     <div class="row">
         {% for image in images %}
-            <div class="col-md-2 col-sm-4 gallery-img">
-                <div class="wrap-image">
-                    <a class="group1 cboxElement" href="{{ asset(image.getAssetPath) }}">
-                        <img src="{{ asset(image.getAssetPath) }}" alt="" class="img-responsive">
-                    </a>
-                    <div class="tools tools-bottom">
-                        <a href="{{ path('deletephoto',{'id':image.id}) }}">
-                            <i class="clip-close-2"></i>
-                            {{ image.showType }}
-                        </a>
-                    </div>
-                </div>
-            </div>
+            {{ macros.albumPhoto(image.getAssetPath|imagine_filter('album_back'),path('deletephoto',{'id':image.id}),image.showType) }}
         {% endfor %}
     </div>                  
 {% endblock %}

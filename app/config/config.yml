@@ -105,12 +105,10 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-# app/config/config.yml
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Back\UserBundle\Entity\User
-    
     
 liip_imagine:
     resolvers:
@@ -119,7 +117,7 @@ liip_imagine:
 
     filter_sets:
         cache: ~
-        small:
-            quality: 80
+        album_back:
+            quality: 50
             filters:
-                thumbnail: { size: [50, 50], mode: inset }    
+                thumbnail: { size: [197, 148], mode: inset }    

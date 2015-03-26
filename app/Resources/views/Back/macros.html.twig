@@ -3,9 +3,25 @@
     {% endmacro %}
 
 {% macro tableEdit(path) %}
-    <a href="{{ path }}" class="btn btn-xs btn-teal tooltips" data-placement="top" data-original-title="Modifier"><i class="fa fa-edit"></i></a>
-{% endmacro %}
+    <a href="{{ path }}" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Modifier"><i class="fa fa-edit"></i></a>
+    {% endmacro %}
 
 {% macro tablePhoto(path) %}
     <a href="{{ path }}" class="btn btn-xs btn-teal tooltips" data-placement="top" data-original-title="Photos"><i class="fa fa-camera"></i></a>
+    {% endmacro %}
+
+{% macro albumPhoto(photo,path,type) %}
+    <div class="col-md-2 col-sm-4 gallery-img">
+        <div class="wrap-image">
+            <a class="group1 cboxElement" href="javascript:void(0)">
+                <img src="{{ photo }}" class="img-responsive">
+            </a>
+            <div class="tools tools-bottom">
+                <a href="{{ path }}" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette photo ?'))">
+                    <i class="clip-close-2"></i>
+                    {{ type }}
+                </a>
+            </div>
+        </div>
+    </div>
 {% endmacro %}
