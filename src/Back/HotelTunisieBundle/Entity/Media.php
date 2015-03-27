@@ -48,18 +48,20 @@ class Media
     /**
      * @ORM\Column(type="integer", options={"default":1}, nullable=true) 
      */
-    public $type=1;
+    public $type;
 
     /**
      * @ORM\Column(type="string",length=255, nullable=true) 
      */
     public $path;
+    
+    
     public $file;
 
-    public function __construct()
-    {
-        $this->type=1;
-    }
+    /**
+     * @ORM\Column(type="integer") 
+     */
+    public $ordre;
 
     public function getUploadRootDir()
     {
@@ -232,4 +234,27 @@ class Media
         
     }
 
+
+    /**
+     * Set ordre
+     *
+     * @param \ordre $ordre
+     * @return Media
+     */
+    public function setOrdre($ordre)
+    {
+        $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    /**
+     * Get ordre
+     *
+     * @return \ordre 
+     */
+    public function getOrdre()
+    {
+        return $this->ordre;
+    }
 }

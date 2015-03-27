@@ -291,7 +291,6 @@ class ReferentielController extends Controller
         $media=new Media();
         $media->setVille($ville);
         $form=$this->createForm(new MediaType(), $media);
-        $images=$em->getRepository("BackHotelTunisieBundle:Media")->findBy(array('ville'=>$ville));
         $request=$this->getRequest();
         if($request->isMethod("POST"))
         {
@@ -308,7 +307,7 @@ class ReferentielController extends Controller
         return $this->render('BackHotelTunisieBundle:referentiel/regionVille:photoVille.html.twig', array(
                     'ville' =>$ville,
                     'form'  =>$form->createView(),
-                    'images'=>$images,
+                    'images'=>$ville->getImages(),
         ));
     }
 

@@ -56,6 +56,7 @@ class Ville
 
     /**
      * @ORM\OneToMany(targetEntity="Media", mappedBy="ville")
+     * @ORM\OrderBy({"ordre" = "ASC"})
      */
     private $images;
 

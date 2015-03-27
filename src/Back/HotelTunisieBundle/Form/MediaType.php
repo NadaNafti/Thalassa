@@ -21,6 +21,7 @@ class MediaType extends AbstractType
                     'choices' =>array('1'=>'Principale', '2'=>'Album'),
                     'required'=>true,
                 ))
+                ->add('ordre', 'integer')
         ;
     }
 
