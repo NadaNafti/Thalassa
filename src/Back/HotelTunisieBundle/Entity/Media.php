@@ -33,7 +33,7 @@ class Media
 
     /**
      * @ORM\ManyToOne(targetEntity="Ville", inversedBy="images")
-     * @ORM\JoinColumn(name="ville_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="ville_id", referencedColumnName="id", nullable=true)
      */
     protected $ville;
 
