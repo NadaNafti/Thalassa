@@ -17,7 +17,7 @@
                         {{ form_widget(form._token) }}
                         <div class="row">
                             {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
-                            {{ formulaire.selectSearch("col-md-3","Type aménagement",form.typeAmenagement,true) }}
+                            {{ formulaire.select2("col-md-3","Type aménagement",form.typeAmenagement,true) }}
                         </div>
                         {{ formulaire.submit("Ajouter") }}
                     </form>

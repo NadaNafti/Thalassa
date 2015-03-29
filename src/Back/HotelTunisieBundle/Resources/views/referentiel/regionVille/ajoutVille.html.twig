@@ -17,8 +17,8 @@
                         {{ form_widget(form._token) }}
                         <div class="row">
                             {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
-                            {{ formulaire.input("col-md-3","Pays",form.pays,true) }}
-                            {{ formulaire.input("col-md-3","Région",form.region,true) }}
+                            {{ formulaire.select2("col-md-3","Pays",form.pays,true) }}
+                            {{ formulaire.select2("col-md-3","Région",form.region,true) }}
                         </div>
                         {{ formulaire.submit("Ajouter") }}
                     </form>
