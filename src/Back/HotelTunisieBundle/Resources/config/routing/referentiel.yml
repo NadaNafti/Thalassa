@@ -136,15 +136,15 @@ supprimer_vue:
     defaults: { _controller: BackHotelTunisieBundle:Referentiel:vueSupprimer }
      # Optionn ***************************************************************************************************************
 gestion_optionn:
-    path:     /optionn
+    path:     /option
     defaults: { _controller: BackHotelTunisieBundle:Referentiel:optionn }
 
 ajout_optionn:
-    path:     /optionn/ajout
+    path:     /option/ajout
     defaults: { _controller: BackHotelTunisieBundle:Referentiel:optionnAjouter }
 
 modif_optionn:
-    path:     /optionn/modif/{id}
+    path:     /option/modif/{id}
     defaults: { _controller: BackHotelTunisieBundle:Referentiel:optionnModifier }
 
 supprimer_optionn:
