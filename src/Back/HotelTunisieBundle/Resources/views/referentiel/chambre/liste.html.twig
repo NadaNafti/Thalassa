@@ -23,8 +23,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Libellé</th>
-                                <th>Base</th>
-                                <th>Nombre occupant</th>
+                                <th>Type</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -33,8 +32,7 @@
                                 <tr>
                                     <td>{{ chambre.id }}</td>
                                     <td>{{ chambre.libelle }}</td>
-                                    <td>{{ chambre.base }}</td>
-                                    <td>{{ chambre.nbreoccupant }}</td>
+                                    <td>{{ chambre.getTypeName }}</td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             {{ macros.tableEdit(path('modif_chambre',{'id':chambre.id})) }}

@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ChambreType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -15,12 +16,19 @@ class ChambreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('libelle')
-            ->add('base')
-            ->add('nbreoccupant')
+                ->add('libelle')
+                ->add('type', 'choice', array(
+                    'choices' => array(
+                        '0' => 'Autres chambres',
+                        '1' => 'Chambre single',
+                        '2' => 'Chambre double',
+                        '3' => 'Chambre triple',
+                        '4' => 'Chambre quadruple',
+                        )
+                ))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
@@ -38,4 +46,5 @@ class ChambreType extends AbstractType
     {
         return 'back_hoteltunisiebundle_chambre';
     }
+
 }

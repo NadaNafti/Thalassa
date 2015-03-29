@@ -16,9 +16,8 @@
                     <form action="{{ path('modif_chambre',{'id':chambre.id}) }}" method="post" role="form" id="form">
                         {{ form_widget(form._token) }}
                         <div class="row">
-                            {{ formulaire.input("col-md-6","Libellé",form.libelle,true) }}
-                            {{ formulaire.input("col-md-6","Base",form.base,true) }}
-                            {{ formulaire.input("col-md-6","Nombre occupant",form.nbreoccupant,true) }}
+                            {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
+                            {{ formulaire.input("col-md-3","Type",form.type,true) }}
                         </div>
                         {{ formulaire.submit("Modifier") }}
                     </form>

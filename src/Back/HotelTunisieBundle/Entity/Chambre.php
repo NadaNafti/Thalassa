@@ -38,16 +38,11 @@ class Chambre
     /**
      * @var integer
      *
-     * @ORM\Column(name="base", type="integer")
+     * @ORM\Column(name="type", type="integer")
      */
-    private $base;
+    private $type;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nbreoccupant", type="string", length=255)
-     */
-    private $nbreoccupant;
+
  /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column( type="datetime")
@@ -100,51 +95,43 @@ class Chambre
     }
 
     /**
-     * Set base
+     * Set type
      *
-     * @param integer $base
+     * @param integer $type
      * @return Chambre
      */
-    public function setBase($base)
+    public function setType($type)
     {
-        $this->base = $base;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Get base
+     * Get type
      *
      * @return integer 
      */
-    public function getBase()
+    public function getType()
     {
-        return $this->base;
+        return $this->type;
     }
 
-    /**
-     * Set nbreoccupant
-     *
-     * @param string $nbreoccupant
-     * @return Chambre
-     */
-    public function setNbreoccupant($nbreoccupant)
+    public function getTypeName()
     {
-        $this->nbreoccupant = $nbreoccupant;
-
-        return $this;
+        if($this->type==0)
+            return 'Autres chambres';
+        if($this->type==1)
+            return 'Chambre single';
+        if($this->type==2)
+            return 'Chambre double';
+        if($this->type==3)
+            return 'Chambre triple';
+        if($this->type==4)
+            return 'Chambre quadruple';
     }
 
-    /**
-     * Get nbreoccupant
-     *
-     * @return string 
-     */
-    public function getNbreoccupant()
-    {
-        return $this->nbreoccupant;
-    }
-    /**
+        /**
      * Set created
      *
      * @param \DateTime $created
