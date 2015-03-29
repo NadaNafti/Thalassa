@@ -1,6 +1,6 @@
-{% extends "BackHotelTunisieBundle:referentiel/categorie:liste.html.twig" %}
-{% block title %}Gestion des catégories{% endblock %}
-{% block description %}Ajouter une catégorie{% endblock %}
+{% extends "BackHotelTunisieBundle:referentiel/chaine:liste.html.twig" %}
+{% block title %}Gestion des chaines{% endblock %}
+{% block description %}Ajouter une chaine{% endblock %}
 {% block topbody %}   
     {{ parent() }}
     <li>
@@ -13,7 +13,7 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form action="{{ path('ajout_categorie') }}" method="post" role="form" id="form">
+                    <form action="{{ path('ajout_chaine') }}" method="post" role="form" id="form">
                         {{ form_widget(form._token) }}
                         <div class="row">
                             {{ formulaire.input("col-md-6","Libellé",form.libelle,true) }}

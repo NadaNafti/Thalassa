@@ -86,3 +86,99 @@ modif_amenagement:
 supprimer_amenagement:
     path:     /amenagement/supprimer/{id}
     defaults: { _controller: BackHotelTunisieBundle:Referentiel:amenagementSupprimer }
+    # Chaine ***************************************************************************************************************
+gestion_chaine:
+    path:     /chaine
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:chaine }
+
+ajout_chaine:
+    path:     /chaine/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:chaineAjouter }
+
+modif_chaine:
+    path:     /chaine/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:chaineModifier }
+
+supprimer_chaine:
+    path:     /chaine/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:chaineSupprimer }
+    # Theme ***************************************************************************************************************
+gestion_theme:
+    path:     /theme
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:theme }
+
+ajout_theme:
+    path:     /theme/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:themeAjouter }
+
+modif_theme:
+    path:     /theme/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:themeModifier }
+
+supprimer_theme:
+    path:     /theme/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:themeSupprimer }
+     # Vue ***************************************************************************************************************
+gestion_vue:
+    path:     /vue
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:vue }
+
+ajout_vue:
+    path:     /vue/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:vueAjouter }
+
+modif_vue:
+    path:     /vue/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:vueModifier }
+
+supprimer_vue:
+    path:     /vue/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:vueSupprimer }
+     # Optionn ***************************************************************************************************************
+gestion_optionn:
+    path:     /optionn
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:optionn }
+
+ajout_optionn:
+    path:     /optionn/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:optionnAjouter }
+
+modif_optionn:
+    path:     /optionn/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:optionnModifier }
+
+supprimer_optionn:
+    path:     /option/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:optionnSupprimer }
+     # Localisation ***************************************************************************************************************
+gestion_localisation:
+    path:     /localisation
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:localisation }
+
+ajout_localisation:
+    path:     /localisation/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:localisationAjouter }
+
+modif_localisation:
+    path:     /localisation/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:localisationModifier }
+
+supprimer_localisation:
+    path:     /localisation/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:localisationSupprimer }
+    # Chambre ***************************************************************************************************************
+gestion_chambre:
+    path:     /chambre
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:chambre }
+
+ajout_chambre:
+    path:     /chambre/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:chambreAjouter }
+
+modif_chambre:
+    path:     /chambre/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:chambreModifier }
+
+supprimer_chambre:
+    path:     /chambre/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:chambreSupprimer }

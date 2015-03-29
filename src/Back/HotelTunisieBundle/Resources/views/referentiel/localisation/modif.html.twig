@@ -1,10 +1,10 @@
-{% extends "BackHotelTunisieBundle:referentiel/categorie:liste.html.twig" %}
-{% block title %}Gestion des catégories{% endblock %}
-{% block description %}Ajouter une catégorie{% endblock %}
+{% extends "BackHotelTunisieBundle:referentiel/localisation:liste.html.twig" %}
+{% block title %}Gestion des localisations{% endblock %}
+{% block description %}Modifier une localisation{% endblock %}
 {% block topbody %}   
     {{ parent() }}
     <li>
-        <a href="javascript:void(0)" >Ajouter</a>
+        <a href="javascript:void(0)" >{{ localisation.libelle }}</a>
     </li>
 {% endblock %}
 {% block body %}
@@ -13,12 +13,12 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form action="{{ path('ajout_categorie') }}" method="post" role="form" id="form">
+                    <form action="{{ path('modif_localisation',{'id':localisation.id}) }}" method="post" role="form" id="form">
                         {{ form_widget(form._token) }}
                         <div class="row">
                             {{ formulaire.input("col-md-6","Libellé",form.libelle,true) }}
                         </div>
-                        {{ formulaire.submit("Ajouter") }}
+                        {{ formulaire.submit("Modifier") }}
                     </form>
                 </div>
             </div>

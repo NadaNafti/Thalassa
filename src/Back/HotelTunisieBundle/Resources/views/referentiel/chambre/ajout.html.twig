@@ -1,6 +1,6 @@
-{% extends "BackHotelTunisieBundle:referentiel/categorie:liste.html.twig" %}
-{% block title %}Gestion des catégories{% endblock %}
-{% block description %}Ajouter une catégorie{% endblock %}
+{% extends "BackHotelTunisieBundle:referentiel/chambre:liste.html.twig" %}
+{% block title %}Gestion des chambres{% endblock %}
+{% block description %}Ajouter une chambre{% endblock %}
 {% block topbody %}   
     {{ parent() }}
     <li>
@@ -13,10 +13,12 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form action="{{ path('ajout_categorie') }}" method="post" role="form" id="form">
+                    <form action="{{ path('ajout_chambre') }}" method="post" role="form" id="form">
                         {{ form_widget(form._token) }}
                         <div class="row">
                             {{ formulaire.input("col-md-6","Libellé",form.libelle,true) }}
+                            {{ formulaire.input("col-md-6","Base",form.base,true) }}
+                            {{ formulaire.input("col-md-6","Nombre occupant",form.nbreoccupant,true) }}
                         </div>
                         {{ formulaire.submit("Ajouter") }}
                     </form>

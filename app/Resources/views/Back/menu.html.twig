@@ -58,6 +58,48 @@
                                 </a>
                             </li>
                         </ul>
+                        <ul class="sub-menu">
+                            <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/chaine')|length > 1 %} class="open"{% endif %}>
+                                <a href="{{ path('gestion_chaine') }}">
+                                    <span class="title">Chaines</span>
+                                </a>
+                            </li>
+                        </ul>
+                                     <ul class="sub-menu">
+                            <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/theme')|length > 1 %} class="open"{% endif %}>
+                                <a href="{{ path('gestion_theme') }}">
+                                    <span class="title">Thèmes</span>
+                                </a>
+                            </li>
+                        </ul>
+                                     <ul class="sub-menu">
+                            <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/vue')|length > 1 %} class="open"{% endif %}>
+                                <a href="{{ path('gestion_vue') }}">
+                                    <span class="title">Vues</span>
+                                </a>
+                            </li>
+                        </ul>
+                                    <ul class="sub-menu">
+                            <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/optionn')|length > 1 %} class="open"{% endif %}>
+                                <a href="{{ path('gestion_optionn') }}">
+                                    <span class="title">Options</span>
+                                </a>
+                            </li>
+                        </ul>
+                                      <ul class="sub-menu">
+                            <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/localisation')|length > 1 %} class="open"{% endif %}>
+                                <a href="{{ path('gestion_localisation') }}">
+                                    <span class="title">Localisation</span>
+                                </a>
+                            </li>
+                        </ul>
+                                    <ul class="sub-menu">
+                            <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/chambre')|length > 1 %} class="open"{% endif %}>
+                                <a href="{{ path('gestion_chambre') }}">
+                                    <span class="title">Chambres</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>
