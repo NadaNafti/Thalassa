@@ -21,6 +21,12 @@ class Localisation
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @Gedmo\slug(fields={"libelle"})
+     * @ORM\Column(name="slug", length=128, unique=true)
+     */
+    private $slug;
 
     /**
      * @var string

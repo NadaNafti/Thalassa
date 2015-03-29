@@ -29,6 +29,12 @@ class Vue
      * @ORM\Column(name="libelle", type="string", length=255)
      */
     private $libelle;
+    
+    /**
+     * @Gedmo\slug(fields={"libelle"})
+     * @ORM\Column(name="slug", length=128, unique=true)
+     */
+    private $slug;
 /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column( type="datetime")
