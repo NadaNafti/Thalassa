@@ -460,16 +460,8 @@ class ReferentielController extends Controller
 //  chaine    ********************************************************************************************************************
     Public function chaineAction()
     {
-        //appeler le entity manager
         $em = $this->getDoctrine()->getManager();
-
-        //Appeler la liste des chaines
         $chaines = $em->getRepository("BackHotelTunisieBundle:Chaine")->findAll();
-
-        //Débuger la variable en mode dev
-        dump($chaines);
-
-        //Appeler la page twig 
         return $this->render('BackHotelTunisieBundle:referentiel/chaine:liste.html.twig', array(
                     'chaines' => $chaines,
         ));
@@ -561,16 +553,8 @@ class ReferentielController extends Controller
 //  theme    ********************************************************************************************************************
     Public function themeAction()
     {
-        //appeler le entity manager
         $em = $this->getDoctrine()->getManager();
-
-        //Appeler la liste des vues
         $themes = $em->getRepository("BackHotelTunisieBundle:Theme")->findAll();
-
-        //Débuger la variable en mode dev
-        dump($themes);
-
-        //Appeler la page twig 
         return $this->render('BackHotelTunisieBundle:referentiel/theme:liste.html.twig', array(
                     'themes' => $themes,
         ));
@@ -662,16 +646,8 @@ class ReferentielController extends Controller
 //   Vue   ********************************************************************************************************************
     Public function vueAction()
     {
-        //appeler le entity manager
         $em = $this->getDoctrine()->getManager();
-
-        //Appeler la liste des vues
         $vues = $em->getRepository("BackHotelTunisieBundle:Vue")->findAll();
-
-        //Débuger la variable en mode dev
-        dump($vues);
-
-        //Appeler la page twig 
         return $this->render('BackHotelTunisieBundle:referentiel/vue:liste.html.twig', array(
                     'vues' => $vues,
         ));
@@ -763,16 +739,8 @@ class ReferentielController extends Controller
 //   Option  ********************************************************************************************************************
     Public function optionnAction()
     {
-        //appeler le entity manager
         $em = $this->getDoctrine()->getManager();
-
-        //Appeler la liste des options
         $optionns = $em->getRepository("BackHotelTunisieBundle:Optionn")->findAll();
-
-        //Débuger la variable en mode dev
-        dump($optionns);
-
-        //Appeler la page twig 
         return $this->render('BackHotelTunisieBundle:referentiel/optionn:liste.html.twig', array(
                     'optionns' => $optionns,
         ));
@@ -864,16 +832,8 @@ class ReferentielController extends Controller
 //   Localisation  ********************************************************************************************************************
     Public function localisationAction()
     {
-        //appeler le entity manager
         $em = $this->getDoctrine()->getManager();
-
-        //Appeler la liste des localisations
         $localisations = $em->getRepository("BackHotelTunisieBundle:Localisation")->findAll();
-
-        //Débuger la variable en mode dev
-        dump($localisations);
-
-        //Appeler la page twig 
         return $this->render('BackHotelTunisieBundle:referentiel/localisation:liste.html.twig', array(
                     'localisations' => $localisations,
         ));
@@ -965,16 +925,8 @@ class ReferentielController extends Controller
 //   Chambre  ********************************************************************************************************************
     Public function chambreAction()
     {
-        //appeler le entity manager
         $em = $this->getDoctrine()->getManager();
-
-        //Appeler la liste des chambres
         $chambres = $em->getRepository("BackHotelTunisieBundle:Chambre")->findAll();
-
-        //Débuger la variable en mode dev
-        dump($chambres);
-
-        //Appeler la page twig 
         return $this->render('BackHotelTunisieBundle:referentiel/chambre:liste.html.twig', array(
                     'chambres' => $chambres,
         ));
