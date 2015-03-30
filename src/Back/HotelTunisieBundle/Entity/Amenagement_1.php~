@@ -6,13 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * TypeAmenagement
+ * Amenagement
  *
- * @ORM\Table(name="ost_sht_type_amenagement")
+ * @ORM\Table(name="ost_sht_amenagement")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
-class TypeAmenagement
+class Amenagement
 {
     /**
      * @var integer
@@ -30,10 +30,14 @@ class TypeAmenagement
      */
     private $libelle;
     
+    
     /**
-     * @ORM\OneToMany(targetEntity="Amenagement", mappedBy="typeAmenagement")
+     * @ORM\ManyToOne(targetEntity="TyepAmenagement", inversedBy="amenagements", fetch="EAGER")
+     * @ORM\JoinColumn(name="id_typeamenagement", referencedColumnName="id")
      */
-    protected $amenagements;
+    protected $typeAmenagement;
+
+
     
     /**
      * @Gedmo\slug(fields={"libelle"})
@@ -56,7 +60,6 @@ class TypeAmenagement
     /**
      * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
      */
-    private $deletedAt;
 
 
     /**
@@ -73,7 +76,7 @@ class TypeAmenagement
      * Set libelle
      *
      * @param string $libelle
-     * @return TypeAmenagement
+     * @return Amenagement
      */
     public function setLibelle($libelle)
     {
@@ -96,7 +99,7 @@ class TypeAmenagement
      * Set slug
      *
      * @param string $slug
-     * @return TypeAmenagement
+     * @return Amenagement
      */
     public function setSlug($slug)
     {
@@ -119,7 +122,7 @@ class TypeAmenagement
      * Set created
      *
      * @param \DateTime $created
-     * @return TypeAmenagement
+     * @return Amenagement
      */
     public function setCreated($created)
     {
@@ -142,7 +145,7 @@ class TypeAmenagement
      * Set updated
      *
      * @param \DateTime $updated
-     * @return TypeAmenagement
+     * @return Amenagement
      */
     public function setUpdated($updated)
     {
@@ -159,74 +162,5 @@ class TypeAmenagement
     public function getUpdated()
     {
         return $this->updated;
-    }
-
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     * @return TypeAmenagement
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->amenagements = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add amenagements
-     *
-     * @param \Back\HotelTunisieBundle\Entity\Amenagement $amenagements
-     * @return TypeAmenagement
-     */
-    public function addAmenagement(\Back\HotelTunisieBundle\Entity\Amenagement $amenagements)
-    {
-        $this->amenagements[] = $amenagements;
-
-        return $this;
-    }
-
-    /**
-     * Remove amenagements
-     *
-     * @param \Back\HotelTunisieBundle\Entity\Amenagement $amenagements
-     */
-    public function removeAmenagement(\Back\HotelTunisieBundle\Entity\Amenagement $amenagements)
-    {
-        $this->amenagements->removeElement($amenagements);
-    }
-
-    /**
-     * Get amenagements
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAmenagements()
-    {
-        return $this->amenagements;
-    }
-    
-    
-    public function __toString()
-    {
-        return $this->libelle;
     }
 }

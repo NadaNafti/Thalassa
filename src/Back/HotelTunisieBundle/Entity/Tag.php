@@ -6,13 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * TypeAmenagement
+ * Tag
  *
- * @ORM\Table(name="ost_sht_type_amenagement")
+ * @ORM\Table(name="ost_sht_tag")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
-class TypeAmenagement
+class Tag
 {
     /**
      * @var integer
@@ -29,13 +29,7 @@ class TypeAmenagement
      * @ORM\Column(name="libelle", type="string", length=255)
      */
     private $libelle;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Amenagement", mappedBy="typeAmenagement")
-     */
-    protected $amenagements;
-    
-    /**
+/**
      * @Gedmo\slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
@@ -46,18 +40,17 @@ class TypeAmenagement
      * @ORM\Column( type="datetime")
      */
     private $created;
-    
+
     /**
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column( type="datetime")
      */
     private $updated;
-    
+
     /**
      * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
      */
     private $deletedAt;
-
 
     /**
      * Get id
@@ -73,7 +66,7 @@ class TypeAmenagement
      * Set libelle
      *
      * @param string $libelle
-     * @return TypeAmenagement
+     * @return Tags
      */
     public function setLibelle($libelle)
     {
@@ -91,15 +84,13 @@ class TypeAmenagement
     {
         return $this->libelle;
     }
-
-    /**
+     /**
      * Set slug
      *
      * @param string $slug
-     * @return TypeAmenagement
+     * @return Tag
      */
-    public function setSlug($slug)
-    {
+    public function setSlug($slug) {
         $this->slug = $slug;
 
         return $this;
@@ -110,8 +101,7 @@ class TypeAmenagement
      *
      * @return string 
      */
-    public function getSlug()
-    {
+    public function getSlug() {
         return $this->slug;
     }
 
@@ -119,10 +109,9 @@ class TypeAmenagement
      * Set created
      *
      * @param \DateTime $created
-     * @return TypeAmenagement
+     * @return Tag
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
@@ -133,8 +122,7 @@ class TypeAmenagement
      *
      * @return \DateTime 
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
@@ -142,10 +130,9 @@ class TypeAmenagement
      * Set updated
      *
      * @param \DateTime $updated
-     * @return TypeAmenagement
+     * @return Tag
      */
-    public function setUpdated($updated)
-    {
+    public function setUpdated($updated) {
         $this->updated = $updated;
 
         return $this;
@@ -156,8 +143,7 @@ class TypeAmenagement
      *
      * @return \DateTime 
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         return $this->updated;
     }
 
@@ -165,10 +151,9 @@ class TypeAmenagement
      * Set deletedAt
      *
      * @param \DateTime $deletedAt
-     * @return TypeAmenagement
+     * @return Tag
      */
-    public function setDeletedAt($deletedAt)
-    {
+    public function setDeletedAt($deletedAt) {
         $this->deletedAt = $deletedAt;
 
         return $this;
@@ -179,54 +164,8 @@ class TypeAmenagement
      *
      * @return \DateTime 
      */
-    public function getDeletedAt()
-    {
+    public function getDeletedAt() {
         return $this->deletedAt;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->amenagements = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
-    /**
-     * Add amenagements
-     *
-     * @param \Back\HotelTunisieBundle\Entity\Amenagement $amenagements
-     * @return TypeAmenagement
-     */
-    public function addAmenagement(\Back\HotelTunisieBundle\Entity\Amenagement $amenagements)
-    {
-        $this->amenagements[] = $amenagements;
-
-        return $this;
-    }
-
-    /**
-     * Remove amenagements
-     *
-     * @param \Back\HotelTunisieBundle\Entity\Amenagement $amenagements
-     */
-    public function removeAmenagement(\Back\HotelTunisieBundle\Entity\Amenagement $amenagements)
-    {
-        $this->amenagements->removeElement($amenagements);
-    }
-
-    /**
-     * Get amenagements
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAmenagements()
-    {
-        return $this->amenagements;
-    }
-    
-    
-    public function __toString()
-    {
-        return $this->libelle;
-    }
 }

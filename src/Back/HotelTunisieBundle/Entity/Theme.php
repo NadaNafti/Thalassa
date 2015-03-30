@@ -153,4 +153,27 @@ class Theme
     {
         return $this->deletedAt;
     }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Theme
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 }

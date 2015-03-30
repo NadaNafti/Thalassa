@@ -1,0 +1,29 @@
+{% extends "BackHotelTunisieBundle:referentiel/arrangement:liste.html.twig" %}
+{% block title %}Gestion des arrangements{% endblock %}
+{% block description %}Modifier un arrangement{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ arrangement.libelle }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="{{ path('modif_arrangement',{'id':arrangement.id}) }}" method="post" role="form" id="form">
+                        {{ form_widget(form._token) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-2","Code",form.code,true) }}
+                            {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
+                        </div>
+                        {{ formulaire.submit("Modifier") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}{# empty Twig template #}

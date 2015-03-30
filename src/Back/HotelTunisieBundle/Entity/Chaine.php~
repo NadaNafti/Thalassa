@@ -21,6 +21,12 @@ class Chaine
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @Gedmo\slug(fields={"libelle"})
+     * @ORM\Column(name="slug", length=128, unique=true)
+     */
+    private $slug;
 
     /**
      * @var string
@@ -106,7 +112,7 @@ class Chaine
      * Set updated
      *
      * @param \DateTime $updated
-     * @return Categorie
+     * @return Chaine
      */
     public function setUpdated($updated)
     {
@@ -129,7 +135,7 @@ class Chaine
      * Set deletedAt
      *
      * @param \DateTime $deletedAt
-     * @return Categorie
+     * @return Chaine
      */
     public function setDeletedAt($deletedAt)
     {
@@ -146,5 +152,28 @@ class Chaine
     public function getDeletedAt()
     {
         return $this->deletedAt;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Chaine
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

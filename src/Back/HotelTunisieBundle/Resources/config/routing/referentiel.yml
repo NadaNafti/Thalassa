@@ -182,3 +182,68 @@ modif_chambre:
 supprimer_chambre:
     path:     /chambre/supprimer/{id}
     defaults: { _controller: BackHotelTunisieBundle:Referentiel:chambreSupprimer }
+
+ # Arrangement ***************************************************************************************************************
+gestion_arrangement:
+    path:     /arrangement
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:arrangement }
+
+ajout_arrangement:
+    path:     /arrangement/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:arrangementAjouter }
+
+modif_arrangement:
+    path:     /arrangement/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:arrangementModifier }
+
+supprimer_arrangement:
+    path:     /arrangement/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:arrangementSupprimer }
+    # Tag ***************************************************************************************************************
+gestion_tag:
+    path:     /tag
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:tag }
+
+ajout_tag:
+    path:     /tag/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:tagAjouter }
+
+modif_tag:
+    path:     /tag/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:tagModifier }
+
+supprimer_tag:
+    path:     /tag/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:tagSupprimer }
+# Supplement ***************************************************************************************************************
+gestion_supplement:
+    path:     /supplement
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:supplement }
+
+ajout_supplement:
+    path:     /supplement/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:supplementAjouter }
+
+modif_supplement:
+    path:     /supplement/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:supplementModifier }
+
+supprimer_supplement:
+    path:     /supplement/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:supplementSupprimer }
+# Reduction ***************************************************************************************************************
+gestion_reduction:
+    path:     /reduction
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:reduction }
+
+ajout_reduction:
+    path:     /reduction/ajout
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:reductionAjouter }
+
+modif_reduction:
+    path:     /reduction/modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:reductionModifier }
+
+supprimer_reduction:
+    path:     /reduction/supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Referentiel:reductionSupprimer }

@@ -1,0 +1,28 @@
+{% extends "BackHotelTunisieBundle:referentiel/tag:liste.html.twig" %}
+{% block title %}Gestion des tags{% endblock %}
+{% block description %}Ajouter un tag{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >Ajouter</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="{{ path('ajout_tag') }}" method="post" role="form" id="form">
+                        {{ form_widget(form._token) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
+                        </div>
+                        {{ formulaire.submit("Ajouter") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

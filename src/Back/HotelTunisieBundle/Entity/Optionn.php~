@@ -135,4 +135,17 @@ class Optionn
     {
         return $this->deletedAt;
     }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Optionn
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
 }

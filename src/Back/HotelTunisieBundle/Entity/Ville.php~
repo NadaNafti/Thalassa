@@ -24,7 +24,7 @@ class Ville
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    
     /**
      * @var string
      *
@@ -56,6 +56,7 @@ class Ville
 
     /**
      * @ORM\OneToMany(targetEntity="Media", mappedBy="ville")
+     * @ORM\OrderBy({"ordre" = "ASC"})
      */
     private $images;
 
@@ -245,5 +246,45 @@ class Ville
     public function getDeletedAt()
     {
         return $this->deletedAt;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add images
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Media $images
+     * @return Ville
+     */
+    public function addImage(\Back\HotelTunisieBundle\Entity\Media $images)
+    {
+        $this->images[] = $images;
+
+        return $this;
+    }
+
+    /**
+     * Remove images
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Media $images
+     */
+    public function removeImage(\Back\HotelTunisieBundle\Entity\Media $images)
+    {
+        $this->images->removeElement($images);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImages()
+    {
+        return $this->images;
     }
 }

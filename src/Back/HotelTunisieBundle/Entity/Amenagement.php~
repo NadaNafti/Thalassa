@@ -4,6 +4,7 @@ namespace Back\HotelTunisieBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Amenagement
@@ -14,6 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Amenagement
 {
+
     /**
      * @var integer
      *
@@ -29,16 +31,14 @@ class Amenagement
      * @ORM\Column(name="libelle", type="string", length=255)
      */
     private $libelle;
-    
-    
+
     /**
-     * @ORM\ManyToOne(targetEntity="TyepAmenagement", inversedBy="amenagements", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="TypeAmenagement", inversedBy="amenagements", fetch="EAGER")
      * @ORM\JoinColumn(name="id_typeamenagement", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     protected $typeAmenagement;
 
-
-    
     /**
      * @Gedmo\slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
@@ -50,17 +50,17 @@ class Amenagement
      * @ORM\Column( type="datetime")
      */
     private $created;
-    
+
     /**
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column( type="datetime")
      */
     private $updated;
-    
+
     /**
      * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
      */
-
+    private $deletedAt;
 
     /**
      * Get id
@@ -162,5 +162,51 @@ class Amenagement
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set typeAmenagement
+     *
+     * @param \Back\HotelTunisieBundle\Entity\TypeAmenagement $typeAmenagement
+     * @return Amenagement
+     */
+    public function setTypeAmenagement(\Back\HotelTunisieBundle\Entity\TypeAmenagement $typeAmenagement = null)
+    {
+        $this->typeAmenagement = $typeAmenagement;
+        return $this;
+    }
+
+    /**
+     * Get typeAmenagement
+     *
+     * @return \Back\HotelTunisieBundle\Entity\TypeAmenagement 
+     */
+    public function getTypeAmenagement()
+    {
+        return $this->typeAmenagement;
+    }
+
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     * @return Amenagement
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }

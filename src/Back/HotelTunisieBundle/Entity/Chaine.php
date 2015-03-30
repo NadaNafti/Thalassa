@@ -153,4 +153,27 @@ class Chaine
     {
         return $this->deletedAt;
     }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Chaine
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 }

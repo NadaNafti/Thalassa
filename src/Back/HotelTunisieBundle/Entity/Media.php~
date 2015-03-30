@@ -33,7 +33,7 @@ class Media
 
     /**
      * @ORM\ManyToOne(targetEntity="Ville", inversedBy="images")
-     * @ORM\JoinColumn(name="ville_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="ville_id", referencedColumnName="id", nullable=true)
      */
     protected $ville;
 
@@ -48,7 +48,7 @@ class Media
     /**
      * @ORM\Column(type="integer", options={"default":1}, nullable=true) 
      */
-    public $type=1;
+    public $type;
 
     /**
      * @ORM\Column(type="string",length=255, nullable=true) 
@@ -59,9 +59,9 @@ class Media
     public $file;
 
     /**
-     * @ORM\Column(type="ordre") 
+     * @ORM\Column(type="integer") 
      */
-    public $ordre=1;
+    public $ordre;
 
     public function getUploadRootDir()
     {
@@ -234,4 +234,27 @@ class Media
         
     }
 
+
+    /**
+     * Set ordre
+     *
+     * @param \ordre $ordre
+     * @return Media
+     */
+    public function setOrdre($ordre)
+    {
+        $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    /**
+     * Get ordre
+     *
+     * @return \ordre 
+     */
+    public function getOrdre()
+    {
+        return $this->ordre;
+    }
 }

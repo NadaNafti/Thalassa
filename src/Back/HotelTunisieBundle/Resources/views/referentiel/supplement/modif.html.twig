@@ -1,0 +1,55 @@
+{% extends "BackHotelTunisieBundle:referentiel/supplement:liste.html.twig" %}
+{% block title %}Gestion des suppléments{% endblock %}
+{% block description %}Modifier un supplément{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ supplement.libelle }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="{{ path('modif_supplement',{'id':supplement.id}) }}" method="post" role="form" id="form">
+                        {{ form_widget(form._token) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Date debut
+                                    </label>
+                                    <div class="row">
+                                        <div class="col-md-5">{{ form_widget(form.jourDebut)  }}</div>
+                                        <div class="col-md-5">{{ form_widget(form.moisDebut)  }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Date fin
+                                    </label>
+                                    <div class="row">
+                                        <div class="col-md-5">{{ form_widget(form.jourFin)  }}</div>
+                                        <div class="col-md-5">{{ form_widget(form.moisFin)  }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                        <div class="row">    
+                            {{ formulaire.input("col-md-2","",form.obligatoire,false) }}
+                            {{ formulaire.input("col-md-2","",form.parNuit,false) }}
+                            {{ formulaire.input("col-md-2","",form.parChambre,false) }}
+                        </div>
+                        {{ formulaire.submit("Modifier") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

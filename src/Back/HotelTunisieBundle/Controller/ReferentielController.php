@@ -27,6 +27,14 @@ use Back\HotelTunisieBundle\Entity\Chambre;
 use Back\HotelTunisieBundle\Form\ChambreType;
 use Back\HotelTunisieBundle\Entity\Chaine;
 use Back\HotelTunisieBundle\Form\ChaineType;
+use Back\HotelTunisieBundle\Entity\Arrangement;
+use Back\HotelTunisieBundle\Form\ArrangementType;
+use Back\HotelTunisieBundle\Entity\Tag;
+use Back\HotelTunisieBundle\Form\TagType;
+use Back\HotelTunisieBundle\Entity\Supplement;
+use Back\HotelTunisieBundle\Form\SupplementType;
+use Back\HotelTunisieBundle\Entity\Reduction;
+use Back\HotelTunisieBundle\Form\ReductionType;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class ReferentielController extends Controller
@@ -1022,6 +1030,406 @@ class ReferentielController extends Controller
         return $this->render('BackHotelTunisieBundle:referentiel/chambre:modif.html.twig', array(
                     'form'   =>$form->createView(),
                     'chambre'=>$chambre,
+        ));
+    }
+
+//  Arrangement    ********************************************************************************************************************
+    Public function arrangementAction()
+    {
+        //appeler le entity manager
+        $em=$this->getDoctrine()->getManager();
+
+        //Appeler la liste des arrangements
+        $arrangements=$em->getRepository("BackHotelTunisieBundle:Arrangement")->findAll();
+
+        //Appeler la page twig 
+        return $this->render('BackHotelTunisieBundle:referentiel/arrangement:liste.html.twig', array(
+                    'arrangements'=>$arrangements,
+        ));
+    }
+
+    public function arrangementSupprimerAction(Arrangement $arrangement)
+    {
+        //appeler la session
+        $session=$this->getRequest()->getSession();
+
+        //appeler le entity manager
+        $em=$this->getDoctrine()->getManager();
+
+        try
+        {
+            //Effacer la ligne
+            $em->remove($arrangement);
+            //commit base de données
+            $em->flush();
+            //afficher la message de succes
+            $session->getFlashBag()->add('success', " Votre arrangement a été supprimé avec succées ");
+        }
+        catch(\Exception $ex)
+        {
+            //afficher la message d'erreur
+            $session->getFlashBag()->add('danger', $ex->getMessage());
+        }
+
+        //Faire un redirection
+        return $this->redirect($this->generateUrl("gestion_arrangement"));
+    }
+
+    public function arrangementAjouterAction()
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        //instencer un objet categorie
+        $arrangement=new Arrangement();
+        //Creation d'un formulaire 
+        $form=$this->createForm(new ArrangementType, $arrangement);
+
+        $request=$this->getRequest();
+        //verifier si on a des post
+        if($request->isMethod("POST"))
+        {
+            //metre le request dans le formulaire
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $arrangement=$form->getData();
+                $em->persist($arrangement);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre arrangement a été ajouté avec succées ");
+                return $this->redirect($this->generateUrl("gestion_arrangement"));
+            }
+        }
+        //Appeler la page twig 
+        return $this->render('BackHotelTunisieBundle:referentiel/arrangement:ajout.html.twig', array(
+                    'form'=>$form->createView(),
+        ));
+    }
+
+    public function arrangementModifierAction(Arrangement $arrangement)
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        //Creation d'un formulaire 
+        $form=$this->createForm(new ArrangementType, $arrangement);
+        $request=$this->getRequest();
+        //verifier si on a des post
+        if($request->isMethod("POST"))
+        {
+            //metre le request dans le formulaire
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $arrangement=$form->getData();
+                $em->persist($arrangement);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre arrangement a été modifié avec succées ");
+                return $this->redirect($this->generateUrl("gestion_arrangement"));
+            }
+        }
+        //Appeler la page twig 
+        return $this->render('BackHotelTunisieBundle:referentiel/arrangement:modif.html.twig', array(
+                    'form'       =>$form->createView(),
+                    'arrangement'=>$arrangement,
+        ));
+    }
+
+//  Tag    ********************************************************************************************************************
+    Public function tagAction()
+    {
+        //appeler le entity manager
+        $em=$this->getDoctrine()->getManager();
+
+        //Appeler la liste des tags
+        $tags=$em->getRepository("BackHotelTunisieBundle:Tag")->findAll();
+
+        //Appeler la page twig 
+        return $this->render('BackHotelTunisieBundle:referentiel/tag:liste.html.twig', array(
+                    'tags'=>$tags,
+        ));
+    }
+
+    public function tagSupprimerAction(Tag $tag)
+    {
+        //appeler la session
+        $session=$this->getRequest()->getSession();
+
+        //appeler le entity manager
+        $em=$this->getDoctrine()->getManager();
+
+        try
+        {
+            //Effacer la ligne
+            $em->remove($tag);
+            //commit base de données
+            $em->flush();
+            //afficher la message de succes
+            $session->getFlashBag()->add('success', " Votre tag a été supprimé avec succées ");
+        }
+        catch(\Exception $ex)
+        {
+            //afficher la message d'erreur
+            $session->getFlashBag()->add('danger', $ex->getMessage());
+        }
+
+        //Faire un redirection
+        return $this->redirect($this->generateUrl("gestion_tag"));
+    }
+
+    public function tagAjouterAction()
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        //instencer un objet tag
+        $tag=new Tag();
+        //Creation d'un formulaire 
+        $form=$this->createForm(new TagType, $tag);
+
+        $request=$this->getRequest();
+        //verifier si on a des post
+        if($request->isMethod("POST"))
+        {
+            //metre le request dans le formulaire
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $tag=$form->getData();
+                $em->persist($tag);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre tag a été ajouté avec succées ");
+                return $this->redirect($this->generateUrl("gestion_tag"));
+            }
+        }
+        //Appeler la page twig 
+        return $this->render('BackHotelTunisieBundle:referentiel/tag:ajout.html.twig', array(
+                    'form'=>$form->createView(),
+        ));
+    }
+
+    public function tagModifierAction(Tag $tag)
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        //Creation d'un formulaire 
+        $form=$this->createForm(new TagType, $tag);
+        $request=$this->getRequest();
+        //verifier si on a des post
+        if($request->isMethod("POST"))
+        {
+            //metre le request dans le formulaire
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $tag=$form->getData();
+                $em->persist($tag);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre tagt a été modifié avec succées ");
+                return $this->redirect($this->generateUrl("gestion_tag"));
+            }
+        }
+        //Appeler la page twig 
+        return $this->render('BackHotelTunisieBundle:referentiel/tag:modif.html.twig', array(
+                    'form'=>$form->createView(),
+                    'tag' =>$tag,
+        ));
+    }
+
+//  Supplement    ********************************************************************************************************************
+    Public function supplementAction()
+    {
+        //appeler le entity manager
+        $em=$this->getDoctrine()->getManager();
+
+        //Appeler la liste des supplements
+        $supplements=$em->getRepository("BackHotelTunisieBundle:Supplement")->findAll();
+
+        //Appeler la page twig 
+        return $this->render('BackHotelTunisieBundle:referentiel/supplement:liste.html.twig', array(
+                    'supplements'=>$supplements,
+        ));
+    }
+
+    public function supplementSupprimerAction(Supplement $supplement)
+    {
+        //appeler la session
+        $session=$this->getRequest()->getSession();
+
+        //appeler le entity manager
+        $em=$this->getDoctrine()->getManager();
+
+        try
+        {
+            //Effacer la ligne
+            $em->remove($supplement);
+            //commit base de données
+            $em->flush();
+            //afficher la message de succes
+            $session->getFlashBag()->add('success', " Votre supplément a été supprimé avec succées ");
+        }
+        catch(\Exception $ex)
+        {
+            //afficher la message d'erreur
+            $session->getFlashBag()->add('danger', $ex->getMessage());
+        }
+
+        //Faire un redirection
+        return $this->redirect($this->generateUrl("gestion_supplement"));
+    }
+
+    public function supplementAjouterAction()
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        //instencer un objet supplement
+        $supplement=new Supplement();
+        //Creation d'un formulaire 
+        $form=$this->createForm(new SupplementType, $supplement);
+
+        $request=$this->getRequest();
+        //verifier si on a des post
+        if($request->isMethod("POST"))
+        {
+            //metre le request dans le formulaire
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $supplement=$form->getData();
+                $em->persist($supplement);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre supplément a été ajouté avec succées ");
+                return $this->redirect($this->generateUrl("gestion_supplement"));
+            }
+        }
+        //Appeler la page twig 
+        return $this->render('BackHotelTunisieBundle:referentiel/supplement:ajout.html.twig', array(
+                    'form'=>$form->createView(),
+        ));
+    }
+
+    public function supplementModifierAction(Supplement $supplement)
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        //Creation d'un formulaire 
+        $form=$this->createForm(new SupplementType, $supplement);
+        $request=$this->getRequest();
+        //verifier si on a des post
+        if($request->isMethod("POST"))
+        {
+            //metre le request dans le formulaire
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $supplement=$form->getData();
+                $em->persist($supplement);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre supplément a été modifié avec succées ");
+                return $this->redirect($this->generateUrl("gestion_supplement"));
+            }
+        }
+        //Appeler la page twig 
+        return $this->render('BackHotelTunisieBundle:referentiel/supplement:modif.html.twig', array(
+                    'form'      =>$form->createView(),
+                    'supplement'=>$supplement,
+        ));
+    }
+
+//  Reduction    ********************************************************************************************************************
+    Public function reductionAction()
+    {
+        //appeler le entity manager
+        $em=$this->getDoctrine()->getManager();
+
+        //Appeler la liste des supplements
+        $reductions=$em->getRepository("BackHotelTunisieBundle:Reduction")->findAll();
+
+        //Appeler la page twig 
+        return $this->render('BackHotelTunisieBundle:referentiel/reduction:liste.html.twig', array(
+                    'reductions'=>$reductions,
+        ));
+    }
+
+    public function reductionSupprimerAction(Reduction $reduction)
+    {
+        //appeler la session
+        $session=$this->getRequest()->getSession();
+
+        //appeler le entity manager
+        $em=$this->getDoctrine()->getManager();
+
+        try
+        {
+            //Effacer la ligne
+            $em->remove($reduction);
+            //commit base de données
+            $em->flush();
+            //afficher la message de succes
+            $session->getFlashBag()->add('success', " Votre réduction a été supprimée avec succées ");
+        }
+        catch(\Exception $ex)
+        {
+            //afficher la message d'erreur
+            $session->getFlashBag()->add('danger', $ex->getMessage());
+        }
+
+        //Faire un redirection
+        return $this->redirect($this->generateUrl("gestion_reduction"));
+    }
+
+    public function reductionAjouterAction()
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        //instencer un objet reduction
+        $reduction=new Reduction();
+        //Creation d'un formulaire 
+        $form=$this->createForm(new ReductionType, $reduction);
+
+        $request=$this->getRequest();
+        //verifier si on a des post
+        if($request->isMethod("POST"))
+        {
+            //metre le request dans le formulaire
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $reduction=$form->getData();
+                $em->persist($reduction);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre reduction a été ajoutée avec succées ");
+                return $this->redirect($this->generateUrl("gestion_reduction"));
+            }
+        }
+        //Appeler la page twig 
+        return $this->render('BackHotelTunisieBundle:referentiel/reduction:ajout.html.twig', array(
+                    'form'=>$form->createView(),
+        ));
+    }
+
+    public function reductionModifierAction(Reduction $reduction)
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        //Creation d'un formulaire 
+        $form=$this->createForm(new ReductionType, $reduction);
+        $request=$this->getRequest();
+        //verifier si on a des post
+        if($request->isMethod("POST"))
+        {
+            //metre le request dans le formulaire
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $reduction=$form->getData();
+                $em->persist($reduction);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre réduction a été modifiée avec succées ");
+                return $this->redirect($this->generateUrl("gestion_supplement"));
+            }
+        }
+        //Appeler la page twig 
+        return $this->render('BackHotelTunisieBundle:referentiel/reduction:modif.html.twig', array(
+                    'form'     =>$form->createView(),
+                    'reduction'=>$reduction,
         ));
     }
 
