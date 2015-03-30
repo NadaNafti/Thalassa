@@ -5,22 +5,38 @@
             <i class="clip-chevron-right"></i>
         </div>
         <ul class="main-navigation-menu">
-
             <li {% if app.request.get('_route')=='tableaubord' %} class="active open"{% endif %}>
                 <a href="{{ path("tableaubord") }}"><i class="clip-home-3"></i>
                     <span class="title"> Tableau de bord </span>{% if app.request.get('_route')=='tableaubord' %}<span class="selected"></span>{% endif %}
                 </a>
             </li>
-
             <li  {% if app.request.getPathInfo|split('/hotel_tunisie')|length > 1 %} class="active open"{% endif %}>
                 <a href="javascript:void(0)"><i class="clip-star"></i>
                     <span class="title">Hotel en Tunisie</span><i class="icon-arrow"></i>
                     <span class="selected"></span>
                 </a>
                 <ul class="sub-menu">
-
-                    <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel')|length > 1 %} class="active open"{% endif %}>
-                        <a href="javascript:void(0)">
+                    <li {% if app.request.getPathInfo|split('/hotel_tunisie/list')|length > 1 %} class="active open"{% endif %} >
+                        <a href="javascript:void(0)"><i class="clip-home"></i>
+                            <span class="title">Gestion des hôtels</span><i class="icon-arrow"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <span class="title">Liste</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <span class="title">Ajouter un hôtels</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="sub-menu">
+                    <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel')|length > 1 %} class="active"{% endif %} >
+                        <a href="javascript:void(0)"><i class="clip-list"></i>
                             <span class="title"> Référentiel</span><i class="icon-arrow"></i>
                         </a>
                         <ul class="sub-menu">
@@ -65,35 +81,35 @@
                                 </a>
                             </li>
                         </ul>
-                                     <ul class="sub-menu">
+                        <ul class="sub-menu">
                             <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/theme')|length > 1 %} class="open"{% endif %}>
                                 <a href="{{ path('gestion_theme') }}">
                                     <span class="title">Thèmes</span>
                                 </a>
                             </li>
                         </ul>
-                                     <ul class="sub-menu">
+                        <ul class="sub-menu">
                             <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/vue')|length > 1 %} class="open"{% endif %}>
                                 <a href="{{ path('gestion_vue') }}">
                                     <span class="title">Vues</span>
                                 </a>
                             </li>
                         </ul>
-                                    <ul class="sub-menu">
+                        <ul class="sub-menu">
                             <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/option')|length > 1 %} class="open"{% endif %}>
                                 <a href="{{ path('gestion_optionn') }}">
                                     <span class="title">Options</span>
                                 </a>
                             </li>
                         </ul>
-                                      <ul class="sub-menu">
+                        <ul class="sub-menu">
                             <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/localisation')|length > 1 %} class="open"{% endif %}>
                                 <a href="{{ path('gestion_localisation') }}">
                                     <span class="title">Localisation</span>
                                 </a>
                             </li>
                         </ul>
-                                    <ul class="sub-menu">
+                        <ul class="sub-menu">
                             <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/chambre')|length > 1 %} class="open"{% endif %}>
                                 <a href="{{ path('gestion_chambre') }}">
                                     <span class="title">Chambres</span>

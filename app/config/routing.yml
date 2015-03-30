@@ -1,3 +1,7 @@
+back_commercial:
+    resource: "@BackCommercialBundle/Resources/config/routing.yml"
+    prefix:   /commercial
+
 #Hotel en tunisie
 back_hotel_tunisie:
     resource: "@BackHotelTunisieBundle/Resources/config/routing.yml"

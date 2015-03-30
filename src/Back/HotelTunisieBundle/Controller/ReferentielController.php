@@ -3,6 +3,8 @@
 namespace Back\HotelTunisieBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Back\HotelTunisieBundle\Entity\Media;
+use Back\HotelTunisieBundle\Form\MediaType;
 use Back\HotelTunisieBundle\Entity\Region;
 use Back\HotelTunisieBundle\Form\RegionType;
 use Back\HotelTunisieBundle\Entity\Ville;
@@ -26,8 +28,6 @@ use Back\HotelTunisieBundle\Form\ChambreType;
 use Back\HotelTunisieBundle\Entity\Chaine;
 use Back\HotelTunisieBundle\Form\ChaineType;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Back\HotelTunisieBundle\Entity\Media;
-use Back\HotelTunisieBundle\Form\MediaType;
 
 class ReferentielController extends Controller
 {
@@ -226,7 +226,7 @@ class ReferentielController extends Controller
         $em=$this->getDoctrine()->getManager();
         $villes=$em->getRepository("BackHotelTunisieBundle:Ville")->findAll();
         $paginator=$this->get('knp_paginator');
-        $villes=$paginator->paginate($villes, $request->query->get('page', 1), 5);
+        $villes=$paginator->paginate($villes, $request->query->get('page', 1), 10);
         return $this->render('BackHotelTunisieBundle:referentiel/regionVille:listeVille.html.twig', array(
                     'villes'=>$villes,
         ));

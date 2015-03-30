@@ -1,0 +1,3 @@
+back_commercial_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: BackCommercialBundle:Default:index }
