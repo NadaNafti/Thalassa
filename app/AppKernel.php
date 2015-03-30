@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Back\HotelTunisieBundle\BackHotelTunisieBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 //            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         );
 
