@@ -14,8 +14,8 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta content="" name="description" />
         <meta content="" name="author" />
-        {% block stylesheet %}
-            {% include ':Back:stylesheet.html.twig' %}
+        {% block stylesheets %}
+            {% include ':Back/lib:stylesheet.html.twig' %}
         {% endblock %}
         <link rel="shortcut icon" href="{{ asset("back-assets/favicon.ico") }}" />
     </head>
@@ -49,8 +49,8 @@
     </div>
     {% include ':Back:footer.html.twig' %}
     {% include ':Back:righsidebar.html.twig' %}
-    {% block script %}
-        {% include ':Back:javascript.html.twig' %}
+    {% block javascripts %}
+        {% include ':Back/lib:javascript.html.twig' %}
     {% endblock %}
 </body>
 </html>
