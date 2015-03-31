@@ -23,6 +23,10 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Libellé</th>
+                                <th>Debut</th>
+                                <th>Fin</th>
+                                <th>Obligatoire</th>
+                                <th>Paiement</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -31,6 +35,10 @@
                                 <tr>
                                     <td>{{ reduction.id }}</td>
                                     <td>{{ reduction.libelle }}</td>
+                                    <td>{{ reduction.jourDebut }}/{{ reduction.moisDebut }}</td>
+                                    <td>{{ reduction.jourFin }}/{{ reduction.moisFin }}</td>
+                                    <td>{{ reduction.showObligatoire }}</td>
+                                    <td>{{ reduction.showParChambre }} et {{ reduction.showParNuit }}</td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             {{ macros.tableEdit(path('modif_reduction',{'id':reduction.id})) }}

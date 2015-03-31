@@ -36,26 +36,28 @@ class Supplement
      * @ORM\Column(name="libelle", type="string", length=255)
      */
     private $libelle;
-    
+
     /**
      * @var integer
      *
      * @ORM\Column(name="jourDebut", type="integer")
      */
     private $jourDebut;
+
     /**
      * @var integer
      *
      * @ORM\Column(name="moisDebut", type="integer")
      */
     private $moisDebut;
-    
+
     /**
      * @var integer
      *
      * @ORM\Column(name="jourFin", type="integer")
      */
     private $jourFin;
+
     /**
      * @var integer
      *
@@ -69,8 +71,6 @@ class Supplement
      * @ORM\Column(name="obligatoire", type="boolean", nullable=true)
      */
     private $obligatoire;
-    
-    
 
     /**
      * @var boolean
@@ -85,7 +85,6 @@ class Supplement
      * @ORM\Column(name="parChambre", type="boolean", nullable=true)
      */
     private $parChambre;
-
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -260,7 +259,7 @@ class Supplement
      */
     public function setParNuit($parNuit)
     {
-        $this->parNuit = $parNuit;
+        $this->parNuit=$parNuit;
 
         return $this;
     }
@@ -283,7 +282,7 @@ class Supplement
      */
     public function setParChambre($parChambre)
     {
-        $this->parChambre = $parChambre;
+        $this->parChambre=$parChambre;
 
         return $this;
     }
@@ -306,7 +305,7 @@ class Supplement
      */
     public function setJourDebut($jourDebut)
     {
-        $this->jourDebut = $jourDebut;
+        $this->jourDebut=$jourDebut;
 
         return $this;
     }
@@ -329,7 +328,7 @@ class Supplement
      */
     public function setMoisDebut($moisDebut)
     {
-        $this->moisDebut = $moisDebut;
+        $this->moisDebut=$moisDebut;
 
         return $this;
     }
@@ -352,7 +351,7 @@ class Supplement
      */
     public function setJourFin($jourFin)
     {
-        $this->jourFin = $jourFin;
+        $this->jourFin=$jourFin;
 
         return $this;
     }
@@ -375,7 +374,7 @@ class Supplement
      */
     public function setMoisFin($moisFin)
     {
-        $this->moisFin = $moisFin;
+        $this->moisFin=$moisFin;
 
         return $this;
     }
@@ -389,4 +388,29 @@ class Supplement
     {
         return $this->moisFin;
     }
+    
+    public function showObligatoire()
+    {
+        if($this->obligatoire==TRUE)
+            return 'Oui';
+        else
+            return 'Non';
+    }
+    
+    public function showParChambre()
+    {
+        if($this->parChambre)
+            return 'Par chambre';
+        else
+            return 'Par Personne';
+    }
+    
+    public function showParNuit()
+    {
+        if($this->parNuit)
+            return 'Chaque nuit';
+        else
+            return 'Une seul fois';
+    }
+
 }

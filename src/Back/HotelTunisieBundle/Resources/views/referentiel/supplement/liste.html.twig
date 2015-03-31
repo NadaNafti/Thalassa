@@ -23,7 +23,10 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Libellé</th>
-                                <th>Obilgatoire</th>
+                                <th>Debut</th>
+                                <th>Fin</th>
+                                <th>Obligatoire</th>
+                                <th>Paiement</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -32,7 +35,10 @@
                                 <tr>
                                     <td>{{ supplement.id }}</td>
                                     <td>{{ supplement.libelle }}</td>
-                                    <td>{{supplement.obligatoire}}</td>
+                                    <td>{{ supplement.jourDebut }}/{{ supplement.moisDebut }}</td>
+                                    <td>{{ supplement.jourFin }}/{{ supplement.moisFin }}</td>
+                                    <td>{{ supplement.showObligatoire }}</td>
+                                    <td>{{ supplement.showParChambre }} et {{ supplement.showParNuit }}</td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             {{ macros.tableEdit(path('modif_supplement',{'id':supplement.id})) }}

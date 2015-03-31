@@ -23,7 +23,7 @@ class Reduction
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @Gedmo\slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
@@ -36,33 +36,35 @@ class Reduction
      * @ORM\Column(name="libelle", type="string", length=255)
      */
     private $libelle;
-    
+
     /**
      * @var boolean
      *
      * @ORM\Column(name="obligatoire", type="boolean", nullable=true)
      */
     private $obligatoire;
-    
+
     /**
      * @var integer
      *
      * @ORM\Column(name="jourDebut", type="integer")
      */
     private $jourDebut;
+
     /**
      * @var integer
      *
      * @ORM\Column(name="moisDebut", type="integer")
      */
     private $moisDebut;
-    
+
     /**
      * @var integer
      *
      * @ORM\Column(name="jourFin", type="integer")
      */
     private $jourFin;
+
     /**
      * @var integer
      *
@@ -226,7 +228,6 @@ class Reduction
         return $this->deletedAt;
     }
 
-
     /**
      * Set obligatoire
      *
@@ -235,7 +236,7 @@ class Reduction
      */
     public function setObligatoire($obligatoire)
     {
-        $this->obligatoire = $obligatoire;
+        $this->obligatoire=$obligatoire;
 
         return $this;
     }
@@ -258,7 +259,7 @@ class Reduction
      */
     public function setJourDebut($jourDebut)
     {
-        $this->jourDebut = $jourDebut;
+        $this->jourDebut=$jourDebut;
 
         return $this;
     }
@@ -281,7 +282,7 @@ class Reduction
      */
     public function setMoisDebut($moisDebut)
     {
-        $this->moisDebut = $moisDebut;
+        $this->moisDebut=$moisDebut;
 
         return $this;
     }
@@ -304,7 +305,7 @@ class Reduction
      */
     public function setJourFin($jourFin)
     {
-        $this->jourFin = $jourFin;
+        $this->jourFin=$jourFin;
 
         return $this;
     }
@@ -327,7 +328,7 @@ class Reduction
      */
     public function setMoisFin($moisFin)
     {
-        $this->moisFin = $moisFin;
+        $this->moisFin=$moisFin;
 
         return $this;
     }
@@ -350,7 +351,7 @@ class Reduction
      */
     public function setSlug($slug)
     {
-        $this->slug = $slug;
+        $this->slug=$slug;
 
         return $this;
     }
@@ -373,7 +374,7 @@ class Reduction
      */
     public function setLibelle($libelle)
     {
-        $this->libelle = $libelle;
+        $this->libelle=$libelle;
 
         return $this;
     }
@@ -387,4 +388,29 @@ class Reduction
     {
         return $this->libelle;
     }
+    
+    public function showObligatoire()
+    {
+        if($this->obligatoire==TRUE)
+            return 'Oui';
+        else
+            return 'Non';
+    }
+    
+    public function showParChambre()
+    {
+        if($this->parChambre)
+            return 'Par chambre';
+        else
+            return 'Par Personne';
+    }
+    
+    public function showParNuit()
+    {
+        if($this->parNuit)
+            return 'Chaque nuit';
+        else
+            return 'Une seul fois';
+    }
+
 }
