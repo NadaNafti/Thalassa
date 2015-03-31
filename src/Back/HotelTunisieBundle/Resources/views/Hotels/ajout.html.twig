@@ -1,0 +1,59 @@
+{% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
+{% block title %}Ajout hotel{% endblock %}
+{% block description %}Ajouter un hotel{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >Ajouter</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="{{ path('ajout_hotel') }}" method="post" role="form" id="form">
+                        {{ form_widget(form._token) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
+                            {{ formulaire.select2("col-md-3","Catégorie",form.categorie,true) }}
+                            {{ formulaire.select2("col-md-3","Chaine hôtelier",form.chaine,true) }}
+                            {{ formulaire.select2("col-md-3","Fournisseur",form.fournisseur,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.select2("col-md-3","Ville",form.ville,true) }}
+                            {{ formulaire.input("col-md-3","Longitude",form.longitude,true) }}
+                            {{ formulaire.input("col-md-3","Latitude",form.latitude,true) }}
+                            {{ formulaire.input("col-md-3","Adresse",form.adresse,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.select2("col-md-6","Tags",form.tags,true) }}
+                            {{ formulaire.select2("col-md-6","Chambres",form.chambres,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.select2("col-md-6","Options",form.options,true) }}
+                            {{ formulaire.select2("col-md-6","Localisations",form.localisations,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.select2("col-md-6","Themes",form.themes,true) }}
+                            {{ formulaire.select2("col-md-6","Arrangements",form.arrangements,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.select2("col-md-6","Amenagements",form.amenagements,true) }}
+                            {{ formulaire.select2("col-md-6","Vues",form.vues,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-12","Description courte",form.descriptionCourte,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-12","Description longue",form.descriptionLongue,true) }}
+                        </div>
+                        {{ formulaire.submit("Ajouter") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

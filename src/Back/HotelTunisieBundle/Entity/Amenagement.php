@@ -209,4 +209,9 @@ class Amenagement
     {
         return $this->deletedAt;
     }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 }

@@ -177,4 +177,9 @@ class Vue
     {
         return $this->slug;
     }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 }

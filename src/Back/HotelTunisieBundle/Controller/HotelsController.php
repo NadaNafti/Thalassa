@@ -9,7 +9,7 @@ use Back\HotelTunisieBundle\Form\HotelType;
 
 class HotelsController extends Controller
 {
-    public function ajout_hotelAction()
+    public function ajoutAction()
     {
         $em=$this->getDoctrine()->getManager();
         $request=$this->getRequest();
@@ -27,6 +27,8 @@ class HotelsController extends Controller
                 return $this->redirect($this->generateUrl("ajout_hotel"));
             }
         }
-        return $this->render('BackHotelTunisieBundle:Hotels:liste.html.twig');
+        return $this->render('BackHotelTunisieBundle:Hotels:ajout.html.twig',array(
+            'form'=>$form->createView()
+        ));
     }
 }
