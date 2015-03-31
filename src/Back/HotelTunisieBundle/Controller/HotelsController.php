@@ -24,6 +24,7 @@ class HotelsController extends Controller
                 $hotel=$form->getData();
                 $em->persist($hotel);
                 $em->flush();
+                $session->getFlashBag()->add('success', " Votre hotel a été ajouté avec succées ");
                 return $this->redirect($this->generateUrl("ajout_hotel"));
             }
         }

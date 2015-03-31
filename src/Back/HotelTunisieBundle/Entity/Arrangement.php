@@ -197,4 +197,9 @@ class Arrangement {
     {
         return $this->code;
     }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 }

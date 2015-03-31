@@ -217,27 +217,4 @@ class Contact
     {
         return $this->fonction;
     }
-
-    /**
-     * Set fournisseur
-     *
-     * @param \Back\CommercialBundle\Entity\Fournisseur $fournisseur
-     * @return Contact
-     */
-    public function setFournisseur(\Back\CommercialBundle\Entity\Fournisseur $fournisseur = null)
-    {
-        $this->fournisseur = $fournisseur;
-
-        return $this;
-    }
-
-    /**
-     * Get fournisseur
-     *
-     * @return \Back\CommercialBundle\Entity\Fournisseur 
-     */
-    public function getFournisseur()
-    {
-        return $this->fournisseur;
-    }
 }

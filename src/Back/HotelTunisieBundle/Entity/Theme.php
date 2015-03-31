@@ -176,4 +176,9 @@ class Theme
     {
         return $this->slug;
     }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 }
