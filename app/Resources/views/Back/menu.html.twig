@@ -63,21 +63,21 @@
                         <ul class="sub-menu">
                             <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/type_amenagement')|length > 1 %} class="open"{% endif %}>
                                 <a href="{{ path('gestion_type_amenagement') }}">
-                                    <span class="title">Type Aménagement</span>
+                                    <span class="title">Types Aménagement</span>
                                 </a>
                             </li>
                         </ul>
                         <ul class="sub-menu">
                             <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/amenagement')|length > 1 %} class="open"{% endif %}>
                                 <a href="{{ path('gestion_amenagement') }}">
-                                    <span class="title">Aménagement</span>
+                                    <span class="title">Aménagements</span>
                                 </a>
                             </li>
                         </ul>
                         <ul class="sub-menu">
                             <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/chaine')|length > 1 %} class="open"{% endif %}>
                                 <a href="{{ path('gestion_chaine') }}">
-                                    <span class="title">Chaines</span>
+                                    <span class="title">Chaines hôtelières</span>
                                 </a>
                             </li>
                         </ul>
@@ -105,7 +105,7 @@
                         <ul class="sub-menu">
                             <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/localisation')|length > 1 %} class="open"{% endif %}>
                                 <a href="{{ path('gestion_localisation') }}">
-                                    <span class="title">Localisation</span>
+                                    <span class="title">Localisations</span>
                                 </a>
                             </li>
                         </ul>

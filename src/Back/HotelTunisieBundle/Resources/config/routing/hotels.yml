@@ -1,0 +1,7 @@
+list_hotels:
+    path:     /
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:liste }
+
+ajout_hotel:
+    path:     /ajout
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:ajout }
