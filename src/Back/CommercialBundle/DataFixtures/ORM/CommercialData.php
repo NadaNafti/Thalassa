@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Back\CommercialBundle\Entity\Fournisseur;
 use Back\CommercialBundle\Entity\Contact;
 
-class FixtureData extends AbstractFixture implements OrderedFixtureInterface
+class CommercialData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * {@inheritDoc}
@@ -23,9 +23,9 @@ class FixtureData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($fournisseur2->setLibelle("Hotel nozha beach"));
         
         $contact= new Contact();
-        $manager->persist($contact->setEmail("zied.kharraz@gmail.com")->setFonction("Directeur")->setNomPrenom("Zied Kharraz")->setFournisseur($fournisseur));
+        $manager->persist($contact->setEmail("zied.kharraz@gmail.com")->setFonction("Directeur")->setNomPrenom("Zied Kharraz")->setFournisseur($fournisseur)->setTel1("53 980 209"));
         $contact= new Contact();
-        $manager->persist($contact->setEmail("contact@gmail.com")->setFonction("Commercial")->setNomPrenom("Foulen ben foulen")->setFournisseur($fournisseur1));
+        $manager->persist($contact->setEmail("contact@gmail.com")->setFonction("Commercial")->setNomPrenom("Foulen ben foulen")->setFournisseur($fournisseur1)->setTel1("53 980 209"));
         
         $manager->flush();
     }

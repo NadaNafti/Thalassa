@@ -25,11 +25,23 @@ class HotelsController extends Controller
                 $em->persist($hotel);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre hotel a été ajouté avec succées ");
-                return $this->redirect($this->generateUrl("ajout_hotel"));
+                return $this->redirect($this->generateUrl("list_hotels"));
             }
         }
         return $this->render('BackHotelTunisieBundle:Hotels:ajout.html.twig',array(
             'form'=>$form->createView()
+        ));
+    }
+    
+    public function listeAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $request=$this->getRequest();
+        $hotels=$em->getRepository("BackHotelTunisieBundle:Hotel")->findAll();
+        $paginator=$this->get('knp_paginator');
+        $hotels=$paginator->paginate($hotels, $request->query->get('page', 1), 10);
+        return $this->render('BackHotelTunisieBundle:Hotels:liste.html.twig',array(
+                    'hotels'=>$hotels,
         ));
     }
 }
