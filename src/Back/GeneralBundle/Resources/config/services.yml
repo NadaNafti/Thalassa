@@ -4,8 +4,8 @@ services:
       tags:
         - { name: twig.extension }
     
-    teste:
-      class: Back\GeneralBundle\Twig\Extension\TesteExtension
+    interfaces:
+      class: Back\GeneralBundle\Twig\Extension\InterfacesExtension
       tags:
         - { name: twig.extension }
     

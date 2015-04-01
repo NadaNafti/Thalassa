@@ -34,7 +34,7 @@
                             {% for hotel in hotels %}
                                 <tr>
                                     <td>{{ hotel.id }}</td>
-                                    <td>{{ hotel.libelle|title }}</td>
+                                    <td>{{ hotel.libelle|title }} {{ getStars(hotel.categorie.nombreEtoiles)|raw }}</td>
                                     <td>{{ hotel.Categorie }}</td>
                                     <td>{{ hotel.ville.pays|upper }} {{ hotel.ville }}</td>
                                     <td>{{ hotel.fournisseur }}</td>
