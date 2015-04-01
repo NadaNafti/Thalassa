@@ -2,6 +2,18 @@ list_hotels:
     path:     /
     defaults: { _controller: BackHotelTunisieBundle:Hotels:liste }
 
+modif_hotel:
+    path:     /modif/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:modif}
+
+supprimer_hotel:
+    path:     /supprimer/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:supprimer}
+
 ajout_hotel:
     path:     /ajout
     defaults: { _controller: BackHotelTunisieBundle:Hotels:ajout }
+
+photos_hotel:
+    path:     /modif/{id}/photos
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:photos }

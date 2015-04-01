@@ -37,9 +37,9 @@
                                     <td>{{ hotel.ville.pays|upper }} {{ hotel.ville }}</td>
                                     <td>{{ hotel.fournisseur }}</td>
                                     <td class="TableAction">
-{#                                      {{ macros.tableEdit(path('modif_hotels',{'id':hotel.id})) }}
-                                        {{ macros.tableDelete(path('supprimer_hotels',{'id':hotel.id})) }}
-                                        {{ macros.tablePhoto(path('photos_hotels',{'id':hotel.id})) }}#}
+                                        {{ macros.tableEdit(path('modif_hotel',{'id':hotel.id})) }}
+                                        {{ macros.tableDelete(path('supprimer_hotel',{'id':hotel.id})) }}
+                                        {{ macros.tablePhoto(path('photos_hotel',{'id':hotel.id})) }}
                                     </td>
                                 </tr>
                             {% endfor %}

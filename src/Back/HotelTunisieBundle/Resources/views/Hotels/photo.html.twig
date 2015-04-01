@@ -1,10 +1,10 @@
-{% extends "BackHotelTunisieBundle:referentiel/regionVille:listeVille.html.twig" %}
-{% block title %}{{ ville.libelle }}{% endblock %}
+{% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
+{% block title %}{{ hotel.libelle }}{% endblock %}
 {% block description %}Gestion des photos{% endblock %}
 {% block topbody %}   
     {{ parent() }}
     <li>
-        <a href="{{ path('modif_villes',{'id':ville.id}) }}" >{{ ville.libelle }}</a>
+        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
     </li>
     <li>
         <a href="javascript:void(0)" >Photos</a>

@@ -6,16 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Back\HotelTunisieBundle\Entity\Hotel;
 use Back\HotelTunisieBundle\Form\HotelType;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Back\HotelTunisieBundle\Entity\Media;
+use Back\HotelTunisieBundle\Form\MediaType;
 
 class HotelsController extends Controller
 {
+
     public function ajoutAction()
     {
         $em=$this->getDoctrine()->getManager();
         $request=$this->getRequest();
         $session=$this->getRequest()->getSession();
-        $hotel = new Hotel;
-        $form =$this->createForm(new HotelType(), $hotel);
+        $hotel=new Hotel;
+        $form=$this->createForm(new HotelType(), $hotel);
         if($request->isMethod("POST"))
         {
             $form->bind($request);
@@ -28,11 +32,11 @@ class HotelsController extends Controller
                 return $this->redirect($this->generateUrl("list_hotels"));
             }
         }
-        return $this->render('BackHotelTunisieBundle:Hotels:ajout.html.twig',array(
-            'form'=>$form->createView()
+        return $this->render('BackHotelTunisieBundle:Hotels:ajout.html.twig', array(
+                    'form'=>$form->createView()
         ));
     }
-    
+
     public function listeAction()
     {
         $em=$this->getDoctrine()->getManager();
@@ -40,8 +44,75 @@ class HotelsController extends Controller
         $hotels=$em->getRepository("BackHotelTunisieBundle:Hotel")->findAll();
         $paginator=$this->get('knp_paginator');
         $hotels=$paginator->paginate($hotels, $request->query->get('page', 1), 10);
-        return $this->render('BackHotelTunisieBundle:Hotels:liste.html.twig',array(
+        return $this->render('BackHotelTunisieBundle:Hotels:liste.html.twig', array(
                     'hotels'=>$hotels,
         ));
     }
+
+    public function modifAction(Hotel $hotel)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $request=$this->getRequest();
+        $session=$request->getSession();
+        if(!$hotel)
+            throw $this->createNotFoundException('L\' hôtel n\'existe pas');
+        $form=$this->createForm(new HotelType(), $hotel);
+        if($request->isMethod("POST"))
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $hotel=$form->getData();
+                $em->persist($hotel);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre hotel a été modifié avec succées ");
+                return $this->redirect($this->generateUrl("modif_hotel", array('id'=>$hotel->getId())));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:Hotels:modif.html.twig', array(
+                    'form' =>$form->createView(),
+                    'hotel'=>$hotel
+        ));
+    }
+
+    public function supprimerAction(Hotel $hotel)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if(!$hotel)
+            throw $this->createNotFoundException('L\' hôtel n\'existe pas');
+        $em->remove($hotel);
+        $em->flush();
+        $session->getFlashBag()->add('success', " Votre hotel a été supprimé avec succées ");
+        return $this->redirect($this->generateUrl("list_hotels"));
+    }
+
+    public function photosAction(Hotel $hotel)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $session->set("routing", $this->generateUrl("photos_hotel", array('id'=>$hotel->getId())));
+        $media=new Media();
+        $media->setHotel($hotel);
+        $form=$this->createForm(new MediaType(), $media);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $media=$form->getData();
+                $em->persist($media);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre Photo a été ajoutée avec succées ");
+                return $this->redirect($this->generateUrl("photos_hotel", array('id'=>$hotel->getId())));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:Hotels:photo.html.twig', array(
+                    'hotel' =>$hotel,
+                    'form'  =>$form->createView(),
+                    'images'=>$hotel->getImages(),
+        ));
+    }
+
 }

@@ -222,4 +222,9 @@ class Chambre
     {
         return $this->slug;
     }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 }

@@ -287,4 +287,9 @@ class Ville
     {
         return $this->images;
     }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 }

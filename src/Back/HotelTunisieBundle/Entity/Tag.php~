@@ -167,5 +167,10 @@ class Tag
     public function getDeletedAt() {
         return $this->deletedAt;
     }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 
 }

@@ -38,6 +38,12 @@ class Media
     protected $ville;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Hotel", inversedBy="images")
+     * @ORM\JoinColumn(name="Hotel_id", referencedColumnName="id", nullable=true)
+     */
+    protected $hotel;
+
+    /**
      * @ORM\PostLoad()
      */
     public function postLoad()

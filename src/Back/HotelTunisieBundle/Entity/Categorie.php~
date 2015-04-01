@@ -185,4 +185,9 @@ class Categorie
     {
         return $this->deletedAt;
     }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 }

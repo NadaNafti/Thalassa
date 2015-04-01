@@ -170,6 +170,12 @@ class Hotel
      * )
      */
     protected $vues;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Media", mappedBy="hotel")
+     * @ORM\OrderBy({"ordre" = "ASC"})
+     */
+    private $images;
 
     /**
      * @Gedmo\slug(fields={"libelle"})
@@ -803,5 +809,38 @@ class Hotel
     public function getVues()
     {
         return $this->vues;
+    }
+
+    /**
+     * Add images
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Media $images
+     * @return Hotel
+     */
+    public function addImage(\Back\HotelTunisieBundle\Entity\Media $images)
+    {
+        $this->images[] = $images;
+
+        return $this;
+    }
+
+    /**
+     * Remove images
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Media $images
+     */
+    public function removeImage(\Back\HotelTunisieBundle\Entity\Media $images)
+    {
+        $this->images->removeElement($images);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImages()
+    {
+        return $this->images;
     }
 }

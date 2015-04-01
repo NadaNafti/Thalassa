@@ -38,6 +38,12 @@ class Media
     protected $ville;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Hotel", inversedBy="images")
+     * @ORM\JoinColumn(name="Hotel_id", referencedColumnName="id", nullable=true)
+     */
+    protected $hotel;
+
+    /**
      * @ORM\PostLoad()
      */
     public function postLoad()
@@ -70,6 +76,8 @@ class Media
 
     public function getDirectory()
     {
+        if($this->hotel)
+            return 'uploads/hotel';
         if($this->ville)
             return 'uploads/ville';
         else
@@ -256,5 +264,28 @@ class Media
     public function getOrdre()
     {
         return $this->ordre;
+    }
+
+    /**
+     * Set hotel
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotel
+     * @return Media
+     */
+    public function setHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotel = null)
+    {
+        $this->hotel = $hotel;
+
+        return $this;
+    }
+
+    /**
+     * Get hotel
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Hotel 
+     */
+    public function getHotel()
+    {
+        return $this->hotel;
     }
 }
