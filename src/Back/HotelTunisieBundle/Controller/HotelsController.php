@@ -9,6 +9,8 @@ use Back\HotelTunisieBundle\Form\HotelType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Back\HotelTunisieBundle\Entity\Media;
 use Back\HotelTunisieBundle\Form\MediaType;
+use Back\HotelTunisieBundle\Entity\StopSales;
+use Back\HotelTunisieBundle\Form\StopSalesType;
 
 class HotelsController extends Controller
 {
@@ -115,4 +117,39 @@ class HotelsController extends Controller
         ));
     }
 
+    public function stopsalesAction(Hotel $hotel)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $stopSale=new StopSales();
+        $stopSale->setHotel($hotel);
+        $form=$this->createForm(new StopSalesType(), $stopSale);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $stopSale=$form->getData();
+                $em->persist($stopSale);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre durée a été ajoutée avec succées ");
+                return $this->redirect($this->generateUrl("stopsales_hotel", array('id'=>$hotel->getId())));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:Hotels:stopsales.html.twig', array(
+                    'hotel' =>$hotel,
+                    'form'  =>$form->createView(),
+        ));
+    }
+
+    public function suppStopSalesAction(StopSales $stopSales)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em->remove($stopSales);
+        $em->flush();
+        $session->getFlashBag()->add('success', " Votre stop sale a été supprimé avec succées ");
+        return $this->redirect($this->generateUrl("stopsales_hotel",array('id'=>$stopSales->getHotel()->getId())));
+    }
 }

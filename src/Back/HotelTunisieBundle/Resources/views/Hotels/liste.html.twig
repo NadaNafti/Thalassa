@@ -40,6 +40,7 @@
                                         {{ macros.tableEdit(path('modif_hotel',{'id':hotel.id})) }}
                                         {{ macros.tableDelete(path('supprimer_hotel',{'id':hotel.id})) }}
                                         {{ macros.tablePhoto(path('photos_hotel',{'id':hotel.id})) }}
+                                        {{ macros.tableStopSales(path('stopsales_hotel',{'id':hotel.id})) }}
                                     </td>
                                 </tr>
                             {% endfor %}

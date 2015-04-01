@@ -17,3 +17,11 @@ ajout_hotel:
 photos_hotel:
     path:     /modif/{id}/photos
     defaults: { _controller: BackHotelTunisieBundle:Hotels:photos }
+
+stopsales_hotel:
+    path:     /modif/{id}/stopsales
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:stopsales }
+
+supprimer_stopsales_hotel:
+    path:     /stopsales/delete/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:suppStopSales }

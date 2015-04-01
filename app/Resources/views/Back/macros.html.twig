@@ -1,14 +1,18 @@
+{% macro tableStopSales(path) %}
+    <a href="{{ path }}" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Stop Sales" ><i class="fa fa-clock-o fa fa-white"></i></a>
+{% endmacro %}
+
 {% macro tableDelete(path) %}
     <a href="{{ path }}" class="btn btn-xs btn-bricky tooltips" data-placement="top" data-original-title="Supprimer" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette ligne ?'))"><i class="fa fa-times fa fa-white"></i></a>
-    {% endmacro %}
+{% endmacro %}
 
 {% macro tableEdit(path) %}
     <a href="{{ path }}" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Modifier"><i class="fa fa-edit"></i></a>
-    {% endmacro %}
+{% endmacro %}
 
 {% macro tablePhoto(path) %}
     <a href="{{ path }}" class="btn btn-xs btn-teal tooltips" data-placement="top" data-original-title="Photos"><i class="fa fa-camera"></i></a>
-    {% endmacro %}
+{% endmacro %}
 
 {% macro albumPhoto(image) %}
     <div class="col-md-2 col-sm-4 gallery-img">

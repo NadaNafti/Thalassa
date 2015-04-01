@@ -178,6 +178,11 @@ class Hotel
     private $images;
 
     /**
+     * @ORM\OneToMany(targetEntity="StopSales", mappedBy="hotel")
+     */
+    protected $stopSales;
+
+    /**
      * @Gedmo\slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
@@ -842,5 +847,38 @@ class Hotel
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * Add stopSales
+     *
+     * @param \Back\HotelTunisieBundle\Entity\StopSales $stopSales
+     * @return Hotel
+     */
+    public function addStopSale(\Back\HotelTunisieBundle\Entity\StopSales $stopSales)
+    {
+        $this->stopSales[] = $stopSales;
+
+        return $this;
+    }
+
+    /**
+     * Remove stopSales
+     *
+     * @param \Back\HotelTunisieBundle\Entity\StopSales $stopSales
+     */
+    public function removeStopSale(\Back\HotelTunisieBundle\Entity\StopSales $stopSales)
+    {
+        $this->stopSales->removeElement($stopSales);
+    }
+
+    /**
+     * Get stopSales
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStopSales()
+    {
+        return $this->stopSales;
     }
 }
