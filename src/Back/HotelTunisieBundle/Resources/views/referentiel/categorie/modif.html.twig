@@ -16,7 +16,8 @@
                     <form action="{{ path('modif_categorie',{'id':categorie.id}) }}" method="post" role="form" id="form">
                         {{ form_widget(form._token) }}
                         <div class="row">
-                            {{ formulaire.input("col-md-6","Libellé",form.libelle,true) }}
+                            {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
+                            {{ formulaire.input("col-md-3","Nombre d'étoiles",form.nombreEtoiles,false) }}
                         </div>
                         {{ formulaire.submit("Modifier") }}
                     </form>

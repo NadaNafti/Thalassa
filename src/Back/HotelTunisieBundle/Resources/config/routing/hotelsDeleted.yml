@@ -1,0 +1,7 @@
+list_hotels_deleted:
+    path:     /
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:listeDeleted }
+
+reload_hotel:
+    path:     /reload/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:reload }

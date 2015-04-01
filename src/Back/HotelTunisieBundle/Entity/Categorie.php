@@ -29,6 +29,13 @@ class Categorie
      * @ORM\Column(name="libelle", type="string", length=100)
      */
     private $libelle;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nombre_etoiles", type="integer", nullable=true)
+     */
+    private $nombreEtoiles;
     
     /**
      * @Gedmo\slug(fields={"libelle"})
@@ -189,5 +196,28 @@ class Categorie
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * Set nombreEtoiles
+     *
+     * @param integer $nombreEtoiles
+     * @return Categorie
+     */
+    public function setNombreEtoiles($nombreEtoiles)
+    {
+        $this->nombreEtoiles = $nombreEtoiles;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreEtoiles
+     *
+     * @return integer 
+     */
+    public function getNombreEtoiles()
+    {
+        return $this->nombreEtoiles;
     }
 }

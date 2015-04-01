@@ -23,6 +23,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Libellé</th>
+                                <th>Nombre d'étoiles</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -31,6 +32,7 @@
                                 <tr>
                                     <td>{{ categorie.id }}</td>
                                     <td>{{ categorie.libelle }}</td>
+                                    <td>{{ categorie.nombreEtoiles }}</td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             {{ macros.tableEdit(path('modif_categorie',{'id':categorie.id})) }}

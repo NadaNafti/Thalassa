@@ -11,6 +11,7 @@ use Back\HotelTunisieBundle\Entity\Media;
 use Back\HotelTunisieBundle\Form\MediaType;
 use Back\HotelTunisieBundle\Entity\StopSales;
 use Back\HotelTunisieBundle\Form\StopSalesType;
+use Back\HotelTunisieBundle\Entity\HotelRepository;
 
 class HotelsController extends Controller
 {
@@ -49,6 +50,35 @@ class HotelsController extends Controller
         return $this->render('BackHotelTunisieBundle:Hotels:liste.html.twig', array(
                     'hotels'=>$hotels,
         ));
+    }
+
+    public function listeDeletedAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $request=$this->getRequest();
+        $filters = $em->getFilters();
+        $filters->disable('softdeleteable');
+        $hotels=$em->getRepository("BackHotelTunisieBundle:Hotel")->getDeletedList();
+        $paginator=$this->get('knp_paginator');
+        $hotels=$paginator->paginate($hotels, $request->query->get('page', 1), 10);
+        return $this->render('BackHotelTunisieBundle:Hotels:listeDeleted.html.twig', array(
+                    'hotels'=>$hotels,
+        ));
+    }
+    
+    public function reloadAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $request=$this->getRequest();
+        $session=$request->getSession();
+        $filters = $em->getFilters();
+        $filters->disable('softdeleteable');
+        $hotel=$em->getRepository("BackHotelTunisieBundle:Hotel")->find($id);
+        $hotel->setDeletedAt(null);
+        $em->persist($hotel);
+        $em->flush();
+        $session->getFlashBag()->add('success', " l'hotel ".$hotel->getLibelle()." a été relancé avec succées ");
+        return $this->redirect($this->generateUrl("list_hotels_deleted"));
     }
 
     public function modifAction(Hotel $hotel)
@@ -131,15 +161,20 @@ class HotelsController extends Controller
             if($form->isValid())
             {
                 $stopSale=$form->getData();
-                $em->persist($stopSale);
-                $em->flush();
-                $session->getFlashBag()->add('success', " Votre durée a été ajoutée avec succées ");
-                return $this->redirect($this->generateUrl("stopsales_hotel", array('id'=>$hotel->getId())));
+                if($stopSale->getDateDebut()>$stopSale->getDateFin())
+                    $session->getFlashBag()->add('danger', "Date fin doit ètre supérieur a la date debut");
+                else
+                {
+                    $em->persist($stopSale);
+                    $em->flush();
+                    $session->getFlashBag()->add('success', " Votre durée a été ajoutée avec succées ");
+                    return $this->redirect($this->generateUrl("stopsales_hotel", array('id'=>$hotel->getId())));
+                }
             }
         }
         return $this->render('BackHotelTunisieBundle:Hotels:stopsales.html.twig', array(
-                    'hotel' =>$hotel,
-                    'form'  =>$form->createView(),
+                    'hotel'=>$hotel,
+                    'form' =>$form->createView(),
         ));
     }
 
@@ -150,6 +185,7 @@ class HotelsController extends Controller
         $em->remove($stopSales);
         $em->flush();
         $session->getFlashBag()->add('success', " Votre stop sale a été supprimé avec succées ");
-        return $this->redirect($this->generateUrl("stopsales_hotel",array('id'=>$stopSales->getHotel()->getId())));
+        return $this->redirect($this->generateUrl("stopsales_hotel", array('id'=>$stopSales->getHotel()->getId())));
     }
+
 }

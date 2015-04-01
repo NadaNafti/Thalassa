@@ -12,4 +12,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class HotelRepository extends EntityRepository
 {
+    public function getDeletedList()
+    {
+        $query=$this->createQueryBuilder('a');
+        $query      ->where($query->expr()->isNotNull('a.deletedAt'));
+        return $query->getQuery()->getResult();
+    }
 }

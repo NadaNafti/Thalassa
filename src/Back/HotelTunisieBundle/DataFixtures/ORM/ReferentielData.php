@@ -105,15 +105,15 @@ class ReferentielData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($region3 ->setLibelle("Capbon"));
         
         $categorie= new Categorie();
-        $manager->persist($categorie  ->setLibelle("2 étoiles"));
+        $manager->persist($categorie  ->setLibelle("2 étoiles")->setNombreEtoiles(2));
         $categorie= new Categorie();
-        $manager->persist($categorie  ->setLibelle("3 étoiles"));
+        $manager->persist($categorie  ->setLibelle("3 étoiles")->setNombreEtoiles(3));
         $categorie= new Categorie();
-        $manager->persist($categorie  ->setLibelle("4 étoiles"));
+        $manager->persist($categorie  ->setLibelle("4 étoiles")->setNombreEtoiles(4));
         $categorie= new Categorie();
-        $manager->persist($categorie  ->setLibelle("5 étoiles"));
+        $manager->persist($categorie  ->setLibelle("5 étoiles")->setNombreEtoiles(5));
         $categorie= new Categorie();
-        $manager->persist($categorie  ->setLibelle("5 étoiles de lux"));
+        $manager->persist($categorie  ->setLibelle("5 étoiles de lux")->setNombreEtoiles(5));
         
         $ville= new Ville();
         $manager->persist($ville->setPays($pays1)->setRegion($region3)->setLibelle("Nabeul"));
