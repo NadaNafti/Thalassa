@@ -25,3 +25,7 @@ stopsales_hotel:
 supprimer_stopsales_hotel:
     path:     /stopsales/delete/{id}
     defaults: { _controller: BackHotelTunisieBundle:Hotels:suppStopSales }
+    
+fiche_technique:
+    path:     /modif/{id}/fiche_technique
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:ficheTechnique }

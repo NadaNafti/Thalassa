@@ -1,0 +1,77 @@
+{% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
+{% block title %}{{ hotel.libelle }}{% endblock %}
+{% block description %}Fiche Technique{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
+    </li>
+    <li>
+        <a href="javascript:void(0)" >Fiche Technique</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                <ul id="myTab" class="nav nav-tabs tab-bricky">
+                    <li>
+                        <a href="{{ path("modif_hotel",{'id':hotel.id}) }}">
+                            <i class="green fa fa-home"></i> {{ hotel.libelle }}
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="javascript:void(0)">
+                            Fiche téchnique {% if hotel.ficheTechnique is null %}<span class="badge badge-danger">vide</span>{% endif %}
+                        </a>
+                    </li>
+                </ul>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form action="{{ path('fiche_technique',{'id':hotel.id}) }}" method="post" role="form" id="form">
+                            {{ form_widget(form._token) }}
+                            <div class="row">
+                                {{ formulaire.input("col-md-2","Délai d'annulation",form.delaiAnnulation,true) }}
+                                {{ formulaire.input("col-md-2","Délai rectrocession",form.delaiRectrocession,true) }}
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                            1<sup>er</sup> Age Enfant
+                                        </label>
+                                        <div class="row">
+                                            <div class="col-md-5">{{ form_widget(form.min1AgeEnfant)  }}</div>
+                                            <div class="col-md-5">{{ form_widget(form.max1AgeEnfant)  }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                            2<sup>eme</sup> Age Enfant
+                                        </label>
+                                        <div class="row">
+                                            <div class="col-md-5">{{ form_widget(form.min2AgeEnfant)  }}</div>
+                                            <div class="col-md-5">{{ form_widget(form.max2AgeEnfant)  }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-4","Nbr adulte min pour avoir une chambre séparé pour les enfants",form.nbrAdulteAvoirChambreSeparer,true) }}
+                                {{ formulaire.input("col-md-4","Minimum nbr d'enfant dans une chambre séparé",form.minEnfantChambreSepare,true) }}
+                                {{ formulaire.input("col-md-4","Maximum nbr d'enfant dans une chambre séparé",form.maxEnfantChambreSepare,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-12","",form.suppSingle1Adulte1EnfantChDouble,false) }}
+                                {{ formulaire.input("col-md-12","",form.suppSingle1Adulte2EnfantChDouble,false) }}
+                                {{ formulaire.input("col-md-12","",form.tarifWeekend,false) }}
+                            </div>
+                            {{ formulaire.submit("Modifier") }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
