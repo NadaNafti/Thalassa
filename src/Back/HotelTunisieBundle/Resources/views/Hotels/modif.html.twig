@@ -1,10 +1,10 @@
 {% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
-{% block title %}{{ hotel.libelle }}{% endblock %}
+{% block title %}{{ hotel.libelle }} {% endblock %}
 {% block description %}Ajouter un hotel{% endblock %}
 {% block topbody %}   Modification
     {{ parent() }}
     <li>
-        <a href="javascript:void(0)" >{{ hotel.libelle }}</a>
+        <a href="javascript:void(0)" >{{ hotel.libelle }} </a>
     </li>
 {% endblock %}
 {% block body %}

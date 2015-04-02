@@ -881,4 +881,12 @@ class Hotel
     {
         return $this->stopSales;
     }
+    
+    public function getStars()
+    {
+        if($this->categorie != null)
+            return $this->categorie->getNombreEtoiles();
+        else
+            return 0;
+    }
 }

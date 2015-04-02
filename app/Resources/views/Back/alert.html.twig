@@ -1,26 +1,26 @@
-    {% for k,v in app.session.getFlashBag %}
-        <div class="alert alert-{{ k }}">
-            <button data-dismiss="alert" class="close">
-                &times;
-            </button>
-            <strong>
-                {% if k == "success" %}
-                    <i class="fa fa-check-circle"></i>
-                    <strong>Succés!</strong>
-                {% endif %}
-                {% if k == "info" %}
-                    <i class="fa fa-info-circle"></i>
-                    <strong>Information!</strong>
-                {% endif %}
-                {% if k == "warning" %}
-                    <i class="fa fa-exclamation-triangle"></i>
-                    <strong>Avertissement!</strong>
-                {% endif %}
-                {% if k == "danger" %}
-                    <i class="fa fa-times-circle"></i>
-                    <strong>Erreur!</strong>
-                {% endif %}
-            </strong>
-            {{ v.0 }}
-        </div>
-    {% endfor %}
+{% for k,v in app.session.getFlashBag %}
+    <div class="alert alert-{{ k }}">
+        <button data-dismiss="alert" class="close">
+            &times;
+        </button>
+        <strong>
+            {% if k == "success" %}
+                <i class="fa fa-check-circle"></i>
+                <strong>Succés!</strong>
+            {% endif %}
+            {% if k == "info" %}
+                <i class="fa fa-info-circle"></i>
+                <strong>Information!</strong>
+            {% endif %}
+            {% if k == "warning" %}
+                <i class="fa fa-exclamation-triangle"></i>
+                <strong>Avertissement!</strong>
+            {% endif %}
+            {% if k == "danger" %}
+                <i class="fa fa-times-circle"></i>
+                <strong>Erreur!</strong>
+            {% endif %}
+        </strong>
+        {{ v.0 }}
+    </div>
+{% endfor %}
