@@ -3,11 +3,13 @@
 namespace Back\HotelTunisieBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * FicheTechnique
  *
- * @ORM\Table()
+ * @ORM\Table(name="ost_sht_hotels_fichetechnique")
  * @ORM\Entity
  */
 class FicheTechnique
@@ -24,21 +26,8 @@ class FicheTechnique
     /**
      * @var integer
      *
-     * @ORM\Column(name="delaiAnnulation", type="integer")
-     */
-    private $delaiAnnulation;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="delaiRectrocession", type="integer")
-     */
-    private $delaiRectrocession;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="min1AgeEnfant", type="integer")
+     * @Assert\NotBlank()
      */
     private $min1AgeEnfant;
 
@@ -46,20 +35,21 @@ class FicheTechnique
      * @var integer
      *
      * @ORM\Column(name="max1AgeEnfant", type="integer")
+     * @Assert\NotBlank()
      */
     private $max1AgeEnfant;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="min2AgeEnfant", type="integer")
+     * @ORM\Column(name="min2AgeEnfant", type="integer",nullable=true)
      */
     private $min2AgeEnfant;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="max2AgeEnfant", type="integer")
+     * @ORM\Column(name="max2AgeEnfant", type="integer",nullable=true)
      */
     private $max2AgeEnfant;
 
@@ -87,23 +77,35 @@ class FicheTechnique
     /**
      * @var boolean
      *
-     * @ORM\Column(name="suppSingle1Adulte1EnfantChDouble", type="boolean")
+     * @ORM\Column(name="suppSingle1Adulte1EnfantChDouble", type="boolean",nullable=true)
      */
     private $suppSingle1Adulte1EnfantChDouble;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="suppSingle1Adulte2EnfantChDouble", type="boolean")
+     * @ORM\Column(name="suppSingle1Adulte2EnfantChDouble", type="boolean",nullable=true)
      */
     private $suppSingle1Adulte2EnfantChDouble;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="tarifWeekend", type="boolean")
+     * @ORM\Column(name="tarifWeekend", type="boolean",nullable=true)
      */
     private $tarifWeekend;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated;
 
 
     /**
@@ -114,52 +116,6 @@ class FicheTechnique
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set delaiAnnulation
-     *
-     * @param integer $delaiAnnulation
-     * @return FicheTechnique
-     */
-    public function setDelaiAnnulation($delaiAnnulation)
-    {
-        $this->delaiAnnulation = $delaiAnnulation;
-
-        return $this;
-    }
-
-    /**
-     * Get delaiAnnulation
-     *
-     * @return integer 
-     */
-    public function getDelaiAnnulation()
-    {
-        return $this->delaiAnnulation;
-    }
-
-    /**
-     * Set delaiRectrocession
-     *
-     * @param integer $delaiRectrocession
-     * @return FicheTechnique
-     */
-    public function setDelaiRectrocession($delaiRectrocession)
-    {
-        $this->delaiRectrocession = $delaiRectrocession;
-
-        return $this;
-    }
-
-    /**
-     * Get delaiRectrocession
-     *
-     * @return integer 
-     */
-    public function getDelaiRectrocession()
-    {
-        return $this->delaiRectrocession;
     }
 
     /**
@@ -390,5 +346,51 @@ class FicheTechnique
     public function getTarifWeekend()
     {
         return $this->tarifWeekend;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return FicheTechnique
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return FicheTechnique
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

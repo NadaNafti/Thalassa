@@ -12,7 +12,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
-class Arrangement {
+class Arrangement
+{
 
     /**
      * @var integer
@@ -29,13 +30,18 @@ class Arrangement {
      * @ORM\Column(name="libelle", type="string", length=100)
      */
     private $libelle;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="coode", type="string", length=5)
      */
     private $code;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Hotel", mappedBy="arrangements")
+     */
+    private $hotels;
 
     /**
      * @Gedmo\slug(fields={"libelle"})
@@ -65,7 +71,8 @@ class Arrangement {
      *
      * @return integer 
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -75,8 +82,9 @@ class Arrangement {
      * @param string $libelle
      * @return Arrangement
      */
-    public function setLibelle($libelle) {
-        $this->libelle = $libelle;
+    public function setLibelle($libelle)
+    {
+        $this->libelle=$libelle;
 
         return $this;
     }
@@ -86,7 +94,8 @@ class Arrangement {
      *
      * @return string 
      */
-    public function getLibelle() {
+    public function getLibelle()
+    {
         return $this->libelle;
     }
 
@@ -96,8 +105,9 @@ class Arrangement {
      * @param string $slug
      * @return Arrangement
      */
-    public function setSlug($slug) {
-        $this->slug = $slug;
+    public function setSlug($slug)
+    {
+        $this->slug=$slug;
 
         return $this;
     }
@@ -107,7 +117,8 @@ class Arrangement {
      *
      * @return string 
      */
-    public function getSlug() {
+    public function getSlug()
+    {
         return $this->slug;
     }
 
@@ -117,8 +128,9 @@ class Arrangement {
      * @param \DateTime $created
      * @return Arrangement
      */
-    public function setCreated($created) {
-        $this->created = $created;
+    public function setCreated($created)
+    {
+        $this->created=$created;
 
         return $this;
     }
@@ -128,7 +140,8 @@ class Arrangement {
      *
      * @return \DateTime 
      */
-    public function getCreated() {
+    public function getCreated()
+    {
         return $this->created;
     }
 
@@ -138,8 +151,9 @@ class Arrangement {
      * @param \DateTime $updated
      * @return Arrangement
      */
-    public function setUpdated($updated) {
-        $this->updated = $updated;
+    public function setUpdated($updated)
+    {
+        $this->updated=$updated;
 
         return $this;
     }
@@ -149,7 +163,8 @@ class Arrangement {
      *
      * @return \DateTime 
      */
-    public function getUpdated() {
+    public function getUpdated()
+    {
         return $this->updated;
     }
 
@@ -159,8 +174,9 @@ class Arrangement {
      * @param \DateTime $deletedAt
      * @return Arrangement
      */
-    public function setDeletedAt($deletedAt) {
-        $this->deletedAt = $deletedAt;
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt=$deletedAt;
 
         return $this;
     }
@@ -170,10 +186,10 @@ class Arrangement {
      *
      * @return \DateTime 
      */
-    public function getDeletedAt() {
+    public function getDeletedAt()
+    {
         return $this->deletedAt;
     }
-
 
     /**
      * Set code
@@ -183,7 +199,7 @@ class Arrangement {
      */
     public function setCode($code)
     {
-        $this->code = $code;
+        $this->code=$code;
 
         return $this;
     }
@@ -197,9 +213,10 @@ class Arrangement {
     {
         return $this->code;
     }
-    
+
     public function __toString()
     {
         return $this->libelle;
     }
+
 }

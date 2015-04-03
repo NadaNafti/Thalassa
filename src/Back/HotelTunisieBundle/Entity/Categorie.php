@@ -38,6 +38,11 @@ class Categorie
     private $nombreEtoiles;
     
     /**
+     * @ORM\OneToMany(targetEntity="Hotel", mappedBy="categorie")
+     */
+    protected $hotels;
+    
+    /**
      * @Gedmo\slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
@@ -219,5 +224,45 @@ class Categorie
     public function getNombreEtoiles()
     {
         return $this->nombreEtoiles;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->hotels = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add hotels
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
+     * @return Categorie
+     */
+    public function addHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
+    {
+        $this->hotels[] = $hotels;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotels
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
+     */
+    public function removeHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
+    {
+        $this->hotels->removeElement($hotels);
+    }
+
+    /**
+     * Get hotels
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHotels()
+    {
+        return $this->hotels;
     }
 }

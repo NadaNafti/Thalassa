@@ -45,6 +45,9 @@
                                         {% if hotel.ficheTechnique is null %}
                                             <span class="badge badge-danger">FC vide</span>
                                         {% endif %}
+                                        {% if hotel.saisonBase is null %}
+                                            <span class="badge badge-danger">SB vide</span>
+                                        {% endif %}
                                     </td>
                                     <td class="TableAction">
                                         {{ macros.tableEdit(path('modif_hotel',{'id':hotel.id})) }}

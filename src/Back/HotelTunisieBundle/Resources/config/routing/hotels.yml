@@ -29,3 +29,7 @@ supprimer_stopsales_hotel:
 fiche_technique:
     path:     /modif/{id}/fiche_technique
     defaults: { _controller: BackHotelTunisieBundle:Hotels:ficheTechnique }
+    
+saison_base:
+    path:     /modif/{id}/saison_base
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:saisonBase }

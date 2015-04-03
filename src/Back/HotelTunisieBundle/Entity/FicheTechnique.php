@@ -95,6 +95,18 @@ class FicheTechnique
      */
     private $tarifWeekend;
 
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated;
+
 
     /**
      * Get id
@@ -334,5 +346,51 @@ class FicheTechnique
     public function getTarifWeekend()
     {
         return $this->tarifWeekend;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return FicheTechnique
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return FicheTechnique
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

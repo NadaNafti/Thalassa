@@ -23,6 +23,7 @@
                                 <th>Fournisseur</th>
                                 <th>Photos</th>
                                 <th>Stop sales</th>
+                                <th class="center">Rq</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -37,6 +38,14 @@
                                     <td>{{ hotel.fournisseur }}</td>
                                     <td>{{ hotel.images|length }}</td>
                                     <td>{{ hotel.stopSales|length }}</td>
+                                    <td>
+                                        {% if hotel.ficheTechnique is null %}
+                                            <span class="badge badge-danger">FC vide</span>
+                                        {% endif %}
+                                        {% if hotel.saisonBase is null %}
+                                            <span class="badge badge-danger">SB vide</span>
+                                        {% endif %}
+                                    </td>
                                     <td class="TableAction">
                                         {{ macros.tableReload(path('reload_hotel',{'id':hotel.id})) }}
                                     </td>

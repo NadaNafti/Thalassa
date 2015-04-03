@@ -92,7 +92,7 @@ class Hotel
     protected $ville;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Categorie", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="hotels", fetch="EAGER")
      * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id")
      * @ORM\OrderBy({"libelle" = "ASC"})
      * @Assert\NotBlank()
@@ -145,7 +145,7 @@ class Hotel
     protected $themes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Arrangement")
+     * @ORM\ManyToMany(targetEntity="Arrangement", inversedBy="hotels")
      * @ORM\JoinTable(name="ost_sht_hotels_arrangements",
      *      joinColumns={@ORM\JoinColumn(name="id_hotel", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_arrangement", referencedColumnName="id")}
@@ -186,6 +186,11 @@ class Hotel
      * @ORM\OneToOne(targetEntity="FicheTechnique", cascade={"persist"})
      */
     private $ficheTechnique;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Saison", cascade={"persist"})
+     */
+    private $saisonBase;
 
     /**
      * @Gedmo\slug(fields={"libelle"})
@@ -918,5 +923,28 @@ class Hotel
             return $this->categorie->getNombreEtoiles();
         else
             return 0;
+    }
+
+    /**
+     * Set saisonBase
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Saison $saisonBase
+     * @return Hotel
+     */
+    public function setSaisonBase(\Back\HotelTunisieBundle\Entity\Saison $saisonBase = null)
+    {
+        $this->saisonBase = $saisonBase;
+
+        return $this;
+    }
+
+    /**
+     * Get saisonBase
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Saison 
+     */
+    public function getSaisonBase()
+    {
+        return $this->saisonBase;
     }
 }
