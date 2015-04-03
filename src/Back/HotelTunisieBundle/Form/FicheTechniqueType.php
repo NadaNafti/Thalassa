@@ -16,8 +16,6 @@ class FicheTechniqueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('delaiAnnulation')
-                ->add('delaiRectrocession')
                 ->add('min1AgeEnfant')
                 ->add('max1AgeEnfant')
                 ->add('min2AgeEnfant')

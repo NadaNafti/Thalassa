@@ -26,22 +26,6 @@ class FicheTechnique
     /**
      * @var integer
      *
-     * @ORM\Column(name="delaiAnnulation", type="integer",nullable=true)
-     * @Assert\NotBlank()
-     */
-    private $delaiAnnulation;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="delaiRectrocession", type="integer",nullable=true)
-     * @Assert\NotBlank()
-     */
-    private $delaiRectrocession;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="min1AgeEnfant", type="integer")
      * @Assert\NotBlank()
      */
@@ -120,52 +104,6 @@ class FicheTechnique
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set delaiAnnulation
-     *
-     * @param integer $delaiAnnulation
-     * @return FicheTechnique
-     */
-    public function setDelaiAnnulation($delaiAnnulation)
-    {
-        $this->delaiAnnulation = $delaiAnnulation;
-
-        return $this;
-    }
-
-    /**
-     * Get delaiAnnulation
-     *
-     * @return integer 
-     */
-    public function getDelaiAnnulation()
-    {
-        return $this->delaiAnnulation;
-    }
-
-    /**
-     * Set delaiRectrocession
-     *
-     * @param integer $delaiRectrocession
-     * @return FicheTechnique
-     */
-    public function setDelaiRectrocession($delaiRectrocession)
-    {
-        $this->delaiRectrocession = $delaiRectrocession;
-
-        return $this;
-    }
-
-    /**
-     * Get delaiRectrocession
-     *
-     * @return integer 
-     */
-    public function getDelaiRectrocession()
-    {
-        return $this->delaiRectrocession;
     }
 
     /**

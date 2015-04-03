@@ -206,7 +206,7 @@ class HotelsController extends Controller
             if ( $form->isValid() )
             {
                 $ficheTechnique = $form->getData();
-                if ( $ficheTechnique->getMin2AgeEnfant() > $ficheTechnique->getMax1AgeEnfant() )
+                if ($ficheTechnique->getMax1AgeEnfant() >$ficheTechnique->getMin1AgeEnfant() &&  $ficheTechnique->getMin1AgeEnfant()>=0 &&  (($ficheTechnique->getMin2AgeEnfant() == $ficheTechnique->getMax1AgeEnfant() + 1  && $ficheTechnique->getMax2AgeEnfant() >$ficheTechnique->getMin2AgeEnfant())  || ($ficheTechnique->getMin2AgeEnfant()==0 && $ficheTechnique->getMax2AgeEnfant()==0) ) )
                 {
                     $hotel->setFicheTechnique($ficheTechnique);
                     $em->persist($ficheTechnique);

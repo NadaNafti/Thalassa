@@ -31,8 +31,6 @@
                         <form action="{{ path('fiche_technique',{'id':hotel.id}) }}" method="post" role="form" id="form">
                             {{ form_widget(form._token) }}
                             <div class="row">
-                                {{ formulaire.input("col-md-2","Délai d'annulation",form.delaiAnnulation,true) }}
-                                {{ formulaire.input("col-md-2","Délai rectrocession",form.delaiRectrocession,true) }}
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label class="control-label">
