@@ -250,7 +250,7 @@ class HotelsController extends Controller
                         ->setParameter('id', $hotel->getId());
         ;
     }
-        ));
+        ))->remove("chambres");
         if ( $request->isMethod("POST") )
         {
             $form->bind($request);
@@ -288,6 +288,16 @@ class HotelsController extends Controller
             }
         }
         $form = $this->createForm(new SaisonType(), $saisionBase);
+        $form->remove("type")
+                ->remove("delaiAnnulation")
+                ->remove("delaiRetrocession")
+                ->remove("nombrePlace")
+                ->remove("aCompte")
+                ->remove("minStay")
+                ->remove("totalContingent")
+                ->remove("prixConvention")
+                ->remove("margeVente")
+                ->remove("pourcentage");
         if ( $request->isMethod("POST") )
         {
             $form->handleRequest($request);
