@@ -108,6 +108,11 @@ class Saison
      * @ORM\Column(name="pourcentage", type="boolean", nullable=true)
      */
     private $pourcentage;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="SaisonChambre", mappedBy="saison")
+     */
+    protected $chambres;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -466,5 +471,45 @@ class Saison
             return "Saison";
         if($this->type==2)
             return "Promotion";
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add chambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonChambre $chambres
+     * @return Saison
+     */
+    public function addChambre(\Back\HotelTunisieBundle\Entity\SaisonChambre $chambres)
+    {
+        $this->chambres[] = $chambres;
+
+        return $this;
+    }
+
+    /**
+     * Remove chambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonChambre $chambres
+     */
+    public function removeChambre(\Back\HotelTunisieBundle\Entity\SaisonChambre $chambres)
+    {
+        $this->chambres->removeElement($chambres);
+    }
+
+    /**
+     * Get chambres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChambres()
+    {
+        return $this->chambres;
     }
 }

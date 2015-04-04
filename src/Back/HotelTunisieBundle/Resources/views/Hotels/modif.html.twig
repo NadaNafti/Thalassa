@@ -11,23 +11,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="tabbable">
-                <ul id="myTab" class="nav nav-tabs tab-bricky">
-                    <li class="active">
-                        <a href="javascript:void(0)">
-                            <i class="green fa fa-home"></i> {{ hotel.libelle }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ path("fiche_technique",{'id':hotel.id}) }}">
-                            Fiche téchnique {% if hotel.ficheTechnique is null %}<span class="badge badge-danger">vide</span>{% endif %}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ path("saison_base",{'id':hotel.id}) }}">
-                            Saison de base {% if hotel.saisonBase is null %}<span class="badge badge-danger">vide</span>{% endif %}
-                        </a>
-                    </li>
-                </ul>
+                {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <form action="{{ path('modif_hotel',{'id':hotel.id}) }}" method="post" role="form" id="form">

@@ -33,3 +33,7 @@ fiche_technique:
 saison_base:
     path:     /modif/{id}/saison_base
     defaults: { _controller: BackHotelTunisieBundle:Hotels:saisonBase }
+    
+saison_chambres:
+    path:     /modif/{id}/saison_chambres
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:saisonChambres }

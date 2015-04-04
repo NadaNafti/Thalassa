@@ -1,0 +1,17 @@
+<ul id="myTab" class="nav nav-tabs tab-bricky">
+    <li {% if app.request.get('_route')=='modif_hotel' %}class="active"{% endif %}>
+        <a href="{{ path("modif_hotel",{'id':hotel.id}) }}">
+            <i class="green fa fa-home"></i> {{ hotel.libelle }}
+        </a>
+    </li>
+    <li {% if app.request.get('_route')=='fiche_technique' %}class="active"{% endif %}>
+        <a href="{{ path("fiche_technique",{'id':hotel.id}) }}">
+            Fiche téchnique {% if hotel.ficheTechnique is null %}<span class="badge badge-danger">vide</span>{% endif %}
+        </a>
+    </li>
+    <li {% if app.request.get('_route') in ['saison_base','saison_chambres'] %}class="active"{% endif %}>
+        <a href="{{ path("saison_base",{'id':hotel.id}) }}">
+            Saison de base {% if hotel.saisonBase is null %}<span class="badge badge-danger">vide</span>{% endif %}
+        </a>
+    </li>
+</ul>

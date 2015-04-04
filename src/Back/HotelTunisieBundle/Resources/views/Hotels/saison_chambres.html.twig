@@ -1,0 +1,52 @@
+{% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
+{% block title %}{{ hotel.libelle }}{% endblock %}
+{% block description %}Saison de base{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
+    </li>
+    <li>
+        <a href="javascript:void(0)" >Saison de base</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="tabbable">
+                        {% include 'BackHotelTunisieBundle:Hotels:menu_saison.html.twig' %}
+                        <div class="panel-body tab-content">
+                            <form action="{{ path('saison_chambres',{'id':hotel.id}) }}" method="post" role="form" id="formDisable">
+                                {{ form_widget(form._token) }}
+
+                                <div class="row">
+                                    <div class="col-md-2">Chambre</div>
+                                    <div class="col-md-2">min adulte</div>
+                                    <div class="col-md-2">max adulte</div>
+                                    <div class="col-md-2">min enfant</div>
+                                    <div class="col-md-2">max enfant</div>
+                                    <div class="col-md-1">contingent</div>
+                                </div>
+                                {% for formC in form.chambres %}
+                                    <div class="row">
+                                        {{ formulaire.read_only("col-md-2","",formC.chambre,false) }}
+                                        {{ formulaire.input("col-md-2","",formC.minAdulte,false) }}
+                                        {{ formulaire.input("col-md-2","",formC.maxAdulte,false) }}
+                                        {{ formulaire.input("col-md-2","",formC.minEnfant,false) }}
+                                        {{ formulaire.input("col-md-2","",formC.maxEnfant,false) }}
+                                        {{ formulaire.input("col-md-1","",formC.contingent,false) }}
+                                    </div>
+                                {% endfor %}
+                                {{ formulaire.submit("Modifier") }}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% if hotel.saisonBase is not null %}
+    <ul id="myTab4" class="nav nav-tabs tab-padding tab-space-3 tab-blue">
+        <li {% if app.request.get('_route')=='saison_base' %}class="active"{% endif %}>
+            <a href="{{ path("saison_base",{'id':hotel.id}) }}">
+                Information générale
+            </a>
+        </li>
+        <li {% if app.request.get('_route')=='saison_chambres' %}class="active"{% endif %}>
+            <a href="{{ path("saison_chambres",{'id':hotel.id}) }}">
+                Occupation des chambres
+            </a>
+        </li>
+        <li>
+            <a href="#panel_tab3_example3">
+                Arrangements
+            </a>
+        </li>
+        <li>
+            <a href="#panel_tab3_example3">
+                Réductions
+            </a>
+        </li>
+        <li>
+            <a href="#panel_tab3_example3">
+                Suppléments
+            </a>
+        </li>
+        <li>
+            <a href="#panel_tab3_example3">
+                Supp. chambres
+            </a>
+        </li>
+        <li>
+            <a href="#panel_tab3_example3">
+                Supp. vues
+            </a>
+        </li>
+        <li>
+            <a href="#panel_tab3_example3">
+                Autres suppl/réduc
+            </a>
+        </li>
+        <li>
+            <a href="#panel_tab3_example3">
+                Week-end
+            </a>
+        </li>
+    </ul>
+{% endif %}

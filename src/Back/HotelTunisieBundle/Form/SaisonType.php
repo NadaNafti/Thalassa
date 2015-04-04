@@ -5,7 +5,7 @@ namespace Back\HotelTunisieBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
+use Back\HotelTunisieBundle\Form\SaisonChambreType;
 class SaisonType extends AbstractType
 {
 
@@ -24,7 +24,6 @@ class SaisonType extends AbstractType
                 ->add('aCompte')
                 ->add('minStay')
                 ->add('totalContingent')
-//                ->add('ArrBase')
                 ->add('prixConvention','integer')
                 ->add('margeVente','integer')
                 ->add('pourcentage', 'checkbox', array(
@@ -32,6 +31,7 @@ class SaisonType extends AbstractType
                     'required'=>false
                 ))
         ;
+         $builder->add('chambres', 'collection', array('type' => new SaisonChambreType()));
     }
 
     /**
