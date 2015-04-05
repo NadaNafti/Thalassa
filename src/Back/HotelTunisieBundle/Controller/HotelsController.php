@@ -277,7 +277,7 @@ class HotelsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $request = $this->getRequest();
-        $saisionBase = $hotel->getSaisonBase();
+        $saisonBase = $hotel->getSaisonBase();
         foreach ( $hotel->getChambres() as $ch )
         {
             $verif = $em->getRepository("BackHotelTunisieBundle:SaisonChambre")->findBy(array('saison' => $hotel->getSaisonBase(), 'chambre' => $ch));
@@ -285,19 +285,19 @@ class HotelsController extends Controller
             {
                 $saisonChambres = new SaisonChambre();
                 $saisonChambres->setChambre($ch);
-                $saisionBase->addChambre($saisonChambres);
+                $saisonBase->addChambre($saisonChambres);
             }
         }
-        $form = $this->createForm(new SaisonCType(), $saisionBase);
+        $form = $this->createForm(new SaisonCType(), $saisonBase);
         if ( $request->isMethod("POST") )
         {
             $form->handleRequest($request);
             if ( $form->isValid() )
             {
-                $saisionBase = $form->getData();
-                foreach ( $saisionBase->getChambres() as $chambres )
+                $saisonBase = $form->getData();
+                foreach ( $saisonBase->getChambres() as $chambres )
                 {
-                    $em->persist($chambres->setSaison($saisionBase)->setEtat(1));
+                    $em->persist($chambres->setSaison($saisonBase)->setEtat(1));
                 }
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");

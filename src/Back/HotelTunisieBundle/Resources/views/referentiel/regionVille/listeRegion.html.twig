@@ -32,7 +32,7 @@
                                 <tr>
                                     <td>{{ region.id }}</td>
                                     <td>{{ region.libelle }}</td>
-                                    <td>{% for ville in region.villes %}- {{ ville.libelle }}</br> {% endfor %}</td>
+                                    <td>{% for ville in region.villes %}{{ ville.libelle }},{% endfor %}</td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             {{ macros.tableEdit(path('modif_regions',{'id':region.id})) }}

@@ -32,6 +32,13 @@ class Arrangement
     private $libelle;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="ordre", type="integer")
+     */
+    private $ordre;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="coode", type="string", length=5)

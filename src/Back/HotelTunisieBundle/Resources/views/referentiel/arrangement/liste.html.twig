@@ -22,6 +22,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Ordre</th>
                                 <th>Code</th>
                                 <th>Libellé</th>
                                 <th class="center" >Action</th>
@@ -31,6 +32,7 @@
                             {% for arrangement in arrangements %}
                                 <tr>
                                     <td>{{ arrangement.id }}</td>
+                                    <td>{{ arrangement.ordre }}</td>
                                     <td>{{ arrangement.code }}</td>
                                     <td>{{ arrangement.libelle }}</td>
                                     <td class="TableAction">

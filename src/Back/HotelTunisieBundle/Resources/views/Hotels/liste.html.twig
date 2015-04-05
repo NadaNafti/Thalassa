@@ -43,10 +43,10 @@
                                     <td>{{ hotel.stopSales|length }}</td>
                                     <td>
                                         {% if hotel.ficheTechnique is null %}
-                                            <span class="badge badge-danger">FC vide</span>
+                                            <span class="badge badge-danger" title="Fiche technique vide">FT vide</span>
                                         {% endif %}
                                         {% if hotel.saisonBase is null %}
-                                            <span class="badge badge-danger">SB vide</span>
+                                            <span class="badge badge-danger" title="Saison se base vide">SB vide</span>
                                         {% endif %}
                                     </td>
                                     <td class="TableAction">

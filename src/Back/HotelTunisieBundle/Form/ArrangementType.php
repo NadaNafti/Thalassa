@@ -16,6 +16,7 @@ class ArrangementType extends AbstractType
     {
         $builder
             ->add('libelle')
+            ->add('ordre')
             ->add('code')
         ;
     }

@@ -32,6 +32,13 @@ class Arrangement
     private $libelle;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="ordre", type="integer")
+     */
+    private $ordre;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="coode", type="string", length=5)
@@ -258,5 +265,28 @@ class Arrangement
     public function getHotels()
     {
         return $this->hotels;
+    }
+
+    /**
+     * Set ordre
+     *
+     * @param integer $ordre
+     * @return Arrangement
+     */
+    public function setOrdre($ordre)
+    {
+        $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    /**
+     * Get ordre
+     *
+     * @return integer 
+     */
+    public function getOrdre()
+    {
+        return $this->ordre;
     }
 }
