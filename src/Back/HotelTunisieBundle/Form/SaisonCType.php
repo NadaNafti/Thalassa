@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Back\HotelTunisieBundle\Form\SaisonChambreType;
-class SaisonType extends AbstractType
+class SaisonCType extends AbstractType
 {
 
     /**
@@ -15,22 +15,7 @@ class SaisonType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-                ->add('libelle')
-                ->add('type')
-                ->add('delaiAnnulation')
-                ->add('delaiRetrocession')
-                ->add('nombrePlace')
-                ->add('aCompte')
-                ->add('minStay')
-                ->add('totalContingent')
-                ->add('prixConvention','integer')
-                ->add('margeVente','integer')
-                ->add('pourcentage', 'checkbox', array(
-                    'label'   =>' Par pourcentage',
-                    'required'=>false
-                ))
-        ;
+         $builder->add('chambres', 'collection', array('type' => new SaisonChambreType()));
     }
 
     /**
@@ -48,7 +33,7 @@ class SaisonType extends AbstractType
      */
     public function getName()
     {
-        return 'back_hoteltunisiebundle_saison';
+        return 'back_hoteltunisiebundle_saisonc';
     }
 
 }

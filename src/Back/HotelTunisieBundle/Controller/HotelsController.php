@@ -17,6 +17,7 @@ use Back\HotelTunisieBundle\Entity\FicheTechnique;
 use Back\HotelTunisieBundle\Form\FicheTechniqueType;
 use Back\HotelTunisieBundle\Entity\Saison;
 use Back\HotelTunisieBundle\Form\SaisonType;
+use Back\HotelTunisieBundle\Form\SaisonCType;
 use Back\HotelTunisieBundle\Entity\SaisonChambre;
 use Back\HotelTunisieBundle\Form\SaisonChambreType;
 
@@ -250,7 +251,7 @@ class HotelsController extends Controller
                         ->setParameter('id', $hotel->getId());
         ;
     }
-        ))->remove("chambres");
+        ));
         if ( $request->isMethod("POST") )
         {
             $form->bind($request);
@@ -287,17 +288,7 @@ class HotelsController extends Controller
                 $saisionBase->addChambre($saisonChambres);
             }
         }
-        $form = $this->createForm(new SaisonType(), $saisionBase);
-        $form->remove("type")
-                ->remove("delaiAnnulation")
-                ->remove("delaiRetrocession")
-                ->remove("nombrePlace")
-                ->remove("aCompte")
-                ->remove("minStay")
-                ->remove("totalContingent")
-                ->remove("prixConvention")
-                ->remove("margeVente")
-                ->remove("pourcentage");
+        $form = $this->createForm(new SaisonCType(), $saisionBase);
         if ( $request->isMethod("POST") )
         {
             $form->handleRequest($request);
