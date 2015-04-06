@@ -45,3 +45,7 @@ saison_chambres:
 saison_reduction:
     path:     /modif/{id}/saison_reduction
     defaults: { _controller: BackHotelTunisieBundle:Hotels:saisonReduc }
+    
+saison_arrangements:
+    path:     /modif/{id}/saison_arrangements
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:saisonArrangements }

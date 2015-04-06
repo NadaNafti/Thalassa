@@ -1,0 +1,196 @@
+<?php
+
+namespace Back\HotelTunisieBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SaisonArrangement
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class SaisonArrangement
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Arrangement",fetch="EAGER")
+     * @ORM\JoinColumn(name="arrangement_id", referencedColumnName="id")
+     */
+    protected $arrangement;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="etat", type="boolean")
+     */
+    private $etat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valeur", type="decimal")
+     */
+    private $valeur;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="valeurPour", type="boolean")
+     */
+    private $valeurPour;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="marge", type="decimal")
+     */
+    private $marge;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="margePour", type="boolean")
+     */
+    private $margePour;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Saison", inversedBy="arrangements", fetch="EAGER")
+     * @ORM\JoinColumn(name="saison_id", referencedColumnName="id")
+     */
+    protected $saison;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param boolean $etat
+     * @return SaisonArrangement
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return boolean 
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * Set valeur
+     *
+     * @param string $valeur
+     * @return SaisonArrangement
+     */
+    public function setValeur($valeur)
+    {
+        $this->valeur = $valeur;
+
+        return $this;
+    }
+
+    /**
+     * Get valeur
+     *
+     * @return string 
+     */
+    public function getValeur()
+    {
+        return $this->valeur;
+    }
+
+    /**
+     * Set valeurPour
+     *
+     * @param boolean $valeurPour
+     * @return SaisonArrangement
+     */
+    public function setValeurPour($valeurPour)
+    {
+        $this->valeurPour = $valeurPour;
+
+        return $this;
+    }
+
+    /**
+     * Get valeurPour
+     *
+     * @return boolean 
+     */
+    public function getValeurPour()
+    {
+        return $this->valeurPour;
+    }
+
+    /**
+     * Set marge
+     *
+     * @param string $marge
+     * @return SaisonArrangement
+     */
+    public function setMarge($marge)
+    {
+        $this->marge = $marge;
+
+        return $this;
+    }
+
+    /**
+     * Get marge
+     *
+     * @return string 
+     */
+    public function getMarge()
+    {
+        return $this->marge;
+    }
+
+    /**
+     * Set margePour
+     *
+     * @param boolean $margePour
+     * @return SaisonArrangement
+     */
+    public function setMargePour($margePour)
+    {
+        $this->margePour = $margePour;
+
+        return $this;
+    }
+
+    /**
+     * Get margePour
+     *
+     * @return boolean 
+     */
+    public function getMargePour()
+    {
+        return $this->margePour;
+    }
+}

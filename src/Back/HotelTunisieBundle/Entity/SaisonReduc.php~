@@ -96,9 +96,9 @@ class SaisonReduc
     /**
      * @var string
      *
-     * @ORM\Column(name="val2Enfant1Adult2", type="decimal", precision=11, scale=3)
+     * @ORM\Column(name="val2Enfant1Adulte2", type="decimal", precision=11, scale=3)
      */
-    private $val2Enfant1Adult2;
+    private $val2Enfant1Adulte2;
 
     /**
      * @var boolean
@@ -431,26 +431,26 @@ class SaisonReduc
     }
 
     /**
-     * Set val2Enfant1Adult2
+     * Set val2Enfant1Adulte2
      *
-     * @param string $val2Enfant1Adult2
+     * @param string $val2Enfant1Adulte2
      * @return SaisonReduc
      */
-    public function setVal2Enfant1Adult2($val2Enfant1Adult2)
+    public function setVal2Enfant1Adulte2($val2Enfant1Adulte2)
     {
-        $this->val2Enfant1Adult2 = $val2Enfant1Adult2;
+        $this->val2Enfant1Adulte2 = $val2Enfant1Adulte2;
 
         return $this;
     }
 
     /**
-     * Get val2Enfant1Adult2
+     * Get val2Enfant1Adulte2
      *
      * @return string 
      */
-    public function getVal2Enfant1Adult2()
+    public function getVal2Enfant1Adulte2()
     {
-        return $this->val2Enfant1Adult2;
+        return $this->val2Enfant1Adulte2;
     }
 
     /**

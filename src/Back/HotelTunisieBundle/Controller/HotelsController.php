@@ -22,6 +22,9 @@ use Back\HotelTunisieBundle\Entity\SaisonChambre;
 use Back\HotelTunisieBundle\Form\SaisonChambreType;
 use Back\HotelTunisieBundle\Entity\SaisonReduc;
 use Back\HotelTunisieBundle\Form\SaisonReducType;
+use Back\HotelTunisieBundle\Entity\SaisonArrangement;
+use Back\HotelTunisieBundle\Form\SaisonAType;
+
 class HotelsController extends Controller
 {
 
@@ -332,8 +335,8 @@ class HotelsController extends Controller
         if($hotel->getSaisonBase()->getSaisonReduc())
             $saisonReduc=$hotel->getSaisonBase()->getSaisonReduc();
         else
-            $saisonReduc= new SaisonReduc();
-        $form =$this->createForm(new SaisonReducType(), $saisonReduc);
+            $saisonReduc=new SaisonReduc();
+        $form=$this->createForm(new SaisonReducType(), $saisonReduc);
         $request=$this->getRequest();
         if($request->isMethod("POST"))
         {
@@ -353,4 +356,43 @@ class HotelsController extends Controller
                     'form' =>$form->createView()
         ));
     }
+
+    public function saisonArrangementsAction(Hotel $hotel)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $request=$this->getRequest();
+        $saisonBase=$hotel->getSaisonBase();
+        foreach($hotel->getArrangements() as $arr)
+        {
+            $verif=$em->getRepository("BackHotelTunisieBundle:SaisonArrangement")->findBy(array('saison'=>$hotel->getSaisonBase(), 'arrangement'=>$arr));
+            if(count($verif)==0&&$arr!=$hotel->getSaisonBase()->getArrBase())
+            {
+                $saisonArrangement=new SaisonArrangement();
+                $saisonArrangement->setArrangement($arr);
+                $saisonBase->addArrangement($saisonArrangement);
+            }
+        }
+        $form=$this->createForm(new SaisonAType(), $saisonBase);
+        if($request->isMethod("POST"))
+        {
+            $form->handleRequest($request);
+            if($form->isValid())
+            {
+                $saisonBase=$form->getData();
+                foreach($saisonBase->getArrangements() as $Arrangement)
+                {
+                    $em->persist($Arrangement->setSaison($saisonBase)->setEtat(1));
+                }
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");
+                return $this->redirect($this->generateUrl("saison_arrangements", array('id'=>$hotel->getId())));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:Hotels:saison_arrangement.html.twig', array(
+                    'hotel'=>$hotel,
+                    'form' =>$form->createView()
+        ));
+    }
+
 }

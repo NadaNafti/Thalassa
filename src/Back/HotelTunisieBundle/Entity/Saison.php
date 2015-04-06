@@ -115,6 +115,11 @@ class Saison
     protected $chambres;
     
     /**
+     * @ORM\OneToMany(targetEntity="SaisonArrangement", mappedBy="saison")
+     */
+    protected $arrangements;
+    
+    /**
      * @ORM\OneToOne(targetEntity="SaisonReduc", cascade={"persist"})
      */
     private $saisonReduc;
@@ -539,5 +544,38 @@ class Saison
     public function getSaisonReduc()
     {
         return $this->saisonReduc;
+    }
+
+    /**
+     * Add arrangements
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonArrangement $arrangements
+     * @return Saison
+     */
+    public function addArrangement(\Back\HotelTunisieBundle\Entity\SaisonArrangement $arrangements)
+    {
+        $this->arrangements[] = $arrangements;
+
+        return $this;
+    }
+
+    /**
+     * Remove arrangements
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonArrangement $arrangements
+     */
+    public function removeArrangement(\Back\HotelTunisieBundle\Entity\SaisonArrangement $arrangements)
+    {
+        $this->arrangements->removeElement($arrangements);
+    }
+
+    /**
+     * Get arrangements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArrangements()
+    {
+        return $this->arrangements;
     }
 }

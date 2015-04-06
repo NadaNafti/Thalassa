@@ -9,7 +9,7 @@
             Fiche téchnique {% if hotel.ficheTechnique is null %}<span class="badge badge-danger">vide</span>{% endif %}
         </a>
     </li>
-    <li {% if app.request.get('_route') in ['saison_base','saison_chambres','saison_reduction'] %}class="active"{% endif %}>
+    <li {% if app.request.get('_route') in ['saison_base','saison_chambres','saison_reduction','saison_arrangements'] %}class="active"{% endif %}>
         <a href="{{ path("saison_base",{'id':hotel.id}) }}">
             Saison de base {% if hotel.saisonBase is null %}<span class="badge badge-danger">vide</span>{% endif %}
         </a>
