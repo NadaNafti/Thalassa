@@ -23,7 +23,7 @@
                                 {{ form_widget(form._token) }}
 
                                 <div class="row">
-                                    <div class="col-md-2">Chambre</div>
+                                    <div class="col-md-2"></div>
                                     <div class="col-md-2">min adulte</div>
                                     <div class="col-md-2">max adulte</div>
                                     <div class="col-md-2">min enfant</div>
@@ -32,7 +32,10 @@
                                 </div>
                                 {% for formC in form.chambres %}
                                     <div class="row">
-                                        {{ formulaire.read_only("col-md-2","",formC.chambre,false) }}
+                                        <div class="col-md-2" style="height: 68px;">
+                                            <label style="margin-top: 20px;">{{ formC.chambre.vars.data.libelle }}</label>
+                                            {{ form_widget(formC.chambre, {'attr': {'style': 'display:none'}}) }}
+                                        </div>
                                         {{ formulaire.input("col-md-2","",formC.minAdulte,false) }}
                                         {{ formulaire.input("col-md-2","",formC.maxAdulte,false) }}
                                         {{ formulaire.input("col-md-2","",formC.minEnfant,false) }}

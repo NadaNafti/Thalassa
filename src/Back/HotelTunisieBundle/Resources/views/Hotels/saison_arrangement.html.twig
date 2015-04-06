@@ -23,14 +23,21 @@
                                 {{ form_widget(form._token) }}
 
                                 <div class="row">
-                                    <div class="col-md-2">Arrangement</div>
+                                    <div class="col-md-2"></div>
                                     <div class="col-md-4">Valeur</div>
                                     <div class="col-md-4">Marge de vente</div>
                                 </div>
                                 {% for formC in form.arrangements %}
                                     <div class="row">
-                                        {{ formulaire.read_only("col-md-2","",formC.arrangement,false) }}
-                                        {{ dump(formC.arrangement.vars.data.ordre) }}
+                                        <div class="col-md-2" style="height: 68px;">
+                                            {{ form_widget(formC.arrangement, {'attr': {'style': 'display:none'}}) }}
+                                            {% if formC.arrangement.vars.data.ordre < hotel.saisonBase.arrBase.ordre %}
+                                                <span class="label label-sm label-success">Réduc.</span>
+                                            {% else %}
+                                                <span class="label label-sm label-danger">Supp</span>
+                                            {% endif %}
+                                            <label style="margin-top: 20px;">{{ formC.arrangement.vars.data.libelle }}</label>
+                                        </div>
                                         {{ formulaire.input("col-md-2","",formC.valeur,false) }}
                                         {{ formulaire.input("col-md-2","",formC.valeurPour,false) }}
                                         {{ formulaire.input("col-md-2","",formC.marge,false) }}

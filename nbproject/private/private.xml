@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/OsTravel/src/Back/HotelTunisieBundle/Entity/Arrangement.php</file>
-            <file>file:/C:/wamp/www/OsTravel/src/Back/HotelTunisieBundle/Entity/Hotel.php</file>
-            <file>file:/C:/wamp/www/OsTravel/src/Back/HotelTunisieBundle/Controller/HotelsController.php</file>
+            <file>file:/C:/wamp/www/OsTravel/src/Back/HotelTunisieBundle/Resources/views/Hotels/liste.html.twig</file>
+            <file>file:/C:/wamp/www/OsTravel/src/Back/HotelTunisieBundle/Resources/views/Hotels/saison_arrangement.html.twig</file>
+            <file>file:/C:/wamp/www/OsTravel/src/Back/HotelTunisieBundle/Form/SaisonChambreType.php</file>
+            <file>file:/C:/wamp/www/OsTravel/src/Back/HotelTunisieBundle/Resources/views/Hotels/saison_chambres.html.twig</file>
         </group>
     </open-files>
 </project-private>
