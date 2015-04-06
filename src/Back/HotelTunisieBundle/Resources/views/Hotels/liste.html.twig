@@ -27,7 +27,7 @@
                                 <th class="center">Fournisseur</th>
                                 <th class="center">Photos</th>
                                 <th class="center">Stop sales</th>
-                                <th class="center">Rq</th>
+                                <th class="center">Remarques</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -42,11 +42,16 @@
                                     <td>{{ hotel.images|length }}</td>
                                     <td>{{ hotel.stopSales|length }}</td>
                                     <td>
+                                        {% if hotel.getEtat == true %}
+                                            <a href="{{ path('change_etat',{'id':hotel.id,'etat':0}) }}" title="Cliquez ici pour désactiver l'hôtel" ><span class="label label-sm label-success">Active</span></a>
+                                        {% else %} 
+                                            <a href="{{ path('change_etat',{'id':hotel.id,'etat':1}) }}" title="Cliquez ici pour activer l'hôtel" ><span class="label label-sm label-danger">Inactive</span></a>
+                                        {% endif %}
                                         {% if hotel.ficheTechnique is null %}
-                                            <span class="badge badge-danger" title="Fiche technique vide">FT vide</span>
+                                            <a href="{{ path('fiche_technique',{'id':hotel.id}) }}"><span class="label label-sm label-danger" title="Fiche technique vide">FT vide</span></a>
                                         {% endif %}
                                         {% if hotel.saisonBase is null %}
-                                            <span class="badge badge-danger" title="Saison se base vide">SB vide</span>
+                                            <a href="{{ path('saison_base',{'id':hotel.id}) }}"><span class="label label-sm label-danger" title="Saison de base vide">SB vide</span></a>
                                         {% endif %}
                                     </td>
                                     <td class="TableAction">

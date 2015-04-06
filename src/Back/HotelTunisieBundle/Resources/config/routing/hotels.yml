@@ -6,6 +6,10 @@ modif_hotel:
     path:     /modif/{id}
     defaults: { _controller: BackHotelTunisieBundle:Hotels:modif}
 
+change_etat:
+    path:     /etat/{id}/{etat}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:etat}
+
 supprimer_hotel:
     path:     /supprimer/{id}
     defaults: { _controller: BackHotelTunisieBundle:Hotels:supprimer}

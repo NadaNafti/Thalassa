@@ -24,6 +24,13 @@ class Hotel
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="etat", type="boolean", nullable=true)
+     */
+    private $etat;
 
     /**
      * @var string

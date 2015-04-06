@@ -24,6 +24,13 @@ class Hotel
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="etat", type="boolean", nullable=true)
+     */
+    private $etat;
 
     /**
      * @var string
@@ -946,5 +953,28 @@ class Hotel
     public function getSaisonBase()
     {
         return $this->saisonBase;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param boolean $etat
+     * @return Hotel
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return boolean 
+     */
+    public function getEtat()
+    {
+        return $this->etat;
     }
 }
