@@ -15,8 +15,8 @@
                 Arrangements
             </a>
         </li>
-        <li>
-            <a href="#panel_tab3_example3">
+        <li {% if app.request.get('_route')=='saison_reduction' %}class="active"{% endif %}>
+            <a href="{{ path("saison_reduction",{'id':hotel.id}) }}">
                 Réductions
             </a>
         </li>

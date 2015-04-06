@@ -20,7 +20,8 @@ use Back\HotelTunisieBundle\Form\SaisonType;
 use Back\HotelTunisieBundle\Form\SaisonCType;
 use Back\HotelTunisieBundle\Entity\SaisonChambre;
 use Back\HotelTunisieBundle\Form\SaisonChambreType;
-
+use Back\HotelTunisieBundle\Entity\SaisonReduc;
+use Back\HotelTunisieBundle\Form\SaisonReducType;
 class HotelsController extends Controller
 {
 
@@ -324,4 +325,32 @@ class HotelsController extends Controller
         ));
     }
 
+    public function saisonReducAction(Hotel $hotel)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if($hotel->getSaisonBase()->getSaisonReduc())
+            $saisonReduc=$hotel->getSaisonBase()->getSaisonReduc();
+        else
+            $saisonReduc= new SaisonReduc();
+        $form =$this->createForm(new SaisonReducType(), $saisonReduc);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $saisonReduc=$form->getData();
+                $em->persist($saisonReduc);
+                $em->persist($hotel->getSaisonBase()->setSaisonReduc($saisonReduc));
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre saison réduction de base a été modifié avec succées ");
+                return $this->redirect($this->generateUrl("saison_reduction", array('id'=>$hotel->getId())));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:Hotels:saison_reductions.html.twig', array(
+                    'hotel'=>$hotel,
+                    'form' =>$form->createView()
+        ));
+    }
 }

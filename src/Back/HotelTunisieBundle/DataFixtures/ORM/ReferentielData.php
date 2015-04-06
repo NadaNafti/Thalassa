@@ -80,13 +80,13 @@ class ReferentielData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($chaine->setLibelle("Hôtel nozha beach"));
         
         $arr= new Arrangement();
-        $manager->persist($arr->setCode("LPD")->setLibelle("Logement Petit déjeuner"));
+        $manager->persist($arr->setCode("LPD")->setLibelle("Logement Petit déjeuner")->setOrdre(1));
         $arr= new Arrangement();
-        $manager->persist($arr->setCode("DP")->setLibelle("Demi Pension"));
+        $manager->persist($arr->setCode("DP")->setLibelle("Demi Pension")->setOrdre(2));
         $arr= new Arrangement();
-        $manager->persist($arr->setCode("ALL")->setLibelle("All inclusive"));
+        $manager->persist($arr->setCode("ALL")->setLibelle("All inclusive")->setOrdre(4));
         $arr= new Arrangement();
-        $manager->persist($arr->setCode("PC")->setLibelle("Pension Complet"));
+        $manager->persist($arr->setCode("PC")->setLibelle("Pension Complet")->setOrdre(3));
         
         $pays1 = new Pays();
         $manager->persist($pays1->setCode("tn")->setLibelle("Tunisie")->setSlug("tunisie"));

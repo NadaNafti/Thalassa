@@ -113,6 +113,11 @@ class Saison
      * @ORM\OneToMany(targetEntity="SaisonChambre", mappedBy="saison")
      */
     protected $chambres;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="SaisonReduc", cascade={"persist"})
+     */
+    private $saisonReduc;
 
     /**
      * @Gedmo\Timestampable(on="create")
