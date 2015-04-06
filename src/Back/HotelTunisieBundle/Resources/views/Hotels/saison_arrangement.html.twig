@@ -30,6 +30,7 @@
                                 {% for formC in form.arrangements %}
                                     <div class="row">
                                         {{ formulaire.read_only("col-md-2","",formC.arrangement,false) }}
+                                        {{ dump(formC.arrangement.vars.data.ordre) }}
                                         {{ formulaire.input("col-md-2","",formC.valeur,false) }}
                                         {{ formulaire.input("col-md-2","",formC.valeurPour,false) }}
                                         {{ formulaire.input("col-md-2","",formC.marge,false) }}
