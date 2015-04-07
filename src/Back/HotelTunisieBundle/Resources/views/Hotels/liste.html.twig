@@ -43,15 +43,15 @@
                                     <td>{{ hotel.stopSales|length }}</td>
                                     <td>
                                         {% if hotel.getEtat == true %}
-                                            <a href="{{ path('change_etat',{'id':hotel.id,'etat':0}) }}" title="Cliquez ici pour désactiver l'hôtel" ><span class="label label-sm label-success">Active</span></a>
+                                            <a href="{{ path('change_etat',{'id':hotel.id,'etat':0}) }}" class="tooltips" title="Cliquez ici pour désactiver l'hôtel" ><span class="label label-sm label-success">Active</span></a>
                                         {% else %} 
-                                            <a href="{{ path('change_etat',{'id':hotel.id,'etat':1}) }}" title="Cliquez ici pour activer l'hôtel" ><span class="label label-sm label-danger">Inactive</span></a>
+                                            <a href="{{ path('change_etat',{'id':hotel.id,'etat':1}) }}" class="tooltips" title="Cliquez ici pour activer l'hôtel" ><span class="label label-sm label-danger">Inactive</span></a>
                                         {% endif %}
                                         {% if hotel.ficheTechnique is null %}
-                                            <a href="{{ path('fiche_technique',{'id':hotel.id}) }}"><span class="label label-sm label-danger" title="Fiche technique vide">FT vide</span></a>
+                                            <a href="{{ path('fiche_technique',{'id':hotel.id}) }}" class="tooltips" title="Fiche technique est vide"><span class="label label-sm label-danger">FT vide</span></a>
                                         {% endif %}
                                         {% if hotel.saisonBase is null %}
-                                            <a href="{{ path('saison_base',{'id':hotel.id}) }}"><span class="label label-sm label-danger" title="Saison de base vide">SB vide</span></a>
+                                            <a href="{{ path('saison_base',{'id':hotel.id}) }}" class="tooltips" title="Saison de base est vide"><span class="label label-sm label-danger">SB vide</span></a>
                                         {% endif %}
                                     </td>
                                     <td class="TableAction">

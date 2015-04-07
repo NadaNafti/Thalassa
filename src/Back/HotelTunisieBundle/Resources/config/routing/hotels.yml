@@ -42,6 +42,10 @@ saison_chambres:
     path:     /modif/{id}/saison_chambres
     defaults: { _controller: BackHotelTunisieBundle:Hotels:saisonChambres }
     
+delete_saison_chambres:
+    path:     /delete_chambre_saison/{id}/{hotel}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:deleteSaisonChambres }
+    
 saison_reduction:
     path:     /modif/{id}/saison_reduction
     defaults: { _controller: BackHotelTunisieBundle:Hotels:saisonReduc }
@@ -49,3 +53,7 @@ saison_reduction:
 saison_arrangements:
     path:     /modif/{id}/saison_arrangements
     defaults: { _controller: BackHotelTunisieBundle:Hotels:saisonArrangements }
+    
+delete_saison_arrangements:
+    path:     /delete_arrangement_saison/{id}/{hotel}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:deleteSaisonArragements }

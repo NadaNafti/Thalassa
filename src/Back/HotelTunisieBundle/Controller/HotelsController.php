@@ -328,6 +328,16 @@ class HotelsController extends Controller
         ));
     }
 
+    public function deleteSaisonChambresAction(SaisonChambre $saisonChambre, Hotel $hotel)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em->remove($saisonChambre);
+        $em->flush();
+        $session->getFlashBag()->add('success', "La chambre a été supprimée avec succées");
+        return $this->redirect($this->generateUrl("saison_chambres", array('id'=>$hotel->getId())));
+    }
+
     public function saisonReducAction(Hotel $hotel)
     {
         $em=$this->getDoctrine()->getManager();
@@ -395,4 +405,13 @@ class HotelsController extends Controller
         ));
     }
 
+    public function deleteSaisonArragementsAction(SaisonArrangement $saisonArrangement, Hotel $hotel)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em->remove($saisonArrangement);
+        $em->flush();
+        $session->getFlashBag()->add('success', "L'arrangement a été supprimée avec succées");
+        return $this->redirect($this->generateUrl("saison_arrangements", array('id'=>$hotel->getId())));
+    }
 }
