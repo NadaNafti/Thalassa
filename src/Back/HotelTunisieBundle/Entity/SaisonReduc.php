@@ -25,14 +25,14 @@ class SaisonReduc
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="val1Enfant1Adulte1", type="decimal", precision=11, scale=3)
      */
     private $val1Enfant1Adulte1;
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="val1Enfant1Adulte2", type="decimal", precision=11, scale=3)
      */
     private $val1Enfant1Adulte2;
@@ -46,14 +46,14 @@ class SaisonReduc
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="val1Enfant2Adulte1", type="decimal", precision=11, scale=3)
      */
     private $val1Enfant2Adulte1;
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="val1Enfant2Adulte2", type="decimal", precision=11, scale=3)
      */
     private $val1Enfant2Adulte2;
@@ -67,14 +67,14 @@ class SaisonReduc
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="val1EnfantSepare1", type="decimal", precision=11, scale=3)
      */
     private $val1EnfantSepare1;
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="val1EnfantSepare2", type="decimal", precision=11, scale=3)
      */
     private $val1EnfantSepare2;
@@ -88,14 +88,14 @@ class SaisonReduc
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="val2Enfant1Adulte1", type="decimal", precision=11, scale=3)
      */
     private $val2Enfant1Adulte1;
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="val2Enfant1Adulte2", type="decimal", precision=11, scale=3)
      */
     private $val2Enfant1Adulte2;
@@ -109,14 +109,14 @@ class SaisonReduc
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="val2Enfant2Adulte1", type="decimal", precision=11, scale=3)
      */
     private $val2Enfant2Adulte1;
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="val2Enfant2Adulte2", type="decimal", precision=11, scale=3)
      */
     private $val2Enfant2Adulte2;
@@ -130,14 +130,14 @@ class SaisonReduc
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="val2EnfantOuPlusSepare1", type="decimal", precision=11, scale=3)
      */
     private $val2EnfantOuPlusSepare1;
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="val2EnfantOuPlusSepare2", type="decimal", precision=11, scale=3)
      */
     private $val2EnfantOuPlusSepare2;
@@ -151,7 +151,7 @@ class SaisonReduc
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="reduc3Lit", type="decimal", precision=11, scale=3)
      */
     private $reduc3Lit;
@@ -165,7 +165,7 @@ class SaisonReduc
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="reduc4Lit", type="decimal", precision=11, scale=3)
      */
     private $reduc4Lit;

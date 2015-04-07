@@ -38,8 +38,8 @@ class SaisonArrangement
 
     /**
      * @var string
-     *
      * @ORM\Column(name="valeur", type="decimal", precision=11, scale=3)
+     * @Assert\Range(min = 0)
      */
     private $valeur;
 
@@ -52,8 +52,9 @@ class SaisonArrangement
 
     /**
      * @var string
-     *
+     * 
      * @ORM\Column(name="marge", type="decimal", precision=11, scale=3)
+     * @Assert\Range(min = 0)
      */
     private $marge;
 

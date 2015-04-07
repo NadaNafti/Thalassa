@@ -75,7 +75,7 @@ class Saison
 
     /**
      * @var integer
-     *
+     * @Assert\Range(min = 1)
      * @ORM\Column(name="totalContingent", type="integer")
      */
     private $totalContingent;
@@ -577,5 +577,18 @@ class Saison
     public function getArrangements()
     {
         return $this->arrangements;
+    }
+
+    /**
+     * Get arrangements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPrixDeBase()
+    {
+        if($this->pourcentage==1)
+            return $this->prixConvention+($this->prixConvention*$this->margeVente/100);
+        else
+            return $this->prixConvention+$this->margeVente;
     }
 }

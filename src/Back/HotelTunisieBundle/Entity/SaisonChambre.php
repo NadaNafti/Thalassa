@@ -32,28 +32,28 @@ class SaisonChambre
     
     /**
      * @var integer
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="minAdulte", type="integer")
      */
     private $minAdulte;
 
     /**
      * @var integer
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="maxAdulte", type="integer")
      */
     private $maxAdulte;
 
     /**
      * @var integer
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="minEnfant", type="integer")
      */
     private $minEnfant;
 
     /**
      * @var integer
-     *
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="maxEnfant", type="integer")
      */
     private $maxEnfant;

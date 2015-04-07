@@ -309,7 +309,7 @@ class HotelsController extends Controller
         $form=$this->createForm(new SaisonCType(), $saisonBase);
         if($request->isMethod("POST"))
         {
-            $form->handleRequest($request);
+            $form->bind($request);
             if($form->isValid())
             {
                 $saisonBase=$form->getData();
