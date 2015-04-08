@@ -8,16 +8,16 @@
         <li {% if app.request.get('_route')=='saison_chambres' %}class="active"{% endif %}>
             <a href="{{ path("saison_chambres",{'id':hotel.id}) }}">
                 Occupation des chambres 
-                {% if hotel.saisonBase.chambres|length ==0 %}
-                    <span class="badge badge-danger">vide</span>
+                {% if hotel.saisonBase.chambres|length != hotel.chambres|length %}
+                    <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
                 {% endif %}
             </a>
         </li>
         <li {% if app.request.get('_route')=='saison_arrangements' %}class="active"{% endif %}>
             <a href="{{ path("saison_arrangements",{'id':hotel.id}) }}">
                 Arrangements 
-                {% if hotel.saisonBase.arrangements|length ==0 %}
-                    <span class="badge badge-danger">vide</span>
+                {% if hotel.saisonBase.arrangements|length !=hotel.arrangements|length %}
+                    <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
                 {% endif %}
             </a>
         </li>
@@ -25,7 +25,7 @@
             <a href="{{ path("saison_reduction",{'id':hotel.id}) }}">
                 Réductions
                 {% if hotel.saisonBase.saisonReduc is null%}
-                    <span class="badge badge-danger">vide</span>
+                    <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
                 {% endif %}
             </a>
         </li>
@@ -34,14 +34,20 @@
                 Suppléments
             </a>
         </li>
-        <li>
-            <a href="#panel_tab3_example3">
+        <li {% if app.request.get('_route')=='saison_supp_chambres' %}class="active"{% endif %}>
+            <a href="{{ path("saison_supp_chambres",{'id':hotel.id}) }}">
                 Supp. chambres
+                {% if hotel.saisonBase.suppChambres|length != hotel.getCountAutresChambres %}
+                    <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
+                {% endif %}
             </a>
         </li>
-        <li>
-            <a href="#panel_tab3_example3">
+        <li {% if app.request.get('_route')=='saison_vues' %}class="active"{% endif %}>
+            <a href="{{ path("saison_vues",{'id':hotel.id}) }}">
                 Supp. vues
+                {% if hotel.saisonBase.vues|length != hotel.vues|length  %}
+                    <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
+                {% endif %}
             </a>
         </li>
         <li>

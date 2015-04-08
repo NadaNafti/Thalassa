@@ -6,12 +6,12 @@
     </li>
     <li {% if app.request.get('_route')=='fiche_technique' %}class="active"{% endif %}>
         <a href="{{ path("fiche_technique",{'id':hotel.id}) }}">
-            Fiche téchnique {% if hotel.ficheTechnique is null %}<span class="badge badge-danger">vide</span>{% endif %}
+            Fiche téchnique {% if hotel.ficheTechnique is null %}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i>{% endif %}
         </a>
     </li>
-    <li {% if app.request.get('_route') in ['saison_base','saison_chambres','saison_reduction','saison_arrangements'] %}class="active"{% endif %}>
+    <li {% if app.request.get('_route') in ['saison_base','saison_chambres','saison_reduction','saison_arrangements','saison_supp_chambres','saison_vues'] %}class="active"{% endif %}>
         <a href="{{ path("saison_base",{'id':hotel.id}) }}">
-            Saison de base {% if hotel.saisonBase is null %}<span class="badge badge-danger">vide</span>{% endif %}
+            Saison de base {% if hotel.saisonBase is null %}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i>{% endif %}
         </a>
     </li>
 </ul>

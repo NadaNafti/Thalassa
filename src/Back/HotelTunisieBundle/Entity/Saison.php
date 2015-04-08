@@ -115,6 +115,16 @@ class Saison
     protected $chambres;
     
     /**
+     * @ORM\OneToMany(targetEntity="SaisonSuppChambre", mappedBy="saison")
+     */
+    protected $suppChambres;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="SaisonVue", mappedBy="saison")
+     */
+    protected $vues;
+    
+    /**
      * @ORM\OneToMany(targetEntity="SaisonArrangement", mappedBy="saison")
      */
     protected $arrangements;
@@ -590,5 +600,71 @@ class Saison
             return $this->prixConvention+($this->prixConvention*$this->margeVente/100);
         else
             return $this->prixConvention+$this->margeVente;
+    }
+
+    /**
+     * Add suppChambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonSuppChambre $suppChambres
+     * @return Saison
+     */
+    public function addSuppChambre(\Back\HotelTunisieBundle\Entity\SaisonSuppChambre $suppChambres)
+    {
+        $this->suppChambres[] = $suppChambres;
+
+        return $this;
+    }
+
+    /**
+     * Remove suppChambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonSuppChambre $suppChambres
+     */
+    public function removeSuppChambre(\Back\HotelTunisieBundle\Entity\SaisonSuppChambre $suppChambres)
+    {
+        $this->suppChambres->removeElement($suppChambres);
+    }
+
+    /**
+     * Get suppChambres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSuppChambres()
+    {
+        return $this->suppChambres;
+    }
+
+    /**
+     * Add vues
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonVue $vues
+     * @return Saison
+     */
+    public function addVue(\Back\HotelTunisieBundle\Entity\SaisonVue $vues)
+    {
+        $this->vues[] = $vues;
+
+        return $this;
+    }
+
+    /**
+     * Remove vues
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonVue $vues
+     */
+    public function removeVue(\Back\HotelTunisieBundle\Entity\SaisonVue $vues)
+    {
+        $this->vues->removeElement($vues);
+    }
+
+    /**
+     * Get vues
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVues()
+    {
+        return $this->vues;
     }
 }

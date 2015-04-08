@@ -57,3 +57,19 @@ saison_arrangements:
 delete_saison_arrangements:
     path:     /delete_arrangement_saison/{id}/{hotel}
     defaults: { _controller: BackHotelTunisieBundle:Hotels:deleteSaisonArragements }
+        
+saison_supp_chambres:
+    path:     /modif/{id}/saison_supp_chambres
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:saisonSuppChambres }
+    
+delete_saison_supp_chambres:
+    path:     /delete_supp_chambre_saison/{id}/{hotel}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:deleteSaisonSuppChambres }    
+        
+saison_vues:
+    path:     /modif/{id}/saison_vue
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:saisonVues }
+    
+delete_saison_vues:
+    path:     /delete_vue_saison/{id}/{hotel}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:deleteSaisonVues }    

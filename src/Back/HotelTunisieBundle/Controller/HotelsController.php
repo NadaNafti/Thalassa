@@ -24,6 +24,10 @@ use Back\HotelTunisieBundle\Entity\SaisonReduc;
 use Back\HotelTunisieBundle\Form\SaisonReducType;
 use Back\HotelTunisieBundle\Entity\SaisonArrangement;
 use Back\HotelTunisieBundle\Form\SaisonAType;
+use Back\HotelTunisieBundle\Entity\SaisonSuppChambre;
+use Back\HotelTunisieBundle\Form\SaisonSType;
+use Back\HotelTunisieBundle\Entity\SaisonVue;
+use Back\HotelTunisieBundle\Form\SaisonVType;
 
 class HotelsController extends Controller
 {
@@ -414,4 +418,101 @@ class HotelsController extends Controller
         $session->getFlashBag()->add('success', "L'arrangement a été supprimée avec succées");
         return $this->redirect($this->generateUrl("saison_arrangements", array('id'=>$hotel->getId())));
     }
+
+    public function saisonSuppChambresAction(Hotel $hotel)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $request=$this->getRequest();
+        $saisonBase=$hotel->getSaisonBase();
+        foreach($hotel->getChambres() as $ch)
+        {
+            $verif=$em->getRepository("BackHotelTunisieBundle:SaisonSuppChambre")->findBy(array('saison'=>$hotel->getSaisonBase(), 'chambre'=>$ch));
+            if(count($verif)==0&&$ch->getType()==0)
+            {
+                $saisonSuppChambres=new SaisonSuppChambre();
+                $saisonSuppChambres->setChambre($ch);
+                $saisonBase->addSuppChambre($saisonSuppChambres);
+            }
+        }
+        $form=$this->createForm(new SaisonSType(), $saisonBase);
+        if($request->isMethod("POST"))
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $saisonBase=$form->getData();
+                foreach($saisonBase->getSuppChambres() as $chambres)
+                {
+                    $em->persist($chambres->setSaison($saisonBase)->setEtat(1));
+                }
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");
+                return $this->redirect($this->generateUrl("saison_supp_chambres", array('id'=>$hotel->getId())));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:Hotels:saison_supp_chambres.html.twig', array(
+                    'hotel'=>$hotel,
+                    'form' =>$form->createView()
+        ));
+    }
+
+    public function deleteSaisonSuppChambresAction(SaisonSuppChambre $saisonSuppChambre, Hotel $hotel)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em->remove($saisonSuppChambre);
+        $em->flush();
+        $session->getFlashBag()->add('success', "La chambre a été supprimée avec succées");
+        return $this->redirect($this->generateUrl("saison_supp_chambres", array('id'=>$hotel->getId())));
+    }
+
+    public function saisonVuesAction(Hotel $hotel)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $request=$this->getRequest();
+        $saisonBase=$hotel->getSaisonBase();
+        foreach($hotel->getVues() as $vue)
+        {
+            $verif=$em->getRepository("BackHotelTunisieBundle:SaisonVue")->findBy(array('saison'=>$hotel->getSaisonBase(), 'vue'=>$vue));
+            if(count($verif)==0)
+            {
+                $saisonVue=new SaisonVue();
+                $saisonVue->setVue($vue);
+                $saisonBase->addVue($saisonVue);
+            }
+        }
+        $form=$this->createForm(new SaisonVType(), $saisonBase);
+        if($request->isMethod("POST"))
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $saisonBase=$form->getData();
+                foreach($saisonBase->getVues() as $Vue)
+                {
+                    $em->persist($Vue->setSaison($saisonBase)->setEtat(1));
+                }
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");
+                return $this->redirect($this->generateUrl("saison_vues", array('id'=>$hotel->getId())));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:Hotels:saison_vue.html.twig', array(
+                    'hotel'=>$hotel,
+                    'form' =>$form->createView()
+        ));
+    }
+
+    public function deleteSaisonVuesAction(SaisonVue $saisonVue, Hotel $hotel)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em->remove($saisonVue);
+        $em->flush();
+        $session->getFlashBag()->add('success', "La vue a été supprimée avec succées");
+        return $this->redirect($this->generateUrl("saison_vues", array('id'=>$hotel->getId())));
+    }
+
 }

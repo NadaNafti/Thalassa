@@ -7,12 +7,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * SaisonArrangement
+ * SaisonSuppChambre
  *
- * @ORM\Table(name="ost_sht_hotels_saison_arrangement")
+ * @ORM\Table(name="ost_sht_hotels_saison_supp_chambres")
  * @ORM\Entity
  */
-class SaisonArrangement
+class SaisonSuppChambre
 {
     /**
      * @var integer
@@ -22,12 +22,6 @@ class SaisonArrangement
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Arrangement",fetch="EAGER")
-     * @ORM\JoinColumn(name="arrangement_id", referencedColumnName="id")
-     */
-    protected $arrangement;
 
     /**
      * @var boolean
@@ -38,6 +32,7 @@ class SaisonArrangement
 
     /**
      * @var string
+     *
      * @ORM\Column(name="valeur", type="decimal", precision=11, scale=3)
      * @Assert\Range(min = 0)
      */
@@ -46,27 +41,32 @@ class SaisonArrangement
     /**
      * @var boolean
      *
-     * @ORM\Column(name="valeurPour", type="boolean")
+     * @ORM\Column(name="valeurPour", type="boolean",nullable=true)
      */
     private $valeurPour;
 
     /**
      * @var string
-     * 
-     * @ORM\Column(name="marge", type="decimal", precision=11, scale=3,nullable=true)
-     * @Assert\Range(min = 0)
+     *
+     * @ORM\Column(name="marge", type="decimal", precision=11, scale=3)
      */
     private $marge;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="margePour", type="boolean")
+     * @ORM\Column(name="margePour", type="boolean",nullable=true)
      */
     private $margePour;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Saison", inversedBy="arrangements", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Chambre",fetch="EAGER")
+     * @ORM\JoinColumn(name="chambre_id", referencedColumnName="id")
+     */
+    protected $chambre;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Saison", inversedBy="suppChambres", fetch="EAGER")
      * @ORM\JoinColumn(name="saison_id", referencedColumnName="id")
      */
     protected $saison;
@@ -83,33 +83,10 @@ class SaisonArrangement
     }
 
     /**
-     * Set etat
-     *
-     * @param boolean $etat
-     * @return SaisonArrangement
-     */
-    public function setEtat($etat)
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
-    /**
-     * Get etat
-     *
-     * @return boolean 
-     */
-    public function getEtat()
-    {
-        return $this->etat;
-    }
-
-    /**
      * Set valeur
      *
      * @param string $valeur
-     * @return SaisonArrangement
+     * @return SaisonSuppChambre
      */
     public function setValeur($valeur)
     {
@@ -132,7 +109,7 @@ class SaisonArrangement
      * Set valeurPour
      *
      * @param boolean $valeurPour
-     * @return SaisonArrangement
+     * @return SaisonSuppChambre
      */
     public function setValeurPour($valeurPour)
     {
@@ -155,7 +132,7 @@ class SaisonArrangement
      * Set marge
      *
      * @param string $marge
-     * @return SaisonArrangement
+     * @return SaisonSuppChambre
      */
     public function setMarge($marge)
     {
@@ -178,7 +155,7 @@ class SaisonArrangement
      * Set margePour
      *
      * @param boolean $margePour
-     * @return SaisonArrangement
+     * @return SaisonSuppChambre
      */
     public function setMargePour($margePour)
     {
@@ -198,33 +175,56 @@ class SaisonArrangement
     }
 
     /**
-     * Set arrangement
+     * Set etat
      *
-     * @param \Back\HotelTunisieBundle\Entity\Arrangement $arrangement
-     * @return SaisonArrangement
+     * @param boolean $etat
+     * @return SaisonSuppChambre
      */
-    public function setArrangement(\Back\HotelTunisieBundle\Entity\Arrangement $arrangement = null)
+    public function setEtat($etat)
     {
-        $this->arrangement = $arrangement;
+        $this->etat = $etat;
 
         return $this;
     }
 
     /**
-     * Get arrangement
+     * Get etat
      *
-     * @return \Back\HotelTunisieBundle\Entity\Arrangement 
+     * @return boolean 
      */
-    public function getArrangement()
+    public function getEtat()
     {
-        return $this->arrangement;
+        return $this->etat;
+    }
+
+    /**
+     * Set chambre
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Chambre $chambre
+     * @return SaisonSuppChambre
+     */
+    public function setChambre(\Back\HotelTunisieBundle\Entity\Chambre $chambre = null)
+    {
+        $this->chambre = $chambre;
+
+        return $this;
+    }
+
+    /**
+     * Get chambre
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Chambre 
+     */
+    public function getChambre()
+    {
+        return $this->chambre;
     }
 
     /**
      * Set saison
      *
      * @param \Back\HotelTunisieBundle\Entity\Saison $saison
-     * @return SaisonArrangement
+     * @return SaisonSuppChambre
      */
     public function setSaison(\Back\HotelTunisieBundle\Entity\Saison $saison = null)
     {

@@ -23,9 +23,8 @@
                                 {{ form_widget(form._token) }}
                                 <div class="row">
                                     <div class="col-md-2"></div>
-                                    <div class="col-md-1">Valeur</div>
+                                    <div class="col-md-3">Prix Conv.</div>
                                     <div class="col-md-1">Marge de vente</div>
-                                    <div class="col-md-1">Prix de base</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2" style="height: 68px;">
@@ -39,6 +38,7 @@
                                             <input disabled type="text" value="{{ hotel.saisonBase.prixConvention }}" class="form-control" />
                                         </div>
                                     </div>
+                                    <div class="col-md-2"></div>
                                     <div class="col-md-1">
                                         <div class="form-group">
                                             <label class="control-label">
@@ -46,20 +46,8 @@
                                             <input disabled type="text" value="{{ hotel.saisonBase.margeVente }} {% if hotel.saisonBase.pourcentage==1 %}%{% endif %}" class="form-control" />
                                         </div>
                                     </div>
-                                    <div class="col-md-1">
-                                        <div class="form-group">
-                                            <label class="control-label">
-                                            </label>
-                                            <input disabled type="text" value="{{ hotel.saisonBase.getPrixDeBase }} TND" class="form-control" />
-                                        </div>
-                                    </div>
                                 </div>
                                 <hr>
-                                <div class="row">
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-3">Valeur</div>
-                                    <div class="col-md-3">Marge de vente</div>
-                                </div>
                                 {% for formC in form.arrangements %}
                                     <div class="row">
                                         <div class="col-md-2" style="height: 68px;">
@@ -73,8 +61,13 @@
                                         </div>
                                         {{ formulaire.input("col-md-1","",formC.valeur,false) }}
                                         {{ formulaire.input("col-md-2","",formC.valeurPour,false) }}
-                                        {{ formulaire.input("col-md-1","",formC.marge,false) }}
-                                        {{ formulaire.input("col-md-2","",formC.margePour,false) }}{% if formC.vars.data.id is not null %}
+                                        {% if formC.arrangement.vars.data.ordre > hotel.saisonBase.arrBase.ordre %}
+                                            {{ formulaire.input("col-md-1","",formC.marge,false) }}
+                                            {{ formulaire.input("col-md-2","",formC.margePour,false) }}
+                                        {% else%}
+                                            <div class="col-md-3"></div>
+                                        {% endif%}
+                                        {% if formC.vars.data.id is not null %}
                                             <div class="col-md-2" style="height: 68px;">
                                                 <label style="margin-top: 25px;">
                                                     {{ macros.tableDelete(path('delete_saison_arrangements',{'id':formC.vars.data.id,'hotel':hotel.id})) }}

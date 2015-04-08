@@ -75,7 +75,7 @@ class Saison
 
     /**
      * @var integer
-     *
+     * @Assert\Range(min = 1)
      * @ORM\Column(name="totalContingent", type="integer")
      */
     private $totalContingent;
@@ -113,6 +113,16 @@ class Saison
      * @ORM\OneToMany(targetEntity="SaisonChambre", mappedBy="saison")
      */
     protected $chambres;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="SaisonSuppChambre", mappedBy="saison")
+     */
+    protected $suppChambres;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="SaisonVue", mappedBy="saison")
+     */
+    protected $vues;
     
     /**
      * @ORM\OneToMany(targetEntity="SaisonArrangement", mappedBy="saison")
@@ -544,5 +554,84 @@ class Saison
     public function getSaisonReduc()
     {
         return $this->saisonReduc;
+    }
+
+    /**
+     * Add arrangements
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonArrangement $arrangements
+     * @return Saison
+     */
+    public function addArrangement(\Back\HotelTunisieBundle\Entity\SaisonArrangement $arrangements)
+    {
+        $this->arrangements[] = $arrangements;
+
+        return $this;
+    }
+
+    /**
+     * Remove arrangements
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonArrangement $arrangements
+     */
+    public function removeArrangement(\Back\HotelTunisieBundle\Entity\SaisonArrangement $arrangements)
+    {
+        $this->arrangements->removeElement($arrangements);
+    }
+
+    /**
+     * Get arrangements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArrangements()
+    {
+        return $this->arrangements;
+    }
+
+    /**
+     * Get arrangements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPrixDeBase()
+    {
+        if($this->pourcentage==1)
+            return $this->prixConvention+($this->prixConvention*$this->margeVente/100);
+        else
+            return $this->prixConvention+$this->margeVente;
+    }
+
+    /**
+     * Add suppChambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonSuppChambre $suppChambres
+     * @return Saison
+     */
+    public function addSuppChambre(\Back\HotelTunisieBundle\Entity\SaisonSuppChambre $suppChambres)
+    {
+        $this->suppChambres[] = $suppChambres;
+
+        return $this;
+    }
+
+    /**
+     * Remove suppChambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonSuppChambre $suppChambres
+     */
+    public function removeSuppChambre(\Back\HotelTunisieBundle\Entity\SaisonSuppChambre $suppChambres)
+    {
+        $this->suppChambres->removeElement($suppChambres);
+    }
+
+    /**
+     * Get suppChambres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSuppChambres()
+    {
+        return $this->suppChambres;
     }
 }
