@@ -27,7 +27,7 @@
                                     <div class="col-md-1">Marge de vente</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-2" style="height: 68px;">
+                                    <div class="col-md-3" style="height: 68px;">
                                         <span class="label label-inverse">Conv. Base</span>
                                         <label style="margin-top: 20px;">{{ hotel.saisonBase.arrBase }}</label>
                                     </div>
@@ -48,9 +48,14 @@
                                     </div>
                                 </div>
                                 <hr>
+                                <div class="row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-3">Valeur</div>
+                                    <div class="col-md-3">Marge de vente</div>
+                                </div>
                                 {% for formC in form.arrangements %}
                                     <div class="row">
-                                        <div class="col-md-2" style="height: 68px;">
+                                        <div class="col-md-3" style="height: 68px;">
                                             {{ form_widget(formC.arrangement, {'attr': {'style': 'display:none'}}) }}
                                             {% if formC.arrangement.vars.data.ordre < hotel.saisonBase.arrBase.ordre %}
                                                 <span class="label label-sm label-success">Réduc.</span>
