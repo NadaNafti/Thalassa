@@ -494,6 +494,18 @@ class HotelsController extends Controller {
         else
             $saisonWeekend = $hotel->getSaisonBase()->getSaisonWeekend();
         $form = $this->createForm(new SaisonWeekendType(), $saisonWeekend);
+        $form->add("chambres", "entity", array(
+            'class' => 'BackHotelTunisieBundle:Chambre',
+            'query_builder' => function(EntityRepository $er) use ($hotel) {
+                return $er->createQueryBuilder('a')
+                                ->join("a.hotels", "h")
+                                ->where('h.id = :id')
+                                ->setParameter('id', $hotel->getId());
+                ;
+            },
+            'multiple' => true,
+            'expanded' => false,
+        ));
         $request = $this->getRequest();
         if ($request->isMethod('POST')) {
             $form->submit($request);

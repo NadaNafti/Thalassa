@@ -700,4 +700,27 @@ class Saison
     {
         return $this->saisonSupp;
     }
+
+    /**
+     * Set saisonWeekend
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonWeekend $saisonWeekend
+     * @return Saison
+     */
+    public function setSaisonWeekend(\Back\HotelTunisieBundle\Entity\SaisonWeekend $saisonWeekend = null)
+    {
+        $this->saisonWeekend = $saisonWeekend;
+
+        return $this;
+    }
+
+    /**
+     * Get saisonWeekend
+     *
+     * @return \Back\HotelTunisieBundle\Entity\SaisonWeekend 
+     */
+    public function getSaisonWeekend()
+    {
+        return $this->saisonWeekend;
+    }
 }

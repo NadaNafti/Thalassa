@@ -4,6 +4,7 @@ namespace Back\HotelTunisieBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * Chambre
  *
@@ -11,8 +12,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
-class Chambre
-{
+class Chambre {
+
     /**
      * @var integer
      *
@@ -21,7 +22,7 @@ class Chambre
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @Gedmo\slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
@@ -41,33 +42,36 @@ class Chambre
      * @ORM\Column(name="type", type="integer")
      */
     private $type;
+    
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Hotel", mappedBy="chambres")
+     */
+    private $hotels;
 
-
- /**
+    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column( type="datetime")
      */
     private $created;
-    
+
     /**
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column( type="datetime")
      */
     private $updated;
-    
+
     /**
      * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
      */
     private $deletedAt;
-    
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -77,8 +81,7 @@ class Chambre
      * @param string $libelle
      * @return Chambre
      */
-    public function setLibelle($libelle)
-    {
+    public function setLibelle($libelle) {
         $this->libelle = $libelle;
 
         return $this;
@@ -89,8 +92,7 @@ class Chambre
      *
      * @return string 
      */
-    public function getLibelle()
-    {
+    public function getLibelle() {
         return $this->libelle;
     }
 
@@ -100,8 +102,7 @@ class Chambre
      * @param integer $type
      * @return Chambre
      */
-    public function setType($type)
-    {
+    public function setType($type) {
         $this->type = $type;
 
         return $this;
@@ -112,33 +113,30 @@ class Chambre
      *
      * @return integer 
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
 
-    public function getTypeName()
-    {
-        if($this->type==0)
+    public function getTypeName() {
+        if ($this->type == 0)
             return 'Autres chambres';
-        if($this->type==1)
+        if ($this->type == 1)
             return 'Chambre single';
-        if($this->type==2)
+        if ($this->type == 2)
             return 'Chambre double';
-        if($this->type==3)
+        if ($this->type == 3)
             return 'Chambre triple';
-        if($this->type==4)
+        if ($this->type == 4)
             return 'Chambre quadruple';
     }
 
-        /**
+    /**
      * Set created
      *
      * @param \DateTime $created
      * @return Chambre
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
@@ -149,8 +147,7 @@ class Chambre
      *
      * @return \DateTime 
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
@@ -160,8 +157,7 @@ class Chambre
      * @param \DateTime $updated
      * @return Chambre
      */
-    public function setUpdated($updated)
-    {
+    public function setUpdated($updated) {
         $this->updated = $updated;
 
         return $this;
@@ -172,8 +168,7 @@ class Chambre
      *
      * @return \DateTime 
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         return $this->updated;
     }
 
@@ -183,8 +178,7 @@ class Chambre
      * @param \DateTime $deletedAt
      * @return Chambre
      */
-    public function setDeletedAt($deletedAt)
-    {
+    public function setDeletedAt($deletedAt) {
         $this->deletedAt = $deletedAt;
 
         return $this;
@@ -195,8 +189,7 @@ class Chambre
      *
      * @return \DateTime 
      */
-    public function getDeletedAt()
-    {
+    public function getDeletedAt() {
         return $this->deletedAt;
     }
 
@@ -206,8 +199,7 @@ class Chambre
      * @param string $slug
      * @return Chambre
      */
-    public function setSlug($slug)
-    {
+    public function setSlug($slug) {
         $this->slug = $slug;
 
         return $this;
@@ -218,13 +210,52 @@ class Chambre
      *
      * @return string 
      */
-    public function getSlug()
-    {
+    public function getSlug() {
         return $this->slug;
     }
-    
-    public function __toString()
-    {
+
+    public function __toString() {
         return $this->libelle;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->hotels = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add hotels
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
+     * @return Chambre
+     */
+    public function addHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
+    {
+        $this->hotels[] = $hotels;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotels
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
+     */
+    public function removeHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
+    {
+        $this->hotels->removeElement($hotels);
+    }
+
+    /**
+     * Get hotels
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHotels()
+    {
+        return $this->hotels;
     }
 }

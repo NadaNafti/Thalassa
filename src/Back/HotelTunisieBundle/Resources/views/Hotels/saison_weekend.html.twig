@@ -29,6 +29,7 @@
                                 </div>
                                 <hr>
                                 <div class="row">
+                                    {{ formulaire.select2("col-md-6","Liste des chambres",form.chambres,false) }}
                                     {{ formulaire.input("col-md-3","Nombre de nuitées minimum",form.nbNuitMin,false) }}
                                     {{ formulaire.input("col-md-3","Nombre de nuitées maximum",form.nbNuitMax,false) }}
                                 </div>

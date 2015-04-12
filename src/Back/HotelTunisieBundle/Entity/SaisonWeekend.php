@@ -12,8 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="ost_sht_hotels_saison_weekend")
  * @ORM\Entity
  */
-class SaisonWeekend
-{
+class SaisonWeekend {
+
     /**
      * @var integer
      *
@@ -94,6 +94,15 @@ class SaisonWeekend
     private $nbNuitMax;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Chambre")
+     * @ORM\JoinTable(name="ost_sht_hotels_saison_weekend_chambres",
+     *      joinColumns={@ORM\JoinColumn(name="id_saison_weekend", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_chambre", referencedColumnName="id")}
+     * )
+     */
+    protected $chambres;
+
+    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column( type="datetime")
      */
@@ -105,14 +114,12 @@ class SaisonWeekend
      */
     private $updated;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -122,8 +129,7 @@ class SaisonWeekend
      * @param boolean $vendredi
      * @return SaisonWeekend
      */
-    public function setVendredi($vendredi)
-    {
+    public function setVendredi($vendredi) {
         $this->vendredi = $vendredi;
 
         return $this;
@@ -134,8 +140,7 @@ class SaisonWeekend
      *
      * @return boolean 
      */
-    public function getVendredi()
-    {
+    public function getVendredi() {
         return $this->vendredi;
     }
 
@@ -145,8 +150,7 @@ class SaisonWeekend
      * @param boolean $samedi
      * @return SaisonWeekend
      */
-    public function setSamedi($samedi)
-    {
+    public function setSamedi($samedi) {
         $this->samedi = $samedi;
 
         return $this;
@@ -157,8 +161,7 @@ class SaisonWeekend
      *
      * @return boolean 
      */
-    public function getSamedi()
-    {
+    public function getSamedi() {
         return $this->samedi;
     }
 
@@ -168,8 +171,7 @@ class SaisonWeekend
      * @param boolean $dimanche
      * @return SaisonWeekend
      */
-    public function setDimanche($dimanche)
-    {
+    public function setDimanche($dimanche) {
         $this->dimanche = $dimanche;
 
         return $this;
@@ -180,8 +182,7 @@ class SaisonWeekend
      *
      * @return boolean 
      */
-    public function getDimanche()
-    {
+    public function getDimanche() {
         return $this->dimanche;
     }
 
@@ -191,8 +192,7 @@ class SaisonWeekend
      * @param integer $type
      * @return SaisonWeekend
      */
-    public function setType($type)
-    {
+    public function setType($type) {
         $this->type = $type;
 
         return $this;
@@ -203,8 +203,7 @@ class SaisonWeekend
      *
      * @return integer 
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
 
@@ -214,8 +213,7 @@ class SaisonWeekend
      * @param string $valeur
      * @return SaisonWeekend
      */
-    public function setValeur($valeur)
-    {
+    public function setValeur($valeur) {
         $this->valeur = $valeur;
 
         return $this;
@@ -226,8 +224,7 @@ class SaisonWeekend
      *
      * @return string 
      */
-    public function getValeur()
-    {
+    public function getValeur() {
         return $this->valeur;
     }
 
@@ -237,8 +234,7 @@ class SaisonWeekend
      * @param boolean $valeurPour
      * @return SaisonWeekend
      */
-    public function setValeurPour($valeurPour)
-    {
+    public function setValeurPour($valeurPour) {
         $this->valeurPour = $valeurPour;
 
         return $this;
@@ -249,8 +245,7 @@ class SaisonWeekend
      *
      * @return boolean 
      */
-    public function getValeurPour()
-    {
+    public function getValeurPour() {
         return $this->valeurPour;
     }
 
@@ -260,8 +255,7 @@ class SaisonWeekend
      * @param string $marge
      * @return SaisonWeekend
      */
-    public function setMarge($marge)
-    {
+    public function setMarge($marge) {
         $this->marge = $marge;
 
         return $this;
@@ -272,8 +266,7 @@ class SaisonWeekend
      *
      * @return string 
      */
-    public function getMarge()
-    {
+    public function getMarge() {
         return $this->marge;
     }
 
@@ -283,8 +276,7 @@ class SaisonWeekend
      * @param boolean $margePour
      * @return SaisonWeekend
      */
-    public function setMargePour($margePour)
-    {
+    public function setMargePour($margePour) {
         $this->margePour = $margePour;
 
         return $this;
@@ -295,8 +287,7 @@ class SaisonWeekend
      *
      * @return boolean 
      */
-    public function getMargePour()
-    {
+    public function getMargePour() {
         return $this->margePour;
     }
 
@@ -306,8 +297,7 @@ class SaisonWeekend
      * @param integer $nbNuitMin
      * @return SaisonWeekend
      */
-    public function setNbNuitMin($nbNuitMin)
-    {
+    public function setNbNuitMin($nbNuitMin) {
         $this->nbNuitMin = $nbNuitMin;
 
         return $this;
@@ -318,8 +308,7 @@ class SaisonWeekend
      *
      * @return integer 
      */
-    public function getNbNuitMin()
-    {
+    public function getNbNuitMin() {
         return $this->nbNuitMin;
     }
 
@@ -329,8 +318,7 @@ class SaisonWeekend
      * @param integer $nbNuitMax
      * @return SaisonWeekend
      */
-    public function setNbNuitMax($nbNuitMax)
-    {
+    public function setNbNuitMax($nbNuitMax) {
         $this->nbNuitMax = $nbNuitMax;
 
         return $this;
@@ -341,8 +329,7 @@ class SaisonWeekend
      *
      * @return integer 
      */
-    public function getNbNuitMax()
-    {
+    public function getNbNuitMax() {
         return $this->nbNuitMax;
     }
 
@@ -352,8 +339,7 @@ class SaisonWeekend
      * @param \DateTime $created
      * @return SaisonWeekend
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
@@ -364,8 +350,7 @@ class SaisonWeekend
      *
      * @return \DateTime 
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
@@ -375,8 +360,7 @@ class SaisonWeekend
      * @param \DateTime $updated
      * @return SaisonWeekend
      */
-    public function setUpdated($updated)
-    {
+    public function setUpdated($updated) {
         $this->updated = $updated;
 
         return $this;
@@ -387,8 +371,45 @@ class SaisonWeekend
      *
      * @return \DateTime 
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         return $this->updated;
     }
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add chambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Chambre $chambres
+     * @return SaisonWeekend
+     */
+    public function addChambre(\Back\HotelTunisieBundle\Entity\Chambre $chambres) {
+        $this->chambres[] = $chambres;
+
+        return $this;
+    }
+
+    /**
+     * Remove chambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Chambre $chambres
+     */
+    public function removeChambre(\Back\HotelTunisieBundle\Entity\Chambre $chambres) {
+        $this->chambres->removeElement($chambres);
+    }
+
+    /**
+     * Get chambres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChambres() {
+        return $this->chambres;
+    }
+
 }

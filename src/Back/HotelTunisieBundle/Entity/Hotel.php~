@@ -116,7 +116,7 @@ class Hotel
     protected $tags;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Chambre")
+     * @ORM\ManyToMany(targetEntity="Chambre", inversedBy="hotels")
      * @ORM\JoinTable(name="ost_sht_hotels_chambre",
      *      joinColumns={@ORM\JoinColumn(name="id_hotel", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_chambre", referencedColumnName="id")}
