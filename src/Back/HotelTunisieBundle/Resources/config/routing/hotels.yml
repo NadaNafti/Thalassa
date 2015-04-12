@@ -72,4 +72,8 @@ saison_vues:
     
 delete_saison_vues:
     path:     /delete_vue_saison/{id}/{hotel}
-    defaults: { _controller: BackHotelTunisieBundle:Hotels:deleteSaisonVues }    
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:deleteSaisonVues }   
+    
+saison_supplement:
+    path:     /modif/{id}/saison_supplement
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:saisonSupp }    

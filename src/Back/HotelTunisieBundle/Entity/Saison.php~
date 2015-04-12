@@ -133,6 +133,11 @@ class Saison
      * @ORM\OneToOne(targetEntity="SaisonReduc", cascade={"persist"})
      */
     private $saisonReduc;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="SaisonSupp", cascade={"persist"})
+     */
+    private $saisonSupp;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -633,5 +638,38 @@ class Saison
     public function getSuppChambres()
     {
         return $this->suppChambres;
+    }
+
+    /**
+     * Add vues
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonVue $vues
+     * @return Saison
+     */
+    public function addVue(\Back\HotelTunisieBundle\Entity\SaisonVue $vues)
+    {
+        $this->vues[] = $vues;
+
+        return $this;
+    }
+
+    /**
+     * Remove vues
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonVue $vues
+     */
+    public function removeVue(\Back\HotelTunisieBundle\Entity\SaisonVue $vues)
+    {
+        $this->vues->removeElement($vues);
+    }
+
+    /**
+     * Get vues
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVues()
+    {
+        return $this->vues;
     }
 }

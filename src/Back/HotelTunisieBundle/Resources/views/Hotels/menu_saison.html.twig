@@ -2,12 +2,12 @@
     <ul id="myTab2" class="nav nav-tabs tab-padding tab-space-3">
         <li {% if app.request.get('_route')=='saison_base' %}class="active"{% endif %}>
             <a href="{{ path("saison_base",{'id':hotel.id}) }}">
-                Information générale
+                Info générale
             </a>
         </li>
         <li {% if app.request.get('_route')=='saison_chambres' %}class="active"{% endif %}>
             <a href="{{ path("saison_chambres",{'id':hotel.id}) }}">
-                Occupation des chambres 
+                Occ. chambres 
                 {% if hotel.saisonBase.chambres|length != hotel.chambres|length %}
                     <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
                     {% endif %}
@@ -29,9 +29,12 @@
                     {% endif %}
             </a>
         </li>
-        <li>
-            <a href="#panel_tab3_example3">
-                Suppléments
+        <li {% if app.request.get('_route')=='saison_supplement' %}class="active"{% endif %}>
+            <a href="{{ path("saison_supplement",{'id':hotel.id}) }}">
+                Supplément
+                {% if hotel.saisonBase.saisonSupp is null%}
+                    <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
+                    {% endif %}
             </a>
         </li>
         <li {% if app.request.get('_route')=='saison_supp_chambres' %}class="active"{% endif %}>

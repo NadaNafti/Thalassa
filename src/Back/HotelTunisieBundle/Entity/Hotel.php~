@@ -977,4 +977,16 @@ class Hotel
     {
         return $this->etat;
     }
+    
+    
+    public function getCountAutresChambres()
+    {
+        $i=0;
+        foreach($this->chambres as $chambre)
+        {
+            if($chambre->getType()==0)
+                $i++;
+        }
+        return $i;
+    }
 }
