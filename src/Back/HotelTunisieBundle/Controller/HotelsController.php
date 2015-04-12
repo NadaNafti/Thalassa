@@ -30,6 +30,8 @@ use Back\HotelTunisieBundle\Entity\SaisonVue;
 use Back\HotelTunisieBundle\Form\SaisonVType;
 use Back\HotelTunisieBundle\Entity\SaisonSupp;
 use Back\HotelTunisieBundle\Form\SaisonSuppType;
+use Back\HotelTunisieBundle\Entity\SaisonWeekend;
+use Back\HotelTunisieBundle\Form\SaisonWeekendType;
 
 class HotelsController extends Controller {
 
@@ -479,6 +481,33 @@ class HotelsController extends Controller {
         }
 
         return $this->render("BackHotelTunisieBundle:Hotels:saison_supplement.html.twig", array(
+                    'hotel' => $hotel,
+                    'form' => $form->createView()
+        ));
+    }
+
+    public function saisonWeekendAction(Hotel $hotel) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        if ($hotel->getSaisonBase()->getSaisonWeekend() == NULL)
+            $saisonWeekend = new SaisonWeekend();
+        else
+            $saisonWeekend = $hotel->getSaisonBase()->getSaisonWeekend();
+        $form = $this->createForm(new SaisonWeekendType(), $saisonWeekend);
+        $request = $this->getRequest();
+        if ($request->isMethod('POST')) {
+            $form->submit($request);
+            if ($form->isValid()) {
+                $saisonWeekend = $form->getData();
+                $em->persist($saisonWeekend);
+                $em->persist($hotel->getSaisonBase()->setSaisonWeekend($saisonWeekend));
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");
+                return $this->redirect($this->generateUrl("saison_weekend", array('id' => $hotel->getId())));
+            }
+        }
+
+        return $this->render("BackHotelTunisieBundle:Hotels:saison_weekend.html.twig", array(
                     'hotel' => $hotel,
                     'form' => $form->createView()
         ));

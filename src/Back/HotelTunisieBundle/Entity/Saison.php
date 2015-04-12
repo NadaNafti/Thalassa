@@ -138,6 +138,11 @@ class Saison
      * @ORM\OneToOne(targetEntity="SaisonSupp", cascade={"persist"})
      */
     private $saisonSupp;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="SaisonWeekend", cascade={"persist"})
+     */
+    private $saisonWeekend;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -694,5 +699,28 @@ class Saison
     public function getSaisonSupp()
     {
         return $this->saisonSupp;
+    }
+
+    /**
+     * Set saisonWeekend
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonWeekend $saisonWeekend
+     * @return Saison
+     */
+    public function setSaisonWeekend(\Back\HotelTunisieBundle\Entity\SaisonWeekend $saisonWeekend = null)
+    {
+        $this->saisonWeekend = $saisonWeekend;
+
+        return $this;
+    }
+
+    /**
+     * Get saisonWeekend
+     *
+     * @return \Back\HotelTunisieBundle\Entity\SaisonWeekend 
+     */
+    public function getSaisonWeekend()
+    {
+        return $this->saisonWeekend;
     }
 }

@@ -59,9 +59,12 @@
             </a>
         </li>
         {% if hotel.ficheTechnique.tarifWeekend == true%}
-            <li>
-                <a href="#panel_tab3_example3">
-                    Week-end
+            <li {% if app.request.get('_route')=='saison_weekend' %}class="active"{% endif %}>
+                <a href="{{ path("saison_weekend",{'id':hotel.id}) }}">
+                    Weekend
+                    {% if hotel.saisonBase.saisonWeekend is null%}
+                        <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
+                        {% endif %}
                 </a>
             </li>
         {% endif %}
