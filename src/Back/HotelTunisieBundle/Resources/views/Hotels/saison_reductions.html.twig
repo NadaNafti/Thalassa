@@ -23,44 +23,44 @@
                                 {{ form_widget(form._token) }}
                                 <div class="row">
                                     <div class="col-md-4"></div>
-                                    <div class="col-md-1">Valeur [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</div>
+                                    <div class="col-md-2">Valeur [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</div>
                                     <div class="col-md-3">Valeur [{{ hotel.ficheTechnique.min2AgeEnfant }} .. {{ hotel.ficheTechnique.max2AgeEnfant }}]</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4" style="padding-top: 20px;">1<sup>er</sup> enfant avec 1 adulte dans une même chambre</div>
-                                    {{ formulaire.input("col-md-1","",form.val1Enfant1Adulte1,false) }}
-                                    {{ formulaire.input("col-md-1","",form.val1Enfant1Adulte2,false) }}
+                                    {{ formulaire.input("col-md-2","",form.val1Enfant1Adulte1,false) }}
+                                    {{ formulaire.input("col-md-2","",form.val1Enfant1Adulte2,false) }}
                                     {{ formulaire.input("col-md-2","",form.pour1Enfant1Adulte,false) }}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4" style="padding-top: 20px;">1<sup>er</sup> enfant avec 2 adultes ou plus dans une même chambre</div>
-                                    {{ formulaire.input("col-md-1","",form.val1Enfant2Adulte1,false) }}
-                                    {{ formulaire.input("col-md-1","",form.val1Enfant2Adulte2,false) }}
+                                    {{ formulaire.input("col-md-2","",form.val1Enfant2Adulte1,false) }}
+                                    {{ formulaire.input("col-md-2","",form.val1Enfant2Adulte2,false) }}
                                     {{ formulaire.input("col-md-2","",form.pour1Enfant2Adulte,false) }}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4" style="padding-top: 20px;">1<sup>er</sup> enfant dans une chambre séparée</div>
-                                    {{ formulaire.input("col-md-1","",form.val1EnfantSepare1,false) }}
-                                    {{ formulaire.input("col-md-1","",form.val1EnfantSepare2,false) }}
+                                    {{ formulaire.input("col-md-2","",form.val1EnfantSepare1,false) }}
+                                    {{ formulaire.input("col-md-2","",form.val1EnfantSepare2,false) }}
                                     {{ formulaire.input("col-md-2","",form.pour1EnfantSepare,false) }}
                                 </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-4" style="padding-top: 20px;">2<sup>eme</sup> enfant ou plus avec 1 adulte dans une même chambre</div>
-                                    {{ formulaire.input("col-md-1","",form.val2Enfant1Adulte1,false) }}
-                                    {{ formulaire.input("col-md-1","",form.val2Enfant1Adulte2,false) }}
+                                    {{ formulaire.input("col-md-2","",form.val2Enfant1Adulte1,false) }}
+                                    {{ formulaire.input("col-md-2","",form.val2Enfant1Adulte2,false) }}
                                     {{ formulaire.input("col-md-2","",form.pour2Enfant1Adulte,false) }}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4" style="padding-top: 20px;">2<sup>eme</sup> enfant ou plus avec 2 adultes ou plus dans une même chambre</div>
-                                    {{ formulaire.input("col-md-1","",form.val2Enfant2Adulte1,false) }}
-                                    {{ formulaire.input("col-md-1","",form.val2Enfant2Adulte2,false) }}
+                                    {{ formulaire.input("col-md-2","",form.val2Enfant2Adulte1,false) }}
+                                    {{ formulaire.input("col-md-2","",form.val2Enfant2Adulte2,false) }}
                                     {{ formulaire.input("col-md-2","",form.pour2Enfant2Adulte,false) }}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4" style="padding-top: 20px;">2<sup>eme</sup> enfant ou plus dans une chambre séparée</div>
-                                    {{ formulaire.input("col-md-1","",form.val2EnfantOuPlusSepare1,false) }}
-                                    {{ formulaire.input("col-md-1","",form.val2EnfantOuPlusSepare2,false) }}
+                                    {{ formulaire.input("col-md-2","",form.val2EnfantOuPlusSepare1,false) }}
+                                    {{ formulaire.input("col-md-2","",form.val2EnfantOuPlusSepare2,false) }}
                                     {{ formulaire.input("col-md-2","",form.pour2EnfantOuPlusSepare,false) }}
                                 </div>
                                 <hr>
