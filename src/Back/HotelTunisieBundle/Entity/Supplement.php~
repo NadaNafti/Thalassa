@@ -412,5 +412,10 @@ class Supplement
         else
             return 'Une seul fois';
     }
+    
+    public function __toString()
+    {
+        return $this->libelle .' du '.$this->jourDebut.'/'.$this->moisDebut.'/'.date('Y').' au '.$this->jourFin.'/'.$this->moisFin.'/'.date('Y') ;
+    }
 
 }

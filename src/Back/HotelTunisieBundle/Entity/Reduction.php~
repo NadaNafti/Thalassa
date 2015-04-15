@@ -388,15 +388,15 @@ class Reduction
     {
         return $this->libelle;
     }
-    
+
     public function showObligatoire()
     {
-        if($this->obligatoire==TRUE)
+        if($this->obligatoire == TRUE)
             return 'Oui';
         else
             return 'Non';
     }
-    
+
     public function showParChambre()
     {
         if($this->parChambre)
@@ -404,13 +404,18 @@ class Reduction
         else
             return 'Par Personne';
     }
-    
+
     public function showParNuit()
     {
         if($this->parNuit)
             return 'Chaque nuit';
         else
             return 'Une seul fois';
+    }
+
+    public function __toString()
+    {
+        return $this->libelle.' du '.$this->jourDebut.'/'.$this->moisDebut.'/'.date('Y').' au '.$this->jourFin.'/'.$this->moisFin.'/'.date('Y');
     }
 
 }
