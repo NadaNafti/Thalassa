@@ -28,8 +28,16 @@ class ReductionType extends AbstractType
                 ->add('moisDebut', 'choice', array('choices'=>$mois))
                 ->add('jourFin', 'choice', array('choices'=>$jour))
                 ->add('moisFin', 'choice', array('choices'=>$mois))
-                ->add('parNuit')
-                ->add('parChambre')
+                ->add('parNuit', 'choice', array(
+                    'choices' =>array( '0'=>'Une seul fois', '1'=>'Chaque nuit' ),
+                    'expanded'=>true,
+                    'multiple'=>false,
+                ))
+                ->add('parChambre', 'choice', array(
+                    'choices' =>array( '0'=>'Par personne', '1'=>'Par chambre' ),
+                    'expanded'=>true,
+                    'multiple'=>false,
+                ))
         ;
     }
 

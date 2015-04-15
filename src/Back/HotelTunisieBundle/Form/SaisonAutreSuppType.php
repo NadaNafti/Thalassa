@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SaisonArrangementType extends AbstractType
+class SaisonAutreSuppType extends AbstractType
 {
 
     /**
@@ -16,8 +16,8 @@ class SaisonArrangementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('etat')
-                ->add('valeur')
+                ->add('valeurAdulte')
+                ->add('valeurEnfant')
                 ->add('valeurPour', 'checkbox', array(
                     'label'   =>'En pourcentage',
                     'required'=>false
@@ -27,7 +27,7 @@ class SaisonArrangementType extends AbstractType
                     'label'   =>'En pourcentage',
                     'required'=>false
                 ))
-                ->add('arrangement')
+                ->add('supp')
         ;
     }
 
@@ -37,7 +37,7 @@ class SaisonArrangementType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'=>'Back\HotelTunisieBundle\Entity\SaisonArrangement'
+            'data_class'=>'Back\HotelTunisieBundle\Entity\SaisonAutreSupp'
         ));
     }
 
@@ -46,7 +46,7 @@ class SaisonArrangementType extends AbstractType
      */
     public function getName()
     {
-        return 'back_hoteltunisiebundle_saisonarrangement';
+        return 'back_hoteltunisiebundle_saisonautresupp';
     }
 
 }

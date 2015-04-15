@@ -18,12 +18,12 @@ class SaisonVueType extends AbstractType
         $builder
                 ->add('valeur')
                 ->add('valeurPour', 'checkbox', array(
-                    'label'   =>'Par pourcentage',
+                    'label'   =>'En pourcentage',
                     'required'=>false
                 ))
                 ->add('marge')
                 ->add('margePour', 'checkbox', array(
-                    'label'   =>'Par pourcentage',
+                    'label'   =>'En pourcentage',
                     'required'=>false
                 ))
                 ->add('etat')

@@ -130,6 +130,11 @@ class Saison
     protected $arrangements;
     
     /**
+     * @ORM\OneToMany(targetEntity="SaisonAutreSupp", mappedBy="saison")
+     */
+    protected $autresSupplements;
+    
+    /**
      * @ORM\OneToOne(targetEntity="SaisonReduc", cascade={"persist"})
      */
     private $saisonReduc;
@@ -722,5 +727,38 @@ class Saison
     public function getSaisonWeekend()
     {
         return $this->saisonWeekend;
+    }
+
+    /**
+     * Add autresSupplements
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonAutreSupp $autresSupplements
+     * @return Saison
+     */
+    public function addAutresSupplement(\Back\HotelTunisieBundle\Entity\SaisonAutreSupp $autresSupplements)
+    {
+        $this->autresSupplements[] = $autresSupplements;
+
+        return $this;
+    }
+
+    /**
+     * Remove autresSupplements
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonAutreSupp $autresSupplements
+     */
+    public function removeAutresSupplement(\Back\HotelTunisieBundle\Entity\SaisonAutreSupp $autresSupplements)
+    {
+        $this->autresSupplements->removeElement($autresSupplements);
+    }
+
+    /**
+     * Get autresSupplements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAutresSupplements()
+    {
+        return $this->autresSupplements;
     }
 }

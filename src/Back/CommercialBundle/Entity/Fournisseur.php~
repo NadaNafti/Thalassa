@@ -67,4 +67,49 @@ class Fournisseur
     {
         return $this->libelle;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add contacts
+     *
+     * @param \Back\CommercialBundle\Entity\Fournisseur $contacts
+     * @return Fournisseur
+     */
+    public function addContact(\Back\CommercialBundle\Entity\Fournisseur $contacts)
+    {
+        $this->contacts[] = $contacts;
+
+        return $this;
+    }
+
+    /**
+     * Remove contacts
+     *
+     * @param \Back\CommercialBundle\Entity\Fournisseur $contacts
+     */
+    public function removeContact(\Back\CommercialBundle\Entity\Fournisseur $contacts)
+    {
+        $this->contacts->removeElement($contacts);
+    }
+
+    /**
+     * Get contacts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 }

@@ -19,12 +19,12 @@ class SaisonSuppChambreType extends AbstractType
                 ->add('etat')
                 ->add('valeur')
                 ->add('valeurPour', 'checkbox', array(
-                    'label'   =>'Par pourcentage',
+                    'label'   =>'En pourcentage',
                     'required'=>false
                 ))
                 ->add('marge')
                 ->add('margePour', 'checkbox', array(
-                    'label'   =>'Par pourcentage',
+                    'label'   =>'En pourcentage',
                     'required'=>false
                 ))
                 ->add('chambre')

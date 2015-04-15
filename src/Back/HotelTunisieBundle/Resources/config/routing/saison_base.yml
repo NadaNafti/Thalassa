@@ -1,0 +1,55 @@
+saison_base:
+    path:     /modif/{id}/saison_base
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:saisonBase }
+    
+saison_chambres:
+    path:     /modif/{id}/saison_chambres
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:saisonChambres }
+    
+delete_saison_chambres:
+    path:     /delete_chambre_saison/{id}/{hotel}
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:deleteSaisonChambres }
+    
+saison_reduction:
+    path:     /modif/{id}/saison_reduction
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:saisonReduc }
+    
+saison_arrangements:
+    path:     /modif/{id}/saison_arrangements
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:saisonArrangements }
+    
+delete_saison_arrangements:
+    path:     /delete_arrangement_saison/{id}/{hotel}
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:deleteSaisonArragements }
+        
+saison_supp_chambres:
+    path:     /modif/{id}/saison_supp_chambres
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:saisonSuppChambres }
+    
+delete_saison_supp_chambres:
+    path:     /delete_supp_chambre_saison/{id}/{hotel}
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:deleteSaisonSuppChambres }    
+        
+saison_vues:
+    path:     /modif/{id}/saison_vue
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:saisonVues }
+    
+delete_saison_vues:
+    path:     /delete_vue_saison/{id}/{hotel}
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:deleteSaisonVues }   
+    
+saison_supplement:
+    path:     /modif/{id}/saison_supplement
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:saisonSupp }    
+    
+saison_weekend:
+    path:     /modif/{id}/saison_weekend
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:saisonWeekend }    
+    
+saison_autres_supp:
+    path:     /modif/{id}/saison_autres_supp/{id2}
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:saisonAutreSupp,id2:null }
+    
+delete_autres_supp:
+    path:     /delete_autre_supp/{hotel}/{id}
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:deleteAutreSupp }

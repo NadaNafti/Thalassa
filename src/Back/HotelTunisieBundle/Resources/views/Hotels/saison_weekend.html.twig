@@ -29,16 +29,16 @@
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    {{ formulaire.select2("col-md-6","Liste des chambres",form.chambres,false) }}
-                                    {{ formulaire.input("col-md-3","Nombre de nuitées minimum",form.nbNuitMin,false) }}
-                                    {{ formulaire.input("col-md-3","Nombre de nuitées maximum",form.nbNuitMax,false) }}
+                                    {{ formulaire.select2("col-md-4","Liste des chambres",form.chambres,false) }}
+                                    {{ formulaire.input("col-md-2","Nombre de nuitées minimum",form.nbNuitMin,false) }}
+                                    {{ formulaire.input("col-md-2","Nombre de nuitées maximum",form.nbNuitMax,false) }}
                                 </div>
                                 <hr>
                                 <div class="row">
                                     {{ formulaire.input("col-md-2","",form.type,false) }}
-                                    {{ formulaire.input("col-md-2","Valeur",form.valeur,false) }}
+                                    {{ formulaire.input("col-md-1","Valeur",form.valeur,false) }}
                                     {{ formulaire.input("col-md-2","",form.valeurPour,false) }}
-                                    {{ formulaire.input("col-md-2","Marge",form.marge,false) }}
+                                    {{ formulaire.input("col-md-1","Marge",form.marge,false) }}
                                     {{ formulaire.input("col-md-2","",form.margePour,false) }}
                                 </div>
                                 {{ formulaire.submit("Modifier") }}

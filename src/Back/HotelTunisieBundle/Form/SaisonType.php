@@ -27,7 +27,7 @@ class SaisonType extends AbstractType
                 ->add('prixConvention','integer')
                 ->add('margeVente','integer')
                 ->add('pourcentage', 'checkbox', array(
-                    'label'   =>' Par pourcentage',
+                    'label'   =>' En pourcentage',
                     'required'=>false
                 ))
         ;

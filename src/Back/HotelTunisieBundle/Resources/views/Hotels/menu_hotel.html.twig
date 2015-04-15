@@ -9,7 +9,7 @@
             Fiche téchnique {% if hotel.ficheTechnique is null %}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i>{% endif %}
         </a>
     </li>
-    <li {% if app.request.get('_route') in ['saison_base','saison_chambres','saison_reduction','saison_arrangements','saison_supp_chambres','saison_vues','saison_supplement','saison_weekend'] %}class="active"{% endif %}>
+    <li {% if app.request.get('_route') in ['saison_base','saison_chambres','saison_reduction','saison_arrangements','saison_supp_chambres','saison_vues','saison_supplement','saison_weekend','saison_autres_supp'] %}class="active"{% endif %}>
         <a href="{{ path("saison_base",{'id':hotel.id}) }}">
             Saison de base {% if hotel.saisonBase is null %}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i>{% endif %}
         </a>

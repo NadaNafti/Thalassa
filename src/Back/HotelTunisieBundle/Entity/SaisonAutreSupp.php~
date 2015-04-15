@@ -1,0 +1,221 @@
+<?php
+
+namespace Back\HotelTunisieBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * SaisonAutreSupp
+ *
+ * @ORM\Table(name="ost_sht_hotels_saison_autressupp")
+ * @ORM\Entity
+ */
+class SaisonAutreSupp
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valeur1", type="decimal")
+     */
+    private $valeur1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valeur2", type="decimal")
+     */
+    private $valeur2;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="valeurPour", type="boolean")
+     */
+    private $valeurPour;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="marge", type="decimal")
+     */
+    private $marge;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="margePour", type="boolean")
+     */
+    private $margePour;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Supplement",fetch="EAGER")
+     * @ORM\JoinColumn(name="supplement_id", referencedColumnName="id")
+     */
+    protected $supp;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Saison", inversedBy="autresSupplements", fetch="EAGER")
+     * @ORM\JoinColumn(name="saison_id", referencedColumnName="id")
+     */
+    protected $saison;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set valeur1
+     *
+     * @param string $valeur1
+     * @return SaisonAutreSupp
+     */
+    public function setValeur1($valeur1)
+    {
+        $this->valeur1 = $valeur1;
+
+        return $this;
+    }
+
+    /**
+     * Get valeur1
+     *
+     * @return string 
+     */
+    public function getValeur1()
+    {
+        return $this->valeur1;
+    }
+
+    /**
+     * Set valeur2
+     *
+     * @param string $valeur2
+     * @return SaisonAutreSupp
+     */
+    public function setValeur2($valeur2)
+    {
+        $this->valeur2 = $valeur2;
+
+        return $this;
+    }
+
+    /**
+     * Get valeur2
+     *
+     * @return string 
+     */
+    public function getValeur2()
+    {
+        return $this->valeur2;
+    }
+
+    /**
+     * Set valeurPour
+     *
+     * @param boolean $valeurPour
+     * @return SaisonAutreSupp
+     */
+    public function setValeurPour($valeurPour)
+    {
+        $this->valeurPour = $valeurPour;
+
+        return $this;
+    }
+
+    /**
+     * Get valeurPour
+     *
+     * @return boolean 
+     */
+    public function getValeurPour()
+    {
+        return $this->valeurPour;
+    }
+
+    /**
+     * Set marge
+     *
+     * @param string $marge
+     * @return SaisonAutreSupp
+     */
+    public function setMarge($marge)
+    {
+        $this->marge = $marge;
+
+        return $this;
+    }
+
+    /**
+     * Get marge
+     *
+     * @return string 
+     */
+    public function getMarge()
+    {
+        return $this->marge;
+    }
+
+    /**
+     * Set margePour
+     *
+     * @param boolean $margePour
+     * @return SaisonAutreSupp
+     */
+    public function setMargePour($margePour)
+    {
+        $this->margePour = $margePour;
+
+        return $this;
+    }
+
+    /**
+     * Get margePour
+     *
+     * @return boolean 
+     */
+    public function getMargePour()
+    {
+        return $this->margePour;
+    }
+
+    /**
+     * Set supp
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Supplement $supp
+     * @return SaisonAutreSupp
+     */
+    public function setSupp(\Back\HotelTunisieBundle\Entity\Supplement $supp = null)
+    {
+        $this->supp = $supp;
+
+        return $this;
+    }
+
+    /**
+     * Get supp
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Supplement 
+     */
+    public function getSupp()
+    {
+        return $this->supp;
+    }
+}
