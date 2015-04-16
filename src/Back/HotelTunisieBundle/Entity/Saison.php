@@ -108,51 +108,56 @@ class Saison
      * @ORM\Column(name="pourcentage", type="boolean", nullable=true)
      */
     private $pourcentage;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="SaisonChambre", mappedBy="saison")
      */
     protected $chambres;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="SaisonSuppChambre", mappedBy="saison")
      */
     protected $suppChambres;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="SaisonVue", mappedBy="saison")
      */
     protected $vues;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="SaisonArrangement", mappedBy="saison")
      */
     protected $arrangements;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="SaisonAutreSupp", mappedBy="saison")
      */
     protected $autresSupplements;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="SaisonAutreReduc", mappedBy="saison")
      */
     protected $autresReductions;
-    
+
     /**
      * @ORM\OneToOne(targetEntity="SaisonReduc", cascade={"persist"})
      */
     private $saisonReduc;
-    
+
     /**
      * @ORM\OneToOne(targetEntity="SaisonSupp", cascade={"persist"})
      */
     private $saisonSupp;
-    
+
     /**
      * @ORM\OneToOne(targetEntity="SaisonWeekend", cascade={"persist"})
      */
     private $saisonWeekend;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Hotel", mappedBy="saisonBase")
+     * */
+    private $hotelBase;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -406,7 +411,6 @@ class Saison
         return $this->pourcentage;
     }
 
-
     /**
      * Set created
      *
@@ -415,7 +419,7 @@ class Saison
      */
     public function setCreated($created)
     {
-        $this->created = $created;
+        $this->created=$created;
 
         return $this;
     }
@@ -438,7 +442,7 @@ class Saison
      */
     public function setUpdated($updated)
     {
-        $this->updated = $updated;
+        $this->updated=$updated;
 
         return $this;
     }
@@ -459,9 +463,9 @@ class Saison
      * @param \Back\HotelTunisieBundle\Entity\Arrangement $arrBase
      * @return Saison
      */
-    public function setArrBase(\Back\HotelTunisieBundle\Entity\Arrangement $arrBase = null)
+    public function setArrBase(\Back\HotelTunisieBundle\Entity\Arrangement $arrBase=null)
     {
-        $this->ArrBase = $arrBase;
+        $this->ArrBase=$arrBase;
 
         return $this;
     }
@@ -486,7 +490,7 @@ class Saison
      */
     public function setType($type)
     {
-        $this->type = $type;
+        $this->type=$type;
 
         return $this;
     }
@@ -502,22 +506,23 @@ class Saison
     {
         return $this->type;
     }
-    
+
     public function showSaison()
     {
-        if($this->type==null)
+        if($this->type == null)
             return "Saison de base";
-        if($this->type==1)
+        if($this->type == 1)
             return "Saison";
-        if($this->type==2)
+        if($this->type == 2)
             return "Promotion";
     }
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->chambres=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -528,7 +533,7 @@ class Saison
      */
     public function addChambre(\Back\HotelTunisieBundle\Entity\SaisonChambre $chambres)
     {
-        $this->chambres[] = $chambres;
+        $this->chambres[]=$chambres;
 
         return $this;
     }
@@ -559,9 +564,9 @@ class Saison
      * @param \Back\HotelTunisieBundle\Entity\SaisonReduc $saisonReduc
      * @return Saison
      */
-    public function setSaisonReduc(\Back\HotelTunisieBundle\Entity\SaisonReduc $saisonReduc = null)
+    public function setSaisonReduc(\Back\HotelTunisieBundle\Entity\SaisonReduc $saisonReduc=null)
     {
-        $this->saisonReduc = $saisonReduc;
+        $this->saisonReduc=$saisonReduc;
 
         return $this;
     }
@@ -584,7 +589,7 @@ class Saison
      */
     public function addArrangement(\Back\HotelTunisieBundle\Entity\SaisonArrangement $arrangements)
     {
-        $this->arrangements[] = $arrangements;
+        $this->arrangements[]=$arrangements;
 
         return $this;
     }
@@ -616,10 +621,10 @@ class Saison
      */
     public function getPrixDeBase()
     {
-        if($this->pourcentage==1)
-            return $this->prixConvention+($this->prixConvention*$this->margeVente/100);
+        if($this->pourcentage == 1)
+            return $this->prixConvention + ($this->prixConvention * $this->margeVente / 100);
         else
-            return $this->prixConvention+$this->margeVente;
+            return $this->prixConvention + $this->margeVente;
     }
 
     /**
@@ -630,7 +635,7 @@ class Saison
      */
     public function addSuppChambre(\Back\HotelTunisieBundle\Entity\SaisonSuppChambre $suppChambres)
     {
-        $this->suppChambres[] = $suppChambres;
+        $this->suppChambres[]=$suppChambres;
 
         return $this;
     }
@@ -663,7 +668,7 @@ class Saison
      */
     public function addVue(\Back\HotelTunisieBundle\Entity\SaisonVue $vues)
     {
-        $this->vues[] = $vues;
+        $this->vues[]=$vues;
 
         return $this;
     }
@@ -694,9 +699,9 @@ class Saison
      * @param \Back\HotelTunisieBundle\Entity\SaisonSupp $saisonSupp
      * @return Saison
      */
-    public function setSaisonSupp(\Back\HotelTunisieBundle\Entity\SaisonSupp $saisonSupp = null)
+    public function setSaisonSupp(\Back\HotelTunisieBundle\Entity\SaisonSupp $saisonSupp=null)
     {
-        $this->saisonSupp = $saisonSupp;
+        $this->saisonSupp=$saisonSupp;
 
         return $this;
     }
@@ -717,9 +722,9 @@ class Saison
      * @param \Back\HotelTunisieBundle\Entity\SaisonWeekend $saisonWeekend
      * @return Saison
      */
-    public function setSaisonWeekend(\Back\HotelTunisieBundle\Entity\SaisonWeekend $saisonWeekend = null)
+    public function setSaisonWeekend(\Back\HotelTunisieBundle\Entity\SaisonWeekend $saisonWeekend=null)
     {
-        $this->saisonWeekend = $saisonWeekend;
+        $this->saisonWeekend=$saisonWeekend;
 
         return $this;
     }
@@ -742,7 +747,7 @@ class Saison
      */
     public function addAutresSupplement(\Back\HotelTunisieBundle\Entity\SaisonAutreSupp $autresSupplements)
     {
-        $this->autresSupplements[] = $autresSupplements;
+        $this->autresSupplements[]=$autresSupplements;
 
         return $this;
     }
@@ -775,7 +780,7 @@ class Saison
      */
     public function addAutresReduction(\Back\HotelTunisieBundle\Entity\SaisonAutreReduc $autresReductions)
     {
-        $this->autresReductions[] = $autresReductions;
+        $this->autresReductions[]=$autresReductions;
 
         return $this;
     }
@@ -798,5 +803,48 @@ class Saison
     public function getAutresReductions()
     {
         return $this->autresReductions;
+    }
+
+    /**
+     * Set hotelBase
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotelBase
+     * @return Saison
+     */
+    public function setHotelBase(\Back\HotelTunisieBundle\Entity\Hotel $hotelBase = null)
+    {
+        $this->hotelBase = $hotelBase;
+
+        return $this;
+    }
+
+    /**
+     * Get hotelBase
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Hotel 
+     */
+    public function getHotelBase()
+    {
+        return $this->hotelBase;
+    }
+
+    public function isValid()
+    {
+        if(count($this->chambres)!=count($this->hotelBase->getChambres()))
+            return FALSE;
+        elseif(count($this->arrangements)+1!=count($this->hotelBase->getArrangements()))
+            return FALSE;
+        elseif(count($this->suppChambres)!=$this->hotelBase->getCountAutresChambres())
+            return FALSE;
+        elseif(count($this->vues)!=count($this->hotelBase->getVues()))
+            return FALSE;
+        elseif($this->saisonReduc==null)
+            return FALSE;
+        elseif($this->saisonSupp==null)
+            return FALSE;
+        elseif($this->saisonWeekend==null && $this->hotelBase->getFicheTechnique()->getTarifWeekend())
+            return FALSE;
+        else
+            return TRUE;
     }
 }

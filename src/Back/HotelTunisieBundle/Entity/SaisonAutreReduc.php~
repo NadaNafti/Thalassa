@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * SaisonAutreSupp
  *
- * @ORM\Table(name="ost_sht_hotels_saison_autressupp")
+ * @ORM\Table(name="ost_sht_hotels_saison_autresreduc")
  * @ORM\Entity
  */
 class SaisonAutreReduc
@@ -194,5 +194,51 @@ class SaisonAutreReduc
     public function getMargePour()
     {
         return $this->margePour;
+    }
+
+    /**
+     * Set reduc
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Reduction $reduc
+     * @return SaisonAutreReduc
+     */
+    public function setReduc(\Back\HotelTunisieBundle\Entity\Reduction $reduc = null)
+    {
+        $this->reduc = $reduc;
+
+        return $this;
+    }
+
+    /**
+     * Get reduc
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Reduction 
+     */
+    public function getReduc()
+    {
+        return $this->reduc;
+    }
+
+    /**
+     * Set saison
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Saison $saison
+     * @return SaisonAutreReduc
+     */
+    public function setSaison(\Back\HotelTunisieBundle\Entity\Saison $saison = null)
+    {
+        $this->saison = $saison;
+
+        return $this;
+    }
+
+    /**
+     * Get saison
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Saison 
+     */
+    public function getSaison()
+    {
+        return $this->saison;
     }
 }

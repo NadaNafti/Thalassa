@@ -195,7 +195,7 @@ class Hotel
     private $ficheTechnique;
 
     /**
-     * @ORM\OneToOne(targetEntity="Saison", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Saison", inversedBy="hotelBase", cascade={"persist"})
      */
     private $saisonBase;
 

@@ -53,6 +53,8 @@
                                         {% endif %}
                                         {% if hotel.saisonBase is null %}
                                             <a href="{{ path('saison_base',{'id':hotel.id}) }}" class="tooltips" title="Saison de base est vide"><span class="label label-sm label-danger">SB vide</span></a>
+                                        {% elseif not hotel.saisonBase.isValid %}
+                                            <a href="{{ path('saison_base',{'id':hotel.id}) }}" class="tooltips" title="Saison de base est Invalide"><span class="label label-sm label-danger">SB Invalide</span></a>
                                         {% endif %}
                                     </td>
                                     <td class="TableAction">
