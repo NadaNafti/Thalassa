@@ -113,6 +113,11 @@ class SaisonSupp
      * @ORM\Column(name="suppSingleEnfant", type="boolean",nullable=true)
      */
     private $suppSingleEnfant;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Saison", mappedBy="saisonSupp")
+     * */
+    private $saison;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -481,4 +486,10 @@ class SaisonSupp
     {
         return $this->updated;
     }
+    
+//    public function getSuppSingleAchat()
+//    {
+//        if($this->suppSinglePour)
+//            return $this->;
+//    }
 }

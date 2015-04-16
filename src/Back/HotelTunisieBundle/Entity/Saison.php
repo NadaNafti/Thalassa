@@ -140,17 +140,17 @@ class Saison
     protected $autresReductions;
 
     /**
-     * @ORM\OneToOne(targetEntity="SaisonReduc", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="SaisonReduc", inversedBy="saison", cascade={"persist"})
      */
     private $saisonReduc;
 
     /**
-     * @ORM\OneToOne(targetEntity="SaisonSupp", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="SaisonSupp", inversedBy="saison", cascade={"persist"})
      */
     private $saisonSupp;
 
     /**
-     * @ORM\OneToOne(targetEntity="SaisonWeekend", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="SaisonWeekend", inversedBy="saison", cascade={"persist"})
      */
     private $saisonWeekend;
 

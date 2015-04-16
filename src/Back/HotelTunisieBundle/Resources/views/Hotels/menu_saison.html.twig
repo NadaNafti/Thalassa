@@ -73,11 +73,6 @@
                 </a>
             </li>
         {% endif %}
-        <li {% if app.request.get('_route')=='saison_autres_reduc' %}class="active"{% endif %}>
-            <a href="{{ path("saison_autres_reduc",{'id':hotel.id}) }}">
-                Autres réduc
-            </a>
-        </li>
         {% if hotel.saisonBase.isValidSaisonBase %}
         <li {% if app.request.get('_route')=='fiche_saison_base' %}class="active"{% endif %}>
             <a href="{{ path("fiche_saison_base",{'id':hotel.id}) }}">

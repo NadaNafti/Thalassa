@@ -113,6 +113,11 @@ class SaisonSupp
      * @ORM\Column(name="suppSingleEnfant", type="boolean",nullable=true)
      */
     private $suppSingleEnfant;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Saison", mappedBy="saisonSupp")
+     * */
+    private $saison;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -480,5 +485,66 @@ class SaisonSupp
     public function getUpdated()
     {
         return $this->updated;
+    }
+    
+//    public function getSuppSingleAchat()
+//    {
+//        if($this->suppSinglePour)
+//            return $this->;
+//    }
+
+    /**
+     * Set saison
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Saison $saison
+     * @return SaisonSupp
+     */
+    public function setSaison(\Back\HotelTunisieBundle\Entity\Saison $saison = null)
+    {
+        $this->saison = $saison;
+
+        return $this;
+    }
+
+    /**
+     * Get saison
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Saison 
+     */
+    public function getSaison()
+    {
+        return $this->saison;
+    }
+    
+    public function getSuppSingleAchat()
+    {
+        if($this->suppSinglePour)
+            return $this->saison->prixBaseAchat()*$this->suppSingle/100;
+        else
+            return $this->suppSingle;
+    }
+    
+    public function getSuppSingleVente()
+    {
+        if($this->suppSingleMargePour)
+            return $this->getSuppSingleAchat()+$this->getSuppSingleAchat()*$this->sippSingleMarge/100;
+        else
+            return $this->getSuppSingleAchat() + $this->sippSingleMarge;
+    }
+    
+    public function getSupp3LitAchat()
+    {
+        if($this->supp3LitPour)
+            return $this->saison->prixBaseAchat()*$this->supp3Lit/100;
+        else
+            return $this->supp3Lit;
+    }
+    
+    public function getSupp3LitVente()
+    {
+        if($this->supp3LitMargePour)
+            return $this->getSupp3LitAchat()+$this->getSupp3LitAchat()*$this->supp3LitMarge/100;
+        else
+            return $this->getSupp3LitAchat() + $this->supp3LitMarge;
     }
 }

@@ -101,6 +101,11 @@ class SaisonWeekend {
      * )
      */
     protected $chambres;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Saison", mappedBy="saisonWeekend")
+     * */
+    private $saison;
 
     /**
      * @Gedmo\Timestampable(on="create")

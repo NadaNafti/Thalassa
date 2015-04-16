@@ -21,45 +21,71 @@
                         <div class="panel-body tab-content">
                             <div class="panel-body">
                                 <h2 class="center"> Saison de base </h2>
-                                <h4> Convention de base (chambre double avec {{ hotel.saisonBase.arrBase }})</h4>
-                                <dl class="dl-horizontal">
-                                    <dt>
-                                    Achat :
-                                    </dt>
-                                    <dd>
-                                        {{ hotel.saisonBase.prixBaseAchat }} 
-                                    </dd>
-                                    <dt>
-                                    Vente :
-                                    </dt>
-                                    <dd>
-                                        {{ hotel.saisonBase.prixBaseVente }}
-                                    </dd>
-                                </dl>
-                                <hr>
-                                {% for saisonArr in hotel.saisonBase.arrangements  %}
-                                    <h4>{{ saisonArr.arrangement }}</h4>  
-                                    <dl class="dl-horizontal">
-                                        <dt>
-                                        Achat :
-                                        </dt>
-                                        <dd>
-                                            {{ hotel.saisonBase.prixBaseAchat }} 
-                                        </dd>
-                                        <dt>
-                                        Vente :
-                                        </dt>
-                                        <dd>
-                                            {{ hotel.saisonBase.prixBaseVente }}
-                                        </dd>
-                                    </dl>
-                                {% endfor %}
+                                <div class="panel-body">
+                                    <ul>
+                                        <li>
+                                            <strong>Convention de base (chambre double avec {{ hotel.saisonBase.arrBase }})</strong>
+                                            <ul>
+                                                <li>
+                                                    Prix Achat : {{ hotel.saisonBase.prixBaseAchat }} 
+                                                </li>
+                                                <li>
+                                                    Prix Vente : {{ hotel.saisonBase.prixBaseVente }} 
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <strong>Arrangements</strong>
+                                            <ul>
+                                                {% for saisonArr in hotel.saisonBase.arrangements  %}
+                                                    <li>
+                                                        <strong>{{ saisonArr.arrangement }}</strong>
+                                                        <ul>
+                                                            <li>
+                                                                Prix Achat : {{ saisonArr.getReducSuppAchat }} 
+                                                            </li>
+                                                            <li>
+                                                                Prix Vente : {{ saisonArr.getReducSuppVente }} 
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <strong>Supplements </strong>
+                                            <ul>
+                                                <li>
+                                                    <strong>Supp. Single</strong>
+                                                    <ul>
+                                                            <li>
+                                                                Prix Achat : {{ hotel.saisonBase.saisonSupp.getSuppSingleAchat }}
+                                                            </li>
+                                                            <li>
+                                                                Prix Vente : {{ hotel.saisonBase.saisonSupp.getSuppSingleVente }}
+                                                            </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <strong>Supp. 3<sup>eme</sup> Lit</strong>
+                                                    <ul>
+                                                            <li>
+                                                                Prix Achat : {{ hotel.saisonBase.saisonSupp.getSupp3LitAchat }}
+                                                            </li>
+                                                            <li>
+                                                                Prix Vente : {{ hotel.saisonBase.saisonSupp.getSupp3LitVente }}
+                                                            </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-{% endblock %}
+    {% endblock %}

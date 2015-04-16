@@ -242,4 +242,24 @@ class SaisonArrangement
     {
         return $this->saison;
     }
+    
+    public function getReducSuppAchat()
+    {
+        if($this->arrangement->getOrdre()> $this->getSaison()->getArrBase()->getOrdre())
+            $x=1;
+        else
+            $x=-1;
+        if($this->getValeurPour())
+            return $x*$this->getSaison()->prixBaseAchat()*$this->valeur/100;
+        else 
+            return $x*$this->valeur;
+    }
+    
+    public function getReducSuppVente()
+    {
+        if($this->margePour)
+            return $this->getReducSuppAchat()+ abs($this->getReducSuppAchat())*$this->marge/100 ;
+        else
+            return $this->getReducSuppAchat()+$this->marge;
+    }
 }

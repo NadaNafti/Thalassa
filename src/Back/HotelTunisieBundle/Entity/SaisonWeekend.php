@@ -101,6 +101,11 @@ class SaisonWeekend {
      * )
      */
     protected $chambres;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Saison", mappedBy="saisonWeekend")
+     * */
+    private $saison;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -412,4 +417,27 @@ class SaisonWeekend {
         return $this->chambres;
     }
 
+
+    /**
+     * Set saison
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Saison $saison
+     * @return SaisonWeekend
+     */
+    public function setSaison(\Back\HotelTunisieBundle\Entity\Saison $saison = null)
+    {
+        $this->saison = $saison;
+
+        return $this;
+    }
+
+    /**
+     * Get saison
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Saison 
+     */
+    public function getSaison()
+    {
+        return $this->saison;
+    }
 }

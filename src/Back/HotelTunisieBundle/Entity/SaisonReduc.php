@@ -287,6 +287,11 @@ class SaisonReduc
      * @ORM\Column(name="reduc4LitMargePour", type="boolean", nullable=true)
      */
     private $reduc4LitMargePour;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Saison", mappedBy="saisonReduc")
+     * */
+    private $saison;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -1228,5 +1233,28 @@ class SaisonReduc
     public function getReduc4LitMargePour()
     {
         return $this->reduc4LitMargePour;
+    }
+
+    /**
+     * Set saison
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Saison $saison
+     * @return SaisonReduc
+     */
+    public function setSaison(\Back\HotelTunisieBundle\Entity\Saison $saison = null)
+    {
+        $this->saison = $saison;
+
+        return $this;
+    }
+
+    /**
+     * Get saison
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Saison 
+     */
+    public function getSaison()
+    {
+        return $this->saison;
     }
 }

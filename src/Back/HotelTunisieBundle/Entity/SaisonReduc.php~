@@ -287,6 +287,11 @@ class SaisonReduc
      * @ORM\Column(name="reduc4LitMargePour", type="boolean", nullable=true)
      */
     private $reduc4LitMargePour;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Saison", mappedBy="saisonReduc")
+     * */
+    private $saison;
 
     /**
      * @Gedmo\Timestampable(on="create")
