@@ -1,0 +1,65 @@
+{% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
+{% block title %}{{ hotel.libelle }}{% endblock %}
+{% block description %}Saison de base{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
+    </li>
+    <li>
+        <a href="javascript:void(0)" >Saison de base</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="tabbable">
+                        {% include 'BackHotelTunisieBundle:Hotels:menu_saison.html.twig' %}
+                        <div class="panel-body tab-content">
+                            <div class="panel-body">
+                                <h2 class="center"> Saison de base </h2>
+                                <h4> Convention de base (chambre double avec {{ hotel.saisonBase.arrBase }})</h4>
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                    Achat :
+                                    </dt>
+                                    <dd>
+                                        {{ hotel.saisonBase.prixBaseAchat }} 
+                                    </dd>
+                                    <dt>
+                                    Vente :
+                                    </dt>
+                                    <dd>
+                                        {{ hotel.saisonBase.prixBaseVente }}
+                                    </dd>
+                                </dl>
+                                <hr>
+                                {% for saisonArr in hotel.saisonBase.arrangements  %}
+                                    <h4>{{ saisonArr.arrangement }}</h4>  
+                                    <dl class="dl-horizontal">
+                                        <dt>
+                                        Achat :
+                                        </dt>
+                                        <dd>
+                                            {{ hotel.saisonBase.prixBaseAchat }} 
+                                        </dd>
+                                        <dt>
+                                        Vente :
+                                        </dt>
+                                        <dd>
+                                            {{ hotel.saisonBase.prixBaseVente }}
+                                        </dd>
+                                    </dl>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

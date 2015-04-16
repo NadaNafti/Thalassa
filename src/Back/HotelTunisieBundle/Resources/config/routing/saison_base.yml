@@ -1,3 +1,7 @@
+fiche_saison_base:
+    path:     /modif/{id}/saison_base/fiche
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:saisonBaseFiche }
+    
 saison_base:
     path:     /modif/{id}/saison_base
     defaults: { _controller: BackHotelTunisieBundle:SaisonBase:saisonBase }

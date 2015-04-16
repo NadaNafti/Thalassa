@@ -40,6 +40,13 @@ use Back\HotelTunisieBundle\Form\SaisonAutreReducType;
 class SaisonBaseController extends Controller
 {
 
+    public function saisonBaseFicheAction(Hotel $hotel)
+    {
+        return $this->render('BackHotelTunisieBundle:Hotels:fiche_saison_base.html.twig', array(
+                    'hotel'=>$hotel,
+        ));
+    }
+
     public function saisonBaseAction(Hotel $hotel)
     {
         $em=$this->getDoctrine()->getManager();

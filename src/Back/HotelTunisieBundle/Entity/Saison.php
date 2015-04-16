@@ -847,4 +847,24 @@ class Saison
         else
             return TRUE;
     }
+    
+    
+    /**
+     * Calcule Prix Achat de base
+     */
+    public function prixBaseAchat()
+    {
+        return $this->prixConvention;
+    }
+    /**
+     * Calcule Prix vente de base
+     */
+    public function prixBaseVente()
+    {
+        if($this->pourcentage)
+            return $this->prixConvention+($this->prixConvention*$this->margeVente/100);
+        else
+            return $this->prixConvention+$this->margeVente;
+        
+    }
 }
