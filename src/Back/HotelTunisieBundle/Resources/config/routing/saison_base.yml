@@ -53,3 +53,11 @@ saison_autres_supp:
 delete_autres_supp:
     path:     /delete_autre_supp/{hotel}/{id}
     defaults: { _controller: BackHotelTunisieBundle:SaisonBase:deleteAutreSupp }
+    
+saison_autres_reduc:
+    path:     /modif/{id}/saison_autres_reduc/{id2}
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:saisonAutreReduc,id2:null }
+    
+delete_autres_reduc:
+    path:     /delete_autre_reduc/{hotel}/{id}
+    defaults: { _controller: BackHotelTunisieBundle:SaisonBase:deleteAutreReduc }

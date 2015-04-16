@@ -135,6 +135,11 @@ class Saison
     protected $autresSupplements;
     
     /**
+     * @ORM\OneToMany(targetEntity="SaisonAutreReduc", mappedBy="saison")
+     */
+    protected $autresReductions;
+    
+    /**
      * @ORM\OneToOne(targetEntity="SaisonReduc", cascade={"persist"})
      */
     private $saisonReduc;

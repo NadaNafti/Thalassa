@@ -23,7 +23,6 @@ class ReductionType extends AbstractType
             $mois[$i]=$i;
         $builder
                 ->add('libelle')
-                ->add('obligatoire')
                 ->add('jourDebut', 'choice', array('choices'=>$jour))
                 ->add('moisDebut', 'choice', array('choices'=>$mois))
                 ->add('jourFin', 'choice', array('choices'=>$jour))

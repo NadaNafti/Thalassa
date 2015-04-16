@@ -58,8 +58,8 @@
                 Autres supp
             </a>
         </li>
-        <li>
-            <a href="#panel_tab3_example3">
+        <li {% if app.request.get('_route')=='saison_autres_reduc' %}class="active"{% endif %}>
+            <a href="{{ path("saison_autres_reduc",{'id':hotel.id}) }}">
                 Autres réduc
             </a>
         </li>

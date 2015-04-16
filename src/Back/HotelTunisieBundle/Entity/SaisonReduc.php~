@@ -861,4 +861,372 @@ class SaisonReduc
     {
         return $this->updated;
     }
+
+    /**
+     * Set marge1Enfant1Adulte
+     *
+     * @param string $marge1Enfant1Adulte
+     * @return SaisonReduc
+     */
+    public function setMarge1Enfant1Adulte($marge1Enfant1Adulte)
+    {
+        $this->marge1Enfant1Adulte = $marge1Enfant1Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get marge1Enfant1Adulte
+     *
+     * @return string 
+     */
+    public function getMarge1Enfant1Adulte()
+    {
+        return $this->marge1Enfant1Adulte;
+    }
+
+    /**
+     * Set margepour1Enfant1Adulte
+     *
+     * @param boolean $margepour1Enfant1Adulte
+     * @return SaisonReduc
+     */
+    public function setMargepour1Enfant1Adulte($margepour1Enfant1Adulte)
+    {
+        $this->margepour1Enfant1Adulte = $margepour1Enfant1Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get margepour1Enfant1Adulte
+     *
+     * @return boolean 
+     */
+    public function getMargepour1Enfant1Adulte()
+    {
+        return $this->margepour1Enfant1Adulte;
+    }
+
+    /**
+     * Set marge1Enfant2Adulte
+     *
+     * @param string $marge1Enfant2Adulte
+     * @return SaisonReduc
+     */
+    public function setMarge1Enfant2Adulte($marge1Enfant2Adulte)
+    {
+        $this->marge1Enfant2Adulte = $marge1Enfant2Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get marge1Enfant2Adulte
+     *
+     * @return string 
+     */
+    public function getMarge1Enfant2Adulte()
+    {
+        return $this->marge1Enfant2Adulte;
+    }
+
+    /**
+     * Set margepour1Enfant2Adulte
+     *
+     * @param boolean $margepour1Enfant2Adulte
+     * @return SaisonReduc
+     */
+    public function setMargepour1Enfant2Adulte($margepour1Enfant2Adulte)
+    {
+        $this->margepour1Enfant2Adulte = $margepour1Enfant2Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get margepour1Enfant2Adulte
+     *
+     * @return boolean 
+     */
+    public function getMargepour1Enfant2Adulte()
+    {
+        return $this->margepour1Enfant2Adulte;
+    }
+
+    /**
+     * Set marge1EnfantSepare
+     *
+     * @param string $marge1EnfantSepare
+     * @return SaisonReduc
+     */
+    public function setMarge1EnfantSepare($marge1EnfantSepare)
+    {
+        $this->marge1EnfantSepare = $marge1EnfantSepare;
+
+        return $this;
+    }
+
+    /**
+     * Get marge1EnfantSepare
+     *
+     * @return string 
+     */
+    public function getMarge1EnfantSepare()
+    {
+        return $this->marge1EnfantSepare;
+    }
+
+    /**
+     * Set margepour1EnfantSepare
+     *
+     * @param boolean $margepour1EnfantSepare
+     * @return SaisonReduc
+     */
+    public function setMargepour1EnfantSepare($margepour1EnfantSepare)
+    {
+        $this->margepour1EnfantSepare = $margepour1EnfantSepare;
+
+        return $this;
+    }
+
+    /**
+     * Get margepour1EnfantSepare
+     *
+     * @return boolean 
+     */
+    public function getMargepour1EnfantSepare()
+    {
+        return $this->margepour1EnfantSepare;
+    }
+
+    /**
+     * Set marge2Enfant1Adulte
+     *
+     * @param string $marge2Enfant1Adulte
+     * @return SaisonReduc
+     */
+    public function setMarge2Enfant1Adulte($marge2Enfant1Adulte)
+    {
+        $this->marge2Enfant1Adulte = $marge2Enfant1Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get marge2Enfant1Adulte
+     *
+     * @return string 
+     */
+    public function getMarge2Enfant1Adulte()
+    {
+        return $this->marge2Enfant1Adulte;
+    }
+
+    /**
+     * Set margepour2Enfant1Adulte
+     *
+     * @param boolean $margepour2Enfant1Adulte
+     * @return SaisonReduc
+     */
+    public function setMargepour2Enfant1Adulte($margepour2Enfant1Adulte)
+    {
+        $this->margepour2Enfant1Adulte = $margepour2Enfant1Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get margepour2Enfant1Adulte
+     *
+     * @return boolean 
+     */
+    public function getMargepour2Enfant1Adulte()
+    {
+        return $this->margepour2Enfant1Adulte;
+    }
+
+    /**
+     * Set marge2Enfant2Adulte
+     *
+     * @param string $marge2Enfant2Adulte
+     * @return SaisonReduc
+     */
+    public function setMarge2Enfant2Adulte($marge2Enfant2Adulte)
+    {
+        $this->marge2Enfant2Adulte = $marge2Enfant2Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get marge2Enfant2Adulte
+     *
+     * @return string 
+     */
+    public function getMarge2Enfant2Adulte()
+    {
+        return $this->marge2Enfant2Adulte;
+    }
+
+    /**
+     * Set margepour2Enfant2Adulte
+     *
+     * @param boolean $margepour2Enfant2Adulte
+     * @return SaisonReduc
+     */
+    public function setMargepour2Enfant2Adulte($margepour2Enfant2Adulte)
+    {
+        $this->margepour2Enfant2Adulte = $margepour2Enfant2Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get margepour2Enfant2Adulte
+     *
+     * @return boolean 
+     */
+    public function getMargepour2Enfant2Adulte()
+    {
+        return $this->margepour2Enfant2Adulte;
+    }
+
+    /**
+     * Set marge2EnfantOuPlusSepare
+     *
+     * @param string $marge2EnfantOuPlusSepare
+     * @return SaisonReduc
+     */
+    public function setMarge2EnfantOuPlusSepare($marge2EnfantOuPlusSepare)
+    {
+        $this->marge2EnfantOuPlusSepare = $marge2EnfantOuPlusSepare;
+
+        return $this;
+    }
+
+    /**
+     * Get marge2EnfantOuPlusSepare
+     *
+     * @return string 
+     */
+    public function getMarge2EnfantOuPlusSepare()
+    {
+        return $this->marge2EnfantOuPlusSepare;
+    }
+
+    /**
+     * Set margepour2EnfantOuPlusSepare
+     *
+     * @param boolean $margepour2EnfantOuPlusSepare
+     * @return SaisonReduc
+     */
+    public function setMargepour2EnfantOuPlusSepare($margepour2EnfantOuPlusSepare)
+    {
+        $this->margepour2EnfantOuPlusSepare = $margepour2EnfantOuPlusSepare;
+
+        return $this;
+    }
+
+    /**
+     * Get margepour2EnfantOuPlusSepare
+     *
+     * @return boolean 
+     */
+    public function getMargepour2EnfantOuPlusSepare()
+    {
+        return $this->margepour2EnfantOuPlusSepare;
+    }
+
+    /**
+     * Set reduc3LitMarge
+     *
+     * @param string $reduc3LitMarge
+     * @return SaisonReduc
+     */
+    public function setReduc3LitMarge($reduc3LitMarge)
+    {
+        $this->reduc3LitMarge = $reduc3LitMarge;
+
+        return $this;
+    }
+
+    /**
+     * Get reduc3LitMarge
+     *
+     * @return string 
+     */
+    public function getReduc3LitMarge()
+    {
+        return $this->reduc3LitMarge;
+    }
+
+    /**
+     * Set reduc3LitMargePour
+     *
+     * @param boolean $reduc3LitMargePour
+     * @return SaisonReduc
+     */
+    public function setReduc3LitMargePour($reduc3LitMargePour)
+    {
+        $this->reduc3LitMargePour = $reduc3LitMargePour;
+
+        return $this;
+    }
+
+    /**
+     * Get reduc3LitMargePour
+     *
+     * @return boolean 
+     */
+    public function getReduc3LitMargePour()
+    {
+        return $this->reduc3LitMargePour;
+    }
+
+    /**
+     * Set reduc4LitMarge
+     *
+     * @param string $reduc4LitMarge
+     * @return SaisonReduc
+     */
+    public function setReduc4LitMarge($reduc4LitMarge)
+    {
+        $this->reduc4LitMarge = $reduc4LitMarge;
+
+        return $this;
+    }
+
+    /**
+     * Get reduc4LitMarge
+     *
+     * @return string 
+     */
+    public function getReduc4LitMarge()
+    {
+        return $this->reduc4LitMarge;
+    }
+
+    /**
+     * Set reduc4LitMargePour
+     *
+     * @param boolean $reduc4LitMargePour
+     * @return SaisonReduc
+     */
+    public function setReduc4LitMargePour($reduc4LitMargePour)
+    {
+        $this->reduc4LitMargePour = $reduc4LitMargePour;
+
+        return $this;
+    }
+
+    /**
+     * Get reduc4LitMargePour
+     *
+     * @return boolean 
+     */
+    public function getReduc4LitMargePour()
+    {
+        return $this->reduc4LitMargePour;
+    }
 }

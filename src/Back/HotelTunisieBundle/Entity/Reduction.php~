@@ -38,13 +38,6 @@ class Reduction
     private $libelle;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="obligatoire", type="boolean", nullable=true)
-     */
-    private $obligatoire;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="jourDebut", type="integer")
@@ -229,29 +222,6 @@ class Reduction
     }
 
     /**
-     * Set obligatoire
-     *
-     * @param boolean $obligatoire
-     * @return Reduction
-     */
-    public function setObligatoire($obligatoire)
-    {
-        $this->obligatoire=$obligatoire;
-
-        return $this;
-    }
-
-    /**
-     * Get obligatoire
-     *
-     * @return boolean 
-     */
-    public function getObligatoire()
-    {
-        return $this->obligatoire;
-    }
-
-    /**
      * Set jourDebut
      *
      * @param integer $jourDebut
@@ -387,14 +357,6 @@ class Reduction
     public function getLibelle()
     {
         return $this->libelle;
-    }
-
-    public function showObligatoire()
-    {
-        if($this->obligatoire == TRUE)
-            return 'Oui';
-        else
-            return 'Non';
     }
 
     public function showParChambre()

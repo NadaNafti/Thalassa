@@ -34,6 +34,8 @@ use Back\HotelTunisieBundle\Entity\SaisonWeekend;
 use Back\HotelTunisieBundle\Form\SaisonWeekendType;
 use Back\HotelTunisieBundle\Entity\SaisonAutreSupp;
 use Back\HotelTunisieBundle\Form\SaisonAutreSuppType;
+use Back\HotelTunisieBundle\Entity\SaisonAutreReduc;
+use Back\HotelTunisieBundle\Form\SaisonAutreReducType;
 
 class SaisonBaseController extends Controller
 {
@@ -412,9 +414,51 @@ class SaisonBaseController extends Controller
         $session=$this->getRequest()->getSession();
         $em->remove($saisonAutreSupp);
         $em->flush();
-        $session->getFlashBag()->add('success', "La supplement a été supprimée avec succées");
-        return $this->redirect($this->generateUrl("saison_autres_supp", array(
-                            'hotel'=>$hotel->getId(),
+        $session->getFlashBag()->add('success', "La reduclement a été reducrimée avec succées");
+        return $this->redirect($this->generateUrl("saison_autres_reduc", array(
+                            'id'=>$hotel->getId(),
+        )));
+    }
+
+    public function saisonAutreReducAction(Hotel $hotel, $id2)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if($id2 == null)
+            $saisonAutreReduc=new SaisonAutreReduc();
+        else
+            $saisonAutreReduc=$em->getRepository("BackHotelTunisieBundle:SaisonAutreReduc")->find($id2);
+        $saisonAutreReduc->setSaison($hotel->getSaisonBase());
+        $form=$this->createForm(new SaisonAutreReducType(), $saisonAutreReduc);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $saisonAutreReduc=$form->getData();
+                $em->persist($saisonAutreReduc);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");
+                return $this->redirect($this->generateUrl("saison_autres_reduc", array( 'id'=>$hotel->getId() )));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:Hotels:saison_autre_reduc.html.twig', array(
+                    'hotel'           =>$hotel,
+                    'form'            =>$form->createView(),
+                    'saisonAutreReduc'=>$saisonAutreReduc,
+        ));
+    }
+
+    public function deleteAutreReducAction(Hotel $hotel, SaisonAutreReduc $saisonAutreReduc)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em->remove($saisonAutreReduc);
+        $em->flush();
+        $session->getFlashBag()->add('success', "La réduction a été supprimée avec succées");
+        return $this->redirect($this->generateUrl("saison_autres_reduc", array(
+                            'id'=>$hotel->getId(),
         )));
     }
 
