@@ -49,11 +49,9 @@
                                             <a href="{{ path('change_etat',{'id':hotel.id,'etat':1}) }}" class="tooltips" title="Cliquez ici pour activer l'hôtel" ><span class="label label-sm label-danger">Inactive</span></a>
                                         {% endif %}
                                         {% if hotel.ficheTechnique is null %}
-                                            <a href="{{ path('fiche_technique',{'id':hotel.id}) }}" class="tooltips" title="Fiche technique est vide"><span class="label label-sm label-danger">FT vide</span></a>
+                                            <a href="{{ path('fiche_technique',{'id':hotel.id}) }}" class="tooltips" title="Fiche technique est vide"><span class="label label-sm label-danger">FT Invalide</span></a>
                                         {% endif %}
-                                        {% if hotel.saisonBase is null %}
-                                            <a href="{{ path('saison_base',{'id':hotel.id}) }}" class="tooltips" title="Saison de base est vide"><span class="label label-sm label-danger">SB vide</span></a>
-                                        {% elseif not hotel.saisonBase.isValid %}
+                                        {% if hotel.saisonBase is null or not hotel.saisonBase.isValidSaisonBase %}
                                             <a href="{{ path('saison_base',{'id':hotel.id}) }}" class="tooltips" title="Saison de base est Invalide"><span class="label label-sm label-danger">SB Invalide</span></a>
                                         {% endif %}
                                     </td>

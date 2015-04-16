@@ -828,7 +828,7 @@ class Saison
         return $this->hotelBase;
     }
 
-    public function isValid()
+    public function isValidSaisonBase()
     {
         if(count($this->chambres)!=count($this->hotelBase->getChambres()))
             return FALSE;
