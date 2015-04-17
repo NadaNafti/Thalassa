@@ -62,8 +62,10 @@ class SaisonsController extends Controller
         if($request->isMethod("POST"))
         {
             $form->submit($request);
-            $data=$form->getData();
-            dump($data);
+            if($data['saisons']== NULL)
+                $saison=$hotel->getSaisonBase();
+            else
+                $saison=$data['saisons'];
         }
         return $this->render('BackHotelTunisieBundle:Saisons:generer.html.twig', array(
                     'hotel'=>$hotel,
