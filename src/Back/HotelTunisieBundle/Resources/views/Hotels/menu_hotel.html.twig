@@ -14,4 +14,14 @@
             Saison de base {% if hotel.saisonBase is null or hotel.saisonBase.isValidSaisonBase == false %}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i>{% endif %}
         </a>
     </li>
+    <li {% if app.request.get('_route') in [''] %}class="active"{% endif %}>
+        <a href="">
+            Saisons
+        </a>
+    </li>
+    <li {% if app.request.get('_route') in ['generer_saison'] %}class="active"{% endif %}>
+        <a href="{{ path('generer_saison',{'id':hotel.id}) }}" title="ajouter une saison">
+            +
+        </a>
+    </li>
 </ul>

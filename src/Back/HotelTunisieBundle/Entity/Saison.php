@@ -158,6 +158,11 @@ class Saison
      * @ORM\OneToOne(targetEntity="Hotel", mappedBy="saisonBase")
      * */
     private $hotelBase;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Hotel", inversedBy="saisons")
+     */
+    protected $hotel;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -865,6 +870,34 @@ class Saison
             return $this->prixConvention+($this->prixConvention*$this->margeVente/100);
         else
             return $this->prixConvention+$this->margeVente;
-        
+    }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
+
+
+    /**
+     * Set hotel
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotel
+     * @return Saison
+     */
+    public function setHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotel = null)
+    {
+        $this->hotel = $hotel;
+
+        return $this;
+    }
+
+    /**
+     * Get hotel
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Hotel 
+     */
+    public function getHotel()
+    {
+        return $this->hotel;
     }
 }

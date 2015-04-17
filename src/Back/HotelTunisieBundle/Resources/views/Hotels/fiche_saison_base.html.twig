@@ -50,21 +50,26 @@
                                                     </li>
                                                 {% endfor %}
                                             </ul>
-                                            <h3>Weekend</h3>
-                                            <ul>
-                                                <li>
-                                                    <strong>Tarif weekend</strong>
-                                                    <ul>
-                                                        <li>
-                                                            Prix Achat : {{ hotel.saisonBase.saisonWeekend.getReducSuppAchat }} 
-                                                        </li>
-                                                        <li>
-                                                            Prix Vente : {{ hotel.saisonBase.saisonWeekend.getReducSuppVente }} 
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
+                                            {% if hotel.saisonBase.saisonWeekend is not null %}
+                                                <hr> 
+                                                <h3>Weekend</h3>
+                                                <ul>
+                                                    <li>
+                                                        <strong>Tarif weekend</strong>
+                                                        <ul>
+                                                            <li>
+                                                                Prix Achat : {{ hotel.saisonBase.saisonWeekend.getReducSuppAchat }} 
+                                                            </li>
+                                                            <li>
+                                                                Prix Vente : {{ hotel.saisonBase.saisonWeekend.getReducSuppVente }} 
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            {% endif %}
+
                                             {% if hotel.saisonBase.suppChambres|length!=0 %}
+                                                <hr> 
                                                 <h3>Autres Chambres</h3>
                                                 <ul>
                                                     {% for chambre in hotel.saisonBase.suppChambres %}
@@ -83,6 +88,7 @@
                                                 </ul>
                                             {% endif %}
                                             {% if hotel.saisonBase.vues|length!=0 %}
+                                                <hr> 
                                                 <h3>Supp vues</h3>
                                                 <ul>
                                                     {% for vue in hotel.saisonBase.vues %}
@@ -101,6 +107,7 @@
                                                 </ul>
                                             {% endif %}
                                             {% if hotel.saisonBase.autresSupplements|length!=0 %}
+                                                <hr> 
                                                 <h3>Aures supp.</h3>
                                                 <ul>
                                                     {% for supp in hotel.saisonBase.autresSupplements %}
@@ -135,6 +142,7 @@
                                                 </ul>
                                             {% endif %}
                                             {% if hotel.saisonBase.autresReductions|length!=0 %}
+                                                <hr> 
                                                 <h3>Aures reduc.</h3>
                                                 <ul>
                                                     {% for reduc in hotel.saisonBase.autresReductions %}
@@ -197,8 +205,7 @@
                                                             </ul>
                                                         </li>
                                                     </ul>
-                                                </div>
-                                                <hr>                
+                                                </div>               
                                                 <div class="col-md-5">
                                                     <ul>
                                                         <li>
@@ -226,6 +233,7 @@
                                                     </ul>
                                                 </div>
                                             </div>
+                                            <hr> 
                                             <h3>Réduction</h3>
                                             <div class="row">
                                                 <div class="col-md-5" >

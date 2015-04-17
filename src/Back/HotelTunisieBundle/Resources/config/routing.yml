@@ -6,6 +6,10 @@ Hotel_Tunisie_hotels:
     resource: "@BackHotelTunisieBundle/Resources/config/routing/hotels.yml"
     prefix:   /hotels
 
+Saisons:
+    resource: "@BackHotelTunisieBundle/Resources/config/routing/saisons.yml"
+    prefix:   /hotels
+
 Hotel_Tunisie_SaisonBase:
     resource: "@BackHotelTunisieBundle/Resources/config/routing/saison_base.yml"
     prefix:   /hotels
