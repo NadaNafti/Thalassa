@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SaisonVue
 {
+
     /**
      * @var integer
      *
@@ -57,19 +58,18 @@ class SaisonVue
      * @ORM\Column(name="etat", type="boolean",nullable=true)
      */
     private $etat;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Vue",fetch="EAGER")
      * @ORM\JoinColumn(name="vue_id", referencedColumnName="id")
      */
     protected $vue;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Saison", inversedBy="vues", fetch="EAGER")
      * @ORM\JoinColumn(name="saison_id", referencedColumnName="id")
      */
     protected $saison;
-
 
     /**
      * Get id
@@ -89,7 +89,7 @@ class SaisonVue
      */
     public function setValeur($valeur)
     {
-        $this->valeur = $valeur;
+        $this->valeur=$valeur;
 
         return $this;
     }
@@ -112,7 +112,7 @@ class SaisonVue
      */
     public function setValeurPour($valeurPour)
     {
-        $this->valeurPour = $valeurPour;
+        $this->valeurPour=$valeurPour;
 
         return $this;
     }
@@ -135,7 +135,7 @@ class SaisonVue
      */
     public function setMarge($marge)
     {
-        $this->marge = $marge;
+        $this->marge=$marge;
 
         return $this;
     }
@@ -158,7 +158,7 @@ class SaisonVue
      */
     public function setMargePour($margePour)
     {
-        $this->margePour = $margePour;
+        $this->margePour=$margePour;
 
         return $this;
     }
@@ -181,7 +181,7 @@ class SaisonVue
      */
     public function setEtat($etat)
     {
-        $this->etat = $etat;
+        $this->etat=$etat;
 
         return $this;
     }
@@ -202,9 +202,9 @@ class SaisonVue
      * @param \Back\HotelTunisieBundle\Entity\Vue $vue
      * @return SaisonVue
      */
-    public function setVue(\Back\HotelTunisieBundle\Entity\Vue $vue = null)
+    public function setVue(\Back\HotelTunisieBundle\Entity\Vue $vue=null)
     {
-        $this->vue = $vue;
+        $this->vue=$vue;
 
         return $this;
     }
@@ -225,9 +225,9 @@ class SaisonVue
      * @param \Back\HotelTunisieBundle\Entity\Saison $saison
      * @return SaisonVue
      */
-    public function setSaison(\Back\HotelTunisieBundle\Entity\Saison $saison = null)
+    public function setSaison(\Back\HotelTunisieBundle\Entity\Saison $saison=null)
     {
-        $this->saison = $saison;
+        $this->saison=$saison;
 
         return $this;
     }
@@ -241,4 +241,21 @@ class SaisonVue
     {
         return $this->saison;
     }
+
+    public function getSuppAchat()
+    {
+        if($this->getValeurPour())
+            return $this->getSaison()->prixBaseAchat() * $this->valeur / 100;
+        else
+            return $this->valeur;
+    }
+
+    public function getSuppVente()
+    {
+        if($this->margePour)
+            return $this->getSuppAchat() + abs($this->getSuppAchat()) * $this->marge / 100;
+        else
+            return $this->getSuppAchat() + $this->marge;
+    }
+
 }

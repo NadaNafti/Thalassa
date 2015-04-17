@@ -149,6 +149,7 @@ class SaisonReduc
      * @ORM\Column(name="pour2Enfant1Adulte", type="boolean", nullable=true)
      */
     private $pour2Enfant1Adulte;
+
     /**
      * @var string
      * @Assert\Range(min = 0)
@@ -183,6 +184,7 @@ class SaisonReduc
      * @ORM\Column(name="pour2Enfant2Adulte", type="boolean", nullable=true)
      */
     private $pour2Enfant2Adulte;
+
     /**
      * @var string
      * @Assert\Range(min = 0)
@@ -245,7 +247,7 @@ class SaisonReduc
      * @ORM\Column(name="reduc3LitPour", type="boolean", nullable=true)
      */
     private $reduc3LitPour;
-    
+
     /**
      * @var string
      * @Assert\Range(min = 0)
@@ -287,7 +289,7 @@ class SaisonReduc
      * @ORM\Column(name="reduc4LitMargePour", type="boolean", nullable=true)
      */
     private $reduc4LitMargePour;
-    
+
     /**
      * @ORM\OneToOne(targetEntity="Saison", mappedBy="saisonReduc")
      * */
@@ -875,7 +877,7 @@ class SaisonReduc
      */
     public function setMarge1Enfant1Adulte($marge1Enfant1Adulte)
     {
-        $this->marge1Enfant1Adulte = $marge1Enfant1Adulte;
+        $this->marge1Enfant1Adulte=$marge1Enfant1Adulte;
 
         return $this;
     }
@@ -898,7 +900,7 @@ class SaisonReduc
      */
     public function setMargepour1Enfant1Adulte($margepour1Enfant1Adulte)
     {
-        $this->margepour1Enfant1Adulte = $margepour1Enfant1Adulte;
+        $this->margepour1Enfant1Adulte=$margepour1Enfant1Adulte;
 
         return $this;
     }
@@ -921,7 +923,7 @@ class SaisonReduc
      */
     public function setMarge1Enfant2Adulte($marge1Enfant2Adulte)
     {
-        $this->marge1Enfant2Adulte = $marge1Enfant2Adulte;
+        $this->marge1Enfant2Adulte=$marge1Enfant2Adulte;
 
         return $this;
     }
@@ -944,7 +946,7 @@ class SaisonReduc
      */
     public function setMargepour1Enfant2Adulte($margepour1Enfant2Adulte)
     {
-        $this->margepour1Enfant2Adulte = $margepour1Enfant2Adulte;
+        $this->margepour1Enfant2Adulte=$margepour1Enfant2Adulte;
 
         return $this;
     }
@@ -967,7 +969,7 @@ class SaisonReduc
      */
     public function setMarge1EnfantSepare($marge1EnfantSepare)
     {
-        $this->marge1EnfantSepare = $marge1EnfantSepare;
+        $this->marge1EnfantSepare=$marge1EnfantSepare;
 
         return $this;
     }
@@ -990,7 +992,7 @@ class SaisonReduc
      */
     public function setMargepour1EnfantSepare($margepour1EnfantSepare)
     {
-        $this->margepour1EnfantSepare = $margepour1EnfantSepare;
+        $this->margepour1EnfantSepare=$margepour1EnfantSepare;
 
         return $this;
     }
@@ -1013,7 +1015,7 @@ class SaisonReduc
      */
     public function setMarge2Enfant1Adulte($marge2Enfant1Adulte)
     {
-        $this->marge2Enfant1Adulte = $marge2Enfant1Adulte;
+        $this->marge2Enfant1Adulte=$marge2Enfant1Adulte;
 
         return $this;
     }
@@ -1036,7 +1038,7 @@ class SaisonReduc
      */
     public function setMargepour2Enfant1Adulte($margepour2Enfant1Adulte)
     {
-        $this->margepour2Enfant1Adulte = $margepour2Enfant1Adulte;
+        $this->margepour2Enfant1Adulte=$margepour2Enfant1Adulte;
 
         return $this;
     }
@@ -1059,7 +1061,7 @@ class SaisonReduc
      */
     public function setMarge2Enfant2Adulte($marge2Enfant2Adulte)
     {
-        $this->marge2Enfant2Adulte = $marge2Enfant2Adulte;
+        $this->marge2Enfant2Adulte=$marge2Enfant2Adulte;
 
         return $this;
     }
@@ -1082,7 +1084,7 @@ class SaisonReduc
      */
     public function setMargepour2Enfant2Adulte($margepour2Enfant2Adulte)
     {
-        $this->margepour2Enfant2Adulte = $margepour2Enfant2Adulte;
+        $this->margepour2Enfant2Adulte=$margepour2Enfant2Adulte;
 
         return $this;
     }
@@ -1105,7 +1107,7 @@ class SaisonReduc
      */
     public function setMarge2EnfantOuPlusSepare($marge2EnfantOuPlusSepare)
     {
-        $this->marge2EnfantOuPlusSepare = $marge2EnfantOuPlusSepare;
+        $this->marge2EnfantOuPlusSepare=$marge2EnfantOuPlusSepare;
 
         return $this;
     }
@@ -1128,7 +1130,7 @@ class SaisonReduc
      */
     public function setMargepour2EnfantOuPlusSepare($margepour2EnfantOuPlusSepare)
     {
-        $this->margepour2EnfantOuPlusSepare = $margepour2EnfantOuPlusSepare;
+        $this->margepour2EnfantOuPlusSepare=$margepour2EnfantOuPlusSepare;
 
         return $this;
     }
@@ -1151,7 +1153,7 @@ class SaisonReduc
      */
     public function setReduc3LitMarge($reduc3LitMarge)
     {
-        $this->reduc3LitMarge = $reduc3LitMarge;
+        $this->reduc3LitMarge=$reduc3LitMarge;
 
         return $this;
     }
@@ -1174,7 +1176,7 @@ class SaisonReduc
      */
     public function setReduc3LitMargePour($reduc3LitMargePour)
     {
-        $this->reduc3LitMargePour = $reduc3LitMargePour;
+        $this->reduc3LitMargePour=$reduc3LitMargePour;
 
         return $this;
     }
@@ -1197,7 +1199,7 @@ class SaisonReduc
      */
     public function setReduc4LitMarge($reduc4LitMarge)
     {
-        $this->reduc4LitMarge = $reduc4LitMarge;
+        $this->reduc4LitMarge=$reduc4LitMarge;
 
         return $this;
     }
@@ -1220,7 +1222,7 @@ class SaisonReduc
      */
     public function setReduc4LitMargePour($reduc4LitMargePour)
     {
-        $this->reduc4LitMargePour = $reduc4LitMargePour;
+        $this->reduc4LitMargePour=$reduc4LitMargePour;
 
         return $this;
     }
@@ -1241,9 +1243,9 @@ class SaisonReduc
      * @param \Back\HotelTunisieBundle\Entity\Saison $saison
      * @return SaisonReduc
      */
-    public function setSaison(\Back\HotelTunisieBundle\Entity\Saison $saison = null)
+    public function setSaison(\Back\HotelTunisieBundle\Entity\Saison $saison=null)
     {
-        $this->saison = $saison;
+        $this->saison=$saison;
 
         return $this;
     }
@@ -1256,5 +1258,252 @@ class SaisonReduc
     public function getSaison()
     {
         return $this->saison;
+    }
+
+    /**
+     * Refuction 3 eme lit
+     */
+    public function getReduc3LitAchat()
+    {
+        if($this->reduc3LitPour)
+            return ($this->getSaison()->prixBaseAchat() * $this->reduc3Lit / 100) * -1;
+        else
+            return $this->reduc3Lit * -1;
+    }
+
+    public function getReduc3LitVente()
+    {
+        if($this->reduc3LitMargePour)
+            return $this->getReduc3LitAchat() + abs($this->getReduc3LitAchat()) * $this->reduc3LitMarge / 100;
+        else
+            return $this->getReduc3LitAchat() + $this->reduc3LitMarge;
+    }
+
+    /**
+     * Reduction 4 eme lit
+     */
+    public function getReduc4LitAchat()
+    {
+        if($this->reduc4LitPour)
+            return ($this->getSaison()->prixBaseAchat() * $this->reduc4Lit / 100) * -1;
+        else
+            return $this->reduc4Lit * -1;
+    }
+
+    public function getReduc4LitVente()
+    {
+        if($this->reduc4LitMargePour)
+            return $this->getReduc4itAchat() + abs($this->getReduc4LitAchat()) * $this->reduc4itMarge / 100;
+        else
+            return $this->getReduc4LitAchat() + $this->reduc4LitMarge;
+    }
+
+    /**
+     * 1er enfant avec 1 adulte dans une même chambre
+     */
+    public function getReducEnfant1Adulte1Age1Achat()
+    {
+        if($this->pour1Enfant1Adulte)
+            return ($this->getSaison()->prixBaseAchat() * $this->val1Enfant1Adulte1 / 100) * -1;
+        else
+            return $this->val1Enfant1Adulte1 * -1;
+    }
+
+    public function getReducEnfant1Adulte1Age1Vente()
+    {
+        if($this->margepour1Enfant1Adulte)
+            return $this->getReducEnfant1Adulte1Age1Achat() + abs($this->getReducEnfant1Adulte1Age1Achat()) * $this->marge1Enfant1Adulte / 100;
+        else
+            return $this->getReducEnfant1Adulte1Age1Achat() + $this->marge1Enfant1Adulte;
+    }
+
+    public function getReducEnfant1Adulte1Age2Achat()
+    {
+        if($this->pour1Enfant1Adulte)
+            return ($this->getSaison()->prixBaseAchat() * $this->val1Enfant1Adulte2 / 100) * -1;
+        else
+            return $this->val1Enfant1Adulte2 * -1;
+    }
+
+    public function getReducEnfant1Adulte1Age2Vente()
+    {
+        if($this->margepour1Enfant1Adulte)
+            return $this->getReducEnfant1Adulte1Age2Achat() + abs($this->getReducEnfant1Adulte1Age2Achat()) * $this->marge1Enfant1Adulte / 100;
+        else
+            return $this->getReducEnfant1Adulte1Age2Achat() + $this->marge1Enfant1Adulte;
+    }
+
+    /**
+     * 1er enfant avec 2 adultes ou plus dans une même chambre
+     */
+    public function getReducEnfant1Adulte2Age1Achat()
+    {
+        if($this->pour1Enfant2Adulte)
+            return ($this->getSaison()->prixBaseAchat() * $this->val1Enfant2Adulte1 / 100) * -1;
+        else
+            return $this->val1Enfant2dulte1 * -1;
+    }
+
+    public function getReducEnfant1Adulte2Age1Vente()
+    {
+        if($this->margepour1Enfant2Adulte)
+            return $this->getReducEnfant1Adulte2Age1Achat() + abs($this->getReducEnfant1Adulte2Age1Achat()) * $this->marge1Enfant2Adulte / 100;
+        else
+            return $this->getReducEnfant1Adulte2Age1Achat() + $this->marge1Enfant2Adulte;
+    }
+
+    public function getReducEnfant1Adulte2Age2Achat()
+    {
+        if($this->pour1Enfant2Adulte)
+            return ($this->getSaison()->prixBaseAchat() * $this->val1Enfant2Adulte2 / 100) * -1;
+        else
+            return $this->val1Enfant2Adulte2 * -1;
+    }
+
+    public function getReducEnfant1Adulte2Age2Vente()
+    {
+        if($this->margepour1Enfant2Adulte)
+            return $this->getReducEnfant1Adulte2Age2Achat() + abs($this->getReducEnfant1Adulte2Age2Achat()) * $this->marge1Enfant2Adulte / 100;
+        else
+            return $this->getReducEnfant1Adulte2Age2Achat() + $this->marge1Enfant2Adulte;
+    }
+
+    /**
+     * 1er enfant dans une chambre séparée
+     */
+    public function getReduc1EnfantSepare1Age1Achat()
+    {
+        if($this->pour1EnfantSepare)
+            return ($this->getSaison()->prixBaseAchat() * $this->val1EnfantSepare1 / 100) * -1;
+        else
+            return $this->val1EnfantSepare1 * -1;
+    }
+
+    public function getReduc1EnfantSepare1Age1Vente()
+    {
+        if($this->margepour1EnfantSepare)
+            return $this->getReduc1EnfantSepare1Age1Achat() + abs($this->getReduc1EnfantSepare1Age1Achat()) * $this->marge1EnfantSepare / 100;
+        else
+            return $this->getReduc1EnfantSepare1Age1Achat() + $this->marge1EnfantSepare;
+    }
+
+    public function getReduc1EnfantSepare1Age2Achat()
+    {
+        if($this->pour1EnfantSepare)
+            return ($this->getSaison()->prixBaseAchat() * $this->val1EnfantSepare2 / 100) * -1;
+        else
+            return $this->val1EnfantSepare2 * -1;
+    }
+
+    public function getReduc1EnfantSepare1Age2Vente()
+    {
+        if($this->margepour1EnfantSepare)
+            return $this->getReduc1EnfantSepare1Age2Achat() + abs($this->getReduc1EnfantSepare1Age2Achat()) * $this->marge1EnfantSepare / 100;
+        else
+            return $this->getReduc1EnfantSepare1Age2Achat() + $this->marge1EnfantSepare;
+    }
+
+    /**
+     * 2eme enfant ou plus avec 1 adulte dans une même chambre
+     */
+    public function getReduc2Enfant1Adulte1Age1Achat()
+    {
+        if($this->pour2Enfant1Adulte)
+            return ($this->getSaison()->prixBaseAchat() * $this->val2Enfant1Adulte1 / 100) * -1;
+        else
+            return $this->val2Enfant1Adulte1 * -1;
+    }
+
+    public function getReduc2Enfant1Adulte1Age1Vente()
+    {
+        if($this->margepour2Enfant1Adulte)
+            return $this->getReduc2Enfant1Adulte1Age1Achat() + abs($this->getReduc2Enfant1Adulte1Age1Achat()) * $this->marge2Enfant1Adulte / 100;
+        else
+            return $this->getReduc2Enfant1Adulte1Age1Achat() + $this->marge2Enfant1Adulte;
+    }
+
+    public function getReduc2Enfant1Adulte1Age2Achat()
+    {
+        if($this->pour2Enfant1Adulte)
+            return ($this->getSaison()->prixBaseAchat() * $this->val2Enfant1Adulte2 / 100) * -1;
+        else
+            return $this->val2Enfant1Adulte2 * -1;
+    }
+
+    public function getReduc2Enfant1Adulte1Age2Vente()
+    {
+        if($this->margepour2Enfant1Adulte)
+            return $this->getReduc2Enfant1Adulte1Age2Achat() + abs($this->getReduc2Enfant1Adulte1Age2Achat()) * $this->marge2Enfant1Adulte / 100;
+        else
+            return $this->getReduc2Enfant1Adulte1Age2Achat() + $this->marge2Enfant1Adulte;
+    }
+
+    /**
+     * 2eme enfant ou plus avec 2 adultes ou plus dans une même chambre
+     */
+    public function getReduc2Enfant2Adulte1Age1Achat()
+    {
+        if($this->pour2Enfant2Adulte)
+            return ($this->getSaison()->prixBaseAchat() * $this->val2Enfant2Adulte1 / 100) * -1;
+        else
+            return $this->val2Enfant2Adulte1 * -1;
+    }
+
+    public function getReduc2Enfant2Adulte1Age1Vente()
+    {
+        if($this->margepour2Enfant2Adulte)
+            return $this->getReduc2Enfant2Adulte1Age1Achat() + abs($this->getReduc2Enfant2Adulte1Age1Achat()) * $this->marge2Enfant2Adulte / 100;
+        else
+            return $this->getReduc2Enfant2Adulte1Age1Achat() + $this->marge2Enfant2Adulte;
+    }
+    
+    public function getReduc2Enfant2Adulte1Age2Achat()
+    {
+        if($this->pour2Enfant2Adulte)
+            return ($this->getSaison()->prixBaseAchat() * $this->val2Enfant2Adulte2 / 100) * -1;
+        else
+            return $this->val2Enfant2Adulte2 * -1;
+    }
+
+    public function getReduc2Enfant2Adulte1Age2Vente()
+    {
+        if($this->margepour2Enfant2Adulte)
+            return $this->getReduc2Enfant2Adulte1Age2Achat() + abs($this->getReduc2Enfant2Adulte1Age2Achat()) * $this->marge2Enfant2Adulte / 100;
+        else
+            return $this->getReduc2Enfant2Adulte1Age2Achat() + $this->marge2Enfant2Adulte;
+    }
+
+    /**
+     * 2eme enfant ou plus dans une chambre séparée
+     */
+    public function getReduc2EnfantOuPlusSepare1Age1Achat()
+    {
+        if($this->pour2EnfantOuPlusSepare)
+            return ($this->getSaison()->prixBaseAchat() * $this->val2EnfantOuPlusSepare1 / 100) * -1;
+        else
+            return $this->val2EnfantOuPlusSepare1 * -1;
+    }
+
+    public function getReduc2EnfantOuPlusSepare1Age1Vente()
+    {
+        if($this->margepour2EnfantOuPlusSepare)
+            return $this->getReduc2EnfantOuPlusSepare1Age1Achat() + abs($this->getReduc2EnfantOuPlusSepare1Age1Achat()) * $this->marge2EnfantOuPlusSepare / 100;
+        else
+            return $this->getReduc2EnfantOuPlusSepare1Age1Achat() + $this->marge2EnfantOuPlusSepare;
+    }
+    public function getReduc2EnfantOuPlusSepare1Age2Achat()
+    {
+        if($this->pour2EnfantOuPlusSepare)
+            return ($this->getSaison()->prixBaseAchat() * $this->val2EnfantOuPlusSepare2 / 100) * -1;
+        else
+            return $this->val2EnfantOuPlusSepare2 * -1;
+    }
+
+    public function getReduc2EnfantOuPlusSepare1Age2Vente()
+    {
+        if($this->margepour2EnfantOuPlusSepare)
+            return $this->getReduc2EnfantOuPlusSepare1Age2Achat() + abs($this->getReduc2EnfantOuPlusSepare1Age2Achat()) * $this->marge2EnfantOuPlusSepare / 100;
+        else
+            return $this->getReduc2EnfantOuPlusSepare1Age2Achat() + $this->marge2EnfantOuPlusSepare;
     }
 }

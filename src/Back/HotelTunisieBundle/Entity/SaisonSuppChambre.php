@@ -242,4 +242,20 @@ class SaisonSuppChambre
     {
         return $this->saison;
     }
+
+    public function getSuppAchat()
+    {
+        if($this->valeurPour)
+            return $this->getSaison()->prixBaseAchat()*$this->valeur/100;
+        else 
+            return $this->valeur;
+    }
+    
+    public function getSuppVente()
+    {
+        if($this->margePour)
+            return $this->getSuppAchat()+ abs($this->getSuppAchat())*$this->marge/100 ;
+        else
+            return $this->getSuppAchat()+$this->marge;
+    }
 }

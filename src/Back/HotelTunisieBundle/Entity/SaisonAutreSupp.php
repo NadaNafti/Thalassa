@@ -241,4 +241,36 @@ class SaisonAutreSupp
     {
         return $this->saison;
     }
+    
+    public function getSuppAdulteAchat()
+    {
+        if($this->valeurPour)
+            return $this->getSaison()->prixBaseAchat()*$this->valeurAdulte/100;
+        else 
+            return $this->valeurAdulte;
+    }
+    
+    public function getSuppAdulteVente()
+    {
+        if($this->margePour)
+            return $this->getSuppAdulteAchat()+ abs($this->getSuppAdulteAchat())*$this->marge/100 ;
+        else
+            return $this->getSuppAdulteAchat()+$this->marge;
+    }
+    
+    public function getSuppEnfantAchat()
+    {
+        if($this->valeurPour)
+            return $this->getSaison()->prixBaseAchat()*$this->valeurEnfant/100;
+        else 
+            return $this->valeurEnfant;
+    }
+    
+    public function getSuppEnfantVente()
+    {
+        if($this->margePour)
+            return $this->getSuppEnfantAchat()+ abs($this->getSuppEnfantAchat())*$this->marge/100 ;
+        else
+            return $this->getSuppEnfantAchat()+$this->marge;
+    }
 }

@@ -547,4 +547,42 @@ class SaisonSupp
         else
             return $this->getSupp3LitAchat() + $this->supp3LitMarge;
     }
+    
+    public function getSupp4LitAchat()
+    {
+        if($this->supp4LitPour)
+            return $this->saison->prixBaseAchat()*$this->supp4Lit/100;
+        else
+            return $this->supp4Lit;
+    }
+    
+    public function getSupp4LitVente()
+    {
+        if($this->supp4LitMargePour)
+            return $this->getSupp4LitAchat()+$this->getSupp4LitAchat()*$this->supp4LitMarge/100;
+        else
+            return $this->getSupp4LitAchat() + $this->supp4LitMarge;
+    }
+    
+    public function getSuppSingleEnfantAchat()
+    {
+        if(!$this->suppSingleEnfant)
+            return 0;
+        if($this->suppSinglePour)
+            return $this->saison->prixBaseAchat()*$this->suppSingle/100;
+        else
+            return $this->suppSingle;
+    }
+    
+    public function getSuppSingleEnfantVente()
+    {
+        if(!$this->suppSingleEnfant)
+            return 0;
+        if($this->suppSingleMargePour)
+            return $this->getSuppSingleAchat()+$this->getSuppSingleAchat()*$this->sippSingleMarge/100;
+        else
+            return $this->getSuppSingleAchat() + $this->sippSingleMarge;
+    }
+    
+    
 }
