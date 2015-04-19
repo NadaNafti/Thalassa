@@ -276,4 +276,10 @@ class SaisonChambre
     {
         return $this->etat;
     }
+    
+    public function clearId()
+    {
+        $this->id=NULL;
+        return $this;
+    }
 }

@@ -273,4 +273,10 @@ class SaisonAutreSupp
         else
             return $this->getSuppEnfantAchat()+$this->marge;
     }
+    
+    public function clearId()
+    {
+        $this->id=NULL;
+        return $this;
+    }
 }

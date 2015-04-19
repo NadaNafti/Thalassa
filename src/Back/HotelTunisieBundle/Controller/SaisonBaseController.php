@@ -60,7 +60,10 @@ class SaisonBaseController extends Controller
         if($hotel->getSaisonBase() != NULL)
             $saison=$hotel->getSaisonBase();
         else
+        {
             $saison=new Saison ();
+            $saison->setLibelle("Saison de base");
+        }
         $form=$this->createForm(new SaisonType(), $saison);
         $form->add("ArrBase", "entity", array(
             'class'        =>'BackHotelTunisieBundle:Arrangement',

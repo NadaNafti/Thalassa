@@ -289,4 +289,12 @@ class Arrangement
     {
         return $this->ordre;
     }
+    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = NULL ;
+        }
+    }
 }

@@ -489,5 +489,12 @@ class SaisonWeekend
         else
             return $this->getReducSuppAchat() + $this->marge;
     }
-
+    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = NULL ;
+        }
+    }
 }

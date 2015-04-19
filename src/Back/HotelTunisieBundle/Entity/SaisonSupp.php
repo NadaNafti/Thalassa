@@ -584,5 +584,11 @@ class SaisonSupp
             return $this->getSuppSingleAchat() + $this->sippSingleMarge;
     }
     
-    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = NULL ;
+        }
+    }
 }

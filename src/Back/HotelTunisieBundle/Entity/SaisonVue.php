@@ -257,5 +257,11 @@ class SaisonVue
         else
             return $this->getSuppAchat() + $this->marge;
     }
+    
+    public function clearId()
+    {
+        $this->id=NULL;
+        return $this;
+    }
 
 }
