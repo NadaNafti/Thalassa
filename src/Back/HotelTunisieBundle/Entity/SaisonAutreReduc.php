@@ -274,9 +274,11 @@ class SaisonAutreReduc
             return $this->getSuppEnfantAchat()+$this->marge;
     }
     
-    public function clearId()
+    public function __clone()
     {
-        $this->id=NULL;
-        return $this;
+        if ($this->id)
+        {
+            $this->id = null ;
+        }
     }
 }

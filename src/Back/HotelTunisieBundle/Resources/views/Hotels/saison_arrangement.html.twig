@@ -23,33 +23,6 @@
                                 {{ form_widget(form._token) }}
                                 <div class="row">
                                     <div class="col-md-3"></div>
-                                    <div class="col-md-3">Prix Conv.</div>
-                                    <div class="col-md-3">Marge de vente</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3" style="height: 68px;">
-                                        <span class="label label-inverse">Conv. Base</span>
-                                        <label style="margin-top: 20px;">{{ hotel.saisonBase.arrBase }}</label>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <div class="form-group">
-                                            <label class="control-label">
-                                            </label>
-                                            <input disabled type="text" value="{{ hotel.saisonBase.prixConvention }}" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-1">
-                                        <div class="form-group">
-                                            <label class="control-label">
-                                            </label>
-                                            <input disabled type="text" value="{{ hotel.saisonBase.margeVente }} {% if hotel.saisonBase.pourcentage==1 %}%{% endif %}" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-3"></div>
                                     <div class="col-md-3">Valeur</div>
                                     <div class="col-md-3">Marge de vente</div>
                                 </div>

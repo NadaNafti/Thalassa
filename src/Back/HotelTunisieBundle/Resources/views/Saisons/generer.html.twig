@@ -20,9 +20,9 @@
                         <form action="{{ path('generer_saison',{'id':hotel.id}) }}" method="post" role="form" id="form">
                             {{ form_widget(form._token) }}
                             <div class="row">
-                                {{ formulaire.input("col-md-3","Saisons",form.saisons,false) }}
+                                {{ formulaire.select2("col-md-3","Saisons",form.saisons,false) }}
                                 {{ formulaire.input("col-md-3","Libélle",form.libelle,false) }}
-                                {{ formulaire.input("col-md-3","Type",form.type,false) }}
+                                {{ formulaire.select2("col-md-3","Type",form.type,false) }}
                             </div>
                             {{ formulaire.submit("Générer") }}
                         </form>

@@ -36,6 +36,8 @@ class ReferentielData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($chambre->setType(3)->setLibelle("Chambre Triple"));
         $chambre = new Chambre();
         $manager->persist($chambre->setType(4)->setLibelle("Chambre Quadruple"));
+        $chambre = new Chambre();
+        $manager->persist($chambre->setType(0)->setLibelle("Suite royale"));
         
         $vue = new Vue();
         $manager->persist($vue->setLibelle("Vue mer"));

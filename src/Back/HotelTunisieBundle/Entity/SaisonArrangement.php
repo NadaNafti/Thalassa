@@ -262,10 +262,12 @@ class SaisonArrangement
         else
             return $this->getReducSuppAchat()+$this->marge;
     }
-    
-    public function clearId()
+
+    public function __clone()
     {
-        $this->id=NULL;
-        return $this;
+        if ($this->id)
+        {
+            $this->id = null ;
+        }
     }
 }

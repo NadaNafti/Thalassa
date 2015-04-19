@@ -259,9 +259,11 @@ class SaisonSuppChambre
             return $this->getSuppAchat()+$this->marge;
     }
     
-    public function clearId()
+    public function __clone()
     {
-        $this->id=NULL;
-        return $this;
+        if ($this->id)
+        {
+            $this->id = null ;
+        }
     }
 }

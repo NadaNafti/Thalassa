@@ -70,52 +70,50 @@ class SaisonsController extends Controller
         if ($request->isMethod("POST"))
         {
             $form->submit($request) ;
-            $data=$form->getData();
+            $data = $form->getData() ;
             if ($data['saisons'] == NULL)
                 $Saison = $hotel->getSaisonBase() ;
             else
                 $Saison = $data['saisons'] ;
-            
-            $newSaison= clone  $Saison ;
-            $newSaison->setHotelBase(NULL);
-            $newSaison->setHotel($hotel);
-            $newSaison->setLibelle($data['libelle']);
-            $newSaison->setType($data['type']);
 
-            $em->persist($newSaison);
-            $em->flush();
-//            if ($Saison->getSaisonReduc() != null)
-//            {
-//                $saisonReduc=$Saison->getSaisonReduc()->clearId();
-//                $em->persist($saisonReduc);
-//                $newSaison->setSaisonReduc($saisonReduc);
-//            }
-//            if($Saison->getSaisonSupp()!=null)
-//            {
-//                $saisonSupp=$Saison->getSaisonSupp()->clearId();
-//                $em->persist($saisonSupp);
-//                $newSaison->setSaisonSupp($saisonSupp);
-//            }
-//            if($Saison->getSaisonWeekend()!=null)
-//            {
-//                $saisonWeekend=$Saison->getSaisonWeekend()->clearId();
-//                $em->persist($saisonWeekend);
-//                $newSaison->setSaisonWeekend($saisonWeekend);
-//            }
-//            foreach ($Saison->getArrangements() as $entity)
-//                $em->persist($entity->clearId()->setSaison($newSaison));
-//            foreach ($Saison->getAutresReductions() as $entity)
-//                $em->persist($entity->clearId()->setSaison($newSaison));
-//            foreach ($Saison->getAutresSupplements() as $entity)
-//                $em->persist($entity->clearId()->setSaison($newSaison));
-//            foreach ($Saison->getChambres() as $entity)
-//                $em->persist($entity->clearId()->setSaison($newSaison));
-//            foreach ($Saison->getSuppChambres() as $entity)
-//                $em->persist($entity->clearId()->setSaison($newSaison));
-//            foreach ($Saison->getVues() as $entity)
-//                $em->persist($entity->clearId()->setSaison($newSaison));
-            
-            
+            $newSaison = clone $Saison ;
+            $newSaison->setHotelBase(NULL) ;
+            $newSaison->setHotel($hotel) ;
+            $newSaison->setLibelle($data['libelle']) ;
+            $newSaison->setType($data['type']) ;
+
+            $em->persist($newSaison) ;
+            foreach ($Saison->getArrangements() as $entity)
+            {
+                $newEntity = clone $entity ;
+                $em->persist($newEntity->setSaison($newSaison)) ;
+            }
+            foreach ($Saison->getAutresReductions() as $entity)
+            {
+                $newEntity = clone $entity ;
+                $em->persist($newEntity->setSaison($newSaison)) ;
+            }
+            foreach ($Saison->getAutresSupplements() as $entity)
+            {
+                $newEntity = clone $entity ;
+                $em->persist($newEntity->setSaison($newSaison)) ;
+            }
+            foreach ($Saison->getChambres() as $entity)
+            {
+                $newEntity = clone $entity ;
+                $em->persist($newEntity->setSaison($newSaison)) ;
+            }
+            foreach ($Saison->getSuppChambres() as $entity)
+            {
+                $newEntity = clone $entity ;
+                $em->persist($newEntity->setSaison($newSaison)) ;
+            }
+            foreach ($Saison->getVues() as $entity)
+            {
+                $newEntity = clone $entity ;
+                $em->persist($newEntity->setSaison($newSaison)) ;
+            }
+            $em->flush() ;
         }
         return $this->render('BackHotelTunisieBundle:Saisons:generer.html.twig' , array (
                     'hotel' => $hotel ,

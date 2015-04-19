@@ -1341,7 +1341,7 @@ class SaisonReduc
         if ($this->pour1Enfant2Adulte)
             return ($this->getSaison()->prixBaseAchat() * $this->val1Enfant2Adulte1 / 100) * -1 ;
         else
-            return $this->val1Enfant2dulte1 * -1 ;
+            return $this->val1Enfant2Adulte1 * -1 ;
     }
 
     public function getReducEnfant1Adulte2Age1Vente()
@@ -1512,7 +1512,7 @@ class SaisonReduc
     {
         if ($this->id)
         {
-            $this->id = NULL ;
+            $this->id = null ;
         }
     }
 
