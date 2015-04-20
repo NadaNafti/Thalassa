@@ -13,3 +13,7 @@ PeriodeSaison:
 GeneralSaison:
     path:     /saison/SaisonGeneral/{id}
     defaults: { _controller: BackHotelTunisieBundle:Saisons:general }
+
+OccChambreSaison:
+    path:     /saison/SaisonOccChambre/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:occChambre }

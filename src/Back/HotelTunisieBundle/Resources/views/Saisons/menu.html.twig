@@ -9,8 +9,8 @@
             Info générale 
         </a>
     </li>
-    <li>
-        <a href="">
+    <li {% if app.request.get('_route')=='OccChambreSaison' %}class="active"{% endif %}>
+        <a href="{{ path('OccChambreSaison', {'id':saison.id}) }}">
             Occ. chambres 
         </a>
     </li>

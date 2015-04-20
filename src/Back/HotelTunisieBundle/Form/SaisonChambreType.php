@@ -16,8 +16,9 @@ class SaisonChambreType extends AbstractType
     {
         $builder
             ->add('etat', 'checkbox', array(
-                    'label'   =>'Activer',
-                    'required'=>false
+                    'label'   =>' ',
+                    'required'=>false,
+                    'attr'=>array('style'=>'margin-top:-15px;')
                 ))
             ->add('minAdulte')
             ->add('maxAdulte')
