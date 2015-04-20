@@ -1,0 +1,53 @@
+{% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
+{% block title %}{{ hotel.libelle }}{% endblock %}
+{% block description %}{{ saison }}{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
+    </li>
+    <li>
+        <a href="{{ path('PeriodeSaison',{'id':hotel.id}) }}" >Liste des saisons</a>
+    </li>
+    <li>
+        <a href="javascript:void(0)" >{{ saison }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="tabbable">
+                        {% include 'BackHotelTunisieBundle:Saisons:menu.html.twig' %}
+                        <div class="panel-body tab-content">
+                            <form action="{{ path('GeneralSaison',{'id':saison.id}) }}" method="post" role="form" id="form">
+                                {{ form_widget(form._token) }}
+                                <div class="row">
+                                    {{ formulaire.input("col-md-1","Type",form.type,false) }}
+                                    {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
+                                    {{ formulaire.input("col-md-2","Délai d'annulation",form.delaiAnnulation,true) }}
+                                    {{ formulaire.input("col-md-2","Délai retrocession",form.delaiRetrocession,true) }}
+                                    {{ formulaire.input("col-md-2","Nombre de place",form.nombrePlace,true) }}
+                                </div>
+                                <div class="row">
+                                    {{ formulaire.input("col-md-4","Acompte",form.aCompte,true) }}
+                                    {{ formulaire.input("col-md-4","Nbr min de nuitées",form.minStay,true) }}
+                                    {{ formulaire.input("col-md-4","Total contingent",form.totalContingent,true) }}
+                                </div>
+                                <div class="row">
+                                    {{ formulaire.select2("col-md-3","Arrangement de base",form.ArrBase,true) }}
+                                    {{ formulaire.input("col-md-3","Prix Convention",form.prixConvention,true) }}
+                                    {{ formulaire.input("col-md-3","Marge du vente",form.margeVente,true) }}
+                                    {{ formulaire.input("col-md-3","",form.pourcentage,false) }}
+                                </div>
+                                {{ formulaire.submit("Modifier") }}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

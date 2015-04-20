@@ -17,7 +17,14 @@ class SaisonType extends AbstractType
     {
         $builder
                 ->add('libelle')
-                ->add('type')
+                ->add('type', 'choice', array(
+                    'choices' => array(
+                        '1' => 'Saison',
+                        '2' => 'Promotion'
+                    ),
+                    'expanded'  => true,
+                    'multiple'  => false,
+                ))
                 ->add('delaiAnnulation')
                 ->add('delaiRetrocession')
                 ->add('nombrePlace')

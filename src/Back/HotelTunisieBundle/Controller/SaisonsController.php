@@ -116,7 +116,7 @@ class SaisonsController extends Controller
             }
             $em->flush();
             $session->getFlashBag()->add('success', " Votre saison a été générer avec succées ");
-            return $this->redirect($this->generateUrl("PeriodeSaison", array( 'id'=>$saison->getId() )));
+            return $this->redirect($this->generateUrl("PeriodeSaison", array( 'id'=>$newSaison->getId() )));
         }
         return $this->render('BackHotelTunisieBundle:Saisons:generer.html.twig', array(
                     'hotel'=>$hotel,
@@ -136,7 +136,7 @@ class SaisonsController extends Controller
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
 
-        $form=$this->createForm(new SaisonPeriodesType(), $saison->addPeriode(new Periode()));
+        $form=$this->createForm(new SaisonPeriodesType(), $saison->addPeriode(new Periode())->addPeriode(new Periode())->addPeriode(new Periode()));
         $request=$this->getRequest();
         if($request->isMethod("POST"))
         {
@@ -166,4 +166,40 @@ class SaisonsController extends Controller
         ));
     }
 
+    public function generalAction(Saison $saison)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $hotel=$saison->getHotel(); 
+        $form=$this->createForm(new SaisonType(), $saison);
+        $form->add("ArrBase", "entity", array(
+            'class'        =>'BackHotelTunisieBundle:Arrangement',
+            'query_builder'=>function(EntityRepository $er) use ($hotel){
+                return $er->createQueryBuilder('a')
+                                ->join("a.hotels", "h")
+                                ->where('h.id = :id')
+                                ->setParameter('id', $hotel->getId());
+                ;
+            }
+        ));
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $saison=$form->getData();
+                $em->persist($saison);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre saison a été modifié avec succées ");
+                return $this->redirect($this->generateUrl("GeneralSaison", array( 'id'=>$saison->getId() )));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:Saisons:general.html.twig', array(
+                    'hotel'=>$hotel,
+                    'saison'=>$saison,
+                    'form' =>$form->createView()
+        ));
+    }
+    
 }

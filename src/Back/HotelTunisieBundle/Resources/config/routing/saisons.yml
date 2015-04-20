@@ -9,3 +9,7 @@ liste_saison:
 PeriodeSaison:
     path:     /saison/SaisonPeriode/{id}
     defaults: { _controller: BackHotelTunisieBundle:Saisons:periode }
+
+GeneralSaison:
+    path:     /saison/SaisonGeneral/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:general }
