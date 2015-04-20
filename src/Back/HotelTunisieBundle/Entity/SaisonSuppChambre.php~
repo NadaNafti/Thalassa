@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * SaisonSuppChambre
  *
- * @ORM\Table(name="ost_sht_hotels_saison_supp_chambres")
+ * @ORM\Table(name="ost_sht_saison_suppchambres")
  * @ORM\Entity
  */
 class SaisonSuppChambre
@@ -257,5 +257,13 @@ class SaisonSuppChambre
             return $this->getSuppAchat()+ abs($this->getSuppAchat())*$this->marge/100 ;
         else
             return $this->getSuppAchat()+$this->marge;
+    }
+    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = null ;
+        }
     }
 }

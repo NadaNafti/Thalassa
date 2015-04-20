@@ -1,3 +1,11 @@
 generer_saison:
     path:     /modif/{id}/saisons/generer
     defaults: { _controller: BackHotelTunisieBundle:Saisons:Generer }
+    
+liste_saison:
+    path:     /modif/{id}/saisons/
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:liste }
+
+PeriodeSaison:
+    path:     /saison/SaisonPeriode/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:periode }

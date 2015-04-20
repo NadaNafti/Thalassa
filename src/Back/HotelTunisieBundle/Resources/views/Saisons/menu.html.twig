@@ -1,0 +1,62 @@
+<ul id="myTab2" class="nav nav-tabs tab-padding tab-space-3">
+    <li {% if app.request.get('_route')=='PeriodeSaison' %}class="active"{% endif %}>
+        <a href="{{ path('PeriodeSaison', {'id':saison.id}) }}">
+            Périodes ({{ saison.periodes|length }})
+        </a>
+    </li>
+    <li>
+        <a href="">
+            Info générale
+        </a>
+    </li>
+    <li>
+        <a href="">
+            Occ. chambres 
+        </a>
+    </li>
+    <li>
+        <a href="">
+            Arrangements 
+        </a>
+    </li>
+    <li>
+        <a href="">
+            Réductions
+        </a>
+    </li>
+    <li>
+        <a href="">
+            Supplément
+        </a>
+    </li>
+    <li>
+        <a href="">
+            Supp. autres chambres
+        </a>
+    </li>
+    <li>
+        <a href="">
+            Supp. vues
+        </a>
+    </li>
+    <li>
+        <a href="">
+            Autres supp
+        </a>
+    </li>
+    <li>
+        <a href="">
+            Autres réduc
+        </a>
+    </li>
+    <li>
+        <a href="">
+            Weekend
+        </a>
+    </li>
+    <li>
+        <a href="" style="background-color: cornsilk;">
+            Détails 
+        </a>
+    </li>
+</ul>

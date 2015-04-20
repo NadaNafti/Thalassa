@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * SaisonWeekend
  *
- * @ORM\Table(name="ost_sht_hotels_saison_weekend")
+ * @ORM\Table(name="ost_sht_saison_weekend")
  * @ORM\Entity
  */
 class SaisonWeekend
@@ -96,7 +96,7 @@ class SaisonWeekend
 
     /**
      * @ORM\ManyToMany(targetEntity="Chambre")
-     * @ORM\JoinTable(name="ost_sht_hotels_saison_weekend_chambres",
+     * @ORM\JoinTable(name="ost_sht_saison_weekend_chambres",
      *      joinColumns={@ORM\JoinColumn(name="id_saison_weekend", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_chambre", referencedColumnName="id")}
      * )
@@ -489,5 +489,12 @@ class SaisonWeekend
         else
             return $this->getReducSuppAchat() + $this->marge;
     }
-
+    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = NULL ;
+        }
+    }
 }

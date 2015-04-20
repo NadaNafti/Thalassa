@@ -186,6 +186,7 @@ class Hotel
 
     /**
      * @ORM\OneToMany(targetEntity="Saison", mappedBy="hotel")
+     * @ORM\OrderBy({"created" = "DESC"})
      */
     private $saisons;
 

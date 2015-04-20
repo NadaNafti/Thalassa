@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert ;
 /**
  * Saison
  *
- * @ORM\Table(name="ost_sht_hotels_saison")
+ * @ORM\Table(name="ost_sht_saison")
  * @ORM\Entity
  */
 class Saison
@@ -138,6 +138,12 @@ class Saison
      * @ORM\OneToMany(targetEntity="SaisonAutreReduc", mappedBy="saison")
      */
     protected $autresReductions ;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Periode", mappedBy="saison")
+     * @ORM\OrderBy({"dateDebut" = "ASC"})
+     */
+    protected $periodes ;
 
     /**
      * @ORM\OneToOne(targetEntity="SaisonReduc", inversedBy="saison", cascade={"persist"})
@@ -852,6 +858,27 @@ class Saison
         else
             return TRUE ;
     }
+    
+    
+    public function isValid()
+    {
+        if (count($this->chambres) != count($this->hotel->getChambres()))
+            return FALSE ;
+        elseif (count($this->arrangements) + 1 != count($this->hotel->getArrangements()))
+            return FALSE ;
+        elseif (count($this->suppChambres) != $this->hotel->getCountAutresChambres())
+            return FALSE ;
+        elseif (count($this->vues) != count($this->hotel->getVues()))
+            return FALSE ;
+        elseif ($this->saisonReduc == null)
+            return FALSE ;
+        elseif ($this->saisonSupp == null)
+            return FALSE ;
+        elseif ($this->saisonWeekend == null && $this->hotel->getFicheTechnique()->getTarifWeekend())
+            return FALSE ;
+        else
+            return TRUE ;
+    }
 
     /**
      * Calcule Prix Achat de base
@@ -874,7 +901,7 @@ class Saison
 
     public function __toString()
     {
-        return 'Saison '.$this->libelle ;
+        return $this->libelle ;
     }
 
     /**
@@ -922,4 +949,37 @@ class Saison
         }
     }
 
+
+    /**
+     * Add periodes
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Periode $periodes
+     * @return Saison
+     */
+    public function addPeriode(\Back\HotelTunisieBundle\Entity\Periode $periodes)
+    {
+        $this->periodes[] = $periodes;
+
+        return $this;
+    }
+
+    /**
+     * Remove periodes
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Periode $periodes
+     */
+    public function removePeriode(\Back\HotelTunisieBundle\Entity\Periode $periodes)
+    {
+        $this->periodes->removeElement($periodes);
+    }
+
+    /**
+     * Get periodes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPeriodes()
+    {
+        return $this->periodes;
+    }
 }

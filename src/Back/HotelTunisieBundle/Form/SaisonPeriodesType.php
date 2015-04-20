@@ -5,9 +5,9 @@ namespace Back\HotelTunisieBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Back\HotelTunisieBundle\Form\SaisonChambreType;
+use Back\HotelTunisieBundle\Form\PeriodeType;
 
-class SaisonCType extends AbstractType
+class SaisonPeriodesType extends AbstractType
 {
 
     /**
@@ -16,7 +16,9 @@ class SaisonCType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-         $builder->add('chambres', 'collection', array('type' => new SaisonChambreType()));
+        $builder->add('periodes', 'collection', array(
+            'type'=>new PeriodeType()
+        ));
     }
 
     /**
@@ -34,7 +36,7 @@ class SaisonCType extends AbstractType
      */
     public function getName()
     {
-        return 'back_hoteltunisiebundle_saisonc';
+        return 'back_hoteltunisiebundle_saison_periodes';
     }
 
 }

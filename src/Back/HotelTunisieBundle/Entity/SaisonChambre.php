@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * SaisonChambres
  *
- * @ORM\Table(name="ost_sht_hotels_saison_chambres")
+ * @ORM\Table(name="ost_sht_saison_chambres")
  * @ORM\Entity
  */
 class SaisonChambre
