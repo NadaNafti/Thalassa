@@ -1,0 +1,55 @@
+{% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
+{% block title %}{{ hotel.libelle }}{% endblock %}
+{% block description %}{{ saison }}{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
+    </li>
+    <li>
+        <a href="{{ path('PeriodeSaison',{'id':hotel.id}) }}" >Liste des saisons</a>
+    </li>
+    <li>
+        <a href="javascript:void(0)" >{{ saison }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="tabbable">
+                        {% include 'BackHotelTunisieBundle:Saisons:menu.html.twig' %}
+                        <div class="panel-body tab-content">
+                            <form action="{{ path('WeekendSaison',{'id':saison.id}) }}" method="post" role="form" id="formDisable">
+                                {{ form_widget(form._token) }}
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    {{ formulaire.input("col-md-2","",form.vendredi,false) }}
+                                    {{ formulaire.input("col-md-2","",form.samedi,false) }}
+                                    {{ formulaire.input("col-md-2","",form.dimanche,false) }}
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    {{ formulaire.select2("col-md-4","Liste des chambres",form.chambres,false) }}
+                                    {{ formulaire.input("col-md-2","Nombre de nuitées minimum",form.nbNuitMin,false) }}
+                                    {{ formulaire.input("col-md-2","Nombre de nuitées maximum",form.nbNuitMax,false) }}
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    {{ formulaire.input("col-md-2","",form.type,false) }}
+                                    {{ formulaire.input("col-md-1","Valeur",form.valeur,false) }}
+                                    {{ formulaire.input("col-md-2","",form.valeurPour,false) }}
+                                    {{ formulaire.input("col-md-1","Marge",form.marge,false) }}
+                                    {{ formulaire.input("col-md-2","",form.margePour,false) }}
+                                </div>
+                                {{ formulaire.submit("Modifier") }}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

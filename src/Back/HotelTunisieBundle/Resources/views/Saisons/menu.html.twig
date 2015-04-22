@@ -14,48 +14,50 @@
             Occ. chambres 
         </a>
     </li>
-    <li>
-        <a href="">
+    <li {% if app.request.get('_route')=='ArrangementSaison' %}class="active"{% endif %}>
+        <a href="{{ path('ArrangementSaison', {'id':saison.id}) }}">
             Arrangements 
         </a>
     </li>
-    <li>
-        <a href="">
+    <li {% if app.request.get('_route')=='ReductionSaison' %}class="active"{% endif %}>
+        <a href="{{ path('ReductionSaison', {'id':saison.id}) }}">
             Réductions
         </a>
     </li>
-    <li>
-        <a href="">
+    <li {% if app.request.get('_route')=='SupplementSaison' %}class="active"{% endif %}>
+        <a href="{{ path('SupplementSaison', {'id':saison.id}) }}">
             Supplément
         </a>
     </li>
-    <li>
-        <a href="">
+    <li {% if app.request.get('_route')=='AutreChambreSaison' %}class="active"{% endif %}>
+        <a href="{{ path('AutreChambreSaison', {'id':saison.id}) }}">
             Supp. autres chambres
         </a>
     </li>
-    <li>
-        <a href="">
+    <li {% if app.request.get('_route')=='VuesSaison' %}class="active"{% endif %}>
+        <a href="{{ path('VuesSaison', {'id':saison.id}) }}">
             Supp. vues
         </a>
     </li>
-    <li>
-        <a href="">
+    <li {% if app.request.get('_route')=='AutreSuppSaison' %}class="active"{% endif %}>
+        <a href="{{ path('AutreSuppSaison', {'id':saison.id}) }}">
             Autres supp
         </a>
     </li>
-    <li>
-        <a href="">
+    <li {% if app.request.get('_route')=='AutreReducSaison' %}class="active"{% endif %}>
+        <a href="{{ path('AutreReducSaison', {'id':saison.id}) }}">
             Autres réduc
         </a>
     </li>
-    <li>
-        <a href="">
-            Weekend
-        </a>
-    </li>
-    <li>
-        <a href="" style="background-color: cornsilk;">
+    {% if hotel.ficheTechnique.tarifWeekend == true%}
+        <li {% if app.request.get('_route')=='WeekendSaison' %}class="active"{% endif %}>
+            <a href="{{ path('WeekendSaison', {'id':saison.id}) }}">
+                Weekend
+            </a>
+        </li>
+    {% endif %}
+    <li {% if app.request.get('_route')=='PrixSaison' %}class="active"{% endif %}>
+            <a href="{{ path('PrixSaison', {'id':saison.id}) }}" style="background-color: cornsilk;">
             Détails 
         </a>
     </li>

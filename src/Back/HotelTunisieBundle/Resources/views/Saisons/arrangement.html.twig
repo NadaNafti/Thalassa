@@ -1,0 +1,58 @@
+{% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
+{% block title %}{{ hotel.libelle }}{% endblock %}
+{% block description %}{{ saison }}{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
+    </li>
+    <li>
+        <a href="{{ path('PeriodeSaison',{'id':hotel.id}) }}" >Liste des saisons</a>
+    </li>
+    <li>
+        <a href="javascript:void(0)" >{{ saison }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="tabbable">
+                        {% include 'BackHotelTunisieBundle:Saisons:menu.html.twig' %}
+                        <div class="panel-body tab-content">
+                            <form action="{{ path('ArrangementSaison',{'id':saison.id}) }}" method="post" role="form" id="formDisable">
+                                {{ form_widget(form._token) }}
+                                <div class="row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-3">Valeur</div>
+                                    <div class="col-md-3">Marge de vente</div>
+                                </div>
+                                {% for formC in form.arrangements %}
+                                    <div class="row">
+                                        <div class="col-md-3" style="height: 68px;">
+                                            {{ formulaire.input("col-md-1", "",formC.etat,false) }}
+                                            {{ form_widget(formC.arrangement, {'attr': {'style': 'display:none'}}) }}
+                                            {% if formC.arrangement.vars.data.ordre < hotel.saisonBase.arrBase.ordre %}
+                                                <span class="label label-sm label-success">Réduc.</span>
+                                            {% else %}
+                                                <span class="label label-sm label-danger">Supp</span>
+                                            {% endif %}
+                                            <label style="margin-top: 20px;">{{ formC.arrangement.vars.data.libelle }}</label>
+                                        </div>
+                                        {{ formulaire.input("col-md-1","",formC.valeur,false) }}
+                                        {{ formulaire.input("col-md-2","",formC.valeurPour,false) }}
+                                        {{ formulaire.input("col-md-1","",formC.marge,false) }}
+                                        {{ formulaire.input("col-md-2","",formC.margePour,false) }}
+                                    </div>
+                                {% endfor %}
+                                {{ formulaire.submit("Modifier") }}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

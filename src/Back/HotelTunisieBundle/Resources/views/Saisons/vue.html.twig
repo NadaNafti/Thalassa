@@ -22,31 +22,24 @@
                     <div class="tabbable">
                         {% include 'BackHotelTunisieBundle:Saisons:menu.html.twig' %}
                         <div class="panel-body tab-content">
-                            <form action="{{ path('OccChambreSaison',{'id':saison.id}) }}" method="post" role="form" id="formDisable">
+                            <form action="{{ path('VuesSaison',{'id':saison.id}) }}" method="post" role="form" id="formDisable">
                                 {{ form_widget(form._token) }}
-
                                 <div class="row">
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-1">min adulte</div>
-                                    <div class="col-md-1">max adulte</div>
-                                    <div class="col-md-1">min enfant</div>
-                                    <div class="col-md-1">max enfant</div>
-                                    <div class="col-md-1">contingent</div>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-3">Valeur</div>
+                                    <div class="col-md-1">Marge de vente</div>
                                 </div>
-                                {% for formC in form.chambres %}
+                                {% for formC in form.vues %}
                                     <div class="row">
-                                        {{ formulaire.input("col-md-1", "",formC.etat,false) }}
                                         <div class="col-md-2" style="height: 68px;">
-                                            <label style="margin-top: 20px;">
-                                                {{ formC.chambre.vars.data.libelle }}
-                                            </label>
-                                            {{ form_widget(formC.chambre, {'attr': {'style': 'display:none'}}) }}
+                                            {{ formulaire.input("col-md-1", "",formC.etat,false) }}
+                                            <label style="margin-top: 20px;">{{ formC.vue.vars.data.libelle }}</label>
+                                            {{ form_widget(formC.vue, {'attr': {'style': 'display:none'}}) }}
                                         </div>
-                                        {{ formulaire.input("col-md-1","",formC.minAdulte,false) }}
-                                        {{ formulaire.input("col-md-1","",formC.maxAdulte,false) }}
-                                        {{ formulaire.input("col-md-1","",formC.minEnfant,false) }}
-                                        {{ formulaire.input("col-md-1","",formC.maxEnfant,false) }}
-                                        {{ formulaire.input("col-md-1","",formC.contingent,false) }}
+                                        {{ formulaire.input("col-md-1","",formC.valeur,false) }}
+                                        {{ formulaire.input("col-md-2","",formC.valeurPour,false) }}
+                                        {{ formulaire.input("col-md-1","",formC.marge,false) }}
+                                        {{ formulaire.input("col-md-2","",formC.margePour,false) }}
                                     </div>
                                 {% endfor %}
                                 {{ formulaire.submit("Modifier") }}

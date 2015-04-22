@@ -17,3 +17,47 @@ GeneralSaison:
 OccChambreSaison:
     path:     /saison/SaisonOccChambre/{id}
     defaults: { _controller: BackHotelTunisieBundle:Saisons:occChambre }
+
+ArrangementSaison:
+    path:     /saison/SaisonArrangement/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:arrangement }
+
+ReductionSaison:
+    path:     /saison/SaisonReduction/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:reduction }
+
+SupplementSaison:
+    path:     /saison/SaisonSupplement/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:supplement }
+
+AutreChambreSaison:
+    path:     /saison/SaisonAutreChambre/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:autreChambre }
+
+VuesSaison:
+    path:     /saison/SaisonVue/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:vue }
+
+WeekendSaison:
+    path:     /saison/SaisonWeekend/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:weekend }
+
+AutreSuppSaison:
+    path:     /saison/SaisonAutreSupp/{id}/{id2}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:autreSupp,id2:null }
+
+deleteAutreSupp:
+    path:     /DeleteSaisonAutreSupp/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:deleteAutreSupp }
+
+AutreReducSaison:
+    path:     /saison/SaisonAutreReduc/{id}/{id2}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:autreReduc,id2:null }
+
+deleteAutreReduc:
+    path:     /DeleteSaisonAutreReduc/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:deleteAutreReduc }
+    
+PrixSaison:
+    path:     /saison/SaisonPrix/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:prix }    

@@ -16,6 +16,11 @@ class SaisonVueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+                ->add('etat', 'checkbox', array(
+                    'label'   =>' ',
+                    'required'=>false,
+                    'attr'    =>array( 'style'=>'margin-top:-15px;' )
+                ))
                 ->add('valeur')
                 ->add('valeurPour', 'checkbox', array(
                     'label'   =>'En pourcentage',
@@ -26,7 +31,6 @@ class SaisonVueType extends AbstractType
                     'label'   =>'En pourcentage',
                     'required'=>false
                 ))
-                ->add('etat')
                 ->add('vue')
         ;
     }

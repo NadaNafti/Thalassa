@@ -1,13 +1,16 @@
 {% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
 {% block title %}{{ hotel.libelle }}{% endblock %}
-{% block description %}Saison de base{% endblock %}
+{% block description %}{{ saison }}{% endblock %}
 {% block topbody %}
     {{ parent() }}
     <li>
         <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
     </li>
     <li>
-        <a href="javascript:void(0)" >Saison de base</a>
+        <a href="{{ path('PeriodeSaison',{'id':hotel.id}) }}" >Liste des saisons</a>
+    </li>
+    <li>
+        <a href="javascript:void(0)" >{{ saison }}</a>
     </li>
 {% endblock %}
 {% block body %}
@@ -17,9 +20,9 @@
                 {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
                 <div class="panel panel-default">
                     <div class="tabbable">
-                        {% include 'BackHotelTunisieBundle:Hotels:menu_saison.html.twig' %}
+                        {% include 'BackHotelTunisieBundle:Saisons:menu.html.twig' %}
                         <div class="panel-body tab-content">
-                            <form action="{{ path('saison_autres_supp',{'id':hotel.id,'id2':saisonAutreSupp.id}) }}" method="post" role="form" id="formDisable">
+                            <form action="{{ path('AutreSuppSaison',{'id':saison.id,'id2':saisonAutreSupp.id}) }}" method="post" role="form" id="formDisable">
                                 {{ form_widget(form._token) }}
                                 <div class="row">
                                     {{ formulaire.input("col-md-4","Supplément",form.supp,true) }}
@@ -52,7 +55,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for supp in hotel.saisonBase.autresSupplements %}
+                            {% for supp in saison.autresSupplements %}
                                 <tr>
                                     <td>{{ supp.supp }}</td>
                                     <td>{{ supp.valeurAdulte }} {% if supp.valeurPour %}%{% endif %}</td>
@@ -60,8 +63,8 @@
                                     <td>{{ supp.marge }} {% if supp.margePour %}%{% endif %}</td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            {{ macros.tableEdit(path('saison_autres_supp',{'id':hotel.id,'id2':supp.id})) }}
-                                            {{ macros.tableDelete(path('delete_autres_supp',{'hotel':hotel.id,'id':supp.id})) }}
+                                            {{ macros.tableEdit(path('AutreSuppSaison',{'id':saison.id,'id2':supp.id})) }}
+                                            {{ macros.tableDelete(path('deleteAutreSupp',{'id':supp.id})) }}
                                         </div>
                                     </td>
                                 </tr>
@@ -72,5 +75,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}

@@ -16,7 +16,11 @@ class SaisonSuppChambreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('etat')
+                ->add('etat', 'checkbox', array(
+                    'label'   =>' ',
+                    'required'=>false,
+                    'attr'    =>array( 'style'=>'margin-top:-15px;' )
+                ))
                 ->add('valeur')
                 ->add('valeurPour', 'checkbox', array(
                     'label'   =>'En pourcentage',

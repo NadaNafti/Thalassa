@@ -1,0 +1,442 @@
+{% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
+{% block title %}{{ hotel.libelle }}{% endblock %}
+{% block description %}{{ saison }}{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
+    </li>
+    <li>
+        <a href="{{ path('PeriodeSaison',{'id':hotel.id}) }}" >Liste des saisons</a>
+    </li>
+    <li>
+        <a href="javascript:void(0)" >{{ saison }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="tabbable">
+                        {% include 'BackHotelTunisieBundle:Saisons:menu.html.twig' %}
+                        <div class="panel-body">
+                            <div class="row" >
+                                <div class="col-md-4" >
+                                    <h3>Arrangements</h3>
+                                    <ul>
+                                        <li>
+                                            <strong>Convention de base (chambre double avec {{ saison.arrBase }})</strong>
+                                            <ul>
+                                                <li>
+                                                    Prix Achat : {{ saison.prixBaseAchat }} 
+                                                </li>
+                                                <li>
+                                                    Prix Vente : {{ saison.prixBaseVente }} 
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        {% for saisonArr in saison.arrangements  %}
+                                            <li>
+                                                <strong>{{ saisonArr.arrangement }}</strong>
+                                                <ul>
+                                                    <li>
+                                                        Prix Achat : {{ saisonArr.getReducSuppAchat }} 
+                                                    </li>
+                                                    <li>
+                                                        Prix Vente : {{ saisonArr.getReducSuppVente }} 
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% if saison.saisonWeekend is not null %}
+                                        <hr> 
+                                        <h3>Weekend</h3>
+                                        <ul>
+                                            <li>
+                                                <strong>Tarif weekend</strong>
+                                                <ul>
+                                                    <li>
+                                                        Prix Achat : {{ saison.saisonWeekend.getReducSuppAchat }} 
+                                                    </li>
+                                                    <li>
+                                                        Prix Vente : {{ saison.saisonWeekend.getReducSuppVente }} 
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    {% endif %}
+
+                                    {% if saison.suppChambres|length!=0 %}
+                                        <hr> 
+                                        <h3>Autres Chambres</h3>
+                                        <ul>
+                                            {% for chambre in saison.suppChambres %}
+                                                <li>
+                                                    <strong>{{ chambre.chambre }}</strong>
+                                                    <ul>
+                                                        <li>
+                                                            Prix Achat : {{ chambre.getSuppAchat }} 
+                                                        </li>
+                                                        <li>
+                                                            Prix Vente : {{ chambre.getSuppVente }} 
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                    {% if saison.vues|length!=0 %}
+                                        <hr> 
+                                        <h3>Supp vues</h3>
+                                        <ul>
+                                            {% for vue in saison.vues %}
+                                                <li>
+                                                    <strong>{{ vue.vue }}</strong>
+                                                    <ul>
+                                                        <li>
+                                                            Prix Achat : {{ vue.getSuppAchat }} 
+                                                        </li>
+                                                        <li>
+                                                            Prix Vente : {{ vue.getSuppVente }} 
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                    {% if saison.autresSupplements|length!=0 %}
+                                        <hr> 
+                                        <h3>Aures supp.</h3>
+                                        <ul>
+                                            {% for supp in saison.autresSupplements %}
+                                                <li>
+                                                    <strong>{{ supp.supp }}</strong>
+                                                    <ul>
+                                                        <li>
+                                                            Adulte
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ supp.getSuppAdulteAchat }} 
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ supp.getSuppAdulteVente }} 
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            Enfant
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ supp.getSuppEnfantAchat }} 
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ supp.getSuppEnfantVente }} 
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                    {% if saison.autresReductions|length!=0 %}
+                                        <hr> 
+                                        <h3>Aures reduc.</h3>
+                                        <ul>
+                                            {% for reduc in saison.autresReductions %}
+                                                <li>
+                                                    <strong>{{ reduc.reduc }}</strong>
+                                                    <ul>
+                                                        <li>
+                                                            Adulte
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ reduc.getSuppAdulteAchat }} 
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ reduc.getSuppAdulteVente }} 
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            Enfant
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ reduc.getSuppEnfantAchat }} 
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ reduc.getSuppEnfantVente }} 
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-8" >
+                                    <h3>Supplement</h3>
+                                    <div class="row">
+                                        <div class="col-md-5" >
+                                            <ul>
+                                                <li>
+                                                    <strong>Supp. Single</strong>
+                                                    <ul>
+                                                        <li>
+                                                            Prix Achat : {{ saison.saisonSupp.getSuppSingleAchat }}
+                                                        </li>
+                                                        <li>
+                                                            Prix Vente : {{ saison.saisonSupp.getSuppSingleVente }}
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <strong>Supp. 4<sup>eme</sup> Lit</strong>
+                                                    <ul>
+                                                        <li>
+                                                            Prix Achat : {{ saison.saisonSupp.getSupp4LitAchat }}
+                                                        </li>
+                                                        <li>
+                                                            Prix Vente : {{ saison.saisonSupp.getSupp4LitVente }}
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>               
+                                        <div class="col-md-5">
+                                            <ul>
+                                                <li>
+                                                    <strong>Supp. 3<sup>eme</sup> Lit</strong>
+                                                    <ul>
+                                                        <li>
+                                                            Prix Achat : {{ saison.saisonSupp.getSupp3LitAchat }}
+                                                        </li>
+                                                        <li>
+                                                            Prix Vente : {{ saison.saisonSupp.getSupp3LitVente }}
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <strong>Supp. single pour un enfant seul dans une chambre séparé</strong>
+                                                    <ul>
+                                                        <li>
+                                                            Prix Achat : {{ saison.saisonSupp.getSuppSingleEnfantAchat }}
+                                                        </li>
+                                                        <li>
+                                                            Prix Vente : {{ saison.saisonSupp.getSuppSingleEnfantVente }}
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <hr> 
+                                    <h3>Réduction</h3>
+                                    <div class="row">
+                                        <div class="col-md-5" >
+                                            <ul>
+                                                <li>
+                                                    <strong>Réduction 3<sup>eme</sup>  Lit</strong>
+                                                    <ul>
+                                                        <li>
+                                                            Prix Achat : {{ saison.saisonReduc.getReduc3LitAchat }}
+                                                        </li>
+                                                        <li>
+                                                            Prix Vente : {{ saison.saisonReduc.getReduc3LitVente }}
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <strong>1<sup>er</sup> enfant avec 1 adulte dans une même chambre</strong>
+                                                    <ul>
+                                                        <li>
+                                                            <strong>Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ saison.saisonReduc.getReducEnfant1Adulte1Age1Achat }}
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ saison.saisonReduc.getReducEnfant1Adulte1Age1Vente }}
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <strong>Enfant [{{ hotel.ficheTechnique.min2AgeEnfant }} .. {{ hotel.ficheTechnique.max2AgeEnfant }}] </strong>
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ saison.saisonReduc.getReducEnfant1Adulte1Age2Achat }}
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ saison.saisonReduc.getReducEnfant1Adulte1Age2Vente }}
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <strong>1<sup>er</sup> enfant dans une chambre séparée</strong>
+                                                    <ul>
+                                                        <li>
+                                                            <strong>Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ saison.saisonReduc.getReduc1EnfantSepare1Age1Achat }}
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ saison.saisonReduc.getReduc1EnfantSepare1Age1Vente }}
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <strong>Enfant [{{ hotel.ficheTechnique.min2AgeEnfant }} .. {{ hotel.ficheTechnique.max2AgeEnfant }}] </strong>
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ saison.saisonReduc.getReduc1EnfantSepare1Age2Achat }}
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ saison.saisonReduc.getReduc1EnfantSepare1Age2Vente }}
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <strong>2<sup>eme</sup>  enfant ou plus avec 2 adultes ou plus dans une même chambre</strong>
+                                                    <ul>
+                                                        <li>
+                                                            <strong>Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ saison.saisonReduc.getReduc2Enfant2Adulte1Age1Achat }}
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ saison.saisonReduc.getReduc2Enfant2Adulte1Age1Vente }}
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <strong>Enfant [{{ hotel.ficheTechnique.min2AgeEnfant }} .. {{ hotel.ficheTechnique.max2AgeEnfant }}] </strong>
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ saison.saisonReduc.getReduc2Enfant2Adulte1Age2Achat }}
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ saison.saisonReduc.getReduc2Enfant2Adulte1Age2Vente }}
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <ul>
+                                                <li>
+                                                    <strong>Réduction 4<sup>eme</sup> Lit</strong>
+                                                    <ul>
+                                                        <li>
+                                                            Prix Achat : {{ saison.saisonReduc.getReduc4LitAchat }}
+                                                        </li>
+                                                        <li>
+                                                            Prix Vente : {{ saison.saisonReduc.getReduc4LitVente }}
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <strong>1<sup>er</sup> enfant avec 2 adultes ou plus dans une même chambre</strong>
+                                                    <ul>
+                                                        <li>
+                                                            <strong>Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ saison.saisonReduc.getReducEnfant1Adulte2Age1Achat }}
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ saison.saisonReduc.getReducEnfant1Adulte2Age1Vente }}
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <strong>Enfant [{{ hotel.ficheTechnique.min2AgeEnfant }} .. {{ hotel.ficheTechnique.max2AgeEnfant }}] </strong>
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ saison.saisonReduc.getReducEnfant1Adulte2Age2Achat }}
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ saison.saisonReduc.getReducEnfant1Adulte2Age2Vente }}
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <strong>2<sup>eme</sup>  enfant ou plus avec 1 adulte dans une même chambre</strong>
+                                                    <ul>
+                                                        <li>
+                                                            <strong>Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ saison.saisonReduc.getReduc2Enfant1Adulte1Age1Achat }}
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ saison.saisonReduc.getReduc2Enfant1Adulte1Age1Vente }}
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <strong>Enfant [{{ hotel.ficheTechnique.min2AgeEnfant }} .. {{ hotel.ficheTechnique.max2AgeEnfant }}] </strong>
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ saison.saisonReduc.getReduc2Enfant1Adulte1Age2Achat }}
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ saison.saisonReduc.getReduc2Enfant1Adulte1Age2Vente }}
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <strong>2<sup>eme</sup> enfant ou plus dans une chambre séparée</strong>
+                                                    <ul>
+                                                        <li>
+                                                            <strong>Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ saison.saisonReduc.getReduc2EnfantOuPlusSepare1Age1Achat }}
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ saison.saisonReduc.getReduc2EnfantOuPlusSepare1Age1Vente }}
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <strong>Enfant [{{ hotel.ficheTechnique.min2AgeEnfant }} .. {{ hotel.ficheTechnique.max2AgeEnfant }}] </strong>
+                                                            <ul>
+                                                                <li>
+                                                                    Prix Achat : {{ saison.saisonReduc.getReduc2EnfantOuPlusSepare1Age2Achat }}
+                                                                </li>
+                                                                <li>
+                                                                    Prix Vente : {{ saison.saisonReduc.getReduc2EnfantOuPlusSepare1Age2Vente }}
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1293,7 +1293,7 @@ class SaisonReduc
     public function getReduc4LitVente()
     {
         if ($this->reduc4LitMargePour)
-            return $this->getReduc4itAchat() + abs($this->getReduc4LitAchat()) * $this->reduc4itMarge / 100 ;
+            return $this->getReduc4LitAchat() + abs($this->getReduc4LitAchat()) * $this->reduc4LitMarge / 100 ;
         else
             return $this->getReduc4LitAchat() + $this->reduc4LitMarge ;
     }

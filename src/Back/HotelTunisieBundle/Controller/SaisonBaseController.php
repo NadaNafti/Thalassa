@@ -424,7 +424,7 @@ class SaisonBaseController extends Controller
         $session=$this->getRequest()->getSession();
         $em->remove($saisonAutreSupp);
         $em->flush();
-        $session->getFlashBag()->add('success', "La reduclement a été reducrimée avec succées");
+        $session->getFlashBag()->add('success', "Supplement a été suprimmée avec succées");
         return $this->redirect($this->generateUrl("saison_autres_reduc", array(
                             'id'=>$hotel->getId(),
         )));

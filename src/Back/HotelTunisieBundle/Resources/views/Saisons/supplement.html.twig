@@ -1,0 +1,68 @@
+{% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
+{% block title %}{{ hotel.libelle }}{% endblock %}
+{% block description %}{{ saison }}{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
+    </li>
+    <li>
+        <a href="{{ path('PeriodeSaison',{'id':hotel.id}) }}" >Liste des saisons</a>
+    </li>
+    <li>
+        <a href="javascript:void(0)" >{{ saison }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="tabbable">
+                        {% include 'BackHotelTunisieBundle:Saisons:menu.html.twig' %}
+                        <div class="panel-body tab-content">
+                            <form action="{{ path('SupplementSaison',{'id':saison.id}) }}" method="post" role="form" id="formDisable">
+                                {{ form_widget(form._token) }}
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-1">Valeur</div>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-1">Marge</div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2" style="padding-top: 20px;">Supp. single</div>
+                                    {{ formulaire.input("col-md-1","",form.suppSingle,false) }}
+                                    {{ formulaire.input("col-md-2","",form.suppSinglePour,false) }}
+                                    {{ formulaire.input("col-md-1","",form.sippSingleMarge,false) }}
+                                    {{ formulaire.input("col-md-2","",form.suppSingleMargePour,false) }}
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2" style="padding-top: 20px;">Supp. 3<sup>eme</sup> lit</div>
+                                    {{ formulaire.input("col-md-1","",form.supp3Lit,false) }}
+                                    {{ formulaire.input("col-md-2","",form.supp3LitPour,false) }}
+                                    {{ formulaire.input("col-md-1","",form.supp3LitMarge,false) }}
+                                    {{ formulaire.input("col-md-2","",form.supp3LitMargePour,false) }}
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2" style="padding-top: 20px;">Supp. 4<sup>eme</sup> lit</div>
+                                    {{ formulaire.input("col-md-1","",form.supp4Lit,false) }}
+                                    {{ formulaire.input("col-md-2","",form.supp4LitPour,false) }}
+                                    {{ formulaire.input("col-md-1","",form.supp4LitMarge,false) }}
+                                    {{ formulaire.input("col-md-2","",form.supp4LitMargePour,false) }}
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-3" style="padding-top: 20px;">Supp. single pour un enfant seul dans une chambre séparé</div>
+                                    {{ formulaire.input("col-md-1","",form.suppSingleEnfant,false) }}
+                                </div>
+                                {{ formulaire.submit("Modifier") }}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
