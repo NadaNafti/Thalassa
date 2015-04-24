@@ -65,6 +65,9 @@
                                         {% if hotel.saisonBase is null or not hotel.saisonBase.isValidSaisonBase %}
                                             <a href="{{ path('saison_base',{'id':hotel.id}) }}" class="tooltips" title="Saison de base est Invalide"><span class="label label-sm label-danger">SB Invalide</span></a>
                                         {% endif %}
+                                        {% if hotel.isInStopSales is not null %}
+                                            <a href="{{ path('stopsales_hotel',{'id':hotel.id}) }}" class="tooltips" title="Vous ètes dans une période de stop sales"><span class="label label-sm label-danger">{{ hotel.isInStopSales.libelle }}</span></a>
+                                        {% endif %}
                                     </td>
                                     <td class="TableAction">
                                         {{ macros.tableEdit(path('modif_hotel',{'id':hotel.id})) }}

@@ -1,10 +1,10 @@
 <?php
 
-namespace Back\HotelTunisieBundle\Entity;
+namespace Back\HotelTunisieBundle\Entity ;
 
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM ;
+use Gedmo\Mapping\Annotation as Gedmo ;
+use Symfony\Component\Validator\Constraints as Assert ;
 
 /**
  * Hotel
@@ -23,56 +23,56 @@ class Hotel
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $id ;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="etat", type="boolean", nullable=true)
      */
-    private $etat;
+    private $etat ;
 
     /**
      * @var string
      *
      * @ORM\Column(name="libelle", type="string", length=255)
      */
-    private $libelle;
+    private $libelle ;
 
     /**
      * @var string
      *
      * @ORM\Column(name="longitude", type="string", length=20)
      */
-    private $longitude;
+    private $longitude ;
 
     /**
      * @var string
      *
      * @ORM\Column(name="latitude", type="string", length=20)
      */
-    private $latitude;
+    private $latitude ;
 
     /**
      * @var string
      *
      * @ORM\Column(name="adresse", type="text")
      */
-    private $adresse;
+    private $adresse ;
 
     /**
      * @var string
      *
      * @ORM\Column(name="descriptionCourte", type="text")
      */
-    private $descriptionCourte;
+    private $descriptionCourte ;
 
     /**
      * @var string
      *
      * @ORM\Column(name="descriptionLongue", type="text")
      */
-    private $descriptionLongue;
+    private $descriptionLongue ;
 
     /**
      * @ORM\ManyToOne(targetEntity="Chaine", fetch="EAGER")
@@ -80,7 +80,7 @@ class Hotel
      * @ORM\OrderBy({"libelle" = "ASC"})
      * @Assert\NotBlank()
      */
-    protected $chaine;
+    protected $chaine ;
 
     /**
      * @ORM\ManyToOne(targetEntity="Back\CommercialBundle\Entity\Fournisseur", fetch="EAGER")
@@ -88,7 +88,7 @@ class Hotel
      * @ORM\OrderBy({"libelle" = "ASC"})
      * @Assert\NotBlank()
      */
-    protected $fournisseur;
+    protected $fournisseur ;
 
     /**
      * @ORM\ManyToOne(targetEntity="Ville", fetch="EAGER")
@@ -96,7 +96,7 @@ class Hotel
      * @ORM\OrderBy({"libelle" = "ASC"})
      * @Assert\NotBlank()
      */
-    protected $ville;
+    protected $ville ;
 
     /**
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="hotels", fetch="EAGER")
@@ -104,7 +104,7 @@ class Hotel
      * @ORM\OrderBy({"libelle" = "ASC"})
      * @Assert\NotBlank()
      */
-    protected $categorie;
+    protected $categorie ;
 
     /**
      * @ORM\ManyToMany(targetEntity="Tag")
@@ -113,7 +113,7 @@ class Hotel
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
      * )
      */
-    protected $tags;
+    protected $tags ;
 
     /**
      * @ORM\ManyToMany(targetEntity="Chambre", inversedBy="hotels")
@@ -122,7 +122,7 @@ class Hotel
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_chambre", referencedColumnName="id")}
      * )
      */
-    protected $chambres;
+    protected $chambres ;
 
     /**
      * @ORM\ManyToMany(targetEntity="Optionn")
@@ -131,7 +131,7 @@ class Hotel
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_option", referencedColumnName="id")}
      * )
      */
-    protected $options;
+    protected $options ;
 
     /**
      * @ORM\ManyToMany(targetEntity="Localisation")
@@ -140,7 +140,7 @@ class Hotel
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_localisation", referencedColumnName="id")}
      * )
      */
-    protected $localisations;
+    protected $localisations ;
 
     /**
      * @ORM\ManyToMany(targetEntity="Theme")
@@ -149,7 +149,7 @@ class Hotel
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_theme", referencedColumnName="id")}
      * )
      */
-    protected $themes;
+    protected $themes ;
 
     /**
      * @ORM\ManyToMany(targetEntity="Arrangement", inversedBy="hotels")
@@ -158,7 +158,7 @@ class Hotel
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_arrangement", referencedColumnName="id")}
      * )
      */
-    protected $arrangements;
+    protected $arrangements ;
 
     /**
      * @ORM\ManyToMany(targetEntity="Amenagement")
@@ -167,7 +167,7 @@ class Hotel
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_amenagement", referencedColumnName="id")}
      * )
      */
-    protected $amenagements;
+    protected $amenagements ;
 
     /**
      * @ORM\ManyToMany(targetEntity="Vue")
@@ -176,57 +176,57 @@ class Hotel
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_vue", referencedColumnName="id")}
      * )
      */
-    protected $vues;
+    protected $vues ;
 
     /**
      * @ORM\OneToMany(targetEntity="Media", mappedBy="hotel")
      * @ORM\OrderBy({"ordre" = "ASC"})
      */
-    private $images;
+    private $images ;
 
     /**
      * @ORM\OneToMany(targetEntity="Saison", mappedBy="hotel")
      * @ORM\OrderBy({"created" = "DESC"})
      */
-    private $saisons;
+    private $saisons ;
 
     /**
      * @ORM\OneToMany(targetEntity="StopSales", mappedBy="hotel")
      */
-    protected $stopSales;
+    protected $stopSales ;
 
     /**
      * @ORM\OneToOne(targetEntity="FicheTechnique", cascade={"persist"})
      */
-    private $ficheTechnique;
+    private $ficheTechnique ;
 
     /**
      * @ORM\OneToOne(targetEntity="Saison", inversedBy="hotelBase", cascade={"persist"})
      */
-    private $saisonBase;
+    private $saisonBase ;
 
     /**
      * @Gedmo\slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
-    private $slug;
+    private $slug ;
 
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column( type="datetime")
      */
-    private $created;
+    private $created ;
 
     /**
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column( type="datetime")
      */
-    private $updated;
+    private $updated ;
 
     /**
      * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
      */
-    private $deletedAt;
+    private $deletedAt ;
 
     /**
      * Get id
@@ -235,7 +235,7 @@ class Hotel
      */
     public function getId()
     {
-        return $this->id;
+        return $this->id ;
     }
 
     /**
@@ -246,9 +246,9 @@ class Hotel
      */
     public function setLibelle($libelle)
     {
-        $this->libelle=$libelle;
+        $this->libelle = $libelle ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -258,7 +258,7 @@ class Hotel
      */
     public function getLibelle()
     {
-        return $this->libelle;
+        return $this->libelle ;
     }
 
     /**
@@ -269,9 +269,9 @@ class Hotel
      */
     public function setLongitude($longitude)
     {
-        $this->longitude=$longitude;
+        $this->longitude = $longitude ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -281,7 +281,7 @@ class Hotel
      */
     public function getLongitude()
     {
-        return $this->longitude;
+        return $this->longitude ;
     }
 
     /**
@@ -292,9 +292,9 @@ class Hotel
      */
     public function setLatitude($latitude)
     {
-        $this->latitude=$latitude;
+        $this->latitude = $latitude ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -304,7 +304,7 @@ class Hotel
      */
     public function getLatitude()
     {
-        return $this->latitude;
+        return $this->latitude ;
     }
 
     /**
@@ -315,9 +315,9 @@ class Hotel
      */
     public function setAdresse($adresse)
     {
-        $this->adresse=$adresse;
+        $this->adresse = $adresse ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -327,7 +327,7 @@ class Hotel
      */
     public function getAdresse()
     {
-        return $this->adresse;
+        return $this->adresse ;
     }
 
     /**
@@ -338,9 +338,9 @@ class Hotel
      */
     public function setDescriptionCourte($descriptionCourte)
     {
-        $this->descriptionCourte=$descriptionCourte;
+        $this->descriptionCourte = $descriptionCourte ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -350,7 +350,7 @@ class Hotel
      */
     public function getDescriptionCourte()
     {
-        return $this->descriptionCourte;
+        return $this->descriptionCourte ;
     }
 
     /**
@@ -361,9 +361,9 @@ class Hotel
      */
     public function setDescriptionLongue($descriptionLongue)
     {
-        $this->descriptionLongue=$descriptionLongue;
+        $this->descriptionLongue = $descriptionLongue ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -373,7 +373,7 @@ class Hotel
      */
     public function getDescriptionLongue()
     {
-        return $this->descriptionLongue;
+        return $this->descriptionLongue ;
     }
 
     /**
@@ -381,14 +381,14 @@ class Hotel
      */
     public function __construct()
     {
-        $this->tags=new \Doctrine\Common\Collections\ArrayCollection();
-        $this->chambres=new \Doctrine\Common\Collections\ArrayCollection();
-        $this->options=new \Doctrine\Common\Collections\ArrayCollection();
-        $this->localisations=new \Doctrine\Common\Collections\ArrayCollection();
-        $this->themes=new \Doctrine\Common\Collections\ArrayCollection();
-        $this->arrangements=new \Doctrine\Common\Collections\ArrayCollection();
-        $this->amenagements=new \Doctrine\Common\Collections\ArrayCollection();
-        $this->vues=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection() ;
+        $this->chambres = new \Doctrine\Common\Collections\ArrayCollection() ;
+        $this->options = new \Doctrine\Common\Collections\ArrayCollection() ;
+        $this->localisations = new \Doctrine\Common\Collections\ArrayCollection() ;
+        $this->themes = new \Doctrine\Common\Collections\ArrayCollection() ;
+        $this->arrangements = new \Doctrine\Common\Collections\ArrayCollection() ;
+        $this->amenagements = new \Doctrine\Common\Collections\ArrayCollection() ;
+        $this->vues = new \Doctrine\Common\Collections\ArrayCollection() ;
     }
 
     /**
@@ -399,9 +399,9 @@ class Hotel
      */
     public function setSlug($slug)
     {
-        $this->slug=$slug;
+        $this->slug = $slug ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -411,7 +411,7 @@ class Hotel
      */
     public function getSlug()
     {
-        return $this->slug;
+        return $this->slug ;
     }
 
     /**
@@ -422,9 +422,9 @@ class Hotel
      */
     public function setCreated($created)
     {
-        $this->created=$created;
+        $this->created = $created ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -434,7 +434,7 @@ class Hotel
      */
     public function getCreated()
     {
-        return $this->created;
+        return $this->created ;
     }
 
     /**
@@ -445,9 +445,9 @@ class Hotel
      */
     public function setUpdated($updated)
     {
-        $this->updated=$updated;
+        $this->updated = $updated ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -457,7 +457,7 @@ class Hotel
      */
     public function getUpdated()
     {
-        return $this->updated;
+        return $this->updated ;
     }
 
     /**
@@ -468,9 +468,9 @@ class Hotel
      */
     public function setDeletedAt($deletedAt)
     {
-        $this->deletedAt=$deletedAt;
+        $this->deletedAt = $deletedAt ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -480,7 +480,7 @@ class Hotel
      */
     public function getDeletedAt()
     {
-        return $this->deletedAt;
+        return $this->deletedAt ;
     }
 
     /**
@@ -489,11 +489,11 @@ class Hotel
      * @param \Back\HotelTunisieBundle\Entity\Chaine $chaine
      * @return Hotel
      */
-    public function setChaine(\Back\HotelTunisieBundle\Entity\Chaine $chaine=null)
+    public function setChaine(\Back\HotelTunisieBundle\Entity\Chaine $chaine = null)
     {
-        $this->chaine=$chaine;
+        $this->chaine = $chaine ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -503,7 +503,7 @@ class Hotel
      */
     public function getChaine()
     {
-        return $this->chaine;
+        return $this->chaine ;
     }
 
     /**
@@ -512,11 +512,11 @@ class Hotel
      * @param \Back\CommercialBundle\Entity\Fournisseur $fournisseur
      * @return Hotel
      */
-    public function setFournisseur(\Back\CommercialBundle\Entity\Fournisseur $fournisseur=null)
+    public function setFournisseur(\Back\CommercialBundle\Entity\Fournisseur $fournisseur = null)
     {
-        $this->fournisseur=$fournisseur;
+        $this->fournisseur = $fournisseur ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -526,7 +526,7 @@ class Hotel
      */
     public function getFournisseur()
     {
-        return $this->fournisseur;
+        return $this->fournisseur ;
     }
 
     /**
@@ -535,11 +535,11 @@ class Hotel
      * @param \Back\HotelTunisieBundle\Entity\Ville $ville
      * @return Hotel
      */
-    public function setVille(\Back\HotelTunisieBundle\Entity\Ville $ville=null)
+    public function setVille(\Back\HotelTunisieBundle\Entity\Ville $ville = null)
     {
-        $this->ville=$ville;
+        $this->ville = $ville ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -549,7 +549,7 @@ class Hotel
      */
     public function getVille()
     {
-        return $this->ville;
+        return $this->ville ;
     }
 
     /**
@@ -558,11 +558,11 @@ class Hotel
      * @param \Back\HotelTunisieBundle\Entity\Categorie $categorie
      * @return Hotel
      */
-    public function setCategorie(\Back\HotelTunisieBundle\Entity\Categorie $categorie=null)
+    public function setCategorie(\Back\HotelTunisieBundle\Entity\Categorie $categorie = null)
     {
-        $this->categorie=$categorie;
+        $this->categorie = $categorie ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -572,7 +572,7 @@ class Hotel
      */
     public function getCategorie()
     {
-        return $this->categorie;
+        return $this->categorie ;
     }
 
     /**
@@ -583,9 +583,9 @@ class Hotel
      */
     public function addTag(\Back\HotelTunisieBundle\Entity\Tag $tags)
     {
-        $this->tags[]=$tags;
+        $this->tags[] = $tags ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -595,7 +595,7 @@ class Hotel
      */
     public function removeTag(\Back\HotelTunisieBundle\Entity\Tag $tags)
     {
-        $this->tags->removeElement($tags);
+        $this->tags->removeElement($tags) ;
     }
 
     /**
@@ -605,7 +605,7 @@ class Hotel
      */
     public function getTags()
     {
-        return $this->tags;
+        return $this->tags ;
     }
 
     /**
@@ -616,9 +616,9 @@ class Hotel
      */
     public function addChambre(\Back\HotelTunisieBundle\Entity\chambre $chambres)
     {
-        $this->chambres[]=$chambres;
+        $this->chambres[] = $chambres ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -628,7 +628,7 @@ class Hotel
      */
     public function removeChambre(\Back\HotelTunisieBundle\Entity\chambre $chambres)
     {
-        $this->chambres->removeElement($chambres);
+        $this->chambres->removeElement($chambres) ;
     }
 
     /**
@@ -638,7 +638,7 @@ class Hotel
      */
     public function getChambres()
     {
-        return $this->chambres;
+        return $this->chambres ;
     }
 
     /**
@@ -649,9 +649,9 @@ class Hotel
      */
     public function addOption(\Back\HotelTunisieBundle\Entity\Optionn $options)
     {
-        $this->options[]=$options;
+        $this->options[] = $options ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -661,7 +661,7 @@ class Hotel
      */
     public function removeOption(\Back\HotelTunisieBundle\Entity\Optionn $options)
     {
-        $this->options->removeElement($options);
+        $this->options->removeElement($options) ;
     }
 
     /**
@@ -671,7 +671,7 @@ class Hotel
      */
     public function getOptions()
     {
-        return $this->options;
+        return $this->options ;
     }
 
     /**
@@ -682,9 +682,9 @@ class Hotel
      */
     public function addLocalisation(\Back\HotelTunisieBundle\Entity\Localisation $localisations)
     {
-        $this->localisations[]=$localisations;
+        $this->localisations[] = $localisations ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -694,7 +694,7 @@ class Hotel
      */
     public function removeLocalisation(\Back\HotelTunisieBundle\Entity\Localisation $localisations)
     {
-        $this->localisations->removeElement($localisations);
+        $this->localisations->removeElement($localisations) ;
     }
 
     /**
@@ -704,7 +704,7 @@ class Hotel
      */
     public function getLocalisations()
     {
-        return $this->localisations;
+        return $this->localisations ;
     }
 
     /**
@@ -715,9 +715,9 @@ class Hotel
      */
     public function addTheme(\Back\HotelTunisieBundle\Entity\Theme $themes)
     {
-        $this->themes[]=$themes;
+        $this->themes[] = $themes ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -727,7 +727,7 @@ class Hotel
      */
     public function removeTheme(\Back\HotelTunisieBundle\Entity\Theme $themes)
     {
-        $this->themes->removeElement($themes);
+        $this->themes->removeElement($themes) ;
     }
 
     /**
@@ -737,7 +737,7 @@ class Hotel
      */
     public function getThemes()
     {
-        return $this->themes;
+        return $this->themes ;
     }
 
     /**
@@ -748,9 +748,9 @@ class Hotel
      */
     public function addArrangement(\Back\HotelTunisieBundle\Entity\Arrangement $arrangements)
     {
-        $this->arrangements[]=$arrangements;
+        $this->arrangements[] = $arrangements ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -760,7 +760,7 @@ class Hotel
      */
     public function removeArrangement(\Back\HotelTunisieBundle\Entity\Arrangement $arrangements)
     {
-        $this->arrangements->removeElement($arrangements);
+        $this->arrangements->removeElement($arrangements) ;
     }
 
     /**
@@ -770,7 +770,7 @@ class Hotel
      */
     public function getArrangements()
     {
-        return $this->arrangements;
+        return $this->arrangements ;
     }
 
     /**
@@ -781,9 +781,9 @@ class Hotel
      */
     public function addAmenagement(\Back\HotelTunisieBundle\Entity\Amenagement $amenagements)
     {
-        $this->amenagements[]=$amenagements;
+        $this->amenagements[] = $amenagements ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -793,7 +793,7 @@ class Hotel
      */
     public function removeAmenagement(\Back\HotelTunisieBundle\Entity\Amenagement $amenagements)
     {
-        $this->amenagements->removeElement($amenagements);
+        $this->amenagements->removeElement($amenagements) ;
     }
 
     /**
@@ -803,7 +803,7 @@ class Hotel
      */
     public function getAmenagements()
     {
-        return $this->amenagements;
+        return $this->amenagements ;
     }
 
     /**
@@ -814,9 +814,9 @@ class Hotel
      */
     public function addVue(\Back\HotelTunisieBundle\Entity\Vue $vues)
     {
-        $this->vues[]=$vues;
+        $this->vues[] = $vues ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -826,7 +826,7 @@ class Hotel
      */
     public function removeVue(\Back\HotelTunisieBundle\Entity\Vue $vues)
     {
-        $this->vues->removeElement($vues);
+        $this->vues->removeElement($vues) ;
     }
 
     /**
@@ -836,7 +836,7 @@ class Hotel
      */
     public function getVues()
     {
-        return $this->vues;
+        return $this->vues ;
     }
 
     /**
@@ -847,9 +847,9 @@ class Hotel
      */
     public function addImage(\Back\HotelTunisieBundle\Entity\Media $images)
     {
-        $this->images[]=$images;
+        $this->images[] = $images ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -859,7 +859,7 @@ class Hotel
      */
     public function removeImage(\Back\HotelTunisieBundle\Entity\Media $images)
     {
-        $this->images->removeElement($images);
+        $this->images->removeElement($images) ;
     }
 
     /**
@@ -869,7 +869,7 @@ class Hotel
      */
     public function getImages()
     {
-        return $this->images;
+        return $this->images ;
     }
 
     /**
@@ -880,9 +880,9 @@ class Hotel
      */
     public function addStopSale(\Back\HotelTunisieBundle\Entity\StopSales $stopSales)
     {
-        $this->stopSales[]=$stopSales;
+        $this->stopSales[] = $stopSales ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -892,7 +892,7 @@ class Hotel
      */
     public function removeStopSale(\Back\HotelTunisieBundle\Entity\StopSales $stopSales)
     {
-        $this->stopSales->removeElement($stopSales);
+        $this->stopSales->removeElement($stopSales) ;
     }
 
     /**
@@ -902,7 +902,7 @@ class Hotel
      */
     public function getStopSales()
     {
-        return $this->stopSales;
+        return $this->stopSales ;
     }
 
     /**
@@ -911,11 +911,11 @@ class Hotel
      * @param \Back\HotelTunisieBundle\Entity\FicheTechnique $ficheTechnique
      * @return Hotel
      */
-    public function setFicheTechnique(\Back\HotelTunisieBundle\Entity\FicheTechnique $ficheTechnique=null)
+    public function setFicheTechnique(\Back\HotelTunisieBundle\Entity\FicheTechnique $ficheTechnique = null)
     {
-        $this->ficheTechnique=$ficheTechnique;
+        $this->ficheTechnique = $ficheTechnique ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -925,15 +925,15 @@ class Hotel
      */
     public function getFicheTechnique()
     {
-        return $this->ficheTechnique;
+        return $this->ficheTechnique ;
     }
 
     public function getStars()
     {
-        if($this->categorie != null)
-            return $this->categorie->getNombreEtoiles();
+        if ($this->categorie != null)
+            return $this->categorie->getNombreEtoiles() ;
         else
-            return 0;
+            return 0 ;
     }
 
     /**
@@ -942,11 +942,11 @@ class Hotel
      * @param \Back\HotelTunisieBundle\Entity\Saison $saisonBase
      * @return Hotel
      */
-    public function setSaisonBase(\Back\HotelTunisieBundle\Entity\Saison $saisonBase=null)
+    public function setSaisonBase(\Back\HotelTunisieBundle\Entity\Saison $saisonBase = null)
     {
-        $this->saisonBase=$saisonBase;
+        $this->saisonBase = $saisonBase ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -956,7 +956,7 @@ class Hotel
      */
     public function getSaisonBase()
     {
-        return $this->saisonBase;
+        return $this->saisonBase ;
     }
 
     /**
@@ -967,9 +967,9 @@ class Hotel
      */
     public function setEtat($etat)
     {
-        $this->etat=$etat;
+        $this->etat = $etat ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -979,20 +979,19 @@ class Hotel
      */
     public function getEtat()
     {
-        return $this->etat;
+        return $this->etat ;
     }
 
     public function getCountAutresChambres()
     {
-        $i=0;
-        foreach($this->chambres as $chambre)
+        $i = 0 ;
+        foreach ($this->chambres as $chambre)
         {
-            if($chambre->getType() == 0)
-                $i++;
+            if ($chambre->getType() == 0)
+                $i++ ;
         }
-        return $i;
+        return $i ;
     }
-
 
     /**
      * Add saisons
@@ -1002,9 +1001,9 @@ class Hotel
      */
     public function addSaison(\Back\HotelTunisieBundle\Entity\Saison $saisons)
     {
-        $this->saisons[] = $saisons;
+        $this->saisons[] = $saisons ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -1014,7 +1013,7 @@ class Hotel
      */
     public function removeSaison(\Back\HotelTunisieBundle\Entity\Saison $saisons)
     {
-        $this->saisons->removeElement($saisons);
+        $this->saisons->removeElement($saisons) ;
     }
 
     /**
@@ -1024,25 +1023,36 @@ class Hotel
      */
     public function getSaisons()
     {
-        return $this->saisons;
+        return $this->saisons ;
     }
-    
+
     public function getSaisonByDate($date)
     {
-        if(count($this->saisons)==0)
-            return $this->saisonBase;
+        if (count($this->saisons) == 0)
+            return $this->saisonBase ;
         else
         {
-            foreach($this->saisons as $saison)
+            foreach ($this->saisons as $saison)
             {
-                $currentSaison=$this->saisonBase;
-                foreach($saison->getPeriodes() as $periode )
+                $currentSaison = $this->saisonBase ;
+                foreach ($saison->getPeriodes() as $periode)
                 {
-                    if($periode->getDateDebut()->format('Y-m-d')<=$date && $periode->getDateFin()->format('Y-m-d')>=$date && $saison->getId() > $currentSaison->getId())
-                        $currentSaison=$saison;
+                    if ($periode->getDateDebut()->format('Y-m-d') <= $date && $periode->getDateFin()->format('Y-m-d') >= $date && $saison->getId() > $currentSaison->getId())
+                        $currentSaison = $saison ;
                 }
             }
         }
-        return $saison;
+        return $saison ;
     }
+
+    public function isInStopSales()
+    {
+        foreach ($this->stopSales as $stopSale)
+        {
+            if ($stopSale->getDateDebut()->format('Y-m-d') <= date('Y-m-d') && $stopSale->getDateFin()->format('Y-m-d') >=  date('Y-m-d') )
+                return $stopSale ;
+        }
+        return null;
+    }
+
 }
