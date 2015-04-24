@@ -11,5 +11,16 @@
     </li>
 {% endblock %}
 {% block body %}
-    {{ formulaire.formPhoto(form,images) }}                  
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ formulaire.formPhoto(form,images) }}  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>                
 {% endblock %}

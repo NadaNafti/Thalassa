@@ -28,6 +28,7 @@
                                 <th class="center">Fournisseur</th>
                                 <th class="center">Photos</th>
                                 <th class="center">Stop sales</th>
+                                <th class="center">Saison Courante</th>
                                 <th class="center">Remarques</th>
                                 <th class="center" >Action</th>
                             </tr>
@@ -36,12 +37,22 @@
                             {% for hotel in hotels %}
                                 <tr class="center">
                                     <td>{{ hotel.id }}</td>
-                                    <td>{{ hotel.libelle|title }} {{ getStars(hotel.getStars)|raw }}</td>
-                                    <td>{{ hotel.Categorie }}</td>
+                                    <td>{{ hotel.libelle|title }}</td>
+                                    <td> {{ getStars(hotel.getStars)|raw }}</td>
                                     <td>{{ hotel.ville.pays|upper }} {{ hotel.ville }}</td>
                                     <td>{{ hotel.fournisseur }}</td>
                                     <td>{{ hotel.images|length }}</td>
                                     <td>{{ hotel.stopSales|length }}</td>
+                                    <td>
+                                        {% set saison=hotel.getSaisonByDate('now'|date('Y-m-d')) %}
+                                        {% if saison is not null %}
+                                            <a href="{% if saison.type is null %}{{ path('saison_base',{'id':hotel.id}) }}{% else %}{{ path('GeneralSaison',{'id':saison.id}) }}{% endif %}">
+                                                <span class="label label-sm {% if saison.type == 1 %}label-inverse{% elseif saison.type==2 %}label-teal{% else %}label-warning{% endif %}  ">
+                                                    {{ saison }}
+                                                </span>
+                                            </a>
+                                        {% endif %}
+                                    </td>
                                     <td>
                                         {% if hotel.getEtat == true %}
                                             <a href="{{ path('change_etat',{'id':hotel.id,'etat':0}) }}" class="tooltips" title="Cliquez ici pour désactiver l'hôtel" ><span class="label label-sm label-success">Active</span></a>
@@ -58,8 +69,6 @@
                                     <td class="TableAction">
                                         {{ macros.tableEdit(path('modif_hotel',{'id':hotel.id})) }}
                                         {{ macros.tableDelete(path('supprimer_hotel',{'id':hotel.id})) }}
-                                        {{ macros.tablePhoto(path('photos_hotel',{'id':hotel.id})) }}
-                                        {{ macros.tableStopSales(path('stopsales_hotel',{'id':hotel.id})) }}
                                     </td>
                                 </tr>
                             {% endfor %}

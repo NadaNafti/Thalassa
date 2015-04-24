@@ -57,7 +57,7 @@ class HotelsController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $request=$this->getRequest();
-        $hotels=$em->getRepository("BackHotelTunisieBundle:Hotel")->findAll();
+        $hotels=$em->getRepository("BackHotelTunisieBundle:Hotel")->findBy(array(), array('id'=>'DESC'));
         $paginator=$this->get('knp_paginator');
         $hotels=$paginator->paginate($hotels, $request->query->get('page', 1), 10);
         return $this->render('BackHotelTunisieBundle:Hotels:liste.html.twig', array(

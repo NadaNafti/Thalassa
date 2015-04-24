@@ -1026,4 +1026,23 @@ class Hotel
     {
         return $this->saisons;
     }
+    
+    public function getSaisonByDate($date)
+    {
+        if(count($this->saisons)==0)
+            return $this->saisonBase;
+        else
+        {
+            foreach($this->saisons as $saison)
+            {
+                $currentSaison=$this->saisonBase;
+                foreach($saison->getPeriodes() as $periode )
+                {
+                    if($periode->getDateDebut()->format('Y-m-d')<=$date && $periode->getDateFin()->format('Y-m-d')>=$date && $saison->getId() > $currentSaison->getId())
+                        $currentSaison=$saison;
+                }
+            }
+        }
+        return $saison;
+    }
 }
