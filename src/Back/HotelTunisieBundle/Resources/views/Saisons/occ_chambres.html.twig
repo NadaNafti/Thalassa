@@ -24,7 +24,6 @@
                         <div class="panel-body tab-content">
                             <form action="{{ path('OccChambreSaison',{'id':saison.id}) }}" method="post" role="form" id="formDisable">
                                 {{ form_widget(form._token) }}
-
                                 <div class="row">
                                     <div class="col-md-3"></div>
                                     <div class="col-md-1">min adulte</div>
@@ -33,6 +32,7 @@
                                     <div class="col-md-1">max enfant</div>
                                     <div class="col-md-1">contingent</div>
                                 </div>
+                                <hr>
                                 {% for formC in form.chambres %}
                                     <div class="row">
                                         {{ formulaire.input("col-md-1", "",formC.etat,false) }}

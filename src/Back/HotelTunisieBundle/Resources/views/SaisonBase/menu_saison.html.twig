@@ -74,11 +74,11 @@
             </li>
         {% endif %}
         {% if hotel.saisonBase.isValidSaisonBase %}
-        <li {% if app.request.get('_route')=='fiche_saison_base' %}class="active"{% endif %}>
-            <a href="{{ path("fiche_saison_base",{'id':hotel.id}) }}" style="background-color: cornsilk;">
-                Détails 
-            </a>
-        </li>
+            <li {% if app.request.get('_route')=='fiche_saison_base' %}class="active"{% endif %}>
+                <a href="{{ path("fiche_saison_base",{'id':hotel.id}) }}" style="background-color: cornsilk;">
+                    Récapitulatif  
+                </a>
+            </li>
         {% endif %}
     </ul>
 {% endif %}

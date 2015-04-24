@@ -17,7 +17,7 @@
                 {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
                 <div class="panel panel-default">
                     <div class="tabbable">
-                        {% include 'BackHotelTunisieBundle:Hotels:menu_saison.html.twig' %}
+                        {% include 'BackHotelTunisieBundle:SaisonBase:menu_saison.html.twig' %}
                         <div class="panel-body tab-content">
                             <form action="{{ path('saison_supplement',{'id':hotel.id}) }}" method="post" role="form" id="formDisable">
                                 {{ form_widget(form._token) }}

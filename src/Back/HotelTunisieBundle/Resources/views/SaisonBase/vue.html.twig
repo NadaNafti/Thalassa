@@ -17,14 +17,14 @@
                 {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
                 <div class="panel panel-default">
                     <div class="tabbable">
-                        {% include 'BackHotelTunisieBundle:Hotels:menu_saison.html.twig' %}
+                        {% include 'BackHotelTunisieBundle:SaisonBase:menu_saison.html.twig' %}
                         <div class="panel-body tab-content">
                             <form action="{{ path('saison_vues',{'id':hotel.id}) }}" method="post" role="form" id="formDisable">
                                 {{ form_widget(form._token) }}
                                 <div class="row">
                                     <div class="col-md-2"></div>
                                     <div class="col-md-3">Valeur</div>
-                                    <div class="col-md-1">Marge de vente</div>
+                                    <div class="col-md-2">Marge de vente</div>
                                 </div>
                                 {% for formC in form.vues %}
                                     <div class="row">

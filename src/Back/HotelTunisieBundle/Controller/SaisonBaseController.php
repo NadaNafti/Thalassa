@@ -42,7 +42,7 @@ class SaisonBaseController extends Controller
 
     public function saisonBaseFicheAction(Hotel $hotel)
     {
-        return $this->render('BackHotelTunisieBundle:Hotels:fiche_saison_base.html.twig', array(
+        return $this->render('BackHotelTunisieBundle:SaisonBase:fiche_saison_base.html.twig', array(
                     'hotel'=>$hotel,
         ));
     }
@@ -89,7 +89,7 @@ class SaisonBaseController extends Controller
                 return $this->redirect($this->generateUrl("saison_base", array( 'id'=>$hotel->getId() )));
             }
         }
-        return $this->render('BackHotelTunisieBundle:Hotels:saison_base.html.twig', array(
+        return $this->render('BackHotelTunisieBundle:SaisonBase:base.html.twig', array(
                     'hotel'=>$hotel,
                     'form' =>$form->createView()
         ));
@@ -127,7 +127,7 @@ class SaisonBaseController extends Controller
                 return $this->redirect($this->generateUrl("saison_chambres", array( 'id'=>$hotel->getId() )));
             }
         }
-        return $this->render('BackHotelTunisieBundle:Hotels:saison_chambres.html.twig', array(
+        return $this->render('BackHotelTunisieBundle:SaisonBase:chambres.html.twig', array(
                     'hotel'=>$hotel,
                     'form' =>$form->createView()
         ));
@@ -166,7 +166,7 @@ class SaisonBaseController extends Controller
                 return $this->redirect($this->generateUrl("saison_reduction", array( 'id'=>$hotel->getId() )));
             }
         }
-        return $this->render('BackHotelTunisieBundle:Hotels:saison_reductions.html.twig', array(
+        return $this->render('BackHotelTunisieBundle:SaisonBase:reductions.html.twig', array(
                     'hotel'=>$hotel,
                     'form' =>$form->createView()
         ));
@@ -204,7 +204,7 @@ class SaisonBaseController extends Controller
                 return $this->redirect($this->generateUrl("saison_arrangements", array( 'id'=>$hotel->getId() )));
             }
         }
-        return $this->render('BackHotelTunisieBundle:Hotels:saison_arrangement.html.twig', array(
+        return $this->render('BackHotelTunisieBundle:SaisonBase:arrangement.html.twig', array(
                     'hotel'=>$hotel,
                     'form' =>$form->createView()
         ));
@@ -252,7 +252,7 @@ class SaisonBaseController extends Controller
                 return $this->redirect($this->generateUrl("saison_supp_chambres", array( 'id'=>$hotel->getId() )));
             }
         }
-        return $this->render('BackHotelTunisieBundle:Hotels:saison_supp_chambres.html.twig', array(
+        return $this->render('BackHotelTunisieBundle:SaisonBase:supp_chambres.html.twig', array(
                     'hotel'=>$hotel,
                     'form' =>$form->createView()
         ));
@@ -300,7 +300,7 @@ class SaisonBaseController extends Controller
                 return $this->redirect($this->generateUrl("saison_vues", array( 'id'=>$hotel->getId() )));
             }
         }
-        return $this->render('BackHotelTunisieBundle:Hotels:saison_vue.html.twig', array(
+        return $this->render('BackHotelTunisieBundle:SaisonBase:vue.html.twig', array(
                     'hotel'=>$hotel,
                     'form' =>$form->createView()
         ));
@@ -340,7 +340,7 @@ class SaisonBaseController extends Controller
             }
         }
 
-        return $this->render("BackHotelTunisieBundle:Hotels:saison_supplement.html.twig", array(
+        return $this->render("BackHotelTunisieBundle:SaisonBase:supplement.html.twig", array(
                     'hotel'=>$hotel,
                     'form' =>$form->createView()
         ));
@@ -382,7 +382,7 @@ class SaisonBaseController extends Controller
             }
         }
 
-        return $this->render("BackHotelTunisieBundle:Hotels:saison_weekend.html.twig", array(
+        return $this->render("BackHotelTunisieBundle:SaisonBase:weekend.html.twig", array(
                     'hotel'=>$hotel,
                     'form' =>$form->createView()
         ));
@@ -411,7 +411,7 @@ class SaisonBaseController extends Controller
                 return $this->redirect($this->generateUrl("saison_autres_supp", array( 'id'=>$hotel->getId() )));
             }
         }
-        return $this->render('BackHotelTunisieBundle:Hotels:saison_autre_supp.html.twig', array(
+        return $this->render('BackHotelTunisieBundle:SaisonBase:autre_supp.html.twig', array(
                     'hotel'          =>$hotel,
                     'form'           =>$form->createView(),
                     'saisonAutreSupp'=>$saisonAutreSupp,
@@ -453,7 +453,7 @@ class SaisonBaseController extends Controller
                 return $this->redirect($this->generateUrl("saison_autres_reduc", array( 'id'=>$hotel->getId() )));
             }
         }
-        return $this->render('BackHotelTunisieBundle:Hotels:saison_autre_reduc.html.twig', array(
+        return $this->render('BackHotelTunisieBundle:SaisonBase:autre_reduc.html.twig', array(
                     'hotel'           =>$hotel,
                     'form'            =>$form->createView(),
                     'saisonAutreReduc'=>$saisonAutreReduc,

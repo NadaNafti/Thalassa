@@ -1,16 +1,13 @@
 {% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
 {% block title %}{{ hotel.libelle }}{% endblock %}
-{% block description %}{{ saison }}{% endblock %}
+{% block description %}Saison de base{% endblock %}
 {% block topbody %}
     {{ parent() }}
     <li>
         <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
     </li>
     <li>
-        <a href="{{ path('PeriodeSaison',{'id':hotel.id}) }}" >Liste des saisons</a>
-    </li>
-    <li>
-        <a href="javascript:void(0)" >{{ saison }}</a>
+        <a href="javascript:void(0)" >Saison de base</a>
     </li>
 {% endblock %}
 {% block body %}
@@ -20,9 +17,9 @@
                 {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
                 <div class="panel panel-default">
                     <div class="tabbable">
-                        {% include 'BackHotelTunisieBundle:Saisons:menu.html.twig' %}
+                        {% include 'BackHotelTunisieBundle:SaisonBase:menu_saison.html.twig' %}
                         <div class="panel-body tab-content">
-                            <form action="{{ path('ArrangementSaison',{'id':saison.id}) }}" method="post" role="form" id="formDisable">
+                            <form action="{{ path('saison_arrangements',{'id':hotel.id}) }}" method="post" role="form" id="formDisable">
                                 {{ form_widget(form._token) }}
                                 <div class="row">
                                     <div class="col-md-3"></div>
@@ -33,7 +30,6 @@
                                 {% for formC in form.arrangements %}
                                     <div class="row">
                                         <div class="col-md-3" style="height: 68px;">
-                                            {{ formulaire.input("col-md-1", "",formC.etat,false) }}
                                             {{ form_widget(formC.arrangement, {'attr': {'style': 'display:none'}}) }}
                                             {% if formC.arrangement.vars.data.ordre < hotel.saisonBase.arrBase.ordre %}
                                                 <span class="label label-sm label-success">Réduc.</span>
@@ -46,6 +42,13 @@
                                         {{ formulaire.input("col-md-2","",formC.valeurPour,false) }}
                                         {{ formulaire.input("col-md-1","",formC.marge,false) }}
                                         {{ formulaire.input("col-md-2","",formC.margePour,false) }}
+                                        {% if formC.vars.data.id is not null %}
+                                            <div class="col-md-2" style="height: 68px;">
+                                                <label style="margin-top: 25px;">
+                                                    {{ macros.tableDelete(path('delete_saison_arrangements',{'id':formC.vars.data.id,'hotel':hotel.id})) }}
+                                                </label>
+                                            </div>
+                                        {% endif%}
                                     </div>
                                 {% endfor %}
                                 {{ formulaire.submit("Modifier") }}
@@ -56,4 +59,5 @@
             </div>
         </div>
     </div>
+
 {% endblock %}

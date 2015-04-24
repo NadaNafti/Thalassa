@@ -17,25 +17,20 @@
                 {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
                 <div class="panel panel-default">
                     <div class="tabbable">
-                        {% include 'BackHotelTunisieBundle:Hotels:menu_saison.html.twig' %}
+                        {% include 'BackHotelTunisieBundle:SaisonBase:menu_saison.html.twig' %}
                         <div class="panel-body tab-content">
-                            <form action="{{ path('saison_arrangements',{'id':hotel.id}) }}" method="post" role="form" id="formDisable">
+                            <form action="{{ path('saison_supp_chambres',{'id':hotel.id}) }}" method="post" role="form" id="formDisable">
                                 {{ form_widget(form._token) }}
                                 <div class="row">
-                                    <div class="col-md-3"></div>
+                                    <div class="col-md-2"></div>
                                     <div class="col-md-3">Valeur</div>
-                                    <div class="col-md-3">Marge de vente</div>
+                                    <div class="col-md-2">Marge de vente</div>
                                 </div>
-                                {% for formC in form.arrangements %}
+                                {% for formC in form.suppChambres %}
                                     <div class="row">
-                                        <div class="col-md-3" style="height: 68px;">
-                                            {{ form_widget(formC.arrangement, {'attr': {'style': 'display:none'}}) }}
-                                            {% if formC.arrangement.vars.data.ordre < hotel.saisonBase.arrBase.ordre %}
-                                                <span class="label label-sm label-success">Réduc.</span>
-                                            {% else %}
-                                                <span class="label label-sm label-danger">Supp</span>
-                                            {% endif %}
-                                            <label style="margin-top: 20px;">{{ formC.arrangement.vars.data.libelle }}</label>
+                                        <div class="col-md-2" style="height: 68px;">
+                                            <label style="margin-top: 20px;">{{ formC.chambre.vars.data.libelle }}</label>
+                                            {{ form_widget(formC.chambre, {'attr': {'style': 'display:none'}}) }}
                                         </div>
                                         {{ formulaire.input("col-md-1","",formC.valeur,false) }}
                                         {{ formulaire.input("col-md-2","",formC.valeurPour,false) }}
@@ -44,7 +39,7 @@
                                         {% if formC.vars.data.id is not null %}
                                             <div class="col-md-2" style="height: 68px;">
                                                 <label style="margin-top: 25px;">
-                                                    {{ macros.tableDelete(path('delete_saison_arrangements',{'id':formC.vars.data.id,'hotel':hotel.id})) }}
+                                                    {{ macros.tableDelete(path('delete_saison_supp_chambres',{'id':formC.vars.data.id,'hotel':hotel.id})) }}
                                                 </label>
                                             </div>
                                         {% endif%}
