@@ -54,6 +54,9 @@
                                         {% endif %}
                                     </td>
                                     <td>
+                                        {% if hotel.isInStopSales is not null %}
+                                            <a href="{{ path('stopsales_hotel',{'id':hotel.id}) }}" class="tooltips" title="Stop Sales {{ hotel.isInStopSales.dateDebut|date('Y-m-d')~" - "~hotel.isInStopSales.dateFin|date('Y-m-d') }}"><span class="label label-sm label-danger">{{ hotel.isInStopSales.libelle }}</span></a>
+                                        {% endif %}
                                         {% if hotel.getEtat == true %}
                                             <a href="{{ path('change_etat',{'id':hotel.id,'etat':0}) }}" class="tooltips" title="Cliquez ici pour désactiver l'hôtel" ><span class="label label-sm label-success">Active</span></a>
                                         {% else %} 
@@ -64,9 +67,6 @@
                                         {% endif %}
                                         {% if hotel.saisonBase is null or not hotel.saisonBase.isValidSaisonBase %}
                                             <a href="{{ path('saison_base',{'id':hotel.id}) }}" class="tooltips" title="Saison de base est Invalide"><span class="label label-sm label-danger">SB Invalide</span></a>
-                                        {% endif %}
-                                        {% if hotel.isInStopSales is not null %}
-                                            <a href="{{ path('stopsales_hotel',{'id':hotel.id}) }}" class="tooltips" title="Vous ètes dans une période de stop sales"><span class="label label-sm label-danger">{{ hotel.isInStopSales.libelle }}</span></a>
                                         {% endif %}
                                     </td>
                                     <td class="TableAction">
