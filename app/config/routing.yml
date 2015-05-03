@@ -11,7 +11,7 @@ back_hotel_tunisie:
 back_user:
     resource: "@BackUserBundle/Resources/config/routing.yml"
     prefix:   /
-
+    
 #Fos User Bundle
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

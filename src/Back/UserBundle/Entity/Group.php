@@ -1,30 +1,21 @@
 <?php
-
-// src/Acme/UserBundle/Entity/User.php
-
 namespace Back\UserBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
+use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="ost_admin_user")
+ * @ORM\Table(name="ost_group")
  */
-class User extends BaseUser {
-
+class Group extends BaseGroup
+{
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
-
-    public function __construct() {
-        parent::__construct();
-        // your own logic
-    }
-
+     protected $id;
 
     /**
      * Get id

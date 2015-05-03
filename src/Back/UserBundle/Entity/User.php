@@ -1,7 +1,4 @@
 <?php
-
-// src/Acme/UserBundle/Entity/User.php
-
 namespace Back\UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
@@ -9,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="ost_admin_user")
+ * @ORM\Table(name="ost_user")
  */
 class User extends BaseUser {
 
@@ -19,20 +16,13 @@ class User extends BaseUser {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-    public function __construct() {
-        parent::__construct();
-        // your own logic
-    }
-
-
+    
     /**
-     * Get id
-     *
-     * @return integer 
+     * @ORM\ManyToMany(targetEntity="Back\UserBundle\Entity\Group")
+     * @ORM\JoinTable(name="ost_user_group",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     * )
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected $groups;
 }
