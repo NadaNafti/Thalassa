@@ -1026,7 +1026,7 @@ class Hotel
         return $this->saisons ;
     }
 
-    public function getSaisonByDate($date)
+    public function getSaisonPromotionByDate($date)
     {
 
         $currentSaison = $this->saisonBase ;
@@ -1040,6 +1040,21 @@ class Hotel
         }
         return $currentSaison ;
     }
+    public function getSaisonByDate($date)
+    {
+
+        $currentSaison = $this->saisonBase ;
+        foreach ($this->saisons as $saison)
+        {
+            foreach ($saison->getPeriodes() as $periode)
+            {
+                if ($periode->getDateDebut()->format('Y-m-d') <= $date && $periode->getDateFin()->format('Y-m-d') >= $date && $saison->getId() > $currentSaison->getId() && $saison->getType()==1 )
+                    $currentSaison = $saison ;
+            }
+        }
+        return $currentSaison ;
+    }
+
 
     public function isInStopSales()
     {

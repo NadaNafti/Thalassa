@@ -28,7 +28,8 @@
                                 <th class="center">Fournisseur</th>
                                 <th class="center">Photos</th>
                                 <th class="center">Stop sales</th>
-                                <th class="center">Saison Courante</th>
+                                <th class="center">Saison & Promo</th>
+                                <th class="center">Saison sans Promo</th>
                                 <th class="center">Remarques</th>
                                 <th class="center" >Action</th>
                             </tr>
@@ -43,6 +44,16 @@
                                     <td>{{ hotel.fournisseur }}</td>
                                     <td>{{ hotel.images|length }}</td>
                                     <td>{{ hotel.stopSales|length }}</td>
+                                    <td>
+                                        {% set saison=hotel.getSaisonPromotionByDate('now'|date('Y-m-d')) %}
+                                        {% if saison is not null %}
+                                            <a href="{% if saison.type is null %}{{ path('saison_base',{'id':hotel.id}) }}{% else %}{{ path('GeneralSaison',{'id':saison.id}) }}{% endif %}">
+                                                <span class="label label-sm {% if saison.type == 1 %}label-inverse{% elseif saison.type==2 %}label-teal{% else %}label-warning{% endif %}  ">
+                                                    {{ saison }}
+                                                </span>
+                                            </a>
+                                        {% endif %}
+                                    </td>
                                     <td>
                                         {% set saison=hotel.getSaisonByDate('now'|date('Y-m-d')) %}
                                         {% if saison is not null %}
