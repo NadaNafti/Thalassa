@@ -1,0 +1,77 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Gestion des groupes{% endblock %}
+{% block description %}
+    {% if group.id is null %}Ajouter un Groupe{% else %}{{ group.name }}{% endif %}
+{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >Ajouter</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="{{ path('group',{'id':group.id}) }}" method="post" role="form" id="form">
+                        {{ form_widget(form._token) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-4","Libélle",form.name,true) }}
+                            {{ formulaire.input("col-md-4","Roles",form.roles,true) }}
+                        </div>
+                        {% if group.id is null %}
+                            {{ formulaire.submit("Ajouter") }}
+                        {% else %}
+                            {{ formulaire.submit("Modifier") }}
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Liste
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th class="center">ID</th>
+                                <th class="center">Libélle</th>
+                                <th class="center">Roles</th>
+                                <th class="center">Users</th>
+                                <th class="center" >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for group in groups %}
+                                <tr class="center">
+                                    <td>{{ group.id }}</td>
+                                    <td>{{ group.name}}</td>
+                                    <td>
+                                        {% for role in group.roles %}
+                                            - {{ role }}<br>
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        {% for user in group.users %}
+                                            - {{ user.username }}<br>
+                                        {% endfor %}
+                                    </td>
+                                    <td class="TableAction">
+                                        {{ macros.tableEdit(path('group',{'id':group.id})) }}
+                                        {{ macros.tableDelete(path('delete_group',{'id':group.id})) }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

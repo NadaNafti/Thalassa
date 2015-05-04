@@ -1,3 +1,7 @@
+{% macro tablePassword(path) %}
+    <a href="{{ path }}" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Modifier mot de passe"><i class="fa fa-lock"></i></a>
+{% endmacro %}
+
 {% macro tableReload(path) %}
     <a href="{{ path }}" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Reload" onclick="javascript:return(confirm('Etes-vous certain de vouloir reactiver cet hôtel ?'))"><i class="fa fa-mail-reply-all fa fa-white"></i></a>
 {% endmacro %}
