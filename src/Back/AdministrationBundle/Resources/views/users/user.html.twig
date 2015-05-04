@@ -6,7 +6,7 @@
 {% block topbody %}   
     {{ parent() }}
     <li>
-        <a href="javascript:void(0)" >Ajouter</a>
+        <a href="javascript:void(0)" >Gestion des utilisateurs</a>
     </li>
 {% endblock %}
 {% block body %}
@@ -54,18 +54,18 @@
                                         {% else %}
                                             <a href="{{ path('enable_user',{'id':user.id}) }}" class="tooltips" title="clicker ici pour activer l'utilisateur"><span class="label label-sm label-danger">Inactive</span></a>
                                         {% endif %}
-                                        </td>
-                                        <td class="TableAction">
-                                            {{ macros.tablePassword(path('user',{'id':user.id,'password':'yes'})) }}
-                                            {{ macros.tableEdit(path('user',{'id':user.id})) }}
-                                            {{ macros.tableDelete(path('delete_user',{'id':user.id})) }}
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                                    </td>
+                                    <td class="TableAction">
+                                        {{ macros.tablePassword(path('user',{'id':user.id,'password':'yes'})) }}
+                                        {{ macros.tableEdit(path('user',{'id':user.id})) }}
+                                        {{ macros.tableDelete(path('delete_user',{'id':user.id})) }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

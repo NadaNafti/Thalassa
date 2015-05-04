@@ -17,10 +17,7 @@ class UsersController extends Controller
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
         if(is_null($id))
-        {
-            $group=new Group();
-            $group->setRoles(array());
-        }
+            $group=new Group('', array());
         else
             $group=$em->getRepository("BackUserBundle:Group")->find($id);
         $groups=$em->getRepository("BackUserBundle:Group")->findAll();
