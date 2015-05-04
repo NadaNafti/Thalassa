@@ -18,7 +18,7 @@ class User extends BaseUser {
     protected $id;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Back\UserBundle\Entity\Group", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="Back\UserBundle\Entity\Group")
      * @ORM\JoinTable(name="ost_user_group",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
@@ -30,6 +30,7 @@ class User extends BaseUser {
      */
     public function __construct()
     {
+        parent::__construct();
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

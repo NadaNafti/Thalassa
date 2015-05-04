@@ -43,7 +43,6 @@
                                 <th class="center">ID</th>
                                 <th class="center">Libélle</th>
                                 <th class="center">Roles</th>
-                                <th class="center">Users</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -55,11 +54,6 @@
                                     <td>
                                         {% for role in group.roles %}
                                             - {{ role }}<br>
-                                        {% endfor %}
-                                    </td>
-                                    <td>
-                                        {% for user in group.users %}
-                                            - {{ user.username }}<br>
                                         {% endfor %}
                                     </td>
                                     <td class="TableAction">

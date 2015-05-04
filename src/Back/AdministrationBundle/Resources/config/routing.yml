@@ -13,3 +13,7 @@ user:
 delete_user:
     path:     /delete_user/{id}
     defaults: { _controller: BackAdministrationBundle:Users:deleteUser }
+
+enable_user:
+    path:     /enable_user/{id}
+    defaults: { _controller: BackAdministrationBundle:Users:enableUser }

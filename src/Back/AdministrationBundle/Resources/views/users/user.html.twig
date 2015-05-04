@@ -33,6 +33,7 @@
                                 <th class="center">username</th>
                                 <th class="center">Email</th>
                                 <th class="center">Groups</th>
+                                <th class="center">Etat</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -47,17 +48,24 @@
                                             - {{ group.name }}<br>
                                         {% endfor %}
                                     </td>
-                                    <td class="TableAction">
-                                        {{ macros.tablePassword(path('user',{'id':user.id,'password':'yes'})) }}
-                                        {{ macros.tableEdit(path('user',{'id':user.id})) }}
-                                        {{ macros.tableDelete(path('delete_user',{'id':user.id})) }}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                                    <td>
+                                        {% if user.isEnabled %}
+                                            <a href="{{ path('enable_user',{'id':user.id}) }}" class="tooltips" title="clicker ici pour désactiver l'utilisateur"><span class="label label-sm label-success">Active</span></a>
+                                        {% else %}
+                                            <a href="{{ path('enable_user',{'id':user.id}) }}" class="tooltips" title="clicker ici pour activer l'utilisateur"><span class="label label-sm label-danger">Inactive</span></a>
+                                        {% endif %}
+                                        </td>
+                                        <td class="TableAction">
+                                            {{ macros.tablePassword(path('user',{'id':user.id,'password':'yes'})) }}
+                                            {{ macros.tableEdit(path('user',{'id':user.id})) }}
+                                            {{ macros.tableDelete(path('delete_user',{'id':user.id})) }}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-{% endblock %}
+                {% endblock %}

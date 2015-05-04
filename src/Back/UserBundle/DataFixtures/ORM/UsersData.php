@@ -30,22 +30,20 @@ class UsersData extends AbstractFixture implements FixtureInterface, ContainerAw
         $manager->persist($utilisateur1);
         
         $utilisateur2 = new User();
-        $utilisateur2   ->setUsername('user')
-                        ->setEmail('user@gmail.com')
-                        ->setEnabled(1)
-                        ->setPassword($this->container->get('security.encoder_factory')->getEncoder($utilisateur2)->encodePassword('user', $utilisateur2->getSalt()));
-        $manager->persist($utilisateur2);
-        
-        $utilisateur3 = new User();
-        $utilisateur3   ->setUsername('super')
+        $utilisateur2   ->setUsername('super')
                         ->setEmail('super@gmail.com')
                         ->setEnabled(1)
-                        ->setPassword($this->container->get('security.encoder_factory')->getEncoder($utilisateur3)->encodePassword('super', $utilisateur3->getSalt()));
+                        ->setPassword($this->container->get('security.encoder_factory')->getEncoder($utilisateur2)->encodePassword('super', $utilisateur2->getSalt()));
+        $manager->persist($utilisateur2);
         
-        $group = new Group("Super Admin");
-        $group->addRole("ROLE_SUPER_ADMIN");
+        
+        $group = new Group("administrateurs", array('ROLE_ADMIN'));
         $manager->persist($group);
-        $manager->persist($utilisateur3->addGroup($group));
+        $manager->persist($utilisateur1->addGroup($group));
+        
+        $group = new Group("Super administrateur", array('ROLE_SUPER_ADMIN'));
+        $manager->persist($group);
+        $manager->persist($utilisateur2->addGroup($group));
        
         $manager->flush();
         $this->addReference('utilisateur1', $utilisateur1);
@@ -54,6 +52,6 @@ class UsersData extends AbstractFixture implements FixtureInterface, ContainerAw
     
     public function getOrder()
     {
-        return 1;
+        return 4;
     }
 }

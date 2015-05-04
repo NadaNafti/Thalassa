@@ -11,23 +11,24 @@ use Back\UserBundle\Form\RegistrationFormType;
 
 class UsersController extends Controller
 {
+
     public function groupAction($id)
     {
         $em=$this->getDoctrine()->getManager();
-        $session =$this->getRequest()->getSession();
+        $session=$this->getRequest()->getSession();
         if(is_null($id))
         {
-            $group = new Group();
+            $group=new Group();
             $group->setRoles(array());
         }
         else
             $group=$em->getRepository("BackUserBundle:Group")->find($id);
         $groups=$em->getRepository("BackUserBundle:Group")->findAll();
-        $form =$this->createForm(new GroupType(),$group);
+        $form=$this->createForm(new GroupType(), $group);
         $form->add('roles', 'choice', array( 'choices' =>
             array(
-                'ROLE_SUPER_ADMIN'        =>'SUPER ADMIN',
-                'ROLE_ADMIN'       =>'ADMIN',
+                'ROLE_SUPER_ADMIN'=>'SUPER ADMIN',
+                'ROLE_ADMIN'      =>'ADMIN',
             ),
             'required'=>true,
             'expanded'=>true,
@@ -47,11 +48,11 @@ class UsersController extends Controller
         }
         return $this->render('BackAdministrationBundle:users:group.html.twig', array(
                     'groups'=>$groups,
-                    'group'=>$group,
-                    'form'=>$form->createView()
+                    'group' =>$group,
+                    'form'  =>$form->createView()
         ));
     }
-    
+
     public function deleteGroupAction(Group $group)
     {
         $em=$this->getDoctrine()->getManager();
@@ -68,11 +69,11 @@ class UsersController extends Controller
         }
         return $this->redirect($this->generateUrl("group"));
     }
-    
+
     public function userAction($id, $password)
     {
         $em=$this->getDoctrine()->getManager();
-        $session =$this->getRequest()->getSession();
+        $session=$this->getRequest()->getSession();
         if(is_null($id))
             $user=new User();
         else
@@ -98,10 +99,10 @@ class UsersController extends Controller
         return $this->render('BackAdministrationBundle:users:user.html.twig', array(
                     'users'=>$users,
                     'user' =>$user,
-                    'form'  =>$form->createView()
+                    'form' =>$form->createView()
         ));
     }
-    
+
     public function deleteUserAction(User $user)
     {
         $em=$this->getDoctrine()->getManager();
@@ -118,4 +119,19 @@ class UsersController extends Controller
         }
         return $this->redirect($this->generateUrl("user"));
     }
+
+    public function enableUserAction(User $user)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if($user->isEnabled())
+            $user->setEnabled(false);
+        else
+            $user->setEnabled(true);
+        $em->persist($user);
+        $em->flush();
+        $session->getFlashBag()->add('success', "Votre utilisateur a été modifié avec succées");
+        return $this->redirect($this->generateUrl("user"));
+    }
+
 }
