@@ -65,7 +65,7 @@ class Media
     public $file;
 
     /**
-     * @ORM\Column(type="integer") 
+     * @ORM\Column(type="integer",nullable=true) 
      */
     public $ordre;
 

@@ -4,6 +4,11 @@
             <i class="green fa fa-home"></i> {{ hotel.libelle }}
         </a>
     </li>
+    <li {% if app.request.get('_route')=='chambre_hotel' %}class="active"{% endif %}>
+        <a href="{{ path("chambre_hotel",{'id':hotel.id}) }}">
+            Chambres & déscriptions ({{ hotel.hotelChambres|length }})
+        </a>
+    </li>
     <li {% if app.request.get('_route')=='photos_hotel' %}class="active"{% endif %}>
         <a href="{{ path("photos_hotel",{'id':hotel.id}) }}">
             Photos ({{ hotel.images|length }})

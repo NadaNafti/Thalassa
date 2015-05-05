@@ -191,6 +191,11 @@ class Hotel
     private $saisons ;
 
     /**
+     * @ORM\OneToMany(targetEntity="HotelChambre", mappedBy="hotel")
+     */
+    private $hotelChambres ;
+
+    /**
      * @ORM\OneToMany(targetEntity="StopSales", mappedBy="hotel")
      */
     protected $stopSales ;
@@ -1066,4 +1071,37 @@ class Hotel
         return null ;
     }
 
+
+    /**
+     * Add hotelChambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\HotelChambre $hotelChambres
+     * @return Hotel
+     */
+    public function addHotelChambre(\Back\HotelTunisieBundle\Entity\HotelChambre $hotelChambres)
+    {
+        $this->hotelChambres[] = $hotelChambres;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotelChambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\HotelChambre $hotelChambres
+     */
+    public function removeHotelChambre(\Back\HotelTunisieBundle\Entity\HotelChambre $hotelChambres)
+    {
+        $this->hotelChambres->removeElement($hotelChambres);
+    }
+
+    /**
+     * Get hotelChambres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHotelChambres()
+    {
+        return $this->hotelChambres;
+    }
 }

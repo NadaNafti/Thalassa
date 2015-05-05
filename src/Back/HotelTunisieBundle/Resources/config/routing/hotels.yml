@@ -6,6 +6,10 @@ modif_hotel:
     path:     /modif/{id}
     defaults: { _controller: BackHotelTunisieBundle:Hotels:modif}
 
+chambre_hotel:
+    path:     /modif/{id}/chambres
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:hotelChambre}
+
 change_etat:
     path:     /etat/{id}/{etat}
     defaults: { _controller: BackHotelTunisieBundle:Hotels:etat}

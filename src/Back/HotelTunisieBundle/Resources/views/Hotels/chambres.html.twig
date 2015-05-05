@@ -1,0 +1,51 @@
+{% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
+{% block title %}{{ hotel.libelle }}{% endblock %}
+{% block description %}Chambres & déscriptions{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
+    </li>
+    <li>
+        <a href="javascript:void(0)" >Chambres & déscriptions</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form action="{{ path('chambre_hotel',{'id':hotel.id}) }}"  {{ form_enctype(form) }} method="post" role="form" id="formDisable">
+                            {{ form_widget(form._token) }}
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">Description</div>
+                                <div class="col-md-2">Photo</div>
+                            </div>
+                            <hr>
+                            {% for formC in form.hotelChambres %}
+                                <div class="row">
+                                    <div class="col-md-2" style="height: 68px;">
+                                        <label style="margin-top: 20px;">
+                                            {{ formC.chambre.vars.data.libelle }}
+                                        </label>
+                                        {{ form_widget(formC.chambre, {'attr': {'style': 'display:none'}}) }}
+                                    </div>
+                                    {{ formulaire.input("col-md-4","",formC.description,false) }}
+                                    {{ formulaire.input("col-md-3","",formC.image.file,false) }}
+                                    {% if formC.image.vars.data.path is defined %}
+                                        <div class="col-md-2"><img src="{{ asset('uploads/'~formC.image.vars.data.path) }}" style="width: 50px;height: 50px" /></div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            {{ formulaire.submit("Modifier") }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
