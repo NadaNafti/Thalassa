@@ -68,6 +68,11 @@ class Amicale
     private $montant;
 
     /**
+     * @ORM\OneToMany(targetEntity="Back\UserBundle\Entity\Client", mappedBy="amicale")
+     */
+    protected $clients;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Convention", mappedBy="amicale")
      * @ORM\OrderBy({"dateDebut" = "ASC"})
      */
@@ -448,5 +453,38 @@ class Amicale
     public function getProduits()
     {
         return $this->produits;
+    }
+
+    /**
+     * Add hotels
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
+     * @return Amicale
+     */
+    public function addHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
+    {
+        $this->hotels[] = $hotels;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotels
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
+     */
+    public function removeHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
+    {
+        $this->hotels->removeElement($hotels);
+    }
+
+    /**
+     * Get hotels
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHotels()
+    {
+        return $this->hotels;
     }
 }
