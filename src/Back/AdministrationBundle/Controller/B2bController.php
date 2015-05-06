@@ -54,7 +54,37 @@ class B2bController extends Controller
         return $this->redirect($this->generateUrl("amicale"));
     }
 
-    public function conventionAction($id)
+    public function hotelsAction(Amicale $amicale)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session =$this->getRequest()->getSession();
+        $form=$this->createForm(new AmicaleType(), $amicale);
+        $form   ->remove("libelle")
+                ->remove("produits")
+                ->remove("adresse")
+                ->remove("tel")
+                ->remove("fax")
+                ->remove("plafond")
+                ->add("hotels");
+        if($this->getRequest()->isMethod("POST"))
+        {
+            $form->submit($this->getRequest());
+            if($form->isValid())
+            {
+                $amicale=$form->getData();
+                $em->persist($amicale);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre amicale a été traité avec succées ");
+                return $this->redirect($this->generateUrl("amicale_hotel",array('id'=>$amicale->getId())));
+            }
+        }
+        return $this->render('BackAdministrationBundle:b2b:hotels.html.twig', array(
+                    'amicale' =>$amicale,
+                    'form'    =>$form->createView()
+        ));
+    }
+
+        public function conventionAction($id)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();

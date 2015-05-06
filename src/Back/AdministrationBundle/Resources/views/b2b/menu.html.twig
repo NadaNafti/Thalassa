@@ -1,0 +1,14 @@
+{% if amicale.id is not null %}
+    <ul id="myTab" class="nav nav-tabs tab-bricky">
+        <li {% if app.request.get('_route')=='amicale' %}class="active"{% endif %}>
+            <a href="{{ path("amicale",{'id':amicale.id}) }}">
+                <i class="green fa fa-home"></i> {{ amicale }}
+            </a>
+        </li>
+        <li {% if app.request.get('_route')=='amicale_hotel' %}class="active"{% endif %}>
+            <a href="{{ path("amicale_hotel",{'id':amicale.id}) }}">
+                Hotels ({{ amicale.hotels|length }})
+            </a>
+        </li>
+    </ul>
+{% endif %}

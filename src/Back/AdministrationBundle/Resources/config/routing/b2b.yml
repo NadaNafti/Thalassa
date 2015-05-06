@@ -6,6 +6,10 @@ delete_amicale:
     path:     /delete_amicale/{id}
     defaults: { _controller: BackAdministrationBundle:B2b:deleteAmicale }
 
+amicale_hotel:
+    path:     /amicale/{id}/hotels
+    defaults: { _controller: BackAdministrationBundle:B2b:hotels }
+
 convention_amicale:
     path:     /convention/{id}
     defaults: { _controller: BackAdministrationBundle:B2b:convention,id:null }

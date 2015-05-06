@@ -74,6 +74,24 @@ class Amicale
     protected $conventions;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Produit")
+     * @ORM\JoinTable(name="ost_amicale_produit",
+     *      joinColumns={@ORM\JoinColumn(name="id_amicale", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_produit", referencedColumnName="id")}
+     * )
+     */
+    protected $produits;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Back\HotelTunisieBundle\Entity\Hotel")
+     * @ORM\JoinTable(name="ost_amicale_hotel",
+     *      joinColumns={@ORM\JoinColumn(name="id_amicale", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_hotel", referencedColumnName="id")}
+     * )
+     */
+    protected $hotels;
+
+    /**
      * @Gedmo\slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
@@ -398,4 +416,70 @@ class Amicale
         return $currentConvention;
     }
 
+
+    /**
+     * Add produits
+     *
+     * @param \Back\AdministrationBundle\Entity\Produit $produits
+     * @return Amicale
+     */
+    public function addProduit(\Back\AdministrationBundle\Entity\Produit $produits)
+    {
+        $this->produits[] = $produits;
+
+        return $this;
+    }
+
+    /**
+     * Remove produits
+     *
+     * @param \Back\AdministrationBundle\Entity\Produit $produits
+     */
+    public function removeProduit(\Back\AdministrationBundle\Entity\Produit $produits)
+    {
+        $this->produits->removeElement($produits);
+    }
+
+    /**
+     * Get produits
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProduits()
+    {
+        return $this->produits;
+    }
+
+    /**
+     * Add hotels
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
+     * @return Amicale
+     */
+    public function addHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
+    {
+        $this->hotels[] = $hotels;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotels
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
+     */
+    public function removeHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
+    {
+        $this->hotels->removeElement($hotels);
+    }
+
+    /**
+     * Get hotels
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHotels()
+    {
+        return $this->hotels;
+    }
 }

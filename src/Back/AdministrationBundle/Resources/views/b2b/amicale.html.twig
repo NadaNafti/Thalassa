@@ -12,20 +12,24 @@
 {% block body %}
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    {{ form_start(form) }}
-                    <div class="row">
-                        {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
-                        {{ formulaire.input("col-md-2","Tel",form.tel,true) }}
-                        {{ formulaire.input("col-md-2","Fax",form.fax,true) }}
-                        {{ formulaire.input("col-md-4","Adresse",form.adresse,true) }}
+            <div class="tabbable">
+                {% include 'BackAdministrationBundle:b2b:menu.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
+                            {{ formulaire.input("col-md-2","Tel",form.tel,true) }}
+                            {{ formulaire.input("col-md-2","Fax",form.fax,true) }}
+                            {{ formulaire.input("col-md-4","Adresse",form.adresse,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-2","Plafond",form.plafond,true) }}
+                            {{ formulaire.select2("col-md-4","Produits",form.produits,true) }}
+                        </div>
+                        {{ formulaire.submit("Enregistrer") }}
+                        {{ form_end(form) }}
                     </div>
-                    <div class="row">
-                        {{ formulaire.input("col-md-2","Plafond",form.plafond,true) }}
-                    </div>
-                    {{ formulaire.submit("Enregistrer") }}
-                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
@@ -45,6 +49,7 @@
                                 <th class="center">Fax</th>
                                 <th class="center">Plafond</th>
                                 <th class="center">Montant</th>
+                                <th class="center">Produits</th>
                                 <th class="center">Convention Courrante</th>
                                 <th class="center" >Action</th>
                             </tr>
@@ -58,12 +63,17 @@
                                     <td>{{ amicale.plafond}}</td>
                                     <td>{{ amicale.montant}}</td>
                                     <td>
+                                        {% for produit in amicale.produits %}
+                                            - {{ produit }} <br>
+                                        {% endfor %}
+                                    </td>
+                                    <td>
                                         {% set convention= amicale.getConventionByDate('now'|date('Y-m-d')) %}
                                         {% if convention is null %}
                                             Pas de convention
                                         {% else %}
                                             <a href="{{ path('convention_amicale',{'id':convention.id}) }}" class="tooltips" title="Du {{ convention.dateDebut|date('d/m/Y')~' au '~convention.dateFin|date('d/m/Y') }}"><span class="label label-sm label-inverse">{{ convention.remise }}% ({{ convention.showTypeRemise }})</span></a>
-                                       </a>
+                                            </a>
                                         {% endif %}
                                     </td>
                                     <td class="TableAction">

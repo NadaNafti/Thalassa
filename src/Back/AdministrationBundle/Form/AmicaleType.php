@@ -16,11 +16,11 @@ class AmicaleType extends AbstractType
     {
         $builder
             ->add('libelle')
+            ->add('produits')
             ->add('adresse')
             ->add('tel')
             ->add('fax')
             ->add('plafond')
-//            ->add('montant')
         ;
     }
     
