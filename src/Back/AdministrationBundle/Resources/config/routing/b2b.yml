@@ -1,0 +1,15 @@
+amicale:
+    path:     /amicale/{id}
+    defaults: { _controller: BackAdministrationBundle:B2b:amicale,id:null }
+
+delete_amicale:
+    path:     /delete_amicale/{id}
+    defaults: { _controller: BackAdministrationBundle:B2b:deleteAmicale }
+
+convention_amicale:
+    path:     /convention/{id}
+    defaults: { _controller: BackAdministrationBundle:B2b:convention,id:null }
+
+delete_convention_amicale:
+    path:     /delete_convention_amicale/{id}
+    defaults: { _controller: BackAdministrationBundle:B2b:deleteConvention }

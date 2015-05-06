@@ -60,10 +60,7 @@ class SaisonBaseController extends Controller
         if($hotel->getSaisonBase() != NULL)
             $saison=$hotel->getSaisonBase();
         else
-        {
             $saison=new Saison ();
-            $saison->setLibelle("Saison de base");
-        }
         $form=$this->createForm(new SaisonType(), $saison);
         $form->add("ArrBase", "entity", array(
             'class'        =>'BackHotelTunisieBundle:Arrangement',
@@ -82,7 +79,7 @@ class SaisonBaseController extends Controller
             {
                 $saison=$form->getData();
                 $hotel->setSaisonBase($saison);
-                $em->persist($saison);
+                $em->persist($saison->setLibelle("Saison de base"));
                 $em->persist($hotel);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");

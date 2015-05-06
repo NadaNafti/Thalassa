@@ -1,19 +1,8 @@
-group:
-    path:     /groupe/{id}
-    defaults: { _controller: BackAdministrationBundle:Users:group,id:null }
+Administration_users:
+    resource: "@BackAdministrationBundle/Resources/config/routing/users.yml"
+    prefix:   /utilisateurs
 
-delete_group:
-    path:     /delete_group/{id}
-    defaults: { _controller: BackAdministrationBundle:Users:deleteGroup }
+Administration_b2b:
+    resource: "@BackAdministrationBundle/Resources/config/routing/b2b.yml"
+    prefix:   /b2b
 
-user:
-    path:     /user/{id}/{password}
-    defaults: { _controller: BackAdministrationBundle:Users:user,id:null,password:null }
-
-delete_user:
-    path:     /delete_user/{id}
-    defaults: { _controller: BackAdministrationBundle:Users:deleteUser }
-
-enable_user:
-    path:     /enable_user/{id}
-    defaults: { _controller: BackAdministrationBundle:Users:enableUser }

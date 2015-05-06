@@ -236,7 +236,7 @@ class Media
     public function showType()
     {
         if($this->type==1)
-            return 'Pricipale';
+            return 'Principale';
         if($this->type==2)
             return 'Album';
         

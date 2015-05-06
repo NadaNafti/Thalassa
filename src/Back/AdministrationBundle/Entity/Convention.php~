@@ -1,0 +1,183 @@
+<?php
+
+namespace Back\AdministrationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo ;
+use Symfony\Component\Validator\Constraints as Assert ;
+
+/**
+ * Convention
+ * 
+ * @ORM\Table(name="ost_amicale_convention")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
+ * @ORM\Entity
+ */
+class Convention
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateDebut", type="date")
+     */
+    private $dateDebut;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateFin", type="date")
+     */
+    private $dateFin;
+
+    /**
+     * @var integer
+     * @Assert\Range(
+     *      min = 100,
+     *      max = 1,
+     * )
+     * @ORM\Column(name="remise", type="integer")
+     */
+    private $remise;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="typeRemise", type="integer")
+     */
+    private $typeRemise;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Amicale", inversedBy="conventions")
+     */
+    protected $amicale;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created ;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated ;
+
+    /**
+     * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
+     */
+    private $deletedAt ;
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set dateDebut
+     *
+     * @param \DateTime $dateDebut
+     * @return Convention
+     */
+    public function setDateDebut($dateDebut)
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    /**
+     * Get dateDebut
+     *
+     * @return \DateTime 
+     */
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
+
+    /**
+     * Set dateFin
+     *
+     * @param \DateTime $dateFin
+     * @return Convention
+     */
+    public function setDateFin($dateFin)
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    /**
+     * Get dateFin
+     *
+     * @return \DateTime 
+     */
+    public function getDateFin()
+    {
+        return $this->dateFin;
+    }
+
+    /**
+     * Set remise
+     *
+     * @param integer $remise
+     * @return Convention
+     */
+    public function setRemise($remise)
+    {
+        $this->remise = $remise;
+
+        return $this;
+    }
+
+    /**
+     * Get remise
+     *
+     * @return integer 
+     */
+    public function getRemise()
+    {
+        return $this->remise;
+    }
+
+    /**
+     * Set typeRemise
+     *
+     * @param integer $typeRemise
+     * @return Convention
+     */
+    public function setTypeRemise($typeRemise)
+    {
+        $this->typeRemise = $typeRemise;
+
+        return $this;
+    }
+
+    /**
+     * Get typeRemise
+     *
+     * @return integer 
+     */
+    public function getTypeRemise()
+    {
+        return $this->typeRemise;
+    }
+}

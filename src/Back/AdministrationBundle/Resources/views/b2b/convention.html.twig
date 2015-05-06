@@ -1,0 +1,75 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Gestion des conventions{% endblock %}
+{% block description %}
+    {% if convention.id is null %}Ajouter un convention{% else %}Modifier une convention{% endif %}
+{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >Gestion des conventions</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        {{ formulaire.select2("col-md-3","Amicale",form.amicale,true) }}
+                        {{ formulaire.input("col-md-2","Date debut",form.dateDebut,true) }}
+                        {{ formulaire.input("col-md-2","Date fin",form.dateFin,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-2","Remise",form.remise,true) }}
+                        {{ formulaire.input("col-md-2","Type remise",form.typeRemise,true) }}
+                    </div>
+                    {{ formulaire.submit("Enregistrer") }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Liste
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered  table-full-width table-condensed ">
+                        <thead>
+                            <tr>
+                                <th class="center">Amicale</th>
+                                <th class="center">Date debut</th>
+                                <th class="center">Date fin</th>
+                                <th class="center">Remise</th>
+                                <th class="center">Type remise</th>
+                                <th class="center" >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for amicale in amicales %}
+                                {% for convention in amicale.conventions %}
+                                    <tr class="center">
+                                        {% if loop.index==1 %}
+                                            <td rowspan="{{ amicale.conventions|length }}" >{{ convention.amicale}}</td>
+                                        {% endif %}
+                                        <td>{{ convention.dateDebut|date('d/m/Y')}}</td>
+                                        <td>{{ convention.dateFin|date('d/m/Y')}}</td>
+                                        <td>{{ convention.remise}} %</td>
+                                        <td>{{ convention.showTypeRemise}}</td>
+                                        <td class="TableAction">
+                                            {{ macros.tableEdit(path('convention_amicale',{'id':convention.id})) }}
+                                            {{ macros.tableDelete(path('delete_convention_amicale',{'id':convention.id})) }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
