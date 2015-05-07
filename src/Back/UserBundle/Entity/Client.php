@@ -90,6 +90,11 @@ class Client
     protected $amicale;
 
     /**
+     * @ORM\Column(name="profileAmicale", type="integer",nullable=true) 
+     */
+    public $profileAmicale;
+
+    /**
      * @Gedmo\slug(fields={"nomPrenom"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
@@ -329,7 +334,6 @@ class Client
         return $this->amicale;
     }
 
-
     /**
      * Set slug
      *
@@ -338,7 +342,7 @@ class Client
      */
     public function setSlug($slug)
     {
-        $this->slug = $slug;
+        $this->slug=$slug;
 
         return $this;
     }
@@ -361,7 +365,7 @@ class Client
      */
     public function setCreated($created)
     {
-        $this->created = $created;
+        $this->created=$created;
 
         return $this;
     }
@@ -384,7 +388,7 @@ class Client
      */
     public function setUpdated($updated)
     {
-        $this->updated = $updated;
+        $this->updated=$updated;
 
         return $this;
     }
@@ -407,7 +411,7 @@ class Client
      */
     public function setDeletedAt($deletedAt)
     {
-        $this->deletedAt = $deletedAt;
+        $this->deletedAt=$deletedAt;
 
         return $this;
     }
@@ -420,5 +424,39 @@ class Client
     public function getDeletedAt()
     {
         return $this->deletedAt;
+    }
+
+
+    /**
+     * Set profileAmicale
+     *
+     * @param integer $profileAmicale
+     * @return Client
+     */
+    public function setProfileAmicale($profileAmicale)
+    {
+        $this->profileAmicale = $profileAmicale;
+
+        return $this;
+    }
+
+    /**
+     * Get profileAmicale
+     *
+     * @return integer 
+     */
+    public function getProfileAmicale()
+    {
+        return $this->profileAmicale;
+    }
+    public function showProfileAmicale()
+    {
+        if($this->profileAmicale==1)
+            return "Responsable";
+        elseif($this->profileAmicale==2)
+            return "Non responsable";
+        else
+            return '';
+        
     }
 }

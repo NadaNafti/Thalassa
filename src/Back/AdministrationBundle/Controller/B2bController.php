@@ -147,10 +147,20 @@ class B2bController extends Controller
             }
         }
         return $this->render('BackAdministrationBundle:b2b:client.html.twig', array(
-                    'client'  =>$client,
-                    'amicale'  =>$amicale,
-                    'form'      =>$form->createView()
+                    'client' =>$client,
+                    'amicale'=>$amicale,
+                    'form'   =>$form->createView()
         ));
+    }
+
+    public function deleteClientAction(Client $client)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em->remove($client);
+        $em->flush();
+        $session->getFlashBag()->add('success', " Votre client a été supprimé avec succées ");
+        return $this->redirect($this->generateUrl("amicale_client", array( 'id'=>$client->getAmicale()->getId() )));
     }
 
 }

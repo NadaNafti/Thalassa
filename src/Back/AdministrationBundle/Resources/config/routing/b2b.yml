@@ -14,6 +14,10 @@ amicale_client:
     path:     /amicale/{id}/clients/{id2}
     defaults: { _controller: BackAdministrationBundle:B2b:clients,id2:null }
 
+delete_amicale_client:
+    path:     /delete_amicale_client/{id}
+    defaults: { _controller: BackAdministrationBundle:B2b:deleteClient }
+
 convention_amicale:
     path:     /convention/{id}
     defaults: { _controller: BackAdministrationBundle:B2b:convention,id:null }

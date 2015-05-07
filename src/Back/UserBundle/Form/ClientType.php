@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ClientType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -15,24 +16,30 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nomPrenom')
-            ->add('tel1')
-            ->add('tel2')
-            ->add('email')
-            ->add('adresse')
-            ->add('matriculeFiscale')
-            ->add('registreCommercie')
-            ->add('commentaire')
+                ->add('nomPrenom')
+                ->add('tel1')
+                ->add('tel2')
+                ->add('email')
+                ->add('adresse')
+                ->add('matriculeFiscale')
+                ->add('registreCommercie')
+                ->add('commentaire')
+                ->add('profileAmicale', 'choice', array( 'choices'=>array(
+                        '1'=>"Responsable",
+                        '2'=>"Non responsable"
+                    ),
+                    'expanded'=>true
+                ))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Back\UserBundle\Entity\Client'
+            'data_class'=>'Back\UserBundle\Entity\Client'
         ));
     }
 
@@ -43,4 +50,5 @@ class ClientType extends AbstractType
     {
         return 'back_userbundle_client';
     }
+
 }

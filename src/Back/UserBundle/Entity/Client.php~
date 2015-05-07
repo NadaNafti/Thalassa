@@ -27,7 +27,7 @@ class Client
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="nomPrenom", type="string", length=255)
      */
     private $nomPrenom;
@@ -88,6 +88,11 @@ class Client
      * @ORM\ManyToOne(targetEntity="Back\AdministrationBundle\Entity\Amicale", inversedBy="clients")
      */
     protected $amicale;
+
+    /**
+     * @ORM\Column(name="profileAmicale", type="integer",nullable=true) 
+     */
+    public $profileAmicale;
 
     /**
      * @Gedmo\slug(fields={"nomPrenom"})
@@ -327,6 +332,98 @@ class Client
     public function getAmicale()
     {
         return $this->amicale;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Client
+     */
+    public function setSlug($slug)
+    {
+        $this->slug=$slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Client
+     */
+    public function setCreated($created)
+    {
+        $this->created=$created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Client
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated=$updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     * @return Client
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt=$deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 
 }

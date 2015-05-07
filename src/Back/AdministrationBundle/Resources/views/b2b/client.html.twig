@@ -18,6 +18,7 @@
                     <div class="panel-body">
                         {{ form_start(form) }}
                         <div class="row">
+                            {{ formulaire.input("col-md-2","Profile",form.profileAmicale,true) }}
                             {{ formulaire.input("col-md-2","Nom & Prénom",form.nomPrenom,true) }}
                             {{ formulaire.input("col-md-2","Email",form.email,true) }}
                             {{ formulaire.input("col-md-2","tel1",form.tel1,true) }}
@@ -48,6 +49,7 @@
                     <table class="table table-bordered  table-full-width table-condensed ">
                         <thead>
                             <tr>
+                                <th class="center">Profile</th>
                                 <th class="center">Nom & Prénom</th>
                                 <th class="center">Email</th>
                                 <th class="center">Tel1</th>
@@ -58,13 +60,14 @@
                         <tbody>
                             {% for client in amicale.clients %}
                                 <tr class="center">
+                                    <td>{{ client.showProfileAmicale}}</td>
                                     <td>{{ client.nomPrenom}}</td>
                                     <td>{{ client.email}}</td>
-                                    <td>{{ client.tel1}} %</td>
+                                    <td>{{ client.tel1}}</td>
                                     <td>{{ client.tel2}}</td>
                                     <td class="TableAction">
                                         {{ macros.tableEdit(path('amicale_client',{'id':amicale.id,'id2':client.id})) }}
-                                        {#                                            {{ macros.tableDelete(path('delete_client_client',{'id':client.id})) }}#}
+                                        {{ macros.tableDelete(path('delete_amicale_client',{'id':client.id})) }}
                                     </td>
                                 </tr>
                             {% endfor %}
