@@ -10,5 +10,10 @@
                 Hotels ({{ amicale.hotels|length }})
             </a>
         </li>
+        <li {% if app.request.get('_route')=='amicale_client' %}class="active"{% endif %}>
+            <a href="{{ path("amicale_client",{'id':amicale.id}) }}">
+                Personnelles ({{ amicale.clients|length }})
+            </a>
+        </li>
     </ul>
 {% endif %}

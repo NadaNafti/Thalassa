@@ -1,13 +1,16 @@
 <?php
 
-namespace Back\UserBundle\Entity ;
+namespace Back\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM ;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Client
  *
  * @ORM\Table(name="ost_client")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
 class Client
@@ -20,40 +23,94 @@ class Client
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id ;
+    private $id;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="nomPrenom", type="string", length=255)
      */
-    private $nomPrenom ;
+    private $nomPrenom;
 
     /**
      * @var string
      *
      * @ORM\Column(name="tel1", type="string", length=255)
      */
-    private $tel1 ;
+    private $tel1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tel2", type="string", length=255)
+     * @ORM\Column(name="tel2", type="string", length=255,nullable=true)
      */
-    private $tel2 ;
+    private $tel2;
+
+    /**
+     * @var string
+     * @Assert\Email(
+     *     message = "'{{ value }}' n'est pas un email valide.",
+     *     checkMX = true
+     * )
+     * @ORM\Column(name="email", type="string", length=255,nullable=true)
+     */
+    private $email;
 
     /**
      * @var string
      *
      * @ORM\Column(name="adresse", type="text")
      */
-    private $adresse ;
+    private $adresse;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="matriculeFiscale", type="string", length=255,nullable=true)
+     */
+    private $matriculeFiscale;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="registreCommercie", type="string", length=255,nullable=true)
+     */
+    private $registreCommercie;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire", type="text",nullable=true)
+     */
+    private $commentaire;
 
     /**
      * @ORM\ManyToOne(targetEntity="Back\AdministrationBundle\Entity\Amicale", inversedBy="clients")
      */
-    protected $amicale ;
+    protected $amicale;
+
+    /**
+     * @Gedmo\slug(fields={"nomPrenom"})
+     * @ORM\Column(name="slug", length=128, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated;
+
+    /**
+     * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * Get id
@@ -62,7 +119,7 @@ class Client
      */
     public function getId()
     {
-        return $this->id ;
+        return $this->id;
     }
 
     /**
@@ -73,9 +130,9 @@ class Client
      */
     public function setNomPrenom($nomPrenom)
     {
-        $this->nomPrenom = $nomPrenom ;
+        $this->nomPrenom=$nomPrenom;
 
-        return $this ;
+        return $this;
     }
 
     /**
@@ -85,7 +142,7 @@ class Client
      */
     public function getNomPrenom()
     {
-        return $this->nomPrenom ;
+        return $this->nomPrenom;
     }
 
     /**
@@ -96,9 +153,9 @@ class Client
      */
     public function setTel1($tel1)
     {
-        $this->tel1 = $tel1 ;
+        $this->tel1=$tel1;
 
-        return $this ;
+        return $this;
     }
 
     /**
@@ -108,7 +165,7 @@ class Client
      */
     public function getTel1()
     {
-        return $this->tel1 ;
+        return $this->tel1;
     }
 
     /**
@@ -119,9 +176,9 @@ class Client
      */
     public function setTel2($tel2)
     {
-        $this->tel2 = $tel2 ;
+        $this->tel2=$tel2;
 
-        return $this ;
+        return $this;
     }
 
     /**
@@ -131,7 +188,30 @@ class Client
      */
     public function getTel2()
     {
-        return $this->tel2 ;
+        return $this->tel2;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Client
+     */
+    public function setEmail($email)
+    {
+        $this->email=$email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
@@ -142,9 +222,9 @@ class Client
      */
     public function setAdresse($adresse)
     {
-        $this->adresse = $adresse ;
+        $this->adresse=$adresse;
 
-        return $this ;
+        return $this;
     }
 
     /**
@@ -154,9 +234,77 @@ class Client
      */
     public function getAdresse()
     {
-        return $this->adresse ;
+        return $this->adresse;
     }
 
+    /**
+     * Set matriculeFiscale
+     *
+     * @param string $matriculeFiscale
+     * @return Client
+     */
+    public function setMatriculeFiscale($matriculeFiscale)
+    {
+        $this->matriculeFiscale=$matriculeFiscale;
+
+        return $this;
+    }
+
+    /**
+     * Get matriculeFiscale
+     *
+     * @return string 
+     */
+    public function getMatriculeFiscale()
+    {
+        return $this->matriculeFiscale;
+    }
+
+    /**
+     * Set registreCommercie
+     *
+     * @param string $registreCommercie
+     * @return Client
+     */
+    public function setRegistreCommercie($registreCommercie)
+    {
+        $this->registreCommercie=$registreCommercie;
+
+        return $this;
+    }
+
+    /**
+     * Get registreCommercie
+     *
+     * @return string 
+     */
+    public function getRegistreCommercie()
+    {
+        return $this->registreCommercie;
+    }
+
+    /**
+     * Set commentaire
+     *
+     * @param string $commentaire
+     * @return Client
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire=$commentaire;
+
+        return $this;
+    }
+
+    /**
+     * Get commentaire
+     *
+     * @return string 
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
+    }
 
     /**
      * Set amicale
@@ -164,9 +312,9 @@ class Client
      * @param \Back\AdministrationBundle\Entity\Amicale $amicale
      * @return Client
      */
-    public function setAmicale(\Back\AdministrationBundle\Entity\Amicale $amicale = null)
+    public function setAmicale(\Back\AdministrationBundle\Entity\Amicale $amicale=null)
     {
-        $this->amicale = $amicale;
+        $this->amicale=$amicale;
 
         return $this;
     }
@@ -179,5 +327,98 @@ class Client
     public function getAmicale()
     {
         return $this->amicale;
+    }
+
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Client
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Client
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Client
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     * @return Client
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }

@@ -1,0 +1,77 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Gestion des personnelles{% endblock %}
+{% block description %}
+    {% if client.id is null %}Ajouter un personelle{% else %}Modifier un personelle{% endif %}
+{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >Gestion des personnelles</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackAdministrationBundle:b2b:menu.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-2","Nom & Prénom",form.nomPrenom,true) }}
+                            {{ formulaire.input("col-md-2","Email",form.email,true) }}
+                            {{ formulaire.input("col-md-2","tel1",form.tel1,true) }}
+                            {{ formulaire.input("col-md-2","tel2",form.tel2,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-8","Adresse",form.adresse,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-2","Matricule Fiscale",form.matriculeFiscale,true) }}
+                            {{ formulaire.input("col-md-2","Registre Commercie",form.registreCommercie,true) }}
+                            {{ formulaire.input("col-md-4","Commentaire",form.commentaire,true) }}
+                        </div>
+                        {{ formulaire.submit("Enregistrer") }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Liste
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered  table-full-width table-condensed ">
+                        <thead>
+                            <tr>
+                                <th class="center">Nom & Prénom</th>
+                                <th class="center">Email</th>
+                                <th class="center">Tel1</th>
+                                <th class="center">Tel2</th>
+                                <th class="center" >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for client in amicale.clients %}
+                                <tr class="center">
+                                    <td>{{ client.nomPrenom}}</td>
+                                    <td>{{ client.email}}</td>
+                                    <td>{{ client.tel1}} %</td>
+                                    <td>{{ client.tel2}}</td>
+                                    <td class="TableAction">
+                                        {{ macros.tableEdit(path('amicale_client',{'id':amicale.id,'id2':client.id})) }}
+                                        {#                                            {{ macros.tableDelete(path('delete_client_client',{'id':client.id})) }}#}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

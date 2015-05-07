@@ -8,6 +8,8 @@ use Back\AdministrationBundle\Entity\Amicale;
 use Back\AdministrationBundle\Form\AmicaleType;
 use Back\AdministrationBundle\Entity\Convention;
 use Back\AdministrationBundle\Form\ConventionType;
+use Back\UserBundle\Entity\Client;
+use Back\UserBundle\Form\ClientType;
 
 class B2bController extends Controller
 {
@@ -57,9 +59,9 @@ class B2bController extends Controller
     public function hotelsAction(Amicale $amicale)
     {
         $em=$this->getDoctrine()->getManager();
-        $session =$this->getRequest()->getSession();
+        $session=$this->getRequest()->getSession();
         $form=$this->createForm(new AmicaleType(), $amicale);
-        $form   ->remove("libelle")
+        $form->remove("libelle")
                 ->remove("produits")
                 ->remove("adresse")
                 ->remove("tel")
@@ -75,16 +77,16 @@ class B2bController extends Controller
                 $em->persist($amicale);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre amicale a été traité avec succées ");
-                return $this->redirect($this->generateUrl("amicale_hotel",array('id'=>$amicale->getId())));
+                return $this->redirect($this->generateUrl("amicale_hotel", array( 'id'=>$amicale->getId() )));
             }
         }
         return $this->render('BackAdministrationBundle:b2b:hotels.html.twig', array(
-                    'amicale' =>$amicale,
-                    'form'    =>$form->createView()
+                    'amicale'=>$amicale,
+                    'form'   =>$form->createView()
         ));
     }
 
-        public function conventionAction($id)
+    public function conventionAction($id)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
@@ -107,9 +109,9 @@ class B2bController extends Controller
             }
         }
         return $this->render('BackAdministrationBundle:b2b:convention.html.twig', array(
-                    'amicales'=>$amicales,
-                    'convention' =>$convention,
-                    'form'       =>$form->createView()
+                    'amicales'  =>$amicales,
+                    'convention'=>$convention,
+                    'form'      =>$form->createView()
         ));
     }
 
@@ -121,6 +123,34 @@ class B2bController extends Controller
         $em->flush();
         $session->getFlashBag()->add('success', " Votre convention a été supprimé avec succées ");
         return $this->redirect($this->generateUrl("convention_amicale"));
+    }
+
+    public function clientsAction(Amicale $amicale, $id2)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if(is_null($id2))
+            $client=new Client();
+        else
+            $client=$em->getRepository("BackUserBundle:Client")->find($id2);
+        $form=$this->createForm(new ClientType(), $client);
+        if($this->getRequest()->isMethod("POST"))
+        {
+            $form->submit($this->getRequest());
+            if($form->isValid())
+            {
+                $client=$form->getData();
+                $em->persist($client->setAmicale($amicale));
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre client a été traité avec succées ");
+                return $this->redirect($this->generateUrl("amicale_client", array( 'id'=>$amicale->getId() )));
+            }
+        }
+        return $this->render('BackAdministrationBundle:b2b:client.html.twig', array(
+                    'client'  =>$client,
+                    'amicale'  =>$amicale,
+                    'form'      =>$form->createView()
+        ));
     }
 
 }

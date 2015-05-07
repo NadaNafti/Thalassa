@@ -10,6 +10,10 @@ amicale_hotel:
     path:     /amicale/{id}/hotels
     defaults: { _controller: BackAdministrationBundle:B2b:hotels }
 
+amicale_client:
+    path:     /amicale/{id}/clients/{id2}
+    defaults: { _controller: BackAdministrationBundle:B2b:clients,id2:null }
+
 convention_amicale:
     path:     /convention/{id}
     defaults: { _controller: BackAdministrationBundle:B2b:convention,id:null }
