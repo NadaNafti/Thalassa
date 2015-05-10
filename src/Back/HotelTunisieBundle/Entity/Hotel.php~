@@ -1104,4 +1104,9 @@ class Hotel
     {
         return $this->hotelChambres;
     }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 }

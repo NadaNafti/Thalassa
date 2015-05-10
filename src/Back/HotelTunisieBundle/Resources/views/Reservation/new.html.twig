@@ -1,0 +1,30 @@
+{% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
+{% block title %}Nouvelle réservation{% endblock %}
+{% block description %}{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >Nouvelle réservation</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        {{ formulaire.select2("col-md-3","Ville",form.villes,true) }}
+                        {{ formulaire.select2("col-md-3","Hôtel",form.hotels,true) }}
+                        {{ formulaire.input("col-md-3","Date",form.dateDebut,true) }}
+                        {{ formulaire.input("col-md-3","Nbr de nuitées",form.nuitees,true) }}
+                    </div>
+                    {{ formulaire.submit("Suivant") }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
