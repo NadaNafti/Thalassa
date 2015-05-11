@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType ;
 use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface ;
 use Doctrine\ORM\EntityRepository ;
-use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Validator\Constraints\Range ;
 
 class NewReservationType extends AbstractType
 {
@@ -16,10 +16,13 @@ class NewReservationType extends AbstractType
         $builder
                 ->add('villes' , 'entity' , array ('class' => 'BackHotelTunisieBundle:Ville' ,
                     'query_builder' => function(EntityRepository $er)
-                    {
-                        return $er->createQueryBuilder('u')
-                                ->orderBy('u.libelle' , 'ASC') ;
-                    }
+            {
+                return $er->createQueryBuilder('u')
+                        ->orderBy('u.libelle' , 'ASC') ;
+            } ,
+                    'required' => false ,
+                    'empty_value' => 'Tous les villes' ,
+                    'empty_data' => null
                 ))
                 ->add('hotels' , 'entity' , array ('class' => 'BackHotelTunisieBundle:Hotel'))
                 ->add('dateDebut' , 'date' , array (
@@ -28,7 +31,7 @@ class NewReservationType extends AbstractType
                     'format' => 'yyyy-MM-dd' ,
                 ))
                 ->add('nuitees' , 'integer' , array (
-                    'constraints' => new Range(array('min' => 1,'max'=>20))
+                    'constraints' => new Range(array ('min' => 1 , 'max' => 20))
                 ))
         ;
     }

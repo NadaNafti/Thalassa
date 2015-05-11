@@ -1,4 +1,4 @@
-{% extends "BackHotelTunisieBundle:hotels:liste.html.twig" %}
+{% extends ":Back:base.html.twig" %}
 {% block title %}Nouvelle réservation{% endblock %}
 {% block description %}{% endblock %}
 {% block topbody %}   
@@ -27,4 +27,30 @@
         </div>
     </div>
 
+{% endblock %}
+{% block jquery %}
+    <script>
+        $(document).ready(function() {
+            $('#NewReservationType_villes').on('change', function() {
+                var hotel = $('#NewReservationType_hotels');
+                hotel.empty();
+                hotel.append('<option value="">Loading ...</option>');
+                hotel.select2();
+                var id = $(this).val();
+                $.ajax({
+                    url: '{{ path('ajax_ville_to_hotel') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(json) {
+                        hotel.empty();
+                        $.each(json, function(index, value) {
+                            hotel.append('<option value="' + index + '">' + value + '</option>');
+                            hotel.select2();
+                        });
+                    }
+                });
+            })
+        })
+    </script>
 {% endblock %}

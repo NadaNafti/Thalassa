@@ -1,3 +1,11 @@
 new_reservation:
     path:     /
     defaults: { _controller: BackHotelTunisieBundle:Reservation:new }
+
+ajax_ville_to_hotel:
+    path:     /ajax_ville_to_hotel
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:ajaxVille }
+    
+formulaire_reservation:
+    path:     /formulaire
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:formulaire }

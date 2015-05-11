@@ -1,0 +1,46 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Tarif & Dispo{% endblock %}
+{% block description %}{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >Tarif & Dispo</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="panel panel-default">
+
+                        <div class="panel-body">
+                            <div id='calendar'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block jquery %}
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                month: 05,
+                events: [
+                    {
+                        title: 'Event1',
+                        start: '2015-06-04'
+                    },
+                    {
+                        title: 'Event1',
+                        start: '2015-06-11'
+                    }
+                ]
+            })
+        });
+    </script>
+{% endblock %}

@@ -39,6 +39,7 @@
 
             <link rel="stylesheet" type="text/css" href="{{ asset("back-assets/plugins/select2/select2.css") }}" />
             <link rel="stylesheet" href="{{ asset("back-assets/plugins/DataTables/media/css/DT_bootstrap.css") }}" />
+            <link rel="stylesheet" href="{{ asset("back-assets/plugins/fullcalendar/fullcalendar/fullcalendar.css") }}">
         {% endblock %}
         <link rel="shortcut icon" href="{{ asset("back-assets/favicon.ico") }}" />
     </head>
@@ -116,14 +117,15 @@
         <script src="{{ asset("back-assets/plugins/ckeditor/ckeditor.js") }}"></script>
         <script src="{{ asset("back-assets/plugins/ckeditor/adapters/jquery.js") }}"></script>
         <script src="{{ asset("back-assets/js/form-elements.js") }}"></script>
+        <script src="{{ asset("back-assets/plugins/fullcalendar/fullcalendar/fullcalendar.js") }}"></script>
         <script>
-            jQuery(document).ready(function () {
+            jQuery(document).ready(function() {
                 Main.init();
                 TableData.init();
                 FormElements.init();
             });
         </script>
-        {% block jquery %}{% endblock %}
-    {% endblock %}
+    {% block jquery %}{% endblock %}
+{% endblock %}
 </body>
 </html>
