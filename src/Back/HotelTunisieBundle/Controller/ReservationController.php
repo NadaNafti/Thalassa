@@ -34,8 +34,7 @@ class ReservationController extends Controller
                     $reservation = array () ;
                     $reservation['hotel'] = $data['hotels']->getId() ;
                     $reservation['dateDebut'] = $data['dateDebut']->format('Y-m-d') ;
-                    $reservation['dateFin'] = date('Y-m-d' , strtotime($reservation['dateDebut'] . ' + ' . $data['nuitees'] . ' day')) ;
-                    ;
+                    $reservation['dateFin'] = date('Y-m-d' , strtotime($reservation['dateDebut'] . ' + ' . ($data['nuitees']-1) . ' day')) ;
                     $reservation['nuitees'] = $data['nuitees'] ;
                     $session->set("reservation" , $reservation) ;
                     return $this->redirect($this->generateUrl("formulaire_reservation")) ;
@@ -87,6 +86,8 @@ class ReservationController extends Controller
             $saison = $hotel->getSaisonPromotionByDate($date) ;
             if ($saison->getId() != $lastSaison->getId() || $date == $reservation['dateFin'])
             {
+                if($date == $reservation['dateFin'])
+                    $dateFin = $date ;
                 $calendrier[] = array ('dateDebut' => $dateDebut , 'dateFin' => $dateFin , 'saison' => $lastSaison) ;
                 $lastSaison = $saison ;
                 $dateDebut = $date ;
@@ -96,6 +97,7 @@ class ReservationController extends Controller
         return $this->render('BackHotelTunisieBundle:Reservation:formulaire.html.twig' , array (
                     'calendrier' => $calendrier ,
                     'hotel' => $hotel ,
+                    'nuitees' => $reservation['nuitees'] ,
                     'dateDebut' => new \DateTime($reservation['dateDebut']) ,
                     'dateFin' => new \DateTime($reservation['dateFin']) ,
                 )) ;
@@ -135,6 +137,20 @@ class ReservationController extends Controller
         {
             return false ;
         }
+    }
+
+    public function saisonAjaxAction()
+    {
+        $em = $this->getDoctrine()->getManager() ;
+        $saison = $em->getRepository("BackHotelTunisieBundle:Saison")->find($this->getRequest()->get('id')) ;
+        if(is_null($saison->getType()))
+            $hotel=$saison->getHotelBase();
+        else
+            $hotel=$saison->getHotel();
+        return $this->render('BackHotelTunisieBundle:Reservation:ajaxSaison.html.twig' , array (
+                    'saison' => $saison,
+                    'hotel' => $hotel
+                )) ;
     }
 
 }

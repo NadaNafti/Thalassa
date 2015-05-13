@@ -2,6 +2,10 @@ new_reservation:
     path:     /
     defaults: { _controller: BackHotelTunisieBundle:Reservation:new }
 
+gey_saison_ajax:
+    path:     /gey_saison_ajax
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:saisonAjax }
+
 ajax_ville_to_hotel:
     path:     /ajax_ville_to_hotel
     defaults: { _controller: BackHotelTunisieBundle:Reservation:ajaxVille }

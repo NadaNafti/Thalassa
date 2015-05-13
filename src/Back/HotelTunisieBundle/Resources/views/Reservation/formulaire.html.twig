@@ -10,22 +10,84 @@
 {% block body %}
 
     <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-sm-3">
-                        <h2 class="center">{{ hotel }}</h2>
-                        <h5 class="center">{{ getStars(hotel.getStars)|raw }}</h5>
-                        <p><strong>Fournisseur  : </strong>{{ hotel.fournisseur }}</p>
-                        <p><strong>Ville  : </strong> {{ hotel.ville.pays|upper }} {{ hotel.ville }}</p>
-                        <p><strong>Date debut : </strong> {{ dateDebut|date('d/m/Y') }}</p>
-                        <p><strong>Date Fin : </strong> {{ dateFin|date('d/m/Y') }}</p>
-                </div>
-                <div class="col-sm-7">
-                            <div id='calendar'></div>
+        <div class="col-sm-12">
+            <div class="tabbable">
+                <ul id="myTab" class="nav nav-tabs tab-bricky">
+                    <li class="active">
+                        <a href="#details_reservation" data-toggle="tab">
+                            <i class="green fa fa-home"></i> Détails Réservation
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#formulaire_reservation" data-toggle="tab">
+                            Formulaire
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane in active" id="details_reservation">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <h2 class="center">{{ hotel }}</h2>
+                                        <h5 class="center">{{ getStars(hotel.getStars)|raw }}</h5>
+                                        <p><strong>Fournisseur  : </strong>{{ hotel.fournisseur }}</p>
+                                        <p><strong>Ville  : </strong> {{ hotel.ville.pays|upper }} {{ hotel.ville }}</p>
+                                        <p><strong>Date debut : </strong> {{ dateDebut|date('d/m/Y') }}</p>
+                                        <p><strong> Nuitées : </strong> {{ nuitees }}</p>
+                                        <p><strong>Date Fin : </strong> {{ dateFin|date('d/m/Y') }}</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div id='calendar'></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <hr>
+                                    <div class="col-sm-12" id="SaisonBlock">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="formulaire_reservation">
+                        <p>
+                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo.
+                        </p>
+                        <p>
+                            <a href="#panel_tab2_example3" class="btn btn-red show-tab">
+                                Go to Dropdown 1
+                            </a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    {#<div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h2 class="center">{{ hotel }}</h2>
+                    <h5 class="center">{{ getStars(hotel.getStars)|raw }}</h5>
+                    <p><strong>Fournisseur  : </strong>{{ hotel.fournisseur }}</p>
+                    <p><strong>Ville  : </strong> {{ hotel.ville.pays|upper }} {{ hotel.ville }}</p>
+                    <p><strong>Date debut : </strong> {{ dateDebut|date('d/m/Y') }}</p>
+                    <p><strong> Nuitées : </strong> {{ nuitees }}</p>
+                    <p><strong>Date Fin : </strong> {{ dateFin|date('d/m/Y') }}</p>
+                </div>
+                <div class="col-sm-6">
+                    <div id='calendar'></div>
+                </div>
+            </div>
+            <div class="row">
+                <hr>
+                <div class="col-sm-12" id="SaisonBlock">
+                </div>
+            </div>
+        </div>
+    </div>#}
 
 {% endblock %}
 {% block jquery %}
@@ -37,6 +99,7 @@
                 events: [
                     {% for day in calendrier %}
                         {
+                            id: {{ day.saison.id }},
                             {% if day.saison.type is null %}
                             color: '#F0AD4E',
                             {% elseif day.saison.type ==1 %}
@@ -47,19 +110,21 @@
                             title: '{{ day.saison }}',
                             start: '{{ day.dateDebut }}',
                             end: '{{ day.dateFin }}',
-                            {% if day.saison.type is null %}
-                                url: '{{ path('fiche_saison_base',{'id':day.saison.hotelBase.id}) }}',
-                            {% else %}
-                                url: '{{ path('PrixSaison',{'id':day.saison.id}) }}',
-                            {% endif %}
+                            url: 'javascript:void(0)'
                         },
                     {% endfor %}
                 ],
     eventClick: function(event) {
-            if (event.url) {
-                window.open(event.url);
-                return false;
-            }
+                  $('#SaisonBlock').html('<div class="center"><img  src="{{ asset('back-assets/images/loading1.gif') }}" /></div>');
+                  $.ajax({
+                    url: '{{ path('gey_saison_ajax') }}',
+                    data: { 'id' : event.id },
+                    type: 'POST', 
+                    dataType: 'html',
+                    success: function(data) {
+                        $('#SaisonBlock').hide().html(data).fadeIn('slow');
+                    }
+                });
         }
             })
         });
