@@ -90,9 +90,11 @@ class Client
     protected $amicale;
 
     /**
-     * @ORM\Column(name="profileAmicale", type="integer",nullable=true) 
+     * @var boolean
+     *
+     * @ORM\Column(name="responsable", type="boolean", nullable=true)
      */
-    public $profileAmicale;
+    public $responsable;
 
     /**
      * @Gedmo\slug(fields={"nomPrenom"})
@@ -426,4 +428,16 @@ class Client
         return $this->deletedAt;
     }
 
+    public function showProfileAmicale()
+    {
+        if($this->responsable)
+            return "Responsable";
+        else
+            return '';
+    }
+    
+    public function __toString()
+    {
+        return $this->nomPrenom;
+    }
 }

@@ -24,12 +24,7 @@ class ClientType extends AbstractType
                 ->add('matriculeFiscale')
                 ->add('registreCommercie')
                 ->add('commentaire')
-                ->add('profileAmicale', 'choice', array( 'choices'=>array(
-                        '1'=>"Responsable",
-                        '2'=>"Non responsable"
-                    ),
-                    'expanded'=>true
-                ))
+                ->add('responsable')
         ;
     }
 

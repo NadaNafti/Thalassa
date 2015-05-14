@@ -90,9 +90,11 @@ class Client
     protected $amicale;
 
     /**
-     * @ORM\Column(name="profileAmicale", type="integer",nullable=true) 
+     * @var boolean
+     *
+     * @ORM\Column(name="responsable", type="boolean", nullable=true)
      */
-    public $profileAmicale;
+    public $responsable;
 
     /**
      * @Gedmo\slug(fields={"nomPrenom"})
@@ -426,37 +428,39 @@ class Client
         return $this->deletedAt;
     }
 
+    public function showProfileAmicale()
+    {
+        if($this->responsable)
+            return "Responsable";
+        else
+            return 'Employé';
+    }
+    
+    public function __toString()
+    {
+        return $this->nomPrenom;
+    }
 
     /**
-     * Set profileAmicale
+     * Set responsable
      *
-     * @param integer $profileAmicale
+     * @param boolean $responsable
      * @return Client
      */
-    public function setProfileAmicale($profileAmicale)
+    public function setResponsable($responsable)
     {
-        $this->profileAmicale = $profileAmicale;
+        $this->responsable = $responsable;
 
         return $this;
     }
 
     /**
-     * Get profileAmicale
+     * Get responsable
      *
-     * @return integer 
+     * @return boolean 
      */
-    public function getProfileAmicale()
+    public function getResponsable()
     {
-        return $this->profileAmicale;
-    }
-    public function showProfileAmicale()
-    {
-        if($this->profileAmicale==1)
-            return "Responsable";
-        elseif($this->profileAmicale==2)
-            return "Non responsable";
-        else
-            return '';
-        
+        return $this->responsable;
     }
 }

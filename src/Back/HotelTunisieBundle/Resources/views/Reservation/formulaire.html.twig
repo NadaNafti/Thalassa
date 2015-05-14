@@ -51,82 +51,92 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="formulaire_reservation">
-                        <p>
-                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo.
-                        </p>
-                        <p>
-                            <a href="#panel_tab2_example3" class="btn btn-red show-tab">
-                                Go to Dropdown 1
-                            </a>
-                        </p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- start: FORM VALIDATION 1 PANEL -->
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <h2><i class="fa fa-plus-square teal"></i> Nouvelle réservation</h2>
+                                        <hr>
+                                        <form action="#" role="form" id="form">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <select name="client" class="form-control search-select" required placeholder="Choisissez un client">
+                                                        <option value="" ></option>
+                                                        {% for client in clients %}
+                                                            <option name="{{ client.id }}" >{{ client }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table">
+                                                    <tbody>
+                                                        {% for chambre in saison.chambres %}
+                                                            <tr>
+                                                                <td class="center">{{ chambre.chambre }}</td>
+                                                                <td class="hidden-xs">
+                                                                    <select name="client" class="form-control" placeholder="Nombre de chambre">
+                                                                        {% for i in 0..10 %}
+                                                                            <option name="{{ i }}" >{{ i }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    A partir de <strong>{{saison.prixBaseVente+chambre.getSuppReducVente}}</strong> DT par personne en <strong>{{ saison.arrBase }}</strong>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            {{ formulaire.submit("Suivant") }}
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- end: FORM VALIDATION 1 PANEL -->
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    {#<div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-sm-4">
-                    <h2 class="center">{{ hotel }}</h2>
-                    <h5 class="center">{{ getStars(hotel.getStars)|raw }}</h5>
-                    <p><strong>Fournisseur  : </strong>{{ hotel.fournisseur }}</p>
-                    <p><strong>Ville  : </strong> {{ hotel.ville.pays|upper }} {{ hotel.ville }}</p>
-                    <p><strong>Date debut : </strong> {{ dateDebut|date('d/m/Y') }}</p>
-                    <p><strong> Nuitées : </strong> {{ nuitees }}</p>
-                    <p><strong>Date Fin : </strong> {{ dateFin|date('d/m/Y') }}</p>
-                </div>
-                <div class="col-sm-6">
-                    <div id='calendar'></div>
-                </div>
-            </div>
-            <div class="row">
-                <hr>
-                <div class="col-sm-12" id="SaisonBlock">
-                </div>
-            </div>
-        </div>
-    </div>#}
 
 {% endblock %}
 {% block jquery %}
     <script>
         $(document).ready(function() {
-            $('#calendar').fullCalendar({
-                month: {{ dateDebut|date('m')-1 }},
-                year: {{ dateDebut|date('Y') }},
+        $('#calendar').fullCalendar({
+        month:{{ dateDebut|date('m')-1 }},
+                year:{{ dateDebut|date('Y') }},
                 events: [
-                    {% for day in calendrier %}
-                        {
-                            id: {{ day.saison.id }},
-                            {% if day.saison.type is null %}
-                            color: '#F0AD4E',
-                            {% elseif day.saison.type ==1 %}
-                            color: '#555',
-                            {% else %}
-                            color: '#569099',
-                            {% endif %}
+        {% for day in calendrier %}
+                    {
+                    id:{{ day.saison.id }},{% if day.saison.type is null %}
+                            color: '#F0AD4E',{% elseif day.saison.type ==1 %}
+                            color: '#555',{% else %}
+                            color: '#569099',{% endif %}
                             title: '{{ day.saison }}',
                             start: '{{ day.dateDebut }}',
                             end: '{{ day.dateFin }}',
                             url: 'javascript:void(0)'
-                        },
-                    {% endfor %}
-                ],
-    eventClick: function(event) {
-                  $('#SaisonBlock').html('<div class="center"><img  src="{{ asset('back-assets/images/loading1.gif') }}" /></div>');
-                  $.ajax({
-                    url: '{{ path('gey_saison_ajax') }}',
-                    data: { 'id' : event.id },
-                    type: 'POST', 
-                    dataType: 'html',
-                    success: function(data) {
-                        $('#SaisonBlock').hide().html(data).fadeIn('slow');
+                    },{% endfor %}
+                    ],
+                    eventClick: function(event) {
+                    $('#SaisonBlock').html('<div class="center"><img  src="{{ asset('back-assets/images/loading1.gif') }}" /></div>');
+                            $.ajax({
+                            url: '{{ path('gey_saison_ajax') }}',
+                                    data: { 'id' : event.id },
+                                    type: 'POST',
+                                    dataType: 'html',
+                                    success: function(data) {
+                                    $('#SaisonBlock').hide().html(data).fadeIn('slow');
+                                    }
+                            });
                     }
-                });
-        }
             })
-        });
-    </script>
-{% endblock %}
+            });
+        </script>
+        {% endblock %}

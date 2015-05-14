@@ -61,7 +61,7 @@
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             {{ macros.tableEdit(path('saison_autres_reduc',{'id':hotel.id,'id2':reduc.id})) }}
-                                            {{ macros.tableDelete(path('delete_autres_reduc',{'id':reduc.id})) }}
+                                            {{ macros.tableDelete(path('delete_autres_reduc',{'hotel':hotel.id,'id':reduc.id})) }}
                                         </div>
                                     </td>
                                 </tr>
