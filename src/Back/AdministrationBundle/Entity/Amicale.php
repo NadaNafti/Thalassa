@@ -1,10 +1,10 @@
 <?php
 
-namespace Back\AdministrationBundle\Entity;
+namespace Back\AdministrationBundle\Entity ;
 
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM ;
+use Gedmo\Mapping\Annotation as Gedmo ;
+use Symfony\Component\Validator\Constraints as Assert ;
 
 /**
  * Amicale
@@ -23,60 +23,60 @@ class Amicale
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $id ;
 
     /**
      * @var string
      *
      * @ORM\Column(name="libelle", type="string", length=255)
      */
-    private $libelle;
+    private $libelle ;
 
     /**
      * @var string
      *
      * @ORM\Column(name="adresse", type="text")
      */
-    private $adresse;
+    private $adresse ;
 
     /**
      * @var string
      *
      * @ORM\Column(name="tel", type="string", length=255)
      */
-    private $tel;
+    private $tel ;
 
     /**
      * @var string
      *
      * @ORM\Column(name="fax", type="string", length=255)
      */
-    private $fax;
+    private $fax ;
 
     /**
      * @var string
      *
      * @ORM\Column(name="plafond", type="decimal", precision=11, scale=3)
      */
-    private $plafond;
+    private $plafond ;
 
     /**
      * @var string
      *
      * @ORM\Column(name="montant", type="decimal", precision=11, scale=3)
      */
-    private $montant;
+    private $montant ;
 
     /**
      * @ORM\OneToMany(targetEntity="Back\UserBundle\Entity\Client", mappedBy="amicale")
      */
-    protected $clients;
-    
+    protected $clients ;
+
     /**
      * @ORM\OneToMany(targetEntity="Convention", mappedBy="amicale")
      * @ORM\OrderBy({"dateDebut" = "ASC"})
      */
-    protected $conventions;
+    protected $conventions ;
 
     /**
      * @ORM\ManyToMany(targetEntity="Produit")
@@ -85,8 +85,8 @@ class Amicale
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_produit", referencedColumnName="id")}
      * )
      */
-    protected $produits;
-    
+    protected $produits ;
+
     /**
      * @ORM\ManyToMany(targetEntity="Back\HotelTunisieBundle\Entity\Hotel")
      * @ORM\JoinTable(name="ost_amicale_hotel",
@@ -94,30 +94,30 @@ class Amicale
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_hotel", referencedColumnName="id")}
      * )
      */
-    protected $hotels;
+    protected $hotels ;
 
     /**
      * @Gedmo\slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
-    private $slug;
+    private $slug ;
 
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column( type="datetime")
      */
-    private $created;
+    private $created ;
 
     /**
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column( type="datetime")
      */
-    private $updated;
+    private $updated ;
 
     /**
      * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
      */
-    private $deletedAt;
+    private $deletedAt ;
 
     /**
      * Get id
@@ -126,7 +126,7 @@ class Amicale
      */
     public function getId()
     {
-        return $this->id;
+        return $this->id ;
     }
 
     /**
@@ -137,9 +137,9 @@ class Amicale
      */
     public function setLibelle($libelle)
     {
-        $this->libelle=$libelle;
+        $this->libelle = $libelle ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -149,7 +149,7 @@ class Amicale
      */
     public function getLibelle()
     {
-        return $this->libelle;
+        return $this->libelle ;
     }
 
     /**
@@ -160,9 +160,9 @@ class Amicale
      */
     public function setAdresse($adresse)
     {
-        $this->adresse=$adresse;
+        $this->adresse = $adresse ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -172,7 +172,7 @@ class Amicale
      */
     public function getAdresse()
     {
-        return $this->adresse;
+        return $this->adresse ;
     }
 
     /**
@@ -183,9 +183,9 @@ class Amicale
      */
     public function setTel($tel)
     {
-        $this->tel=$tel;
+        $this->tel = $tel ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -195,7 +195,7 @@ class Amicale
      */
     public function getTel()
     {
-        return $this->tel;
+        return $this->tel ;
     }
 
     /**
@@ -206,9 +206,9 @@ class Amicale
      */
     public function setFax($fax)
     {
-        $this->fax=$fax;
+        $this->fax = $fax ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -218,7 +218,7 @@ class Amicale
      */
     public function getFax()
     {
-        return $this->fax;
+        return $this->fax ;
     }
 
     /**
@@ -229,9 +229,9 @@ class Amicale
      */
     public function setPlafond($plafond)
     {
-        $this->plafond=$plafond;
+        $this->plafond = $plafond ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -241,7 +241,7 @@ class Amicale
      */
     public function getPlafond()
     {
-        return $this->plafond;
+        return $this->plafond ;
     }
 
     /**
@@ -252,9 +252,9 @@ class Amicale
      */
     public function setMontant($montant)
     {
-        $this->montant=$montant;
+        $this->montant = $montant ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -264,7 +264,7 @@ class Amicale
      */
     public function getMontant()
     {
-        return $this->montant;
+        return $this->montant ;
     }
 
     /**
@@ -275,9 +275,9 @@ class Amicale
      */
     public function setSlug($slug)
     {
-        $this->slug=$slug;
+        $this->slug = $slug ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -287,7 +287,7 @@ class Amicale
      */
     public function getSlug()
     {
-        return $this->slug;
+        return $this->slug ;
     }
 
     /**
@@ -298,9 +298,9 @@ class Amicale
      */
     public function setCreated($created)
     {
-        $this->created=$created;
+        $this->created = $created ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -310,7 +310,7 @@ class Amicale
      */
     public function getCreated()
     {
-        return $this->created;
+        return $this->created ;
     }
 
     /**
@@ -321,9 +321,9 @@ class Amicale
      */
     public function setUpdated($updated)
     {
-        $this->updated=$updated;
+        $this->updated = $updated ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -333,7 +333,7 @@ class Amicale
      */
     public function getUpdated()
     {
-        return $this->updated;
+        return $this->updated ;
     }
 
     /**
@@ -344,9 +344,9 @@ class Amicale
      */
     public function setDeletedAt($deletedAt)
     {
-        $this->deletedAt=$deletedAt;
+        $this->deletedAt = $deletedAt ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -356,7 +356,7 @@ class Amicale
      */
     public function getDeletedAt()
     {
-        return $this->deletedAt;
+        return $this->deletedAt ;
     }
 
     /**
@@ -364,7 +364,7 @@ class Amicale
      */
     public function __construct()
     {
-        $this->conventions=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->conventions = new \Doctrine\Common\Collections\ArrayCollection() ;
     }
 
     /**
@@ -375,9 +375,9 @@ class Amicale
      */
     public function addConvention(\Back\AdministrationBundle\Entity\Convention $conventions)
     {
-        $this->conventions[]=$conventions;
+        $this->conventions[] = $conventions ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -387,7 +387,7 @@ class Amicale
      */
     public function removeConvention(\Back\AdministrationBundle\Entity\Convention $conventions)
     {
-        $this->conventions->removeElement($conventions);
+        $this->conventions->removeElement($conventions) ;
     }
 
     /**
@@ -397,30 +397,51 @@ class Amicale
      */
     public function getConventions()
     {
-        return $this->conventions;
+        return $this->conventions ;
     }
 
     public function __toString()
     {
-        return $this->libelle;
+        return $this->libelle ;
     }
 
     public function getConventionByDate($date)
     {
-        $currentConvention=NULL;
-        foreach($this->conventions as $convention)
+        $currentConvention = NULL ;
+        foreach ($this->conventions as $convention)
         {
-            if($convention->getDateDebut()->format('Y-m-d') <= $date && $convention->getDateFin()->format('Y-m-d') >= $date)
+            if ($convention->getDateDebut()->format('Y-m-d') <= $date && $convention->getDateFin()->format('Y-m-d') >= $date)
             {
-                if(is_null($currentConvention))
-                    $currentConvention=$convention;
-                elseif($convention->getId() > $currentConvention->getId())
-                    $currentConvention=$convention;
+                if (is_null($currentConvention))
+                    $currentConvention = $convention ;
+                elseif ($convention->getId() > $currentConvention->getId())
+                    $currentConvention = $convention ;
             }
         }
-        return $currentConvention;
+        return $currentConvention ;
     }
 
+    public function hasProduit($code)
+    {
+        foreach ($this->produits as $produit)
+        {
+            if ($produit->getCode() == $code)
+                return true ;
+        }
+        return false ;
+    }
+
+    public function getConventionByDateHotel($date , $id)
+    {
+        if(!$this->hasProduit("SHT"))
+            return false;
+        foreach ($this->hotels as $hotel)
+        {
+            if ($hotel->getId() == $id)
+                return $this->getConventionByDate($date) ;
+        }
+        return null ;
+    }
 
     /**
      * Add produits
@@ -430,9 +451,9 @@ class Amicale
      */
     public function addProduit(\Back\AdministrationBundle\Entity\Produit $produits)
     {
-        $this->produits[] = $produits;
+        $this->produits[] = $produits ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -442,7 +463,7 @@ class Amicale
      */
     public function removeProduit(\Back\AdministrationBundle\Entity\Produit $produits)
     {
-        $this->produits->removeElement($produits);
+        $this->produits->removeElement($produits) ;
     }
 
     /**
@@ -452,7 +473,7 @@ class Amicale
      */
     public function getProduits()
     {
-        return $this->produits;
+        return $this->produits ;
     }
 
     /**
@@ -463,9 +484,9 @@ class Amicale
      */
     public function addHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
     {
-        $this->hotels[] = $hotels;
+        $this->hotels[] = $hotels ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -475,7 +496,7 @@ class Amicale
      */
     public function removeHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
     {
-        $this->hotels->removeElement($hotels);
+        $this->hotels->removeElement($hotels) ;
     }
 
     /**
@@ -485,7 +506,7 @@ class Amicale
      */
     public function getHotels()
     {
-        return $this->hotels;
+        return $this->hotels ;
     }
 
     /**
@@ -496,9 +517,9 @@ class Amicale
      */
     public function addClient(\Back\UserBundle\Entity\Client $clients)
     {
-        $this->clients[] = $clients;
+        $this->clients[] = $clients ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -508,7 +529,7 @@ class Amicale
      */
     public function removeClient(\Back\UserBundle\Entity\Client $clients)
     {
-        $this->clients->removeElement($clients);
+        $this->clients->removeElement($clients) ;
     }
 
     /**
@@ -518,6 +539,7 @@ class Amicale
      */
     public function getClients()
     {
-        return $this->clients;
+        return $this->clients ;
     }
+
 }

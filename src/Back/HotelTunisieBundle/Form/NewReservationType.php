@@ -24,6 +24,14 @@ class NewReservationType extends AbstractType
                     'empty_value' => 'Tous les villes' ,
                     'empty_data' => null
                 ))
+                ->add('client' , 'entity' , array ('class' => 'BackUserBundle:Client' ,
+                    'query_builder' => function(EntityRepository $er)
+            {
+                return $er->createQueryBuilder('u')
+                        ->orderBy('u.nomPrenom' , 'ASC') ;
+            } ,
+                    'required' => true
+                ))
                 ->add('hotels' , 'entity' , array ('class' => 'BackHotelTunisieBundle:Hotel'))
                 ->add('dateDebut' , 'date' , array (
                     'required' => false ,

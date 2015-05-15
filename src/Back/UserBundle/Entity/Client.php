@@ -48,10 +48,7 @@ class Client
 
     /**
      * @var string
-     * @Assert\Email(
-     *     message = "'{{ value }}' n'est pas un email valide.",
-     *     checkMX = true
-     * )
+     * @Assert\Email()
      * @ORM\Column(name="email", type="string", length=255,nullable=true)
      */
     private $email;

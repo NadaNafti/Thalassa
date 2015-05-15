@@ -41,12 +41,18 @@ class Convention
     /**
      * @var integer
      * @Assert\Range(
-     *      min = 100,
-     *      max = 1,
+     *      min = 1,
+     *      max = 100,
      * )
      * @ORM\Column(name="remise", type="integer")
      */
     private $remise;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="type", type="integer" ,nullable=true)
+     */
+    private $type;
 
     /**
      * @var integer
@@ -179,5 +185,110 @@ class Convention
     public function getTypeRemise()
     {
         return $this->typeRemise;
+    }
+    
+    /**
+     * Get showTypeRemise
+     *
+     * @return integer 
+     */
+    public function showTypeRemise()
+    {
+        if($this->typeRemise==1)
+            return 'Remise Total';
+        else
+            return 'Remise Prix de base';
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Convention
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Convention
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     * @return Convention
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * Set amicale
+     *
+     * @param \Back\AdministrationBundle\Entity\Amicale $amicale
+     * @return Convention
+     */
+    public function setAmicale(\Back\AdministrationBundle\Entity\Amicale $amicale = null)
+    {
+        $this->amicale = $amicale;
+
+        return $this;
+    }
+
+    /**
+     * Get amicale
+     *
+     * @return \Back\AdministrationBundle\Entity\Amicale 
+     */
+    public function getAmicale()
+    {
+        return $this->amicale;
     }
 }

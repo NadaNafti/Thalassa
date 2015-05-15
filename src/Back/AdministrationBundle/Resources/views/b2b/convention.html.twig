@@ -23,6 +23,7 @@
                     <div class="row">
                         {{ formulaire.input("col-md-2","Remise",form.remise,true) }}
                         {{ formulaire.input("col-md-2","Type remise",form.typeRemise,true) }}
+                        {{ formulaire.input("col-md-5","Type",form.type,true) }}
                     </div>
                     {{ formulaire.submit("Enregistrer") }}
                     {{ form_end(form) }}
@@ -45,6 +46,7 @@
                                 <th class="center">Date fin</th>
                                 <th class="center">Remise</th>
                                 <th class="center">Type remise</th>
+                                <th class="center">Type</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -59,6 +61,7 @@
                                         <td>{{ convention.dateFin|date('d/m/Y')}}</td>
                                         <td>{{ convention.remise}} %</td>
                                         <td>{{ convention.showTypeRemise}}</td>
+                                        <td>{{ convention.showType}}</td>
                                         <td class="TableAction">
                                             {{ macros.tableEdit(path('convention_amicale',{'id':convention.id})) }}
                                             {{ macros.tableDelete(path('delete_convention_amicale',{'id':convention.id})) }}

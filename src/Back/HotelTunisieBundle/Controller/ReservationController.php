@@ -33,6 +33,7 @@ class ReservationController extends Controller
                 {
                     $reservation = array () ;
                     $reservation['hotel'] = $data['hotels']->getId() ;
+                    $reservation['client'] = $data['client']->getId() ;
                     $reservation['dateDebut'] = $data['dateDebut']->format('Y-m-d') ;
                     $reservation['dateFin'] = date('Y-m-d' , strtotime($reservation['dateDebut'] . ' + ' . ($data['nuitees']-1) . ' day')) ;
                     $reservation['nuitees'] = $data['nuitees'] ;
@@ -76,7 +77,7 @@ class ReservationController extends Controller
             return $this->redirect($this->generateUrl("new_reservation")) ;
         $reservation = $session->get('reservation') ;
         $hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->find($reservation['hotel']) ;
-        $clients=$em->getRepository("BackUserBundle:Client")->findBy(array(), array('nomPrenom'=>'asc'));
+        $client=$em->getRepository("BackUserBundle:Client")->find($reservation['client']) ;
         $dates = $this->getDatesBetween($reservation['dateDebut'] , $reservation['dateFin']) ;
         $lastSaison = $hotel->getSaisonPromotionByDate($reservation['dateDebut']) ;
         $dateDebut = $reservation['dateDebut'] ;
@@ -84,7 +85,8 @@ class ReservationController extends Controller
         $calendrier = array () ;
         foreach ($dates as $date)
         {
-            $saison = $hotel->getSaisonPromotionByDate($date) ;
+            $saison = $this->container->get("saisons")->getSaisonByClient($hotel ,$client , $date);
+//            $saison = $hotel->getSaisonPromotionByDate($date) ;
             if ($saison->getId() != $lastSaison->getId() || $date == $reservation['dateFin'])
             {
                 if($date == $reservation['dateFin'])
@@ -101,7 +103,7 @@ class ReservationController extends Controller
                     'nuitees' => $reservation['nuitees'] ,
                     'dateDebut' => new \DateTime($reservation['dateDebut']) ,
                     'dateFin' => new \DateTime($reservation['dateFin']) ,
-                    'clients'=>$clients,
+                    'client'=>$client,
                     'saison'=>$hotel->getSaisonPromotionByDate($reservation['dateDebut']),
                 )) ;
     }

@@ -49,6 +49,14 @@ class Convention
     private $remise;
 
     /**
+     *  1- Ne pas prendre en compte les promo et appliquer les remises
+     *  2- Prendre en compte les promo et ne pas appliquer les remises
+     * @var integer
+     * @ORM\Column(name="type", type="integer" ,nullable=true)
+     */
+    private $type;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="typeRemise", type="integer")
@@ -56,6 +64,7 @@ class Convention
     private $typeRemise;
     
     /**
+     *
      * @ORM\ManyToOne(targetEntity="Amicale", inversedBy="conventions")
      */
     protected $amicale;
@@ -284,5 +293,38 @@ class Convention
     public function getAmicale()
     {
         return $this->amicale;
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     * @return Convention
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+    
+    public function showType()
+    {
+        if(is_null($this->type))
+            return "Appliquer les promos & les promotions";
+        elseif($this->type==1)
+            return "Ne pas prendre en compte les promo et appliquer les remises";
+        elseif($this->type==2)
+            return "Prendre en compte les promo et ne pas appliquer les remises";
     }
 }

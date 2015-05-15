@@ -15,10 +15,11 @@
                 <div class="panel-body">
                     {{ form_start(form) }}
                     <div class="row">
-                        {{ formulaire.select2("col-md-3","Ville",form.villes,true) }}
+                        {{ formulaire.select2("col-md-2","Ville",form.villes,true) }}
                         {{ formulaire.select2("col-md-3","Hôtel",form.hotels,true) }}
-                        {{ formulaire.input("col-md-3","Date",form.dateDebut,true) }}
-                        {{ formulaire.input("col-md-3","Nbr de nuitées",form.nuitees,true) }}
+                        {{ formulaire.input("col-md-2","Date",form.dateDebut,true) }}
+                        {{ formulaire.input("col-md-2","Nbr de nuitées",form.nuitees,true) }}
+                        {{ formulaire.select2("col-md-3","Client",form.client,true) }}
                     </div>
                     {{ formulaire.submit("Suivant") }}
                     {{ form_end(form) }}

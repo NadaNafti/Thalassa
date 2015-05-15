@@ -37,6 +37,19 @@
                                         <p><strong>Date debut : </strong> {{ dateDebut|date('d/m/Y') }}</p>
                                         <p><strong> Nuitées : </strong> {{ nuitees }}</p>
                                         <p><strong>Date Fin : </strong> {{ dateFin|date('d/m/Y') }}</p>
+                                        <hr>
+                                        <p><strong> Client : </strong> {{ client }}</p>
+                                        {% if client.amicale is not null %}
+                                            <p><strong> Amicale : </strong> {{ client.amicale }}</p>
+                                            {% set convention= client.amicale.getConventionByDateHotel(dateDebut|date('Y-m-d'),hotel.id) %}
+                                            {% if convention is null %}
+                                                <p><strong> Convention : </strong> Pas de convention</p>
+                                            {% else %}
+                                                <p><strong> Convention : </strong> {{ convention.remise }}% ({{ convention.showTypeRemise }})</p>
+                                                <p><strong> Type Remise : </strong> {{ convention.showTypeRemise }}</p>
+                                                <p><strong> Type convention : </strong> {{ convention.showType }}</p>
+                                            {% endif %}
+                                        {% endif %}
                                     </div>
                                     <div class="col-sm-6">
                                         <div id='calendar'></div>
@@ -59,16 +72,6 @@
                                         <h2><i class="fa fa-plus-square teal"></i> Nouvelle réservation</h2>
                                         <hr>
                                         <form action="#" role="form" id="form">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <select name="client" class="form-control search-select" required placeholder="Choisissez un client">
-                                                        <option value="" ></option>
-                                                        {% for client in clients %}
-                                                            <option name="{{ client.id }}" >{{ client }}</option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </div>
-                                            </div>
                                             <div class="panel-body">
                                                 <table class="table">
                                                     <tbody>
