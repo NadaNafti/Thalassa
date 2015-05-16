@@ -45,7 +45,7 @@
                                             {% if convention is null %}
                                                 <p><strong> Convention : </strong> Pas de convention</p>
                                             {% else %}
-                                                <p><strong> Convention : </strong> {{ convention.remise }}% ({{ convention.showTypeRemise }})</p>
+                                                <p><strong> Convention : </strong> {{ convention.remise }}%</p>
                                                 <p><strong> Type Remise : </strong> {{ convention.showTypeRemise }}</p>
                                                 <p><strong> Type convention : </strong> {{ convention.showType }}</p>
                                             {% endif %}
@@ -69,7 +69,7 @@
                                 <!-- start: FORM VALIDATION 1 PANEL -->
                                 <div class="panel panel-default">
                                     <div class="panel-body">
-                                        <h2><i class="fa fa-plus-square teal"></i> Nouvelle réservation</h2>
+                                        <h2><i class="fa fa-plus-square teal"></i> Nouvelle réservation <small>{{ saison }}</small></h2>
                                         <hr>
                                         <form action="#" role="form" id="form">
                                             <div class="panel-body">
@@ -97,7 +97,6 @@
                                         </form>
                                     </div>
                                 </div>
-                                <!-- end: FORM VALIDATION 1 PANEL -->
                             </div>
                         </div>
 

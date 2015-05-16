@@ -3,4 +3,11 @@ services:
         class: Back\HotelTunisieBundle\Services\Saisons
         arguments: [ @doctrine.orm.entity_manager ]
         
+    library:
+        class: Back\HotelTunisieBundle\Services\Library
+        
+    reservation:
+        class: Back\HotelTunisieBundle\Services\Reservation
+        arguments: [ @doctrine.orm.entity_manager, @session, @service_container ]
+        
         
