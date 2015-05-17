@@ -87,7 +87,7 @@ class ReservationController extends Controller
                     'dateDebut' => new \DateTime($reservation['dateDebut']) ,
                     'dateFin' => new \DateTime($reservation['dateFin']) ,
                     'client' => $client ,
-                    'saison' => $hotel->getSaisonPromotionByDate($reservation['dateDebut']) ,
+                    'saison' => $this->container->get('saisons')->getSaisonByClient( $hotel ,  $client , $reservation['dateDebut'])
                 )) ;
     }
 

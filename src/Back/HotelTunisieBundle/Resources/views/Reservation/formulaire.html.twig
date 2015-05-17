@@ -66,32 +66,30 @@
                     <div class="tab-pane" id="formulaire_reservation">
                         <div class="row">
                             <div class="col-md-12">
-                                <!-- start: FORM VALIDATION 1 PANEL -->
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         <h2><i class="fa fa-plus-square teal"></i> Nouvelle réservation <small>{{ saison }}</small></h2>
                                         <hr>
                                         <form action="#" role="form" id="form">
                                             <div class="panel-body">
-                                                <table class="table">
-                                                    <tbody>
-                                                        {% for chambre in saison.chambres %}
-                                                            <tr>
-                                                                <td class="center">{{ chambre.chambre }}</td>
-                                                                <td class="hidden-xs">
-                                                                    <select name="client" class="form-control" placeholder="Nombre de chambre">
-                                                                        {% for i in 0..10 %}
-                                                                            <option name="{{ i }}" >{{ i }}</option>
-                                                                        {% endfor %}
-                                                                    </select>
-                                                                </td>
-                                                                <td>
-                                                                    A partir de <strong>{{saison.prixBaseVente+chambre.getSuppReducVente}}</strong> DT par personne en <strong>{{ saison.arrBase }}</strong>
-                                                                </td>
-                                                            </tr>
-                                                        {% endfor %}
-                                                    </tbody>
-                                                </table>
+                                                {% for chambre in saison.chambres %}
+                                                    <div class="row">
+                                                        <div class="row"  style="  padding: 10px;  background-color: #eee;">
+                                                            <div class="col-md-2">
+                                                                <label>{{ chambre.chambre }}</label>
+                                                                <select name="chambre_{{ chambre.id }}" data-id="{{ chambre.id }}" class="form-control chambres">
+                                                                    {% for i in 0..20 %}
+                                                                        <option name="{{ i }}" >{{ i }}</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                            </div>
+                                                            {#<div class="col-md-4">
+                                                                A partir de <strong> {{saison.prixBaseVente+chambre.getSuppReducVente}}</strong> DT par personne en <strong>{{ saison.arrBase }}</strong>
+                                                            </div>#}
+                                                        </div>
+                                                        <div class="row details"></div>
+                                                    </div>
+                                                {% endfor %}
                                             </div>
                                             {{ formulaire.submit("Suivant") }}
                                         </form>
@@ -110,7 +108,7 @@
 {% block jquery %}
     <script>
         $(document).ready(function() {
-        $('#calendar').fullCalendar({
+            $('#calendar').fullCalendar({
         month:{{ dateDebut|date('m')-1 }},
                 year:{{ dateDebut|date('Y') }},
                 events: [
@@ -139,6 +137,75 @@
                             });
                     }
             })
-            });
+            $('.chambres').change(function(){
+                var nbrRooms = $(this).val();
+                var id=$(this).data('id');
+                Block = $(this).parent().parent().parent().find('.details');
+                var exist = Block.children().length;
+                if (exist < nbrRooms)
+                {
+                for (var i = 1; i <= nbrRooms; i++)
+                {
+                if (i > exist)
+                        Block.append('<div class="row" style="  border: 1px solid #eee;  padding: 10px 0px;  margin: 15px 0px;"><div class="col-md-2" style="padding-top: 25px;">Chambre '+i+' </div>'+$('#squelette_'+id).html()+'</div>');
+                }
+                }
+                else
+                {
+                var toRemove = (exist - nbrRooms);
+                        var nmbr = Block.children().length;
+                        for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                        Block.children().eq(i).remove();
+                }
+                })
+                });
         </script>
+        {% for ch in saison.chambres %}
+            <div class="no-display" id="squelette_{{ ch.id }}">
+                <div class="col-md-1">
+                    <label>Adulte</label>
+                    <select name="client" class="form-control">
+                        {% for i in ch.maxAdulte..ch.minAdulte %}
+                            <option name="{{ i }}" >{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label>Enfant</label>
+                    <select name="client" class="form-control">
+                        {% for i in ch.minEnfant..ch.maxEnfant %}
+                            <option name="{{ i }}" >{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label>arrangement</label>
+                    <select name="client" class="form-control">
+                        <option name="1" >Arr de base LDP</option>
+                    </select>
+                </div>
+                {% for i in 1..5 %}
+                    <div class="col-md-1">
+                        <label>Age {{ loop.index }} </label>
+                        <select name="client" class="form-control">
+                            {% for i in 1..17 %}
+                                <option name="{{ i }}" >{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% endfor %}
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <label><input checked disabled type="checkbox"/> Supplément dinner gala   </label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <label><input type="checkbox"/> Vue mer  </label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <label> Réduction saint valentin  </label>
+                </div>
+            </div>
+        {% endfor %}
         {% endblock %}

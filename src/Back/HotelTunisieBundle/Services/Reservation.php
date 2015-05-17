@@ -16,7 +16,7 @@ class Reservation
     public function getCalendrier($reservation,$hotel,$client)
     {
         $dates = $this->container->get('library')->getDatesBetween($reservation['dateDebut'] , $reservation['dateFin']) ;
-        $lastSaison = $hotel->getSaisonPromotionByDate($reservation['dateDebut']) ;
+        $lastSaison = $this->container->get('saisons')->getSaisonByClient( $hotel ,  $client , $reservation['dateDebut']);
         $dateDebut = $reservation['dateDebut'] ;
         $dateFin = '' ;
         $calendrier = array () ;

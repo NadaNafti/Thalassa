@@ -435,7 +435,10 @@ class Client
     
     public function __toString()
     {
-        return $this->nomPrenom;
+		$amicale="";
+		if(!is_null($this->amicale))
+			$amicale=" - ".$this->amicale;
+        return $this->nomPrenom.$amicale;
     }
 
     /**
