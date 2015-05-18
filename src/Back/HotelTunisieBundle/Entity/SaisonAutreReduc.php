@@ -281,4 +281,20 @@ class SaisonAutreReduc
             $this->id = null ;
         }
     }
+    
+    
+    public function __toString()
+    {
+        $string=$this->reduc->getLibelle();
+        if($this->reduc->getParNuit())
+            $string.=" réduction par nuitée";
+        else
+            $string.=" réduction une seul fois";
+        if($this->reduc->getParChambre())
+            $string.=" et par chambre";
+        else
+            $string.=" et par personne";
+        return $string;
+        
+    }
 }

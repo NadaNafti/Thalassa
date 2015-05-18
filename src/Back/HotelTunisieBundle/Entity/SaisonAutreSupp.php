@@ -281,4 +281,20 @@ class SaisonAutreSupp
             $this->id = null ;
         }
     }
+    public function __toString()
+    {
+        $string=$this->supp->getLibelle();
+        if($this->supp->getObligatoire())
+            $string.=" (Obligatoire)";
+        if($this->supp->getParNuit())
+            $string.=" Paiement par nuitée";
+        else
+            $string.=" paiement une seul fois";
+        if($this->supp->getParChambre())
+            $string.=" et par chambre";
+        else
+            $string.=" et par personne";
+        return $string;
+        
+    }
 }

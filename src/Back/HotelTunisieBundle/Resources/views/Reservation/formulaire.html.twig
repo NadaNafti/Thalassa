@@ -108,7 +108,7 @@
 {% block jquery %}
     <script>
         $(document).ready(function() {
-            $('#calendar').fullCalendar({
+        $('#calendar').fullCalendar({
         month:{{ dateDebut|date('m')-1 }},
                 year:{{ dateDebut|date('Y') }},
                 events: [
@@ -137,75 +137,43 @@
                             });
                     }
             })
-            $('.chambres').change(function(){
-                var nbrRooms = $(this).val();
-                var id=$(this).data('id');
-                Block = $(this).parent().parent().parent().find('.details');
-                var exist = Block.children().length;
-                if (exist < nbrRooms)
+                    $('.chambres').change(function(){
+            var nbrRooms = $(this).val();
+                    var id = $(this).data('id');
+                    Block = $(this).parent().parent().parent().find('.details');
+                    var exist = Block.children().length;
+                    if (exist < nbrRooms)
+            {
+            for (var i = 1; i <= nbrRooms; i++)
+            {
+            if (i > exist)
+            {
+            {#var BlockChambre = $('#squelette_' + id).html();
+                    BlockChambre.replace("Ordre", "dddd");#}
+                        BlockChambre = window['getChambre' + id](i);
+                                Block.append(BlockChambre);
+                        }
+                        }
+                        }
+                        else
+                        {
+                        var toRemove = (exist - nbrRooms);
+                                var nmbr = Block.children().length;
+                                for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                                Block.children().eq(i).remove();
+                        }
+                        })
+                        });
+                                function getBlock(i)
+                                {
+                                return 'eee  ' + i;
+                                }
+
+            {% for ch in saison.chambres %}
+                function getChambre{{ ch.id }}(i)
                 {
-                for (var i = 1; i <= nbrRooms; i++)
-                {
-                if (i > exist)
-                        Block.append('<div class="row" style="  border: 1px solid #eee;  padding: 10px 0px;  margin: 15px 0px;"><div class="col-md-2" style="padding-top: 25px;">Chambre '+i+' </div>'+$('#squelette_'+id).html()+'</div>');
+                    return '<div class="row" style="  border: 1px solid #eee;  padding: 10px 0px;  margin: 15px 0px;"><div class="col-md-2" style="padding-top: 25px;">    Chambre '+i+' </div><div class="col-md-1">    <label>Adulte</label>    <select name="adulte_{{ ch.chambre.id }}_'+i+'" class="form-control">        {% for i in ch.maxAdulte..ch.minAdulte %}            <option name="{{ i }}" >{{ i }}</option>        {% endfor %}    </select></div><div class="col-md-1">    <label>Enfant</label>    <select name="enfant_{{ ch.chambre.id }}_'+i+'" class="form-control" data-ordre="Ordre" data-chambre="{{ ch.chambre.id }}">        {% for i in ch.minEnfant..ch.maxEnfant %}            <option name="{{ i }}" >{{ i }}</option>        {% endfor %}    </select></div><div class="col-md-2">    <label>arrangement</label>    <select name="arrangement_{{ ch.chambre.id }}_'+i+'" class="form-control">        <option name="{{ saison.arrBase.id }}" >{{ saison.arrBase }} (Arr base) </option>        {% for arr in saison.arrangements %}            <option name="{{ arr.arrangement.id }}" >{{ arr.arrangement }} </option>        {% endfor %}    </select></div><div class="clearfix"></div><div class="col-md-2"></div><div class="col-md-10 ages">    <div class="row">        {% for i in 1..5 %}            <div class="col-md-1">                <label>Age {{ loop.index }} </label>                <select name="client" class="form-control">                    {% for i in 1..17 %}                        <option name="{{ i }}" >{{ i }}</option>                    {% endfor %}                </select>            </div>        {% endfor %}    </div></div>{% for supp in saison.autresSupplements %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label><input name="supp_{{ supp.supp.id }}_'+i+'" {% if supp.supp.obligatoire %}checked  disabled{% endif %} type="checkbox"/> {{ supp }}</label>    </div>{% endfor %}{% for vue in saison.vues %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label><input name="vue_{{ vue.vue.id }}_'+i+'" type="checkbox"/> {{ vue.vue }}</label>    </div>{% endfor %}{% for reduc in saison.autresReductions %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label>{{ reduc }}</label>    </div>{% endfor %}</div>';
                 }
-                }
-                else
-                {
-                var toRemove = (exist - nbrRooms);
-                        var nmbr = Block.children().length;
-                        for (var i = nmbr; i >= (nmbr - toRemove); i--)
-                        Block.children().eq(i).remove();
-                }
-                })
-                });
-        </script>
-        {% for ch in saison.chambres %}
-            <div class="no-display" id="squelette_{{ ch.id }}">
-                <div class="col-md-1">
-                    <label>Adulte</label>
-                    <select name="client" class="form-control">
-                        {% for i in ch.maxAdulte..ch.minAdulte %}
-                            <option name="{{ i }}" >{{ i }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-md-1">
-                    <label>Enfant</label>
-                    <select name="client" class="form-control">
-                        {% for i in ch.minEnfant..ch.maxEnfant %}
-                            <option name="{{ i }}" >{{ i }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label>arrangement</label>
-                    <select name="client" class="form-control">
-                        <option name="1" >Arr de base LDP</option>
-                    </select>
-                </div>
-                {% for i in 1..5 %}
-                    <div class="col-md-1">
-                        <label>Age {{ loop.index }} </label>
-                        <select name="client" class="form-control">
-                            {% for i in 1..17 %}
-                                <option name="{{ i }}" >{{ i }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                {% endfor %}
-                <div class="col-md-2"></div>
-                <div class="col-md-10">
-                    <label><input checked disabled type="checkbox"/> Supplément dinner gala   </label>
-                </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-10">
-                    <label><input type="checkbox"/> Vue mer  </label>
-                </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-10">
-                    <label> Réduction saint valentin  </label>
-                </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </script>           
         {% endblock %}
