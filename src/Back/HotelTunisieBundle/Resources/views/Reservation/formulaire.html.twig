@@ -79,7 +79,7 @@
                                                                 <label>{{ chambre.chambre }}</label>
                                                                 <select name="chambre_{{ chambre.id }}" data-id="{{ chambre.id }}" class="form-control chambres">
                                                                     {% for i in 0..20 %}
-                                                                        <option name="{{ i }}" >{{ i }}</option>
+                                                                        <option value="{{ i }}" >{{ i }}</option>
                                                                     {% endfor %}
                                                                 </select>
                                                             </div>
@@ -108,36 +108,36 @@
 {% block jquery %}
     <script>
         $(document).ready(function() {
-        $('#calendar').fullCalendar({
-        month:{{ dateDebut|date('m')-1 }},
-                year:{{ dateDebut|date('Y') }},
-                events: [
-        {% for day in calendrier %}
-                    {
-                    id:{{ day.saison.id }},{% if day.saison.type is null %}
-                            color: '#F0AD4E',{% elseif day.saison.type ==1 %}
-                            color: '#555',{% else %}
-                            color: '#569099',{% endif %}
-                            title: '{{ day.saison }}',
-                            start: '{{ day.dateDebut }}',
-                            end: '{{ day.dateFin }}',
-                            url: 'javascript:void(0)'
-                    },{% endfor %}
-                    ],
-                    eventClick: function(event) {
-                    $('#SaisonBlock').html('<div class="center"><img  src="{{ asset('back-assets/images/loading1.gif') }}" /></div>');
-                            $.ajax({
-                            url: '{{ path('gey_saison_ajax') }}',
-                                    data: { 'id' : event.id },
-                                    type: 'POST',
-                                    dataType: 'html',
-                                    success: function(data) {
-                                    $('#SaisonBlock').hide().html(data).fadeIn('slow');
-                                    }
-                            });
-                    }
-            })
-                    $('.chambres').change(function(){
+            $('#calendar').fullCalendar({
+            month:{{ dateDebut|date('m')-1 }},
+                    year:{{ dateDebut|date('Y') }},
+                    events: [
+            {% for day in calendrier %}
+                        {
+                        id:{{ day.saison.id }},{% if day.saison.type is null %}
+                                color: '#F0AD4E',{% elseif day.saison.type ==1 %}
+                                color: '#555',{% else %}
+                                color: '#569099',{% endif %}
+                                title: '{{ day.saison }}',
+                                start: '{{ day.dateDebut }}',
+                                end: '{{ day.dateFin }}',
+                                url: 'javascript:void(0)'
+                        },{% endfor %}
+                        ],
+                        eventClick: function(event) {
+                        $('#SaisonBlock').html('<div class="center"><img  src="{{ asset('back-assets/images/loading1.gif') }}" /></div>');
+                                $.ajax({
+                                url: '{{ path('gey_saison_ajax') }}',
+                                        data: { 'id' : event.id },
+                                        type: 'POST',
+                                        dataType: 'html',
+                                        success: function(data) {
+                                        $('#SaisonBlock').hide().html(data).fadeIn('slow');
+                                        }
+                                });
+                        }
+                })
+            $('.chambres').change(function(){
             var nbrRooms = $(this).val();
                     var id = $(this).data('id');
                     Block = $(this).parent().parent().parent().find('.details');
@@ -148,11 +148,9 @@
             {
             if (i > exist)
             {
-            {#var BlockChambre = $('#squelette_' + id).html();
-                    BlockChambre.replace("Ordre", "dddd");#}
                         BlockChambre = window['getChambre' + id](i);
                                 Block.append(BlockChambre);
-                        }
+            }
                         }
                         }
                         else
@@ -163,16 +161,34 @@
                                 Block.children().eq(i).remove();
                         }
                         })
-                        });
-                                function getBlock(i)
-                                {
-                                return 'eee  ' + i;
-                                }
+            $(document).on('change', '.EnfantChambre', function() { 
+                var chambre=$(this).data('chambre');
+                var ordre=$(this).data('ordre');
+                var nbrKids=$(this).val();
+                Block = $(this).parent().parent().find('.ages .row');
+                var exist = Block.children().length;
+                if (exist < nbrKids) {
+                    for (var i = 1; i <= nbrKids; i++)
+                    {
+                        if (i > exist)
+                            Block.append('<div class="col-md-1"><label>Age '+i+' </label><select name="age_'+chambre+'_'+ordre+'_'+i+'" class="form-control">{% for i in 1..17 %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
+                    }
+                }
+                else
+                {
+                    var toRemove = (exist - nbrKids);
+                    var nmbr = Block.children().length;
+                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                        Block.children().eq(i).remove();
+                }
+                
+            })            
+        });
 
             {% for ch in saison.chambres %}
                 function getChambre{{ ch.id }}(i)
                 {
-                    return '<div class="row" style="  border: 1px solid #eee;  padding: 10px 0px;  margin: 15px 0px;"><div class="col-md-2" style="padding-top: 25px;">    Chambre '+i+' </div><div class="col-md-1">    <label>Adulte</label>    <select name="adulte_{{ ch.chambre.id }}_'+i+'" class="form-control">        {% for i in ch.maxAdulte..ch.minAdulte %}            <option name="{{ i }}" >{{ i }}</option>        {% endfor %}    </select></div><div class="col-md-1">    <label>Enfant</label>    <select name="enfant_{{ ch.chambre.id }}_'+i+'" class="form-control" data-ordre="Ordre" data-chambre="{{ ch.chambre.id }}">        {% for i in ch.minEnfant..ch.maxEnfant %}            <option name="{{ i }}" >{{ i }}</option>        {% endfor %}    </select></div><div class="col-md-2">    <label>arrangement</label>    <select name="arrangement_{{ ch.chambre.id }}_'+i+'" class="form-control">        <option name="{{ saison.arrBase.id }}" >{{ saison.arrBase }} (Arr base) </option>        {% for arr in saison.arrangements %}            <option name="{{ arr.arrangement.id }}" >{{ arr.arrangement }} </option>        {% endfor %}    </select></div><div class="clearfix"></div><div class="col-md-2"></div><div class="col-md-10 ages">    <div class="row">        {% for i in 1..5 %}            <div class="col-md-1">                <label>Age {{ loop.index }} </label>                <select name="client" class="form-control">                    {% for i in 1..17 %}                        <option name="{{ i }}" >{{ i }}</option>                    {% endfor %}                </select>            </div>        {% endfor %}    </div></div>{% for supp in saison.autresSupplements %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label><input name="supp_{{ supp.supp.id }}_'+i+'" {% if supp.supp.obligatoire %}checked  disabled{% endif %} type="checkbox"/> {{ supp }}</label>    </div>{% endfor %}{% for vue in saison.vues %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label><input name="vue_{{ vue.vue.id }}_'+i+'" type="checkbox"/> {{ vue.vue }}</label>    </div>{% endfor %}{% for reduc in saison.autresReductions %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label>{{ reduc }}</label>    </div>{% endfor %}</div>';
+                    return '<div class="row" style="  border: 1px solid #eee;  padding: 10px 0px;  margin: 15px 0px;"><div class="col-md-2" style="padding-top: 25px;">    Chambre '+i+' </div><div class="col-md-1">    <label>Adulte</label>    <select name="adulte_{{ ch.chambre.id }}_'+i+'" class="form-control">        {% for i in ch.maxAdulte..ch.minAdulte %}            <option value="{{ i }}" >{{ i }}</option>        {% endfor %}    </select></div><div class="col-md-1">    <label>Enfant</label>    <select name="enfant_{{ ch.chambre.id }}_'+i+'" class="form-control  EnfantChambre" data-ordre="'+i+'" data-chambre="{{ ch.chambre.id }}">        {% for i in ch.minEnfant..ch.maxEnfant %}            <option value="{{ i }}" >{{ i }}</option>        {% endfor %}    </select></div><div class="col-md-2">    <label>arrangement</label>    <select name="arrangement_{{ ch.chambre.id }}_'+i+'" class="form-control">        <option value="{{ saison.arrBase.id }}" >{{ saison.arrBase }} (Arr base) </option>        {% for arr in saison.arrangements %}            <option value="{{ arr.arrangement.id }}" >{{ arr.arrangement }} </option>        {% endfor %}    </select></div><div class="clearfix"></div><div class="col-md-2"></div><div class="col-md-10 ages">    <div class="row">        {% for i in 1..ch.minEnfant %}            <div class="col-md-1">                <label>Age {{ loop.index }} </label>                <select name="age_{{ ch.chambre.id }}_'+i+'_{{ loop.index }}" class="form-control">                    {% for i in 1..17 %}                        <option value="{{ i }}" >{{ i }}</option>                    {% endfor %}                </select>            </div>        {% endfor %}    </div></div>{% for supp in saison.autresSupplements %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label><input name="supp_{{ supp.supp.id }}_'+i+'" {% if supp.supp.obligatoire %}checked  disabled{% endif %} type="checkbox"/> {{ supp }}</label>    </div>{% endfor %}{% for vue in saison.vues %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label><input name="vue_{{ vue.vue.id }}_'+i+'" type="checkbox"/> {{ vue.vue }}</label>    </div>{% endfor %}{% for reduc in saison.autresReductions %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label>{{ reduc }}</label>    </div>{% endfor %}</div>';
                 }
             {% endfor %}
         </script>           
