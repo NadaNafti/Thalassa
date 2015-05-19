@@ -94,7 +94,7 @@ class Client
     public $responsable;
 
     /**
-     * @Gedmo\slug(fields={"nomPrenom"})
+     * @Gedmo\Slug(fields={"nomPrenom"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
     private $slug;
