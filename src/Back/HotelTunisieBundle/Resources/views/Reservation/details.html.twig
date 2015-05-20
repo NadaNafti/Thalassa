@@ -1,0 +1,52 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Détails réservation{% endblock %}
+{% block description %}{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >Détails réservation</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                        <h4>Client :</h4>
+                    <div class="row">
+                        {{ formulaire.input("col-md-2","",form.client.responsable,false) }}
+                        {{ formulaire.input("col-md-2","Nom & Prénom",form.client.nomPrenom,true) }}
+                        {{ formulaire.input("col-md-2","Email",form.client.email,true) }}
+                        {{ formulaire.input("col-md-2","tel1",form.client.tel1,true) }}
+                        {{ formulaire.input("col-md-2","tel2",form.client.tel2,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-8","Adresse",form.client.adresse,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-2","Matricule Fiscale",form.client.matriculeFiscale,true) }}
+                        {{ formulaire.input("col-md-2","Registre Commercie",form.client.registreCommercie,true) }}
+                        {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,true) }}
+                    </div>
+                    <hr>
+                    {% for chambre in chambres  %}
+                        <h4>Chambre {{ loop.index }} <small>{{ getNameChambre(chambre.chambre) }}</small> :</h4>
+                        <div class="row">
+                            {% for adulte in chambre.adultes %}
+                                {{ formulaire.input("col-md-2","Adulte "~loop.index,form[adulte],true) }}
+                            {% endfor %}
+                            {% for enfant in chambre.enfants %}
+                                {{ formulaire.input("col-md-2","Enfant "~loop.index,form[enfant],true) }}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    {{ formulaire.submit("Suivant") }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
