@@ -13,3 +13,7 @@ ajax_ville_to_hotel:
 formulaire_reservation:
     path:     /formulaire
     defaults: { _controller: BackHotelTunisieBundle:Reservation:formulaire }
+    
+details_reservation:
+    path:     /details
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:details }

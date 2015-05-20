@@ -29,6 +29,11 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
+                                    <hr>
+                                    <div class="col-sm-12" id="SaisonBlock">
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-4">
                                         <h2 class="center">{{ hotel }}</h2>
                                         <h5 class="center">{{ getStars(hotel.getStars)|raw }}</h5>
@@ -55,11 +60,6 @@
                                         <div id='calendar'></div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <hr>
-                                    <div class="col-sm-12" id="SaisonBlock">
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,14 +70,14 @@
                                     <div class="panel-body">
                                         <h2><i class="fa fa-plus-square teal"></i> Nouvelle réservation <small>{{ saison }}</small></h2>
                                         <hr>
-                                        <form action="#" role="form" id="form">
+                                        <form method="post" action="{{ path('formulaire_reservation') }}" role="form" id="form">
                                             <div class="panel-body">
                                                 {% for chambre in saison.chambres %}
                                                     <div class="row">
                                                         <div class="row"  style="  padding: 10px;  background-color: #eee;">
                                                             <div class="col-md-2">
                                                                 <label>{{ chambre.chambre }}</label>
-                                                                <select name="chambre_{{ chambre.id }}" data-id="{{ chambre.id }}" class="form-control chambres">
+                                                                <select name="chambre_{{ chambre.chambre.id }}" data-id="{{ chambre.id }}" class="form-control chambresSelect">
                                                                     {% for i in 0..20 %}
                                                                         <option value="{{ i }}" >{{ i }}</option>
                                                                     {% endfor %}
@@ -137,7 +137,7 @@
                                 });
                         }
                 })
-            $('.chambres').change(function(){
+            $('.chambresSelect').change(function(){
             var nbrRooms = $(this).val();
                     var id = $(this).data('id');
                     Block = $(this).parent().parent().parent().find('.details');
@@ -188,7 +188,7 @@
             {% for ch in saison.chambres %}
                 function getChambre{{ ch.id }}(i)
                 {
-                    return '<div class="row" style="  border: 1px solid #eee;  padding: 10px 0px;  margin: 15px 0px;"><div class="col-md-2" style="padding-top: 25px;">    Chambre '+i+' </div><div class="col-md-1">    <label>Adulte</label>    <select name="adulte_{{ ch.chambre.id }}_'+i+'" class="form-control">        {% for i in ch.maxAdulte..ch.minAdulte %}            <option value="{{ i }}" >{{ i }}</option>        {% endfor %}    </select></div><div class="col-md-1">    <label>Enfant</label>    <select name="enfant_{{ ch.chambre.id }}_'+i+'" class="form-control  EnfantChambre" data-ordre="'+i+'" data-chambre="{{ ch.chambre.id }}">        {% for i in ch.minEnfant..ch.maxEnfant %}            <option value="{{ i }}" >{{ i }}</option>        {% endfor %}    </select></div><div class="col-md-2">    <label>arrangement</label>    <select name="arrangement_{{ ch.chambre.id }}_'+i+'" class="form-control">        <option value="{{ saison.arrBase.id }}" >{{ saison.arrBase }} (Arr base) </option>        {% for arr in saison.arrangements %}            <option value="{{ arr.arrangement.id }}" >{{ arr.arrangement }} </option>        {% endfor %}    </select></div><div class="clearfix"></div><div class="col-md-2"></div><div class="col-md-10 ages">    <div class="row">        {% for i in 1..ch.minEnfant %}            <div class="col-md-1">                <label>Age {{ loop.index }} </label>                <select name="age_{{ ch.chambre.id }}_'+i+'_{{ loop.index }}" class="form-control">                    {% for i in 1..17 %}                        <option value="{{ i }}" >{{ i }}</option>                    {% endfor %}                </select>            </div>        {% endfor %}    </div></div>{% for supp in saison.autresSupplements %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label><input name="supp_{{ supp.supp.id }}_'+i+'" {% if supp.supp.obligatoire %}checked  disabled{% endif %} type="checkbox"/> {{ supp }}</label>    </div>{% endfor %}{% for vue in saison.vues %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label><input name="vue_{{ vue.vue.id }}_'+i+'" type="checkbox"/> {{ vue.vue }}</label>    </div>{% endfor %}{% for reduc in saison.autresReductions %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label>{{ reduc }}</label>    </div>{% endfor %}</div>';
+                    return '<div class="row" style="  border: 1px solid #eee;  padding: 10px 0px;  margin: 15px 0px;"><div class="col-md-2" style="padding-top: 25px;">    Chambre '+i+' </div><div class="col-md-1">    <label>Adulte</label>    <select name="adulte_{{ ch.chambre.id }}_'+i+'" class="form-control">        {% for i in ch.maxAdulte..ch.minAdulte %}            <option value="{{ i }}" >{{ i }}</option>        {% endfor %}    </select></div><div class="col-md-1">    <label>Enfant</label>    <select name="enfant_{{ ch.chambre.id }}_'+i+'" class="form-control  EnfantChambre" data-ordre="'+i+'" data-chambre="{{ ch.chambre.id }}">        {% for i in ch.minEnfant..ch.maxEnfant %}            <option value="{{ i }}" >{{ i }}</option>        {% endfor %}    </select></div><div class="col-md-4">    <label>Arrangement</label>    <select name="arrangement_{{ ch.chambre.id }}_'+i+'" class="form-control">        <option value="{{ saison.arrBase.id }}" >{{ saison.arrBase }} (Arr base) </option>        {% for arr in saison.arrangements %}            <option value="{{ arr.arrangement.id }}" >{{ arr.arrangement }} </option>        {% endfor %}    </select></div><div class="clearfix"></div><div class="col-md-2"></div><div class="col-md-10 ages">    <div class="row">    {% if ch.minEnfant!=0 %}     {% for i in 1..ch.minEnfant %}            <div class="col-md-1">                <label>Age {{ loop.index }} </label>                <select name="age_{{ ch.chambre.id }}_'+i+'_{{ loop.index }}" class="form-control">                    {% for i in 1..17 %}                        <option value="{{ i }}" >{{ i }}</option>                    {% endfor %}                </select>            </div>        {% endfor %}  {% endif %}   </div></div>{% for supp in saison.autresSupplements %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label><input name="supp_{{ ch.chambre.id }}_'+i+'_{{ supp.supp.id }}" {% if supp.supp.obligatoire %}checked  disabled{% endif %} type="checkbox"/> {{ supp }}</label>    </div>{% endfor %}{% for vue in saison.vues %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label><input name="vue_{{ ch.chambre.id }}_'+i+'_{{ vue.vue.id }}" type="checkbox"/> {{ vue.vue }}</label>    </div>{% endfor %}{% for reduc in saison.autresReductions %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label>- {{ reduc }}</label>    </div>{% endfor %}</div>';
                 }
             {% endfor %}
         </script>           
