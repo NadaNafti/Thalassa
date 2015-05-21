@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo ;
 /**
  * HotelChambre
  *
- * @ORM\Table(name="ost_sht_hotelsChambre")
+ * @ORM\Table(name="ost_sht_hotelschambre")
  * @ORM\Entity
  */
 class HotelChambre
