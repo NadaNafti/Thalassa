@@ -126,8 +126,8 @@ class ReservationController extends Controller
                 return $this->redirect($this->generateUrl("formulaire_reservation")) ;
             }
         }
-        $dates = $this->container->get('library')->getDatesBetween($reservation['dateDebut'] , $reservation['dateFin']) ;
-        $calendrier = $this->container->get('reservation')->getCalendrier($reservation , $hotel , $client) ;
+//        $dates = $this->container->get('library')->getDatesBetween($reservation['dateDebut'] , $reservation['dateFin']) ;
+        $calendrier = $this->container->get('reservation')->getCalendrier($reservation) ;
         return $this->render('BackHotelTunisieBundle:Reservation:formulaire.html.twig' , array (
                     'calendrier' => $calendrier ,
                     'hotel' => $hotel ,
@@ -161,7 +161,6 @@ class ReservationController extends Controller
         if (!$session->has("reservation"))
             return $this->redirect($this->generateUrl("new_reservation")) ;
         $reservation = $session->get('reservation') ;
-        dump($reservation) ;
         $client = $em->getRepository("BackUserBundle:Client")->find($reservation['client']) ;
         $form = $this->createFormBuilder()
                 ->add("client" , new ClientType() , array ('data' => $client)) ;
@@ -169,27 +168,27 @@ class ReservationController extends Controller
         $chambres = array () ;
         foreach ($reservation['chambres'] as $value)
         {
-            $adulte=array();
-            $enfant=array();
+            $adulte = array () ;
+            $enfant = array () ;
             $tab = explode(',' , $value['occupants']) ;
             for ($i = 1 ; $i <= $tab[0] ; $i++)
             {
                 $form->add("chambre" . $ordre . "adulte" . $i , 'text') ;
-                $adulte[]="chambre" . $ordre . "adulte" . $i;
+                $adulte[] = "chambre" . $ordre . "adulte" . $i ;
             }
             for ($i = 1 ; $i <= count($tab) - 1 ; $i++)
             {
                 $form->add("chambre" . $ordre . "Enfant" . $i , 'text') ;
-                $enfant[]="chambre" . $ordre . "Enfant" . $i;
+                $enfant[] = "chambre" . $ordre . "Enfant" . $i ;
             }
             $ordre++ ;
-            $chambres[]=array('chambre'=>$value['chambre'],'adultes'=>$adulte,'enfants'=>$enfant);
+            $chambres[] = array ('chambre' => $value['chambre'] , 'adultes' => $adulte , 'enfants' => $enfant) ;
         }
-        dump($chambres);
         $form = $form->getForm() ;
         return $this->render('BackHotelTunisieBundle:Reservation:details.html.twig' , array (
                     'form' => $form->createView() ,
-                    'chambres' => $chambres
+                    'chambres' => $chambres ,
+                    'resultat' => $this->container->get('reservation')->reservation($reservation) ,
                 )) ;
     }
 

@@ -885,7 +885,7 @@ class Saison
      */
     public function prixBaseAchat()
     {
-        return $this->prixConvention ;
+        return number_format($this->prixConvention, 3, '.', '') ;
     }
 
     /**
@@ -894,9 +894,9 @@ class Saison
     public function prixBaseVente()
     {
         if ($this->pourcentage)
-            return $this->prixConvention + ($this->prixConvention * $this->margeVente / 100) ;
+            return number_format($this->prixConvention + ($this->prixConvention * $this->margeVente / 100), 3, '.', '') ;
         else
-            return $this->prixConvention + $this->margeVente ;
+            return number_format($this->prixConvention + $this->margeVente, 3, '.', '') ;
     }
 
     public function __toString()

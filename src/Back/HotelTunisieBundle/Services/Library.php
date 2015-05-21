@@ -19,7 +19,7 @@ class Library
         {
             return false ;
         }
-        if (false === checkdate($aStart[1] , $aStart[2] , $aStart[0]) || false === checkdate($aEnd[1] , $aEnd[2] , $aEnd[0]) || $iEnd <= $iStart)
+        if (false === checkdate($aStart[1] , $aStart[2] , $aStart[0]) || false === checkdate($aEnd[1] , $aEnd[2] , $aEnd[0]) || $iEnd < $iStart)
         {
             return false ;
         }

@@ -1,22 +1,88 @@
 <?php
 
 namespace Back\HotelTunisieBundle\Services ;
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\DependencyInjection\Container;
+
+use Doctrine\ORM\EntityManager ;
+use Symfony\Component\HttpFoundation\Session\Session ;
+use Symfony\Component\DependencyInjection\Container ;
+
 class Reservation
 {
-    public function __construct(EntityManager $em , Session $session ,Container $container)
+
+    public function __construct(EntityManager $em , Session $session , Container $container)
     {
-        $this->em=$em;
-        $this->session=$session;
-        $this->container=$container;
+        $this->em = $em ;
+        $this->session = $session ;
+        $this->container = $container ;
     }
 
-    public function getCalendrier($reservation,$hotel,$client)
+    public function reservation($reservation)
     {
+        $calendrier = $this->getCalendrier($reservation) ;
+        $results = array () ;
+        $results['hotel'] = $reservation['hotel'] ;
+        $results['client'] = $reservation['client'] ;
+        $results['dateDebut'] = $reservation['dateDebut'] ;
+        $results['dateFin'] = $reservation['dateFin'] ;
+        $results['nuitees'] = $reservation['nuitees'] ;
+        $results['chambres'] = array () ;
+        ;
+        foreach ($reservation['chambres'] as $chambre)
+        {
+            $tabChambre = array () ;
+            $tabChambre['details'] = $chambre ;
+            $tabChambre['adultes'] = array () ;
+            $tabChambre['enfants'] = array () ;
+            $tabOccupants = explode(',' , $chambre['occupants']) ;
+            for ($i = 1 ; $i <= $tabOccupants[0] ; $i++)
+            {
+                $tabAdult = array () ;
+                $tabAdult['ordre'] = $i ;
+                $tabAdult['jours'] = array () ;
+                foreach ($calendrier as $periode)
+                {
+                    $saison = $this->em->getRepository('BackHotelTunisieBundle:Saison')->find($periode['saison']->getId()) ;
+                    $dates = $this->container->get('library')->getDatesBetween($periode['dateDebut'] , $periode['dateFin']) ;
+                    foreach ($dates as $date)
+                    {
+                        $tabjour = array () ;
+                        $tabjour['jour'] = $date ;
+                        $tabjour['saison'] = array ('id' => $saison->getId() , 'name' => $saison->getLibelle()) ;
+                        $tabjour['lignes'] = array () ;
+                        $tabLigne = array () ;
+
+                        $tabLigne[]=array(
+                            'type'=>'prixBase',
+                            'achat'=>$saison->prixBaseAchat(),
+                            'vente'=>$saison->prixBaseVente(),
+                        );
+
+
+
+
+                        $tabjour['lignes'][] = $tabLigne ;
+                        $tabAdult['jours'][] = $tabjour ;
+                    }
+                }
+                $tabChambre['adultes'][] = $tabAdult ;
+            }
+            for ($i = 1 ; $i <= count($tabOccupants) - 1 ; $i++)
+            {
+                
+            }
+            $results['chambres'][] = $tabChambre ;
+        }
+
+        dump($results) ;
+        return $results ;
+    }
+
+    public function getCalendrier($reservation)
+    {
+        $hotel = $this->em->getRepository('BackHotelTunisieBundle:Hotel')->find($reservation['hotel']) ;
+        $client = $this->em->getRepository("BackUserBundle:Client")->find($reservation['client']) ;
         $dates = $this->container->get('library')->getDatesBetween($reservation['dateDebut'] , $reservation['dateFin']) ;
-        $lastSaison = $this->container->get('saisons')->getSaisonByClient( $hotel ,  $client , $reservation['dateDebut']);
+        $lastSaison = $this->container->get('saisons')->getSaisonByClient($hotel , $client , $reservation['dateDebut']) ;
         $dateDebut = $reservation['dateDebut'] ;
         $dateFin = '' ;
         $calendrier = array () ;
@@ -33,7 +99,7 @@ class Reservation
             }
             $dateFin = $date ;
         }
-        return $calendrier;
+        return $calendrier ;
     }
 
 }

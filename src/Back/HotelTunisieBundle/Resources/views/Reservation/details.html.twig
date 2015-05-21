@@ -10,40 +10,74 @@
 {% block body %}
 
     <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    {{ form_start(form) }}
-                        <h4>Client :</h4>
-                    <div class="row">
-                        {{ formulaire.input("col-md-2","",form.client.responsable,false) }}
-                        {{ formulaire.input("col-md-2","Nom & Prénom",form.client.nomPrenom,true) }}
-                        {{ formulaire.input("col-md-2","Email",form.client.email,true) }}
-                        {{ formulaire.input("col-md-2","tel1",form.client.tel1,true) }}
-                        {{ formulaire.input("col-md-2","tel2",form.client.tel2,true) }}
-                    </div>
-                    <div class="row">
-                        {{ formulaire.input("col-md-8","Adresse",form.client.adresse,true) }}
-                    </div>
-                    <div class="row">
-                        {{ formulaire.input("col-md-2","Matricule Fiscale",form.client.matriculeFiscale,true) }}
-                        {{ formulaire.input("col-md-2","Registre Commercie",form.client.registreCommercie,true) }}
-                        {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,true) }}
-                    </div>
-                    <hr>
-                    {% for chambre in chambres  %}
-                        <h4>Chambre {{ loop.index }} <small>{{ getNameChambre(chambre.chambre) }}</small> :</h4>
+        <div class="col-sm-12">
+            <div class="tabbable">
+                <ul id="myTab" class="nav nav-tabs tab-bricky">
+                    <li class="active">
+                        <a href="#details_reservation" data-toggle="tab">
+                            <i class="green fa fa-home"></i> Détails Réservation
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#Validation" data-toggle="tab">
+                            Validation
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane in active" id="details_reservation">
                         <div class="row">
-                            {% for adulte in chambre.adultes %}
-                                {{ formulaire.input("col-md-2","Adulte "~loop.index,form[adulte],true) }}
-                            {% endfor %}
-                            {% for enfant in chambre.enfants %}
-                                {{ formulaire.input("col-md-2","Enfant "~loop.index,form[enfant],true) }}
-                            {% endfor %}
+                            <div class="col-md-12">
+
+                            </div>
                         </div>
-                    {% endfor %}
-                    {{ formulaire.submit("Suivant") }}
-                    {{ form_end(form) }}
+                    </div>
+                    <div class="tab-pane" id="Validation">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <h2><i class="fa fa-plus-square teal"></i> Valider la réservation</h2>
+                                        <hr>
+                                        {{ form_start(form) }}
+                                        <h4>Client :</h4>
+                                        <div class="no-display">
+                                            {{ formulaire.input("col-md-2","",form.client.responsable,false) }}
+                                        </div>
+                                        <div class="row">
+                                            {{ formulaire.input("col-md-2","Nom & Prénom",form.client.nomPrenom,true) }}
+                                            {{ formulaire.input("col-md-2","Email",form.client.email,true) }}
+                                            {{ formulaire.input("col-md-2","tel1",form.client.tel1,true) }}
+                                            {{ formulaire.input("col-md-2","tel2",form.client.tel2,true) }}
+                                        </div>
+                                        <div class="row">
+                                            {{ formulaire.input("col-md-8","Adresse",form.client.adresse,true) }}
+                                        </div>
+                                        <div class="row">
+                                            {{ formulaire.input("col-md-2","Matricule Fiscale",form.client.matriculeFiscale,true) }}
+                                            {{ formulaire.input("col-md-2","Registre Commercie",form.client.registreCommercie,true) }}
+                                            {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,true) }}
+                                        </div>
+                                        <hr>
+                                        {% for chambre in chambres  %}
+                                            <h4>Chambre {{ loop.index }} <small>{{ getNameChambre(chambre.chambre) }}</small> :</h4>
+                                            <div class="row">
+                                                {% for adulte in chambre.adultes %}
+                                                    {{ formulaire.input("col-md-2","Adulte "~loop.index,form[adulte],true) }}
+                                                {% endfor %}
+                                                {% for enfant in chambre.enfants %}
+                                                    {{ formulaire.input("col-md-2","Enfant "~loop.index,form[enfant],true) }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endfor %}
+                                        {{ formulaire.submit("Valider la réservation") }}
+                                        {{ form_end(form) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
