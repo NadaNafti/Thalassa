@@ -26,7 +26,6 @@ class Reservation
         $results['dateFin'] = $reservation['dateFin'] ;
         $results['nuitees'] = $reservation['nuitees'] ;
         $results['chambres'] = array () ;
-        ;
         foreach ($reservation['chambres'] as $chambre)
         {
             $tabChambre = array () ;
@@ -51,11 +50,9 @@ class Reservation
                         $tabjour['lignes'] = array () ;
                         $tabLigne = array () ;
 
-                        $tabLigne[]=array(
-                            'type'=>'prixBase',
-                            'achat'=>$saison->prixBaseAchat(),
-                            'vente'=>$saison->prixBaseVente(),
-                        );
+                        $tabLigne[] = $this->container->get('lignes')->lignePrixBase($saison) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneArrangement($saison , $chambre['arrangement']) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneChambre($saison , $chambre['chambre']) ;
 
 
 

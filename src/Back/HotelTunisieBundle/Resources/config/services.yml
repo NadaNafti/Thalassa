@@ -10,4 +10,8 @@ services:
         class: Back\HotelTunisieBundle\Services\Reservation
         arguments: [ @doctrine.orm.entity_manager, @session, @service_container ]
         
+    lignes:
+        class: Back\HotelTunisieBundle\Services\Lignes
+        arguments: [ @doctrine.orm.entity_manager, @session, @service_container ]
+        
         
