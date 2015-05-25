@@ -119,13 +119,13 @@
         <script src="{{ asset("back-assets/js/form-elements.js") }}"></script>
         <script src="{{ asset("back-assets/plugins/fullcalendar/fullcalendar/fullcalendar.js") }}"></script>
         <script>
-            jQuery(document).ready(function() {
+            jQuery(document).ready(function () {
                 Main.init();
                 TableData.init();
                 FormElements.init();
             });
         </script>
-    {% block jquery %}{% endblock %}
-{% endblock %}
+    {% endblock %}
+{% block jquery %}{% endblock %}
 </body>
 </html>

@@ -2,7 +2,7 @@
     <ul id="myTab2" class="nav nav-tabs tab-padding tab-space-3">
         <li {% if app.request.get('_route')=='saison_base' %}class="active"{% endif %}>
             <a href="{{ path("saison_base",{'id':hotel.id}) }}">
-                Info générale
+                Générale
             </a>
         </li>
         <li {% if app.request.get('_route')=='saison_chambres' %}class="active"{% endif %}>

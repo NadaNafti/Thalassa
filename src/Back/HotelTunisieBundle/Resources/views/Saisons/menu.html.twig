@@ -6,7 +6,7 @@
     </li>
     <li {% if app.request.get('_route')=='GeneralSaison' %}class="active"{% endif %}>
         <a href="{{ path('GeneralSaison', {'id':saison.id}) }}">
-            Info générale 
+            Générale 
         </a>
     </li>
     <li {% if app.request.get('_route')=='OccChambreSaison' %}class="active"{% endif %}>
