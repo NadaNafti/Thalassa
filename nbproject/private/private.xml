@@ -3,10 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp/www/OsTravel/src/Back/AdministrationBundle/Resources/config/routing/client.yml</file>
             <file>file:/C:/wamp/www/OsTravel/src/Back/HotelTunisieBundle/Resources/views/Hotels/liste.html.twig</file>
-            <file>file:/C:/wamp/www/OsTravel/src/Back/HotelTunisieBundle/Resources/views/Hotels/saison_arrangement.html.twig</file>
-            <file>file:/C:/wamp/www/OsTravel/src/Back/HotelTunisieBundle/Form/SaisonChambreType.php</file>
-            <file>file:/C:/wamp/www/OsTravel/src/Back/HotelTunisieBundle/Resources/views/Hotels/saison_chambres.html.twig</file>
+            <file>file:/C:/wamp/www/OsTravel/src/Back/AdministrationBundle/Resources/views/users/user.html.twig</file>
+            <file>file:/C:/wamp/www/OsTravel/src/Back/AdministrationBundle/Controller/UsersController.php</file>
+            <file>file:/C:/wamp/www/OsTravel/src/Back/UserBundle/Form/RegistrationFormType.php</file>
+            <file>file:/C:/wamp/www/OsTravel/src/Back/AdministrationBundle/Resources/views/Client/liste.html.twig</file>
+            <file>file:/C:/wamp/www/OsTravel/src/Back/AdministrationBundle/Controller/ClientController.php</file>
+            <file>file:/C:/wamp/www/OsTravel/src/Back/AdministrationBundle/Resources/views/Client/ajouter.html.twig</file>
+            <file>file:/C:/wamp/www/OsTravel/src/Back/UserBundle/Entity/User.php</file>
+            <file>file:/C:/wamp/www/OsTravel/src/Back/AdministrationBundle/Resources/views/Client/user.html.twig</file>
         </group>
     </open-files>
 </project-private>

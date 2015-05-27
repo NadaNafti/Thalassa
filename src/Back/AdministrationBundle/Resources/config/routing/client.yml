@@ -5,6 +5,10 @@ liste_client:
 ajouter_client:
     path:     /ajouter/{id}
     defaults: { _controller: BackAdministrationBundle:Client:ajouter,id:null }
+
+user_client:
+    path:     /ajouter/{id}/user
+    defaults: { _controller: BackAdministrationBundle:Client:addUser }
     
 supprimer_client:
     path:     /SupprimerClient/{id}

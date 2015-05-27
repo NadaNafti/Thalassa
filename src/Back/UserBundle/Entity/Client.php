@@ -86,6 +86,11 @@ class Client {
     protected $amicale;
 
     /**
+     * @ORM\OneToOne(targetEntity="User", mappedBy="client")
+     * */
+    private $user;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="responsable", type="boolean", nullable=true)
@@ -432,4 +437,27 @@ class Client {
         return $this->responsable;
     }
 
+
+    /**
+     * Set user
+     *
+     * @param \Back\UserBundle\Entity\User $user
+     * @return Client
+     */
+    public function setUser(\Back\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Back\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

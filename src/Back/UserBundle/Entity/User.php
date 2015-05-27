@@ -20,7 +20,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Client", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Client", inversedBy="user", cascade={"persist"})
      */
     private $client;
 

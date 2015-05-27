@@ -29,6 +29,7 @@
                                 <th class="center">MF</th>
                                 <th class="center">RC</th>
                                 <th class="center">Amicale</th>
+                                <th class="center">User</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -45,6 +46,13 @@
                                     <td>
                                         {% if  client.amicale.libelle is defined %}
                                             {{ client.amicale.libelle }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if  client.user is not null %}
+                                            <a href="{{ path('user_client',{'id':client.id}) }}" class="tooltips" title="Cliquez ici pour Modifier son compte" ><span class="label label-sm label-success">Oui</span></a>
+                                        {% else %} 
+                                            <a href="{{ path('user_client',{'id':client.id}) }}" class="tooltips" title="Cliquez ici pour ajouter un compte a ce client" ><span class="label label-sm label-danger">Non</span></a>
                                         {% endif %}
                                     </td>
                                     <td>
