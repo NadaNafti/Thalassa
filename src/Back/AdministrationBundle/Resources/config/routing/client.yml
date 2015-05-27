@@ -1,0 +1,11 @@
+liste_client:
+    path:     /
+    defaults: { _controller: BackAdministrationBundle:Client:liste }
+
+ajouter_client:
+    path:     /ajouter/{id}
+    defaults: { _controller: BackAdministrationBundle:Client:ajouter,id:null }
+    
+supprimer_client:
+    path:     /SupprimerClient/{id}
+    defaults: { _controller: BackAdministrationBundle:Client:supprimer }

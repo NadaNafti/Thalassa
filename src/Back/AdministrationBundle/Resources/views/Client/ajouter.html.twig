@@ -1,0 +1,42 @@
+{% extends "BackAdministrationBundle:Client:liste.html.twig" %}
+{% block title %}Client{% endblock %}
+{% block description %}
+    {% if client.id is null %}Ajouter un client{% else %}{{ client }}{% endif %}
+{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{% if client.id is null %}Ajouter un client{% else %}{{ client }}{% endif %}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        {{ formulaire.input("col-md-2","Nom & Prénom",form.nomPrenom,true) }}
+                        {{ formulaire.input("col-md-2","Email",form.email,true) }}
+                        {{ formulaire.input("col-md-2","tel1",form.tel1,true) }}
+                        {{ formulaire.input("col-md-2","tel2",form.tel2,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-8","Adresse",form.adresse,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-2","Matricule Fiscale",form.matriculeFiscale,true) }}
+                        {{ formulaire.input("col-md-2","Registre Commercie",form.registreCommercie,true) }}
+                        {{ formulaire.input("col-md-4","Commentaire",form.commentaire,true) }}
+                    </div>
+                    {% if client.id is null %}
+                        {{ formulaire.submit("Ajouter") }}
+                    {% else %}
+                        {{ formulaire.submit("Modifier") }}
+                    {% endif %}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -13,8 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
-class Client
-{
+class Client {
 
     /**
      * @var integer
@@ -121,8 +120,7 @@ class Client
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -132,9 +130,8 @@ class Client
      * @param string $nomPrenom
      * @return Client
      */
-    public function setNomPrenom($nomPrenom)
-    {
-        $this->nomPrenom=$nomPrenom;
+    public function setNomPrenom($nomPrenom) {
+        $this->nomPrenom = $nomPrenom;
 
         return $this;
     }
@@ -144,8 +141,7 @@ class Client
      *
      * @return string 
      */
-    public function getNomPrenom()
-    {
+    public function getNomPrenom() {
         return $this->nomPrenom;
     }
 
@@ -155,9 +151,8 @@ class Client
      * @param string $tel1
      * @return Client
      */
-    public function setTel1($tel1)
-    {
-        $this->tel1=$tel1;
+    public function setTel1($tel1) {
+        $this->tel1 = $tel1;
 
         return $this;
     }
@@ -167,8 +162,7 @@ class Client
      *
      * @return string 
      */
-    public function getTel1()
-    {
+    public function getTel1() {
         return $this->tel1;
     }
 
@@ -178,9 +172,8 @@ class Client
      * @param string $tel2
      * @return Client
      */
-    public function setTel2($tel2)
-    {
-        $this->tel2=$tel2;
+    public function setTel2($tel2) {
+        $this->tel2 = $tel2;
 
         return $this;
     }
@@ -190,8 +183,7 @@ class Client
      *
      * @return string 
      */
-    public function getTel2()
-    {
+    public function getTel2() {
         return $this->tel2;
     }
 
@@ -201,9 +193,8 @@ class Client
      * @param string $email
      * @return Client
      */
-    public function setEmail($email)
-    {
-        $this->email=$email;
+    public function setEmail($email) {
+        $this->email = $email;
 
         return $this;
     }
@@ -213,8 +204,7 @@ class Client
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -224,9 +214,8 @@ class Client
      * @param string $adresse
      * @return Client
      */
-    public function setAdresse($adresse)
-    {
-        $this->adresse=$adresse;
+    public function setAdresse($adresse) {
+        $this->adresse = $adresse;
 
         return $this;
     }
@@ -236,8 +225,7 @@ class Client
      *
      * @return string 
      */
-    public function getAdresse()
-    {
+    public function getAdresse() {
         return $this->adresse;
     }
 
@@ -247,9 +235,8 @@ class Client
      * @param string $matriculeFiscale
      * @return Client
      */
-    public function setMatriculeFiscale($matriculeFiscale)
-    {
-        $this->matriculeFiscale=$matriculeFiscale;
+    public function setMatriculeFiscale($matriculeFiscale) {
+        $this->matriculeFiscale = $matriculeFiscale;
 
         return $this;
     }
@@ -259,8 +246,7 @@ class Client
      *
      * @return string 
      */
-    public function getMatriculeFiscale()
-    {
+    public function getMatriculeFiscale() {
         return $this->matriculeFiscale;
     }
 
@@ -270,9 +256,8 @@ class Client
      * @param string $registreCommercie
      * @return Client
      */
-    public function setRegistreCommercie($registreCommercie)
-    {
-        $this->registreCommercie=$registreCommercie;
+    public function setRegistreCommercie($registreCommercie) {
+        $this->registreCommercie = $registreCommercie;
 
         return $this;
     }
@@ -282,8 +267,7 @@ class Client
      *
      * @return string 
      */
-    public function getRegistreCommercie()
-    {
+    public function getRegistreCommercie() {
         return $this->registreCommercie;
     }
 
@@ -293,9 +277,8 @@ class Client
      * @param string $commentaire
      * @return Client
      */
-    public function setCommentaire($commentaire)
-    {
-        $this->commentaire=$commentaire;
+    public function setCommentaire($commentaire) {
+        $this->commentaire = $commentaire;
 
         return $this;
     }
@@ -305,8 +288,7 @@ class Client
      *
      * @return string 
      */
-    public function getCommentaire()
-    {
+    public function getCommentaire() {
         return $this->commentaire;
     }
 
@@ -316,9 +298,8 @@ class Client
      * @param \Back\AdministrationBundle\Entity\Amicale $amicale
      * @return Client
      */
-    public function setAmicale(\Back\AdministrationBundle\Entity\Amicale $amicale=null)
-    {
-        $this->amicale=$amicale;
+    public function setAmicale(\Back\AdministrationBundle\Entity\Amicale $amicale = null) {
+        $this->amicale = $amicale;
 
         return $this;
     }
@@ -328,8 +309,7 @@ class Client
      *
      * @return \Back\AdministrationBundle\Entity\Amicale 
      */
-    public function getAmicale()
-    {
+    public function getAmicale() {
         return $this->amicale;
     }
 
@@ -339,9 +319,8 @@ class Client
      * @param string $slug
      * @return Client
      */
-    public function setSlug($slug)
-    {
-        $this->slug=$slug;
+    public function setSlug($slug) {
+        $this->slug = $slug;
 
         return $this;
     }
@@ -351,8 +330,7 @@ class Client
      *
      * @return string 
      */
-    public function getSlug()
-    {
+    public function getSlug() {
         return $this->slug;
     }
 
@@ -362,9 +340,8 @@ class Client
      * @param \DateTime $created
      * @return Client
      */
-    public function setCreated($created)
-    {
-        $this->created=$created;
+    public function setCreated($created) {
+        $this->created = $created;
 
         return $this;
     }
@@ -374,8 +351,7 @@ class Client
      *
      * @return \DateTime 
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
@@ -385,9 +361,8 @@ class Client
      * @param \DateTime $updated
      * @return Client
      */
-    public function setUpdated($updated)
-    {
-        $this->updated=$updated;
+    public function setUpdated($updated) {
+        $this->updated = $updated;
 
         return $this;
     }
@@ -397,8 +372,7 @@ class Client
      *
      * @return \DateTime 
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         return $this->updated;
     }
 
@@ -408,9 +382,8 @@ class Client
      * @param \DateTime $deletedAt
      * @return Client
      */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt=$deletedAt;
+    public function setDeletedAt($deletedAt) {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }
@@ -420,25 +393,22 @@ class Client
      *
      * @return \DateTime 
      */
-    public function getDeletedAt()
-    {
+    public function getDeletedAt() {
         return $this->deletedAt;
     }
 
-    public function showProfileAmicale()
-    {
-        if($this->responsable)
+    public function showProfileAmicale() {
+        if ($this->responsable)
             return "Responsable";
         else
             return 'Employé';
     }
-    
-    public function __toString()
-    {
-		$amicale="";
-		if(!is_null($this->amicale))
-			$amicale=" - ".$this->amicale;
-        return $this->nomPrenom.$amicale;
+
+    public function __toString() {
+        $amicale = "";
+        if (!is_null($this->amicale))
+            $amicale = " - " . $this->amicale;
+        return $this->nomPrenom . $amicale;
     }
 
     /**
@@ -447,8 +417,7 @@ class Client
      * @param boolean $responsable
      * @return Client
      */
-    public function setResponsable($responsable)
-    {
+    public function setResponsable($responsable) {
         $this->responsable = $responsable;
 
         return $this;
@@ -459,8 +428,8 @@ class Client
      *
      * @return boolean 
      */
-    public function getResponsable()
-    {
+    public function getResponsable() {
         return $this->responsable;
     }
+
 }
