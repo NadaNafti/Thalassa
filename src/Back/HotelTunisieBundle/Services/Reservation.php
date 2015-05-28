@@ -52,8 +52,13 @@ class Reservation
 
                         $tabLigne[] = $this->container->get('lignes')->lignePrixBase($saison) ;
                         $tabLigne[] = $this->container->get('lignes')->ligneArrangement($saison , $chambre['arrangement']) ;
-                        $tabLigne[] = $this->container->get('lignes')->ligneChambre($saison , $chambre['chambre']) ;
-
+                        $tabLigne[] = $this->container->get('lignes')->ligneSuppSingle($saison , $chambre['chambre']) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneSuppReduc3Lit($saison ,$i) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneSuppReduc4Lit($saison ,$i) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneSuppAutreChambre($saison ,$chambre['chambre']) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneSuppWeekend($saison ,$chambre['chambre'],$date) ;
+                        foreach ($chambre['vue'] as $vue)
+                            $tabLigne[] = $this->container->get('lignes')->ligneSuppVue($saison ,$vue) ;
 
 
 
