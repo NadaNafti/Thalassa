@@ -35,7 +35,7 @@ class Reservation
             $arr=$chambre['arrangement'];
             $tabOccupants = explode(',' , $chambre['occupants']) ;
             $nbrAdulte=$tabOccupants[0];
-            $nbrEnfant=count($tabOccupants-1);
+            $nbrEnfant=count($tabOccupants)-1;
             for ($i = 1 ; $i <= $tabOccupants[0] ; $i++)
             {
                 $tabAdult = array () ;
@@ -91,15 +91,12 @@ class Reservation
                         $tabLigne[] = $this->container->get('lignes')->ligneArrangement($saison ,$arr) ;
                         $tabLigne[] = $this->container->get('lignes')->ligneSuppSingle($saison ,$arr, $chambre['chambre'],$nbrAdulte,$nbrEnfant,'enfant') ;
                         $tabLigne[] = $this->container->get('lignes')->ligneSuppAutreChambre($saison ,$arr,$chambre['chambre']) ;
-                        $tabLigne[] = $this->container->get('lignes')->ligneReduc1Enf1Adu($saison ,$arr,$ordre,$nbrAdulte,$age) ;
-                        $tabLigne[] = $this->container->get('lignes')->ligneReduc1Enf2Adu($saison ,$arr,$ordre,$nbrAdulte,$age) ;
-                        $tabLigne[] = $this->container->get('lignes')->ligneReduc1EnfSeparer($saison ,$arr,$ordre,$nbrAdulte,$age) ;
-                        $tabLigne[] = $this->container->get('lignes')->ligneReduc2Enf1Adu($saison ,$arr,$ordre,$nbrAdulte,$age) ;
-                        $tabLigne[] = $this->container->get('lignes')->ligneReduc2Enf2Adu($saison ,$arr,$ordre,$nbrAdulte,$age) ;
-                        $tabLigne[] = $this->container->get('lignes')->ligneReduc2EnfSeparer($saison ,$arr,$ordre,$nbrAdulte,$age) ;
-                        
-                        
-                        
+                        $tabLigne[] = $this->container->get('lignes')->ligneReduc1Enf1Adu($saison ,$arr,$i,$nbrAdulte,$tabEnfant['age']) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneReduc1Enf2Adu($saison ,$arr,$i,$nbrAdulte,$tabEnfant['age']) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneReduc1EnfSeparer($saison ,$arr,$i,$nbrAdulte,$tabEnfant['age']) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneReduc2Enf1Adu($saison ,$arr,$i,$nbrAdulte,$tabEnfant['age']) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneReduc2Enf2Adu($saison ,$arr,$i,$nbrAdulte,$tabEnfant['age']) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneReduc2EnfSeparer($saison ,$arr,$i,$nbrAdulte,$tabEnfant['age']) ;
                         
                         $tabLigne[] = $this->container->get('lignes')->ligneSuppWeekend($saison ,$arr,$chambre['chambre'],$date,$results['nuitees']) ;
                         foreach ($chambre['vue'] as $vue)

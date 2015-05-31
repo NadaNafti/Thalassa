@@ -157,6 +157,7 @@ class Hotel
      *      joinColumns={@ORM\JoinColumn(name="id_hotel", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_arrangement", referencedColumnName="id")}
      * )
+     * @ORM\OrderBy({"ordre" = "ASC"})
      */
     protected $arrangements ;
 
