@@ -890,7 +890,7 @@ class Saison
         {
             foreach ($this->arrangements as $arr)
             {
-                if ($arr->getId() == $arrangement)
+                if ($arr->getArrangement()->getId() == $arrangement)
                     return number_format($this->prixConvention + $arr->getReducSuppAchat(), 3, '.', '');
             }
         }
@@ -912,7 +912,7 @@ class Saison
         {
             foreach ($this->arrangements as $arr)
             {
-                if ($arr->getId() == $arrangement)
+                if ($arr->getArrangement()->getId() == $arrangement)
                 {
                     if ($this->pourcentage)
                         return number_format($arr->getReducSuppVente() + $this->prixConvention + ($this->prixConvention * $this->margeVente / 100), 3, '.', '');
@@ -948,7 +948,10 @@ class Saison
      */
     public function getHotel()
     {
-        return $this->hotel;
+        if(is_null($this->type))
+            return $this->hotelBase;
+        else
+            return $this->hotel;
     }
 
     public function clearId()
