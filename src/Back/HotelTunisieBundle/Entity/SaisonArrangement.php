@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SaisonArrangement
 {
+
     /**
      * @var integer
      *
@@ -22,7 +23,7 @@ class SaisonArrangement
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Arrangement",fetch="EAGER")
      * @ORM\JoinColumn(name="arrangement_id", referencedColumnName="id")
@@ -64,13 +65,12 @@ class SaisonArrangement
      * @ORM\Column(name="margePour", type="boolean")
      */
     private $margePour;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Saison", inversedBy="arrangements", fetch="EAGER")
      * @ORM\JoinColumn(name="saison_id", referencedColumnName="id")
      */
     protected $saison;
-
 
     /**
      * Get id
@@ -242,32 +242,33 @@ class SaisonArrangement
     {
         return $this->saison;
     }
-    
+
     public function getReducSuppAchat()
     {
-        if($this->arrangement->getOrdre()> $this->getSaison()->getArrBase()->getOrdre())
-            $x=1;
+        if ($this->arrangement->getOrdre() > $this->getSaison()->getArrBase()->getOrdre())
+            $x = 1;
         else
-            $x=-1;
-        if($this->getValeurPour())
-            return $x*$this->getSaison()->prixBaseAchat()*$this->valeur/100;
-        else 
-            return $x*$this->valeur;
+            $x = -1;
+        if ($this->getValeurPour())
+            return $x * $this->getSaison()->getPrixConvention() * $this->valeur / 100;
+        else
+            return $x * $this->valeur;
     }
-    
+
     public function getReducSuppVente()
     {
-        if($this->margePour)
-            return $this->getReducSuppAchat()+ abs($this->getReducSuppAchat())*$this->marge/100 ;
+        if ($this->margePour)
+            return $this->getReducSuppAchat() + abs($this->getReducSuppAchat()) * $this->marge / 100;
         else
-            return $this->getReducSuppAchat()+$this->marge;
+            return $this->getReducSuppAchat() + $this->marge;
     }
 
     public function __clone()
     {
         if ($this->id)
         {
-            $this->id = null ;
+            $this->id = null;
         }
     }
+
 }

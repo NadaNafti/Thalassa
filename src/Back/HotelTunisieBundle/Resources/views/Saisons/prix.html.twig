@@ -53,7 +53,7 @@
                                     </ul>
                                     {% if saison.saisonWeekend is not null %}
                                         <hr> 
-                                        <h3>Weekend</h3>
+                                        <h3>Weekend <small>{{ saison.arrBase }}</small> </h3>
                                         <ul>
                                             <li>
                                                 <strong>Tarif weekend</strong>
@@ -71,7 +71,7 @@
 
                                     {% if saison.suppChambres|length!=0 %}
                                         <hr> 
-                                        <h3>Autres Chambres</h3>
+                                        <h3>Autres Chambres <small>{{ saison.arrBase }}</small></h3>
                                         <ul>
                                             {% for chambre in saison.suppChambres %}
                                                 <li>
@@ -90,7 +90,7 @@
                                     {% endif %}
                                     {% if saison.vues|length!=0 %}
                                         <hr> 
-                                        <h3>Supp vues</h3>
+                                        <h3>Supp vues <small>{{ saison.arrBase }}</small></h3>
                                         <ul>
                                             {% for vue in saison.vues %}
                                                 <li>
@@ -109,7 +109,7 @@
                                     {% endif %}
                                     {% if saison.autresSupplements|length!=0 %}
                                         <hr> 
-                                        <h3>Aures supp.</h3>
+                                        <h3>Aures supp. <small>{{ saison.arrBase }}</small></h3>
                                         <ul>
                                             {% for supp in saison.autresSupplements %}
                                                 <li>
@@ -144,7 +144,7 @@
                                     {% endif %}
                                     {% if saison.autresReductions|length!=0 %}
                                         <hr> 
-                                        <h3>Aures reduc.</h3>
+                                        <h3>Aures reduc. <small>{{ saison.arrBase }}</small></h3>
                                         <ul>
                                             {% for reduc in saison.autresReductions %}
                                                 <li>
@@ -179,7 +179,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-8" >
-                                    <h3>Supplement</h3>
+                                    <h3>Supplement <small>{{ saison.arrBase }}</small></h3>
                                     <div class="row">
                                         <div class="col-md-5" >
                                             <ul>
@@ -235,7 +235,7 @@
                                         </div>
                                     </div>
                                     <hr> 
-                                    <h3>Réduction</h3>
+                                    <h3>Réduction <small>{{ saison.arrBase }}</small></h3>
                                     <div class="row">
                                         <div class="col-md-5" >
                                             <ul>

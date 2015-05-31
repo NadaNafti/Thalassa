@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SaisonAutreSupp
 {
+
     /**
      * @var integer
      *
@@ -57,19 +58,18 @@ class SaisonAutreSupp
      * @ORM\Column(name="margePour", type="boolean",nullable=true)
      */
     private $margePour;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Supplement",fetch="EAGER")
      * @ORM\JoinColumn(name="supplement_id", referencedColumnName="id")
      */
     protected $supp;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Saison", inversedBy="autresSupplements", fetch="EAGER")
      * @ORM\JoinColumn(name="saison_id", referencedColumnName="id")
      */
     protected $saison;
-
 
     /**
      * Get id
@@ -241,60 +241,73 @@ class SaisonAutreSupp
     {
         return $this->saison;
     }
-    
-    public function getSuppAdulteAchat()
+
+    public function getSuppAdulteAchat($arrangement = null)
     {
-        if($this->valeurPour)
-            return $this->getSaison()->prixBaseAchat()*$this->valeurAdulte/100;
-        else 
-            return $this->valeurAdulte;
-    }
-    
-    public function getSuppAdulteVente()
-    {
-        if($this->margePour)
-            return $this->getSuppAdulteAchat()+ abs($this->getSuppAdulteAchat())*$this->marge/100 ;
+        if ($this->valeurPour)
+            $reduc = $this->getSaison()->prixBaseAchat($arrangement) * $this->valeurAdulte / 100;
         else
-            return $this->getSuppAdulteAchat()+$this->marge;
+            $reduc = $this->valeurAdulte;
+        return number_format($reduc, 3, '.', '');
     }
-    
-    public function getSuppEnfantAchat()
+
+    public function getSuppAdulteVente($arrangement = null)
     {
-        if($this->valeurPour)
-            return $this->getSaison()->prixBaseAchat()*$this->valeurEnfant/100;
-        else 
-            return $this->valeurEnfant;
-    }
-    
-    public function getSuppEnfantVente()
-    {
-        if($this->margePour)
-            return $this->getSuppEnfantAchat()+ abs($this->getSuppEnfantAchat())*$this->marge/100 ;
+        if ($this->valeurPour)
+            $reduc = $this->getSaison()->prixBaseVente($arrangement) * $this->valeurAdulte / 100;
         else
-            return $this->getSuppEnfantAchat()+$this->marge;
+            $reduc = $this->valeurAdulte;
+        if ($this->margePour)
+            $marge = abs($reduc) * $this->marge / 100;
+        else
+            $marge = $this->marge;
+        return number_format($reduc + $marge, 3, '.', '');
     }
-    
+
+    public function getSuppEnfantAchat($arrangement = null)
+    {
+        if ($this->valeurPour)
+            $reduc = $this->getSaison()->prixBaseAchat($arrangement) * $this->valeurEnfant / 100;
+        else
+            $reduc = $this->valeurEnfant;
+        return number_format($reduc, 3, '.', '');
+    }
+
+    public function getSuppEnfantVente($arrangement = null)
+    {
+        if ($this->valeurPour)
+            $reduc = $this->getSaison()->prixBaseVente($arrangement) * $this->valeurEnfant / 100;
+        else
+            $reduc = $this->valeurEnfant;
+        if ($this->margePour)
+            $marge = abs($reduc) * $this->marge / 100;
+        else
+            $marge = $this->marge;
+        return number_format($reduc + $marge, 3, '.', '');
+    }
+
     public function __clone()
     {
         if ($this->id)
         {
-            $this->id = null ;
+            $this->id = null;
         }
     }
+
     public function __toString()
     {
-        $string=$this->supp->getLibelle();
-        if($this->supp->getObligatoire())
+        $string = $this->supp->getLibelle();
+        if ($this->supp->getObligatoire())
             $string.=" (Obligatoire)";
-        if($this->supp->getParNuit())
+        if ($this->supp->getParNuit())
             $string.=" Paiement par nuitée";
         else
             $string.=" paiement une seul fois";
-        if($this->supp->getParChambre())
+        if ($this->supp->getParChambre())
             $string.=" et par chambre";
         else
             $string.=" et par personne";
         return $string;
-        
     }
+
 }

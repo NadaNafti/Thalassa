@@ -133,5 +133,17 @@ class Lignes
             }
         }
     }
+    
+    public function ligneSuppSingleEnfant(Saison $saison, $id)
+    {
+        $chambre = $this->em->getRepository('BackHotelTunisieBundle:Chambre')->find($id);
+        if ($chambre->getType() == 1  && $saison->getSaisonSupp()->getSuppSingleEnfant())
+            return array(
+                'Code' => 'SUPP-SINGLE',
+                'type' => 'Supp single',
+                'achat' => $saison->getSaisonSupp()->getSuppSingleEnfantAchat(),
+                'vente' => $saison->getSaisonSupp()->getSuppSingleEnfantVente()
+            );
+    }
 
 }

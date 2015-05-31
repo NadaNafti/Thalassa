@@ -51,7 +51,7 @@
                                         </ul>
                                         {% if hotel.saisonBase.saisonWeekend is not null %}
                                             <hr> 
-                                            <h3>Weekend</h3>
+                                            <h3>Weekend <small>{{ hotel.saisonBase.arrBase }}</small></h3>
                                             <ul>
                                                 <li>
                                                     <strong>Tarif weekend</strong>
@@ -69,7 +69,7 @@
 
                                         {% if hotel.saisonBase.suppChambres|length!=0 %}
                                             <hr> 
-                                            <h3>Autres Chambres</h3>
+                                            <h3>Autres Chambres <small>{{ hotel.saisonBase.arrBase }}</small></h3>
                                             <ul>
                                                 {% for chambre in hotel.saisonBase.suppChambres %}
                                                     <li>
@@ -88,7 +88,7 @@
                                         {% endif %}
                                         {% if hotel.saisonBase.vues|length!=0 %}
                                             <hr> 
-                                            <h3>Supp vues</h3>
+                                            <h3>Supp vues <small>{{ hotel.saisonBase.arrBase }}</small></h3>
                                             <ul>
                                                 {% for vue in hotel.saisonBase.vues %}
                                                     <li>
@@ -107,7 +107,7 @@
                                         {% endif %}
                                         {% if hotel.saisonBase.autresSupplements|length!=0 %}
                                             <hr> 
-                                            <h3>Aures supp.</h3>
+                                            <h3>Aures supp. <small>{{ hotel.saisonBase.arrBase }}</small></h3>
                                             <ul>
                                                 {% for supp in hotel.saisonBase.autresSupplements %}
                                                     <li>
@@ -142,7 +142,7 @@
                                         {% endif %}
                                         {% if hotel.saisonBase.autresReductions|length!=0 %}
                                             <hr> 
-                                            <h3>Aures reduc.</h3>
+                                            <h3>Aures reduc. <small>{{ hotel.saisonBase.arrBase }}</small></h3>
                                             <ul>
                                                 {% for reduc in hotel.saisonBase.autresReductions %}
                                                     <li>
@@ -177,7 +177,7 @@
                                         {% endif %}
                                     </div>
                                     <div class="col-md-8" >
-                                        <h3>Supplement</h3>
+                                        <h3>Supplement <small>{{ hotel.saisonBase.arrBase }}</small></h3>
                                         <div class="row">
                                             <div class="col-md-5" >
                                                 <ul>
@@ -233,7 +233,7 @@
                                             </div>
                                         </div>
                                         <hr> 
-                                        <h3>Réduction</h3>
+                                        <h3>Réduction <small>{{ hotel.saisonBase.arrBase }}</small></h3>
                                         <div class="row">
                                             <div class="col-md-5" >
                                                 <ul>

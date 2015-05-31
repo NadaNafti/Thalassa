@@ -60,8 +60,6 @@ class Reservation
                         foreach ($chambre['vue'] as $vue)
                             $tabLigne[] = $this->container->get('lignes')->ligneSuppVue($saison ,$vue) ;
 
-
-
                         $tabjour['lignes'][] = $tabLigne ;
                         $tabAdult['jours'][] = $tabjour ;
                     }
@@ -70,7 +68,36 @@ class Reservation
             }
             for ($i = 1 ; $i <= count($tabOccupants) - 1 ; $i++)
             {
-                
+                $tabEnfant = array () ;
+                $tabEnfant['ordre'] = $i ;
+                $tabEnfant['age'] = $tabOccupants[$i] ;
+                $tabEnfant['jours'] = array () ;
+                foreach ($calendrier as $periode)
+                {
+                    $saison = $this->em->getRepository('BackHotelTunisieBundle:Saison')->find($periode['saison']->getId()) ;
+                    $dates = $this->container->get('library')->getDatesBetween($periode['dateDebut'] , $periode['dateFin']) ;
+                    foreach ($dates as $date)
+                    {
+                        $tabjour = array () ;
+                        $tabjour['jour'] = $date ;
+                        $tabjour['saison'] = array ('id' => $saison->getId() , 'name' => $saison->getLibelle()) ;
+                        $tabjour['lignes'] = array () ;
+                        $tabLigne = array () ;
+
+                        $tabLigne[] = $this->container->get('lignes')->lignePrixBase($saison) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneArrangement($saison , $chambre['arrangement']) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneSuppSingleEnfant($saison , $chambre['chambre']) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneSuppAutreChambre($saison ,$chambre['chambre']) ;
+                        $tabLigne[] = $this->container->get('lignes')->ligneSuppWeekend($saison ,$chambre['chambre'],$date) ;
+
+                        foreach ($chambre['vue'] as $vue)
+                            $tabLigne[] = $this->container->get('lignes')->ligneSuppVue($saison ,$vue) ;
+
+                        $tabjour['lignes'][] = $tabLigne ;
+                        $tabEnfant['jours'][] = $tabjour ;
+                    }
+                }
+                $tabChambre['enfants'][] = $tabEnfant ;
             }
             $results['chambres'][] = $tabChambre ;
         }

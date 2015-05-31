@@ -242,36 +242,48 @@ class SaisonAutreReduc
         return $this->saison;
     }
     
-    public function getSuppAdulteAchat()
+    public function getSuppAdulteAchat($arrangement = null)
     {
         if($this->valeurPour)
-            return -1*$this->getSaison()->prixBaseAchat()*$this->valeurAdulte/100;
+            $reduc= -1*$this->getSaison()->prixBaseAchat($arrangement)*$this->valeurAdulte/100;
         else 
-            return -1*$this->valeurAdulte;
+            $reduc= -1*$this->valeurAdulte;
+        return number_format($reduc, 3, '.', '');
     }
     
-    public function getSuppAdulteVente()
-    {
-        if($this->margePour)
-            return $this->getSuppAdulteAchat()+ abs($this->getSuppAdulteAchat())*$this->marge/100 ;
-        else
-            return $this->getSuppAdulteAchat()+$this->marge;
-    }
-    
-    public function getSuppEnfantAchat()
+    public function getSuppAdulteVente($arrangement = null)
     {
         if($this->valeurPour)
-            return -1*$this->getSaison()->prixBaseAchat()*$this->valeurEnfant/100;
+            $reduc= -1*$this->getSaison()->prixBaseVente($arrangement)*$this->valeurAdulte/100;
         else 
-            return -1*$this->valeurEnfant;
+            $reduc= -1*$this->valeurAdulte;
+        if($this->margePour)
+            $marge = abs($reduc)*$this->marge/100 ;
+        else
+            $marge = $this->marge;
+        return number_format($reduc + $marge, 3, '.', '');
     }
     
-    public function getSuppEnfantVente()
+    public function getSuppEnfantAchat($arrangement = null)
     {
+        if($this->valeurPour)
+            $reduc= -1*$this->getSaison()->prixBaseAchat($arrangement)*$this->valeurEnfant/100;
+        else 
+            $reduc= -1*$this->valeurEnfant;
+        return number_format($reduc, 3, '.', '');
+    }
+    
+    public function getSuppEnfantVente($arrangement = null)
+    {
+        if($this->valeurPour)
+            $reduc= -1*$this->getSaison()->prixBaseVente($arrangement)*$this->valeurEnfant/100;
+        else 
+            $reduc= -1*$this->valeurEnfant;
         if($this->margePour)
-            return $this->getSuppEnfantAchat()+ abs($this->getSuppEnfantAchat())*$this->marge/100 ;
+            $marge = abs($reduc)*$this->marge/100 ;
         else
-            return $this->getSuppEnfantAchat()+$this->marge;
+            $marge = $this->marge;
+        return number_format($reduc + $marge, 3, '.', '');
     }
     
     public function __clone()

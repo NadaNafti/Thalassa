@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SaisonSuppChambre
 {
+
     /**
      * @var integer
      *
@@ -58,19 +59,18 @@ class SaisonSuppChambre
      * @ORM\Column(name="margePour", type="boolean",nullable=true)
      */
     private $margePour;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Chambre",fetch="EAGER")
      * @ORM\JoinColumn(name="chambre_id", referencedColumnName="id")
      */
     protected $chambre;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Saison", inversedBy="suppChambres", fetch="EAGER")
      * @ORM\JoinColumn(name="saison_id", referencedColumnName="id")
      */
     protected $saison;
-
 
     /**
      * Get id
@@ -243,27 +243,35 @@ class SaisonSuppChambre
         return $this->saison;
     }
 
-    public function getSuppAchat()
+    public function getSuppAchat($arrangement = null)
     {
-        if($this->valeurPour)
-            return $this->getSaison()->prixBaseAchat()*$this->valeur/100;
-        else 
-            return $this->valeur;
-    }
-    
-    public function getSuppVente()
-    {
-        if($this->margePour)
-            return $this->getSuppAchat()+ abs($this->getSuppAchat())*$this->marge/100 ;
+        if ($this->valeurPour)
+            $supp = $this->getSaison()->prixBaseAchat($arrangement) * $this->valeur / 100;
         else
-            return $this->getSuppAchat()+$this->marge;
+            $supp = $this->valeur;
+        return number_format($supp, 3, '.', '');
     }
-    
+
+    public function getSuppVente($arrangement = null)
+    {
+        if ($this->valeurPour)
+            $supp = $this->getSaison()->prixBaseVente($arrangement) * $this->valeur / 100;
+        else
+            $supp = $this->valeur;
+
+        if ($this->margePour)
+            $marge = abs($supp) * $this->marge / 100;
+        else
+            $marge = $this->marge;
+        return number_format($supp + $marge, 3, '.', '');
+    }
+
     public function __clone()
     {
         if ($this->id)
         {
-            $this->id = null ;
+            $this->id = null;
         }
     }
+
 }
