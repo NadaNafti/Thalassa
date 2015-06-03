@@ -63,7 +63,7 @@ class Reservation
                         foreach ($chambre['vue'] as $vue)
                             $tabLigne[] = $this->container->get('lignes')->ligneSuppVue($saison ,$arr,$vue) ;
 
-                        $tabjour['lignes'][] = $tabLigne ;
+                        $tabjour['lignes'] = $tabLigne ;
                         $tabAdult['jours'][] = $tabjour ;
                     }
                 }
@@ -102,7 +102,7 @@ class Reservation
                         foreach ($chambre['vue'] as $vue)
                             $tabLigne[] = $this->container->get('lignes')->ligneSuppVue($saison ,$arr,$vue) ;
 
-                        $tabjour['lignes'][] = $tabLigne ;
+                        $tabjour['lignes'] = $tabLigne ;
                         $tabEnfant['jours'][] = $tabjour ;
                     }
                 }

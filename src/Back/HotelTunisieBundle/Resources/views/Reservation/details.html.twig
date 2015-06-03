@@ -28,8 +28,77 @@
                     <div class="tab-pane in active" id="details_reservation">
                         <div class="row">
                             <div class="col-md-12">
-
+                                <h2 class="center">{{ hotel }}</h2>
+                                <h5 class="center">{{ getStars(hotel.getStars)|raw }}</h5>
                             </div>
+                            <div class="col-md-12">
+                                <div class="panel-body">
+                                    <table class="table table-hover" id="sample-table-1">
+                                        <tbody>
+                                            {% set total=0 %}
+                                            {% for chambre in resultat.chambres %}
+                                                <tr style="  background-color: antiquewhite;">
+                                                    <th>{{ getNameChambre(chambre.details.chambre) }}</th>
+                                                    <th>{{ getNameArrangement(chambre.details.arrangement) }}</th>
+                                                    <th>Adulte : {{ chambre.adultes|length }}</th>
+                                                    <th>Enfants : {{ chambre.enfants|length }} [{% for enfant in chambre.enfants %} {{ enfant.age }} {% if loop.index != chambre.enfants|length %},{% endif %} {% endfor %}]</th>
+                                                </tr>
+                                                {% for adulte in chambre.adultes %}
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Adulte : {{ adulte.ordre }}</th>
+                                                    </tr>
+                                                    {% for jour in adulte.jours %}
+                                                        <tr style="  background-color: honeydew;" >
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th>{{ jour.jour }} [{{ jour.saison.name }}]</th>
+                                                        </tr>
+                                                        {% for ligne in jour.lignes if ligne is not null %}
+                                                            <tr style="  background-color: ghostwhite;">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>{{ ligne.name }}</td>
+                                                                <td>{{ ligne.vente }}</td>
+                                                            </tr>
+                                                            {% set total=total+ligne.vente  %}
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                {% endfor %}
+                                                {% for enfant in chambre.enfants %}
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Enfant : {{ enfant.ordre }}  , Age : {{ enfant.age }}</th>
+                                                    </tr>
+                                                    {% for jour in enfant.jours %}
+                                                        <tr style="  background-color: honeydew;" >
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th>{{ jour.jour }} [{{ jour.saison.name }}]</th>
+                                                        </tr>
+                                                        {% for ligne in jour.lignes if ligne is not null %}
+                                                            <tr style="  background-color: ghostwhite;">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>{{ ligne.name }}</td>
+                                                                <td>{{ ligne.vente }}</td>
+                                                            </tr>
+                                                            {% set total=total+ligne.vente  %}
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            {% endfor %}
+                                            <tr style="  background-color: antiquewhite;">
+                                                <th></th>
+                                                <th></th>
+                                                <th>Total</th>
+                                                <th>{{total}}</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="tab-pane" id="Validation">

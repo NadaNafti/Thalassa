@@ -143,10 +143,7 @@ class ReservationController extends Controller
     {
         $em = $this->getDoctrine()->getManager() ;
         $saison = $em->getRepository("BackHotelTunisieBundle:Saison")->find($this->getRequest()->get('id')) ;
-        if (is_null($saison->getType()))
-            $hotel = $saison->getHotelBase() ;
-        else
-            $hotel = $saison->getHotel() ;
+        $hotel = $saison->getHotel() ;
         return $this->render('BackHotelTunisieBundle:Reservation:ajaxSaison.html.twig' , array (
                     'saison' => $saison ,
                     'hotel' => $hotel
@@ -161,6 +158,7 @@ class ReservationController extends Controller
         if (!$session->has("reservation"))
             return $this->redirect($this->generateUrl("new_reservation")) ;
         $reservation = $session->get('reservation') ;
+        $hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->find($reservation['hotel']) ;
         $client = $em->getRepository("BackUserBundle:Client")->find($reservation['client']) ;
         $form = $this->createFormBuilder()
                 ->add("client" , new ClientType() , array ('data' => $client)) ;
@@ -188,6 +186,7 @@ class ReservationController extends Controller
         return $this->render('BackHotelTunisieBundle:Reservation:details.html.twig' , array (
                     'form' => $form->createView() ,
                     'chambres' => $chambres ,
+                    'hotel' => $hotel ,
                     'resultat' => $this->container->get('reservation')->reservation($reservation) ,
                 )) ;
     }
