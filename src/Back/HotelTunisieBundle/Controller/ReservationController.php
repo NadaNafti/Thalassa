@@ -187,6 +187,10 @@ class ReservationController extends Controller
                     'form' => $form->createView() ,
                     'chambres' => $chambres ,
                     'hotel' => $hotel ,
+                    'client' => $client ,
+                    'nuitees' => $reservation['nuitees'] ,
+                    'dateDebut' => new \DateTime($reservation['dateDebut']) ,
+                    'dateFin' => new \DateTime($reservation['dateFin']) ,
                     'resultat' => $this->container->get('reservation')->reservation($reservation) ,
                 )) ;
     }
