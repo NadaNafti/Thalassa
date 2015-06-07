@@ -71,6 +71,11 @@ class Amicale
      * @ORM\OneToMany(targetEntity="Back\UserBundle\Entity\Client", mappedBy="amicale")
      */
     protected $clients ;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Back\HotelTunisieBundle\Entity\Saison", mappedBy="amicales")
+     */
+    private $saisons;
 
     /**
      * @ORM\OneToMany(targetEntity="Convention", mappedBy="amicale")
@@ -542,4 +547,37 @@ class Amicale
         return $this->clients ;
     }
 
+
+    /**
+     * Add saisons
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Saison $saisons
+     * @return Amicale
+     */
+    public function addSaison(\Back\HotelTunisieBundle\Entity\Saison $saisons)
+    {
+        $this->saisons[] = $saisons;
+
+        return $this;
+    }
+
+    /**
+     * Remove saisons
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Saison $saisons
+     */
+    public function removeSaison(\Back\HotelTunisieBundle\Entity\Saison $saisons)
+    {
+        $this->saisons->removeElement($saisons);
+    }
+
+    /**
+     * Get saisons
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSaisons()
+    {
+        return $this->saisons;
+    }
 }

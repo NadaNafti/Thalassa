@@ -1,4 +1,12 @@
 services:
+    FunctionExtensions:
+      class: Back\HotelTunisieBundle\Twig\Extension\FunctionExtension
+      tags:
+          - { name: twig.extension }
+      arguments:
+          em: "@doctrine.orm.entity_manager"
+          container: "@service_container"
+        
     saisons:
         class: Back\HotelTunisieBundle\Services\Saisons
         arguments: [ @doctrine.orm.entity_manager ]

@@ -24,6 +24,11 @@
                         <div class="panel-body tab-content">
                             <form action="{{ path('PeriodeSaison',{'id':saison.id}) }}" method="post" role="form" id="formDisable">
                                 {{ form_widget(form._token) }}
+                                {% if saison.type==3 %}
+                                    <div class="row">
+                                        <div class="col-md-12">{{ formulaire.select2("col-md-12","Amicales",form.amicales,false) }}</div>
+                                    </div>
+                                {% endif %}
                                 <div class="row">
                                     <div class="col-md-2">Date debut</div>
                                     <div class="col-md-2">Date fin</div>

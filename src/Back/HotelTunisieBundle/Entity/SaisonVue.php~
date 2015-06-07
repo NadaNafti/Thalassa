@@ -89,7 +89,7 @@ class SaisonVue
      */
     public function setValeur($valeur)
     {
-        $this->valeur=$valeur;
+        $this->valeur = $valeur;
 
         return $this;
     }
@@ -112,7 +112,7 @@ class SaisonVue
      */
     public function setValeurPour($valeurPour)
     {
-        $this->valeurPour=$valeurPour;
+        $this->valeurPour = $valeurPour;
 
         return $this;
     }
@@ -135,7 +135,7 @@ class SaisonVue
      */
     public function setMarge($marge)
     {
-        $this->marge=$marge;
+        $this->marge = $marge;
 
         return $this;
     }
@@ -158,7 +158,7 @@ class SaisonVue
      */
     public function setMargePour($margePour)
     {
-        $this->margePour=$margePour;
+        $this->margePour = $margePour;
 
         return $this;
     }
@@ -181,7 +181,7 @@ class SaisonVue
      */
     public function setEtat($etat)
     {
-        $this->etat=$etat;
+        $this->etat = $etat;
 
         return $this;
     }
@@ -202,9 +202,9 @@ class SaisonVue
      * @param \Back\HotelTunisieBundle\Entity\Vue $vue
      * @return SaisonVue
      */
-    public function setVue(\Back\HotelTunisieBundle\Entity\Vue $vue=null)
+    public function setVue(\Back\HotelTunisieBundle\Entity\Vue $vue = null)
     {
-        $this->vue=$vue;
+        $this->vue = $vue;
 
         return $this;
     }
@@ -225,9 +225,9 @@ class SaisonVue
      * @param \Back\HotelTunisieBundle\Entity\Saison $saison
      * @return SaisonVue
      */
-    public function setSaison(\Back\HotelTunisieBundle\Entity\Saison $saison=null)
+    public function setSaison(\Back\HotelTunisieBundle\Entity\Saison $saison = null)
     {
-        $this->saison=$saison;
+        $this->saison = $saison;
 
         return $this;
     }
@@ -242,27 +242,34 @@ class SaisonVue
         return $this->saison;
     }
 
-    public function getSuppAchat()
+    public function getSuppAchat($arrangement = null)
     {
-        if($this->getValeurPour())
-            return $this->getSaison()->prixBaseAchat() * $this->valeur / 100;
+        if ($this->valeurPour)
+            $supp = $this->getSaison()->prixBaseAchat($arrangement) * $this->valeur / 100;
         else
-            return $this->valeur;
+            $supp = $this->valeur;
+        return number_format($supp, 3, '.', '');
     }
 
-    public function getSuppVente()
+    public function getSuppVente($arrangement = null)
     {
-        if($this->margePour)
-            return $this->getSuppAchat() + abs($this->getSuppAchat()) * $this->marge / 100;
+        if ($this->valeurPour)
+            $supp = $this->getSaison()->prixBaseVente($arrangement) * $this->valeur / 100;
         else
-            return $this->getSuppAchat() + $this->marge;
+            $supp = $this->valeur;
+
+        if ($this->margePour)
+            $marge = abs($supp) * $this->marge / 100;
+        else
+            $marge = $this->marge;
+        return number_format($supp + $marge, 3, '.', '');
     }
-    
+
     public function __clone()
     {
         if ($this->id)
         {
-            $this->id = null ;
+            $this->id = null;
         }
     }
 

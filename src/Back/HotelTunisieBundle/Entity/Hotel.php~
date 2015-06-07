@@ -157,6 +157,7 @@ class Hotel
      *      joinColumns={@ORM\JoinColumn(name="id_hotel", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_arrangement", referencedColumnName="id")}
      * )
+     * @ORM\OrderBy({"ordre" = "ASC"})
      */
     protected $arrangements ;
 
@@ -211,7 +212,7 @@ class Hotel
     private $saisonBase ;
 
     /**
-     * @Gedmo\slug(fields={"libelle"})
+     * @Gedmo\Slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
     private $slug ;

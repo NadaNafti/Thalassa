@@ -1,18 +1,19 @@
 <?php
 
-namespace Back\HotelTunisieBundle\Entity;
+namespace Back\HotelTunisieBundle\Entity ;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM ;
 use Gedmo\Mapping\Annotation as Gedmo ;
 
 /**
  * HotelChambre
  *
- * @ORM\Table(name="ost_sht_hotelsChambre")
+ * @ORM\Table(name="ost_sht_hotelschambre")
  * @ORM\Entity
  */
 class HotelChambre
 {
+
     /**
      * @var integer
      *
@@ -20,13 +21,13 @@ class HotelChambre
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-    
+    private $id ;
+
     /**
      * @ORM\ManyToOne(targetEntity="Chambre",fetch="EAGER")
      * @ORM\JoinColumn(name="chambre_id", referencedColumnName="id")
      */
-    protected $chambre;
+    protected $chambre ;
 
     /**
      * @ORM\ManyToOne(targetEntity="Hotel", inversedBy="hotelChambres")
@@ -38,14 +39,13 @@ class HotelChambre
      *
      * @ORM\Column(name="description", type="text")
      */
-    private $description;
+    private $description ;
 
     /**
      * @ORM\OneToOne(targetEntity="Media", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $image ;
-
 
     /**
      * Get id
@@ -54,7 +54,7 @@ class HotelChambre
      */
     public function getId()
     {
-        return $this->id;
+        return $this->id ;
     }
 
     /**
@@ -65,9 +65,9 @@ class HotelChambre
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description = $description ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -77,7 +77,7 @@ class HotelChambre
      */
     public function getDescription()
     {
-        return $this->description;
+        return $this->description ;
     }
 
     /**
@@ -88,9 +88,9 @@ class HotelChambre
      */
     public function setChambre(\Back\HotelTunisieBundle\Entity\Chambre $chambre = null)
     {
-        $this->chambre = $chambre;
+        $this->chambre = $chambre ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -100,7 +100,7 @@ class HotelChambre
      */
     public function getChambre()
     {
-        return $this->chambre;
+        return $this->chambre ;
     }
 
     /**
@@ -111,9 +111,9 @@ class HotelChambre
      */
     public function setHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotel = null)
     {
-        $this->hotel = $hotel;
+        $this->hotel = $hotel ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -123,6 +123,30 @@ class HotelChambre
      */
     public function getHotel()
     {
-        return $this->hotel;
+        return $this->hotel ;
     }
+
+    /**
+     * Set image
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Media $image
+     * @return HotelChambre
+     */
+    public function setImage(\Back\HotelTunisieBundle\Entity\Media $image = null)
+    {
+        $this->image = $image ;
+
+        return $this ;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Media 
+     */
+    public function getImage()
+    {
+        return $this->image ;
+    }
+
 }

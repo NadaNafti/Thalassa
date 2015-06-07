@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SaisonSupp
 {
+
     /**
      * @var integer
      *
@@ -113,7 +114,7 @@ class SaisonSupp
      * @ORM\Column(name="suppSingleEnfant", type="boolean",nullable=true)
      */
     private $suppSingleEnfant;
-    
+
     /**
      * @ORM\OneToOne(targetEntity="Saison", mappedBy="saisonSupp")
      * */
@@ -130,7 +131,6 @@ class SaisonSupp
      * @ORM\Column( type="datetime")
      */
     private $updated;
-
 
     /**
      * Get id
@@ -486,7 +486,7 @@ class SaisonSupp
     {
         return $this->updated;
     }
-    
+
 //    public function getSuppSingleAchat()
 //    {
 //        if($this->suppSinglePour)
@@ -515,80 +515,97 @@ class SaisonSupp
     {
         return $this->saison;
     }
-    
-    public function getSuppSingleAchat()
+
+    public function getSuppSingleAchat($arrangement = null)
     {
-        if($this->suppSinglePour)
-            return $this->saison->prixBaseAchat()*$this->suppSingle/100;
+        if ($this->suppSinglePour)
+            $supp = $this->saison->prixBaseAchat($arrangement) * $this->suppSingle / 100;
         else
-            return $this->suppSingle;
+            $supp = $this->suppSingle;
+        return number_format($supp, 3, '.', '');
     }
-    
-    public function getSuppSingleVente()
+
+    public function getSuppSingleVente($arrangement = null)
     {
-        if($this->suppSingleMargePour)
-            return $this->getSuppSingleAchat()+$this->getSuppSingleAchat()*$this->sippSingleMarge/100;
+        if ($this->suppSinglePour)
+            $supp = $this->saison->prixBaseVente($arrangement) * $this->suppSingle / 100;
         else
-            return $this->getSuppSingleAchat() + $this->sippSingleMarge;
-    }
-    
-    public function getSupp3LitAchat()
-    {
-        if($this->supp3LitPour)
-            return $this->saison->prixBaseAchat()*$this->supp3Lit/100;
+            $supp = $this->suppSingle;
+
+        if ($this->suppSingleMargePour)
+            $marge = $supp * $this->sippSingleMarge / 100;
         else
-            return $this->supp3Lit;
+            $marge = $this->sippSingleMarge;
+
+        return number_format($marge + $supp, 3, '.', '');
     }
-    
-    public function getSupp3LitVente()
+
+    public function getSupp3LitAchat($arrangement = null)
     {
-        if($this->supp3LitMargePour)
-            return $this->getSupp3LitAchat()+$this->getSupp3LitAchat()*$this->supp3LitMarge/100;
+        if ($this->supp3LitPour)
+            $supp = $this->saison->prixBaseAchat($arrangement) * $this->supp3Lit / 100;
         else
-            return $this->getSupp3LitAchat() + $this->supp3LitMarge;
+            $supp = $this->supp3Lit;
+        return number_format($supp, 3, '.', '');
     }
-    
-    public function getSupp4LitAchat()
+
+    public function getSupp3LitVente($arrangement = null)
     {
-        if($this->supp4LitPour)
-            return $this->saison->prixBaseAchat()*$this->supp4Lit/100;
+        if ($this->supp3LitPour)
+            $supp = $this->saison->prixBaseVente($arrangement) * $this->supp3Lit / 100;
         else
-            return $this->supp4Lit;
-    }
-    
-    public function getSupp4LitVente()
-    {
-        if($this->supp4LitMargePour)
-            return $this->getSupp4LitAchat()+$this->getSupp4LitAchat()*$this->supp4LitMarge/100;
+            $supp = $this->supp3Lit;
+        if ($this->supp3LitMargePour)
+            $marge = $supp * $this->supp3LitMarge / 100;
         else
-            return $this->getSupp4LitAchat() + $this->supp4LitMarge;
+            $marge = $this->supp3LitMarge;
+        return number_format($marge + $supp, 3, '.', '');
     }
-    
-    public function getSuppSingleEnfantAchat()
+
+    public function getSupp4LitAchat($arrangement = null)
     {
-        if(!$this->suppSingleEnfant)
+        if ($this->supp4LitPour)
+            $supp = $this->saison->prixBaseAchat($arrangement) * $this->supp4Lit / 100;
+        else
+            $supp = $this->supp4Lit;
+        return number_format($supp, 3, '.', '');
+    }
+
+    public function getSupp4LitVente($arrangement = null)
+    {
+        if ($this->supp4LitPour)
+            $supp = $this->saison->prixBaseVente($arrangement) * $this->supp4Lit / 100;
+        else
+            $supp = $this->supp4Lit;
+        
+        if ($this->supp4LitMargePour)
+            $marge = $supp * $this->supp4LitMarge / 100;
+        else
+            $marge = $this->supp4LitMarge;
+        
+        return number_format($marge +$supp, 3, '.', '');
+    }
+
+    public function getSuppSingleEnfantAchat($arrangement = null)
+    {
+        if (!$this->suppSingleEnfant)
             return 0;
-        if($this->suppSinglePour)
-            return $this->saison->prixBaseAchat()*$this->suppSingle/100;
-        else
-            return $this->suppSingle;
+        return $this->getSuppSingleAchat($arrangement);
     }
-    
-    public function getSuppSingleEnfantVente()
+
+    public function getSuppSingleEnfantVente($arrangement = null)
     {
-        if(!$this->suppSingleEnfant)
+        if (!$this->suppSingleEnfant)
             return 0;
-        if($this->suppSingleMargePour)
-            return $this->getSuppSingleAchat()+$this->getSuppSingleAchat()*$this->sippSingleMarge/100;
-        else
-            return $this->getSuppSingleAchat() + $this->sippSingleMarge;
+        return $this->getSuppSingleVente($arrangement);
     }
-    
+
     public function __clone()
     {
         if ($this->id)
         {
-            $this->id = NULL ;
+            $this->id = NULL;
         }
     }
+
 }

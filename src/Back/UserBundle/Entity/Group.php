@@ -23,4 +23,14 @@ class Group extends BaseGroup
     {
         return $this->name;
     }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }

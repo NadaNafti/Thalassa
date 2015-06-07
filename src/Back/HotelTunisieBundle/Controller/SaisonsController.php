@@ -50,7 +50,7 @@ class SaisonsController extends Controller
         $form=$this->createFormBuilder()
                         ->add('libelle', 'text')
                         ->add('type', 'choice', array(
-                            'choices'    =>array( '1'=>'Saison', '2'=>'Promotion' ),
+                            'choices'    =>array( '1'=>'Saison', '2'=>'Promotion', '3'=>'Amicales' ),
                             'required'   =>true,
                             'empty_value'=>'Type de saison',
                             'empty_data' =>null
@@ -126,8 +126,13 @@ class SaisonsController extends Controller
 
     public function listeAction(Hotel $hotel)
     {
+        $em=$this->getDoctrine()->getManager();
+        $saisons= $em->getRepository('BackHotelTunisieBundle:Saison')->findBy(array('hotel'=>$hotel),array('id'=>'desc'));
+        $paginator = $this->get('knp_paginator') ;
+        $saisons = $paginator->paginate($saisons , $this->getRequest()->query->get('page' , 1) , 10) ;
         return $this->render('BackHotelTunisieBundle:Saisons:liste.html.twig', array(
                     'hotel'=>$hotel,
+                    'saisons'=>$saisons,
         ));
     }
 
@@ -137,6 +142,8 @@ class SaisonsController extends Controller
         $session=$this->getRequest()->getSession();
 
         $form=$this->createForm(new SaisonPeriodesType(), $saison->addPeriode(new Periode())->addPeriode(new Periode())->addPeriode(new Periode()));
+        if($saison->getType()==3)
+            $form->add ("amicales");
         $request=$this->getRequest();
         if($request->isMethod("POST"))
         {

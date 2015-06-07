@@ -470,24 +470,35 @@ class SaisonWeekend
         return $this->saison;
     }
 
-    public function getReducSuppAchat()
+    public function getReducSuppAchat($arrangement = null)
     {
         if($this->type == 1)
             $x=1;
         else
             $x=-1;
         if($this->valeurPour)
-            return $x * $this->getSaison()->prixBaseAchat() * $this->valeur / 100;
+            $suppReduc =  $x * $this->getSaison()->prixBaseAchat($arrangement) * $this->valeur / 100;
         else
-            return $x * $this->valeur;
+            $suppReduc = $x * $this->valeur;
+        return number_format($suppReduc, 3, '.', '');
     }
 
-    public function getReducSuppVente()
+    public function getReducSuppVente($arrangement = null)
     {
-        if($this->margePour)
-            return $this->getReducSuppAchat() + abs($this->getReducSuppAchat()) * $this->marge / 100;
+        if($this->type == 1)
+            $x=1;
         else
-            return $this->getReducSuppAchat() + $this->marge;
+            $x=-1;
+        if($this->valeurPour)
+            $suppReduc =  $x * $this->getSaison()->prixBaseVente($arrangement) * $this->valeur / 100;
+        else
+            $suppReduc = $x * $this->valeur;
+        
+        if($this->margePour)
+            $marge = abs($suppReduc) * $this->marge / 100;
+        else
+            $marge = $this->marge;
+        return number_format($suppReduc + $marge, 3, '.', '');
     }
     
     public function __clone()

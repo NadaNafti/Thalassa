@@ -2,6 +2,7 @@
 
 namespace Back\HotelTunisieBundle\Controller ;
 
+use Back\HotelTunisieBundle\Entity\Saison;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\HttpFoundation\Session\Session ;
 use Doctrine\ORM\EntityRepository ;
@@ -80,7 +81,9 @@ class ReservationController extends Controller
         $reservation = $session->get('reservation') ;
         $hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->find($reservation['hotel']) ;
         $client = $em->getRepository("BackUserBundle:Client")->find($reservation['client']) ;
-        $saison = new \Back\HotelTunisieBundle\Entity\Saison() ;
+        $dateDebut=new \DateTime($reservation['dateDebut']);
+        $dateFin =new \DateTime($reservation['dateFin']);
+        $saison = new Saison();
         $saison = $this->container->get('saisons')->getSaisonByClient($hotel , $client , $reservation['dateDebut']) ;
         if ($request->isMethod("POST"))
         {
@@ -105,8 +108,14 @@ class ReservationController extends Controller
                         $tab['vue'] = array () ;
                         foreach ($saison->getAutresSupplements() as $supp)
                         {
-                            if ($supp->getSupp()->getObligatoire() || $request->get('supp_' . $idch . '_' . $i . '_' . $supp->getSupp()->getId()))
+                            if ( $this->container->get('Library')->verifSuppReducDate($supp->getSupp(),$dateDebut,$dateFin) &&  $supp->getSupp()->getObligatoire() || $request->get('supp_' . $idch . '_' . $i . '_' . $supp->getSupp()->getId()))
                                 $tab['supp'][] = $supp->getSupp()->getId() ;
+                        }
+
+                        foreach ($saison->getAutresReductions() as $reduc)
+                        {
+                            if ( $this->container->get('Library')->verifSuppReducDate($reduc->getReduc(),$dateDebut,$dateFin))
+                                $tab['reduc'][] = $reduc->getReduc()->getId() ;
                         }
                         foreach ($saison->getVues() as $vue)
                         {
@@ -132,8 +141,8 @@ class ReservationController extends Controller
                     'calendrier' => $calendrier ,
                     'hotel' => $hotel ,
                     'nuitees' => $reservation['nuitees'] ,
-                    'dateDebut' => new \DateTime($reservation['dateDebut']) ,
-                    'dateFin' => new \DateTime($reservation['dateFin']) ,
+                    'dateDebut' => $dateDebut ,
+                    'dateFin' => $dateFin ,
                     'client' => $client ,
                     'saison' => $saison
                 )) ;

@@ -20,7 +20,8 @@ class SaisonType extends AbstractType
                 ->add('type', 'choice', array(
                     'choices' => array(
                         '1' => 'Saison',
-                        '2' => 'Promotion'
+                        '2' => 'Promotion',
+                        '3' => 'Amicales',
                     ),
                     'expanded'  => true,
                     'multiple'  => false,

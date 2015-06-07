@@ -23,7 +23,7 @@ class Localisation
     private $id;
     
     /**
-     * @Gedmo\slug(fields={"libelle"})
+     * @Gedmo\Slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
     private $slug;

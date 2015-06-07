@@ -7,7 +7,7 @@
         <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
     </li>
     <li>
-        <a href="javascript:void(0)" >Liste des saisons{</a>
+        <a href="javascript:void(0)" >Liste des saisons</a>
     </li>
 {% endblock %}
 {% block body %}
@@ -30,13 +30,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for saison in hotel.saisons %}
+                                {% for saison in saisons %}
                                     <tr>
                                         <td class="center">
                                             {% if saison.type==1 %}
                                                 <span class="label label-sm label-purple">Saison</span>
                                             {% elseif saison.type==2 %}
                                                 <span class="label label-sm label-info">Promotion</span>
+                                            {% elseif saison.type==3 %}
+                                                <span class="label label-sm label-teal">Amicales</span>
                                             {% endif %}
                                         </td>
                                         <td>{{ saison.libelle }}</td>
@@ -46,9 +48,9 @@
                                             {% endfor %}
                                         </td>
                                         <td>
-                                            {% if not saison.isValid  %}
-                                                <span class="label label-sm label-danger">Saison Invalide</span>
-                                            {% endif %}
+                                            {% for amicale in saison.amicales %}
+                                                {{ amicale }} {% if loop.index!=saison.amicales|length %} ,{% endif %}
+                                            {% endfor %}
                                         </td>
                                         <td>{{ saison.created|date('d/m/Y  H:i:s') }}</td>
                                         <td class="TableAction">
@@ -60,6 +62,9 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                    <div class="navigation">
+                        {{ knp_pagination_render(saisons) }}
+                    </div>
                     </div>
                 </div>
             </div>

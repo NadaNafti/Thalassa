@@ -116,18 +116,22 @@ class Lignes {
     }
 
     public function ligneReduc1Enf1Adu(Saison $saison, $arr, $ordre, $nbrAdulte, $age) {
+        $minAge1=$saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant();
+        $maxAge1=$saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant();
+        $minAge2=$saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant();
+        $maxAge2=$saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant();
         if ($ordre == 1 && $nbrAdulte == 1) {
-            if ($age >= $saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant() && $age <= $saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant())
+            if ($age >= $minAge1 && $age <= $maxAge1)
                 return array(
-                    'code' => 'REDUC-1ENF-1ADULTE',
-                    'name' => 'Réduction 1er enfant avec 1 adulte dans une même chambre  ',
+                    'code' => 'REDUC-1ENF-1ADULTE-AGE-1',
+                    'name' => 'Réduction 1er enfant avec 1 adulte dans une même chambre  ['.$minAge1.','.$maxAge1.']',
                     'achat' => $saison->getSaisonReduc()->getReducEnfant1Adulte1Age1Achat($arr),
                     'vente' => $saison->getSaisonReduc()->getReducEnfant1Adulte1Age1Vente($arr)
                 );
-            if ($age >= $saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant() && $age <= $saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant())
+            if ($age >= $minAge2 && $age <= $maxAge2)
                 return array(
-                    'code' => 'REDUC-1ENF-1ADULTE',
-                    'name' => 'Réduction 1er enfant avec 1 adulte dans une même chambre  ',
+                    'code' => 'REDUC-1ENF-1ADULTE-AGE-2',
+                    'name' => 'Réduction 1er enfant avec 1 adulte dans une même chambre   ['.$minAge2.','.$maxAge2.']',
                     'achat' => $saison->getSaisonReduc()->getReducEnfant1Adulte1Age2Achat($arr),
                     'vente' => $saison->getSaisonReduc()->getReducEnfant1Adulte1Age2Vente($arr)
                 );
@@ -135,18 +139,22 @@ class Lignes {
     }
 
     public function ligneReduc1Enf2Adu(Saison $saison, $arr, $ordre, $nbrAdulte, $age) {
+        $minAge1=$saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant();
+        $maxAge1=$saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant();
+        $minAge2=$saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant();
+        $maxAge2=$saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant();
         if ($ordre == 1 && $nbrAdulte == 2) {
-            if ($age >= $saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant() && $age <= $saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant())
+            if ($age >= $minAge1 && $age <= $maxAge1)
                 return array(
-                    'code' => 'REDUC-1ENF-2ADULTES',
-                    'name' => 'Réduction 1er enfant avec 2 adultes dans une même chambre  ',
+                    'code' => 'REDUC-1ENF-2ADULTES-AGE-1',
+                    'name' => 'Réduction 1er enfant avec 2 adultes dans une même chambre   ['.$minAge1.','.$maxAge1.']',
                     'achat' => $saison->getSaisonReduc()->getReducEnfant1Adulte2Age1Achat($arr),
                     'vente' => $saison->getSaisonReduc()->getReducEnfant1Adulte2Age1Vente($arr)
                 );
-            if ($age >= $saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant() && $age <= $saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant())
+            if ($age >= $minAge2 && $age <= $maxAge2)
                 return array(
-                    'code' => 'REDUC-1ENF-2ADULTES',
-                    'name' => 'Réduction 1er enfant avec 2 adultes dans une même chambre  ',
+                    'code' => 'REDUC-1ENF-2ADULTES-AGE-2',
+                    'name' => 'Réduction 1er enfant avec 2 adultes dans une même chambre   ['.$minAge2.','.$maxAge2.']',
                     'achat' => $saison->getSaisonReduc()->getReducEnfant1Adulte2Age2Achat($arr),
                     'vente' => $saison->getSaisonReduc()->getReducEnfant1Adulte2Age2Vente($arr)
                 );
@@ -154,18 +162,22 @@ class Lignes {
     }
 
     public function ligneReduc1EnfSeparer(Saison $saison, $arr, $ordre, $nbrAdulte, $age) {
+        $minAge1=$saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant();
+        $maxAge1=$saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant();
+        $minAge2=$saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant();
+        $maxAge2=$saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant();
         if ($ordre == 1 && $nbrAdulte == 0) {
-            if ($age >= $saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant() && $age <= $saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant())
+            if ($age >= $minAge1 && $age <= $maxAge1)
                 return array(
-                    'code' => 'REDUC-1ENF-SEPARER',
-                    'name' => 'Réduction 1er enfant dans une chambre séparée',
+                    'code' => 'REDUC-1ENF-SEPARER-AGE-1',
+                    'name' => 'Réduction 1er enfant dans une chambre séparée ['.$minAge1.','.$maxAge1.']',
                     'achat' => $saison->getSaisonReduc()->getReduc1EnfantSepare1Age1Achat($arr),
                     'vente' => $saison->getSaisonReduc()->getReduc1EnfantSepare1Age1Vente($arr)
                 );
-            if ($age >= $saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant() && $age <= $saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant())
+            if ($age >= $minAge2 && $age <= $maxAge2)
                 return array(
-                    'code' => 'REDUC-1ENF-SEPARER',
-                    'name' => 'Réduction 1er enfant dans une chambre séparée',
+                    'code' => 'REDUC-1ENF-SEPARER-AGE-2',
+                    'name' => 'Réduction 1er enfant dans une chambre séparée   ['.$minAge2.','.$maxAge2.']',
                     'achat' => $saison->getSaisonReduc()->getReduc1EnfantSepare1Age2Achat($arr),
                     'vente' => $saison->getSaisonReduc()->getReduc1EnfantSepare1Age2Vente($arr)
                 );
@@ -173,18 +185,22 @@ class Lignes {
     }
 
     public function ligneReduc2Enf1Adu(Saison $saison, $arr, $ordre, $nbrAdulte, $age) {
+        $minAge1=$saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant();
+        $maxAge1=$saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant();
+        $minAge2=$saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant();
+        $maxAge2=$saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant();
         if ($ordre > 1 && $nbrAdulte == 1) {
-            if ($age >= $saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant() && $age <= $saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant())
+            if ($age >= $minAge1 && $age <= $maxAge1)
                 return array(
-                    'code' => 'REDUC-2ENF-1ADULTE',
-                    'name' => 'Réduction 2eme enfant ou plus avec 1 adulte dans une même chambre',
+                    'code' => 'REDUC-2ENF-1ADULTE-AGE-1',
+                    'name' => 'Réduction 2eme enfant ou plus avec 1 adulte dans une même chambre ['.$minAge1.','.$maxAge1.']',
                     'achat' => $saison->getSaisonReduc()->getReduc2Enfant1Adulte1Age1Achat($arr),
                     'vente' => $saison->getSaisonReduc()->getReduc2Enfant1Adulte1Age1Vente($arr)
                 );
-            if ($age >= $saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant() && $age <= $saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant())
+            if ($age >= $minAge2 && $age <= $maxAge2)
                 return array(
-                    'code' => 'REDUC-2ENF-1ADULTE',
-                    'name' => 'Réduction 2eme enfant ou plus avec 1 adulte dans une même chambre',
+                    'code' => 'REDUC-2ENF-1ADULTE-AGE-2',
+                    'name' => 'Réduction 2eme enfant ou plus avec 1 adulte dans une même chambre   ['.$minAge2.','.$maxAge2.']',
                     'achat' => $saison->getSaisonReduc()->getReduc2Enfant1Adulte1Age2Achat($arr),
                     'vente' => $saison->getSaisonReduc()->getReduc2Enfant1Adulte1Age2Vente($arr)
                 );
@@ -192,18 +208,22 @@ class Lignes {
     }
 
     public function ligneReduc2Enf2Adu(Saison $saison, $arr, $ordre, $nbrAdulte, $age) {
+        $minAge1=$saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant();
+        $maxAge1=$saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant();
+        $minAge2=$saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant();
+        $maxAge2=$saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant();
         if ($ordre > 1 && $nbrAdulte == 2) {
-            if ($age >= $saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant() && $age <= $saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant())
+            if ($age >= $minAge1 && $age <= $maxAge1)
                 return array(
-                    'code' => 'REDUC-2ENF-2ADULTES',
-                    'name' => 'Réduction 2eme enfant ou plus avec 2 adultes dans une même chambre',
+                    'code' => 'REDUC-2ENF-2ADULTES-AGE-1',
+                    'name' => 'Réduction 2eme enfant ou plus avec 2 adultes dans une même chambre ['.$minAge1.','.$maxAge1.']',
                     'achat' => $saison->getSaisonReduc()->getReduc2Enfant2Adulte1Age1Achat($arr),
                     'vente' => $saison->getSaisonReduc()->getReduc2Enfant2Adulte1Age1Vente($arr)
                 );
-            if ($age >= $saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant() && $age <= $saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant())
+            if ($age >= $minAge2 && $age <= $maxAge2)
                 return array(
-                    'code' => 'REDUC-2ENF-2ADULTES',
-                    'name' => 'Réduction 2eme enfant ou plus avec 2 adultes dans une même chambre',
+                    'code' => 'REDUC-2ENF-2ADULTES-AGE-2',
+                    'name' => 'Réduction 2eme enfant ou plus avec 2 adultes dans une même chambre   ['.$minAge2.','.$maxAge2.']',
                     'achat' => $saison->getSaisonReduc()->getReduc2Enfant2Adulte1Age2Achat($arr),
                     'vente' => $saison->getSaisonReduc()->getReduc2Enfant2Adulte1Age2Vente($arr)
                 );
@@ -211,18 +231,22 @@ class Lignes {
     }
 
     public function ligneReduc2EnfSeparer(Saison $saison, $arr, $ordre, $nbrAdulte, $age) {
+        $minAge1=$saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant();
+        $maxAge1=$saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant();
+        $minAge2=$saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant();
+        $maxAge2=$saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant();
         if ($ordre > 1 && $nbrAdulte == 0) {
-            if ($age >= $saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant() && $age <= $saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant())
+            if ($age >= $minAge1 && $age <= $maxAge1)
                 return array(
-                    'code' => 'REDUC-1ENF-SEPARER',
-                    'name' => '2eme enfant ou plus dans une chambre séparée',
+                    'code' => 'REDUC-1ENF-SEPARER-AGE-1',
+                    'name' => '2eme enfant ou plus dans une chambre séparée ['.$minAge1.','.$maxAge1.']',
                     'achat' => $saison->getSaisonReduc()->getReduc2EnfantOuPlusSepare1Age1Achat($arr),
                     'vente' => $saison->getSaisonReduc()->getReduc2EnfantOuPlusSepare1Age1Vente($arr)
                 );
-            if ($age >= $saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant() && $age <= $saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant())
+            if ($age >= $minAge2 && $age <= $maxAge2)
                 return array(
-                    'code' => 'REDUC-2ENF-SEPARER',
-                    'name' => '2eme enfant ou plus dans une chambre séparée',
+                    'code' => 'REDUC-2ENF-SEPARER-AGE-2',
+                    'name' => '2eme enfant ou plus dans une chambre séparée  ['.$minAge2.','.$maxAge2.']',
                     'achat' => $saison->getSaisonReduc()->getReduc2EnfantOuPlusSepare1Age2Achat($arr),
                     'vente' => $saison->getSaisonReduc()->getReduc2EnfantOuPlusSepare1Age2Vente($arr)
                 );

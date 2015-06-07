@@ -284,4 +284,24 @@ class SaisonChambre
             $this->id = null ;
         }
     }
+    
+    public function getSuppReducVente()
+    {
+        if($this->chambre->getType()==1)
+            return   $this->saison->getSaisonSupp()->getSuppSingleVente();
+        if($this->chambre->getType()==2)
+            return   0;
+        if($this->chambre->getType()==3)
+            return   $this->saison->getSaisonSupp()->getSupp3LitVente() + $this->saison->getSaisonReduc()->getReduc3LitVente();
+        if($this->chambre->getType()==4)
+            return   $this->saison->getSaisonSupp()->getSupp4LitVente() + $this->saison->getSaisonReduc()->getReduc4LitVente();
+        if($this->chambre->getType()==0)
+        {
+            foreach ($this->saison->getSuppChambres() as $chambre)
+            {
+                if($chambre->getChambre()->getId()==$this->chambre->getId())
+                    return $chambre->getSuppVente();
+            }
+        }
+    }
 }

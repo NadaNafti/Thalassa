@@ -120,22 +120,11 @@ class Reservation
         $hotel = $this->em->getRepository('BackHotelTunisieBundle:Hotel')->find($reservation['hotel']) ;
         $client = $this->em->getRepository("BackUserBundle:Client")->find($reservation['client']) ;
         $dates = $this->container->get('library')->getDatesBetween($reservation['dateDebut'] , $reservation['dateFin']) ;
-        $lastSaison = $this->container->get('saisons')->getSaisonByClient($hotel , $client , $reservation['dateDebut']) ;
-        $dateDebut = $reservation['dateDebut'] ;
-        $dateFin = '' ;
         $calendrier = array () ;
         foreach ($dates as $date)
         {
             $saison = $this->container->get("saisons")->getSaisonByClient($hotel , $client , $date) ;
-            if ($saison->getId() != $lastSaison->getId() || $date == $reservation['dateFin'])
-            {
-                if ($date == $reservation['dateFin'])
-                    $dateFin = $date ;
-                $calendrier[] = array ('dateDebut' => $dateDebut , 'dateFin' => $dateFin , 'saison' => $lastSaison) ;
-                $lastSaison = $saison ;
-                $dateDebut = $date ;
-            }
-            $dateFin = $date ;
+            $calendrier[] = array ('dateDebut' => $date , 'dateFin' => $date , 'saison' => $saison) ;
         }
         return $calendrier ;
     }

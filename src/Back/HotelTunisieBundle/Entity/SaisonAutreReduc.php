@@ -297,15 +297,15 @@ class SaisonAutreReduc
     
     public function __toString()
     {
-        $string=$this->reduc->getLibelle();
+        $string=$this->reduc->__toString().' [';
         if($this->reduc->getParNuit())
-            $string.=" réduction par nuitée";
+            $string.="par nuitée";
         else
-            $string.=" réduction une seul fois";
+            $string.="une seul fois";
         if($this->reduc->getParChambre())
-            $string.=" et par chambre";
+            $string.=" et par chambre]";
         else
-            $string.=" et par personne";
+            $string.=" et par personne]";
         return $string;
         
     }
