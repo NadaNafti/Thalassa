@@ -60,7 +60,8 @@ class SaisonsController extends Controller
                             'query_builder'=>function(EntityRepository $er) use ($hotel){
                                 return $er->createQueryBuilder('s')
                                         ->where('s.hotel = :id')
-                                        ->setParameter('id', $hotel->getId());
+                                        ->setParameter('id', $hotel->getId())
+                                        ->orderBy('s.id','desc');
                                 ;
                             },
                             'required'   =>false,
@@ -82,6 +83,7 @@ class SaisonsController extends Controller
             $newSaison->setHotel($hotel);
             $newSaison->setLibelle($data['libelle']);
             $newSaison->setType($data['type']);
+            $newSaison->setCreated(new \DateTime());
 
             $em->persist($newSaison);
             foreach($Saison->getArrangements() as $entity)

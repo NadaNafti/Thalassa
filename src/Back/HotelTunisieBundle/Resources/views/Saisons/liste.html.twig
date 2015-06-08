@@ -24,7 +24,7 @@
                                     <th>Type</th>
                                     <th>Libellé</th>
                                     <td>Périodes</td>
-                                    <td>Remarques</td>
+                                    <td>Amicales</td>
                                     <th>Date Creation</th>
                                     <th class="center" >Action</th>
                                 </tr>
@@ -41,7 +41,7 @@
                                                 <span class="label label-sm label-teal">Amicales</span>
                                             {% endif %}
                                         </td>
-                                        <td>{{ saison.libelle }}</td>
+                                        <td class="center">{{ saison.libelle }}</td>
                                         <td class="center">
                                             {% for periode in saison.periodes %}
                                                 {{ periode.showPeriode|raw }}<br>
@@ -52,7 +52,7 @@
                                                 {{ amicale }} {% if loop.index!=saison.amicales|length %} ,{% endif %}
                                             {% endfor %}
                                         </td>
-                                        <td>{{ saison.created|date('d/m/Y  H:i:s') }}</td>
+                                        <td class="center">{{ saison.created|date('d/m/Y') }}</td>
                                         <td class="TableAction">
                                             <div class="visible-md visible-lg hidden-sm hidden-xs">
                                                 {{ macros.tableEdit(path('PeriodeSaison', {'id':saison.id})) }}

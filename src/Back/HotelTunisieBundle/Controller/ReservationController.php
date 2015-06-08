@@ -87,6 +87,7 @@ class ReservationController extends Controller
         $saison = $this->container->get('saisons')->getSaisonByClient($hotel , $client , $reservation['dateDebut']) ;
         if ($request->isMethod("POST"))
         {
+            $reservation['saison'] = $saison->getId() ;
             $reservation['chambres'] = array () ;
             $Verif = FALSE ;
             foreach ($saison->getChambres() as $chambre)
@@ -106,6 +107,7 @@ class ReservationController extends Controller
                         $tab['arrangement'] = $request->get('arrangement_' . $idch . '_' . $i) ;
                         $tab['supp'] = array () ;
                         $tab['vue'] = array () ;
+                        $tab['reduc'] = array () ;
                         foreach ($saison->getAutresSupplements() as $supp)
                         {
                             if ( $this->container->get('Library')->verifSuppReducDate($supp->getSupp(),$dateDebut,$dateFin) &&  $supp->getSupp()->getObligatoire() || $request->get('supp_' . $idch . '_' . $i . '_' . $supp->getSupp()->getId()))

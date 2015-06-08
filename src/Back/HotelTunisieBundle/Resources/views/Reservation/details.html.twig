@@ -39,32 +39,27 @@
                                 <p><strong> Client : </strong> {{ client }}</p>
                                 {% if client.amicale is not null %}
                                     <p><strong> Amicale : </strong> {{ client.amicale }}</p>
-                                    {% set convention= client.amicale.getConventionByDateHotel(dateDebut|date('Y-m-d'),hotel.id) %}
-                                    {% if convention is null %}
-                                        <p><strong> Convention : </strong> Pas de convention</p>
-                                    {% else %}
-                                        <p><strong> Convention : </strong> {{ convention.remise }}%</p>
-                                        <p><strong> Type Remise : </strong> {{ convention.showTypeRemise }}</p>
-                                        <p><strong> Type convention : </strong> {{ convention.showType }}</p>
-                                    {% endif %}
                                 {% endif %}
                             </div>
                             <div class="col-md-9">
                                 <h2 class="center">Détails de la reservation</h2>
                                 <div class="panel-body">
-                                    <table class="table table-hover" id="sample-table-1">
+                                    <table class="table">
                                         <tbody>
-                                            {% set total=0 %}
+                                            {% set totalVente=0 %}
+                                            {% set totalAchat=0 %}
                                             {% for chambre in resultat.chambres %}
-                                                <tr style="  background-color: antiquewhite;">
+                                                <tr style="background-color: black;color: white;">
                                                     <th>{{ getNameChambre(chambre.details.chambre) }}</th>
                                                     <th>{{ getNameArrangement(chambre.details.arrangement) }}</th>
-                                                    <th>Adulte : {{ chambre.adultes|length }}</th>
+                                                    <th>Adultes : {{ chambre.adultes|length }}</th>
                                                     <th>Enfants : {{ chambre.enfants|length }} [{% for enfant in chambre.enfants %} {{ enfant.age }} {% if loop.index != chambre.enfants|length %},{% endif %} {% endfor %}]</th>
                                                 </tr>
                                                 {% for adulte in chambre.adultes %}
-                                                    <tr>
-                                                        <th colspan="4" class="center">Adulte : {{ adulte.ordre }}</th>
+                                                    <tr style="  background-color: dimgray;color: white;">
+                                                        <th colspan="2" class="center">Adulte Num {{ adulte.ordre }}</th>
+                                                        <td style="text-align: right;" >Achat</td>
+                                                        <td style="text-align: right;" >Vente</td>
                                                     </tr>
                                                     {% for jour in adulte.jours %}
                                                         <tr style="  background-color: honeydew;" >
@@ -73,16 +68,20 @@
                                                         {% for ligne in jour.lignes if ligne is not null %}
                                                             <tr style="  background-color: ghostwhite;">
                                                                 <td></td>
-                                                                <td colspan="2">{{ ligne.name }}</td>
-                                                                <td>{{ ligne.vente }}</td>
+                                                                <td colspan="1">{{ ligne.name }}</td>
+                                                                <td style="  text-align: right;" >{{ ligne.achat }}</td>
+                                                                <td style="text-align: right;">{{ ligne.vente }}</td>
                                                             </tr>
-                                                            {% set total=total+ligne.vente  %}
+                                                            {% set totalVente=totalVente+ligne.vente  %}
+                                                            {% set totalAchat=totalAchat+ligne.achat  %}
                                                         {% endfor %}
                                                     {% endfor %}
                                                 {% endfor %}
                                                 {% for enfant in chambre.enfants %}
-                                                    <tr>
-                                                        <th colspan="4" class="center" >Enfant : {{ enfant.ordre }}  , Age : {{ enfant.age }}</th>
+                                                    <tr style="  background-color: dimgray;color: white;">
+                                                        <th colspan="2" class="center" >Enfant Num {{ enfant.ordre }}  , Age : {{ enfant.age }}</th>
+                                                        <td style="  text-align: right;" >Achat</td>
+                                                        <td style="  text-align: right;" >Vente</td>
                                                     </tr>
                                                     {% for jour in enfant.jours %}
                                                         <tr style="  background-color: honeydew;" >
@@ -91,19 +90,41 @@
                                                         {% for ligne in jour.lignes if ligne is not null %}
                                                             <tr style="  background-color: ghostwhite;">
                                                                 <td></td>
-                                                                <td colspan="2">{{ ligne.name }}</td>
-                                                                <td>{{ ligne.vente }}</td>
+                                                                <td colspan="1">{{ ligne.name }}</td>
+                                                                <td style="  text-align: right;" >{{ ligne.achat }}</td>
+                                                                <td style="  text-align: right;" >{{ ligne.vente }}</td>
                                                             </tr>
-                                                            {% set total=total+ligne.vente  %}
+                                                            {% set totalVente=totalVente+ligne.vente  %}
+                                                            {% set totalAchat=totalAchat+ligne.achat  %}
                                                         {% endfor %}
                                                     {% endfor %}
+                                                {% endfor %}
+                                                {% for ligne in chambre.supplements if ligne is not null %}
+                                                    <tr style="  background-color: dimgray;color: white;">
+                                                        <td></td>
+                                                        <td colspan="1">{{ ligne.name }}</td>
+                                                        <td style="  text-align: right;" >{{ ligne.achat }}</td>
+                                                        <td style="text-align: right;">{{ ligne.vente }}</td>
+                                                    </tr>
+                                                    {% set totalVente=totalVente+ligne.vente  %}
+                                                    {% set totalAchat=totalAchat+ligne.achat  %}
+                                                {% endfor %}
+                                                {% for ligne in chambre.reductions if ligne is not null %}
+                                                    <tr style="  background-color: dimgray;color: white;">
+                                                        <td></td>
+                                                        <td colspan="1">{{ ligne.name }}</td>
+                                                        <td style="  text-align: right;" >{{ ligne.achat }}</td>
+                                                        <td style="text-align: right;">{{ ligne.vente }}</td>
+                                                    </tr>
+                                                    {% set totalVente=totalVente+ligne.vente  %}
+                                                    {% set totalAchat=totalAchat+ligne.achat  %}
                                                 {% endfor %}
                                             {% endfor %}
                                             <tr style="  background-color: antiquewhite;">
                                                 <th></th>
-                                                <th></th>
-                                                <th>Total</th>
-                                                <th>{{total}}</th>
+                                                <th style="text-align: right;">Total</th>
+                                                <th style="text-align: right;">{{totalAchat}}</th>
+                                                <th style="text-align: right;">{{totalVente}}</th>
                                             </tr>
                                         </tbody>
                                     </table>

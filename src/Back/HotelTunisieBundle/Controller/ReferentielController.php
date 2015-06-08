@@ -1423,7 +1423,7 @@ class ReferentielController extends Controller
                 $em->persist($reduction);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre réduction a été modifiée avec succées ");
-                return $this->redirect($this->generateUrl("gestion_supplement"));
+                return $this->redirect($this->generateUrl("gestion_reduction"));
             }
         }
         //Appeler la page twig 

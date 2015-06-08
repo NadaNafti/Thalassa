@@ -50,7 +50,6 @@
                                 <th class="center">Plafond</th>
                                 <th class="center">Montant</th>
                                 <th class="center">Produits</th>
-                                <th class="center">Convention Courrante</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -66,15 +65,6 @@
                                         {% for produit in amicale.produits %}
                                             - {{ produit }} <br>
                                         {% endfor %}
-                                    </td>
-                                    <td>
-                                        {% set convention= amicale.getConventionByDate('now'|date('Y-m-d')) %}
-                                        {% if convention is null %}
-                                            Pas de convention
-                                        {% else %}
-                                            <a href="{{ path('convention_amicale',{'id':convention.id}) }}" class="tooltips" title="Du {{ convention.dateDebut|date('d/m/Y')~' au '~convention.dateFin|date('d/m/Y') }}"><span class="label label-sm label-inverse">{{ convention.remise }}% ({{ convention.showTypeRemise }})</span></a>
-                                            </a>
-                                        {% endif %}
                                     </td>
                                     <td class="TableAction">
                                         {{ macros.tableEdit(path('amicale',{'id':amicale.id})) }}

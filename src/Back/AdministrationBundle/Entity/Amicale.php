@@ -78,12 +78,6 @@ class Amicale
     private $saisons;
 
     /**
-     * @ORM\OneToMany(targetEntity="Convention", mappedBy="amicale")
-     * @ORM\OrderBy({"dateDebut" = "ASC"})
-     */
-    protected $conventions ;
-
-    /**
      * @ORM\ManyToMany(targetEntity="Produit")
      * @ORM\JoinTable(name="ost_amicale_produit",
      *      joinColumns={@ORM\JoinColumn(name="id_amicale", referencedColumnName="id")},
@@ -91,15 +85,6 @@ class Amicale
      * )
      */
     protected $produits ;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Back\HotelTunisieBundle\Entity\Hotel")
-     * @ORM\JoinTable(name="ost_amicale_hotel",
-     *      joinColumns={@ORM\JoinColumn(name="id_amicale", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_hotel", referencedColumnName="id")}
-     * )
-     */
-    protected $hotels ;
 
     /**
      * @Gedmo\slug(fields={"libelle"})
@@ -369,63 +354,13 @@ class Amicale
      */
     public function __construct()
     {
-        $this->conventions = new \Doctrine\Common\Collections\ArrayCollection() ;
-    }
-
-    /**
-     * Add conventions
-     *
-     * @param \Back\AdministrationBundle\Entity\Convention $conventions
-     * @return Amicale
-     */
-    public function addConvention(\Back\AdministrationBundle\Entity\Convention $conventions)
-    {
-        $this->conventions[] = $conventions ;
-
-        return $this ;
-    }
-
-    /**
-     * Remove conventions
-     *
-     * @param \Back\AdministrationBundle\Entity\Convention $conventions
-     */
-    public function removeConvention(\Back\AdministrationBundle\Entity\Convention $conventions)
-    {
-        $this->conventions->removeElement($conventions) ;
-    }
-
-    /**
-     * Get conventions
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getConventions()
-    {
-        return $this->conventions ;
     }
 
     public function __toString()
     {
         return $this->libelle ;
     }
-
-    public function getConventionByDate($date)
-    {
-        $currentConvention = NULL ;
-        foreach ($this->conventions as $convention)
-        {
-            if ($convention->getDateDebut()->format('Y-m-d') <= $date && $convention->getDateFin()->format('Y-m-d') >= $date)
-            {
-                if (is_null($currentConvention))
-                    $currentConvention = $convention ;
-                elseif ($convention->getId() > $currentConvention->getId())
-                    $currentConvention = $convention ;
-            }
-        }
-        return $currentConvention ;
-    }
-
+    
     public function hasProduit($code)
     {
         foreach ($this->produits as $produit)
@@ -434,18 +369,6 @@ class Amicale
                 return true ;
         }
         return false ;
-    }
-
-    public function getConventionByDateHotel($date , $id)
-    {
-        if(!$this->hasProduit("SHT"))
-            return false;
-        foreach ($this->hotels as $hotel)
-        {
-            if ($hotel->getId() == $id)
-                return $this->getConventionByDate($date) ;
-        }
-        return null ;
     }
 
     /**
@@ -479,39 +402,6 @@ class Amicale
     public function getProduits()
     {
         return $this->produits ;
-    }
-
-    /**
-     * Add hotels
-     *
-     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
-     * @return Amicale
-     */
-    public function addHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
-    {
-        $this->hotels[] = $hotels ;
-
-        return $this ;
-    }
-
-    /**
-     * Remove hotels
-     *
-     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
-     */
-    public function removeHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
-    {
-        $this->hotels->removeElement($hotels) ;
-    }
-
-    /**
-     * Get hotels
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getHotels()
-    {
-        return $this->hotels ;
     }
 
     /**
