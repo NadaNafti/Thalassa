@@ -388,15 +388,15 @@ class Supplement
     {
         return $this->moisFin;
     }
-    
+
     public function showObligatoire()
     {
-        if($this->obligatoire==TRUE)
+        if($this->obligatoire == TRUE)
             return 'Oui';
         else
             return 'Non';
     }
-    
+
     public function showParChambre()
     {
         if($this->parChambre)
@@ -404,7 +404,7 @@ class Supplement
         else
             return 'Par Personne';
     }
-    
+
     public function showParNuit()
     {
         if($this->parNuit)
@@ -412,10 +412,36 @@ class Supplement
         else
             return 'Une seul fois';
     }
-    
+
     public function __toString()
     {
-        return $this->libelle .' du '.$this->jourDebut.'/'.$this->moisDebut.'/'.date('Y').' au '.$this->jourFin.'/'.$this->moisFin.'/'.date('Y') ;
+        return $this->libelle.' du '.$this->jourDebut.'/'.$this->moisDebut.'/'.date('Y').' au '.$this->jourFin.'/'.$this->moisFin.'/'.date('Y');
+    }
+
+    public function getDateDebut($year)
+    {
+        if($this->jourDebut < 10)
+            $jour='0'.$this->jourDebut;
+        else
+            $jour=$this->jourDebut;
+        if($this->moisDebut < 10)
+            $mois='0'.$this->moisDebut;
+        else
+            $mois=$this->moisDebut;
+        return $year.'-'.$mois.'-'.$jour;
+    }
+
+    public function getDateFin($year)
+    {
+        if($this->jourFin < 10)
+            $jour='0'.$this->jourFin;
+        else
+            $jour=$this->jourFin;
+        if($this->moisFin < 10)
+            $mois='0'.$this->moisFin;
+        else
+            $mois=$this->moisFin;
+        return $year.'-'.$mois.'-'.$jour;
     }
 
 }

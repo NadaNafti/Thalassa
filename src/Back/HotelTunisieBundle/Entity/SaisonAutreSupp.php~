@@ -296,17 +296,17 @@ class SaisonAutreSupp
 
     public function __toString()
     {
-        $string = $this->supp->getLibelle();
+        $string = $this->supp->__toString();
         if ($this->supp->getObligatoire())
-            $string.=" (Obligatoire)";
+            $string.=" [Obligatoire, ";
         if ($this->supp->getParNuit())
-            $string.=" Paiement par nuitée";
+            $string.="par nuitée ";
         else
-            $string.=" paiement une seul fois";
+            $string.="une seul fois ";
         if ($this->supp->getParChambre())
-            $string.=" et par chambre";
+            $string.="et par chambre]";
         else
-            $string.=" et par personne";
+            $string.="et par personne]";
         return $string;
     }
 

@@ -380,4 +380,30 @@ class Reduction
         return $this->libelle.' du '.$this->jourDebut.'/'.$this->moisDebut.'/'.date('Y').' au '.$this->jourFin.'/'.$this->moisFin.'/'.date('Y');
     }
 
+    public function getDateDebut($year)
+    {
+        if($this->jourDebut<10)
+            $jour='0'.$this->jourDebut;
+        else
+            $jour=$this->jourDebut;
+        if($this->moisDebut<10)
+            $mois='0'.$this->moisDebut;
+        else
+            $mois=$this->moisDebut;
+        return $year.'-'.$mois.'-'.$jour;
+    }
+
+    public function getDateFin($year)
+    {
+        if($this->jourFin<10)
+            $jour='0'.$this->jourFin;
+        else
+            $jour=$this->jourFin;
+        if($this->moisFin<10)
+            $mois='0'.$this->moisFin;
+        else
+            $mois=$this->moisFin;
+        return $year.'-'.$mois.'-'.$jour;
+    }
+
 }

@@ -17,3 +17,7 @@ formulaire_reservation:
 details_reservation:
     path:     /details
     defaults: { _controller: BackHotelTunisieBundle:Reservation:details }
+    
+save_reservation:
+    path:     /save
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:save }

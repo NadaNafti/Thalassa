@@ -76,35 +76,4 @@ class User extends BaseUser
     {
         return $this->client;
     }
-
-//    /**
-//     * Add groups
-//     *
-//     * @param \Back\UserBundle\Entity\Group $groups
-//     * @return User
-//     */
-//    public function addGroup(GroupInterface $groups)
-//    {
-//        return parent::addGroup($groups);
-//    }
-//
-//    /**
-//     * Remove groups
-//     *
-//     * @param \Back\UserBundle\Entity\Group $groups
-//     */
-//    public function removeGroup(\Back\UserBundle\Entity\Group $groups)
-//    {
-//        parent::removeGroup($groups);
-//    }
-//
-//    /**
-//     * Get groups
-//     *
-//     * @return \Doctrine\Common\Collections\Collection 
-//     */
-//    public function getGroups()
-//    {
-//        return parent::getGroups();
-//    }
 }
