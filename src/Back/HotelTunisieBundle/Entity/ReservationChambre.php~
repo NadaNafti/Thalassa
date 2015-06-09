@@ -74,14 +74,24 @@ class ReservationChambre
     protected $reservation;
 
     /**
-     * @ORM\OneToMany(targetEntity="ReservationChambre", mappedBy="supplement")
+     * @ORM\OneToMany(targetEntity="ReservationLigne", mappedBy="supplement")
      */
     protected $supplementLignes;
 
     /**
-     * @ORM\OneToMany(targetEntity="ReservationChambre", mappedBy="reduction")
+     * @ORM\OneToMany(targetEntity="ReservationLigne", mappedBy="reduction")
      */
     protected $reductionLignes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ReservationPersonne", mappedBy="reservationChambreAdulte")
+     */
+    protected $adultes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ReservationPersonne", mappedBy="reservationChambreEnfant")
+     */
+    protected $enfants;
 
     /**
      * Get id

@@ -79,4 +79,90 @@ class ReservationJour
         return $this->jour;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->lignes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set saison
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Saison $saison
+     * @return ReservationJour
+     */
+    public function setSaison(\Back\HotelTunisieBundle\Entity\Saison $saison = null)
+    {
+        $this->saison = $saison;
+
+        return $this;
+    }
+
+    /**
+     * Get saison
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Saison 
+     */
+    public function getSaison()
+    {
+        return $this->saison;
+    }
+
+    /**
+     * Set personne
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationPersonne $personne
+     * @return ReservationJour
+     */
+    public function setPersonne(\Back\HotelTunisieBundle\Entity\ReservationPersonne $personne = null)
+    {
+        $this->personne = $personne;
+
+        return $this;
+    }
+
+    /**
+     * Get personne
+     *
+     * @return \Back\HotelTunisieBundle\Entity\ReservationPersonne 
+     */
+    public function getPersonne()
+    {
+        return $this->personne;
+    }
+
+    /**
+     * Add lignes
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationLigne $lignes
+     * @return ReservationJour
+     */
+    public function addLigne(\Back\HotelTunisieBundle\Entity\ReservationLigne $lignes)
+    {
+        $this->lignes[] = $lignes;
+
+        return $this;
+    }
+
+    /**
+     * Remove lignes
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationLigne $lignes
+     */
+    public function removeLigne(\Back\HotelTunisieBundle\Entity\ReservationLigne $lignes)
+    {
+        $this->lignes->removeElement($lignes);
+    }
+
+    /**
+     * Get lignes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLignes()
+    {
+        return $this->lignes;
+    }
 }

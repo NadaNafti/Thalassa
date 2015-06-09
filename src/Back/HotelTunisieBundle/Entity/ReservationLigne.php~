@@ -216,4 +216,27 @@ class ReservationLigne
         return $this->reduction;
     }
 
+
+    /**
+     * Set jour
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationJour $jour
+     * @return ReservationLigne
+     */
+    public function setJour(\Back\HotelTunisieBundle\Entity\ReservationJour $jour = null)
+    {
+        $this->jour = $jour;
+
+        return $this;
+    }
+
+    /**
+     * Get jour
+     *
+     * @return \Back\HotelTunisieBundle\Entity\ReservationJour 
+     */
+    public function getJour()
+    {
+        return $this->jour;
+    }
 }

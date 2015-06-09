@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ReservationPersonne
 {
+
     /**
      * @var integer
      *
@@ -38,15 +39,26 @@ class ReservationPersonne
     /**
      * @var integer
      *
-     * @ORM\Column(name="age", type="integer")
+     * @ORM\Column(name="age", type="integer",nullable=true)
      */
     private $age;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="ReservationJour", mappedBy="personne")
      */
     protected $jours;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="ReservationChambre", inversedBy="adultes")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $reservationChambreAdulte;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ReservationChambre", inversedBy="enfants")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $reservationChambreEnfant;
 
     /**
      * Get id
@@ -66,7 +78,7 @@ class ReservationPersonne
      */
     public function setOrdre($ordre)
     {
-        $this->ordre = $ordre;
+        $this->ordre=$ordre;
 
         return $this;
     }
@@ -89,7 +101,7 @@ class ReservationPersonne
      */
     public function setNom($nom)
     {
-        $this->nom = $nom;
+        $this->nom=$nom;
 
         return $this;
     }
@@ -112,7 +124,7 @@ class ReservationPersonne
      */
     public function setAge($age)
     {
-        $this->age = $age;
+        $this->age=$age;
 
         return $this;
     }
@@ -126,12 +138,13 @@ class ReservationPersonne
     {
         return $this->age;
     }
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->jours = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->jours=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -142,7 +155,7 @@ class ReservationPersonne
      */
     public function addJour(\Back\HotelTunisieBundle\Entity\ReservationJour $jours)
     {
-        $this->jours[] = $jours;
+        $this->jours[]=$jours;
 
         return $this;
     }
@@ -165,5 +178,52 @@ class ReservationPersonne
     public function getJours()
     {
         return $this->jours;
+    }
+
+
+    /**
+     * Set reservationChambreAdulte
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationChambre $reservationChambreAdulte
+     * @return ReservationPersonne
+     */
+    public function setReservationChambreAdulte(\Back\HotelTunisieBundle\Entity\ReservationChambre $reservationChambreAdulte = null)
+    {
+        $this->reservationChambreAdulte = $reservationChambreAdulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationChambreAdulte
+     *
+     * @return \Back\HotelTunisieBundle\Entity\ReservationChambre 
+     */
+    public function getReservationChambreAdulte()
+    {
+        return $this->reservationChambreAdulte;
+    }
+
+    /**
+     * Set reservationChambreEnfant
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationChambre $reservationChambreEnfant
+     * @return ReservationPersonne
+     */
+    public function setReservationChambreEnfant(\Back\HotelTunisieBundle\Entity\ReservationChambre $reservationChambreEnfant = null)
+    {
+        $this->reservationChambreEnfant = $reservationChambreEnfant;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationChambreEnfant
+     *
+     * @return \Back\HotelTunisieBundle\Entity\ReservationChambre 
+     */
+    public function getReservationChambreEnfant()
+    {
+        return $this->reservationChambreEnfant;
     }
 }
