@@ -78,7 +78,6 @@ class Hotel
      * @ORM\ManyToOne(targetEntity="Chaine", fetch="EAGER")
      * @ORM\JoinColumn(name="chaine_id", referencedColumnName="id")
      * @ORM\OrderBy({"libelle" = "ASC"})
-     * @Assert\NotBlank()
      */
     protected $chaine;
 
@@ -86,7 +85,6 @@ class Hotel
      * @ORM\ManyToOne(targetEntity="Back\CommercialBundle\Entity\Fournisseur", fetch="EAGER")
      * @ORM\JoinColumn(name="fournisseur_id", referencedColumnName="id")
      * @ORM\OrderBy({"libelle" = "ASC"})
-     * @Assert\NotBlank()
      */
     protected $fournisseur;
 
@@ -94,7 +92,6 @@ class Hotel
      * @ORM\ManyToOne(targetEntity="Ville", fetch="EAGER")
      * @ORM\JoinColumn(name="ville_id", referencedColumnName="id")
      * @ORM\OrderBy({"libelle" = "ASC"})
-     * @Assert\NotBlank()
      */
     protected $ville;
 
@@ -102,7 +99,6 @@ class Hotel
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="hotels", fetch="EAGER")
      * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id")
      * @ORM\OrderBy({"libelle" = "ASC"})
-     * @Assert\NotBlank()
      */
     protected $categorie;
 
