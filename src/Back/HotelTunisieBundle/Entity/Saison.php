@@ -94,14 +94,14 @@ class Saison
 
     /**
      * @var decimal
-     * @Assert\Range(min = 1)
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="prixConvention", type="decimal", precision=11, scale=3)
      */
     private $prixConvention;
 
     /**
      * @var string
-     * @Assert\Range(min = 1)
+     * @Assert\Range(min = 0)
      * @ORM\Column(name="margeVente", type="decimal", precision=11, scale=3)
      */
     private $margeVente;
