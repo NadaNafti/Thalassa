@@ -124,8 +124,6 @@ class Reservation
                 $tabChambre['reductions'][]=$this->container->get('lignes')->ligneAutresReduction($saisonFist, $arr, $idReduc, $results['dateDebut'],$results['dateFin']);
             $results['chambres'][]=$tabChambre;
         }
-        dump($reservation);
-        dump($results);
         return $results;
     }
 
