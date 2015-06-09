@@ -1,3 +1,15 @@
+liste_reservations:
+    path:     /liste/{etat}/{amicale}
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:liste,etat:1,amicale:all }
+    
+filtre_reservations:
+    path:     /filtre_liste
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:filtre }
+    
+prise_en_charge_reservations:
+    path:     /prise_en_charge_reservations/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:prisEnCharge }
+
 new_reservation:
     path:     /
     defaults: { _controller: BackHotelTunisieBundle:Reservation:new }
