@@ -362,4 +362,70 @@ class ReservationChambre
         return $this->reductionLignes;
     }
 
+
+    /**
+     * Add adultes
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationPersonne $adultes
+     * @return ReservationChambre
+     */
+    public function addAdulte(\Back\HotelTunisieBundle\Entity\ReservationPersonne $adultes)
+    {
+        $this->adultes[] = $adultes;
+
+        return $this;
+    }
+
+    /**
+     * Remove adultes
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationPersonne $adultes
+     */
+    public function removeAdulte(\Back\HotelTunisieBundle\Entity\ReservationPersonne $adultes)
+    {
+        $this->adultes->removeElement($adultes);
+    }
+
+    /**
+     * Get adultes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAdultes()
+    {
+        return $this->adultes;
+    }
+
+    /**
+     * Add enfants
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationPersonne $enfants
+     * @return ReservationChambre
+     */
+    public function addEnfant(\Back\HotelTunisieBundle\Entity\ReservationPersonne $enfants)
+    {
+        $this->enfants[] = $enfants;
+
+        return $this;
+    }
+
+    /**
+     * Remove enfants
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationPersonne $enfants
+     */
+    public function removeEnfant(\Back\HotelTunisieBundle\Entity\ReservationPersonne $enfants)
+    {
+        $this->enfants->removeElement($enfants);
+    }
+
+    /**
+     * Get enfants
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEnfants()
+    {
+        return $this->enfants;
+    }
 }

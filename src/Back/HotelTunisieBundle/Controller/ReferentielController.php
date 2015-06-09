@@ -308,7 +308,7 @@ class ReferentielController extends Controller
     public function villesphotoAction(Ville $ville)
     {
         $session=$this->getRequest()->getSession();
-        $session->set("routing", $this->generateUrl("photos_villes", array('id'=>$ville->getId())));
+        $session->set("routing", $this->generateUrl("photos_villes", array( 'id'=>$ville->getId() )));
         $em=$this->getDoctrine()->getManager();
         $media=new Media();
         $media->setVille($ville);
@@ -323,7 +323,7 @@ class ReferentielController extends Controller
                 $em->persist($media);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre Photo a été ajoutée avec succées ");
-                return $this->redirect($this->generateUrl("photos_villes", array('id'=>$ville->getId())));
+                return $this->redirect($this->generateUrl("photos_villes", array( 'id'=>$ville->getId() )));
             }
         }
         return $this->render('BackHotelTunisieBundle:referentiel/regionVille:photoVille.html.twig', array(

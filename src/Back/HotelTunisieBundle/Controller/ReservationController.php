@@ -168,6 +168,7 @@ class ReservationController extends Controller
 
     public function detailsAction()
     {
+        $user=$this->get('security.context')->getToken()->getUser();
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
         $request=$this->getRequest();
@@ -211,7 +212,11 @@ class ReservationController extends Controller
                     ->setHotel($hotel)
                     ->setDateDebut(\DateTime::createFromFormat('Y-m-d', $result['dateDebut']))
                     ->setDateFin(\DateTime::createFromFormat('Y-m-d', $result['dateFin']))
-                    ->setNuitees($result['nuitees']);
+                    ->setNuitees($result['nuitees'])
+                    ->setSurDemande($result['surDemande'])
+                    ->setResponsable($user)
+                    ->setFrontOffice(0)
+                    ->setEtat(1);
             $em->persist($reservation);
             $chambreOrdre=0;
             foreach($result['chambres'] as $chambre)
@@ -320,6 +325,7 @@ class ReservationController extends Controller
                 }
             }
             $em->flush();
+            $session->remove('reservation');
             $session->getFlashBag()->add('success', " Votre Réservation a été enregistré avec succées ");
             return $this->redirect($this->generateUrl("new_reservation"));
         }

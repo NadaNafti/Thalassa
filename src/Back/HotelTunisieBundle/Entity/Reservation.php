@@ -25,6 +25,42 @@ class Reservation
     private $id;
 
     /**
+     * @var integer
+     *
+     * 1:Enregistrée
+     * 2:Validée
+     * 3:Annulée
+     * @ORM\Column(name="etat", type="integer")
+     */
+    private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\User")
+     */
+    protected $responsable;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="frontOffice", type="boolean", nullable=true)
+     */
+    private $frontOffice;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="hotelNotifier", type="boolean", nullable=true)
+     */
+    private $hotelNotifier;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="surDemande", type="boolean", nullable=true)
+     */
+    private $surDemande;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Hotel")
      */
     protected $hotel;
@@ -90,7 +126,7 @@ class Reservation
      */
     public function setDateDebut($dateDebut)
     {
-        $this->dateDebut = $dateDebut;
+        $this->dateDebut=$dateDebut;
 
         return $this;
     }
@@ -113,7 +149,7 @@ class Reservation
      */
     public function setDateFin($dateFin)
     {
-        $this->dateFin = $dateFin;
+        $this->dateFin=$dateFin;
 
         return $this;
     }
@@ -136,7 +172,7 @@ class Reservation
      */
     public function setNuitees($nuitees)
     {
-        $this->nuitees = $nuitees;
+        $this->nuitees=$nuitees;
 
         return $this;
     }
@@ -159,7 +195,7 @@ class Reservation
      */
     public function setCreated($created)
     {
-        $this->created = $created;
+        $this->created=$created;
 
         return $this;
     }
@@ -182,7 +218,7 @@ class Reservation
      */
     public function setUpdated($updated)
     {
-        $this->updated = $updated;
+        $this->updated=$updated;
 
         return $this;
     }
@@ -203,9 +239,9 @@ class Reservation
      * @param \Back\HotelTunisieBundle\Entity\Hotel $hotel
      * @return Reservation
      */
-    public function setHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotel = null)
+    public function setHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotel=null)
     {
-        $this->hotel = $hotel;
+        $this->hotel=$hotel;
 
         return $this;
     }
@@ -225,7 +261,7 @@ class Reservation
      */
     public function __construct()
     {
-        $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->chambres=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -234,9 +270,9 @@ class Reservation
      * @param \Back\UserBundle\Entity\Client $client
      * @return Reservation
      */
-    public function setClient(\Back\UserBundle\Entity\Client $client = null)
+    public function setClient(\Back\UserBundle\Entity\Client $client=null)
     {
-        $this->client = $client;
+        $this->client=$client;
 
         return $this;
     }
@@ -259,7 +295,7 @@ class Reservation
      */
     public function addChambre(\Back\HotelTunisieBundle\Entity\ReservationChambre $chambres)
     {
-        $this->chambres[] = $chambres;
+        $this->chambres[]=$chambres;
 
         return $this;
     }
@@ -282,5 +318,98 @@ class Reservation
     public function getChambres()
     {
         return $this->chambres;
+    }
+
+    /**
+     * Set frontOffice
+     *
+     * @param boolean $frontOffice
+     * @return Reservation
+     */
+    public function setFrontOffice($frontOffice)
+    {
+        $this->frontOffice=$frontOffice;
+
+        return $this;
+    }
+
+    /**
+     * Get frontOffice
+     *
+     * @return boolean 
+     */
+    public function getFrontOffice()
+    {
+        return $this->frontOffice;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param integer $etat
+     * @return Reservation
+     */
+    public function setEtat($etat)
+    {
+        $this->etat=$etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return integer 
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * Set responsable
+     *
+     * @param \Back\UserBundle\Entity\User $responsable
+     * @return Reservation
+     */
+    public function setResponsable(\Back\UserBundle\Entity\User $responsable=null)
+    {
+        $this->responsable=$responsable;
+
+        return $this;
+    }
+
+    /**
+     * Get responsable
+     *
+     * @return \Back\UserBundle\Entity\User 
+     */
+    public function getResponsable()
+    {
+        return $this->responsable;
+    }
+
+
+    /**
+     * Set surDemande
+     *
+     * @param boolean $surDemande
+     * @return Reservation
+     */
+    public function setSurDemande($surDemande)
+    {
+        $this->surDemande = $surDemande;
+
+        return $this;
+    }
+
+    /**
+     * Get surDemande
+     *
+     * @return boolean 
+     */
+    public function getSurDemande()
+    {
+        return $this->surDemande;
     }
 }

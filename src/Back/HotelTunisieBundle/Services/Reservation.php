@@ -25,6 +25,7 @@ class Reservation
         $results['dateDebut']=$reservation['dateDebut'];
         $results['dateFin']=$reservation['dateFin'];
         $results['nuitees']=$reservation['nuitees'];
+        $results['surDemande']=FALSE;
         $results['chambres']=array();
         $saisonFist=$this->em->getRepository('BackHotelTunisieBundle:Saison')->find($reservation['saison']);
         foreach($reservation['chambres'] as $chambre)
@@ -49,6 +50,8 @@ class Reservation
                 {
                     $ordre++;
                     $saison=$this->em->getRepository('BackHotelTunisieBundle:Saison')->find($periode['saison']->getId());
+                    if(is_null($saison->getType()))
+                        $results['surDemande']=TRUE;
                     $dates=$this->container->get('library')->getDatesBetween($periode['dateDebut'], $periode['dateFin']);
                     $date=$periode['dateDebut'];
                     $tabjour=array();
@@ -86,6 +89,8 @@ class Reservation
                 {
                     $ordre++;
                     $saison=$this->em->getRepository('BackHotelTunisieBundle:Saison')->find($periode['saison']->getId());
+                    if(is_null($saison->getType()))
+                        $results['surDemande']=TRUE;
                     $date=$periode['dateDebut'];
                     $dates=$this->container->get('library')->getDatesBetween($periode['dateDebut'], $periode['dateFin']);
 
@@ -119,9 +124,9 @@ class Reservation
                 $tabChambre['enfants'][]=$tabEnfant;
             }
             foreach($chambre['supp'] as $idSupp)
-                $tabChambre['supplements'][]=$this->container->get('lignes')->ligneAutresSupplement($saisonFist, $arr, $idSupp, $results['dateDebut'],$results['dateFin']);
+                $tabChambre['supplements'][]=$this->container->get('lignes')->ligneAutresSupplement($saisonFist, $arr, $idSupp, $results['dateDebut'], $results['dateFin']);
             foreach($chambre['reduc'] as $idReduc)
-                $tabChambre['reductions'][]=$this->container->get('lignes')->ligneAutresReduction($saisonFist, $arr, $idReduc, $results['dateDebut'],$results['dateFin']);
+                $tabChambre['reductions'][]=$this->container->get('lignes')->ligneAutresReduction($saisonFist, $arr, $idReduc, $results['dateDebut'], $results['dateFin']);
             $results['chambres'][]=$tabChambre;
         }
         return $results;

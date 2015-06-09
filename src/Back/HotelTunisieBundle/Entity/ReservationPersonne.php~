@@ -39,7 +39,7 @@ class ReservationPersonne
     /**
      * @var integer
      *
-     * @ORM\Column(name="age", type="integer")
+     * @ORM\Column(name="age", type="integer",nullable=true)
      */
     private $age;
 
@@ -180,4 +180,50 @@ class ReservationPersonne
         return $this->jours;
     }
 
+
+    /**
+     * Set reservationChambreAdulte
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationChambre $reservationChambreAdulte
+     * @return ReservationPersonne
+     */
+    public function setReservationChambreAdulte(\Back\HotelTunisieBundle\Entity\ReservationChambre $reservationChambreAdulte = null)
+    {
+        $this->reservationChambreAdulte = $reservationChambreAdulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationChambreAdulte
+     *
+     * @return \Back\HotelTunisieBundle\Entity\ReservationChambre 
+     */
+    public function getReservationChambreAdulte()
+    {
+        return $this->reservationChambreAdulte;
+    }
+
+    /**
+     * Set reservationChambreEnfant
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationChambre $reservationChambreEnfant
+     * @return ReservationPersonne
+     */
+    public function setReservationChambreEnfant(\Back\HotelTunisieBundle\Entity\ReservationChambre $reservationChambreEnfant = null)
+    {
+        $this->reservationChambreEnfant = $reservationChambreEnfant;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationChambreEnfant
+     *
+     * @return \Back\HotelTunisieBundle\Entity\ReservationChambre 
+     */
+    public function getReservationChambreEnfant()
+    {
+        return $this->reservationChambreEnfant;
+    }
 }
