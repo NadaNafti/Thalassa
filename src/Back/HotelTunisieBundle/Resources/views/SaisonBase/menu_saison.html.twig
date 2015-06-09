@@ -3,6 +3,9 @@
         <li {% if app.request.get('_route')=='saison_base' %}class="active"{% endif %}>
             <a href="{{ path("saison_base",{'id':hotel.id}) }}">
                 Générale
+                {% if not hotel.saisonBase.isArrBaseValide %}
+                    <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
+                {% endif %}
             </a>
         </li>
         <li {% if app.request.get('_route')=='saison_chambres' %}class="active"{% endif %}>
@@ -10,7 +13,7 @@
                 Occ. chambres 
                 {% if hotel.saisonBase.chambres|length != hotel.chambres|length %}
                     <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
-                    {% endif %}
+                {% endif %}
             </a>
         </li>
         <li {% if app.request.get('_route')=='saison_arrangements' %}class="active"{% endif %}>
