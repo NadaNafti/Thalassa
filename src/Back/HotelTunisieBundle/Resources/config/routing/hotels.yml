@@ -1,6 +1,10 @@
 list_hotels:
-    path:     /
-    defaults: { _controller: BackHotelTunisieBundle:Hotels:liste }
+    path:     /list/{ville}/{chaine}/{libelle}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:liste,ville:all,chaine:all,libelle:all }
+
+filtre_hotels:
+    path:     /Filtrehotel
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:filtre }
 
 modif_hotel:
     path:     /modif/{id}

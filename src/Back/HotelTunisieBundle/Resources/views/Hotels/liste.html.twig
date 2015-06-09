@@ -10,6 +10,58 @@
 {% block body %}
     <div class="row">
         <div class="col-md-12">
+            <div class="panel-body tab-content">
+                <form action="{{ path('filtre_hotels') }}" method="post" role="form" id="form">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Ville</label>
+                                <select name="ville"  class="form-control ">
+                                    <option value="all">Tous le villes</option>
+                                    {% for ville in villes %}
+                                        <option value="{{ ville.id }}" {% if app.request.get('ville')==ville.id %}selected{% endif %} >{{ ville }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Chaine</label>
+                                <select name="chaine"  class="form-control ">
+                                    <option value="all">Tous le chaines</option>
+                                    {% for chaine in chaines %}
+                                        <option value="{{ chaine.id }}"  {% if app.request.get('chaine')==chaine.id %}selected{% endif %}>{{ chaine }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Nom</label>
+                                <input type="text"  class="form-control " name="libelle" value="{% if app.request.get('libelle')!='all' %}{{ app.request.get('libelle') }}{% endif %}" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button class="btn btn-green btn-block" type="submit" style="margin-top: 24px;">
+                                    Filtre <i class="fa fa-arrow-circle-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <a class="btn btn-red btn-block" href="{{ path('list_hotels') }}" style="margin-top: 24px;">
+                                    Reset <i class="fa fa-arrow-circle-left"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Nombre d'hôtels : {{ hotels.getTotalItemCount }}
@@ -67,8 +119,8 @@
                                     <td>
                                         {% if hotel.isInStopSales is not null %}
                                             <a href="{{ path('stopsales_hotel',{'id':hotel.id}) }}" class="tooltips" title="Stop Sales {{ hotel.isInStopSales.dateDebut|date('Y-m-d')~" - "~hotel.isInStopSales.dateFin|date('Y-m-d') }}"><span class="label label-sm label-inverse">{{ hotel.isInStopSales.libelle }}</span></a>
-                                        {% endif %}
-                                        {% if hotel.getEtat == true %}
+                                            {% endif %}
+                                            {% if hotel.getEtat == true %}
                                             <a href="{{ path('change_etat',{'id':hotel.id,'etat':0}) }}" class="tooltips" title="Cliquez ici pour désactiver l'hôtel" ><span class="label label-sm label-success">Active</span></a>
                                         {% else %} 
                                             <a href="{{ path('change_etat',{'id':hotel.id,'etat':1}) }}" class="tooltips" title="Cliquez ici pour activer l'hôtel" ><span class="label label-sm label-danger">Inactive</span></a>
