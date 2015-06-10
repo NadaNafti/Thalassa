@@ -69,7 +69,6 @@
                                 <th class="center">Date Réservation</th>
                                 <th class="center">Hôtel</th>
                                 <th class="center">Client</th>
-                                <th class="center">Source</th>
                                 <th class="center">Etat</th>
                                 <th class="center">Total</th>
                                 <th class="center" >Action</th>
@@ -78,7 +77,16 @@
                         <tbody>
                             {% for reservation in reservations %}
                                 <tr class="center">
-                                    <td>{{ reservation.created|date('d/m/Y H:i') }}</td>
+                                    <td>
+                                        {{ reservation.created|date('d/m/Y H:i') }}<br>
+                                        <span style="color:red">
+                                            {% if reservation.frontOffice %}
+                                                Front office
+                                            {% else %}
+                                                Back office
+                                            {% endif %}
+                                        </span>
+                                    </td>
                                     <td>
                                         {{ reservation.dateDebut|date('d/m/Y') }}<br>
                                         <span style="color:red">{{ reservation.nuitees }} Nuitées</span>
@@ -87,13 +95,6 @@
                                     <td>
                                         {{ reservation.client|title }}<br>
                                         <span style="color:red">{{ reservation.client.amicale }}</span>
-                                    </td>
-                                    <td>
-                                        {% if reservation.frontOffice %}
-                                            Front office
-                                        {% else %}
-                                            Back office
-                                        {% endif %}
                                     </td>
                                     <td>
                                         {{ reservation.showEtat }}<br>
