@@ -37,7 +37,7 @@ class Periode
     
     /**
      * @ORM\ManyToOne(targetEntity="Saison", inversedBy="periodes", fetch="EAGER")
-     * @ORM\JoinColumn(name="saison_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="saison_id", referencedColumnName="id",onDelete="CASCADE")
      */
     protected $saison;
 

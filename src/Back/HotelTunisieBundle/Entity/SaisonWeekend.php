@@ -97,7 +97,7 @@ class SaisonWeekend
     /**
      * @ORM\ManyToMany(targetEntity="Chambre")
      * @ORM\JoinTable(name="ost_sht_saison_weekend_chambres",
-     *      joinColumns={@ORM\JoinColumn(name="id_saison_weekend", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="id_saison_weekend", referencedColumnName="id",onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_chambre", referencedColumnName="id")}
      * )
      */

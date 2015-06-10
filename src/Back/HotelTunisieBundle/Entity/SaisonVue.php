@@ -67,7 +67,7 @@ class SaisonVue
 
     /**
      * @ORM\ManyToOne(targetEntity="Saison", inversedBy="vues", fetch="EAGER")
-     * @ORM\JoinColumn(name="saison_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="saison_id", referencedColumnName="id",onDelete="CASCADE")
      */
     protected $saison;
 
