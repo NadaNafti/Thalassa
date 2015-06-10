@@ -58,10 +58,14 @@ class HotelsController extends Controller
     public function filtreAction()
     {
         $request=$this->getRequest();
+        if($request->get('libelle') != '')
+            $libelle=urlencode($request->get('libelle'));
+        else
+            $libelle="all";
         return $this->redirect($this->generateUrl('list_hotels', array(
                             'ville'  =>$request->get('ville'),
                             'chaine' =>$request->get('chaine'),
-                            'libelle'=>urlencode($request->get('libelle')),
+                            'libelle'=>$libelle,
         )));
     }
 
