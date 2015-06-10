@@ -233,8 +233,6 @@ class ReferentielController extends Controller
         $request=$this->getRequest();
         $em=$this->getDoctrine()->getManager();
         $villes=$em->getRepository("BackHotelTunisieBundle:Ville")->findAll();
-        $paginator=$this->get('knp_paginator');
-        $villes=$paginator->paginate($villes, $request->query->get('page', 1), 10);
         return $this->render('BackHotelTunisieBundle:referentiel/regionVille:listeVille.html.twig', array(
                     'villes'=>$villes,
         ));

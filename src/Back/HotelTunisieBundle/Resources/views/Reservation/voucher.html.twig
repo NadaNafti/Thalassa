@@ -28,18 +28,16 @@
                     <address>
                         <strong>{{ reservation.client.nomPrenom }}</strong>
                         <br>
-                        <abbr title="Première téléphone">Tel 1:</abbr> {{ reservation.client.tel1 }}
+                        Tel 1: {{ reservation.client.tel1 }}
                         <br>
-                        <abbr title="Deuxiéme téléphone">Tel 2:</abbr>: {{ reservation.client.tel2 }}
+                        Tel 2:: {{ reservation.client.tel2 }}
                         <br>
-                        <abbr title="Adresse">adr 1:</abbr>{{ reservation.client.adresse }}
+                        adr 1:{{ reservation.client.adresse }}
                     </address>
                     <address>
                         <strong>Email</strong>
                         <br>
-                        <a href="mailto:#">
                             {{ reservation.client.email }}
-                        </a>
                     </address>
                 </div>
             </div>
