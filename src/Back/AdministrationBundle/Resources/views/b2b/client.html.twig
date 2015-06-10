@@ -54,6 +54,7 @@
                                 <th class="center">Email</th>
                                 <th class="center">Tel 1</th>
                                 <th class="center">Tel 2</th>
+                                <th class="center">User</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -65,6 +66,13 @@
                                     <td>{{ client.email}}</td>
                                     <td>{{ client.tel1}}</td>
                                     <td>{{ client.tel2}}</td>
+                                    <td>
+                                        {% if  client.user is not null %}
+                                            <a target="_blank" href="{{ path('user_client',{'id':client.id}) }}" class="tooltips" title="Cliquez ici pour Modifier son compte" ><span class="label label-sm label-success">Oui</span></a>
+                                        {% else %}
+                                            <a target="_blank" href="{{ path('user_client',{'id':client.id}) }}" class="tooltips" title="Cliquez ici pour ajouter un compte a ce client" ><span class="label label-sm label-danger">Non</span></a>
+                                        {% endif %}
+                                    </td>
                                     <td class="TableAction">
                                         {{ macros.tableEdit(path('amicale_client',{'id':amicale.id,'id2':client.id})) }}
                                         {{ macros.tableDelete(path('delete_amicale_client',{'id':client.id})) }}

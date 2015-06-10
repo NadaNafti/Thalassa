@@ -29,8 +29,10 @@
                         <strong>{{ reservation.client.nomPrenom }}</strong>
                         <br>
                         Tel 1: {{ reservation.client.tel1 }}
-                        <br>
-                        Tel 2:: {{ reservation.client.tel2 }}
+                        {% if reservation.client.tel2 is not null %}
+                            <br>
+                            Tel 2: {{ reservation.client.tel2 }}
+                        {% endfor %}
                         <br>
                         adr 1:{{ reservation.client.adresse }}
                     </address>

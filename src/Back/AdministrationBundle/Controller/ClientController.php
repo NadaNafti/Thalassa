@@ -8,6 +8,7 @@ use Back\UserBundle\Entity\Client;
 use Back\UserBundle\Form\ClientType;
 use Back\UserBundle\Entity\User;
 use Back\UserBundle\Form\RegistrationFormType;
+use Symfony\Component\Form\FormError ;
 
 class ClientController extends Controller {
 
@@ -26,18 +27,35 @@ class ClientController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         if (is_null($client->getUser()))
+        {
             $user = new User ();
+            $user->setEmail($client->getEmail());
+        }
         else
             $user = $client->getUser();
         $form = $this->createForm(new RegistrationFormType(), $user)->remove('groups');
+        if (!is_null($client->getUser()))
+            $form->remove('plainPassword');
         if ($this->getRequest()->isMethod('POST')) {
             $form->submit($this->getRequest());
             if ($form->isValid()) {
                 $user = $form->getData();
-                $em->persist($user->setEnabled(TRUE)->setClient($client));
-                $em->flush();
-                $session->getFlashBag()->add('success', " Votre Client a été traité avec succées ");
-                return $this->redirect($this->generateUrl('user_client', array('id' => $client->getId())));
+                if (is_null($client->getUser()))
+                {
+                    $verif1=$em->getRepository("BackUserBundle:User")->findBy(array('username'=>$user->getUsername()));
+                    $verif2=$em->getRepository("BackUserBundle:User")->findBy(array('email'=>$user->getEmail()));
+                    if(count($verif2)>0)
+                        $form->get('email')->addError(new FormError("E-mail  ".$user->getEmail()." existe dejà dans la base ")) ;
+                    elseif(count($verif1)>0)
+                        $form->get('username')->addError(new FormError("Nom d'utilisateur  ".$user->getUsername()." existe dejà dans la base ")) ;
+                    else
+                    {
+                        $em->persist($user->setEnabled(TRUE)->setClient($client));
+                        $em->flush();
+                        $session->getFlashBag()->add('success', " Votre Client a été traité avec succées ");
+                        return $this->redirect($this->generateUrl('user_client', array('id' => $client->getId())));
+                    }
+                }
             }
         }
         return $this->render('BackAdministrationBundle:client:user.html.twig', array(
