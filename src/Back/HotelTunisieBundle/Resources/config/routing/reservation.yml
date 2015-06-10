@@ -1,6 +1,26 @@
 liste_reservations:
     path:     /liste/{etat}/{amicale}
     defaults: { _controller: BackHotelTunisieBundle:Reservation:liste,etat:1,amicale:all }
+
+consulter_reservation:
+    path:     /consulter/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:consulter }
+
+voucher_reservation:
+    path:     /voucher/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:voucher }
+
+delete_reservation:
+    path:     /delete_reservation/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:delete }
+
+annuler_reservation:
+    path:     /annuler_reservation/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:annuler }
+
+valider_reservation:
+    path:     /valider_reservation/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:valider }
     
 filtre_reservations:
     path:     /filtre_liste

@@ -19,6 +19,8 @@ class NamesExtension extends \Twig_Extension
         return array(
             'getNameChambre'=>new \Twig_Function_Method($this, 'getNameChambre'),
             'getNameArrangement'=>new \Twig_Function_Method($this, 'getNameArrangement'),
+            'getNameVue'=>new \Twig_Function_Method($this, 'getNameVue'),
+            'getNameSupp'=>new \Twig_Function_Method($this, 'getNameSupp'),
         );
     }
 
@@ -31,6 +33,16 @@ class NamesExtension extends \Twig_Extension
     public function getNameArrangement($id)
     {
         $arrangement=$this->em->getRepository("BackHotelTunisieBundle:Arrangement")->find($id);
+        return $arrangement->getLibelle();
+    }
+    public function getNameVue($id)
+    {
+        $arrangement=$this->em->getRepository("BackHotelTunisieBundle:Vue")->find($id);
+        return $arrangement->getLibelle();
+    }
+    public function getNameSupp($id)
+    {
+        $arrangement=$this->em->getRepository("BackHotelTunisieBundle:Supplement")->find($id);
         return $arrangement->getLibelle();
     }
 

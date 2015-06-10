@@ -1,0 +1,115 @@
+{% extends "BackHotelTunisieBundle:Reservation:liste.html.twig" %}
+{% block title %}Voucher{% endblock %}
+{% block description %}{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >Voucher</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="invoice">
+        <div class="row invoice-logo">
+            <div class="col-sm-6">
+                <div style="font-size: 50px;" class="logo">OS <i class="clip-paperplane"></i> TRAVEL</div>
+            </div>
+            <div class="col-sm-6">
+                <p>
+                    #{{ reservation.id }} / {{ reservation.created|date('l, d F Y') }} 
+                    <span> Prise en charge par {{ reservation.responsable }} </span>
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Client:</h4>
+                <div class="well">
+                    <address>
+                        <strong>{{ reservation.client.nomPrenom }}</strong>
+                        <br>
+                        <abbr title="Première téléphone">Tel 1:</abbr> {{ reservation.client.tel1 }}
+                        <br>
+                        <abbr title="Deuxiéme téléphone">Tel 2:</abbr>: {{ reservation.client.tel2 }}
+                        <br>
+                        <abbr title="Adresse">adr 1:</abbr>{{ reservation.client.adresse }}
+                    </address>
+                    <address>
+                        <strong>Email</strong>
+                        <br>
+                        <a href="mailto:#">
+                            {{ reservation.client.email }}
+                        </a>
+                    </address>
+                </div>
+            </div>
+            <div class="col-md-4 pull-right">
+                <h4>Détails réservation:</h4>
+                <p><strong>Nom hôtel : </strong> {{ reservation.hotel }}</p>
+                <p><strong>Période : </strong> {{ reservation.dateDebut.format('d/m/Y') }}, {{ reservation.nuitees }} nuitées</p>
+                <h4>Chambres:</h4>
+                {% for chambre in reservation.chambres %}
+                    <p><strong>Chambre {{ loop.index }} : </strong> {{ chambre.chambre }}, {{ chambre.arrangement }}</p>
+                    <p>
+                        {{ chambre.adultes|length }} adulte(s) & {{ chambre.enfants|length  }} enfant(s) {% for enfant in chambre.enfants %}{{ enfant.age }} ans {% endfor %}
+                    {% for nom in chambre.noms %}{{ nom }}{% if loop.index!= chambre.noms|length %}, {% endif %}{% endfor %}
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th> # </th>
+                        <th> Chambre </th>
+                        <th> Arrangement </th>
+                        <th> Adulte </th>
+                        <th> Enfant </th>
+                        <th> Suppliments & vues </th>
+{#                        <th> Total </th>#}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for chambre in reservation.chambres %}
+                        <tr>
+                            <td> {{ loop.index }} </td>
+                            <td> {{ chambre.chambre }} </td>
+                            <td> {{ chambre.arrangement }} </td>
+                            <td> {{ chambre.adultes|length }} </td>
+                            <td> {{ chambre.enfants|length }} </td>
+                            <td>
+                                {% for supp in chambre.supplements %}
+                                    - {{ getNameSupp(supp) }}<br>
+                                {% endfor %}
+                                {% for vue in chambre.vues %}
+                                    - {{ getNameVue(vue) }}<br>
+                                {% endfor %}
+                            </td>
+{#                            <td> {{ chambre.total }} </td>#}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 invoice-block">
+            {#<ul class="list-unstyled amounts">
+                <li>
+                    <strong>Total:</strong> {{ reservation.total }} DT
+                </li>
+            </ul>
+            <br>#}
+            <a onclick="javascript:window.print();" class="btn btn-lg btn-teal hidden-print">
+                Imprimer <i class="fa fa-print"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

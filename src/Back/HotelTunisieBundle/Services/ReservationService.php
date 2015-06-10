@@ -5,8 +5,14 @@ namespace Back\HotelTunisieBundle\Services;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\DependencyInjection\Container;
+use Back\HotelTunisieBundle\Entity\Reservation;
+use Back\HotelTunisieBundle\Entity\ReservationPersonne;
+use Back\HotelTunisieBundle\Entity\ReservationLigne;
+use Back\HotelTunisieBundle\Entity\ReservationJour;
+use Back\HotelTunisieBundle\Entity\ReservationChambre;
+use Back\HotelTunisieBundle\Entity\ReservationRepository;
 
-class Reservation
+class ReservationService
 {
 
     public function __construct(EntityManager $em, Session $session, Container $container)
@@ -130,6 +136,136 @@ class Reservation
             $results['chambres'][]=$tabChambre;
         }
         return $results;
+    }
+
+    public function saveReservation($data, $result, $source)
+    {
+        $hotel=$this->em->getRepository('BackHotelTunisieBundle:Hotel')->find($result['hotel']);
+        $client=$data['client'];
+        $this->em->persist($client);
+        $reservation=new Reservation();
+        $reservation->setClient($client)
+                ->setHotel($hotel)
+                ->setDateDebut(\DateTime::createFromFormat('Y-m-d', $result['dateDebut']))
+                ->setDateFin(\DateTime::createFromFormat('Y-m-d', $result['dateFin']))
+                ->setNuitees($result['nuitees'])
+                ->setSurDemande($result['surDemande'])
+                ->setEtat(1);
+        if($source == 'backoffice')
+        {
+            $user=$this->container->get('security.context')->getToken()->getUser();
+            $reservation->setResponsable($user)->setFrontOffice(0);
+        }
+        else
+            $reservation->setFrontOffice(1);
+        $this->em->persist($reservation);
+        $chambreOrdre=0;
+        foreach($result['chambres'] as $chambre)
+        {
+            $noms=array();
+            $chambreOrdre++;
+            $reservationChambre=new ReservationChambre();
+            $reservationChambre->setReservation($reservation)
+                    ->setChambre($this->em->getRepository('BackHotelTunisieBundle:Chambre')->find($chambre['details']['chambre']))
+                    ->setArrangement($this->em->getRepository('BackHotelTunisieBundle:Arrangement')->find($chambre['details']['arrangement']))
+                    ->setOccupants(explode(',', $chambre['details']['occupants']))
+                    ->setReductions($chambre['details']['reduc'])
+                    ->setSupplements($chambre['details']['supp'])
+                    ->setVues($chambre['details']['vue'])
+                    ->setNoms(array());
+            $this->em->persist($reservationChambre);
+            foreach($chambre['adultes'] as $adulte)
+            {
+                $ReservationPersonne=new ReservationPersonne();
+                $ReservationPersonne->setReservationChambreAdulte($reservationChambre)
+                        ->setOrdre($adulte['ordre'])
+                        ->setNom($data['chambre'.$chambreOrdre.'adulte'.$adulte['ordre']]);
+                $this->em->persist($ReservationPersonne);
+                $noms[]=$data['chambre'.$chambreOrdre.'adulte'.$adulte['ordre']];
+                foreach($adulte['jours'] as $jour)
+                {
+                    $reservationJour=new ReservationJour();
+                    $reservationJour->setPersonne($ReservationPersonne)
+                            ->setJour(\DateTime::createFromFormat('Y-m-d', $jour['jour']))
+                            ->setSaison($this->em->getRepository('BackHotelTunisieBundle:Saison')->find($jour['saison']['id']));
+                    $this->em->persist($reservationJour);
+                    foreach($jour['lignes'] as $ligne)
+                    {
+                        if(!is_null($ligne))
+                        {
+                            $reservationLigne=new ReservationLigne();
+                            $reservationLigne->setJour($reservationJour)
+                                    ->setCode($ligne['code'])
+                                    ->setLibelle($ligne['name'])
+                                    ->setAchat($ligne['achat'])
+                                    ->setVente($ligne['vente']);
+                            $this->em->persist($reservationLigne);
+                        }
+                    }
+                }
+            }
+            foreach($chambre['enfants'] as $enfant)
+            {
+                $ReservationPersonne=new ReservationPersonne();
+                $ReservationPersonne->setReservationChambreEnfant($reservationChambre)
+                        ->setOrdre($enfant['ordre'])
+                        ->setNom($data['chambre'.$chambreOrdre.'Enfant'.$enfant['ordre']])
+                        ->setAge($enfant['age']);
+                $this->em->persist($ReservationPersonne);
+                $noms[]=$data['chambre'.$chambreOrdre.'Enfant'.$enfant['ordre']];
+                foreach($enfant['jours'] as $jour)
+                {
+                    $reservationJour=new ReservationJour();
+                    $reservationJour->setPersonne($ReservationPersonne)
+                            ->setJour(\DateTime::createFromFormat('Y-m-d', $jour['jour']))
+                            ->setSaison($this->em->getRepository('BackHotelTunisieBundle:Saison')->find($jour['saison']['id']));
+                    $this->em->persist($reservationJour);
+                    foreach($jour['lignes'] as $ligne)
+                    {
+                        if(!is_null($ligne))
+                        {
+                            $reservationLigne=new ReservationLigne();
+                            $reservationLigne->setJour($reservationJour)
+                                    ->setCode($ligne['code'])
+                                    ->setLibelle($ligne['name'])
+                                    ->setAchat($ligne['achat'])
+                                    ->setVente($ligne['vente']);
+                            $this->em->persist($reservationLigne);
+                        }
+                    }
+                }
+            }
+            $this->em->persist($reservationChambre->setNoms($noms));
+            foreach($chambre['supplements'] as $suppLigne)
+            {
+                $reservationLigne=new ReservationLigne();
+                if(!is_null($suppLigne))
+                {
+                    $reservationLigne=new ReservationLigne();
+                    $reservationLigne->setSupplement($reservationChambre)
+                            ->setCode($suppLigne['code'])
+                            ->setLibelle($suppLigne['name'])
+                            ->setAchat($suppLigne['achat'])
+                            ->setVente($suppLigne['vente']);
+                    $this->em->persist($reservationLigne);
+                }
+            }
+            foreach($chambre['reductions'] as $reducLigne)
+            {
+                $reservationLigne=new ReservationLigne();
+                if(!is_null($reducLigne))
+                {
+                    $reservationLigne=new ReservationLigne();
+                    $reservationLigne->setReduction($reservationChambre)
+                            ->setCode($reducLigne['code'])
+                            ->setLibelle($reducLigne['name'])
+                            ->setAchat($reducLigne['achat'])
+                            ->setVente($reducLigne['vente']);
+                    $this->em->persist($reservationLigne);
+                }
+            }
+        }
+        $this->em->flush();
     }
 
     public function getCalendrier($reservation)

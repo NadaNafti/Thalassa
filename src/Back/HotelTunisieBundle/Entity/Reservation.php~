@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Reservation
  *
  * @ORM\Table(name="ost_sht_reservation")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Back\HotelTunisieBundle\Entity\ReservationRepository")
  */
 class Reservation
 {
@@ -29,7 +29,7 @@ class Reservation
      *
      * 1:Enregistrée
      * 2:Validée
-     * 3:Annulée
+     * 9:Annulée
      * @ORM\Column(name="etat", type="integer")
      */
     private $etat;
@@ -42,9 +42,16 @@ class Reservation
     /**
      * @var boolean
      *
-     * @ORM\Column(name="backOffice", type="boolean", nullable=true)
+     * @ORM\Column(name="frontOffice", type="boolean", nullable=true)
      */
     private $frontOffice;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="hotelNotifier", type="boolean", nullable=true)
+     */
+    private $hotelNotifier;
 
     /**
      * @var boolean
@@ -88,6 +95,13 @@ class Reservation
      * @ORM\OneToMany(targetEntity="ReservationChambre", mappedBy="reservation")
      */
     protected $chambres;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire", type="text",nullable=true)
+     */
+    private $commentaire;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -380,6 +394,68 @@ class Reservation
     public function getResponsable()
     {
         return $this->responsable;
+    }
+
+    /**
+     * Set surDemande
+     *
+     * @param boolean $surDemande
+     * @return Reservation
+     */
+    public function setSurDemande($surDemande)
+    {
+        $this->surDemande=$surDemande;
+
+        return $this;
+    }
+
+    /**
+     * Get surDemande
+     *
+     * @return boolean 
+     */
+    public function getSurDemande()
+    {
+        return $this->surDemande;
+    }
+
+    public function showEtat()
+    {
+        if($this->etat == 1)
+            return 'Enregistrée';
+        if($this->etat == 2)
+            return 'Validée';
+        if($this->etat == 9)
+            return 'Annulée';
+    }
+
+    public function getTotal()
+    {
+        $total=0;
+        foreach($this->chambres as $chambre)
+        {
+            foreach($chambre->getAdultes() as $personne)
+            {
+                foreach($personne->getJours() as $jour)
+                {
+                    foreach($jour->getLignes() as $ligne)
+                        $total+=$ligne->getVente();
+                }
+            }
+            foreach($chambre->getEnfants() as $personne)
+            {
+                foreach($personne->getJours() as $jour)
+                {
+                    foreach($jour->getLignes() as $ligne)
+                        $total+=$ligne->getVente();
+                }
+            }
+            foreach($chambre->getSupplementLignes() as $ligne)
+                $total+=$ligne->getVente();
+            foreach($chambre->getReductionLignes() as $ligne)
+                $total+=$ligne->getVente();
+        }
+        return number_format($total, 3, '.', '');
     }
 
 }

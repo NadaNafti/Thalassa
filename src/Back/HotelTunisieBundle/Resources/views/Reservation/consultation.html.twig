@@ -1,0 +1,237 @@
+{% extends "BackHotelTunisieBundle:Reservation:liste.html.twig" %}
+{% block title %}Consulter la réservation{% endblock %}
+{% block description %}{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >Consultation</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        {% if reservation.responsable is not null and app.user.id == reservation.responsable.id and reservation.etat==1 %}
+            <div class="col-md-12 center">
+                <a href="#valider" data-toggle="modal" class="btn btn-success center">
+                    Valider
+                </a>
+                <a href="#annuler" data-toggle="modal" class="btn btn-warning center">
+                    Annuler
+                </a>
+                <a href="{{ path('delete_reservation',{'id':reservation.id}) }}" class="btn btn-danger center" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette reservation ?'))">
+                    Supprimer
+                </a>
+                <hr>
+            </div>
+        {% endif %}
+        {% if reservation.etat==2 %}
+            <div class="col-md-12 center">
+                <a href="{{ path('voucher_reservation',{'id':reservation.id}) }}"class="btn btn-blue center">
+                    Voucher
+                </a>
+                <hr>
+            </div>
+        {% endif %}
+        <div class="col-md-3">
+            <h4 class="center">Réservation</h4>
+            <p><strong>Nom hôtel : </strong> {{ reservation.hotel }}</p>
+            <p><strong>Période : </strong> {{ reservation.dateDebut.format('d/m/Y') }}, {{ reservation.nuitees }} nuitées</p>
+            <h4 class="center">Les chambres</h4>
+            {% for chambre in reservation.chambres %}
+                <hr>
+                <p><strong>Chambre {{ loop.index }} : </strong> {{ chambre.chambre }}, {{ chambre.arrangement }}</p>
+                <p>{{ chambre.adultes|length }} adulte(s) & {{ chambre.enfants|length  }} enfant(s) {% for enfant in chambre.enfants %}{{ enfant.age }} ans {% endfor %}</p>
+            {% endfor %}
+        </div>
+        <div class="col-md-6">
+            <h5 class="center">N° : {{ reservation.id }}</h5>
+            <h3 class="center">{{ reservation.hotel }}</h3>
+            <h5 class="center">{{ getStars(reservation.hotel.getStars)|raw }}</h5>
+            {% if reservation.surDemande %}
+                <h1 class="center" style="color: red" >Sur demande</h1>
+            {% endif %}
+            <h4 class="center">Etat : {{ reservation.showEtat }}</h4>
+            <h5 class="center">{% if reservation.responsable is not null %} Prise en charge par : {{ reservation.responsable }} {% endif %}</h5>
+        </div>
+        <div class="col-md-3">
+            <h4 class="center">Client</h4>
+            {% if reservation.client.amicale is not null %}
+                <p><strong>Amicale : </strong> {{ reservation.client.amicale }}</p>
+            {% endif %}
+            <p><strong>Nom : </strong> {{ reservation.client }}</p>
+            <h4 class="center">Les résidents</h4>
+            {% for chambre in reservation.chambres %}
+                <hr>
+                <p><strong>Chambre {{ loop.index }}:</p>
+                {% for adulte in chambre.adultes %}
+                    <p>Adulte {{ loop.index }}: {{ adulte.nom }} </p>
+                {% endfor %}
+                {% for enfant in chambre.enfants %}
+                    <p>Enfant {{ loop.index }}: {{ enfant.nom }}  ({{ enfant.age }} ans) </p>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% if reservation.commentaire is not null %}
+            <div class="col-md-12">
+                <hr>
+                <p><h4>Commentaire :</h4> {{ reservation.commentaire }}</p>
+            </div>
+        {% endif %}
+        <div class="col-md-12">
+            <hr>
+            <div class="panel-body">
+                <table class="table">
+                    <tbody>
+                        {% set totalVente=0 %}
+                        {% set totalAchat=0 %}
+                        {% for chambre in reservation.chambres %}
+                            <tr style="background-color: black;color: white;">
+                                <th>{{ chambre.chambre }}</th>
+                                <th>{{ chambre.arrangement }}</th>
+                                <th>Adultes : {{ chambre.adultes|length }}</th>
+                                <th>Enfants : {{ chambre.enfants|length }} [{% for enfant in chambre.enfants %} {{ enfant.age }} {% if loop.index != chambre.enfants|length %},{% endif %} {% endfor %}]</th>
+                            </tr>
+                            {% for adulte in chambre.adultes %}
+                                <tr style="  background-color: dimgray;color: white;">
+                                    <th colspan="2" class="center">Adulte Num {{ adulte.ordre }}</th>
+                                    <td style="text-align: right;" >Achat</td>
+                                    <td style="text-align: right;" >Vente</td>
+                                </tr>
+                                {% for jour in adulte.jours %}
+                                    <tr style="  background-color: honeydew;" >
+                                        <th colspan="4">{{ jour.jour|date('d/m/Y') }} [{{ jour.saison }}]</th>
+                                    </tr>
+                                    {% for ligne in jour.lignes %}
+                                        <tr style="  background-color: ghostwhite;">
+                                            <td></td>
+                                            <td colspan="1">{{ ligne.libelle }}</td>
+                                            <td style="  text-align: right;" >{{ ligne.achat }}</td>
+                                            <td style="text-align: right;">{{ ligne.vente }}</td>
+                                        </tr>
+                                        {% set totalVente=totalVente+ligne.vente  %}
+                                        {% set totalAchat=totalAchat+ligne.achat  %}
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endfor %}
+                            {% for enfant in chambre.enfants %}
+                                <tr style="  background-color: dimgray;color: white;">
+                                    <th colspan="2" class="center" >Enfant Num {{ enfant.ordre }}  , Age : {{ enfant.age }}</th>
+                                    <td style="  text-align: right;" >Achat</td>
+                                    <td style="  text-align: right;" >Vente</td>
+                                </tr>
+                                {% for jour in enfant.jours %}
+                                    <tr style="  background-color: honeydew;" >
+                                        <th colspan="4">{{ jour.jour|date('d/m/Y') }} [{{ jour.saison }}]</th>
+                                    </tr>
+                                    {% for ligne in jour.lignes %}
+                                        <tr style="  background-color: ghostwhite;">
+                                            <td></td>
+                                            <td colspan="1">{{ ligne.libelle }}</td>
+                                            <td style="  text-align: right;" >{{ ligne.achat }}</td>
+                                            <td style="  text-align: right;" >{{ ligne.vente }}</td>
+                                        </tr>
+                                        {% set totalVente=totalVente+ligne.vente  %}
+                                        {% set totalAchat=totalAchat+ligne.achat  %}
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endfor %}
+                            {% for ligne in chambre.supplementLignes %}
+                                <tr style="  background-color: dimgray;color: white;">
+                                    <td></td>
+                                    <td colspan="1">{{ ligne.libelle }}</td>
+                                    <td style="  text-align: right;" >{{ ligne.achat }}</td>
+                                    <td style="text-align: right;">{{ ligne.vente }}</td>
+                                </tr>
+                                {% set totalVente=totalVente+ligne.vente  %}
+                                {% set totalAchat=totalAchat+ligne.achat  %}
+                            {% endfor %}
+                            {% for ligne in chambre.reductionLignes %}
+                                <tr style="  background-color: dimgray;color: white;">
+                                    <td></td>
+                                    <td colspan="1">{{ ligne.libelle }}</td>
+                                    <td style="  text-align: right;" >{{ ligne.achat }}</td>
+                                    <td style="text-align: right;">{{ ligne.vente }}</td>
+                                </tr>
+                                {% set totalVente=totalVente+ligne.vente  %}
+                                {% set totalAchat=totalAchat+ligne.achat  %}
+                            {% endfor %}
+                        {% endfor %}
+                        <tr style="  background-color: antiquewhite;">
+                            <th></th>
+                            <th style="text-align: right;">Total</th>
+                            <th style="text-align: right;">{{totalAchat|number_format(3,'.','')}}</th>
+                            <th style="text-align: right;">{{totalVente|number_format(3,'.','')}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="annuler" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Annuler la réservation</h4>
+        </div>
+        <form action="{{ path('annuler_reservation',{'id':reservation.id}) }}" method="post">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Commentaire</h4>
+                        <p>
+                            <textarea name="commentaire" class="form-control" ></textarea>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-light-grey">
+                    Fermer
+                </button>
+                <button type="submit" class="btn btn-blue">
+                    Valider l'anulation
+                </button>
+            </div>
+        </form>
+    </div>
+    <div id="valider" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Valider la réservation</h4>
+        </div>
+        <form action="{{ path('valider_reservation',{'id':reservation.id}) }}" method="post">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Commentaire</h4>
+                        <p>
+                            <textarea name="commentaire" class="form-control" ></textarea>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-light-grey">
+                    Fermer
+                </button>
+                <button type="submit" class="btn btn-blue">
+                    Valider la réservation
+                </button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("back-assets/plugins/bootstrap-modal/js/bootstrap-modal.js") }}"></script>
+    <script src="{{ asset("back-assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js") }}"></script>
+    <script src="{{ asset("back-assets/js/ui-modals.js") }}"></script>
+    <script>
+                    jQuery(document).ready(function () {
+                        UIModals.init();
+                    });
+    </script>
+{% endblock %}

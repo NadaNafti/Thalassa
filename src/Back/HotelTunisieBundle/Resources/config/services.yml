@@ -15,7 +15,7 @@ services:
         class: Back\HotelTunisieBundle\Services\Library
         
     reservation:
-        class: Back\HotelTunisieBundle\Services\Reservation
+        class: Back\HotelTunisieBundle\Services\ReservationService
         arguments: [ @doctrine.orm.entity_manager, @session, @service_container ]
         
     lignes:

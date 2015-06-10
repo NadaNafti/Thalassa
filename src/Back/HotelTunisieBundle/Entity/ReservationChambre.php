@@ -30,7 +30,7 @@ class ReservationChambre
     /**
      * @ORM\ManyToOne(targetEntity="Arrangement")
      */
-    protected $arrangements;
+    protected $arrangement;
 
     /**
      * @var array
@@ -242,26 +242,26 @@ class ReservationChambre
     }
 
     /**
-     * Set arrangements
+     * Set arrangement
      *
-     * @param \Back\HotelTunisieBundle\Entity\Arrangement $arrangements
+     * @param \Back\HotelTunisieBundle\Entity\Arrangement $arrangement
      * @return ReservationChambre
      */
-    public function setArrangements(\Back\HotelTunisieBundle\Entity\Arrangement $arrangements = null)
+    public function setArrangement(\Back\HotelTunisieBundle\Entity\Arrangement $arrangement = null)
     {
-        $this->arrangements = $arrangements;
+        $this->arrangement = $arrangement;
 
         return $this;
     }
 
     /**
-     * Get arrangements
+     * Get arrangement
      *
      * @return \Back\HotelTunisieBundle\Entity\Arrangement 
      */
-    public function getArrangements()
+    public function getArrangement()
     {
-        return $this->arrangements;
+        return $this->arrangement;
     }
 
     /**
@@ -427,5 +427,31 @@ class ReservationChambre
     public function getEnfants()
     {
         return $this->enfants;
+    }
+    
+    public function getTotal()
+    {
+        $total=0;
+        foreach($this->adultes as $personne)
+            {
+                foreach($personne->getJours() as $jour)
+                {
+                    foreach($jour->getLignes() as $ligne)
+                        $total+=$ligne->getVente();
+                }
+            }
+            foreach($this->enfants as $personne)
+            {
+                foreach($personne->getJours() as $jour)
+                {
+                    foreach($jour->getLignes() as $ligne)
+                        $total+=$ligne->getVente();
+                }
+            }
+            foreach($this->supplementLignes as $ligne)
+                $total+=$ligne->getVente();
+            foreach($this->reductionLignes as $ligne)
+                $total+=$ligne->getVente();
+            return number_format($total,3,'.','');
     }
 }
