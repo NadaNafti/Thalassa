@@ -14,6 +14,31 @@ class HotelRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function filtreFrontOffice($categorie,$chaine,$ville,$name)
+    {
+        $query=$this->createQueryBuilder('h');
+        $query->where($query->expr()->isNotNull('h.saisonBase'));
+        if($categorie != 'all')
+            $query->andWhere('h.categorie=:categorie')->setParameter('categorie', $categorie);
+        if($ville != 'all')
+            $query->andWhere('h.ville=:ville')->setParameter('ville', $ville);
+        if($chaine != 'all')
+            $query->andWhere('h.chaine=:chaine')->setParameter('chaine', $chaine);
+        if($name != 'all')
+        {
+            $ORs=array();
+            $name=explode('+', $name);
+            foreach($name as $mot)
+                $ORs[]=$query->expr()->like("UPPER(h.libelle)", "UPPER('%".$mot."%')");
+            $orX=$query->expr()->andX();
+            foreach($ORs as $or)
+                $orX->add($or);
+            $query->andWhere($orX);
+        }
+        $query->orderBy("h.libelle", 'asc');
+        return $query->getQuery()->getResult();
+    }
+    
     public function filtreBackOffice($ville, $chaine, $libelle)
     {
         $query=$this->createQueryBuilder('h');
