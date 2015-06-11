@@ -1,7 +1,0 @@
-page_accueil:
-    path:     /
-    defaults: { _controller: FrontGeneralBundle:Default:index }
-
-page_contact:
-    path:     /contact
-    defaults: { _controller: FrontGeneralBundle:Default:contact }
