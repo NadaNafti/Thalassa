@@ -54,16 +54,15 @@ class User extends BaseUser
         return $this->id;
     }
 
-
     /**
      * Set client
      *
      * @param \Back\UserBundle\Entity\Client $client
      * @return User
      */
-    public function setClient(\Back\UserBundle\Entity\Client $client = null)
+    public function setClient(\Back\UserBundle\Entity\Client $client=null)
     {
-        $this->client = $client;
+        $this->client=$client;
 
         return $this;
     }
@@ -77,4 +76,13 @@ class User extends BaseUser
     {
         return $this->client;
     }
+
+    public function __toString()
+    {
+        if(is_null($this->client))
+            return $this->username;
+        else
+            return $this->client->getNomPrenom();
+    }
+
 }
