@@ -28,7 +28,7 @@ class HotelRepository extends EntityRepository
             $libelle=explode('+', $libelle);
             foreach($libelle as $mot)
                 $ORs[]=$query->expr()->like("UPPER(h.libelle)", "UPPER('%".$mot."%')");
-            $orX=$query->expr()->orX();
+            $orX=$query->expr()->andX();
             foreach($ORs as $or)
                 $orX->add($or);
             $query->andWhere($orX);
