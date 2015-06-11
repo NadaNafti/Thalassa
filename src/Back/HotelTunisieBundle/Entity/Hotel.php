@@ -1151,5 +1151,14 @@ class Hotel
         else
             return $this->ficheTechnique->getMax1AgeEnfant();
     }
+    
+    public function getPorcentageStars()
+    {
+        if(!is_null($this->categorie)  && $this->categorie->getNombreEtoiles()!=0 )
+        {
+            return ($this->categorie->getNombreEtoiles()/5)*100;
+        }
+        return false;
+    }
 
 }

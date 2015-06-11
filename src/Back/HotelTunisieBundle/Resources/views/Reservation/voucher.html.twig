@@ -32,7 +32,7 @@
                         {% if reservation.client.tel2 is not null %}
                             <br>
                             Tel 2: {{ reservation.client.tel2 }}
-                        {% endfor %}
+                        {% endif %}
                         <br>
                         adr 1:{{ reservation.client.adresse }}
                     </address>
@@ -108,8 +108,4 @@
         </div>
     </div>
 </div>
-
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
 {% endblock %}
