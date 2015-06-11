@@ -17,7 +17,6 @@
                     {{ form_start(form) }}
                     <div class="row">
                         {{ formulaire.input("col-md-2","Nom & Prénom",form.nomPrenom,true) }}
-                        {{ formulaire.input("col-md-2","Email",form.email,true) }}
                         {{ formulaire.input("col-md-2","tel1",form.tel1,true) }}
                         {{ formulaire.input("col-md-2","tel2",form.tel2,true) }}
                     </div>
@@ -29,6 +28,19 @@
                         {{ formulaire.input("col-md-2","Registre Commercie",form.registreCommercie,true) }}
                         {{ formulaire.input("col-md-4","Commentaire",form.commentaire,true) }}
                     </div>
+                    {% if form.user is defined %}
+                        <div class="row">
+                            {{ formulaire.input("col-md-4","Username",form.user.username,true) }}
+                            {{ formulaire.input("col-md-4","Email",form.user.email,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-4","",form.user.plainPassword,true) }}
+                        </div>
+                        <div class="no-display">
+                            {{ form_widget(form.user.groups) }}
+                            {{ form_widget(form.user.Enregistrer) }}
+                        </div>
+                    {% endif %}
                     {% if client.id is null %}
                         {{ formulaire.submit("Ajouter") }}
                     {% else %}

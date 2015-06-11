@@ -22,6 +22,7 @@ class User extends BaseUser
 
     /**
      * @ORM\OneToOne(targetEntity="Client", inversedBy="user", cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $client;
 

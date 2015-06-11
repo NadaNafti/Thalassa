@@ -10,6 +10,7 @@ use Back\AdministrationBundle\Entity\Convention;
 use Back\AdministrationBundle\Form\ConventionType;
 use Back\UserBundle\Entity\Client;
 use Back\UserBundle\Form\ClientType;
+use Symfony\Component\Form\FormError;
 
 class B2bController extends Controller
 {
@@ -65,16 +66,41 @@ class B2bController extends Controller
         else
             $client=$em->getRepository("BackUserBundle:Client")->find($id2);
         $form=$this->createForm(new ClientType(), $client);
+        if(!is_null($id2))
+        {
+            $form->remove('user');
+        }
         if($this->getRequest()->isMethod("POST"))
         {
             $form->submit($this->getRequest());
             if($form->isValid())
             {
-                $client=$form->getData();
-                $em->persist($client->setAmicale($amicale));
-                $em->flush();
-                $session->getFlashBag()->add('success', " Votre client a été traité avec succées ");
-                return $this->redirect($this->generateUrl("amicale_client", array( 'id'=>$amicale->getId() )));
+                if(is_null($id2))
+                {
+                    $client=$form->getData();
+                    $user=$client->getUser();
+                    $verif1=$em->getRepository("BackUserBundle:User")->findBy(array( 'username'=>$user->getUsername() ));
+                    $verif2=$em->getRepository("BackUserBundle:User")->findBy(array( 'email'=>$user->getEmail() ));
+                    if(count($verif2) > 0)
+                        $form->get('user')->get('email')->addError(new FormError("E-mail  ".$user->getEmail()." existe dejà dans la base "));
+                    elseif(count($verif1) > 0)
+                        $form->get('user')->get('username')->addError(new FormError("Nom d'utilisateur  ".$user->getUsername()." existe dejà dans la base "));
+                    else
+                    {
+                        $em->persist($client->setAmicale($amicale)->setUser(NULL));
+                        $em->persist($user->setClient($client)->setEnabled(1));
+                        $em->flush();
+                        $session->getFlashBag()->add('success', " Votre client a été traité avec succées ");
+                        return $this->redirect($this->generateUrl("amicale_client", array( 'id'=>$amicale->getId() )));
+                    }
+                }
+                else
+                {
+                    $em->persist($client->setAmicale($amicale));
+                    $em->flush();
+                    $session->getFlashBag()->add('success', " Votre client a été traité avec succées ");
+                    return $this->redirect($this->generateUrl("amicale_client", array( 'id'=>$amicale->getId() )));
+                }
             }
         }
         return $this->render('BackAdministrationBundle:b2b:client.html.twig', array(

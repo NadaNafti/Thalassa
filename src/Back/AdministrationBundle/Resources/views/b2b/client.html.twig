@@ -20,7 +20,6 @@
                         <div class="row">
                             {{ formulaire.input("col-md-2","",form.responsable,false) }}
                             {{ formulaire.input("col-md-2","Nom & Prénom",form.nomPrenom,true) }}
-                            {{ formulaire.input("col-md-2","Email",form.email,true) }}
                             {{ formulaire.input("col-md-2","Tel 1",form.tel1,true) }}
                             {{ formulaire.input("col-md-2","Tel 2",form.tel2,true) }}
                         </div>
@@ -32,7 +31,24 @@
                             {{ formulaire.input("col-md-2","Registre Commercie",form.registreCommercie,true) }}
                             {{ formulaire.input("col-md-4","Commentaire",form.commentaire,true) }}
                         </div>
-                        {{ formulaire.submit("Enregistrer") }}
+                        {% if form.user is defined %}
+                            <div class="row">
+                                {{ formulaire.input("col-md-4","Username",form.user.username,true) }}
+                                {{ formulaire.input("col-md-4","Email",form.user.email,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-4","",form.user.plainPassword,true) }}
+                            </div>
+                            <div class="no-display">
+                                {{ form_widget(form.user.groups) }}
+                                {{ form_widget(form.user.Enregistrer) }}
+                            </div>
+                        {% endif %}
+                        {% if client.id is null %}
+                            {{ formulaire.submit("Ajouter") }}
+                        {% else %}
+                            {{ formulaire.submit("Modifier") }}
+                        {% endif %}
                         {{ form_end(form) }}
                     </div>
                 </div>
@@ -63,7 +79,11 @@
                                 <tr class="center">
                                     <td>{{ client.showProfileAmicale}}</td>
                                     <td>{{ client.nomPrenom}}</td>
-                                    <td>{{ client.email}}</td>
+                                    <td>
+                                        {% if client.user.email is defined %}
+                                            {{ client.user.email }}
+                                        {% endif %}
+                                    </td>
                                     <td>{{ client.tel1}}</td>
                                     <td>{{ client.tel2}}</td>
                                     <td>

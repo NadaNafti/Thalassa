@@ -5,7 +5,7 @@ namespace Back\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
+use Back\UserBundle\Form\RegistrationFormType;
 class ClientType extends AbstractType
 {
 
@@ -19,12 +19,12 @@ class ClientType extends AbstractType
                 ->add('nomPrenom')
                 ->add('tel1')
                 ->add('tel2')
-                ->add('email')
                 ->add('adresse')
                 ->add('matriculeFiscale')
                 ->add('registreCommercie')
                 ->add('commentaire')
                 ->add('responsable')
+                ->add('user', new RegistrationFormType() )
         ;
     }
 
