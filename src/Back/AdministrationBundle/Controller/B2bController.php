@@ -66,10 +66,8 @@ class B2bController extends Controller
         else
             $client=$em->getRepository("BackUserBundle:Client")->find($id2);
         $form=$this->createForm(new ClientType(), $client);
-        if(!is_null($id2))
-        {
-            $form->remove('user');
-        }
+        if(is_null($id2))
+            $form->add('user', new \Back\UserBundle\Form\RegistrationFormType() );
         if($this->getRequest()->isMethod("POST"))
         {
             $form->submit($this->getRequest());

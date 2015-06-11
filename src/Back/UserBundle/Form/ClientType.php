@@ -24,7 +24,6 @@ class ClientType extends AbstractType
                 ->add('registreCommercie')
                 ->add('commentaire')
                 ->add('responsable')
-                ->add('user', new RegistrationFormType() )
         ;
     }
 
