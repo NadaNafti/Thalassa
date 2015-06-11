@@ -36,11 +36,13 @@
                         <br>
                         adr 1:{{ reservation.client.adresse }}
                     </address>
-                    <address>
-                        <strong>Email</strong>
-                        <br>
-                            {{ reservation.client.email }}
-                    </address>
+                    {% if reservation.client.user is not null %}
+                        <address>
+                            <strong>Email</strong>
+                            <br>
+                            {{ reservation.client.user.email }}
+                        </address>
+                    {% endif %}
                 </div>
             </div>
             <div class="col-md-4 pull-right">
@@ -68,7 +70,7 @@
                         <th> Adulte </th>
                         <th> Enfant </th>
                         <th> Suppléments & vues </th>
-{#                        <th> Total </th>#}
+                            {#                        <th> Total </th>#}
                     </tr>
                 </thead>
                 <tbody>
@@ -87,7 +89,7 @@
                                     - {{ getNameVue(vue) }}<br>
                                 {% endfor %}
                             </td>
-{#                            <td> {{ chambre.total }} </td>#}
+                            {#                            <td> {{ chambre.total }} </td>#}
                         </tr>
                     {% endfor %}
                 </tbody>
