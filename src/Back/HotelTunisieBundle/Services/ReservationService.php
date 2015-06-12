@@ -314,7 +314,7 @@ class ReservationService
         if(!is_null($hotel->getEmail1()) || !is_null($hotel->getEmail2()))
         {
             $message=\Swift_Message::newInstance()
-                    ->setSubject('Nouvelle Réservation de la par'.$this->emailName)
+                    ->setSubject('Nouvelle Réservation de la par '.$this->emailName)
                     ->setFrom($this->emailSender);
             if(!is_null($hotel->getEmail1()))
                 $message->setTo($hotel->getEmail1());
@@ -347,7 +347,7 @@ class ReservationService
             $body .="<br><br>";
             $body .= "Cordialement,<br />";
             $body .= "L'équipe de <strong>".$this->emailName."</strong><br />";
-            $message->setBody($body);
+            $message->setBody($body,'text/html');
             $this->mailer->send($message);
             return true;
         }
