@@ -39,6 +39,11 @@ class Produit
     private $code;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Produit", mappedBy="produits")
+     */
+    private $emails;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -99,4 +104,44 @@ class Produit
         return $this->libelle;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add emails
+     *
+     * @param \Back\AdministrationBundle\Entity\Produit $emails
+     * @return Produit
+     */
+    public function addEmail(\Back\AdministrationBundle\Entity\Produit $emails)
+    {
+        $this->emails[] = $emails;
+
+        return $this;
+    }
+
+    /**
+     * Remove emails
+     *
+     * @param \Back\AdministrationBundle\Entity\Produit $emails
+     */
+    public function removeEmail(\Back\AdministrationBundle\Entity\Produit $emails)
+    {
+        $this->emails->removeElement($emails);
+    }
+
+    /**
+     * Get emails
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEmails()
+    {
+        return $this->emails;
+    }
 }

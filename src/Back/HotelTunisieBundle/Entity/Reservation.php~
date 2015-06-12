@@ -434,28 +434,55 @@ class Reservation
         $total=0;
         foreach($this->chambres as $chambre)
         {
-            foreach($chambre->getAdultes() as $personne)
-            {
-                foreach($personne->getJours() as $jour)
-                {
-                    foreach($jour->getLignes() as $ligne)
-                        $total+=$ligne->getVente();
-                }
-            }
-            foreach($chambre->getEnfants() as $personne)
-            {
-                foreach($personne->getJours() as $jour)
-                {
-                    foreach($jour->getLignes() as $ligne)
-                        $total+=$ligne->getVente();
-                }
-            }
-            foreach($chambre->getSupplementLignes() as $ligne)
-                $total+=$ligne->getVente();
-            foreach($chambre->getReductionLignes() as $ligne)
-                $total+=$ligne->getVente();
+            $total+=$chambre->getTotal();
         }
         return number_format($total, 3, '.', '');
     }
 
+
+    /**
+     * Set hotelNotifier
+     *
+     * @param boolean $hotelNotifier
+     * @return Reservation
+     */
+    public function setHotelNotifier($hotelNotifier)
+    {
+        $this->hotelNotifier = $hotelNotifier;
+
+        return $this;
+    }
+
+    /**
+     * Get hotelNotifier
+     *
+     * @return boolean 
+     */
+    public function getHotelNotifier()
+    {
+        return $this->hotelNotifier;
+    }
+
+    /**
+     * Set commentaire
+     *
+     * @param string $commentaire
+     * @return Reservation
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * Get commentaire
+     *
+     * @return string 
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
+    }
 }

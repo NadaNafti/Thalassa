@@ -73,7 +73,7 @@ class SaisonChambre
     
     /**
      * @ORM\ManyToOne(targetEntity="Saison", inversedBy="chambres", fetch="EAGER")
-     * @ORM\JoinColumn(name="saison_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="saison_id", referencedColumnName="id",onDelete="CASCADE")
      */
     protected $saison;
 

@@ -151,16 +151,19 @@ class Saison
 
     /**
      * @ORM\OneToOne(targetEntity="SaisonReduc", inversedBy="saison", cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $saisonReduc;
 
     /**
      * @ORM\OneToOne(targetEntity="SaisonSupp", inversedBy="saison", cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $saisonSupp;
 
     /**
      * @ORM\OneToOne(targetEntity="SaisonWeekend", inversedBy="saison", cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $saisonWeekend;
 

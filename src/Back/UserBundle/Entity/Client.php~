@@ -48,13 +48,6 @@ class Client
 
     /**
      * @var string
-     * @Assert\Email()
-     * @ORM\Column(name="email", type="string", length=255,nullable=true)
-     */
-    private $email;
-
-    /**
-     * @var string
      *
      * @ORM\Column(name="adresse", type="text")
      */
@@ -204,30 +197,7 @@ class Client
     {
         return $this->tel2;
     }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Client
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
+    
     /**
      * Set adresse
      *

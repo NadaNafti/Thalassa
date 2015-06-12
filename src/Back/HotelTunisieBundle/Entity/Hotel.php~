@@ -1139,4 +1139,26 @@ class Hotel
         return $this->libelle;
     }
 
+    public function minAge()
+    {
+        return $this->ficheTechnique->getMin1AgeEnfant();
+    }
+
+    public function maxAge()
+    {
+        if (!is_null($this->ficheTechnique->getMax2AgeEnfant()) && $this->ficheTechnique->getMax2AgeEnfant() != 0)
+            return $this->ficheTechnique->getMax2AgeEnfant();
+        else
+            return $this->ficheTechnique->getMax1AgeEnfant();
+    }
+    
+    public function getPorcentageStars()
+    {
+        if(!is_null($this->categorie)  && $this->categorie->getNombreEtoiles()!=0 )
+        {
+            return ($this->categorie->getNombreEtoiles()/5)*100;
+        }
+        return false;
+    }
+
 }

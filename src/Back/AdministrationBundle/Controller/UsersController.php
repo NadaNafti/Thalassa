@@ -8,6 +8,8 @@ use Back\UserBundle\Entity\User;
 use Back\UserBundle\Entity\Group;
 use Back\UserBundle\Form\GroupType;
 use Back\UserBundle\Form\RegistrationFormType;
+use Back\AdministrationBundle\Entity\Email;
+use Back\AdministrationBundle\Form\EmailType;
 
 class UsersController extends Controller
 {
@@ -129,6 +131,53 @@ class UsersController extends Controller
         $em->flush();
         $session->getFlashBag()->add('success', "Votre utilisateur a été modifié avec succées");
         return $this->redirect($this->generateUrl("user"));
+    }
+
+    public function emailsAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if(is_null($id))
+            $email=new Email();
+        else
+            $email=$em->getRepository('BackAdministrationBundle:Email')->find($id);
+        $emails=$em->getRepository('BackAdministrationBundle:Email')->findAll();
+        $form=$this->createForm(new EmailType(), $email);
+        $request=$this->getRequest();
+        if($request->isMethod('POST'))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $email=$form->getData();
+                $em->persist($email);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Votre email a été traité avec succées");
+                return $this->redirect($this->generateUrl('back_emails'));
+            }
+        }
+        return $this->render('BackAdministrationBundle::emails.html.twig', array(
+                    'email' =>$email,
+                    'emails'=>$emails,
+                    'form'  =>$form->createView()
+        ));
+    }
+
+    public function deleteEmailAction(Email $email)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($email);
+            $em->flush();
+            $session->getFlashBag()->add('success', "Votre email a été supprimé avec succées");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'Votre email a été utilisé dans une autre table');
+        }
+        return $this->redirect($this->generateUrl("back_emails"));
     }
 
 }

@@ -39,6 +39,11 @@ class Produit
     private $code;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Produit", mappedBy="produits")
+     */
+    private $emails;
+
+    /**
      * Get id
      *
      * @return integer 

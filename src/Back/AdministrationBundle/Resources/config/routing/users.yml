@@ -17,3 +17,11 @@ delete_user:
 enable_user:
     path:     /enable_user/{id}
     defaults: { _controller: BackAdministrationBundle:Users:enableUser }
+
+back_emails:
+    path:     /emails/{id}
+    defaults: { _controller: BackAdministrationBundle:Users:emails,id:null }    
+
+back_email_delete:
+    path:     /back_email_delete/{id}
+    defaults: { _controller: BackAdministrationBundle:Users:deleteEmail }    
