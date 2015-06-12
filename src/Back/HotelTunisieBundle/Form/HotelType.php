@@ -16,6 +16,8 @@ class HotelType extends AbstractType
     {
         $builder
             ->add('libelle')
+            ->add('email1')
+            ->add('email2')
             ->add('longitude')
             ->add('latitude')
             ->add('adresse','text')

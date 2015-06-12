@@ -873,43 +873,26 @@ class Saison
 
     public function isValidSaisonBase()
     {
-        if(!$this->isArrBaseValide())
-            return FALSE;
-        if(count($this->chambres) != count($this->hotelBase->getChambres()))
-            return FALSE;
-        elseif(count($this->arrangements) + 1 != count($this->hotelBase->getArrangements()))
-            return FALSE;
-        elseif(count($this->suppChambres) != $this->hotelBase->getCountAutresChambres())
-            return FALSE;
-        elseif(count($this->vues) != count($this->hotelBase->getVues()))
-            return FALSE;
-        elseif($this->saisonReduc == null)
-            return FALSE;
-        elseif($this->saisonSupp == null)
-            return FALSE;
-        elseif($this->saisonWeekend == null && $this->hotelBase->getFicheTechnique()->getTarifWeekend())
-            return FALSE;
-        else
-            return TRUE;
+        return $this->isValid();
     }
 
     public function isValid()
     {
         if(!$this->isArrBaseValide())
             return FALSE;
-        if(count($this->chambres) != count($this->hotel->getChambres()))
+        if(count($this->chambres) != count($this->getHotel()->getChambres()))
             return FALSE;
-        elseif(count($this->arrangements) + 1 != count($this->hotel->getArrangements()))
+        elseif(count($this->arrangements) + 1 != count($this->getHotel()->getArrangements()))
             return FALSE;
-        elseif(count($this->suppChambres) != $this->hotel->getCountAutresChambres())
+        elseif(count($this->suppChambres) != $this->getHotel()->getCountAutresChambres())
             return FALSE;
-        elseif(count($this->vues) != count($this->hotel->getVues()))
+        elseif(count($this->vues) != count($this->getHotel()->getVues()))
             return FALSE;
         elseif($this->saisonReduc == null)
             return FALSE;
         elseif($this->saisonSupp == null)
             return FALSE;
-        elseif($this->saisonWeekend == null && $this->hotel->getFicheTechnique()->getTarifWeekend())
+        elseif($this->saisonWeekend == null && $this->getHotel()->getFicheTechnique()->getTarifWeekend())
             return FALSE;
         else
             return TRUE;

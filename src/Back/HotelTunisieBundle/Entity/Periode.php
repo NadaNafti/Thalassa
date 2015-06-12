@@ -130,4 +130,10 @@ class Periode
         else
             return $this->dateDebut->format("d/m/Y").' - '.$this->dateFin->format("d/m/Y");
     }
+    
+    public function getCurrentPeriode()
+    {
+        if(date('Y-m-d')>= $this->dateDebut->format('Y-m-d') && date('Y-m-d')<= $this->dateFin->format('Y-m-d'))
+            return $this->dateDebut->format('d/m/Y').' - '.$this->dateFin->format('d/m/Y');
+    }
 }

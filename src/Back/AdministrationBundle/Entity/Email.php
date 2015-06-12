@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert ;
  * Email
  *
  * @ORM\Table(name="ost_emails")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Back\AdministrationBundle\Entity\EmailRepository")
  */
 class Email
 {
