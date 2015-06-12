@@ -330,18 +330,18 @@ class ReservationService
             }
             $body="<b>Cher partenaire <strong>".$hotel->getLibelle()."</strong>,</b><br>";
             $body .="Merci de nous confirmer la réservation suivante :<br>";
-            $body .= "Du ".$result['dateDebut']." au ".$result['dateFin']."   <b><u>".$result['nuitees']." nuitée(s) </u></b>";
+            $body .= "Du ".$result['dateDebut']." au ".$result['dateFin']."   <b>, <u>".$result['nuitees']." nuitée(s) </u></b>";
             $body .="<br><br>";
             foreach($result['chambres'] as $chambre)
             {
                 $ch=$this->em->getRepository('BackHotelTunisieBundle:Chambre')->find($chambre['details']['chambre']);
                 $arr=$this->em->getRepository('BackHotelTunisieBundle:Arrangement')->find($chambre['details']['arrangement']);
-                $body.="- <strong>".$ch->getLibelle()."</strong> avec <strong>".$arr->getLibelle()."</strong> <br>";
+                $body.="<br>- <strong>".$ch->getLibelle()."</strong> avec <strong>".$arr->getLibelle()."</strong> <br>";
                 if(count($chambre['details']['supp']) != 0)
                 {
                     foreach($chambre['details']['supp'] as $supp)
                     {
-                        $body.="<br><strong>Supplémenets : </strong><br>";
+                        $body.="-<strong>Supplémenets : </strong><br>";
                         $supplemenet=$this->em->getRepository('BackHotelTunisieBundle:Supplement')->find($supp);
                         $body.="- ".$supplemenet->getLibelle().'<br>';
                     }
@@ -350,16 +350,15 @@ class ReservationService
                 {
                     foreach($chambre['details']['vue'] as $vue)
                     {
-                        $body.="<br><strong>Vues : </strong><br>";
+                        $body.="-<strong>Vues : </strong><br>";
                         $v=$this->em->getRepository('BackHotelTunisieBundle:Vue')->find($vue);
                         $body.="- ".$v->getLibelle().'<br>';
                     }
                 }
-                $body.="<br>- <strong>Adulte : </strong> ".count($chambre['adultes']).'<br>';
+                $body.="- <strong>Adulte : </strong> ".count($chambre['adultes']).'<br>';
                 $body.="- <strong>Enfant : </strong> ".count($chambre['enfants']).'<br>';
                 foreach($chambre['enfants'] as $enfant)
-                    $body.="- <strong>Age Enfant ".$enfant['ordre']." : </strong> ".$enfant['age'].'<br>';
-                $body.="<br><br><br>";
+                    $body.="- <strong>Age Enfant N° ".$enfant['ordre']." : </strong> ".$enfant['age'].'ans .<br>';
             }
             $body .="En faveur :  ".$client->getNomPrenom();
             $body .="<br><br>";
