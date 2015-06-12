@@ -337,7 +337,25 @@ class ReservationService
                 $ch=$this->em->getRepository('BackHotelTunisieBundle:Chambre')->find($chambre['details']['chambre']);
                 $arr=$this->em->getRepository('BackHotelTunisieBundle:Arrangement')->find($chambre['details']['arrangement']);
                 $body.="- <strong>".$ch->getLibelle()."</strong> avec <strong>".$arr->getLibelle()."</strong> <br>";
-                $body.="- <strong>Adulte : </strong> ".count($chambre['adultes']).'<br>';
+                if(count($chambre['details']['supp']) != 0)
+                {
+                    foreach($chambre['details']['supp'] as $supp)
+                    {
+                        $body.="<br><strong>Supplémenets : </strong><br>";
+                        $supplemenet=$this->em->getRepository('BackHotelTunisieBundle:Supplement')->find($supp);
+                        $body.="- ".$supplemenet->getLibelle().'<br>';
+                    }
+                }
+                if(count($chambre['details']['vue']) != 0)
+                {
+                    foreach($chambre['details']['vue'] as $vue)
+                    {
+                        $body.="<br><strong>Vues : </strong><br>";
+                        $v=$this->em->getRepository('BackHotelTunisieBundle:Vue')->find($vue);
+                        $body.="- ".$v->getLibelle().'<br>';
+                    }
+                }
+                $body.="<br>- <strong>Adulte : </strong> ".count($chambre['adultes']).'<br>';
                 $body.="- <strong>Enfant : </strong> ".count($chambre['enfants']).'<br>';
                 foreach($chambre['enfants'] as $enfant)
                     $body.="- <strong>Age Enfant ".$enfant['ordre']." : </strong> ".$enfant['age'].'<br>';
@@ -347,7 +365,7 @@ class ReservationService
             $body .="<br><br>";
             $body .= "Cordialement,<br />";
             $body .= "L'équipe de <strong>".$this->emailName."</strong><br />";
-            $message->setBody($body,'text/html');
+            $message->setBody($body, 'text/html');
             $this->mailer->send($message);
             return true;
         }
