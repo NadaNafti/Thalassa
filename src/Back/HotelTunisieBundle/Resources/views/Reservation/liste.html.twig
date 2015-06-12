@@ -91,7 +91,15 @@
                                         {{ reservation.dateDebut|date('d/m/Y') }}<br>
                                         <span style="color:red">{{ reservation.nuitees }} Nuitées</span>
                                     </td>
-                                    <td>{{ reservation.hotel|title }}</td>
+                                    <td>
+                                        {{ reservation.hotel|title }}<br>
+                                        {% if reservation.hotelNotifier %}
+                                            <span style="color:green"> Notifier</span>
+                                        {% else %}
+                                            <span style="color:red">Non notifier</span>
+                                        {% endif %}
+
+                                    </td>
                                     <td>
                                         {{ reservation.client.nomPrenom|title }}<br>
                                         <span style="color:red">{{ reservation.client.amicale }}</span>

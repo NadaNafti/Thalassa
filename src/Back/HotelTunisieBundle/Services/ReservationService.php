@@ -328,7 +328,7 @@ class ReservationService
                 foreach($emails as $email)
                     $message->setCc($email->getEmail());
             }
-            $body="<b>Cher partenaire,</b><br>";
+            $body="<b>Cher partenaire <strong>".$hotel->getLibelle()."</strong>,</b><br>";
             $body .="Merci de nous confirmer la réservation suivante :<br>";
             $body .= "Du ".$result['dateDebut']." au ".$result['dateFin']."   <b><u>".$result['nuitees']." nuitée(s) </u></b>";
             $body .="<br><br>";
@@ -337,10 +337,10 @@ class ReservationService
                 $ch=$this->em->getRepository('BackHotelTunisieBundle:Chambre')->find($chambre['details']['chambre']);
                 $arr=$this->em->getRepository('BackHotelTunisieBundle:Arrangement')->find($chambre['details']['arrangement']);
                 $body.="- <strong>".$ch->getLibelle()."</strong> avec <strong>".$arr->getLibelle()."</strong> <br>";
-                $body.="- <strong>Adulte : </strong> ".count($chambre['adultes']);
-                $body.="- <strong>Enfant : </strong> ".count($chambre['enfants']);
+                $body.="- <strong>Adulte : </strong> ".count($chambre['adultes']).'<br>';
+                $body.="- <strong>Enfant : </strong> ".count($chambre['enfants']).'<br>';
                 foreach($chambre['enfants'] as $enfant)
-                    $body.="- <strong>Age Enfant ".$enfant['ordre']." : </strong> ".$enfant['age'];
+                    $body.="- <strong>Age Enfant ".$enfant['ordre']." : </strong> ".$enfant['age'].'<br>';
                 $body.="<br><br><br>";
             }
             $body .="En faveur :  ".$client->getNomPrenom();
