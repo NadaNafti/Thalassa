@@ -330,7 +330,7 @@ class ReservationService
             }
             $body="<b>Cher partenaire <strong>".$hotel->getLibelle()."</strong>,</b><br>";
             $body .="Merci de nous confirmer la réservation suivante :<br>";
-            $body .= "Du ".$result['dateDebut']." au ".$result['dateFin']."   <b>, <u>".$result['nuitees']." nuitée(s) </u></b>";
+            $body .= "Du ".$result['dateDebut']." au ".$result['dateFin']."   <b>, <u>".$result['nuitees']." nuitée(s) </u></b><br>";
             $body .="En faveur :  ".$client->getNomPrenom();
             $body .="<br><br>";
             foreach($result['chambres'] as $chambre)
