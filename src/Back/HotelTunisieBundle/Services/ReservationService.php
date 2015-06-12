@@ -337,11 +337,15 @@ class ReservationService
                 $ch=$this->em->getRepository('BackHotelTunisieBundle:Chambre')->find($chambre['details']['chambre']);
                 $arr=$this->em->getRepository('BackHotelTunisieBundle:Arrangement')->find($chambre['details']['arrangement']);
                 $body.="<br>- <strong>".$ch->getLibelle()."</strong> avec <strong>".$arr->getLibelle()."</strong> <br>";
+                $body.="- <strong>Adulte : </strong> ".count($chambre['adultes']).'<br>';
+                $body.="- <strong>Enfant : </strong> ".count($chambre['enfants']).'<br>';
+                foreach($chambre['enfants'] as $enfant)
+                    $body.="- <strong>Age Enfant N° ".$enfant['ordre']." : </strong> ".$enfant['age'].' ans .<br>';
+                $body.='<br>';
                 if(count($chambre['details']['supp']) != 0)
                 {
                     foreach($chambre['details']['supp'] as $supp)
                     {
-                        $body.="-<strong>Supplémenets : </strong><br>";
                         $supplemenet=$this->em->getRepository('BackHotelTunisieBundle:Supplement')->find($supp);
                         $body.="- ".$supplemenet->getLibelle().'<br>';
                     }
@@ -350,15 +354,10 @@ class ReservationService
                 {
                     foreach($chambre['details']['vue'] as $vue)
                     {
-                        $body.="-<strong>Vues : </strong><br>";
                         $v=$this->em->getRepository('BackHotelTunisieBundle:Vue')->find($vue);
                         $body.="- ".$v->getLibelle().'<br>';
                     }
                 }
-                $body.="- <strong>Adulte : </strong> ".count($chambre['adultes']).'<br>';
-                $body.="- <strong>Enfant : </strong> ".count($chambre['enfants']).'<br>';
-                foreach($chambre['enfants'] as $enfant)
-                    $body.="- <strong>Age Enfant N° ".$enfant['ordre']." : </strong> ".$enfant['age'].'ans .<br>';
             }
             $body .="En faveur :  ".$client->getNomPrenom();
             $body .="<br><br>";
