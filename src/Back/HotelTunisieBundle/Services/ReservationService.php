@@ -331,6 +331,7 @@ class ReservationService
             $body="<b>Cher partenaire <strong>".$hotel->getLibelle()."</strong>,</b><br>";
             $body .="Merci de nous confirmer la réservation suivante :<br>";
             $body .= "Du ".$result['dateDebut']." au ".$result['dateFin']."   <b>, <u>".$result['nuitees']." nuitée(s) </u></b>";
+            $body .="En faveur :  ".$client->getNomPrenom();
             $body .="<br><br>";
             foreach($result['chambres'] as $chambre)
             {
@@ -347,7 +348,7 @@ class ReservationService
                     foreach($chambre['details']['supp'] as $supp)
                     {
                         $supplemenet=$this->em->getRepository('BackHotelTunisieBundle:Supplement')->find($supp);
-                        $body.="- ".$supplemenet->getLibelle().'<br>';
+                        $body.="- <strong>".$supplemenet->getLibelle().' </strong><br>';
                     }
                 }
                 if(count($chambre['details']['vue']) != 0)
@@ -355,11 +356,10 @@ class ReservationService
                     foreach($chambre['details']['vue'] as $vue)
                     {
                         $v=$this->em->getRepository('BackHotelTunisieBundle:Vue')->find($vue);
-                        $body.="- ".$v->getLibelle().'<br>';
+                        $body.="- <strong>".$v->getLibelle().' </strong><br>';
                     }
                 }
             }
-            $body .="En faveur :  ".$client->getNomPrenom();
             $body .="<br><br>";
             $body .= "Cordialement,<br />";
             $body .= "L'équipe de <strong>".$this->emailName."</strong><br />";
