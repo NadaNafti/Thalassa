@@ -39,12 +39,16 @@ class HotelRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
     
-    public function filtreBackOffice($ville, $chaine, $libelle)
+    public function filtreBackOffice($ville, $chaine, $categorie, $etat, $libelle)
     {
         $query=$this->createQueryBuilder('h');
         $query->where($query->expr()->isNotNull('h.id'));
         if($ville != 'all')
             $query->andWhere('h.ville=:ville')->setParameter('ville', $ville);
+        if($etat != 'all')
+            $query->andWhere('h.etat=:etat')->setParameter('etat', $etat);
+        if($categorie != 'all')
+            $query->andWhere('h.categorie=:categorie')->setParameter('categorie', $categorie);
         if($chaine != 'all')
             $query->andWhere('h.chaine=:chaine')->setParameter('chaine', $chaine);
         if($libelle != 'all')

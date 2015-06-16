@@ -19,6 +19,15 @@
                     <div class="tabbable">
                         {% include 'BackHotelTunisieBundle:SaisonBase:menu_saison.html.twig' %}
                         <div class="panel-body tab-content">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <span class="label label-sm label-default">Arrangement de base ({{ hotel.saisonBase.arrBase }})</span>
+                                    <span class="label label-sm label-default">{{ hotel.saisonBase.prixBaseVente() }}</span>
+                                </div>
+                                <div class="col-md-3"><span class="label label-sm label-default">{{ hotel.saisonBase.prixConvention }} </span></div>
+                                <div class="col-md-3"><span class="label label-sm label-default">{{ hotel.saisonBase.margeVente }} {% if hotel.saisonBase.pourcentage %}%{% endif %}</span></div>
+                            </div>
+                            <hr>
                             <form action="{{ path('saison_arrangements',{'id':hotel.id}) }}" method="post" role="form" id="formDisable">
                                 {{ form_widget(form._token) }}
                                 <div class="row">
@@ -27,6 +36,7 @@
                                     <div class="col-md-3">Marge de vente</div>
                                 </div>
                                 <hr>
+                                {% set verif=false %}
                                 {% for formC in form.arrangements %}
                                     <div class="row">
                                         <div class="col-md-3" style="height: 68px;">
@@ -37,6 +47,7 @@
                                                 <span class="label label-sm label-danger">Supp</span>
                                             {% endif %}
                                             <label style="margin-top: 20px;">{{ formC.arrangement.vars.data.libelle }}</label>
+                                            <span class="label label-sm label-default">{{ hotel.saisonBase.prixBaseVente(formC.arrangement.vars.data.id) }}</span>
                                         </div>
                                         {{ formulaire.input("col-md-1","",formC.valeur,false) }}
                                         {{ formulaire.input("col-md-2","",formC.valeurPour,false) }}

@@ -26,7 +26,7 @@
         </li>
         <li {% if app.request.get('_route')=='saison_reduction' %}class="active"{% endif %}>
             <a href="{{ path("saison_reduction",{'id':hotel.id}) }}">
-                Réductions
+                Réduc.
                 {% if hotel.saisonBase.saisonReduc is null%}
                     <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
                     {% endif %}
@@ -34,7 +34,7 @@
         </li>
         <li {% if app.request.get('_route')=='saison_supplement' %}class="active"{% endif %}>
             <a href="{{ path("saison_supplement",{'id':hotel.id}) }}">
-                Supplément
+                Supp.
                 {% if hotel.saisonBase.saisonSupp is null%}
                     <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
                     {% endif %}
@@ -79,7 +79,7 @@
         {% if hotel.saisonBase.isValidSaisonBase %}
             <li {% if app.request.get('_route')=='fiche_saison_base' %}class="active"{% endif %}>
                 <a href="{{ path("fiche_saison_base",{'id':hotel.id}) }}" style="background-color: cornsilk;">
-                    Récapitulatif  
+                    Récap. 
                 </a>
             </li>
         {% endif %}

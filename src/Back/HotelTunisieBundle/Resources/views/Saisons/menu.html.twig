@@ -21,12 +21,12 @@
     </li>
     <li {% if app.request.get('_route')=='ReductionSaison' %}class="active"{% endif %}>
         <a href="{{ path('ReductionSaison', {'id':saison.id}) }}">
-            Réductions
+            Réduc.
         </a>
     </li>
     <li {% if app.request.get('_route')=='SupplementSaison' %}class="active"{% endif %}>
         <a href="{{ path('SupplementSaison', {'id':saison.id}) }}">
-            Supplément
+            Supp.
         </a>
     </li>
     <li {% if app.request.get('_route')=='AutreChambreSaison' %}class="active"{% endif %}>
@@ -41,12 +41,12 @@
     </li>
     <li {% if app.request.get('_route')=='AutreSuppSaison' %}class="active"{% endif %}>
         <a href="{{ path('AutreSuppSaison', {'id':saison.id}) }}">
-            Autres supp
+            Autres supp.
         </a>
     </li>
     <li {% if app.request.get('_route')=='AutreReducSaison' %}class="active"{% endif %}>
         <a href="{{ path('AutreReducSaison', {'id':saison.id}) }}">
-            Autres réduc
+            Autres réduc.
         </a>
     </li>
     {% if hotel.ficheTechnique.tarifWeekend == true%}
@@ -58,7 +58,7 @@
     {% endif %}
     <li {% if app.request.get('_route')=='PrixSaison' %}class="active"{% endif %}>
             <a href="{{ path('PrixSaison', {'id':saison.id}) }}" style="background-color: cornsilk;">
-            Récapitulatif  
+            Récap.
         </a>
     </li>
 </ul>

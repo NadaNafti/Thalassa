@@ -35,11 +35,46 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Catégories</label>
+                                <select name="categorie"  class="form-control search-select">
+                                    <option value="all">Tous le categories</option>
+                                    {% for categorie in categories %}
+                                        <option value="{{ categorie.id }}"  {% if app.request.get('categorie')==categorie.id %}selected{% endif %}>{{ categorie }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Etat</label>
+                                <select name="etat"  class="form-control search-select">
+                                    <option value="all">Tous le etas</option>
+                                    <option value="1" {% if app.request.get('etat')==1 %}selected{% endif %}>Active</option>
+                                    <option value="0" {% if app.request.get('etat')==0 %}selected{% endif %}>Inactive</option>
+                                </select>   
+                            </div>
+                        </div>
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label class="control-label">Nom</label>
                                 <input type="text"  class="form-control " name="libelle" value="{% if app.request.get('libelle')!='all' %}{{ app.request.get('libelle') }}{% endif %}" />
                             </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Etat</label>
+                                <select name="etat"  class="form-control search-select">
+                                    <option value="all">Tous le etas</option>
+                                    <option value="1" {% if app.request.get('etat')==1 %}selected{% endif %}>Active</option>
+                                    <option value="0" {% if app.request.get('etat')==0 %}selected{% endif %}>Inactive</option>
+                                </select>   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
@@ -110,8 +145,8 @@
                                         {% endif %}
                                         {% if hotel.isInStopSales is not null %}
                                             <a href="{{ path('stopsales_hotel',{'id':hotel.id}) }}" class="tooltips" title="Stop Sales {{ hotel.isInStopSales.dateDebut|date('Y-m-d')~" - "~hotel.isInStopSales.dateFin|date('Y-m-d') }}"><span class="label label-sm label-inverse">{{ hotel.isInStopSales.libelle }}</span></a>
-                                        {% endif %}
-                                        {% if hotel.ficheTechnique is null %}
+                                            {% endif %}
+                                            {% if hotel.ficheTechnique is null %}
                                             <a href="{{ path('fiche_technique',{'id':hotel.id}) }}" class="tooltips" title="Fiche technique est vide"><span class="label label-sm label-danger">FT Invalide</span></a>
                                         {% endif %}
                                         {% if hotel.saisonBase is null or not hotel.saisonBase.isValidSaisonBase %}

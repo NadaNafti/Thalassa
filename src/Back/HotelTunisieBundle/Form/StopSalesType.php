@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class StopSalesType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -15,12 +16,20 @@ class StopSalesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('libelle')
-            ->add('dateDebut')
-            ->add('dateFin')
+                ->add('libelle')
+                ->add('dateDebut', 'date', array(
+                    'required' => false,
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd',
+                ))
+                ->add('dateFin', 'date', array(
+                    'required' => false,
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd',
+                ))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
@@ -38,4 +47,5 @@ class StopSalesType extends AbstractType
     {
         return 'back_hoteltunisiebundle_stopsales';
     }
+
 }
