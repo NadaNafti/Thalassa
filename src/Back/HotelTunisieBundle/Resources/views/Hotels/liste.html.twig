@@ -50,26 +50,16 @@
                             <div class="form-group">
                                 <label class="control-label">Etat</label>
                                 <select name="etat"  class="form-control search-select">
-                                    <option value="all">Tous le etas</option>
+                                    <option value="all" {% if app.request.get('etat')=='all' %}selected{% endif %}>Tous les états</option>
                                     <option value="1" {% if app.request.get('etat')==1 %}selected{% endif %}>Active</option>
-                                    <option value="0" {% if app.request.get('etat')==0 %}selected{% endif %}>Inactive</option>
+                                    <option value="0" {% if app.request.get('etat')==0 and app.request.get('etat')!='all' %}selected{% endif %}>Inactive</option>
                                 </select>   
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Nom</label>
                                 <input type="text"  class="form-control " name="libelle" value="{% if app.request.get('libelle')!='all' %}{{ app.request.get('libelle') }}{% endif %}" />
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="control-label">Etat</label>
-                                <select name="etat"  class="form-control search-select">
-                                    <option value="all">Tous le etas</option>
-                                    <option value="1" {% if app.request.get('etat')==1 %}selected{% endif %}>Active</option>
-                                    <option value="0" {% if app.request.get('etat')==0 %}selected{% endif %}>Inactive</option>
-                                </select>   
                             </div>
                         </div>
                     </div>
