@@ -5,6 +5,7 @@ namespace Back\HotelTunisieBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class HotelType extends AbstractType
 {
@@ -25,7 +26,18 @@ class HotelType extends AbstractType
             ->add('descriptionLongue','ckeditor')
             ->add('chaine')
             ->add('fournisseur')
-            ->add('ville')
+                ->add('ville', 'entity', array('class' => 'BackHotelTunisieBundle:Ville',
+                    'query_builder' => function(EntityRepository $er)
+                    {
+                        return $er->createQueryBuilder('u')
+                                ->join('u.pays', 'p')
+                                ->where('p.code= :code')->setParameter(':code', 'tn')
+                                ->orderBy('u.libelle', 'ASC');
+                    },
+                    'required' => false,
+                    'empty_value' => 'Tous les villes en tunisie',
+                    'empty_data' => null
+                ))
             ->add('categorie')
             ->add('tags')
             ->add('chambres')

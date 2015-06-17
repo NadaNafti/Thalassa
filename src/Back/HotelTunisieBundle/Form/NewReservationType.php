@@ -14,30 +14,34 @@ class NewReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('villes', 'entity', array( 'class'        =>'BackHotelTunisieBundle:Ville',
-                    'query_builder'=>function(EntityRepository $er){
+                ->add('villes', 'entity', array('class' => 'BackHotelTunisieBundle:Ville',
+                    'query_builder' => function(EntityRepository $er)
+                    {
                         return $er->createQueryBuilder('u')
+                                ->join('u.pays', 'p')
+                                ->where('p.code= :code')->setParameter(':code', 'tn')
                                 ->orderBy('u.libelle', 'ASC');
                     },
-                    'required'   =>false,
-                    'empty_value'=>'Tous les villes',
-                    'empty_data' =>null
+                    'required' => false,
+                    'empty_value' => 'Tous les villes en tunisie',
+                    'empty_data' => null
                 ))
-                ->add('client', 'entity', array( 'class'        =>'BackUserBundle:Client',
-                    'query_builder'=>function(EntityRepository $er){
+                ->add('client', 'entity', array('class' => 'BackUserBundle:Client',
+                    'query_builder' => function(EntityRepository $er)
+                    {
                         return $er->createQueryBuilder('u')
                                 ->orderBy('u.nomPrenom', 'ASC');
                     },
-                    'required'=>true
+                    'required' => true
                 ))
-                ->add('hotels', 'entity', array( 'class'=>'BackHotelTunisieBundle:Hotel' ))
+                ->add('hotels', 'entity', array('class' => 'BackHotelTunisieBundle:Hotel'))
                 ->add('dateDebut', 'date', array(
-                    'required'=>true,
-                    'widget'  =>'single_text',
-                    'format'  =>'yyyy-MM-dd',
+                    'required' => true,
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd',
                 ))
                 ->add('nuitees', 'integer', array(
-                    'constraints'=>new Range(array( 'min'=>1, 'max'=>20 ))
+                    'constraints' => new Range(array('min' => 1, 'max' => 20))
                 ))
         ;
     }

@@ -81,7 +81,7 @@ class ClientController extends Controller
             $client=new Client ();
         else
             $client=$em->getRepository("BackUserBundle:Client")->find($id);
-        $form=$this->createForm(new ClientType(), $client)->remove('responsable');
+        $form=$this->createForm(new ClientType(), $client)->remove('responsable')->add('amicale');
         if(is_null($id))
             $form->add('user', new \Back\UserBundle\Form\RegistrationFormType());
         if($this->getRequest()->isMethod('POST'))
