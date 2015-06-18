@@ -50,15 +50,15 @@
                                         <div class="col-md-4" style="height: 68px;">
                                             {{ formulaire.input("col-md-1", "",formC.etat,false) }}
                                             {{ form_widget(formC.arrangement, {'attr': {'style': 'display:none'}}) }}
-                                            {% if formC.arrangement.vars.data.ordre < hotel.saisonBase.arrBase.ordre %}
+                                            {% if formC.arrangement.vars.data.ordre < saison.arrBase.ordre %}
                                                 <span class="label label-sm label-success">Réduc.</span>
                                             {% else %}
                                                 <span class="label label-sm label-danger">Supp</span>
                                             {% endif %}
                                             <label style="margin-top: 20px;">{{ formC.arrangement.vars.data.libelle }}</label>
                                             {% if formC.vars.data.id is not null %}
-                                                <span class="label label-sm label-info">{{ hotel.saisonBase.prixBaseAchat(formC.arrangement.vars.data.id) }}</span>
-                                                <span class="label label-sm label-default">{{ hotel.saisonBase.prixBaseVente(formC.arrangement.vars.data.id) }}</span>
+                                                <span class="label label-sm label-info">{{ saison.prixBaseAchat(formC.arrangement.vars.data.id) }}</span>
+                                                <span class="label label-sm label-default">{{ saison.prixBaseVente(formC.arrangement.vars.data.id) }}</span>
                                             {% endif %}
                                         </div>
                                         {{ formulaire.input("col-md-1","",formC.valeur,false) }}
