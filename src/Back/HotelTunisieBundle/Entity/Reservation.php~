@@ -25,6 +25,13 @@ class Reservation
     private $id;
 
     /**
+     * @var string
+     * @ORM\Column(name="code", type="string",nullable=true)
+     */
+    private $code;
+
+
+    /**
      * @var integer
      *
      * 1:Enregistrée
@@ -102,6 +109,13 @@ class Reservation
      * @ORM\Column(name="commentaire", type="text",nullable=true)
      */
     private $commentaire;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="validated", type="date" ,nullable=true)
+     */
+    private $validated;
 
     /**
      * @Gedmo\Timestampable(on="create")

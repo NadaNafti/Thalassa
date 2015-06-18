@@ -35,7 +35,7 @@
                                         <p><strong>Ville  : </strong> {{ hotel.ville.pays|upper }} {{ hotel.ville }}</p>
                                         <p><strong>Date debut : </strong> {{ dateDebut|date('d/m/Y') }}</p>
                                         <p><strong> Nuitées : </strong> {{ nuitees }}</p>
-                                        <p><strong>Date Fin : </strong> {{ dateFin|date('d/m/Y') }}</p>
+                                        <p><strong>Date Fin : </strong> {{ dateFin|date_modify("+1 day")|date("d/m/Y") }}</p>
                                         <hr>
                                         <p><strong> Client : </strong> {{ client }}</p>
                                         {% if client.amicale is not null %}

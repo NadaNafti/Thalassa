@@ -25,6 +25,13 @@ class Reservation
     private $id;
 
     /**
+     * @var string
+     * @ORM\Column(name="code", type="string",nullable=true)
+     */
+    private $code;
+
+
+    /**
      * @var integer
      *
      * 1:Enregistrée
@@ -102,6 +109,13 @@ class Reservation
      * @ORM\Column(name="commentaire", type="text",nullable=true)
      */
     private $commentaire;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="validated", type="datetime" ,nullable=true)
+     */
+    private $validated;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -484,5 +498,51 @@ class Reservation
     public function getCommentaire()
     {
         return $this->commentaire;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Reservation
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set validated
+     *
+     * @param \DateTime $validated
+     * @return Reservation
+     */
+    public function setValidated($validated)
+    {
+        $this->validated = $validated;
+
+        return $this;
+    }
+
+    /**
+     * Get validated
+     *
+     * @return \DateTime 
+     */
+    public function getValidated()
+    {
+        return $this->validated;
     }
 }

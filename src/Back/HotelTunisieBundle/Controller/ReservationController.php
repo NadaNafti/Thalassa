@@ -280,6 +280,7 @@ class ReservationController extends Controller
         $em->persist($reservation->setResponsable($user));
         return $this->render('BackHotelTunisieBundle:Reservation:voucher.html.twig', array(
                     'reservation'=>$reservation,
+                    'agence'=>$em->getRepository('BackAdministrationBundle:Agence')->find(1)
         ));
     }
 
@@ -329,7 +330,7 @@ class ReservationController extends Controller
                 }
                 $em->persist($reservation->getClient()->getAmicale()->setMontant($reservation->getClient()->getAmicale()->getMontant()+$reservation->getTotal()));
             }
-            $em->persist($reservation->setEtat(2)->setCommentaire($request->get('commentaire')));
+            $em->persist($reservation->setEtat(2)->setCommentaire($request->get('commentaire'))->setValidated(new \DateTime())->setCode($this->container->get('reservation')->getCode()));
             $em->flush();
             $session->getFlashBag()->add('success', "Réservation a été validée avec succées ");
         }

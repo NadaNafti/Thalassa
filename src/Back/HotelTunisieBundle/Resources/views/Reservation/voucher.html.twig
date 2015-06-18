@@ -1,113 +1,103 @@
-{% extends "BackHotelTunisieBundle:Reservation:liste.html.twig" %}
-{% block title %}Voucher{% endblock %}
-{% block description %}{% endblock %}
-{% block topbody %}   
-    {{ parent() }}
-    <li>
-        <a href="javascript:void(0)" >Voucher</a>
-    </li>
-{% endblock %}
-{% block body %}
-    <div class="invoice">
-        <div class="row invoice-logo">
-            <div class="col-sm-6">
-                <div style="font-size: 50px;" class="logo">OS <i class="clip-paperplane"></i> TRAVEL</div>
-            </div>
-            <div class="col-sm-6">
-                <p>
-                    #{{ reservation.id }} / {{ reservation.created|date('l, d F Y') }} 
-                    <span> Prise en charge par {{ reservation.responsable }} </span>
-                </p>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>OSTravel - Voucher</title>
+    <link rel="stylesheet" href="{{ asset('voucher-assets/style.css') }}" media="all" />
+</head>
+<body  contenteditable="true">
+<header class="clearfix">
+    <div id="logo">
+        <img src="{{ asset('voucher-assets/logo.png') }}">
+    </div>
+    <div id="company">
+        <h2 class="name">{{ agence.nom }}</h2>
+        <div>{{ agence.adresse }}</div>
+        <div>{{ agence.tel1 }}</div>
+        <div>{{ agence.tel2 }}</div>
+        <div><a>{{ agence.contactEmail }}</a></div>
+    </div>
+    </div>
+</header>
+<main>
+    <div id="details" class="clearfix">
+        <div id="client">
+            <div class="to"  style="line-height: 39px;">Séjour hôtel en Tunisie</div>
+            <h2 class="name">{{ reservation.hotel }}</h2>
+            {#<div class="address">796 Silver Harbour, TX 79273, US</div>#}
         </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-4">
-                <h4>Client:</h4>
-                <div class="well">
-                    <address>
-                        <strong>{{ reservation.client.nomPrenom }}</strong>
-                        <br>
-                        Tel 1: {{ reservation.client.tel1 }}
-                        {% if reservation.client.tel2 is not null %}
-                            <br>
-                            Tel 2: {{ reservation.client.tel2 }}
-                        {% endif %}
-                        <br>
-                        adr 1:{{ reservation.client.adresse }}
-                    </address>
-                    {% if reservation.client.user is not null %}
-                        <address>
-                            <strong>Email</strong>
-                            <br>
-                            {{ reservation.client.user.email }}
-                        </address>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-md-4 pull-right">
-                <h4>Détails réservation:</h4>
-                <p><strong>Nom hôtel : </strong> {{ reservation.hotel }}</p>
-                <p><strong>Période : </strong> {{ reservation.dateDebut.format('d/m/Y') }}, {{ reservation.nuitees }} nuitées</p>
-                <h4>Chambres:</h4>
-                {% for chambre in reservation.chambres %}
-                    <p><strong>Chambre {{ loop.index }} : </strong> {{ chambre.chambre }}, {{ chambre.arrangement }}</p>
-                    <p>
-                        {{ chambre.adultes|length }} adulte(s) & {{ chambre.enfants|length  }} enfant(s) {% for enfant in chambre.enfants %}{{ enfant.age }} ans {% endfor %}
-                    {% for nom in chambre.noms %}{{ nom }}{% if loop.index!= chambre.noms|length %}, {% endif %}{% endfor %}
-                </p>
-            {% endfor %}
+        <div id="invoice">
+            <h1>Voucher N° {{ reservation.code }}</h1>
+            <div class="date">Validé par {{ reservation.responsable }} le {{ reservation.validated|date('d/m/Y h:i') }}</div>
+            <div class="date">Réservation pour {{ reservation.nuitees }} nuitée(s) à partir du {{ reservation.dateDebut|date('d/m/Y') }}</div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th> # </th>
-                        <th> Chambre </th>
-                        <th> Arrangement </th>
-                        <th> Adulte </th>
-                        <th> Enfant </th>
-                        <th> Suppléments & vues </th>
-                            {#                        <th> Total </th>#}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for chambre in reservation.chambres %}
-                        <tr>
-                            <td> {{ loop.index }} </td>
-                            <td> {{ chambre.chambre }} </td>
-                            <td> {{ chambre.arrangement }} </td>
-                            <td> {{ chambre.adultes|length }} </td>
-                            <td> {{ chambre.enfants|length }} </td>
-                            <td>
-                                {% for supp in chambre.supplements %}
-                                    - {{ getNameSupp(supp) }}<br>
-                                {% endfor %}
-                                {% for vue in chambre.vues %}
-                                    - {{ getNameVue(vue) }}<br>
-                                {% endfor %}
-                            </td>
-                            {#                            <td> {{ chambre.total }} </td>#}
-                        </tr>
+    <table border="0" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th class="total" style="width: 1%;">#</th>
+            <th class="desc">DESCRIPTION</th>
+            <th class="unit" style="width: 1%;">ADULTES</th>
+            <th class="unit" style="width: 1%;">ENFANT</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for chambre in reservation.chambres %}
+            <tr>
+                <td class="no" style="text-align: center;border-right: 1px solid #FFFFFF;"> {{ loop.index }} </td>
+                <td class="desc" style="border-right: 1px solid #FFFFFF;">
+                    <h3>{{ chambre.chambre }} en {{ chambre.arrangement }}</h3>
+                    {% for adulte in chambre.adultes %}
+                        <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">{{ adulte.nom }} </p>
                     {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                    {% for enfant in chambre.enfants %}
+                        <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">{{ enfant.nom }} ({{ enfant.age }} ans)</p>
+                    {% endfor %}
+                    {% for supp in chambre.supplements %}
+                        <p style="margin-left: 15px;margin-top: 0px;margin-bottom: 0px;"> - {{ getNameSupp(supp) }}</p>
+                    {% endfor %}
+                    {% for vue in chambre.vues %}
+                        <p style="margin-left: 15px;margin-top: 0px;margin-bottom: 0px;"> - {{ getNameVue(vue) }}</p>
+                    {% endfor %}
+                </td>
+                <td class="unit" style="text-align: center;border-right: 1px solid #FFFFFF;"> {{ chambre.adultes|length }} </td>
+                <td class="unit" style="text-align: center;border-right: 1px solid #FFFFFF;"> {{ chambre.enfants|length }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="6" style="text-align: left;color: #555555;">
+                <h3>Options :</h3>
+                <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">
+                    - Si possible Baby côte<br/>
+                    - Traitement VIP
+                </p>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+    <div id="thanks" style="margin-bottom: 20px;">Remarques</div>
+    <div id="notices">
+        <div class="notice" style="text-align: justify;font-size: 13px;">Ceci est un VOUCHER vous garantissant le paiement et la confirmation de la réservation et services mentionnés
+            dessus. Tout autre service, extra ou frais supplémentaires produit durant le séjour seront à payer par le client
+            directement à l'hôtel.
+            Toute modification ou annulation de ce VOUCHER entraîne des frais, pénalité ou retenue portant sur tout ou
+            partie du prix du séjour. Veuillez pour cela nous contacter.
+            A partir du jour du check­in toute annulation ou demande de modification ne pourra faire l'objet d'aucun
+            remboursement . les séjours partiellement consommés ne sont pas remboursables.
+            {{ agence.nom }} peut être amené, pour des raisons multiples et légitimes (sur­booking, Travaux…)
+            de substituer l'hôtel initialement réservé par un autre hôtel similaire.
+            L'hôtel se réserve le droit de vous demander une caution pour tout extra ou frais supplémentaires.
+            Toute réclamation devra être transmise à {{ agence.nom }} par tout moyen permettant d’en obtenir
+            un accusé de réception durant le séjour. Passé ce délai, le dossier ne pourra être traité avec la même diligence.
+            La durée du traitement des réclamations dépend des cas. Pour un traitement rapide et efficace de la demande,
+            il est impératif de transmettre l’ensemble des justificatifs nécessaires.</div>
     </div>
-    <div class="row">
-        <div class="col-sm-12 invoice-block">
-            {#<ul class="list-unstyled amounts">
-                <li>
-                    <strong>Total:</strong> {{ reservation.total }} DT
-                </li>
-            </ul>
-            <br>#}
-            <a onclick="javascript:window.print();" class="btn btn-lg btn-teal hidden-print">
-                Imprimer <i class="fa fa-print"></i>
-            </a>
-        </div>
-    </div>
-</div>
-{% endblock %}
+</main>
+<footer>
+    {{ agence.adresse }} - Tél : {{ agence.tel1 }} - {{ agence.tel2 }} - Fax : {{ agence.fax }} <br/>
+    E-mail : {{ agence.contactEmail }} - Site Web : {{ agence.site }}
+</footer>
+</body>
+</html>

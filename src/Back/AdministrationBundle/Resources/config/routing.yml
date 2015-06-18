@@ -9,4 +9,8 @@ Administration_b2b:
 Administration_client:
     resource: "@BackAdministrationBundle/Resources/config/routing/client.yml"
     prefix:   /client
+
+Administration_configuration:
+    resource: "@BackAdministrationBundle/Resources/config/routing/configuration.yml"
+    prefix:   /configuration
     

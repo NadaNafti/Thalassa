@@ -24,7 +24,5 @@ services:
             - @doctrine.orm.entity_manager
             - @session
             - @service_container
-            - @mailer 
-            - %emailSender%
-            - %emailName%
+            - @mailer
             

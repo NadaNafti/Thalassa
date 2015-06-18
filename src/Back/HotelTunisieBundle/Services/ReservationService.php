@@ -22,17 +22,22 @@ class ReservationService
     protected $session;
     protected $container;
     protected $mailer;
-    protected $emailSender;
-    protected $emailName;
 
-    public function __construct(EntityManager $em, Session $session, Container $container, \Swift_Mailer $mailer, $emailSender, $emailName)
+    public function __construct(EntityManager $em, Session $session, Container $container, \Swift_Mailer $mailer)
     {
         $this->em=$em;
         $this->session=$session;
         $this->container=$container;
         $this->mailer=$mailer;
-        $this->emailSender=$emailSender;
-        $this->emailName=$emailName;
+    }
+
+    public function getCode()
+    {
+        $reservation = $this->em->getRepository('BackHotelTunisieBundle:Reservation')->findOneBy(array('etat' => 2), array('id' => 'DESC'),1,1);
+        if (!$reservation || is_null($reservation->getValidated()) || $reservation->getValidated()->format('Y')!=date('Y'))
+            return date('Y').'00001';
+        else
+            return $reservation->getCode() +1;
     }
 
     public function reservation($reservation)
@@ -311,13 +316,18 @@ class ReservationService
 
     public function sendMailHotel(Hotel $hotel, $result, Client $client)
     {
+        $agence= $this->em->getRepository('BackAdministrationBundle:Agence')->find(1);
         if(!is_null($hotel->getEmail1()) || !is_null($hotel->getEmail2()))
         {
             $message=\Swift_Message::newInstance()
-                    ->setSubject('Nouvelle Réservation de la par '.$this->emailName)
-                    ->setFrom($this->emailSender);
+                    ->setSubject('Nouvelle Réservation de la par '.$agence->getNom())
+                    ->setFrom($agence->getContactEmail());
             if(!is_null($hotel->getEmail1()))
+            {
                 $message->setTo($hotel->getEmail1());
+                if(!is_null($hotel->getEmail2()))
+                    $message->setCc($hotel->getEmail2());
+            }
             if(!is_null($hotel->getEmail2()))
                 $message->setTo($hotel->getEmail2());
 
@@ -362,7 +372,7 @@ class ReservationService
             }
             $body .="<br><br>";
             $body .= "Cordialement,<br />";
-            $body .= "L'équipe de <strong>".$this->emailName."</strong><br />";
+            $body .= "L'équipe de <strong>".$agence->getNom()."</strong><br />";
             $message->setBody($body, 'text/html');
             $this->mailer->send($message);
             return true;

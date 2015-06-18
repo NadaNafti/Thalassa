@@ -41,20 +41,14 @@ class Hotel
 
     /**
      * @var string
-     * @Assert\Email(
-     *     message = "'{{ value }}' n'est pas un email valide.",
-     *     checkMX = true
-     * )
+     * @Assert\Email()
      * @ORM\Column(name="email1", type="string", length=255, nullable=true)
      */
     private $email1;
 
     /**
      * @var string
-     * @Assert\Email(
-     *     message = "'{{ value }}' n'est pas un email valide.",
-     *     checkMX = true
-     * )
+     * @Assert\Email()
      * @ORM\Column(name="email2", type="string", length=255, nullable=true)
      */
     private $email2;

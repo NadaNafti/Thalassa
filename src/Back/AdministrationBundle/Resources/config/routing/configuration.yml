@@ -1,0 +1,3 @@
+configuration_agence:
+    path:     /agence
+    defaults: { _controller: BackAdministrationBundle:Configuration:agence }

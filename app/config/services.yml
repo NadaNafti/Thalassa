@@ -1,7 +1,3 @@
-parameters:
-    emailSender: zied.kharraz@gmail.com
-    emailName: OsTravel
-
 services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName

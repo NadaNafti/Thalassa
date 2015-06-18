@@ -1,7 +1,7 @@
 {% extends ":Back:base.html.twig" %}
 {% block title %}Liste des réservations{% endblock %}
 {% block description %}Liste{% endblock %}
-{% block topbody %}   
+{% block topbody %}
     {{ parent() }}
     <li>
         <a href="{{ path('liste_reservations') }}" >Liste des reservations</a>
@@ -119,7 +119,7 @@
                                             {{ macros.boutton(path('prise_en_charge_reservations',{'id':reservation.id}),'fa-user','btn-dark-grey','Prendre en charge cette reservation') }}
                                         {% else %}
                                             {% if reservation.etat==2 %}
-                                                {{ macros.boutton(path('voucher_reservation',{'id':reservation.id}),'fa-file','btn-dark-grey','Voucher') }}
+                                                {{ macros.bouttonBlank(path('voucher_reservation',{'id':reservation.id}),'fa-file','btn-dark-grey','Voucher') }}
                                             {% endif %}
                                             {{ macros.boutton(path('consulter_reservation',{'id':reservation.id}),'fa-eye','btn-dark-grey','Consulter la réservation') }}
                                         {% endif %}

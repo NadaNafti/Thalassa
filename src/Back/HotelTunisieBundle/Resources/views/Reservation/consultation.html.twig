@@ -23,14 +23,6 @@
                 <hr>
             </div>
         {% endif %}
-        {% if reservation.etat==2 %}
-            <div class="col-md-12 center">
-                <a href="{{ path('voucher_reservation',{'id':reservation.id}) }}"class="btn btn-blue center">
-                    Voucher
-                </a>
-                <hr>
-            </div>
-        {% endif %}
         <div class="col-md-3">
             <h4 class="center">Réservation</h4>
             <p><strong>Nom hôtel : </strong> {{ reservation.hotel }}</p>
@@ -50,6 +42,9 @@
                 <h1 class="center" style="color: red" >Sur demande</h1>
             {% endif %}
             <h4 class="center">Etat : {{ reservation.showEtat }}</h4>
+            {% if reservation.etat==2 %}
+                <h4 class="center">Num voucher : <a target="_blank" href="{{ path('voucher_reservation',{'id':reservation.id}) }}">{{ reservation.code  }}</a>, le {{ reservation.validated|date('d/m/Y h:i') }}</h4>
+            {% endif %}
             <h5 class="center">{% if reservation.responsable is not null %} Prise en charge par : {{ reservation.responsable }} {% endif %}</h5>
         </div>
         <div class="col-md-3">
