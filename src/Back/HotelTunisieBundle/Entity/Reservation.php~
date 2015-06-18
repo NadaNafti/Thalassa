@@ -102,6 +102,13 @@ class Reservation
      * @ORM\OneToMany(targetEntity="ReservationChambre", mappedBy="reservation")
      */
     protected $chambres;
+    
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="options", type="array")
+     */
+    private $options;
 
     /**
      * @var string
@@ -113,7 +120,7 @@ class Reservation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="validated", type="date" ,nullable=true)
+     * @ORM\Column(name="validated", type="datetime" ,nullable=true)
      */
     private $validated;
 
@@ -498,5 +505,51 @@ class Reservation
     public function getCommentaire()
     {
         return $this->commentaire;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Reservation
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set validated
+     *
+     * @param \DateTime $validated
+     * @return Reservation
+     */
+    public function setValidated($validated)
+    {
+        $this->validated = $validated;
+
+        return $this;
+    }
+
+    /**
+     * Get validated
+     *
+     * @return \DateTime 
+     */
+    public function getValidated()
+    {
+        return $this->validated;
     }
 }

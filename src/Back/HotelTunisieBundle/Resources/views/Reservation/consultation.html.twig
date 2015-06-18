@@ -24,7 +24,7 @@
             </div>
         {% endif %}
         <div class="col-md-3">
-            <h4 class="center">Réservation</h4>
+            <h4 class="center">Réservation</h4><hr>
             <p><strong>Nom hôtel : </strong> {{ reservation.hotel }}</p>
             <p><strong>Période : </strong> {{ reservation.dateDebut.format('d/m/Y') }}, {{ reservation.nuitees }} nuitées</p>
             <h4 class="center">Les chambres</h4>
@@ -49,6 +49,7 @@
         </div>
         <div class="col-md-3">
             <h4 class="center">Client</h4>
+            <hr>
             {% if reservation.client.amicale is not null %}
                 <p><strong>Amicale : </strong> {{ reservation.client.amicale }}</p>
             {% endif %}
@@ -64,8 +65,15 @@
                     <p>Enfant {{ loop.index }}: {{ enfant.nom }}  ({{ enfant.age }} ans) </p>
                 {% endfor %}
             {% endfor %}
+            {% if reservation.options|length >0 %}
+                <h4 class="center">Options</h4>
+                <hr>
+                {% for option in reservation.options %}
+                    <p> - {{ getNameOption(option) }}</p>
+                {% endfor %}
+            {% endif %}
         </div>
-        {% if reservation.commentaire is not null %}
+        {% if reservation.commentaire is not null and reservation.commentaire is not empty %}
             <div class="col-md-12">
                 <hr>
                 <p><h4>Commentaire :</h4> {{ reservation.commentaire }}</p>

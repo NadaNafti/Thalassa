@@ -102,6 +102,13 @@ class Reservation
      * @ORM\OneToMany(targetEntity="ReservationChambre", mappedBy="reservation")
      */
     protected $chambres;
+    
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="options", type="array")
+     */
+    private $options;
 
     /**
      * @var string
@@ -544,5 +551,28 @@ class Reservation
     public function getValidated()
     {
         return $this->validated;
+    }
+
+    /**
+     * Set options
+     *
+     * @param array $options
+     * @return Reservation
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * Get options
+     *
+     * @return array 
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 }

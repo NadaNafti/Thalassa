@@ -170,6 +170,15 @@
                                                 {% endfor %}
                                             </div>
                                         {% endfor %}
+                                        <hr>
+                                        {% if hotel.options|length >0 %}
+                                            <h4>Les Options :</h4>
+                                            <div class="row">
+                                                {% for option in hotel.options  %}
+                                                    {{ formulaire.input("col-md-12",null,form['option_'~option.id],false) }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
                                         {{ formulaire.submit("Valider la réservation") }}
                                         {{ form_end(form) }}
                                     </div>
