@@ -22,14 +22,14 @@
                             <div class="row">
                                 <div class="col-md-4" style="padding-top: 8px;">
                                     <span class="label label-sm label-default">Arr. base ({{ hotel.saisonBase.arrBase }})</span>
-                                    <span class="label label-sm label-info">{{ hotel.saisonBase.prixBaseAchat() }}</span>
-                                    <span class="label label-sm label-default">{{ hotel.saisonBase.prixBaseVente() }}</span>
+                                    <span style="  float: right"  class="label label-sm label-default">{{ hotel.saisonBase.prixBaseVente() }}</span>
+                                    <span style="  float: right"  class="label label-sm label-info">{{ hotel.saisonBase.prixBaseAchat() }}</span>
                                 </div>
                                 <div class="col-md-1">
                                     <input type="text"  disabled class="form-control" value="{{ hotel.saisonBase.prixConvention }}">
                                 </div>
                                 <div class="col-md-2"></div>
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <input type="text"  disabled class="form-control" value="{{ hotel.saisonBase.margeVente }} {% if hotel.saisonBase.pourcentage %}%{% endif %} ">
                                 </div>
                             </div>
@@ -54,8 +54,8 @@
                                             {% endif %}
                                             <label style="margin-top: 20px;">{{ formC.arrangement.vars.data.libelle }}</label>
                                             {% if formC.vars.data.id is not null %}
-                                                <span class="label label-sm label-info">{{ hotel.saisonBase.prixBaseAchat(formC.arrangement.vars.data.id) }}</span>
-                                                <span class="label label-sm label-default">{{ hotel.saisonBase.prixBaseVente(formC.arrangement.vars.data.id) }}</span>
+                                                <span style="  float: right;margin-top: 20px" class="label label-sm label-default">{{ hotel.saisonBase.prixBaseVente(formC.arrangement.vars.data.id) }}</span>
+                                                <span style="  float: right;margin-top: 20px" class="label label-sm label-info">{{ hotel.saisonBase.prixBaseAchat(formC.arrangement.vars.data.id) }}</span>
                                             {% endif %}
                                         </div>
                                         {{ formulaire.input("col-md-1","",formC.valeur,false) }}
