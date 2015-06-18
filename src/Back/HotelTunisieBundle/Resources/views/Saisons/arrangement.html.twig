@@ -25,6 +25,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <span class="label label-sm label-default">Arrangement de base ({{ saison.arrBase }})</span>
+                                    <span class="label label-sm label-info">{{ hotel.saisonBase.prixBaseAchat() }}</span>
                                     <span class="label label-sm label-default">{{ saison.prixBaseVente() }}</span>
                                 </div>
                                 <div class="col-md-3"><span class="label label-sm label-default">{{ saison.prixConvention }} </span></div>
@@ -50,7 +51,10 @@
                                                 <span class="label label-sm label-danger">Supp</span>
                                             {% endif %}
                                             <label style="margin-top: 20px;">{{ formC.arrangement.vars.data.libelle }}</label>
-                                            <span class="label label-sm label-default">{{ saison.prixBaseVente(formC.arrangement.vars.data.id) }}</span>
+                                            {% if formC.vars.data.id is not null %}
+                                                <span class="label label-sm label-info">{{ hotel.saisonBase.prixBaseAchat(formC.arrangement.vars.data.id) }}</span>
+                                                <span class="label label-sm label-default">{{ hotel.saisonBase.prixBaseVente(formC.arrangement.vars.data.id) }}</span>
+                                            {% endif %}
                                         </div>
                                         {{ formulaire.input("col-md-1","",formC.valeur,false) }}
                                         {{ formulaire.input("col-md-2","",formC.valeurPour,false) }}

@@ -245,7 +245,7 @@ class SaisonArrangement
 
     public function getReducSuppAchat()
     {
-        if ($this->arrangement->getOrdre() > $this->getSaison()->getArrBase()->getOrdre())
+        if ($this->arrangement->getOrdre() > $this->saison->getArrBase()->getOrdre())
             $x = 1;
         else
             $x = -1;
