@@ -23,26 +23,31 @@
                         {% include 'BackHotelTunisieBundle:Saisons:menu.html.twig' %}
                         <div class="panel-body tab-content">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <span class="label label-sm label-default">Arrangement de base ({{ saison.arrBase }})</span>
+                                <div class="col-md-4" style="padding-top: 8px;">
+                                    <span class="label label-sm label-default">Arr. base ({{ saison.arrBase }})</span>
                                     <span class="label label-sm label-info">{{ hotel.saisonBase.prixBaseAchat() }}</span>
                                     <span class="label label-sm label-default">{{ saison.prixBaseVente() }}</span>
                                 </div>
-                                <div class="col-md-3"><span class="label label-sm label-default">{{ saison.prixConvention }} </span></div>
-                                <div class="col-md-3"><span class="label label-sm label-default">{{ saison.margeVente }} {% if saison.pourcentage %}%{% endif %}</span></div>
+                                <div class="col-md-1">
+                                    <input type="text"  disabled class="form-control" value="{{ saison.prixConvention }}">
+                                </div>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-1">
+                                    <input type="text"  disabled class="form-control" value="{{ saison.margeVente }} {% if saison.pourcentage %}%{% endif %} ">
+                                </div>
                             </div>
                             <hr>
                             <form action="{{ path('ArrangementSaison',{'id':saison.id}) }}" method="post" role="form" id="formDisable">
                                 {{ form_widget(form._token) }}
                                 <div class="row">
-                                    <div class="col-md-3"></div>
+                                    <div class="col-md-4"></div>
                                     <div class="col-md-3">Valeur</div>
                                     <div class="col-md-3">Marge de vente</div>
                                 </div>
                                 <hr>
                                 {% for formC in form.arrangements %}
                                     <div class="row">
-                                        <div class="col-md-3" style="height: 68px;">
+                                        <div class="col-md-4" style="height: 68px;">
                                             {{ formulaire.input("col-md-1", "",formC.etat,false) }}
                                             {{ form_widget(formC.arrangement, {'attr': {'style': 'display:none'}}) }}
                                             {% if formC.arrangement.vars.data.ordre < hotel.saisonBase.arrBase.ordre %}
