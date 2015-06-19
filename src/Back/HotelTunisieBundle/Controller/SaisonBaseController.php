@@ -80,6 +80,11 @@ class SaisonBaseController extends Controller
                 $saison=$form->getData();
                 $hotel->setSaisonBase($saison);
                 $em->persist($saison->setLibelle("Saison de base"));
+                foreach ($saison->getArrangements() as $arr)
+                {
+                    if($arr->getArrangement()->getId()==$saison->getArrBase()->getId())
+                        $em->remove ($arr);
+                }
                 $em->persist($hotel);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");

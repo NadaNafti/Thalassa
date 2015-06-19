@@ -10,6 +10,10 @@ voucher_reservation:
     path:     /voucher/{id}
     defaults: { _controller: BackHotelTunisieBundle:Reservation:voucher }
 
+voucher_prix_reservation:
+    path:     /voucher_prix/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:voucherPrix }
+
 delete_reservation:
     path:     /delete_reservation/{id}
     defaults: { _controller: BackHotelTunisieBundle:Reservation:delete }

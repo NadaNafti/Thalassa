@@ -199,6 +199,11 @@ class SaisonsController extends Controller
             {
                 $saison=$form->getData();
                 $em->persist($saison);
+                foreach ($saison->getArrangements() as $arr)
+                {
+                    if($arr->getArrangement()->getId()==$saison->getArrBase()->getId())
+                        $em->remove ($arr);
+                }
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison a été modifié avec succées ");
                 return $this->redirect($this->generateUrl("GeneralSaison", array( 'id'=>$saison->getId() )));

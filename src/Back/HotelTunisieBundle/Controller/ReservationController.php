@@ -285,6 +285,20 @@ class ReservationController extends Controller
         ));
     }
 
+    public function voucherPrixAction(Reservation $reservation)
+    {
+        if ($reservation->getEtat() != 2)
+            return $this->redirect($this->generateUrl("liste_reservations"));
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $em->persist($reservation->setResponsable($user));
+        return $this->render('BackHotelTunisieBundle:Reservation:voucher_prix.html.twig', array(
+                    'reservation' => $reservation,
+                    'agence' => $em->getRepository('BackAdministrationBundle:Agence')->find(1)
+        ));
+    }
+
     public function deleteAction(Reservation $reservation)
     {
         $user = $this->get('security.context')->getToken()->getUser();
