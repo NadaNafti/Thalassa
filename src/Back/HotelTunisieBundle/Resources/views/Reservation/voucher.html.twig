@@ -17,90 +17,89 @@
                 <div>{{ agence.tel2 }}</div>
                 <div><a>{{ agence.contactEmail }}</a></div>
             </div>
-        </div>
-    </header>
-    <main>
-        <div id="details" class="clearfix">
-            <div id="client">
-                <div class="to"  style="line-height: 39px;">Séjour hôtel en Tunisie</div>
-                <h2 class="name">{{ reservation.hotel }}</h2>
-                {#<div class="address">796 Silver Harbour, TX 79273, US</div>#}
+        </header>
+        <main>
+            <div id="details" class="clearfix">
+                <div id="client">
+                    <div class="to"  style="line-height: 39px;">Séjour hôtel en Tunisie</div>
+                    <h2 class="name">{{ reservation.hotel }}</h2>
+                    {#<div class="address">796 Silver Harbour, TX 79273, US</div>#}
+                </div>
+                <div id="invoice">
+                    <h1>Voucher # {{ reservation.code }}</h1>
+                    <div class="date">Validé par <strong>{{ reservation.responsable }}</strong> le <strong>{{ reservation.validated|date('d/m/Y h:i') }}</strong></div>
+                    <div class="date">Réservation pour <strong>{{ reservation.nuitees }} nuitée(s)</strong> à partir du <strong>{{ reservation.dateDebut|date('d/m/Y') }}</strong></div>
+                </div>
             </div>
-            <div id="invoice">
-                <h1>Voucher # {{ reservation.code }}</h1>
-                <div class="date">Validé par <strong>{{ reservation.responsable }}</strong> le <strong>{{ reservation.validated|date('d/m/Y h:i') }}</strong></div>
-                <div class="date">Réservation pour <strong>{{ reservation.nuitees }} nuitée(s)</strong> à partir du <strong>{{ reservation.dateDebut|date('d/m/Y') }}</strong></div>
-            </div>
-        </div>
-        <table border="0" cellspacing="0" cellpadding="0">
-            <thead>
-                <tr>
-                    <th class="total" style="width: 1%;">#</th>
-                    <th class="desc">Déscription</th>
-                    <th class="unit" style="width: 1%;">Adulte(s)</th>
-                    <th class="unit" style="width: 1%;">Enfant(s)</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for chambre in reservation.chambres %}
+            <table border="0" cellspacing="0" cellpadding="0">
+                <thead>
                     <tr>
-                        <td class="no" style="text-align: center;border-right: 1px solid #FFFFFF;"> {{ loop.index }} </td>
-                        <td class="desc" style="border-right: 1px solid #FFFFFF;">
-                            <h3>{{ chambre.chambre }} en {{ chambre.arrangement }}</h3>
-                            {% for adulte in chambre.adultes %}
-                                <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">{{ adulte.nom }} </p>
-                            {% endfor %}
-                            {% for enfant in chambre.enfants %}
-                                <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">{{ enfant.nom }} ({{ enfant.age }} ans)</p>
-                            {% endfor %}
-                            {% for supp in chambre.supplements %}
-                                <p style="margin-left: 15px;margin-top: 0px;margin-bottom: 0px;"> - {{ getNameSupp(supp) }}</p>
-                            {% endfor %}
-                            {% for vue in chambre.vues %}
-                                <p style="margin-left: 15px;margin-top: 0px;margin-bottom: 0px;"> - {{ getNameVue(vue) }}</p>
-                            {% endfor %}
-                        </td>
-                        <td class="unit" style="text-align: center;border-right: 1px solid #FFFFFF;"> {{ chambre.adultes|length }} </td>
-                        <td class="unit" style="text-align: center;border-right: 1px solid #FFFFFF;"> {{ chambre.enfants|length }} </td>
+                        <th class="total" style="width: 1%;">#</th>
+                        <th class="desc">Déscription</th>
+                        <th class="unit" style="width: 1%;">Adulte(s)</th>
+                        <th class="unit" style="width: 1%;">Enfant(s)</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-            {% if reservation.options|length >0 %}
-                <tfoot>
-                    <tr>
-                        <td colspan="6" style="text-align: left;color: #555555;">
-                            <h3>Options :</h3>
-                            <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">
-                                {% for option in reservation.options %}
+                </thead>
+                <tbody>
+                    {% for chambre in reservation.chambres %}
+                        <tr>
+                            <td class="no" style="text-align: center;border-right: 1px solid #FFFFFF;"> {{ loop.index }} </td>
+                            <td class="desc" style="border-right: 1px solid #FFFFFF;">
+                                <h3>{{ chambre.chambre }} en {{ chambre.arrangement }}</h3>
+                                {% for adulte in chambre.adultes %}
+                                    <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">{{ adulte.nom }} </p>
+                                {% endfor %}
+                                {% for enfant in chambre.enfants %}
+                                    <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">{{ enfant.nom }} ({{ enfant.age }} ans)</p>
+                                {% endfor %}
+                                {% for supp in chambre.supplements %}
+                                    <p style="margin-left: 15px;margin-top: 0px;margin-bottom: 0px;"> - {{ getNameSupp(supp) }}</p>
+                                {% endfor %}
+                                {% for vue in chambre.vues %}
+                                    <p style="margin-left: 15px;margin-top: 0px;margin-bottom: 0px;"> - {{ getNameVue(vue) }}</p>
+                                {% endfor %}
+                            </td>
+                            <td class="unit" style="text-align: center;border-right: 1px solid #FFFFFF;"> {{ chambre.adultes|length }} </td>
+                            <td class="unit" style="text-align: center;border-right: 1px solid #FFFFFF;"> {{ chambre.enfants|length }} </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                {% if reservation.options|length >0 %}
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" style="text-align: left;color: #555555;">
+                                <h3>Options :</h3>
+                                <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">
+                                    {% for option in reservation.options %}
                                     <p> - {{ getNameOption(option) }}</p>
                                 {% endfor %}
-                            </p>
-                        </td>
-                    </tr>
-                </tfoot>
-            {% endif %}
-        </table>
-        <div id="thanks" style="margin-bottom: 20px;">Remarques</div>
-        <div id="notices">
-            <div class="notice" style="text-align: justify;font-size: 13px;">Ceci est un VOUCHER vous garantissant le paiement et la confirmation de la réservation et services mentionnés
-                dessus. Tout autre service, extra ou frais supplémentaires produit durant le séjour seront à payer par le client
-                directement à l'hôtel.
-                Toute modification ou annulation de ce VOUCHER entraîne des frais, pénalité ou retenue portant sur tout ou
-                partie du prix du séjour. Veuillez pour cela nous contacter.
-                A partir du jour du check­in toute annulation ou demande de modification ne pourra faire l'objet d'aucun
-                remboursement . les séjours partiellement consommés ne sont pas remboursables.
-                {{ agence.nom }} peut être amené, pour des raisons multiples et légitimes (sur­booking, Travaux…)
-                de substituer l'hôtel initialement réservé par un autre hôtel similaire.
-                L'hôtel se réserve le droit de vous demander une caution pour tout extra ou frais supplémentaires.
-                Toute réclamation devra être transmise à {{ agence.nom }} par tout moyen permettant d’en obtenir
-                un accusé de réception durant le séjour. Passé ce délai, le dossier ne pourra être traité avec la même diligence.
-                La durée du traitement des réclamations dépend des cas. Pour un traitement rapide et efficace de la demande,
-                il est impératif de transmettre l’ensemble des justificatifs nécessaires.</div>
-        </div>
-    </main>
-    <footer>
-        {{ agence.adresse }} - Tél : {{ agence.tel1 }} - {{ agence.tel2 }} - Fax : {{ agence.fax }} <br/>
-        E-mail : {{ agence.contactEmail }} - Site Web : {{ agence.site }}
-    </footer>
-</body>
+                                </p>
+                            </td>
+                        </tr>
+                    </tfoot>
+                {% endif %}
+            </table>
+            <div id="thanks" style="margin-bottom: 20px;">Remarques</div>
+            <div id="notices">
+                <div class="notice" style="text-align: justify;font-size: 13px;">Ceci est un VOUCHER vous garantissant le paiement et la confirmation de la réservation et services mentionnés
+                    dessus. Tout autre service, extra ou frais supplémentaires produit durant le séjour seront à payer par le client
+                    directement à l'hôtel.
+                    Toute modification ou annulation de ce VOUCHER entraîne des frais, pénalité ou retenue portant sur tout ou
+                    partie du prix du séjour. Veuillez pour cela nous contacter.
+                    A partir du jour du check­in toute annulation ou demande de modification ne pourra faire l'objet d'aucun
+                    remboursement . les séjours partiellement consommés ne sont pas remboursables.
+                    {{ agence.nom }} peut être amené, pour des raisons multiples et légitimes (sur­booking, Travaux…)
+                    de substituer l'hôtel initialement réservé par un autre hôtel similaire.
+                    L'hôtel se réserve le droit de vous demander une caution pour tout extra ou frais supplémentaires.
+                    Toute réclamation devra être transmise à {{ agence.nom }} par tout moyen permettant d’en obtenir
+                    un accusé de réception durant le séjour. Passé ce délai, le dossier ne pourra être traité avec la même diligence.
+                    La durée du traitement des réclamations dépend des cas. Pour un traitement rapide et efficace de la demande,
+                    il est impératif de transmettre l’ensemble des justificatifs nécessaires.</div>
+            </div>
+        </main>
+        <footer>
+            {{ agence.adresse }} - Tél : {{ agence.tel1 }} - {{ agence.tel2 }} - Fax : {{ agence.fax }} <br/>
+            E-mail : {{ agence.contactEmail }} - Site Web : {{ agence.site }}
+        </footer>
+    </body>
 </html>

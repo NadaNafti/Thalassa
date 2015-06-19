@@ -225,13 +225,13 @@ class ReservationController extends Controller
         ));
     }
 
-    public function listeAction($etat, $amicale)
+    public function listeAction($page,$etat, $amicale,$sort,$direction)
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $request = $this->getRequest();
         $amicales = $em->getRepository('BackAdministrationBundle:Amicale')->findBy(array(), array('libelle' => 'asc'));
-        $query = $em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice($etat, $amicale);
+        $query = $em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice($etat, $amicale,$sort,$direction);
         $paginator = $this->get('knp_paginator');
         $reservations = $paginator->paginate($query, $request->query->get('page', 1), 20);
         return $this->render('BackHotelTunisieBundle:Reservation:liste.html.twig', array(

@@ -39,7 +39,7 @@ class HotelRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
     
-    public function filtreBackOffice($ville, $chaine, $categorie, $etat, $libelle)
+    public function filtreBackOffice($ville, $chaine, $categorie, $etat, $libelle,$sort,$direction)
     {
         $query=$this->createQueryBuilder('h');
         $query->where($query->expr()->isNotNull('h.id'));
@@ -62,7 +62,7 @@ class HotelRepository extends EntityRepository
                 $orX->add($or);
             $query->andWhere($orX);
         }
-        $query->orderBy("h.id", 'desc');
+        $query->orderBy("h.".$sort, $direction);
         return $query->getQuery()->getResult();
     }
 

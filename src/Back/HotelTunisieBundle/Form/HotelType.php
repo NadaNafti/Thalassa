@@ -34,7 +34,7 @@ class HotelType extends AbstractType
                                 ->where('p.code= :code')->setParameter(':code', 'tn')
                                 ->orderBy('u.libelle', 'ASC');
                     },
-                    'required' => false,
+                    'required' => true,
                     'empty_value' => 'Tous les villes en tunisie',
                     'empty_data' => null
                 ))

@@ -1,6 +1,6 @@
 list_hotels:
-    path:     /list/{ville}/{chaine}/{categorie}/{etat}/{libelle}
-    defaults: { _controller: BackHotelTunisieBundle:Hotels:liste,ville:all,categorie:all,etat:all,chaine:all,libelle:all }
+    path:     /list/{page}/{ville}/{chaine}/{categorie}/{etat}/{libelle}/{sort}/{direction}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:liste,page:1,ville:all,categorie:all,etat:all,chaine:all,libelle:all,sort:id,direction:asc }
 
 filtre_hotels:
     path:     /Filtrehotel

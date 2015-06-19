@@ -6,7 +6,8 @@ use Doctrine\ORM\EntityRepository;
 
 class ReservationRepository extends EntityRepository
 {
-    public function filtreBackOffice($etat,$amicale)
+
+    public function filtreBackOffice($etat, $amicale, $sort, $direction)
     {
         $query = $this->createQueryBuilder('r');
         $query->where($query->expr()->isNotNull('r.id'));
@@ -15,7 +16,7 @@ class ReservationRepository extends EntityRepository
         $query->join('r.client', 'c');
         if ($amicale != 'all')
             $query->andWhere('c.amicale=:amicale')->setParameter('amicale', $amicale);
-        $query->orderBy("r.id", 'desc');
+        $query->orderBy("r." . $sort, $direction);
         return $query->getQuery()->getResult();
     }
 

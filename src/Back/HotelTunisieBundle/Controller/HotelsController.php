@@ -71,16 +71,16 @@ class HotelsController extends Controller
         )));
     }
 
-    public function listeAction($ville, $chaine, $categorie, $etat, $libelle)
+    public function listeAction($page,$ville, $chaine, $categorie, $etat, $libelle,$sort,$direction)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
-        $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->filtreBackOffice($ville, $chaine, $categorie, $etat, $libelle);
+        $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->filtreBackOffice($ville, $chaine, $categorie, $etat, $libelle,$sort,$direction);
         $villes = $em->getRepository('BackHotelTunisieBundle:ville')->findBy(array(), array('libelle' => 'asc'));
         $chaines = $em->getRepository('BackHotelTunisieBundle:Chaine')->findBy(array(), array('libelle' => 'asc'));
         $categories = $em->getRepository('BackHotelTunisieBundle:Categorie')->findBy(array(), array('libelle' => 'asc'));
         $paginator = $this->get('knp_paginator');
-        $hotels = $paginator->paginate($hotels, $request->query->get('page', 1), 20);
+        $hotels = $paginator->paginate($hotels, $page, 20);
         return $this->render('BackHotelTunisieBundle:Hotels:liste.html.twig', array(
                     'hotels' => $hotels,
                     'villes' => $villes,

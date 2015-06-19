@@ -1,6 +1,6 @@
 liste_reservations:
-    path:     /liste/{etat}/{amicale}
-    defaults: { _controller: BackHotelTunisieBundle:Reservation:liste,etat:1,amicale:all }
+    path:     /liste/{page}/{etat}/{amicale}/{sort}/{direction}
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:liste,page:1,etat:1,amicale:all,sort:id,direction:asc }
 
 consulter_reservation:
     path:     /consulter/{id}
