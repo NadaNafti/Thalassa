@@ -111,8 +111,8 @@
                             {% for hotel in hotels %}
                                 <tr class="center">
                                     <td>{{ hotel.libelle|title }}</td>
-                                    <td> {{ getStars(hotel.getStars)|raw }}</td>
-                                    <td>{{ hotel.ville.pays|upper }} {{ hotel.ville }}</td>
+                                    <td>{{ getStars(hotel.getStars)|raw }}</td>
+                                    <td>{{ hotel.ville }}</td>
                                     <td>{{ hotel.fournisseur }}</td>
                                     <td>
                                         {% set saison=hotel.getSaisonPromotionByDate('now'|date('Y-m-d')) %}
