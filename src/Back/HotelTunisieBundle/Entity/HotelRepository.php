@@ -42,6 +42,9 @@ class HotelRepository extends EntityRepository
     public function filtreBackOffice($ville, $chaine, $categorie, $etat, $libelle,$sort,$direction)
     {
         $query=$this->createQueryBuilder('h');
+        $query->join('h.ville', "v");
+        $query->leftJoin('h.categorie', "c");
+        $query->leftJoin('h.fournisseur', "f");
         $query->where($query->expr()->isNotNull('h.id'));
         if($ville != 'all')
             $query->andWhere('h.ville=:ville')->setParameter('ville', $ville);
@@ -62,7 +65,7 @@ class HotelRepository extends EntityRepository
                 $orX->add($or);
             $query->andWhere($orX);
         }
-        $query->orderBy("h.".$sort, $direction);
+        $query->orderBy($sort, $direction);
         return $query->getQuery()->getResult();
     }
 

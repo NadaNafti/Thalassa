@@ -65,11 +65,11 @@
                     <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
                         <thead>
                             <tr>
-                                <th class="center {% if reservations.isSorted('created') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Date', 'created') }}</th>
-                                <th class="center {% if reservations.isSorted('dateDebut') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Date Réservation', 'dateDebut') }}</th>
-                                <th class="center {% if reservations.isSorted('hotel') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Hôtel', 'hotel') }}</th>
-                                <th class="center {% if reservations.isSorted('client') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Client', 'client') }}</th>
-                                <th class="center {% if reservations.isSorted('etat') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Etat', 'etat') }}</th>
+                                <th class="center {% if reservations.isSorted('r.created') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Date', 'r.created') }}</th>
+                                <th class="center {% if reservations.isSorted('r.dateDebut') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Date Réservation', 'r.dateDebut') }}</th>
+                                <th class="center {% if reservations.isSorted('h.libelle') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Hôtel', 'h.libelle') }}</th>
+                                <th class="center {% if reservations.isSorted('c.nomPrenom') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Client', 'c.nomPrenom') }}</th>
+                                <th class="center {% if reservations.isSorted('r.etat') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Etat', 'r.etat') }}</th>
                                 <th class="center" >Total</th>
                                 <th class="center" >Action</th>
                             </tr>
