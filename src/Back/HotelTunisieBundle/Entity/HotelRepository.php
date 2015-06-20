@@ -17,7 +17,9 @@ class HotelRepository extends EntityRepository
     public function filtreFrontOffice($categorie,$chaine,$ville,$name)
     {
         $query=$this->createQueryBuilder('h');
-        $query->where($query->expr()->isNotNull('h.saisonBase'));
+        $query->join('h.ville', "v");
+        $query->join('v.pays', "p");
+        $query->where('p.code=:code')->setParameter('code', 'tn');
         if($categorie != 'all')
             $query->andWhere('h.categorie=:categorie')->setParameter('categorie', $categorie);
         if($ville != 'all')
@@ -43,9 +45,10 @@ class HotelRepository extends EntityRepository
     {
         $query=$this->createQueryBuilder('h');
         $query->join('h.ville', "v");
+        $query->join('v.pays', "p");
         $query->leftJoin('h.categorie', "c");
         $query->leftJoin('h.fournisseur', "f");
-        $query->where($query->expr()->isNotNull('h.id'));
+        $query->where('p.code=:code')->setParameter('code', 'tn');
         if($ville != 'all')
             $query->andWhere('h.ville=:ville')->setParameter('ville', $ville);
         if($etat != 'all')
