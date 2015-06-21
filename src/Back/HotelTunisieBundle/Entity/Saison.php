@@ -193,6 +193,11 @@ class Saison
     private $created;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Contrat", inversedBy="saisons")
+     */
+    protected $contrat;
+    
+    /**
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column( type="datetime")
      */
@@ -1061,4 +1066,27 @@ class Saison
         return $this->amicales;
     }
 
+
+    /**
+     * Set contrat
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Contrat $contrat
+     * @return Saison
+     */
+    public function setContrat(\Back\HotelTunisieBundle\Entity\Contrat $contrat = null)
+    {
+        $this->contrat = $contrat;
+
+        return $this;
+    }
+
+    /**
+     * Get contrat
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Contrat 
+     */
+    public function getContrat()
+    {
+        return $this->contrat;
+    }
 }

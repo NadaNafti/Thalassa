@@ -64,7 +64,7 @@ class UsersController extends Controller
         }
         catch(\Exception $ex)
         {
-            $session->getFlashBag()->add('danger', 'Votre groupe a été utilisé dans une autre table');
+            $session->getFlashBag()->add('danger', 'Votre groupe est utilisé dans une autre table');
         }
         return $this->redirect($this->generateUrl("group"));
     }

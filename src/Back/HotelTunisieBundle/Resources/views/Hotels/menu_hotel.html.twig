@@ -29,6 +29,11 @@
             Saison de base {% if hotel.saisonBase is null or hotel.saisonBase.isValidSaisonBase == false %}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i>{% endif %}
         </a>
     </li>
+    <li {% if app.request.get('_route') in ['article_hotel'] %}class="active"{% endif %}>
+        <a href="{{ path("article_hotel",{'id':hotel.id}) }}">
+            Contrats ({{ hotel.contrats|length }})
+        </a>
+    </li>
     {% if hotel.saisonBase is not null and hotel.saisonBase.isValidSaisonBase %}
         <li {% if app.request.get('_route') in ['liste_saison','PeriodeSaison','GeneralSaison','OccChambreSaison','ArrangementSaison','ReductionSaison','SupplementSaison','AutreChambreSaison','VuesSaison','WeekendSaison','AutreSuppSaison','AutreReducSaison','PrixSaison'] %}class="active"{% endif %}>
             <a href="{{ path('liste_saison',{'id':hotel.id}) }}">

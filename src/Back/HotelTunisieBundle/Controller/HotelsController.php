@@ -17,6 +17,8 @@ use Back\HotelTunisieBundle\Entity\FicheTechnique;
 use Back\HotelTunisieBundle\Form\FicheTechniqueType;
 use Back\HotelTunisieBundle\Entity\HotelChambre;
 use Back\HotelTunisieBundle\Form\HotelChambresType;
+use Back\HotelTunisieBundle\Entity\Contrat;
+use Back\HotelTunisieBundle\Form\ContratType;
 
 class HotelsController extends Controller
 {
@@ -71,11 +73,11 @@ class HotelsController extends Controller
         )));
     }
 
-    public function listeAction($page,$ville, $chaine, $categorie, $etat, $libelle,$sort,$direction)
+    public function listeAction($page, $ville, $chaine, $categorie, $etat, $libelle, $sort, $direction)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
-        $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->filtreBackOffice($ville, $chaine, $categorie, $etat, $libelle,$sort,$direction);
+        $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->filtreBackOffice($ville, $chaine, $categorie, $etat, $libelle, $sort, $direction);
         $villes = $em->getRepository('BackHotelTunisieBundle:ville')->findBy(array(), array('libelle' => 'asc'));
         $chaines = $em->getRepository('BackHotelTunisieBundle:Chaine')->findBy(array(), array('libelle' => 'asc'));
         $categories = $em->getRepository('BackHotelTunisieBundle:Categorie')->findBy(array(), array('libelle' => 'asc'));
@@ -296,6 +298,50 @@ class HotelsController extends Controller
                     'hotel' => $hotel,
                     'form' => $form->createView()
         ));
+    }
+
+    public function articleAction(Hotel $hotel, $id2)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        if (is_null($id2))
+            $contrat = new Contrat ();
+        else
+            $contrat = $em->getRepository('BackHotelTunisieBundle:Contrat')->find($id2);
+        $form = $this->createForm(new ContratType(), $contrat->setHotel($hotel));
+        $request = $this->getRequest();
+        if ($request->isMethod('POST'))
+        {
+            $form->submit($request);
+            if ($form->isValid())
+            {
+                $contrat = $form->getData();
+                $em->persist($contrat);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre contrat a été traitée avec succées ");
+                return $this->redirect($this->generateUrl("article_hotel", array('id' => $hotel->getId())));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:Hotels:contrat.html.twig', array(
+                    'hotel' => $hotel,
+                    'form' => $form->createView()
+        ));
+    }
+
+    public function deleteArticleAction(Contrat $contrat)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        try
+        {
+            $em->remove($contrat);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Votre Contrat a été supprimé avec succées ");
+        } catch (\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'Votre Contrat est utilisé dans une autre table');
+        }
+        return $this->redirect($this->generateUrl("article_hotel", array('id' => $contrat->getHotel()->getId())));
     }
 
 }

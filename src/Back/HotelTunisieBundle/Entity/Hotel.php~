@@ -41,20 +41,14 @@ class Hotel
 
     /**
      * @var string
-     * @Assert\Email(
-     *     message = "'{{ value }}' n'est pas un email valide.",
-     *     checkMX = true
-     * )
+     * @Assert\Email()
      * @ORM\Column(name="email1", type="string", length=255, nullable=true)
      */
     private $email1;
 
     /**
      * @var string
-     * @Assert\Email(
-     *     message = "'{{ value }}' n'est pas un email valide.",
-     *     checkMX = true
-     * )
+     * @Assert\Email()
      * @ORM\Column(name="email2", type="string", length=255, nullable=true)
      */
     private $email2;
@@ -90,7 +84,7 @@ class Hotel
     /**
      * @var string
      *
-     * @ORM\Column(name="descriptionLongue", type="text")
+     * @ORM\Column(name="descriptionLongue", type="text",nullable=true)
      */
     private $descriptionLongue;
 
@@ -200,6 +194,12 @@ class Hotel
      * @ORM\OrderBy({"ordre" = "ASC"})
      */
     private $images;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Contrat", mappedBy="hotel")
+     * @ORM\OrderBy({"ordre" = "DESC"})
+     */
+    private $contrats;
 
     /**
      * @ORM\OneToMany(targetEntity="Saison", mappedBy="hotel")
@@ -1179,5 +1179,51 @@ class Hotel
             return ($this->categorie->getNombreEtoiles() / 5) * 100;
         }
         return false;
+    }
+
+    /**
+     * Set email1
+     *
+     * @param string $email1
+     * @return Hotel
+     */
+    public function setEmail1($email1)
+    {
+        $this->email1 = $email1;
+
+        return $this;
+    }
+
+    /**
+     * Get email1
+     *
+     * @return string 
+     */
+    public function getEmail1()
+    {
+        return $this->email1;
+    }
+
+    /**
+     * Set email2
+     *
+     * @param string $email2
+     * @return Hotel
+     */
+    public function setEmail2($email2)
+    {
+        $this->email2 = $email2;
+
+        return $this;
+    }
+
+    /**
+     * Get email2
+     *
+     * @return string 
+     */
+    public function getEmail2()
+    {
+        return $this->email2;
     }
 }

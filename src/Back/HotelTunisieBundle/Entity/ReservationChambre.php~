@@ -454,4 +454,30 @@ class ReservationChambre
                 $total+=$ligne->getVente();
             return number_format($total,3,'.','');
     }
+    
+    public function getTotalAchat()
+    {
+        $total=0;
+        foreach($this->adultes as $personne)
+            {
+                foreach($personne->getJours() as $jour)
+                {
+                    foreach($jour->getLignes() as $ligne)
+                        $total+=$ligne->getAchat();
+                }
+            }
+            foreach($this->enfants as $personne)
+            {
+                foreach($personne->getJours() as $jour)
+                {
+                    foreach($jour->getLignes() as $ligne)
+                        $total+=$ligne->getAchat();
+                }
+            }
+            foreach($this->supplementLignes as $ligne)
+                $total+=$ligne->getAchat();
+            foreach($this->reductionLignes as $ligne)
+                $total+=$ligne->getAchat();
+            return number_format($total,3,'.','');
+    }
 }

@@ -21,17 +21,19 @@
                         <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
                             <thead>
                                 <tr>
-                                    <th>Type</th>
-                                    <th>Libellé</th>
-                                    <td>Périodes</td>
-                                    <td>Amicales</td>
-                                    <th>Date Creation</th>
+                                    <th class="center">Contrat</th>
+                                    <th class="center">Type</th>
+                                    <th class="center">Libellé</th>
+                                    <td class="center">Périodes</td>
+                                    <td class="center">Amicales</td>
+                                    <th class="center">Date Creation</th>
                                     <th class="center" >Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for saison in saisons %}
                                     <tr>
+                                        <td class="center">{{ saison.contrat }}</td>
                                         <td class="center">
                                             {% if saison.type==1 %}
                                                 <span class="label label-sm label-purple">Saison</span>

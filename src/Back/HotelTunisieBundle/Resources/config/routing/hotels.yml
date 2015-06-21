@@ -41,3 +41,11 @@ supprimer_stopsales_hotel:
 fiche_technique:
     path:     /modif/{id}/fiche_technique
     defaults: { _controller: BackHotelTunisieBundle:Hotels:ficheTechnique }    
+
+article_hotel:
+    path:     /modif/{id}/convention/{id2}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:article,id2:null }
+
+supprimer_article_hotel:
+    path:     /supprimer_contrats_hotel/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:deleteArticle }

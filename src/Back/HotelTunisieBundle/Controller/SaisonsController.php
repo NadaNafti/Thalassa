@@ -44,41 +44,57 @@ class SaisonsController extends Controller
 
     public function GenererAction(Hotel $hotel)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
-        $data=array();
-        $form=$this->createFormBuilder()
-                        ->add('libelle', 'text')
-                        ->add('type', 'choice', array(
-                            'choices'    =>array( '1'=>'Saison', '2'=>'Promotion', '3'=>'Amicales' ),
-                            'required'   =>true,
-                            'empty_value'=>'Type de saison',
-                            'empty_data' =>null
-                        ))
-                        ->add('saisons', 'entity', array(
-                            'class'        =>'BackHotelTunisieBundle:Saison',
-                            'query_builder'=>function(EntityRepository $er) use ($hotel){
-                                return $er->createQueryBuilder('s')
-                                        ->where('s.hotel = :id')
-                                        ->setParameter('id', $hotel->getId())
-                                        ->orderBy('s.id','desc');
-                                ;
-                            },
-                            'required'   =>false,
-                            'empty_value'=>'Saison de base',
-                            'empty_data' =>null
-                        ))->getForm();
-        $request=$this->getRequest();
-        if($request->isMethod("POST"))
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $data = array();
+        $form = $this->createFormBuilder()
+                ->add('libelle', 'text')
+                ->add('type', 'choice', array(
+                    'choices' => array('1' => 'Saison', '2' => 'Promotion', '3' => 'Amicales'),
+                    'required' => true,
+                    'empty_value' => 'Type de saison',
+                    'empty_data' => null
+                ))
+                ->add('saisons', 'entity', array(
+                    'class' => 'BackHotelTunisieBundle:Saison',
+                    'query_builder' => function(EntityRepository $er) use ($hotel)
+                    {
+                        return $er->createQueryBuilder('s')
+                                ->where('s.hotel = :id')
+                                ->setParameter('id', $hotel->getId())
+                                ->orderBy('s.id', 'desc');
+                        ;
+                    },
+                    'required' => false,
+                    'empty_value' => 'Saison de base',
+                    'empty_data' => null
+                ))
+                ->add('contrats', 'entity', array(
+                    'class' => 'BackHotelTunisieBundle:Contrat',
+                    'query_builder' => function(EntityRepository $er) use ($hotel)
+                    {
+                        return $er->createQueryBuilder('c')
+                                ->where('c.hotel = :id')
+                                ->setParameter('id', $hotel->getId())
+                                ->orderBy('c.id', 'desc');
+                        ;
+                    },
+                    'required' => true,
+                    'attr' => array('required' => true)
+                ))
+                ->getForm();
+        $request = $this->getRequest();
+        if ($request->isMethod("POST"))
         {
             $form->submit($request);
-            $data=$form->getData();
-            if($data['saisons'] == NULL)
-                $Saison=$hotel->getSaisonBase();
+            $data = $form->getData();
+            if ($data['saisons'] == NULL)
+                $Saison = $hotel->getSaisonBase();
             else
-                $Saison=$data['saisons'];
+                $Saison = $data['saisons'];
 
-            $newSaison=clone $Saison;
+            $newSaison = clone $Saison;
+            $newSaison->setContrat($data['contrats']);
             $newSaison->setHotelBase(NULL);
             $newSaison->setHotel($hotel);
             $newSaison->setLibelle($data['libelle']);
@@ -86,76 +102,76 @@ class SaisonsController extends Controller
             $newSaison->setCreated(new \DateTime());
 
             $em->persist($newSaison);
-            foreach($Saison->getArrangements() as $entity)
+            foreach ($Saison->getArrangements() as $entity)
             {
-                $newEntity=clone $entity;
+                $newEntity = clone $entity;
                 $em->persist($newEntity->setSaison($newSaison));
             }
-            foreach($Saison->getAutresReductions() as $entity)
+            foreach ($Saison->getAutresReductions() as $entity)
             {
-                $newEntity=clone $entity;
+                $newEntity = clone $entity;
                 $em->persist($newEntity->setSaison($newSaison));
             }
-            foreach($Saison->getAutresSupplements() as $entity)
+            foreach ($Saison->getAutresSupplements() as $entity)
             {
-                $newEntity=clone $entity;
+                $newEntity = clone $entity;
                 $em->persist($newEntity->setSaison($newSaison));
             }
-            foreach($Saison->getChambres() as $entity)
+            foreach ($Saison->getChambres() as $entity)
             {
-                $newEntity=clone $entity;
+                $newEntity = clone $entity;
                 $em->persist($newEntity->setSaison($newSaison));
             }
-            foreach($Saison->getSuppChambres() as $entity)
+            foreach ($Saison->getSuppChambres() as $entity)
             {
-                $newEntity=clone $entity;
+                $newEntity = clone $entity;
                 $em->persist($newEntity->setSaison($newSaison));
             }
-            foreach($Saison->getVues() as $entity)
+            foreach ($Saison->getVues() as $entity)
             {
-                $newEntity=clone $entity;
+                $newEntity = clone $entity;
                 $em->persist($newEntity->setSaison($newSaison));
             }
             $em->flush();
             $session->getFlashBag()->add('success', " Votre saison a été générer avec succées ");
-            return $this->redirect($this->generateUrl("PeriodeSaison", array( 'id'=>$newSaison->getId() )));
+            return $this->redirect($this->generateUrl("PeriodeSaison", array('id' => $newSaison->getId())));
         }
         return $this->render('BackHotelTunisieBundle:Saisons:generer.html.twig', array(
-                    'hotel'=>$hotel,
-                    'form' =>$form->createView()
+                    'hotel' => $hotel,
+                    'form' => $form->createView()
         ));
     }
 
     public function listeAction(Hotel $hotel)
     {
-        $em=$this->getDoctrine()->getManager();
-        $saisons= $em->getRepository('BackHotelTunisieBundle:Saison')->findBy(array('hotel'=>$hotel),array('id'=>'desc'));
-        $paginator = $this->get('knp_paginator') ;
-        $saisons = $paginator->paginate($saisons , $this->getRequest()->query->get('page' , 1) , 10) ;
+        $em = $this->getDoctrine()->getManager();
+        $saisons = $em->getRepository('BackHotelTunisieBundle:Saison')->findBy(array('hotel' => $hotel), array('id' => 'desc'));
+        $paginator = $this->get('knp_paginator');
+        $saisons = $paginator->paginate($saisons, $this->getRequest()->query->get('page', 1), 10);
         return $this->render('BackHotelTunisieBundle:Saisons:liste.html.twig', array(
-                    'hotel'=>$hotel,
-                    'saisons'=>$saisons,
+                    'hotel' => $hotel,
+                    'saisons' => $saisons,
         ));
     }
 
     public function periodeAction(Saison $saison)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
 
-        $form=$this->createForm(new SaisonPeriodesType(), $saison->addPeriode(new Periode())->addPeriode(new Periode())->addPeriode(new Periode()));
-        if($saison->getType()==3)
-            $form->add ("amicales");
-        $request=$this->getRequest();
-        if($request->isMethod("POST"))
+        $form = $this->createForm(new SaisonPeriodesType(), $saison->addPeriode(new Periode())->addPeriode(new Periode())->addPeriode(new Periode()));
+        if ($saison->getType() == 3)
+            $form->add("amicales");
+        $request = $this->getRequest();
+        if ($request->isMethod("POST"))
         {
             $form->submit($request);
-            if($form->isValid())
+            if ($form->isValid())
             {
-                $saison=$form->getData();
-                foreach($saison->getPeriodes() as $periode)
+                $saison = $form->getData();
+                foreach ($saison->getPeriodes() as $periode)
                 {
-                    if($periode->getDateDebut() == null || $periode->getDateFin() == null || $periode->getDateFin()->format("Y-m-d") < $periode->getDateDebut()->format("Y-m-d"))
+                    if ($periode->getDateDebut() == null || $periode->getDateFin() == null || $periode->getDateFin()->format("Y-m-d") < $periode->getDateDebut()->format("Y-m-d"))
                     {
                         $em->remove($periode);
                         $saison->removePeriode($periode);
@@ -165,25 +181,26 @@ class SaisonsController extends Controller
                 }
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison a été modifié avec succées ");
-                return $this->redirect($this->generateUrl("PeriodeSaison", array( 'id'=>$saison->getId() )));
+                return $this->redirect($this->generateUrl("PeriodeSaison", array('id' => $saison->getId())));
             }
         }
         return $this->render('BackHotelTunisieBundle:Saisons:periodes.html.twig', array(
-                    'hotel' =>$saison->getHotel(),
-                    'saison'=>$saison,
-                    'form'  =>$form->createView()
+                    'hotel' => $saison->getHotel(),
+                    'saison' => $saison,
+                    'form' => $form->createView()
         ));
     }
 
     public function generalAction(Saison $saison)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
-        $hotel=$saison->getHotel();
-        $form=$this->createForm(new SaisonType(), $saison);
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $hotel = $saison->getHotel();
+        $form = $this->createForm(new SaisonType(), $saison);
         $form->add("ArrBase", "entity", array(
-            'class'        =>'BackHotelTunisieBundle:Arrangement',
-            'query_builder'=>function(EntityRepository $er) use ($hotel){
+            'class' => 'BackHotelTunisieBundle:Arrangement',
+            'query_builder' => function(EntityRepository $er) use ($hotel)
+            {
                 return $er->createQueryBuilder('a')
                                 ->join("a.hotels", "h")
                                 ->where('h.id = :id')
@@ -191,380 +208,382 @@ class SaisonsController extends Controller
                 ;
             }
         ));
-        $request=$this->getRequest();
-        if($request->isMethod("POST"))
+        $request = $this->getRequest();
+        if ($request->isMethod("POST"))
         {
             $form->bind($request);
-            if($form->isValid())
+            if ($form->isValid())
             {
-                $saison=$form->getData();
+                $saison = $form->getData();
                 $em->persist($saison);
                 foreach ($saison->getArrangements() as $arr)
                 {
-                    if($arr->getArrangement()->getId()==$saison->getArrBase()->getId())
-                        $em->remove ($arr);
+                    if ($arr->getArrangement()->getId() == $saison->getArrBase()->getId())
+                        $em->remove($arr);
                 }
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison a été modifié avec succées ");
-                return $this->redirect($this->generateUrl("GeneralSaison", array( 'id'=>$saison->getId() )));
+                return $this->redirect($this->generateUrl("GeneralSaison", array('id' => $saison->getId())));
             }
         }
         return $this->render('BackHotelTunisieBundle:Saisons:general.html.twig', array(
-                    'hotel' =>$hotel,
-                    'saison'=>$saison,
-                    'form'  =>$form->createView()
+                    'hotel' => $hotel,
+                    'saison' => $saison,
+                    'form' => $form->createView()
         ));
     }
 
     public function occChambreAction(Saison $saison)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
-        $request=$this->getRequest();
-        foreach($saison->getHotel()->getChambres() as $ch)
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        foreach ($saison->getHotel()->getChambres() as $ch)
         {
-            $verif=$em->getRepository("BackHotelTunisieBundle:SaisonChambre")->findBy(array( 'saison'=>$saison, 'chambre'=>$ch ));
-            if(count($verif) == 0)
+            $verif = $em->getRepository("BackHotelTunisieBundle:SaisonChambre")->findBy(array('saison' => $saison, 'chambre' => $ch));
+            if (count($verif) == 0)
             {
-                $saisonChambres=new SaisonChambre();
+                $saisonChambres = new SaisonChambre();
                 $saisonChambres->setChambre($ch);
                 $saison->addChambre($saisonChambres);
             }
         }
-        $form=$this->createForm(new SaisonCType(), $saison);
-        if($request->isMethod("POST"))
+        $form = $this->createForm(new SaisonCType(), $saison);
+        if ($request->isMethod("POST"))
         {
             $form->bind($request);
-            if($form->isValid())
+            if ($form->isValid())
             {
-                $saison=$form->getData();
-                foreach($saison->getChambres() as $chambres)
+                $saison = $form->getData();
+                foreach ($saison->getChambres() as $chambres)
                 {
                     $em->persist($chambres->setSaison($saison));
                 }
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison a été modifié avec succées ");
-                return $this->redirect($this->generateUrl("OccChambreSaison", array( 'id'=>$saison->getId() )));
+                return $this->redirect($this->generateUrl("OccChambreSaison", array('id' => $saison->getId())));
             }
         }
         return $this->render('BackHotelTunisieBundle:Saisons:occ_chambres.html.twig', array(
-                    'hotel' =>$saison->getHotel(),
-                    'saison'=>$saison,
-                    'form'  =>$form->createView()
+                    'hotel' => $saison->getHotel(),
+                    'saison' => $saison,
+                    'form' => $form->createView()
         ));
     }
 
     public function arrangementAction(Saison $saison)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
-        $request=$this->getRequest();
-        $hotel=$saison->getHotel();
-        foreach($hotel->getArrangements() as $arr)
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        $hotel = $saison->getHotel();
+        foreach ($hotel->getArrangements() as $arr)
         {
-            $verif=$em->getRepository("BackHotelTunisieBundle:SaisonArrangement")->findBy(array( 'saison'=>$saison, 'arrangement'=>$arr ));
-            if(count($verif) == 0 && $arr != $saison->getArrBase())
+            $verif = $em->getRepository("BackHotelTunisieBundle:SaisonArrangement")->findBy(array('saison' => $saison, 'arrangement' => $arr));
+            if (count($verif) == 0 && $arr != $saison->getArrBase())
             {
-                $saisonArrangement=new SaisonArrangement();
+                $saisonArrangement = new SaisonArrangement();
                 $saisonArrangement->setArrangement($arr);
                 $saison->addArrangement($saisonArrangement);
             }
         }
-        $form=$this->createForm(new SaisonAType(), $saison);
-        if($request->isMethod("POST"))
+        $form = $this->createForm(new SaisonAType(), $saison);
+        if ($request->isMethod("POST"))
         {
             $form->handleRequest($request);
-            if($form->isValid())
+            if ($form->isValid())
             {
-                $saison=$form->getData();
-                foreach($saison->getArrangements() as $Arrangement)
+                $saison = $form->getData();
+                foreach ($saison->getArrangements() as $Arrangement)
                 {
                     $em->persist($Arrangement->setSaison($saison));
                 }
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");
-                return $this->redirect($this->generateUrl("ArrangementSaison", array( 'id'=>$saison->getId() )));
+                return $this->redirect($this->generateUrl("ArrangementSaison", array('id' => $saison->getId())));
             }
         }
         return $this->render('BackHotelTunisieBundle:Saisons:arrangement.html.twig', array(
-                    'hotel' =>$hotel,
-                    'saison'=>$saison,
-                    'form'  =>$form->createView()
+                    'hotel' => $hotel,
+                    'saison' => $saison,
+                    'form' => $form->createView()
         ));
     }
 
     public function reductionAction(Saison $saison)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
-        if($saison->getSaisonReduc())
-            $saisonReduc=$saison->getSaisonReduc();
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        if ($saison->getSaisonReduc())
+            $saisonReduc = $saison->getSaisonReduc();
         else
-            $saisonReduc=new SaisonReduc();
-        $form=$this->createForm(new SaisonReducType(), $saisonReduc);
-        $request=$this->getRequest();
-        if($request->isMethod("POST"))
+            $saisonReduc = new SaisonReduc();
+        $form = $this->createForm(new SaisonReducType(), $saisonReduc);
+        $request = $this->getRequest();
+        if ($request->isMethod("POST"))
         {
             $form->bind($request);
-            if($form->isValid())
+            if ($form->isValid())
             {
-                $saisonReduc=$form->getData();
+                $saisonReduc = $form->getData();
                 $em->persist($saisonReduc);
                 $em->persist($saison->setSaisonReduc($saisonReduc));
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");
-                return $this->redirect($this->generateUrl("ReductionSaison", array( 'id'=>$saison->getId() )));
+                return $this->redirect($this->generateUrl("ReductionSaison", array('id' => $saison->getId())));
             }
         }
         return $this->render('BackHotelTunisieBundle:Saisons:reductions.html.twig', array(
-                    'hotel' =>$saison->getHotel(),
-                    'saison'=>$saison,
-                    'form'  =>$form->createView()
+                    'hotel' => $saison->getHotel(),
+                    'saison' => $saison,
+                    'form' => $form->createView()
         ));
     }
 
     public function supplementAction(Saison $saison)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
-        if($saison->getSaisonSupp() == NULL)
-            $saisonSupp=new SaisonSupp();
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        if ($saison->getSaisonSupp() == NULL)
+            $saisonSupp = new SaisonSupp();
         else
-            $saisonSupp=$saison->getSaisonSupp();
-        $form=$this->createForm(new SaisonSuppType(), $saisonSupp);
-        $request=$this->getRequest();
-        if($request->isMethod('POST'))
+            $saisonSupp = $saison->getSaisonSupp();
+        $form = $this->createForm(new SaisonSuppType(), $saisonSupp);
+        $request = $this->getRequest();
+        if ($request->isMethod('POST'))
         {
             $form->submit($request);
-            if($form->isValid())
+            if ($form->isValid())
             {
-                $saisonSupp=$form->getData();
+                $saisonSupp = $form->getData();
                 $em->persist($saisonSupp);
                 $em->persist($saison->setSaisonSupp($saisonSupp));
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");
-                return $this->redirect($this->generateUrl("SupplementSaison", array( 'id'=>$saison->getId() )));
+                return $this->redirect($this->generateUrl("SupplementSaison", array('id' => $saison->getId())));
             }
         }
 
         return $this->render("BackHotelTunisieBundle:Saisons:supplement.html.twig", array(
-                    'hotel' =>$saison->getHotel(),
-                    'saison'=>$saison,
-                    'form'  =>$form->createView()
+                    'hotel' => $saison->getHotel(),
+                    'saison' => $saison,
+                    'form' => $form->createView()
         ));
     }
 
     public function autreChambreAction(Saison $saison)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
-        $request=$this->getRequest();
-        $hotel=$saison->getHotel();
-        foreach($hotel->getChambres() as $ch)
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        $hotel = $saison->getHotel();
+        foreach ($hotel->getChambres() as $ch)
         {
-            $verif=$em->getRepository("BackHotelTunisieBundle:SaisonSuppChambre")->findBy(array( 'saison'=>$saison, 'chambre'=>$ch ));
-            if(count($verif) == 0 && $ch->getType() == 0)
+            $verif = $em->getRepository("BackHotelTunisieBundle:SaisonSuppChambre")->findBy(array('saison' => $saison, 'chambre' => $ch));
+            if (count($verif) == 0 && $ch->getType() == 0)
             {
-                $saisonSuppChambres=new SaisonSuppChambre();
+                $saisonSuppChambres = new SaisonSuppChambre();
                 $saisonSuppChambres->setChambre($ch);
                 $saison->addSuppChambre($saisonSuppChambres);
             }
         }
-        $form=$this->createForm(new SaisonSType(), $saison);
-        if($request->isMethod("POST"))
+        $form = $this->createForm(new SaisonSType(), $saison);
+        if ($request->isMethod("POST"))
         {
             $form->bind($request);
-            if($form->isValid())
+            if ($form->isValid())
             {
-                $saison=$form->getData();
-                foreach($saison->getSuppChambres() as $chambres)
+                $saison = $form->getData();
+                foreach ($saison->getSuppChambres() as $chambres)
                 {
                     $em->persist($chambres->setSaison($saison));
                 }
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");
-                return $this->redirect($this->generateUrl("AutreChambreSaison", array( 'id'=>$saison->getId() )));
+                return $this->redirect($this->generateUrl("AutreChambreSaison", array('id' => $saison->getId())));
             }
         }
         return $this->render('BackHotelTunisieBundle:Saisons:autre_chambre.html.twig', array(
-                    'saison'=>$saison,
-                    'hotel' =>$hotel,
-                    'form'  =>$form->createView()
+                    'saison' => $saison,
+                    'hotel' => $hotel,
+                    'form' => $form->createView()
         ));
     }
 
     public function vueAction(Saison $saison)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
-        $request=$this->getRequest();
-        $hotel=$saison->getHotel();
-        foreach($hotel->getVues() as $vue)
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        $hotel = $saison->getHotel();
+        foreach ($hotel->getVues() as $vue)
         {
-            $verif=$em->getRepository("BackHotelTunisieBundle:SaisonVue")->findBy(array( 'saison'=>$saison, 'vue'=>$vue ));
-            if(count($verif) == 0)
+            $verif = $em->getRepository("BackHotelTunisieBundle:SaisonVue")->findBy(array('saison' => $saison, 'vue' => $vue));
+            if (count($verif) == 0)
             {
-                $saisonVue=new SaisonVue();
+                $saisonVue = new SaisonVue();
                 $saisonVue->setVue($vue);
                 $saison->addVue($saisonVue);
             }
         }
-        $form=$this->createForm(new SaisonVType(), $saison);
-        if($request->isMethod("POST"))
+        $form = $this->createForm(new SaisonVType(), $saison);
+        if ($request->isMethod("POST"))
         {
             $form->bind($request);
-            if($form->isValid())
+            if ($form->isValid())
             {
-                $saison=$form->getData();
-                foreach($saison->getVues() as $Vue)
+                $saison = $form->getData();
+                foreach ($saison->getVues() as $Vue)
                 {
                     $em->persist($Vue->setSaison($saison));
                 }
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");
-                return $this->redirect($this->generateUrl("VuesSaison", array( 'id'=>$saison->getId() )));
+                return $this->redirect($this->generateUrl("VuesSaison", array('id' => $saison->getId())));
             }
         }
         return $this->render('BackHotelTunisieBundle:Saisons:vue.html.twig', array(
-                    'hotel' =>$hotel,
-                    'saison'=>$saison,
-                    'form'  =>$form->createView()
+                    'hotel' => $hotel,
+                    'saison' => $saison,
+                    'form' => $form->createView()
         ));
     }
 
     public function weekendAction(Saison $saison)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
-        if($saison->getSaisonWeekend() == NULL)
-            $saisonWeekend=new SaisonWeekend();
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        if ($saison->getSaisonWeekend() == NULL)
+            $saisonWeekend = new SaisonWeekend();
         else
-            $saisonWeekend=$saison->getSaisonWeekend();
-        $form=$this->createForm(new SaisonWeekendType(), $saisonWeekend);
+            $saisonWeekend = $saison->getSaisonWeekend();
+        $form = $this->createForm(new SaisonWeekendType(), $saisonWeekend);
         $form->add("chambres", "entity", array(
-            'class'        =>'BackHotelTunisieBundle:Chambre',
-            'query_builder'=>function(EntityRepository $er) use ($saison){
+            'class' => 'BackHotelTunisieBundle:Chambre',
+            'query_builder' => function(EntityRepository $er) use ($saison)
+            {
                 return $er->createQueryBuilder('a')
                                 ->join("a.hotels", "h")
                                 ->where('h.id = :id')
                                 ->setParameter('id', $saison->getHotel()->getId());
                 ;
             },
-            'multiple'    =>true,
-            'expanded'    =>false,
+            'multiple' => true,
+            'expanded' => false,
         ));
-        $request=$this->getRequest();
-        if($request->isMethod('POST'))
+        $request = $this->getRequest();
+        if ($request->isMethod('POST'))
         {
             $form->submit($request);
-            if($form->isValid())
+            if ($form->isValid())
             {
-                $saisonWeekend=$form->getData();
+                $saisonWeekend = $form->getData();
                 $em->persist($saisonWeekend);
                 $em->persist($saison->setSaisonWeekend($saisonWeekend));
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");
-                return $this->redirect($this->generateUrl("WeekendSaison", array( 'id'=>$saison->getId() )));
+                return $this->redirect($this->generateUrl("WeekendSaison", array('id' => $saison->getId())));
             }
         }
         return $this->render("BackHotelTunisieBundle:Saisons:weekend.html.twig", array(
-                    'saison'=>$saison,
-                    'hotel'=>$saison->getHotel(),
-                    'form' =>$form->createView()
+                    'saison' => $saison,
+                    'hotel' => $saison->getHotel(),
+                    'form' => $form->createView()
         ));
     }
 
-    public function autreSuppAction(Saison $saison,$id2)
+    public function autreSuppAction(Saison $saison, $id2)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
-        if($id2 == null)
-            $saisonAutreSupp=new SaisonAutreSupp();
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        if ($id2 == null)
+            $saisonAutreSupp = new SaisonAutreSupp();
         else
-            $saisonAutreSupp=$em->getRepository("BackHotelTunisieBundle:SaisonAutreSupp")->find($id2);
+            $saisonAutreSupp = $em->getRepository("BackHotelTunisieBundle:SaisonAutreSupp")->find($id2);
         $saisonAutreSupp->setSaison($saison);
-        $form=$this->createForm(new SaisonAutreSuppType(), $saisonAutreSupp);
-        $request=$this->getRequest();
-        if($request->isMethod("POST"))
+        $form = $this->createForm(new SaisonAutreSuppType(), $saisonAutreSupp);
+        $request = $this->getRequest();
+        if ($request->isMethod("POST"))
         {
             $form->submit($request);
-            if($form->isValid())
+            if ($form->isValid())
             {
-                $saisonAutreSupp=$form->getData();
+                $saisonAutreSupp = $form->getData();
                 $em->persist($saisonAutreSupp);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");
-                return $this->redirect($this->generateUrl("AutreSuppSaison", array( 'id'=>$saison->getId() )));
+                return $this->redirect($this->generateUrl("AutreSuppSaison", array('id' => $saison->getId())));
             }
         }
         return $this->render('BackHotelTunisieBundle:Saisons:autre_supp.html.twig', array(
-                    'saison'          =>$saison,
-                    'hotel'          =>$saison->getHotel(),
-                    'form'           =>$form->createView(),
-                    'saisonAutreSupp'=>$saisonAutreSupp,
+                    'saison' => $saison,
+                    'hotel' => $saison->getHotel(),
+                    'form' => $form->createView(),
+                    'saisonAutreSupp' => $saisonAutreSupp,
         ));
     }
-    
+
     public function deleteAutreSuppAction(SaisonAutreSupp $saisonAutreSupp)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
         $em->remove($saisonAutreSupp);
         $em->flush();
         $session->getFlashBag()->add('success', "Supplement a été suprimmée avec succées");
         return $this->redirect($this->generateUrl("AutreSuppSaison", array(
-                            'id'=>$saisonAutreSupp->getSaison()->getId(),
+                            'id' => $saisonAutreSupp->getSaison()->getId(),
         )));
     }
-    
+
     public function autreReducAction(Saison $saison, $id2)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
-        if($id2 == null)
-            $saisonAutreReduc=new SaisonAutreReduc();
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        if ($id2 == null)
+            $saisonAutreReduc = new SaisonAutreReduc();
         else
-            $saisonAutreReduc=$em->getRepository("BackHotelTunisieBundle:SaisonAutreReduc")->find($id2);
+            $saisonAutreReduc = $em->getRepository("BackHotelTunisieBundle:SaisonAutreReduc")->find($id2);
         $saisonAutreReduc->setSaison($saison);
-        $form=$this->createForm(new SaisonAutreReducType(), $saisonAutreReduc);
-        $request=$this->getRequest();
-        if($request->isMethod("POST"))
+        $form = $this->createForm(new SaisonAutreReducType(), $saisonAutreReduc);
+        $request = $this->getRequest();
+        if ($request->isMethod("POST"))
         {
             $form->submit($request);
-            if($form->isValid())
+            if ($form->isValid())
             {
-                $saisonAutreReduc=$form->getData();
+                $saisonAutreReduc = $form->getData();
                 $em->persist($saisonAutreReduc);
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");
-                return $this->redirect($this->generateUrl("AutreReducSaison", array( 'id'=>$saison->getId() )));
+                return $this->redirect($this->generateUrl("AutreReducSaison", array('id' => $saison->getId())));
             }
         }
         return $this->render('BackHotelTunisieBundle:Saisons:autre_reduc.html.twig', array(
-                    'saison'           =>$saison,
-                    'hotel'           =>$saison->getHotel(),
-                    'form'            =>$form->createView(),
-                    'saisonAutreReduc'=>$saisonAutreReduc,
+                    'saison' => $saison,
+                    'hotel' => $saison->getHotel(),
+                    'form' => $form->createView(),
+                    'saisonAutreReduc' => $saisonAutreReduc,
         ));
     }
 
     public function deleteAutreReducAction(SaisonAutreReduc $saisonAutreReduc)
     {
-        $em=$this->getDoctrine()->getManager();
-        $session=$this->getRequest()->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
         $em->remove($saisonAutreReduc);
         $em->flush();
         $session->getFlashBag()->add('success', "La réduction a été supprimée avec succées");
         return $this->redirect($this->generateUrl("AutreReducSaison", array(
-                            'id'=>$saisonAutreReduc->getSaison()->getId(),
+                            'id' => $saisonAutreReduc->getSaison()->getId(),
         )));
     }
-    
+
     public function prixAction(Saison $saison)
     {
         return $this->render('BackHotelTunisieBundle:Saisons:prix.html.twig', array(
-                    'saison'=>$saison,
-                    'hotel'=>$saison->getHotel(),
+                    'saison' => $saison,
+                    'hotel' => $saison->getHotel(),
         ));
     }
+
 }

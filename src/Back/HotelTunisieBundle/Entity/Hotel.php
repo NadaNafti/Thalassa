@@ -194,6 +194,12 @@ class Hotel
      * @ORM\OrderBy({"ordre" = "ASC"})
      */
     private $images;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Contrat", mappedBy="hotel")
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    private $contrats;
 
     /**
      * @ORM\OneToMany(targetEntity="Saison", mappedBy="hotel")
@@ -1219,5 +1225,38 @@ class Hotel
     public function getEmail2()
     {
         return $this->email2;
+    }
+
+    /**
+     * Add contrats
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Contrat $contrats
+     * @return Hotel
+     */
+    public function addContrat(\Back\HotelTunisieBundle\Entity\Contrat $contrats)
+    {
+        $this->contrats[] = $contrats;
+
+        return $this;
+    }
+
+    /**
+     * Remove contrats
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Contrat $contrats
+     */
+    public function removeContrat(\Back\HotelTunisieBundle\Entity\Contrat $contrats)
+    {
+        $this->contrats->removeElement($contrats);
+    }
+
+    /**
+     * Get contrats
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getContrats()
+    {
+        return $this->contrats;
     }
 }

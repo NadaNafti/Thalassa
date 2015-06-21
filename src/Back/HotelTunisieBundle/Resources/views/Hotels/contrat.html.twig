@@ -1,0 +1,64 @@
+{% extends "BackHotelTunisieBundle:Hotels:liste.html.twig" %}
+{% block title %}{{ hotel.libelle }}{% endblock %}
+{% block description %}Contrats{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
+    </li>
+    <li>
+        <a href="javascript:void(0)" >Contrats</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
+                        </div>
+                        <div class="row no-display">
+                            {{ formulaire.select2("col-md-12","hotel",form.hotel,true) }}
+                        </div>
+                        {{ formulaire.submit("Enregistrer") }}
+                        {{ form_end(form) }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Libellé</th>
+                                                    <th class="center" >Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for contrat in hotel.contrats %}
+                                                    <tr>
+                                                        <td>{{ contrat.libelle }}</td>
+                                                        <td class="TableAction">
+                                                            {{ macros.tableEdit(path('article_hotel',{'id':hotel.id,'id2':contrat.id})) }}
+                                                            {{ macros.tableDelete(path('supprimer_article_hotel',{'id':contrat.id})) }}
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
