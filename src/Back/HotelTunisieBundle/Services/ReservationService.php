@@ -186,7 +186,7 @@ class ReservationService
                 ->setSurDemande($result['surDemande'])
                 ->setOptions($options)
                 ->setEtat(1);
-        if ($this->sendMailHotel($hotel, $result, $client, $source))
+        if ($source == 'backoffice' && $this->sendMailHotel($hotel, $result, $client))
             $reservation->setHotelNotifier(true);
         else
             $reservation->setHotelNotifier(false);
@@ -321,15 +321,11 @@ class ReservationService
         return $calendrier;
     }
 
-    public function sendMailHotel(Hotel $hotel, $result, Client $client, $source)
+    public function sendMailHotel(Hotel $hotel, $result, Client $client)
     {
         $agence = $this->em->getRepository('BackAdministrationBundle:Agence')->find(1);
-        $sender=$agence->getSendEmail();
-        if ($source == 'backoffice')
-        {
-            $user = $this->container->get('security.context')->getToken()->getUser();
-            $sender=$user->getEmail();
-        }
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $sender = $user->getEmail();
         if (!is_null($hotel->getEmail1()) || !is_null($hotel->getEmail2()))
         {
             $message = \Swift_Message::newInstance()

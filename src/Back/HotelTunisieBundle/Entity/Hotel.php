@@ -55,6 +55,18 @@ class Hotel
 
     /**
      * @var string
+     * @ORM\Column(name="tel1", type="string", length=255, nullable=true)
+     */
+    private $tel1;
+
+    /**
+     * @var string
+     * @ORM\Column(name="tel2", type="string", length=255, nullable=true)
+     */
+    private $tel2;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="longitude", type="string", length=20)
      */
@@ -1258,5 +1270,51 @@ class Hotel
     public function getContrats()
     {
         return $this->contrats;
+    }
+
+    /**
+     * Set tel1
+     *
+     * @param string $tel1
+     * @return Hotel
+     */
+    public function setTel1($tel1)
+    {
+        $this->tel1 = $tel1;
+
+        return $this;
+    }
+
+    /**
+     * Get tel1
+     *
+     * @return string 
+     */
+    public function getTel1()
+    {
+        return $this->tel1;
+    }
+
+    /**
+     * Set tel2
+     *
+     * @param string $tel2
+     * @return Hotel
+     */
+    public function setTel2($tel2)
+    {
+        $this->tel2 = $tel2;
+
+        return $this;
+    }
+
+    /**
+     * Get tel2
+     *
+     * @return string 
+     */
+    public function getTel2()
+    {
+        return $this->tel2;
     }
 }

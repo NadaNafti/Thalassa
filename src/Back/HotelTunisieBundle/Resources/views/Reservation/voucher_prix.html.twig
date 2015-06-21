@@ -5,10 +5,10 @@
         <title>Voucher</title>
         <link rel="stylesheet" href="{{ asset('voucher-assets/style.css') }}" media="all" />
     </head>
-    <body  contenteditable="true">
+    <body>
         <header class="clearfix">
             <div id="logo">
-                <img src="{{ asset('voucher-assets/logo.png') }}">
+                <img src="{{ asset(agence.assetPath) }}">
             </div>
             <div id="company">
                 <h2 class="name">{{ agence.nom }}</h2>
@@ -24,7 +24,13 @@
             <div id="client">
                 <div class="to"  style="line-height: 39px;">Séjour hôtel en Tunisie</div>
                 <h2 class="name">{{ reservation.hotel }}</h2>
-                {#<div class="address">796 Silver Harbour, TX 79273, US</div>#}
+                <div class="address">{{ reservation.hotel.adresse }}</div>
+                {% if reservation.hotel.tel2 is not null %}
+                    <div class="address">{{ reservation.hotel.tel1 }}</div>
+                {% endif %}
+                {% if reservation.hotel.tel2 is not null %}
+                    <div class="address">{{ reservation.hotel.tel2 }}</div>
+                {% endif %}
             </div>
             <div id="invoice">
                 <h1>Voucher # {{ reservation.code }}</h1>
@@ -64,8 +70,8 @@
                         </td>
                         <td class="unit" style="text-align: center;border-right: 1px solid #FFFFFF;"> {{ chambre.adultes|length }} </td>
                         <td class="unit" style="text-align: center;border-right: 1px solid #FFFFFF;"> {{ chambre.enfants|length }} </td>
-                        <td class="qty" style="border-right: 1px solid #FFFFFF;">{{ chambre.getTotalAchat }}</td>
-                        <td class="total">{{ chambre.getTotal }}</td>
+                        <td class="qty" style="border-right: 1px solid #FFFFFF;">{% if reservation.surDemande %}Sur demande{% else %}{{ chambre.getTotalAchat }}{% endif %}</td>
+                        <td class="total">{% if reservation.surDemande %}Sur demande{% else %}{{ chambre.getTotal }}{% endif %}</td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -76,8 +82,8 @@
                             <h3>Options :</h3>
                             <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">
                                 {% for option in reservation.options %}
-                                    <p> - {{ getNameOption(option) }}</p>
-                                {% endfor %}
+                                <p> - {{ getNameOption(option) }}</p>
+                            {% endfor %}
                         {% endif %}
                     </td>
                     <td colspan="2"></td>
@@ -91,12 +97,14 @@
                     <td colspan="2"></td>
                     <td></td>
                 </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="2">Totaux en DT</td>
-                    <td>{{ reservation.calcAchat }}</td>
-                    <td>{{ reservation.calcVente }}</td>
-                </tr>
+                {% if not reservation.surDemande %}
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="2">Totaux en DT</td>
+                        <td>{{ reservation.calcAchat }}</td>
+                        <td>{{ reservation.calcVente }}</td>
+                    </tr>
+                {% endif %}
             </tfoot>
         </table>
         <div id="thanks" style="margin-bottom: 20px;">Remarques</div>

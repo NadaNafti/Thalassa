@@ -26,8 +26,13 @@
                     </div>
                     <div class="row">
                         {{ formulaire.input("col-md-4","Email Contact",form.contactEmail,true) }}
-                        {{ formulaire.input("col-md-4","Email Envoie",form.sendEmail,true) }}
                         {{ formulaire.input("col-md-4","Site Web",form.site,true) }}
+                        {{ formulaire.input("col-md-4","Logo",form.file,true) }}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ asset(agence.assetPath) }}" />
+                        </div>
                     </div>
                     {{ formulaire.submit("Modifier") }}
                     {{ form_end(form) }}

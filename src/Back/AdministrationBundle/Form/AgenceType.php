@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AgenceType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -15,17 +16,17 @@ class AgenceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('adresse')
-            ->add('tel1')
-            ->add('tel2')
-            ->add('fax')
-            ->add('contactEmail')
-            ->add('sendEmail')
-            ->add('site')
+                ->add('nom')
+                ->add('adresse')
+                ->add('tel1')
+                ->add('tel2')
+                ->add('fax')
+                ->add('contactEmail')
+                ->add('site')
+                ->add('file', 'file', array('required' => false))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
@@ -43,4 +44,5 @@ class AgenceType extends AbstractType
     {
         return 'back_administrationbundle_agence';
     }
+
 }

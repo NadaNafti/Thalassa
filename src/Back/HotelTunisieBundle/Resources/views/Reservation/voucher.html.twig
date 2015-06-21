@@ -5,10 +5,10 @@
         <title>Voucher</title>
         <link rel="stylesheet" href="{{ asset('voucher-assets/style.css') }}" media="all" />
     </head>
-    <body  contenteditable="true">
+    <body>
         <header class="clearfix">
             <div id="logo">
-                <img src="{{ asset('voucher-assets/logo.png') }}">
+                <img src="{{ asset(agence.assetPath) }}">
             </div>
             <div id="company">
                 <h2 class="name">{{ agence.nom }}</h2>
@@ -23,7 +23,13 @@
                 <div id="client">
                     <div class="to"  style="line-height: 39px;">Séjour hôtel en Tunisie</div>
                     <h2 class="name">{{ reservation.hotel }}</h2>
-                    {#<div class="address">796 Silver Harbour, TX 79273, US</div>#}
+                    <div class="address">{{ reservation.hotel.adresse }}</div>
+                    {% if reservation.hotel.tel2 is not null %}
+                        <div class="address">{{ reservation.hotel.tel1 }}</div>
+                    {% endif %}
+                    {% if reservation.hotel.tel2 is not null %}
+                        <div class="address">{{ reservation.hotel.tel2 }}</div>
+                    {% endif %}
                 </div>
                 <div id="invoice">
                     <h1>Voucher # {{ reservation.code }}</h1>
