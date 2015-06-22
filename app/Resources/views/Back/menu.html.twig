@@ -84,7 +84,7 @@
                         <ul class="sub-menu">
                             <li {% if  app.request.get('_route')=='liste_reservations' %} class="open"{% endif %}>
                                 <a href="{{ path('liste_reservations') }}">
-                                    <span class="title">Liste</span>
+                                    <span class="title">Liste ({{ render(controller('BackHotelTunisieBundle:Reservation:countEnregistrer')) }})</span>
                                 </a>
                             </li>
                         </ul>

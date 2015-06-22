@@ -338,7 +338,7 @@ class ReservationService
                 if (!is_null($hotel->getEmail2()))
                     $message->setCc($hotel->getEmail2());
             }
-            if (!is_null($hotel->getEmail2()))
+            else
                 $message->setTo($hotel->getEmail2());
 
             $produit = $this->em->getRepository('BackAdministrationBundle:Produit')->findOneBy(array('code' => 'SHT'));

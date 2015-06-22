@@ -16,6 +16,7 @@ use Back\HotelTunisieBundle\Entity\ReservationLigne;
 use Back\HotelTunisieBundle\Entity\ReservationJour;
 use Back\HotelTunisieBundle\Entity\ReservationChambre;
 use Back\HotelTunisieBundle\Entity\ReservationRepository;
+use Symfony\Component\HttpFoundation\Response;
 
 class ReservationController extends Controller
 {
@@ -369,6 +370,12 @@ class ReservationController extends Controller
             }
         }
         return $this->redirect($this->generateUrl('liste_reservations'));
+    }
+    
+    public function countEnregistrerAction()
+    {
+        $em=  $this->getDoctrine()->getManager();
+        return new Response(count($em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice(1, 'all', 'r.id', 'desc')));
     }
 
 }
