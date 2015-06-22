@@ -225,13 +225,13 @@ class ReservationController extends Controller
         ));
     }
 
-    public function listeAction($page,$etat, $amicale,$sort,$direction)
+    public function listeAction($page, $etat, $amicale, $sort, $direction)
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $request = $this->getRequest();
         $amicales = $em->getRepository('BackAdministrationBundle:Amicale')->findBy(array(), array('libelle' => 'asc'));
-        $query = $em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice($etat, $amicale,$sort,$direction);
+        $query = $em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice($etat, $amicale, $sort, $direction);
         $paginator = $this->get('knp_paginator');
         $reservations = $paginator->paginate($query, $request->query->get('page', 1), 20);
         return $this->render('BackHotelTunisieBundle:Reservation:liste.html.twig', array(
@@ -334,7 +334,7 @@ class ReservationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $session = $this->getRequest()->getSession();
-        if ($user->getId() == $reservation->getResponsable()->getId()  && $reservation->getEtat()==1)
+        if ($user->getId() == $reservation->getResponsable()->getId() && $reservation->getEtat() == 1)
         {
             if (!is_null($reservation->getClient()->getAmicale()))
             {
@@ -350,6 +350,25 @@ class ReservationController extends Controller
             $session->getFlashBag()->add('success', "Réservation a été validée avec succées ");
         }
         return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
+    }
+
+    public function notifierAction(Reservation $reservation)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        if (is_null($reservation->getHotel()->getEmail1()) && is_null($reservation->getHotel()->getEmail2()))
+            $session->getFlashBag()->add('info',  $reservation->getHotel()->getLibelle() . " n' a pas un email valide <a target='_blank' href='" . $this->generateUrl('modif_hotel', array('id' => $reservation->getHotel()->getId())) . "' >Modifier cet hôtel</a>");
+        else
+        {
+            if ($this->container->get('reservation')->sendMailHotel($reservation))
+            {
+                $reservation->setHotelNotifier(TRUE);
+                $em->persist($reservation);
+                $em->flush();
+                $session->getFlashBag()->add('success', $reservation->getHotel()->getLibelle() . " a été notifiée avec succées ");
+            }
+        }
+        return $this->redirect($this->generateUrl('liste_reservations'));
     }
 
 }

@@ -94,9 +94,9 @@
                                     <td>
                                         {{ reservation.hotel|title }}<br>
                                         {% if reservation.hotelNotifier %}
-                                            <span style="color:green"> Notifier</span>
+                                            <a href="{{ path('renotifier_hotel',{'id':reservation.id}) }}" class="tooltips" title="Cliquez ici pour renotifier l'hôtel" ><span style="color:green"> Notifier</span></a>
                                         {% else %}
-                                            <span style="color:red">Non notifier</span>
+                                            <a href="{{ path('renotifier_hotel',{'id':reservation.id}) }}" class="tooltips" title="Cliquez ici pour notifier l'hôtel"><span style="color:red">Non notifier</span></a>
                                         {% endif %}
                                     </td>
                                     <td>

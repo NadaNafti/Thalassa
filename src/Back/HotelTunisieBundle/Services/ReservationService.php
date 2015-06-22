@@ -186,10 +186,6 @@ class ReservationService
                 ->setSurDemande($result['surDemande'])
                 ->setOptions($options)
                 ->setEtat(1);
-        if ($source == 'backoffice' && $this->sendMailHotel($hotel, $result, $client))
-            $reservation->setHotelNotifier(true);
-        else
-            $reservation->setHotelNotifier(false);
         if ($source == 'backoffice')
         {
             $user = $this->container->get('security.context')->getToken()->getUser();
@@ -304,6 +300,10 @@ class ReservationService
                 }
             }
         }
+        if ($source == 'backoffice' && $this->sendMailHotel($reservation))
+            $reservation->setHotelNotifier(true);
+        else
+            $reservation->setHotelNotifier(false);
         $this->em->flush();
     }
 
@@ -321,11 +321,12 @@ class ReservationService
         return $calendrier;
     }
 
-    public function sendMailHotel(Hotel $hotel, $result, Client $client)
+    public function sendMailHotel(Reservation $reservation)
     {
         $agence = $this->em->getRepository('BackAdministrationBundle:Agence')->find(1);
         $user = $this->container->get('security.context')->getToken()->getUser();
         $sender = $user->getEmail();
+        $hotel = $reservation->getHotel();
         if (!is_null($hotel->getEmail1()) || !is_null($hotel->getEmail2()))
         {
             $message = \Swift_Message::newInstance()
@@ -349,34 +350,26 @@ class ReservationService
             }
             $body = "<b>Cher partenaire <strong>" . $hotel->getLibelle() . "</strong>,</b><br>";
             $body .="Merci de nous confirmer la réservation suivante :<br>";
-            $body .= "Du " . $result['dateDebut'] . " au " . $result['dateFin'] . "   <b>, <u>" . $result['nuitees'] . " nuitée(s) </u></b><br>";
-            $body .="En faveur :  " . $client->getNomPrenom();
+            $body .= "Du " . $reservation->getDateDebut()->format('d/m/Y') . " au " . $reservation->getDateFin()->format('d/m/Y') . "   <b>, <u>" . $reservation->getNuitees() . " nuitée(s) </u></b><br>";
+            $body .="En faveur :  " . $reservation->getClient()->getNomPrenom();
             $body .="<br><br>";
-            foreach ($result['chambres'] as $chambre)
+            foreach ($reservation->getChambres() as $chambre)
             {
-                $ch = $this->em->getRepository('BackHotelTunisieBundle:Chambre')->find($chambre['details']['chambre']);
-                $arr = $this->em->getRepository('BackHotelTunisieBundle:Arrangement')->find($chambre['details']['arrangement']);
-                $body.="<br>- <strong>" . $ch->getLibelle() . "</strong> avec <strong>" . $arr->getLibelle() . "</strong> <br>";
-                $body.="- <strong>Adulte : </strong> " . count($chambre['adultes']) . '<br>';
-                $body.="- <strong>Enfant : </strong> " . count($chambre['enfants']) . '<br>';
-                foreach ($chambre['enfants'] as $enfant)
-                    $body.="- <strong>Age Enfant N° " . $enfant['ordre'] . " : </strong> " . $enfant['age'] . ' ans .<br>';
+                $body.="<br>- <strong>" . $chambre->getChambre()->getLibelle() . "</strong> avec <strong>" . $chambre->getArrangement()->getLibelle() . "</strong> <br>";
+                $body.="- <strong>Adulte : </strong> " . count($chambre->getAdultes()) . '<br>';
+                $body.="- <strong>Enfant : </strong> " . count($chambre->getEnfants()) . '<br>';
+                foreach ($chambre->getEnfants() as $enfant)
+                    $body.="- <strong>Age Enfant N° " . $enfant->getOrdre() . " : </strong> " . $enfant->getAge() . ' ans .<br>';
                 $body.='<br>';
-                if (count($chambre['details']['supp']) != 0)
+                foreach ($chambre->getSupplements() as $supp)
                 {
-                    foreach ($chambre['details']['supp'] as $supp)
-                    {
-                        $supplemenet = $this->em->getRepository('BackHotelTunisieBundle:Supplement')->find($supp);
-                        $body.="- <strong>" . $supplemenet->getLibelle() . ' </strong><br>';
-                    }
+                    $supplemenet = $this->em->getRepository('BackHotelTunisieBundle:Supplement')->find($supp);
+                    $body.="- <strong>" . $supplemenet->getLibelle() . ' </strong><br>';
                 }
-                if (count($chambre['details']['vue']) != 0)
+                foreach ($chambre->getVues() as $vue)
                 {
-                    foreach ($chambre['details']['vue'] as $vue)
-                    {
-                        $v = $this->em->getRepository('BackHotelTunisieBundle:Vue')->find($vue);
-                        $body.="- <strong>" . $v->getLibelle() . ' </strong><br>';
-                    }
+                    $v = $this->em->getRepository('BackHotelTunisieBundle:Vue')->find($vue);
+                    $body.="- <strong>" . $v->getLibelle() . ' </strong><br>';
                 }
             }
             $body .="<br><br>";

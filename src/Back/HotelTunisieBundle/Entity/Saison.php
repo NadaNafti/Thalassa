@@ -559,6 +559,7 @@ class Saison
     public function __construct()
     {
         $this->chambres=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->arrangements=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

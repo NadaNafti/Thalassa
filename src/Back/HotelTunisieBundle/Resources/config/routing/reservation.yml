@@ -57,3 +57,7 @@ details_reservation:
 save_reservation:
     path:     /save
     defaults: { _controller: BackHotelTunisieBundle:Reservation:save }
+    
+renotifier_hotel:
+    path:     /renotifier_hotel/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:notifier }
