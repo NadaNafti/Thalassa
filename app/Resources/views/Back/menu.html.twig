@@ -4,7 +4,7 @@
             <i class="clip-chevron-left"></i>
             <i class="clip-chevron-right"></i>
         </div>
-        <ul class="main-navigation-menu">
+        <ul class="main-navigation-menu sub-menu">
             <li {% if app.request.get('_route')=='tableaubord' %} class="active open"{% endif %}>
                 <a href="{{ path("tableaubord") }}"><i class="clip-home-3"></i>
                     <span class="title"> Tableau de bord </span>{% if app.request.get('_route')=='tableaubord' %}<span class="selected"></span>{% endif %}
