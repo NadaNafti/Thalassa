@@ -334,7 +334,7 @@ class ReservationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $session = $this->getRequest()->getSession();
-        if ($user->getId() == $reservation->getResponsable()->getId()  && $reservation->getEtat()==2)
+        if ($user->getId() == $reservation->getResponsable()->getId()  && $reservation->getEtat()==1)
         {
             if (!is_null($reservation->getClient()->getAmicale()))
             {
