@@ -336,17 +336,17 @@ class ReservationService
             {
                 $message->setTo($hotel->getEmail1());
                 if (!is_null($hotel->getEmail2()))
-                    $message->setCc($hotel->getEmail2());
+                    $message->addCc($hotel->getEmail2());
             }
             else
                 $message->setTo($hotel->getEmail2());
-
+                    
             $produit = $this->em->getRepository('BackAdministrationBundle:Produit')->findOneBy(array('code' => 'SHT'));
             if ($produit)
             {
                 $emails = $this->em->getRepository('BackAdministrationBundle:Email')->findByProduit($produit);
                 foreach ($emails as $email)
-                    $message->setCc($email->getEmail());
+                    $message->addCc($email->getEmail());
             }
             $body = "<b>Cher partenaire <strong>" . $hotel->getLibelle() . "</strong>,</b><br>";
             $body .="Merci de nous confirmer la réservation suivante :<br>";
