@@ -73,4 +73,72 @@ class Contrat
     {
         return $this->libelle;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->saisons = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set hotel
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotel
+     * @return Contrat
+     */
+    public function setHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotel = null)
+    {
+        $this->hotel = $hotel;
+
+        return $this;
+    }
+
+    /**
+     * Get hotel
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Hotel 
+     */
+    public function getHotel()
+    {
+        return $this->hotel;
+    }
+
+    /**
+     * Add saisons
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Saison $saisons
+     * @return Contrat
+     */
+    public function addSaison(\Back\HotelTunisieBundle\Entity\Saison $saisons)
+    {
+        $this->saisons[] = $saisons;
+
+        return $this;
+    }
+
+    /**
+     * Remove saisons
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Saison $saisons
+     */
+    public function removeSaison(\Back\HotelTunisieBundle\Entity\Saison $saisons)
+    {
+        $this->saisons->removeElement($saisons);
+    }
+
+    /**
+     * Get saisons
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSaisons()
+    {
+        return $this->saisons;
+    }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 }

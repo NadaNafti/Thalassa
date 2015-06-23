@@ -114,6 +114,11 @@ class Client
     protected $reservations;
 
     /**
+     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Piece", mappedBy="client")
+     */
+    protected $pieces;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -477,5 +482,38 @@ class Client
     public function getReservations()
     {
         return $this->reservations;
+    }
+
+    /**
+     * Add pieces
+     *
+     * @param \Back\CommercialBundle\Entity\Piece $pieces
+     * @return Client
+     */
+    public function addPiece(\Back\CommercialBundle\Entity\Piece $pieces)
+    {
+        $this->pieces[] = $pieces;
+
+        return $this;
+    }
+
+    /**
+     * Remove pieces
+     *
+     * @param \Back\CommercialBundle\Entity\Piece $pieces
+     */
+    public function removePiece(\Back\CommercialBundle\Entity\Piece $pieces)
+    {
+        $this->pieces->removeElement($pieces);
+    }
+
+    /**
+     * Get pieces
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPieces()
+    {
+        return $this->pieces;
     }
 }
