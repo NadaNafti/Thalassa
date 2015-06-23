@@ -32,8 +32,8 @@ class SaisonType extends AbstractType
                 ->add('aCompte')
                 ->add('minStay')
                 ->add('totalContingent')
-                ->add('prixConvention','integer')
-                ->add('margeVente','integer')
+                ->add('prixConvention')
+                ->add('margeVente')
                 ->add('pourcentage', 'checkbox', array(
                     'label'   =>' En pourcentage',
                     'required'=>false
