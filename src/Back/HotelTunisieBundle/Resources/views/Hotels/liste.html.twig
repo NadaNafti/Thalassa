@@ -98,6 +98,7 @@
                     <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
                         <thead>
                             <tr>
+                                <th class="center {% if hotels.isSorted('h.id') %}sorting_{{ hotels.direction }}{% endif %}">{{ knp_pagination_sortable(hotels, '#', 'h.id') }}</th>
                                 <th class="center {% if hotels.isSorted('h.libelle') %}sorting_{{ hotels.direction }}{% endif %}">{{ knp_pagination_sortable(hotels, 'Libellé', 'h.libelle') }}</th>
                                 <th class="center {% if hotels.isSorted('c.nombreEtoiles') %}sorting_{{ hotels.direction }}{% endif %}">{{ knp_pagination_sortable(hotels, 'Catégorie', 'c.nombreEtoiles') }}</th>
                                 <th class="center {% if hotels.isSorted('v.libelle') %}sorting_{{ hotels.direction }}{% endif %}">{{ knp_pagination_sortable(hotels, 'Ville', 'v.libelle') }}</th>
@@ -110,6 +111,7 @@
                         <tbody>
                             {% for hotel in hotels %}
                                 <tr class="center">
+                                    <td>{{ hotel.id }}</td>
                                     <td>{{ hotel.libelle|title }}</td>
                                     <td>{{ getStars(hotel.getStars)|raw }}</td>
                                     <td>{{ hotel.ville }}</td>

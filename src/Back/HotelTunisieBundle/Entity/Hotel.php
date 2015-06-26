@@ -965,7 +965,11 @@ class Hotel
     public function getStars()
     {
         if($this->categorie != null)
-            return $this->categorie->getNombreEtoiles();
+        {
+            if($this->categorie->getNombreEtoiles()!=1)
+                return $this->categorie->getNombreEtoiles();
+            return $this->categorie->getLibelle();
+        }
         else
             return 0;
     }

@@ -23,7 +23,7 @@ class NewReservationType extends AbstractType
                                 ->orderBy('u.libelle', 'ASC');
                     },
                     'required' => false,
-                    'empty_value' => 'Tous les villes en tunisie',
+                    'empty_value' => 'Villes en tunisie',
                     'empty_data' => null
                 ))
                 ->add('client', 'entity', array('class' => 'BackUserBundle:Client',
@@ -32,9 +32,20 @@ class NewReservationType extends AbstractType
                         return $er->createQueryBuilder('u')
                                 ->orderBy('u.nomPrenom', 'ASC');
                     },
-                    'required' => true
+                    'required' => true,
+                    'empty_value' => 'Liste des clients',
+                    'empty_data' => null
                 ))
-                ->add('hotels', 'entity', array('class' => 'BackHotelTunisieBundle:Hotel'))
+                ->add('hotels', 'entity', array('class' => 'BackHotelTunisieBundle:Hotel',
+                    'query_builder' => function(EntityRepository $er)
+                    {
+                        return $er->createQueryBuilder('h')
+                                ->orderBy('h.libelle', 'ASC');
+                    },
+                    'required' => true,
+                    'empty_value' => 'Liste des hôtels',
+                    'empty_data' => null
+                ))
                 ->add('dateDebut', 'date', array(
                     'required' => true,
                     'widget' => 'single_text',

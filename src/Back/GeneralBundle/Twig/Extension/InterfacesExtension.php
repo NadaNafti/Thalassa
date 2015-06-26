@@ -26,7 +26,7 @@ class InterfacesExtension extends \Twig_Extension
             return $stars;
         }
         else
-            return "";
+            return $num;
     }
 
     public function getTeste()

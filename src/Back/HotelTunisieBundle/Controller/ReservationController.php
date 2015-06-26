@@ -34,10 +34,10 @@ class ReservationController extends Controller
                 $data = $form->getData();
                 if ($data['dateDebut']->format('Y-m-d') <= date('Y-m-d'))
                     $form->get('dateDebut')->addError(new FormError(" Votre date doit être supérieure à la date " . date('d/m/Y')));
-                elseif (is_null($data['hotels']->getSaisonByClient($data['dateDebut']->format('Y-m-d'),$data['client'])) || !$data['hotels']->getSaisonBase()->isValidSaisonBase())
+                elseif (is_null($data['hotels']->getSaisonByClient($data['dateDebut']->format('Y-m-d'), $data['client'])) || !$data['hotels']->getSaisonBase()->isValidSaisonBase())
                     $form->get('hotels')->addError(new FormError(" La saison de base est invalide !!!"));
-                elseif ($data['hotels']->getSaisonByClient($data['dateDebut']->format('Y-m-d'),$data['client'])->getMinStay() > $data['nuitees'])
-                    $form->get('nuitees')->addError(new FormError(" Nombre de nuitées doit être supérieure ou égale au min stay " . $data['hotels']->getSaisonByClient($data['dateDebut']->format('Y-m-d'),$data['client'])->getMinStay()));
+                elseif ($data['hotels']->getSaisonByClient($data['dateDebut']->format('Y-m-d'), $data['client'])->getMinStay() > $data['nuitees'])
+                    $form->get('nuitees')->addError(new FormError(" Nombre de nuitées doit être supérieure ou égale au min stay " . $data['hotels']->getSaisonByClient($data['dateDebut']->format('Y-m-d'), $data['client'])->getMinStay()));
                 else
                 {
                     $reservation = array();
@@ -65,12 +65,10 @@ class ReservationController extends Controller
         if ($id != '')
         {
             $ville = $em->getRepository("BackHotelTunisieBundle:Ville")->find($id);
-            $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->findBy(
-                    array('ville' => $ville), array('libelle' => 'asc')
-            );
+            $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->findBy(array('ville' => $ville), array('libelle' => 'asc'));
         }
         else
-            $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->findAll();
+            $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->findBy(array(), array('libelle' => 'asc'));
         $tab = array();
         foreach ($hotels as $hotel)
             $tab[$hotel->getId()] = $hotel->getLibelle();
@@ -358,7 +356,7 @@ class ReservationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         if (is_null($reservation->getHotel()->getEmail1()) && is_null($reservation->getHotel()->getEmail2()))
-            $session->getFlashBag()->add('info',  $reservation->getHotel()->getLibelle() . " n' a pas un email valide <a target='_blank' href='" . $this->generateUrl('modif_hotel', array('id' => $reservation->getHotel()->getId())) . "' >Modifier cet hôtel</a>");
+            $session->getFlashBag()->add('info', $reservation->getHotel()->getLibelle() . " n' a pas un email valide <a target='_blank' href='" . $this->generateUrl('modif_hotel', array('id' => $reservation->getHotel()->getId())) . "' >Modifier cet hôtel</a>");
         else
         {
             if ($this->container->get('reservation')->sendMailHotel($reservation))
@@ -371,10 +369,10 @@ class ReservationController extends Controller
         }
         return $this->redirect($this->generateUrl('liste_reservations'));
     }
-    
+
     public function countEnregistrerAction()
     {
-        $em=  $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         return new Response(count($em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice(1, 'all', 'r.id', 'desc')));
     }
 
