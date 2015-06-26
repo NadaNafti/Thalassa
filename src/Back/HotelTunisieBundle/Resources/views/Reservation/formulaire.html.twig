@@ -144,7 +144,7 @@
                             color: '#F0AD4E',{% elseif day.saison.type ==1 %}
                             color: '#555',{% else %}
                             color: '#569099',{% endif %}
-                            title: '{{ day.saison }}',
+                            title: '{{ day.saison|raw }}',
                             start: '{{ day.dateDebut }}',
                             end: '{{ day.dateFin }}',
                             url: 'javascript:void(0)'

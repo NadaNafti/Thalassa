@@ -65,6 +65,7 @@ class SaisonsController extends Controller
                                 ->orderBy('s.id', 'desc');
                         ;
                     },
+                    'property' => 'contratLibelle',
                     'required' => false,
                     'empty_value' => 'Saison de base',
                     'empty_data' => null

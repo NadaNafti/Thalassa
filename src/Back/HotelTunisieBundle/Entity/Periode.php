@@ -124,7 +124,7 @@ class Periode
     public function showPeriode()
     {
         if(date('Y-m-d')>= $this->dateDebut->format('Y-m-d') && date('Y-m-d')<= $this->dateFin->format('Y-m-d'))
-            return "<span style='color:red' >".$this->dateDebut->format("d/m/Y").' - '.$this->dateFin->format("d/m/Y")."</span>";
+            return "<span class='pulsate-regular' >".$this->dateDebut->format("d/m/Y").' - '.$this->dateFin->format("d/m/Y")."</span>";
         elseif(date('Y-m-d') > $this->dateFin->format('Y-m-d'))
             return "<s>".$this->dateDebut->format("d/m/Y").' - '.$this->dateFin->format("d/m/Y")."</s>";
         else

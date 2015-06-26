@@ -46,7 +46,7 @@
                                             {% endif %}
                                             {% if not saison.isValid %}
                                                 <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
-                                            {% endif %}
+                                                {% endif %}
                                         </td>
                                         <td class="center">{{ saison.libelle }}</td>
                                         <td class="center">
@@ -56,7 +56,7 @@
                                         </td>
                                         <td>
                                             {% for amicale in saison.amicales %}
-                                                {{ amicale }} {% if loop.index!=saison.amicales|length %} ,{% endif %}
+                                                -  {{ amicale }} <br>
                                             {% endfor %}
                                         </td>
                                         <td class="center">{{ saison.created|date('d/m/Y') }}</td>
@@ -77,4 +77,18 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block jquery %}
+    <script src="{{ asset("back-assets/plugins/jquery.pulsate/jquery.pulsate.min.js") }}"></script>
+    <script>
+        $('.pulsate-regular').pulsate({
+            color: '#C43C35', // set the color of the pulse
+            reach: 3, // how far the pulse goes in px
+            speed: 150, // how long one pulse takes in ms
+            pause: 0, // how long the pause between pulses is in ms
+            glow: true, // if the glow should be shown too
+            repeat: true, // will repeat forever if true, if given a number will repeat for that many times
+            onHover: false // if true only pulsate if user hovers over the element
+        });
+    </script>
 {% endblock %}
