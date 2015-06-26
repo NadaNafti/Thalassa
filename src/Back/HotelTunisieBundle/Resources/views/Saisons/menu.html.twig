@@ -6,37 +6,37 @@
     </li>
     <li {% if app.request.get('_route')=='GeneralSaison' %}class="active"{% endif %}>
         <a href="{{ path('GeneralSaison', {'id':saison.id}) }}">
-            Générale 
+            Générale  {% if not saison.isArrBaseValide %} <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span> {% endif %}
         </a>
     </li>
     <li {% if app.request.get('_route')=='OccChambreSaison' %}class="active"{% endif %}>
         <a href="{{ path('OccChambreSaison', {'id':saison.id}) }}">
-            Occ. chambres 
+            Occ. chambres  {% if saison.chambres|length != hotel.chambres|length %} <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span> {% endif %}
         </a>
     </li>
     <li {% if app.request.get('_route')=='ArrangementSaison' %}class="active"{% endif %}>
         <a href="{{ path('ArrangementSaison', {'id':saison.id}) }}">
-            Arrangements 
+            Arrangements {% if saison.arrangements|length+1 !=hotel.arrangements|length %}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>{% endif %}
         </a>
     </li>
     <li {% if app.request.get('_route')=='ReductionSaison' %}class="active"{% endif %}>
         <a href="{{ path('ReductionSaison', {'id':saison.id}) }}">
-            Réduc.
+            Réduc. {% if saison.saisonReduc is null%} class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>{% endif %}
         </a>
     </li>
     <li {% if app.request.get('_route')=='SupplementSaison' %}class="active"{% endif %}>
         <a href="{{ path('SupplementSaison', {'id':saison.id}) }}">
-            Supp.
+            Supp.{% if saison.saisonSupp is null%}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>{% endif %}
         </a>
     </li>
     <li {% if app.request.get('_route')=='AutreChambreSaison' %}class="active"{% endif %}>
         <a href="{{ path('AutreChambreSaison', {'id':saison.id}) }}">
-            Supp. autres chambres
+            Supp. autres chambres {% if saison.suppChambres|length != hotel.getCountAutresChambres %}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>{% endif %}
         </a>
     </li>
     <li {% if app.request.get('_route')=='VuesSaison' %}class="active"{% endif %}>
         <a href="{{ path('VuesSaison', {'id':saison.id}) }}">
-            Supp. vues
+            Supp. vues {% if saison.vues|length != hotel.vues|length  %}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>{% endif %}
         </a>
     </li>
     <li {% if app.request.get('_route')=='AutreSuppSaison' %}class="active"{% endif %}>
@@ -52,7 +52,7 @@
     {% if hotel.ficheTechnique.tarifWeekend == true%}
         <li {% if app.request.get('_route')=='WeekendSaison' %}class="active"{% endif %}>
             <a href="{{ path('WeekendSaison', {'id':saison.id}) }}">
-                Weekend
+                Weekend {% if saison.saisonWeekend is null%}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>{% endif %}
             </a>
         </li>
     {% endif %}

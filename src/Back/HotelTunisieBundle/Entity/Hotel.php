@@ -1317,4 +1317,19 @@ class Hotel
     {
         return $this->tel2;
     }
+    
+    public function isValideEmail1()
+    {
+        if(!is_null($this->email1) && !empty($this->email1) )
+            return TRUE;
+        else
+            return FALSE;
+    }
+    public function isValideEmail2()
+    {
+        if(!is_null($this->email2) && !empty($this->email2) )
+            return TRUE;
+        else
+            return FALSE;
+    }
 }

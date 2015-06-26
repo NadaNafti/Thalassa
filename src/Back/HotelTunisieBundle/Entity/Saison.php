@@ -79,7 +79,6 @@ class Saison
 
     /**
      * @var integer
-     * @Assert\Range(min = 1)
      * @ORM\Column(name="totalContingent", type="integer")
      */
     private $totalContingent;

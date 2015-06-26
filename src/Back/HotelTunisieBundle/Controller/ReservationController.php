@@ -34,10 +34,10 @@ class ReservationController extends Controller
                 $data = $form->getData();
                 if ($data['dateDebut']->format('Y-m-d') <= date('Y-m-d'))
                     $form->get('dateDebut')->addError(new FormError(" Votre date doit être supérieure à la date " . date('d/m/Y')));
-                elseif (is_null($data['hotels']->getSaisonPromotionByDate(date('d/m/Y'))) || !$data['hotels']->getSaisonBase()->isValidSaisonBase())
+                elseif (is_null($data['hotels']->getSaisonByClient($data['dateDebut']->format('Y-m-d'),$data['client'])) || !$data['hotels']->getSaisonBase()->isValidSaisonBase())
                     $form->get('hotels')->addError(new FormError(" La saison de base est invalide !!!"));
-                elseif ($data['hotels']->getSaisonPromotionByDate(date('Y-m-d'))->getMinStay() > $data['nuitees'])
-                    $form->get('nuitees')->addError(new FormError(" Nombre de nuitées doit être supérieure ou égale au min stay " . $data['hotels']->getSaisonPromotionByDate(date('d/m/Y'))->getMinStay()));
+                elseif ($data['hotels']->getSaisonByClient($data['dateDebut']->format('Y-m-d'),$data['client'])->getMinStay() > $data['nuitees'])
+                    $form->get('nuitees')->addError(new FormError(" Nombre de nuitées doit être supérieure ou égale au min stay " . $data['hotels']->getSaisonByClient($data['dateDebut']->format('Y-m-d'),$data['client'])->getMinStay()));
                 else
                 {
                     $reservation = array();

@@ -42,6 +42,9 @@
                                             {% elseif saison.type==3 %}
                                                 <span class="label label-sm label-teal">Amicales</span>
                                             {% endif %}
+                                            {% if not saison.isValid %}
+                                                <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>
+                                            {% endif %}
                                         </td>
                                         <td class="center">{{ saison.libelle }}</td>
                                         <td class="center">
@@ -64,9 +67,9 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                    <div class="navigation">
-                        {{ knp_pagination_render(saisons) }}
-                    </div>
+                        <div class="navigation">
+                            {{ knp_pagination_render(saisons) }}
+                        </div>
                     </div>
                 </div>
             </div>

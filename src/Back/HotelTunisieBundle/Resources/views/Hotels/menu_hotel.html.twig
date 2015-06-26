@@ -21,12 +21,12 @@
     </li>
     <li {% if app.request.get('_route')=='fiche_technique' %}class="active"{% endif %}>
         <a href="{{ path("fiche_technique",{'id':hotel.id}) }}">
-            Fiche téchnique {% if hotel.ficheTechnique is null %}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i>{% endif %}
+            Fiche téchnique {% if hotel.ficheTechnique is null %}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>{% endif %}
         </a>
     </li>
     <li {% if app.request.get('_route') in ['saison_base','saison_chambres','saison_reduction','saison_arrangements','saison_supp_chambres','saison_vues','saison_supplement','saison_weekend','saison_autres_supp','saison_autres_reduc','fiche_saison_base'] %}class="active"{% endif %}>
         <a href="{{ path("saison_base",{'id':hotel.id}) }}">
-            Saison de base {% if hotel.saisonBase is null or hotel.saisonBase.isValidSaisonBase == false %}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i>{% endif %}
+            Saison de base {% if hotel.saisonBase is null or hotel.saisonBase.isValidSaisonBase == false %}<span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>{% endif %}
         </a>
     </li>
     <li {% if app.request.get('_route') in ['article_hotel'] %}class="active"{% endif %}>

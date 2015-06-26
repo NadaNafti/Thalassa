@@ -327,15 +327,15 @@ class ReservationService
         $user = $this->container->get('security.context')->getToken()->getUser();
         $sender = $user->getEmail();
         $hotel = $reservation->getHotel();
-        if (!is_null($hotel->getEmail1()) || !is_null($hotel->getEmail2()))
+        if ($hotel->isValideEmail1() || $hotel->isValideEmail2())
         {
             $message = \Swift_Message::newInstance()
                     ->setSubject('Nouvelle Réservation de la par ' . $agence->getNom())
                     ->setFrom($sender);
-            if (!is_null($hotel->getEmail1()))
+            if ($hotel->isValideEmail1())
             {
                 $message->setTo($hotel->getEmail1());
-                if (!is_null($hotel->getEmail2()))
+                if ($hotel->isValideEmail2())
                     $message->addCc($hotel->getEmail2());
             }
             else
