@@ -25,4 +25,5 @@ services:
             - @session
             - @service_container
             - @mailer
+            - @templating
             

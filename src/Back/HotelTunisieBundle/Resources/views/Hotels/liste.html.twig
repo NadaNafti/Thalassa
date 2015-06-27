@@ -132,7 +132,7 @@
                                         {% else %} 
                                             <a href="{{ path('change_etat',{'id':hotel.id,'etat':1}) }}" class="tooltips" title="Cliquez ici pour activer l'hôtel" ><span class="label label-sm label-danger">Inactive</span></a>
                                         {% endif %}
-                                        {% if hotel.email1 is null and hotel.email2 is null %}
+                                        {% if not hotel.isValideEmail1 and not hotel.isValideEmail2 %}
                                             <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" class="tooltips" title="les deux Emails de réservation sont vides"><span class="label label-sm label-danger">Email</span></a>
                                         {% endif %}
                                         {% if hotel.isInStopSales is not null %}

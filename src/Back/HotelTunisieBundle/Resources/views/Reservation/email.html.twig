@@ -1,0 +1,28 @@
+<p>Cher partenaire <strong>{{ reservation.hotel }}</strong>,</p>   
+<p>Merci de nous confirmer la réservation suivante :</p>   
+<p>Du {{ reservation.dateDebut|date('d F Y') }} au {{ reservation.dateFin|date('d F Y') }}  <b>, <u> {{ reservation.nuitees}} nuitée(s) </u></b></p>   
+<p>En faveur : {{ reservation.client }}</p><br>
+{%  for chambre in reservation.chambres %}
+    <p>- <strong>{{ chambre.chambre }}</strong> avec <strong>{{ chambre.arrangement }}</strong></p>
+    <p>- <strong>{{ chambre.adultes|length }} adulte(s) </strong></p>
+    <p>- <strong>{{ chambre.enfants|length }} enfant(s) </strong></p>
+    {% for enfant in chambre.enfants %}
+        <p> - <strong>Age Enfant N° {{ enfant.ordre }} : </strong> {{ enfant.age }} ans </p>
+    {% endfor %}
+    {% for supp in chambre.supplements %}
+        <p> - <strong> {{ getNameSupp(supp) }}</strong></p>
+    {% endfor %}
+    {% for vue in chambre.vues %}
+        <p> - <strong> {{ getNameVue(vue) }}</strong></p>
+    {% endfor %}<br>
+{% endfor %}
+<br>
+{% if reservation.options|length >0 %}
+    <p>Options</p>
+    {% for option in reservation.options %}
+        <p> - {{ getNameOption(option) }}</p>
+    {% endfor %}
+<br>
+{% endif %}
+<p>Cordialement,</p>
+<p>L'équipe de <strong>{{ agence.nom }}</strong></p>

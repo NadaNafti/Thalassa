@@ -1711,7 +1711,7 @@ class SaisonReduc
                 else
                     $reduc = $this->val2EnfantOuPlusSepare2 * -1;
             }
-            return number_format($reduc + $marge, 3, '.', '');
+            return number_format($reduc, 3, '.', '');
         }
         return 0;
     }

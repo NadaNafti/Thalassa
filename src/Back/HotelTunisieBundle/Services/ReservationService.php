@@ -22,13 +22,15 @@ class ReservationService
     protected $session;
     protected $container;
     protected $mailer;
+    protected $templating;
 
-    public function __construct(EntityManager $em, Session $session, Container $container, \Swift_Mailer $mailer)
+    public function __construct(EntityManager $em, Session $session, Container $container, \Swift_Mailer $mailer , $templating)
     {
         $this->em = $em;
         $this->session = $session;
         $this->container = $container;
         $this->mailer = $mailer;
+        $this->templating = $templating;
     }
 
     public function getCode()
@@ -340,7 +342,6 @@ class ReservationService
             }
             else
                 $message->setTo($hotel->getEmail2());
-                    
             $produit = $this->em->getRepository('BackAdministrationBundle:Produit')->findOneBy(array('code' => 'SHT'));
             if ($produit)
             {
@@ -348,34 +349,12 @@ class ReservationService
                 foreach ($emails as $email)
                     $message->addCc($email->getEmail());
             }
-            $body = "<b>Cher partenaire <strong>" . $hotel->getLibelle() . "</strong>,</b><br>";
-            $body .="Merci de nous confirmer la réservation suivante :<br>";
-            $body .= "Du " . $reservation->getDateDebut()->format('d/m/Y') . " au " . $reservation->getDateFin()->format('d/m/Y') . "   <b>, <u>" . $reservation->getNuitees() . " nuitée(s) </u></b><br>";
-            $body .="En faveur :  " . $reservation->getClient()->getNomPrenom();
-            $body .="<br><br>";
-            foreach ($reservation->getChambres() as $chambre)
-            {
-                $body.="<br>- <strong>" . $chambre->getChambre()->getLibelle() . "</strong> avec <strong>" . $chambre->getArrangement()->getLibelle() . "</strong> <br>";
-                $body.="- <strong>Adulte : </strong> " . count($chambre->getAdultes()) . '<br>';
-                $body.="- <strong>Enfant : </strong> " . count($chambre->getEnfants()) . '<br>';
-                foreach ($chambre->getEnfants() as $enfant)
-                    $body.="- <strong>Age Enfant N° " . $enfant->getOrdre() . " : </strong> " . $enfant->getAge() . ' ans .<br>';
-                $body.='<br>';
-                foreach ($chambre->getSupplements() as $supp)
-                {
-                    $supplemenet = $this->em->getRepository('BackHotelTunisieBundle:Supplement')->find($supp);
-                    $body.="- <strong>" . $supplemenet->getLibelle() . ' </strong><br>';
-                }
-                foreach ($chambre->getVues() as $vue)
-                {
-                    $v = $this->em->getRepository('BackHotelTunisieBundle:Vue')->find($vue);
-                    $body.="- <strong>" . $v->getLibelle() . ' </strong><br>';
-                }
-            }
-            $body .="<br><br>";
-            $body .= "Cordialement,<br />";
-            $body .= "L'équipe de <strong>" . $agence->getNom() . "</strong><br />";
-            $message->setBody($body, 'text/html');
+            $message->setContentType("text/html");
+            $message->setCharset("utf-8");
+            $message->setBody($this->templating->render('BackHotelTunisieBundle:Reservation:email.html.twig', array(
+                        'agence' => $agence,
+                        'reservation' => $reservation,
+            )));
             $this->mailer->send($message);
             return true;
         }

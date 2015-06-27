@@ -355,7 +355,7 @@ class ReservationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
-        if (is_null($reservation->getHotel()->getEmail1()) && is_null($reservation->getHotel()->getEmail2()))
+        if ( !$reservation->getHotel()->isValideEmail1() && ! $reservation->getHotel()->isValideEmail2())
             $session->getFlashBag()->add('info', $reservation->getHotel()->getLibelle() . " n' a pas un email valide <a target='_blank' href='" . $this->generateUrl('modif_hotel', array('id' => $reservation->getHotel()->getId())) . "' >Modifier cet hôtel</a>");
         else
         {
