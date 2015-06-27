@@ -31,7 +31,21 @@
             {% for chambre in reservation.chambres %}
                 <hr>
                 <p><strong>Chambre {{ loop.index }} : </strong> {{ chambre.chambre }}, {{ chambre.arrangement }}</p>
-                <p>{{ chambre.adultes|length }} adulte(s) & {{ chambre.enfants|length  }} enfant(s) {% for enfant in chambre.enfants %}{{ enfant.age }} ans {% endfor %}</p>
+                <p>
+                    {{ chambre.adultes|length }} adulte(s) & {{ chambre.enfants|length  }} enfant(s) 
+                </p>
+                <p>
+                    {% for enfant in chambre.enfants %}
+                        {{ enfant.age }} ans {% if loop.index!=chambre.enfants|length  %},{% endif %}
+                    {% endfor %}
+                </p>
+
+                {% for supp in chambre.supplements %}
+                    <p> - {{ getNameSupp(supp) }}</p>
+                {% endfor %}
+                {% for vue in chambre.vues %}
+                    <p> - {{ getNameVue(vue) }}</p>
+                {% endfor %}
             {% endfor %}
         </div>
         <div class="col-md-6">

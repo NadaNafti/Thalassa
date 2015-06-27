@@ -41,9 +41,11 @@
 {% macro input(class,label,from,required) %}
     <div class="{{class}}">
         <div class="form-group">
-            <label class="control-label">
-                {{label}} {% if required==true %}<span class="symbol required"></span>{% endif %}
-            </label>
+            {% if label is not null %}
+                <label class="control-label">
+                    {{label}} {% if required==true %}<span class="symbol required"></span>{% endif %}
+                </label>
+            {% endif %}
             {{ form_widget(from) | raw  }}
             {{ form_errors(from) | raw  }}
         </div>
@@ -52,9 +54,11 @@
 {% macro select2(class,label,from,required) %}
     <div class="{{class}}">
         <div class="form-group">
-            <label class="control-label">
-                {{label}} {% if required==true %}<span class="symbol required"></span>{% endif %}
-            </label>
+            {% if label is not null %}
+                <label class="control-label">
+                    {{label}} {% if required==true %}<span class="symbol required"></span>{% endif %}
+                </label>
+            {% endif %}
             {{ form_widget(from, {'attr': {'class': 'search-select'}}) }}
             {{ form_errors(from) | raw  }}
         </div>

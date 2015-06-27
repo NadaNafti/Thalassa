@@ -140,7 +140,7 @@ class ReservationService
 
                     $tabLigne[] = $this->container->get('lignes')->ligneSuppWeekend($saison, $arr, $chambre['chambre'], $date, $results['nuitees']);
                     foreach ($chambre['vue'] as $vue)
-                        $tabLigne[] = $this->container->get('lignes')->ligneSuppVue($saison, $arr, $vue);
+                        $tabLigne[] = $this->container->get('lignes')->ligneSuppVueEnfant($saison, $arr, $i, $nbrAdulte, $tabEnfant['age'], $vue);
                     foreach ($chambre['supp'] as $idSupp)
                         $tabLigne[] = $this->container->get('lignes')->ligneAutresSupplementParNuitees($saisonFist, $arr, 'enfant', $idSupp, \DateTime::createFromFormat('Y-m-d', $date), $ordre);
                     foreach ($chambre['reduc'] as $idReduc)

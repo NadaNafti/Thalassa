@@ -65,10 +65,10 @@ class ReservationController extends Controller
         if ($id != '')
         {
             $ville = $em->getRepository("BackHotelTunisieBundle:Ville")->find($id);
-            $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->findBy(array('ville' => $ville), array('libelle' => 'asc'));
+            $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->findBy(array('ville' => $ville));
         }
         else
-            $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->findBy(array(), array('libelle' => 'asc'));
+            $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->findAll();
         $tab = array();
         foreach ($hotels as $hotel)
             $tab[$hotel->getId()] = $hotel->getLibelle();
