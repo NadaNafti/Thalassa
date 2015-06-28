@@ -24,7 +24,7 @@ class ReservationService
     protected $mailer;
     protected $templating;
 
-    public function __construct(EntityManager $em, Session $session, Container $container, \Swift_Mailer $mailer , $templating)
+    public function __construct(EntityManager $em, Session $session, Container $container, \Swift_Mailer $mailer, $templating)
     {
         $this->em = $em;
         $this->session = $session;
@@ -307,6 +307,7 @@ class ReservationService
         else
             $reservation->setHotelNotifier(false);
         $this->em->flush();
+        return $reservation->getId();
     }
 
     public function getCalendrier($reservation)

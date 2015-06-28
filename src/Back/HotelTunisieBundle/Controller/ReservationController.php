@@ -209,10 +209,10 @@ class ReservationController extends Controller
         {
             $form->submit($request);
             $data = $form->getData();
-            $result = $this->container->get('reservation')->saveReservation($data, $result, 'backoffice');
+            $id = $this->container->get('reservation')->saveReservation($data, $result, 'backoffice');
             $session->remove('reservation');
             $session->getFlashBag()->add('success', " Votre Réservation a été enregistré avec succès ");
-            return $this->redirect($this->generateUrl("liste_reservations"));
+            return $this->redirect($this->generateUrl("consulter_reservation",array('id'=>$id)));
         }
         $reservation = $session->get('reservation');
         return $this->render('BackHotelTunisieBundle:Reservation:details.html.twig', array(
@@ -429,6 +429,7 @@ class ReservationController extends Controller
                 $reglement->setDateCreation(new \DateTime());
                 $em->persist($reglement);
                 $reservation->addReglement($reglement);
+                $session->getFlashBag()->add('success', "Votre piéce a été ajoutée avec succès");
             }
             if ($reservation->getSurDemande() || $reservation->getMontantRestant() == 0)
             {
@@ -446,11 +447,9 @@ class ReservationController extends Controller
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre Réservation a été validée avec succès ");
                 return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
-            }
+            }else
+                $session->getFlashBag()->add('info', " Votre Réservation n'a pas été encore validée, reste encore <strong>".$reservation->getMontantRestant()." DT </strong> a payé");
             $em->flush();
-            if (!is_null($data['piece']->getNumero()))
-                $session->getFlashBag()->add('warning', "Les pieces sont ajoutées avec succès, mais la réservation n'est pas encore valide");
-
             return $this->redirect($this->generateUrl("valider_reservation", array('id' => $reservation->getId())));
         }
         return $this->render('BackHotelTunisieBundle:Reservation:validation.html.twig', array(

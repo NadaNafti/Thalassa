@@ -73,8 +73,8 @@
                                     <th>Piece</th>
                                     <th>Echéance</th>
                                     <th>Mode Reglement</th>
+                                    <th>Date du réglement</th>
                                     <th>Montant payé</th>
-                                    <th>Date de création</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,8 +87,8 @@
                                             {% endif %}
                                         </td>
                                         <td>{{ reglement.piece.showModeReglement }}</td>
-                                        <td>{{ reglement.montant }} dt</td>
                                         <td>{{ reglement.dateCreation|date('d/m/Y') }}</td>
+                                        <td style="color:red" >{{ reglement.montant }} dt</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

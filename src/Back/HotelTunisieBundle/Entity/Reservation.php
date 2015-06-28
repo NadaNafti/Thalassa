@@ -634,7 +634,7 @@ class Reservation
         $montant = 0;
         foreach ($this->reglements as $reglement)
             $montant+=$reglement->getMontant();
-        return $montant;
+        return number_format($montant, 3, '.', '');
     }
     
     public function getMontantRestant()
