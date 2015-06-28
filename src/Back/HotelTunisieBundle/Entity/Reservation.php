@@ -159,7 +159,7 @@ class Reservation
      */
     public function setDateDebut($dateDebut)
     {
-        $this->dateDebut=$dateDebut;
+        $this->dateDebut = $dateDebut;
 
         return $this;
     }
@@ -182,7 +182,7 @@ class Reservation
      */
     public function setDateFin($dateFin)
     {
-        $this->dateFin=$dateFin;
+        $this->dateFin = $dateFin;
 
         return $this;
     }
@@ -205,7 +205,7 @@ class Reservation
      */
     public function setNuitees($nuitees)
     {
-        $this->nuitees=$nuitees;
+        $this->nuitees = $nuitees;
 
         return $this;
     }
@@ -228,7 +228,7 @@ class Reservation
      */
     public function setCreated($created)
     {
-        $this->created=$created;
+        $this->created = $created;
 
         return $this;
     }
@@ -251,7 +251,7 @@ class Reservation
      */
     public function setUpdated($updated)
     {
-        $this->updated=$updated;
+        $this->updated = $updated;
 
         return $this;
     }
@@ -272,9 +272,9 @@ class Reservation
      * @param \Back\HotelTunisieBundle\Entity\Hotel $hotel
      * @return Reservation
      */
-    public function setHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotel=null)
+    public function setHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotel = null)
     {
-        $this->hotel=$hotel;
+        $this->hotel = $hotel;
 
         return $this;
     }
@@ -294,7 +294,7 @@ class Reservation
      */
     public function __construct()
     {
-        $this->chambres=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -303,9 +303,9 @@ class Reservation
      * @param \Back\UserBundle\Entity\Client $client
      * @return Reservation
      */
-    public function setClient(\Back\UserBundle\Entity\Client $client=null)
+    public function setClient(\Back\UserBundle\Entity\Client $client = null)
     {
-        $this->client=$client;
+        $this->client = $client;
 
         return $this;
     }
@@ -328,7 +328,7 @@ class Reservation
      */
     public function addChambre(\Back\HotelTunisieBundle\Entity\ReservationChambre $chambres)
     {
-        $this->chambres[]=$chambres;
+        $this->chambres[] = $chambres;
 
         return $this;
     }
@@ -361,7 +361,7 @@ class Reservation
      */
     public function setFrontOffice($frontOffice)
     {
-        $this->frontOffice=$frontOffice;
+        $this->frontOffice = $frontOffice;
 
         return $this;
     }
@@ -384,7 +384,7 @@ class Reservation
      */
     public function setEtat($etat)
     {
-        $this->etat=$etat;
+        $this->etat = $etat;
 
         return $this;
     }
@@ -405,9 +405,9 @@ class Reservation
      * @param \Back\UserBundle\Entity\User $responsable
      * @return Reservation
      */
-    public function setResponsable(\Back\UserBundle\Entity\User $responsable=null)
+    public function setResponsable(\Back\UserBundle\Entity\User $responsable = null)
     {
-        $this->responsable=$responsable;
+        $this->responsable = $responsable;
 
         return $this;
     }
@@ -430,7 +430,7 @@ class Reservation
      */
     public function setSurDemande($surDemande)
     {
-        $this->surDemande=$surDemande;
+        $this->surDemande = $surDemande;
 
         return $this;
     }
@@ -447,21 +447,21 @@ class Reservation
 
     public function showEtat()
     {
-        if($this->etat == 1)
+        if ($this->etat == 1)
             return 'Enregistrée';
-        if($this->etat == 2)
+        if ($this->etat == 2)
             return 'Validée';
-        if($this->etat == 9)
+        if ($this->etat == 9)
             return 'Annulée';
     }
 
     public function getTotal()
     {
-        $total=0;
-        foreach($this->chambres as $chambre)
-        {
+        $total = 0;
+        if ($this->surDemande)
+            return $total;
+        foreach ($this->chambres as $chambre)
             $total+=$chambre->getTotal();
-        }
         return number_format($total, 3, '.', '');
     }
 
@@ -473,7 +473,7 @@ class Reservation
      */
     public function setHotelNotifier($hotelNotifier)
     {
-        $this->hotelNotifier=$hotelNotifier;
+        $this->hotelNotifier = $hotelNotifier;
 
         return $this;
     }
@@ -496,7 +496,7 @@ class Reservation
      */
     public function setCommentaire($commentaire)
     {
-        $this->commentaire=$commentaire;
+        $this->commentaire = $commentaire;
 
         return $this;
     }
@@ -519,7 +519,7 @@ class Reservation
      */
     public function setCode($code)
     {
-        $this->code=$code;
+        $this->code = $code;
 
         return $this;
     }
@@ -542,7 +542,7 @@ class Reservation
      */
     public function setValidated($validated)
     {
-        $this->validated=$validated;
+        $this->validated = $validated;
 
         return $this;
     }
@@ -565,7 +565,7 @@ class Reservation
      */
     public function setOptions($options)
     {
-        $this->options=$options;
+        $this->options = $options;
 
         return $this;
     }
@@ -582,20 +582,19 @@ class Reservation
 
     public function calcVente()
     {
-        $vente=0;
-        foreach($this->chambres as $chambre)
+        $vente = 0;
+        foreach ($this->chambres as $chambre)
             $vente+=$chambre->getTotal();
         return number_format($vente, 3, '.', '');
     }
 
     public function calcAchat()
     {
-        $achat=0;
-        foreach($this->chambres as $chambre)
+        $achat = 0;
+        foreach ($this->chambres as $chambre)
             $achat+=$chambre->getTotalAchat();
         return number_format($achat, 3, '.', '');
     }
-
 
     /**
      * Add reglements
@@ -629,4 +628,18 @@ class Reservation
     {
         return $this->reglements;
     }
+
+    public function getMontantRegle()
+    {
+        $montant = 0;
+        foreach ($this->reglements as $reglement)
+            $montant+=$reglement->getMontant();
+        return $montant;
+    }
+    
+    public function getMontantRestant()
+    {
+        return number_format($this->getTotal()-$this->getMontantRegle(), 3, '.', '');
+    }
+
 }

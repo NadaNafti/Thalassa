@@ -17,6 +17,9 @@ use Back\HotelTunisieBundle\Entity\ReservationJour;
 use Back\HotelTunisieBundle\Entity\ReservationChambre;
 use Back\HotelTunisieBundle\Entity\ReservationRepository;
 use Symfony\Component\HttpFoundation\Response;
+use Back\CommercialBundle\Entity\Piece;
+use Back\CommercialBundle\Form\PieceType;
+use Back\CommercialBundle\Entity\Reglement;
 
 class ReservationController extends Controller
 {
@@ -208,7 +211,7 @@ class ReservationController extends Controller
             $data = $form->getData();
             $result = $this->container->get('reservation')->saveReservation($data, $result, 'backoffice');
             $session->remove('reservation');
-            $session->getFlashBag()->add('success', " Votre Réservation a été enregistré avec succées ");
+            $session->getFlashBag()->add('success', " Votre Réservation a été enregistré avec succès ");
             return $this->redirect($this->generateUrl("liste_reservations"));
         }
         $reservation = $session->get('reservation');
@@ -255,16 +258,12 @@ class ReservationController extends Controller
         $session = $this->getRequest()->getSession();
         $em->persist($reservation->setResponsable($user));
         $em->flush();
-        $session->getFlashBag()->add('success', "Vous avez pris en charge cette réservation avec succées ");
+        $session->getFlashBag()->add('success', "Vous avez pris en charge cette réservation avec succès ");
         return $this->redirect($this->generateUrl("liste_reservations"));
     }
 
     public function consulterAction(Reservation $reservation)
     {
-        $user = $this->get('security.context')->getToken()->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
-        $em->persist($reservation->setResponsable($user));
         return $this->render('BackHotelTunisieBundle:Reservation:consultation.html.twig', array(
                     'reservation' => $reservation,
         ));
@@ -307,7 +306,7 @@ class ReservationController extends Controller
         {
             $em->remove($reservation);
             $em->flush();
-            $session->getFlashBag()->add('success', "Réservation a été supprimée avec succées ");
+            $session->getFlashBag()->add('success', "Réservation a été supprimée avec succès ");
         }
         return $this->redirect($this->generateUrl("liste_reservations"));
     }
@@ -322,31 +321,7 @@ class ReservationController extends Controller
         {
             $em->persist($reservation->setEtat(9)->setCommentaire($request->get('commentaire')));
             $em->flush();
-            $session->getFlashBag()->add('success', "Réservation a été annullée avec succées ");
-        }
-        return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
-    }
-
-    public function validerAction(Reservation $reservation)
-    {
-        $user = $this->get('security.context')->getToken()->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $request = $this->getRequest();
-        $session = $this->getRequest()->getSession();
-        if ($user->getId() == $reservation->getResponsable()->getId() && $reservation->getEtat() == 1)
-        {
-            if (!is_null($reservation->getClient()->getAmicale()))
-            {
-                if ($reservation->getClient()->getAmicale()->getMontant() + $reservation->getTotal() > $reservation->getClient()->getAmicale()->getPlafond())
-                {
-                    $session->getFlashBag()->add('warning', "Impossible de valider la réservation pour l'amicale " . $reservation->getClient()->getAmicale()->getLibelle() . "  Plafond insuffisant.   <br>Palfond : " . $reservation->getClient()->getAmicale()->getPlafond() . " DT et le  montant courrant est :" . $reservation->getClient()->getAmicale()->getMontant() . " DT");
-                    return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
-                }
-                $em->persist($reservation->getClient()->getAmicale()->setMontant($reservation->getClient()->getAmicale()->getMontant() + $reservation->getTotal()));
-            }
-            $em->persist($reservation->setEtat(2)->setCommentaire($request->get('commentaire'))->setValidated(new \DateTime())->setCode($this->container->get('reservation')->getCode()));
-            $em->flush();
-            $session->getFlashBag()->add('success', "Réservation a été validée avec succées ");
+            $session->getFlashBag()->add('success', "Réservation a été annullée avec succès ");
         }
         return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
     }
@@ -355,7 +330,7 @@ class ReservationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
-        if ( !$reservation->getHotel()->isValideEmail1() && ! $reservation->getHotel()->isValideEmail2())
+        if (!$reservation->getHotel()->isValideEmail1() && !$reservation->getHotel()->isValideEmail2())
             $session->getFlashBag()->add('info', $reservation->getHotel()->getLibelle() . " n' a pas un email valide <a target='_blank' href='" . $this->generateUrl('modif_hotel', array('id' => $reservation->getHotel()->getId())) . "' >Modifier cet hôtel</a>");
         else
         {
@@ -364,7 +339,7 @@ class ReservationController extends Controller
                 $reservation->setHotelNotifier(TRUE);
                 $em->persist($reservation);
                 $em->flush();
-                $session->getFlashBag()->add('success', $reservation->getHotel()->getLibelle() . " a été notifiée avec succées ");
+                $session->getFlashBag()->add('success', $reservation->getHotel()->getLibelle() . " a été notifiée avec succès ");
             }
         }
         return $this->redirect($this->generateUrl('liste_reservations'));
@@ -374,6 +349,115 @@ class ReservationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         return new Response(count($em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice(1, 'all', 'r.id', 'desc')));
+    }
+
+    public function validerAction(Reservation $reservation)
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        $session = $this->getRequest()->getSession();
+        $pieces = $em->getRepository('BackCommercialBundle:Piece')->findBy(array('client' => $reservation->getClient(), 'regle' => FALSE));
+        if ($user->getId() != $reservation->getResponsable()->getId() || $reservation->getEtat() != 1)
+            return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
+        $form = $this->createFormBuilder()
+                ->add("piece", new PieceType());
+        foreach ($pieces as $piece)
+            $form->add('piece' . $piece->getId(), 'checkbox', array('label' => $piece->getNumero(), 'required' => false));
+        $form = $form->getForm();
+        if ($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            $data = $form->getData();
+            foreach ($pieces as $piece)
+            {
+                if ($data['piece' . $piece->getId()] && ($reservation->getSurDemande() || $reservation->getMontantRestant() > 0))
+                {
+                    $reglement = new Reglement();
+                    if ($reservation->getSurDemande())
+                    {
+                        $reglement->setMontant($piece->getMontant());
+                        $em->persist($piece->setRegle(TRUE)->setDateReglement(new \DateTime())->setMontant(0));
+                    }
+                    else
+                    {
+                        if ($piece->getMontant() <= $reservation->getMontantRestant())
+                        {
+                            $reglement->setMontant($piece->getMontant());
+                            $em->persist($piece->setRegle(TRUE)->setDateReglement(new \DateTime())->setMontant(0));
+                        }
+                        else
+                        {
+                            $reglement->setMontant($reservation->getMontantRestant());
+                            $em->persist($piece->setMontant($piece->getMontant() - $reservation->getMontantRestant()));
+                        }
+                    }
+                    $reglement->setPiece($piece);
+                    $reglement->setReservation($reservation);
+                    $reglement->setDateCreation(new \DateTime());
+                    $em->persist($reglement);
+                    $reservation->addReglement($reglement);
+                }
+            }
+            if (($reservation->getSurDemande() || $reservation->getMontantRestant() > 0) && !is_null($data['piece']->getNumero()))
+            {
+                $reglement = new Reglement();
+                $piece = new Piece();
+                $piece = $data['piece'];
+                $piece->setClient($reservation->getClient())
+                        ->setDateCreation(new \DateTime());
+                if ($reservation->getSurDemande())
+                {
+                    $reglement->setMontant($piece->getMontantOrigine());
+                    $em->persist($piece->setRegle(TRUE)->setMontant(0)->setDateReglement(new \DateTime()));
+                }
+                else
+                {
+                    if ($piece->getMontantOrigine() <= $reservation->getMontantRestant())
+                    {
+                        $reglement->setMontant($piece->getMontantOrigine());
+                        $em->persist($piece->setRegle(TRUE)->setDateReglement(new \DateTime())->setMontant(0));
+                    }
+                    else
+                    {
+                        $reglement->setMontant($reservation->getMontantRestant());
+                        $em->persist($piece->setRegle(FALSE)->setMontant($piece->getMontantOrigine() - $reservation->getMontantRestant()));
+                    }
+                }
+                $reglement->setPiece($piece);
+                $reglement->setReservation($reservation);
+                $reglement->setDateCreation(new \DateTime());
+                $em->persist($reglement);
+                $reservation->addReglement($reglement);
+            }
+            if ($reservation->getSurDemande() || $reservation->getMontantRestant() == 0)
+            {
+                if (!is_null($reservation->getClient()->getAmicale()))
+                {
+                    if ($reservation->getClient()->getAmicale()->getMontant() + $reservation->getTotal() > $reservation->getClient()->getAmicale()->getPlafond())
+                    {
+                        $session->getFlashBag()->add('warning', "Impossible de valider la réservation pour l'amicale " . $reservation->getClient()->getAmicale()->getLibelle() . "  Plafond insuffisant.   <br>Palfond : " . $reservation->getClient()->getAmicale()->getPlafond() . " DT et le  montant courrant est :" . $reservation->getClient()->getAmicale()->getMontant() . " DT");
+
+                        return $this->redirect($this->generateUrl("valider_reservation", array('id' => $reservation->getId())));
+                    }
+                    $em->persist($reservation->getClient()->getAmicale()->setMontant($reservation->getClient()->getAmicale()->getMontant() + $reservation->getTotal()));
+                }
+                $em->persist($reservation->setEtat(2)->setValidated(new \DateTime()));
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre Réservation a été validée avec succès ");
+                return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
+            }
+            $em->flush();
+            if (!is_null($data['piece']->getNumero()))
+                $session->getFlashBag()->add('warning', "Les pieces sont ajoutées avec succès, mais la réservation n'est pas encore valide");
+
+            return $this->redirect($this->generateUrl("valider_reservation", array('id' => $reservation->getId())));
+        }
+        return $this->render('BackHotelTunisieBundle:Reservation:validation.html.twig', array(
+                    'reservation' => $reservation,
+                    'form' => $form->createView(),
+                    'pieces' => $pieces,
+        ));
     }
 
 }

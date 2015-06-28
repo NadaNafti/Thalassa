@@ -71,23 +71,31 @@ class Piece
     private $montant;
 
     /**
-     * @var integer
-     * 1:validée,2:Terminée
-     * @ORM\Column(name="etat", type="integer")
+     * @var boolean
+     *
+     * @ORM\Column(name="regle", type="boolean",nullable=true)
      */
-    private $etat;
+    private $regle;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateValidation", type="date",nullable=true)
+     * @ORM\Column(name="dateReglement", type="date",nullable=true)
      */
-    private $dateValidation;
+    private $dateReglement;
 
     /**
      * @ORM\OneToMany(targetEntity="Reglement", mappedBy="piece")
      */
     protected $reglements;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -107,7 +115,7 @@ class Piece
      */
     public function setNumero($numero)
     {
-        $this->numero=$numero;
+        $this->numero = $numero;
 
         return $this;
     }
@@ -130,7 +138,7 @@ class Piece
      */
     public function setDateCreation($dateCreation)
     {
-        $this->dateCreation=$dateCreation;
+        $this->dateCreation = $dateCreation;
 
         return $this;
     }
@@ -153,7 +161,7 @@ class Piece
      */
     public function setModeReglement($modeReglement)
     {
-        $this->modeReglement=$modeReglement;
+        $this->modeReglement = $modeReglement;
 
         return $this;
     }
@@ -176,7 +184,7 @@ class Piece
      */
     public function setDateEcheance($dateEcheance)
     {
-        $this->dateEcheance=$dateEcheance;
+        $this->dateEcheance = $dateEcheance;
 
         return $this;
     }
@@ -199,7 +207,7 @@ class Piece
      */
     public function setMontantOrigine($montantOrigine)
     {
-        $this->montantOrigine=$montantOrigine;
+        $this->montantOrigine = $montantOrigine;
 
         return $this;
     }
@@ -222,7 +230,7 @@ class Piece
      */
     public function setMontant($montant)
     {
-        $this->montant=$montant;
+        $this->montant = $montant;
 
         return $this;
     }
@@ -238,57 +246,49 @@ class Piece
     }
 
     /**
-     * Set etat
+     * Set regle
      *
-     * @param integer $etat
+     * @param boolean $regle
      * @return Piece
      */
-    public function setEtat($etat)
+    public function setRegle($regle)
     {
-        $this->etat=$etat;
+        $this->regle = $regle;
 
         return $this;
     }
 
     /**
-     * Get etat
+     * Get regle
      *
-     * @return integer 
+     * @return boolean 
      */
-    public function getEtat()
+    public function getRegle()
     {
-        return $this->etat;
+        return $this->regle;
     }
 
     /**
-     * Set dateValidation
+     * Set dateReglement
      *
-     * @param \DateTime $dateValidation
+     * @param \DateTime $dateReglement
      * @return Piece
      */
-    public function setDateValidation($dateValidation)
+    public function setDateReglement($dateReglement)
     {
-        $this->dateValidation=$dateValidation;
+        $this->dateReglement = $dateReglement;
 
         return $this;
     }
 
     /**
-     * Get dateValidation
+     * Get dateReglement
      *
      * @return \DateTime 
      */
-    public function getDateValidation()
+    public function getDateReglement()
     {
-        return $this->dateValidation;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->dateReglement;
     }
 
     /**
@@ -345,5 +345,21 @@ class Piece
     public function getReglements()
     {
         return $this->reglements;
+    }
+    
+    public function showModeReglement()
+    {
+        if($this->modeReglement=="AD")
+            return "Autorisation de débit";
+        if($this->modeReglement=="PC")
+            return "Pris en charge";
+        if($this->modeReglement=="CB")
+            return "Carte Bancaire";
+        if($this->modeReglement=="C")
+            return "Chèque";
+        if($this->modeReglement=="E")
+            return "Espece";
+        if($this->modeReglement=="V")
+            return "Virement";
     }
 }

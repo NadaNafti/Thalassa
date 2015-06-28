@@ -6,6 +6,10 @@ consulter_reservation:
     path:     /consulter/{id}
     defaults: { _controller: BackHotelTunisieBundle:Reservation:consulter }
 
+valider_reservation:
+    path:     /valider/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:valider }
+
 voucher_reservation:
     path:     /voucher/{id}
     defaults: { _controller: BackHotelTunisieBundle:Reservation:voucher }
@@ -21,10 +25,6 @@ delete_reservation:
 annuler_reservation:
     path:     /annuler_reservation/{id}
     defaults: { _controller: BackHotelTunisieBundle:Reservation:annuler }
-
-valider_reservation:
-    path:     /valider_reservation/{id}
-    defaults: { _controller: BackHotelTunisieBundle:Reservation:valider }
     
 filtre_reservations:
     path:     /filtre_liste
