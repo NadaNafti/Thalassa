@@ -24,11 +24,11 @@ class FicheTechniqueType extends AbstractType
                 ->add('minEnfantChambreSepare')
                 ->add('maxEnfantChambreSepare')
                 ->add('suppSingle1Adulte1EnfantChDouble', 'checkbox', array(
-                    'label' => ' Appliquer supp. single avec un adulte et un enfant dans une chambre double :',
+                    'label' => ' Appliquer supp. single avec un adulte et un enfant :',
                     'required' => false
                 ))
                 ->add('suppSingle1Adulte2EnfantChDouble', 'checkbox', array(
-                    'label' => ' Appliquer supp. single avec un adulte et un deux enfant dans une chambre double :',
+                    'label' => ' Appliquer supp. single avec un adulte et un deux enfant :',
                     'required' => false
                 ))
                 ->add('tarifWeekend', 'checkbox', array(
