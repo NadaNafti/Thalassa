@@ -438,12 +438,11 @@ class ReservationController extends Controller
                     if ($reservation->getClient()->getAmicale()->getMontant() + $reservation->getTotal() > $reservation->getClient()->getAmicale()->getPlafond())
                     {
                         $session->getFlashBag()->add('warning', "Impossible de valider la réservation pour l'amicale " . $reservation->getClient()->getAmicale()->getLibelle() . "  Plafond insuffisant.   <br>Palfond : " . $reservation->getClient()->getAmicale()->getPlafond() . " DT et le  montant courrant est :" . $reservation->getClient()->getAmicale()->getMontant() . " DT");
-
                         return $this->redirect($this->generateUrl("valider_reservation", array('id' => $reservation->getId())));
                     }
                     $em->persist($reservation->getClient()->getAmicale()->setMontant($reservation->getClient()->getAmicale()->getMontant() + $reservation->getTotal()));
                 }
-                $em->persist($reservation->setEtat(2)->setValidated(new \DateTime()));
+                $em->persist($reservation->setEtat(2)->setValidated(new \DateTime())->setCode($this->container->get('reservation')->getCode()));
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre Réservation a été validée avec succès ");
                 return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
