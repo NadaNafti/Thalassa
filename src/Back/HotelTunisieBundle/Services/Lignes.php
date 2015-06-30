@@ -49,7 +49,7 @@ class Lignes
     public function ligneSuppSingle(Saison $saison, $arr, $ch, $nbrAdulte, $nbrEnfant, $type)
     {
         $chambre = $this->em->getRepository('BackHotelTunisieBundle:Chambre')->find($ch);
-        if (( $type == 'enfant' && $saison->getSaisonSupp()->getSuppSingleEnfant() && $nbrAdulte == 0 && $nbrEnfant == 1 ) || ( $type == 'adulte' && ( $chambre->getType() == 1 || ($chambre->getType() == 2 && $nbrEnfant == 1 && $nbrAdulte == 1 && $saison->getHotel()->getFicheTechnique()->getSuppSingle1Adulte1EnfantChDouble()) || ($chambre->getType() == 3 && $nbrEnfant == 2 && $nbrAdulte == 1 && $saison->getHotel()->getFicheTechnique()->getSuppSingle1Adulte2EnfantChDouble())) ))
+        if (( $type == 'enfant' && $saison->getSaisonSupp()->getSuppSingleEnfant() && $nbrAdulte == 0 && $nbrEnfant == 1 ) || ( $type == 'adulte' && ( ($nbrAdulte == 1 && $nbrEnfant==0) || ( /*$chambre->getType() == 2 &&*/ $nbrEnfant == 1 && $nbrAdulte == 1 && $saison->getHotel()->getFicheTechnique()->getSuppSingle1Adulte1EnfantChDouble()) || ( /*$chambre->getType() == 3 &&*/ $nbrEnfant == 2 && $nbrAdulte == 1 && $saison->getHotel()->getFicheTechnique()->getSuppSingle1Adulte2EnfantChDouble())) ))
             return array(
                 'code' => 'SUPP-SINGLE',
                 'name' => 'Supp single',
