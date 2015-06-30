@@ -26,8 +26,8 @@
         <aside style="margin-bottom: 15px;">
             <div>
                 <p>De Mr, Mme : {{ reservation.client }}</p>
-                <p>La somme de mille cinq cent soixante dinars, 600 millimes</p>
-{#                <p>Pour la réservation d'un séjour Hotel en tunisie, et ce comme suit :</p>#}
+{#                <p>La somme de mille cinq cent soixante dinars, 600 millimes</p>#}
+                <p>Pour la réservation d'un séjour Hotel en tunisie, et ce comme suit :</p>
             </div>
         </aside>
         <article style="margin: 0px;">
@@ -93,7 +93,7 @@
                 </tr>
                 <tr>
                     <th><span>En date du </span></th>
-                    <td>{{ reservation.validated|date('d/m/Y h:i') }}</td>
+                    <td>{{ reservation.validated|date('d/m/Y') }} par {{ reservation.responsable }}</td>
                 </tr>
             </table>
         </aside> 
@@ -101,8 +101,8 @@
         <aside style="margin-bottom: 15px;">
             <div>
                 <p>De Mr, Mme : {{ reservation.client }}</p>
-                <p>La somme de mille cinq cent soixante dinars, 600 millimes</p>
-{#                <p>Pour la réservation d'un séjour Hotel en tunisie, et ce comme suit :</p>#}
+{#                <p>La somme de mille cinq cent soixante dinars, 600 millimes</p>#}
+                <p>Pour la réservation d'un séjour Hotel en tunisie, et ce comme suit :</p>
             </div>
         </aside>
         <article style="margin: 0px;">
