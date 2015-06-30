@@ -10,6 +10,10 @@ valider_reservation:
     path:     /valider/{id}
     defaults: { _controller: BackHotelTunisieBundle:Reservation:valider }
 
+recus_reservation:
+    path:     /recus/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:recus }
+
 voucher_reservation:
     path:     /voucher/{id}
     defaults: { _controller: BackHotelTunisieBundle:Reservation:voucher }

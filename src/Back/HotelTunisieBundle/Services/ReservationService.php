@@ -36,7 +36,7 @@ class ReservationService
     public function getCode()
     {
         $reservation = $this->em->getRepository('BackHotelTunisieBundle:Reservation')->findOneBy(array('etat' => 2), array('id' => 'DESC'), 1, 1);
-        if (!$reservation || is_null($reservation->getValidated()) || $reservation->getValidated()->format('Y') != date('Y'))
+        if (!$reservation || is_null($reservation->getValidated()) || $reservation->getValidated()->format('Y') != date('Y') || $reservation->getCode() < 1000)
             return date('Y') . '00001';
         else
             return $reservation->getCode() + 1;

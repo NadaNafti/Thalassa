@@ -121,8 +121,9 @@
                                             {{ macros.boutton(path('prise_en_charge_reservations',{'id':reservation.id}),'fa-user','btn-dark-grey','Prendre en charge cette reservation') }}
                                         {% else %}
                                             {% if reservation.etat==2 %}
-                                                {{ macros.bouttonBlank(path('voucher_reservation',{'id':reservation.id}),'fa-file','btn-dark-grey','Voucher sans les prix') }}
-                                                {{ macros.bouttonBlank(path('voucher_prix_reservation',{'id':reservation.id}),'fa-file','btn-dark-grey','Voucher avec les prix') }}
+                                                {{ macros.bouttonBlank(path('recus_reservation',{'id':reservation.id}),'fa-money','btn-dark-grey','Récus') }}
+                                                {{ macros.bouttonBlank(path('voucher_reservation',{'id':reservation.id}),'fa-print','btn-dark-grey','Voucher sans les prix') }}
+                                                {{ macros.bouttonBlank(path('voucher_prix_reservation',{'id':reservation.id}),'fa-print','btn-dark-grey','Voucher avec les prix') }}
                                             {% endif %}
                                             {{ macros.boutton(path('consulter_reservation',{'id':reservation.id}),'fa-eye','btn-dark-grey','Consulter la réservation') }}
                                         {% endif %}

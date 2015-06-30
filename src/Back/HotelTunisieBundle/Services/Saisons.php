@@ -20,12 +20,6 @@ class Saisons
         if (is_null($client->getAmicale()))
             return $hotel->getSaisonPromotionByDate($date) ;
         return $hotel->getSaisonByClient($date,$client) ;
-//        $convention = $client->getAmicale()->getConventionByDateHotel($date , $hotel->getId()) ;
-//        if (is_null($convention))
-//            return $hotel->getSaisonPromotionByDate($date) ;
-//        if ($convention->getType() == 1)
-//            return $hotel->getSaisonByDate($date) ;
-//        return $hotel->getSaisonPromotionByDate($date) ;
     }
 
 }
