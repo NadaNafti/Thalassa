@@ -1,26 +1,28 @@
-{% for k,v in app.session.getFlashBag %}
-    <div class="alert alert-{{ k }}">
-        <button data-dismiss="alert" class="close">
-            &times;
-        </button>
-        <strong>
-            {% if k == "success" %}
-                <i class="fa fa-check-circle"></i>
-                <strong>Succés!</strong>
-            {% endif %}
-            {% if k == "info" %}
-                <i class="fa fa-info-circle"></i>
-                <strong>Information!</strong>
-            {% endif %}
-            {% if k == "warning" %}
-                <i class="fa fa-exclamation-triangle"></i>
-                <strong>Avertissement!</strong>
-            {% endif %}
-            {% if k == "danger" %}
-                <i class="fa fa-times-circle"></i>
-                <strong>Erreur!</strong>
-            {% endif %}
-        </strong>
-        {{ v.0|raw }}
-    </div>
+{% for class,messages in app.session.getFlashBag %}
+    {% for msg in messages %}
+        <div class="alert alert-{{ class }}">
+            <button data-dismiss="alert" class="close">
+                &times;
+            </button>
+            <strong>
+                {% if class == "success" %}
+                    <i class="fa fa-checclass-circle"></i>
+                    <strong>Succés!</strong>
+                {% endif %}
+                {% if class == "info" %}
+                    <i class="fa fa-info-circle"></i>
+                    <strong>Information!</strong>
+                {% endif %}
+                {% if class == "warning" %}
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <strong>Avertissement!</strong>
+                {% endif %}
+                {% if class == "danger" %}
+                    <i class="fa fa-times-circle"></i>
+                    <strong>Erreur!</strong>
+                {% endif %}
+            </strong>
+            {{ msg |raw }}
+        </div>
+    {% endfor %}
 {% endfor %}

@@ -14,11 +14,11 @@
         <table class="meta" style="margin-top: -75px;">
             <tr>
                 <th><span>Bon pour </span></th>
-                <td><span>{{ reservation.total }} DT</span></td>
+                <td><span>{{ reservation.getMontantRegle }} DT</span></td>
             </tr>
             <tr>
                 <th><span>En date du </span></th>
-                <td>{{ reservation.validated|date('d/m/Y') }} par {{ reservation.responsable }}</td>
+                <td>{{ reservation.validated|date('d/m/Y') }} </td>
             </tr>
         </table>
     </aside>
@@ -26,7 +26,8 @@
         <aside style="margin-bottom: 15px;">
             <div>
                 <p>De Mr, Mme : {{ reservation.client }}</p>
-{#                <p>La somme de mille cinq cent soixante dinars, 600 millimes</p>#}
+                <p>Prise en charge par {{ reservation.responsable }}</p>
+                {#                <p>La somme de mille cinq cent soixante dinars, 600 millimes</p>#}
                 <p>Pour la réservation d'un séjour Hotel en tunisie, et ce comme suit :</p>
             </div>
         </aside>
@@ -89,11 +90,11 @@
             <table class="meta" style="margin-top: -75px;">
                 <tr>
                     <th><span>Bon pour </span></th>
-                    <td><span>{{ reservation.total }} DT</span></td>
+                    <td><span>{{ reservation.getMontantRegle }} DT</span></td>
                 </tr>
                 <tr>
                     <th><span>En date du </span></th>
-                    <td>{{ reservation.validated|date('d/m/Y') }} par {{ reservation.responsable }}</td>
+                    <td>{{ reservation.validated|date('d/m/Y') }} </td>
                 </tr>
             </table>
         </aside> 
@@ -101,7 +102,8 @@
         <aside style="margin-bottom: 15px;">
             <div>
                 <p>De Mr, Mme : {{ reservation.client }}</p>
-{#                <p>La somme de mille cinq cent soixante dinars, 600 millimes</p>#}
+                <p>Prise en charge par {{ reservation.responsable }}</p>
+                {#                <p>La somme de mille cinq cent soixante dinars, 600 millimes</p>#}
                 <p>Pour la réservation d'un séjour Hotel en tunisie, et ce comme suit :</p>
             </div>
         </aside>

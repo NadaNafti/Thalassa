@@ -97,16 +97,16 @@
         {% if reservation.reglements|length>0 %}
             <div class="col-md-12">
                 <hr>
-                <h2 class="center">Piéces de réglements</h2>
+                <h2 class="center">Piéces de réglement</h2>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>Piece</th>
-                                    <th>Echéance</th>
                                     <th>Mode Reglement</th>
                                     <th>Date du réglement</th>
+                                    <th style="text-align: right">Montant piéce</th>
                                     <th style="text-align: right">Montant payé</th>
                                 </tr>
                             </thead>
@@ -115,18 +115,19 @@
                                     <tr>
                                         <td>{{ reglement.piece.numero }}</td>
                                         <td>
+                                            {{ reglement.piece.showModeReglement }}
                                             {% if reglement.piece.modeReglement == 'C' %}
-                                                {{ reglement.piece.dateEcheance|date('d/m/Y') }}
+                                                / Echéance {{ reglement.piece.dateEcheance|date('d/m/Y') }}
                                             {% endif %}
                                         </td>
-                                        <td>{{ reglement.piece.showModeReglement }}</td>
                                         <td>{{ reglement.dateCreation|date('d/m/Y') }}</td>
-                                        <td style="color:red;text-align: right" >{{ reglement.montant }} dt</td>
+                                        <td style="text-align: right" >{{ reglement.piece.montantOrigine }} DT</td>
+                                        <td style="color:red;text-align: right" >{{ reglement.montant }} DT</td>
                                     </tr>
                                 {% endfor %}
                                 <tr>
                                     <td colspan="4" style="text-align: right" >Montant régle</td>
-                                    <td style="color:red;text-align: right" >{{ reservation.montantRegle }} dt</td>
+                                    <td style="color:red;text-align: right" >{{ reservation.montantRegle }} DT</td>
                                 </tr>
                             </tbody>
                         </table>

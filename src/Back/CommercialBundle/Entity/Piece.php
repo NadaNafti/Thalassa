@@ -3,6 +3,7 @@
 namespace Back\CommercialBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Piece
@@ -58,7 +59,7 @@ class Piece
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 1)
      * @ORM\Column(name="montantOrigine", type="decimal", precision=11, scale=3)
      */
     private $montantOrigine;

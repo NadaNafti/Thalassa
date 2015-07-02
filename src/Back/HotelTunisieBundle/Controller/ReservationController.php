@@ -212,7 +212,7 @@ class ReservationController extends Controller
             $id = $this->container->get('reservation')->saveReservation($data, $result, 'backoffice');
             $session->remove('reservation');
             $session->getFlashBag()->add('success', " Votre Réservation a été enregistré avec succès ");
-            return $this->redirect($this->generateUrl("consulter_reservation",array('id'=>$id)));
+            return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $id)));
         }
         $reservation = $session->get('reservation');
         return $this->render('BackHotelTunisieBundle:Reservation:details.html.twig', array(
@@ -406,35 +406,40 @@ class ReservationController extends Controller
             }
             if (($reservation->getSurDemande() || $reservation->getMontantRestant() > 0) && !is_null($data['piece']->getNumero()))
             {
-                $reglement = new Reglement();
-                $piece = new Piece();
-                $piece = $data['piece'];
-                $piece->setClient($reservation->getClient())
-                        ->setDateCreation(new \DateTime());
-                if ($reservation->getSurDemande())
+                if ($data['piece']->getMontantOrigine() > 0)
                 {
-                    $reglement->setMontant($piece->getMontantOrigine());
-                    $em->persist($piece->setRegle(TRUE)->setMontant(0)->setDateReglement(new \DateTime()));
-                }
-                else
-                {
-                    if ($piece->getMontantOrigine() <= $reservation->getMontantRestant())
+                    $reglement = new Reglement();
+                    $piece = new Piece();
+                    $piece = $data['piece'];
+                    $piece->setClient($reservation->getClient())
+                            ->setDateCreation(new \DateTime());
+                    if ($reservation->getSurDemande())
                     {
                         $reglement->setMontant($piece->getMontantOrigine());
-                        $em->persist($piece->setRegle(TRUE)->setDateReglement(new \DateTime())->setMontant(0));
+                        $em->persist($piece->setRegle(TRUE)->setMontant(0)->setDateReglement(new \DateTime()));
                     }
                     else
                     {
-                        $reglement->setMontant($reservation->getMontantRestant());
-                        $em->persist($piece->setRegle(FALSE)->setMontant($piece->getMontantOrigine() - $reservation->getMontantRestant()));
+                        if ($piece->getMontantOrigine() <= $reservation->getMontantRestant())
+                        {
+                            $reglement->setMontant($piece->getMontantOrigine());
+                            $em->persist($piece->setRegle(TRUE)->setDateReglement(new \DateTime())->setMontant(0));
+                        }
+                        else
+                        {
+                            $reglement->setMontant($reservation->getMontantRestant());
+                            $em->persist($piece->setRegle(FALSE)->setMontant($piece->getMontantOrigine() - $reservation->getMontantRestant()));
+                        }
                     }
+                    $reglement->setPiece($piece);
+                    $reglement->setReservation($reservation);
+                    $reglement->setDateCreation(new \DateTime());
+                    $em->persist($reglement);
+                    $reservation->addReglement($reglement);
+                    $session->getFlashBag()->add('success', "Votre piéce a été ajoutée avec succès");
                 }
-                $reglement->setPiece($piece);
-                $reglement->setReservation($reservation);
-                $reglement->setDateCreation(new \DateTime());
-                $em->persist($reglement);
-                $reservation->addReglement($reglement);
-                $session->getFlashBag()->add('success', "Votre piéce a été ajoutée avec succès");
+                else
+                    $session->getFlashBag()->add('danger', "Le montant de la piéce doit étre suppérieure à 0");
             }
             if ($reservation->getSurDemande() || $reservation->getMontantRestant() == 0)
             {
@@ -451,8 +456,9 @@ class ReservationController extends Controller
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre Réservation a été validée avec succès ");
                 return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
-            }else
-                $session->getFlashBag()->add('info', " Votre Réservation n'a pas été encore validée, reste encore <strong>".$reservation->getMontantRestant()." DT </strong> a payé");
+            }
+            else
+                $session->getFlashBag()->add('info', " Votre Réservation n'a pas été encore validée, reste encore <strong>" . $reservation->getMontantRestant() . " DT </strong> a payé");
             $em->flush();
             return $this->redirect($this->generateUrl("valider_reservation", array('id' => $reservation->getId())));
         }
