@@ -1,0 +1,90 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Liste des Piéces{% endblock %}
+{% block description %}Liste{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >liste des pieces</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body tab-content">
+                <form action="{{ path('filtre_pieces') }}" method="post" role="form" id="form">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Clients</label>
+                                <select name="client"  class="form-control search-select">
+                                    <option value="all">Tous le clients</option>
+                                    {% for client in clients %}
+                                        <option value="{{ client.id }}" {% if app.request.get('client')==client.id %}selected{% endif %} >{{ client }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button class="btn btn-green btn-block" type="submit" style="margin-top: 24px;">
+                                    Filtre <i class="fa fa-arrow-circle-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Nombre de piéce : {{ pieces.getTotalItemCount }}
+                </div>
+                <div class="panel-body">
+                    <table class="table  table-bordered  table-full-width table-condensed ">
+                        <thead>
+                            <tr>
+                                <th class="center">#</th>
+                                <th class="center">Client</th>
+                                <th class="center">Création</th>
+                                <th class="center">Libellé</th>
+                                <th class="center">Mode réglement</th>
+                                <th class="center">Montant d'origine</th>
+                                <th class="center">Montant Restant</th>
+                                <th class="center" >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for piece in pieces %}
+                                <tr class="center">
+                                    <td>{{ piece.id }}</td>
+                                    <td>{{ piece.client }}</td>
+                                    <td>{{ piece.dateCreation|date('d/m/Y') }}</td>
+                                    <td>{{ piece.numero }}</td>
+                                    <td>
+                                        {{ piece.showModeReglement }}
+                                        {% if piece.modeReglement == 'C' %}
+                                            / Echéance {{ piece.dateEcheance|date('d/m/Y') }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ piece.montantOrigine }}</td>
+                                    <td>{{ piece.montant }}</td>
+                                    <td class="TableAction">
+                                        {#                                        {{ macros.tableEdit(path('modif_piece',{'id':piece.id})) }}#}
+                                        {#                                        {{ macros.tableDelete(path('supprimer_piece',{'id':piece.id})) }}#}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="navigation">
+                        {{ knp_pagination_render(pieces) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

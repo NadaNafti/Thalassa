@@ -325,6 +325,13 @@ class ReservationController extends Controller
         $session = $this->getRequest()->getSession();
         if ($user->getId() == $reservation->getResponsable()->getId())
         {
+            $reglement= new Reglement();
+            foreach ($reservation->getReglements() as $reglement)
+            {
+                $piece = $reglement->getPiece();
+                $em->persist($piece->setMontant($piece->getMontant()+$reglement->getMontant())->setRegle(false)->setDateReglement(null));
+                $em->remove($reglement);
+            }
             $em->persist($reservation->setEtat(9)->setCommentaire($request->get('commentaire')));
             $em->flush();
             $session->getFlashBag()->add('success', "Réservation a été annullée avec succès ");
@@ -364,7 +371,7 @@ class ReservationController extends Controller
         $request = $this->getRequest();
         $session = $this->getRequest()->getSession();
         $pieces = $em->getRepository('BackCommercialBundle:Piece')->findBy(array('client' => $reservation->getClient(), 'regle' => FALSE));
-        if ($user->getId() != $reservation->getResponsable()->getId() || $reservation->getEtat() != 1)
+        if ($user->getId() != $reservation->getResponsable()->getId() || $reservation->getEtat() ==2)
             return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
         $form = $this->createFormBuilder()
                 ->add("piece", new PieceType());

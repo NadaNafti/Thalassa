@@ -101,4 +101,27 @@ class CommercialController extends Controller
         }
         return $this->redirect($this->generateUrl('commercial_contact'));
     }
+
+    public function pieceAction($page, $client)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $clients = $em->getRepository('BackUserBundle:Client')->findBy(array(), array('nomPrenom' => 'asc'));
+        if ($client != 'all')
+            $pieces = $em->getRepository('BackCommercialBundle:Piece')->findBy(array('client' => $client), array('id' => 'desc'));
+        else
+            $pieces = $em->getRepository('BackCommercialBundle:Piece')->findBy(array(), array('id' => 'desc'));
+        $paginator = $this->get('knp_paginator');
+        $pieces = $paginator->paginate($pieces, $page, 20);
+        return $this->render('BackCommercialBundle::pieces.html.twig', array(
+                    'pieces' => $pieces,
+                    'clients' => $clients
+        ));
+    }
+    
+    public function filtrePiecesAction()
+    {
+        return $this->redirect($this->generateUrl('liste_piece',array('client'=>  $this->getRequest()->get('client'))));
+    }
+
 }

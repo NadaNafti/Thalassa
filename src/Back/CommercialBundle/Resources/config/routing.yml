@@ -13,3 +13,11 @@ commercial_contact:
 delete_commercial_contact:
     path:     /delete_commercial_contact/{id}
     defaults: { _controller: BackCommercialBundle:Commercial:deleteContact }
+
+liste_piece:
+    path:     /pieces/{page}/{client}
+    defaults: { _controller: BackCommercialBundle:Commercial:piece,page:1,client:all }
+
+filtre_pieces:
+    path:     /filtre_pieces
+    defaults: { _controller: BackCommercialBundle:Commercial:filtrePieces }

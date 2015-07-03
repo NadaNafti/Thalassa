@@ -9,17 +9,23 @@
 {% endblock %}
 {% block body %}
     <div class="row">
-        {% if reservation.responsable is not null and app.user.id == reservation.responsable.id and reservation.etat==1 %}
+        {% if reservation.responsable is not null and app.user.id == reservation.responsable.id  %}
             <div class="col-md-12 center">
-                <a href="{{ path('valider_reservation',{'id':reservation.id}) }}" class="btn btn-success center">
-                    Valider
-                </a>
-                <a href="#annuler" data-toggle="modal" class="btn btn-warning center">
-                    Annuler
-                </a>
-                <a href="{{ path('delete_reservation',{'id':reservation.id}) }}" class="btn btn-danger center" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette reservation ?'))">
-                    Supprimer
-                </a>
+                {% if reservation.etat in [1,9] %}
+                    <a href="{{ path('valider_reservation',{'id':reservation.id}) }}" class="btn btn-success center">
+                        Valider
+                    </a>
+                {% endif %}
+                {% if reservation.etat in [1,2] %}
+                    <a href="#annuler" data-toggle="modal" class="btn btn-warning center">
+                        Annuler 
+                    </a>
+                {% endif %}
+                {% if reservation.etat in [1] %}
+                    <a href="{{ path('delete_reservation',{'id':reservation.id}) }}" class="btn btn-danger center" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette reservation ?'))">
+                        Supprimer
+                    </a>
+                {% endif %}
                 <hr>
             </div>
         {% endif %}
