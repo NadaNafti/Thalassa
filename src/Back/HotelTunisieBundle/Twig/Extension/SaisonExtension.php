@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 use Back\HotelTunisieBundle\Entity\SaisonAutreSupp;
 
-class FunctionExtension extends \Twig_Extension
+class SaisonExtension extends \Twig_Extension
 {
 
     protected $em;

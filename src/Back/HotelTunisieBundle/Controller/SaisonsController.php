@@ -586,5 +586,12 @@ class SaisonsController extends Controller
                     'hotel' => $saison->getHotel(),
         ));
     }
+    
+    public function recupAction(Saison $saison)
+    {
+        return $this->render('BackHotelTunisieBundle:Saisons:recup.html.twig', array(
+                    'saison' => $saison
+        ));
+    }
 
 }

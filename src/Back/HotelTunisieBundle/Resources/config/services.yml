@@ -1,6 +1,6 @@
 services:
-    FunctionExtensions:
-      class: Back\HotelTunisieBundle\Twig\Extension\FunctionExtension
+    SaisonExtension:
+      class: Back\HotelTunisieBundle\Twig\Extension\SaisonExtension
       tags:
           - { name: twig.extension }
       arguments:
