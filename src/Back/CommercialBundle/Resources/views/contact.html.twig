@@ -1,0 +1,73 @@
+{% extends "BackHotelTunisieBundle:referentiel/supplement:liste.html.twig" %}
+{% block title %}Gestion des contacts{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Nom & Prenom",form.nomPrenom,true) }}
+                        {{ formulaire.input("col-md-3","Tel 1",form.tel1,true) }}
+                        {{ formulaire.input("col-md-3","Tel 2",form.tel2,true) }}
+                        {{ formulaire.input("col-md-3","Fax",form.fax,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Email",form.email,true) }}
+                        {{ formulaire.input("col-md-3","Fonction",form.fonction,true) }}
+                        {{ formulaire.input("col-md-4","Fournisseur",form.fournisseur,true) }}
+                    </div>
+                    {{ formulaire.submit("Enregistrer") }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover"  id="sample_1">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nom & prenom</th>
+                                <th>Fonction</th>
+                                <th>Tel</th>
+                                <th>Fax</th>
+                                <th>Email</th>
+                                <th>Fournisseur</th>
+                                <th class="center" >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contact in contacts %}
+                                <tr>
+                                    <td>{{ contact.id }}</td>
+                                    <td>{{ contact.nomPrenom }}</td>
+                                    <td>{{ contact.fonction }}</td>
+                                    <td>{{ contact.tel1 }} / {{ contact.tel2 }}</td>
+                                    <td>{{ contact.fax }}</td>
+                                    <td>{{ contact.email }}</td>
+                                    <td>{{ contact.fournisseur }}</td>
+                                    <td class="TableAction">
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                            {{ macros.tableEdit(path('commercial_contact',{'id':contact.id})) }}
+                                            {{ macros.tableDelete(path('delete_commercial_contact',{'id':contact.id})) }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

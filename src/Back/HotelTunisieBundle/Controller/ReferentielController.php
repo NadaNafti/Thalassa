@@ -46,7 +46,7 @@ class ReferentielController extends Controller
         $session=$this->getRequest()->getSession();
         $em->remove($media);
         $em->flush();
-        $session->getFlashBag()->add('success', " Votre photo a été supprimé avec succées ");
+        $session->getFlashBag()->add('success', " Votre photo a été supprimé avec succés ");
         return $this->redirect($session->get("routing"));
     }
 
@@ -80,7 +80,7 @@ class ReferentielController extends Controller
             //commit base de données
             $em->flush();
             //afficher la message de succes
-            $session->getFlashBag()->add('success', " Votre catégorie a été supprimée avec succées ");
+            $session->getFlashBag()->add('success', " Votre catégorie a été supprimée avec succés ");
         }
         catch(\Exception $ex)
         {
@@ -112,7 +112,7 @@ class ReferentielController extends Controller
                 $categorie=$form->getData();
                 $em->persist($categorie);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre catégorie a été ajoutée avec succées ");
+                $session->getFlashBag()->add('success', " Votre catégorie a été ajoutée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_categories"));
             }
         }
@@ -139,7 +139,7 @@ class ReferentielController extends Controller
                 $categorie=$form->getData();
                 $em->persist($categorie);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre catégorie a été modifiée avec succées ");
+                $session->getFlashBag()->add('success', " Votre catégorie a été modifiée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_categories"));
             }
         }
@@ -176,7 +176,7 @@ class ReferentielController extends Controller
                 $region=$form->getData();
                 $em->persist($region);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre Région a été ajoutée avec succées ");
+                $session->getFlashBag()->add('success', " Votre Région a été ajoutée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_regions"));
             }
         }
@@ -193,7 +193,7 @@ class ReferentielController extends Controller
         {
             $em->remove($region);
             $em->flush();
-            $session->getFlashBag()->add('success', " Votre région a été supprimée avec succées ");
+            $session->getFlashBag()->add('success', " Votre région a été supprimée avec succés ");
         }
         catch(\Exception $ex)
         {
@@ -216,7 +216,7 @@ class ReferentielController extends Controller
                 $categorie=$form->getData();
                 $em->persist($region);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre Région a été modifiée avec succées ");
+                $session->getFlashBag()->add('success', " Votre Région a été modifiée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_regions"));
             }
         }
@@ -253,7 +253,7 @@ class ReferentielController extends Controller
                 $ville=$form->getData();
                 $em->persist($ville);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre ville a été ajoutée avec succées ");
+                $session->getFlashBag()->add('success', " Votre ville a été ajoutée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_villes"));
             }
         }
@@ -270,7 +270,7 @@ class ReferentielController extends Controller
         {
             $em->remove($ville);
             $em->flush();
-            $session->getFlashBag()->add('success', " Votre ville a été supprimée avec succées ");
+            $session->getFlashBag()->add('success', " Votre ville a été supprimée avec succés ");
         }
         catch(\Exception $ex)
         {
@@ -293,7 +293,7 @@ class ReferentielController extends Controller
                 $categorie=$form->getData();
                 $em->persist($ville);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre ville a été modifiée avec succées ");
+                $session->getFlashBag()->add('success', " Votre ville a été modifiée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_villes"));
             }
         }
@@ -320,7 +320,7 @@ class ReferentielController extends Controller
                 $media=$form->getData();
                 $em->persist($media);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre Photo a été ajoutée avec succées ");
+                $session->getFlashBag()->add('success', " Votre Photo a été ajoutée avec succés ");
                 return $this->redirect($this->generateUrl("photos_villes", array( 'id'=>$ville->getId() )));
             }
         }
@@ -356,7 +356,7 @@ class ReferentielController extends Controller
                 $typeAmenagement=$form->getData();
                 $em->persist($typeAmenagement);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre type a été ajoutée avec succées ");
+                $session->getFlashBag()->add('success', " Votre type a été ajoutée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_type_amenagement"));
             }
         }
@@ -379,7 +379,7 @@ class ReferentielController extends Controller
                 $typeAmenagement=$form->getData();
                 $em->persist($typeAmenagement);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre type a été ajouté avec succées ");
+                $session->getFlashBag()->add('success', " Votre type a été ajouté avec succés ");
                 return $this->redirect($this->generateUrl("gestion_type_amenagement"));
             }
         }
@@ -395,7 +395,7 @@ class ReferentielController extends Controller
         $session=$this->getRequest()->getSession();
         $em->remove($typeAmenagement);
         $em->flush();
-        $session->getFlashBag()->add('success', " Votre type a été supprimé avec succées ");
+        $session->getFlashBag()->add('success', " Votre type a été supprimé avec succés ");
         return $this->redirect($this->generateUrl("gestion_type_amenagement"));
     }
 
@@ -424,7 +424,7 @@ class ReferentielController extends Controller
                 $amenagement=$form->getData();
                 $em->persist($amenagement);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre aménagement a été ajoutée avec succées ");
+                $session->getFlashBag()->add('success', " Votre aménagement a été ajoutée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_amenagement"));
             }
         }
@@ -447,7 +447,7 @@ class ReferentielController extends Controller
                 $amenagement=$form->getData();
                 $em->persist($amenagement);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre améngament a été ajouté avec succées ");
+                $session->getFlashBag()->add('success', " Votre améngament a été ajouté avec succés ");
                 return $this->redirect($this->generateUrl("gestion_amenagement"));
             }
         }
@@ -463,7 +463,7 @@ class ReferentielController extends Controller
         $session=$this->getRequest()->getSession();
         $em->remove($amenagement);
         $em->flush();
-        $session->getFlashBag()->add('success', " Votre aménagement a été supprimé avec succées ");
+        $session->getFlashBag()->add('success', " Votre aménagement a été supprimé avec succés ");
         return $this->redirect($this->generateUrl("gestion_amenagement"));
     }
 
@@ -492,7 +492,7 @@ class ReferentielController extends Controller
             //commit base de données
             $em->flush();
             //afficher la message de succes
-            $session->getFlashBag()->add('success', " Votre chaine a été supprimée avec succées ");
+            $session->getFlashBag()->add('success', " Votre chaine a été supprimée avec succés ");
         }
         catch(\Exception $ex)
         {
@@ -523,7 +523,7 @@ class ReferentielController extends Controller
                 $chaine=$form->getData();
                 $em->persist($chaine);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre chaine a été ajoutée avec succées ");
+                $session->getFlashBag()->add('success', " Votre chaine a été ajoutée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_chaine"));
             }
         }
@@ -550,7 +550,7 @@ class ReferentielController extends Controller
                 $chaine=$form->getData();
                 $em->persist($chaine);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre chaine a été modifiée avec succées ");
+                $session->getFlashBag()->add('success', " Votre chaine a été modifiée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_chaine"));
             }
         }
@@ -586,7 +586,7 @@ class ReferentielController extends Controller
             //commit base de données
             $em->flush();
             //afficher la message de succes
-            $session->getFlashBag()->add('success', " Votre thème a été supprimé avec succées ");
+            $session->getFlashBag()->add('success', " Votre thème a été supprimé avec succés ");
         }
         catch(\Exception $ex)
         {
@@ -617,7 +617,7 @@ class ReferentielController extends Controller
                 $theme=$form->getData();
                 $em->persist($theme);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre thème a été ajouté avec succées ");
+                $session->getFlashBag()->add('success', " Votre thème a été ajouté avec succés ");
                 return $this->redirect($this->generateUrl("gestion_theme"));
             }
         }
@@ -644,7 +644,7 @@ class ReferentielController extends Controller
                 $theme=$form->getData();
                 $em->persist($theme);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre thème a été modifié avec succées ");
+                $session->getFlashBag()->add('success', " Votre thème a été modifié avec succés ");
                 return $this->redirect($this->generateUrl("gestion_theme"));
             }
         }
@@ -680,7 +680,7 @@ class ReferentielController extends Controller
             //commit base de données
             $em->flush();
             //afficher la message de succes
-            $session->getFlashBag()->add('success', " Votre vue a été supprimée avec succées ");
+            $session->getFlashBag()->add('success', " Votre vue a été supprimée avec succés ");
         }
         catch(\Exception $ex)
         {
@@ -711,7 +711,7 @@ class ReferentielController extends Controller
                 $vue=$form->getData();
                 $em->persist($vue);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre vue a été ajoutée avec succées ");
+                $session->getFlashBag()->add('success', " Votre vue a été ajoutée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_vue"));
             }
         }
@@ -738,7 +738,7 @@ class ReferentielController extends Controller
                 $vue=$form->getData();
                 $em->persist($vue);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre vue a été modifiée avec succées ");
+                $session->getFlashBag()->add('success', " Votre vue a été modifiée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_vue"));
             }
         }
@@ -774,7 +774,7 @@ class ReferentielController extends Controller
             //commit base de données
             $em->flush();
             //afficher la message de succes
-            $session->getFlashBag()->add('success', " Votre option a été supprimée avec succées ");
+            $session->getFlashBag()->add('success', " Votre option a été supprimée avec succés ");
         }
         catch(\Exception $ex)
         {
@@ -805,7 +805,7 @@ class ReferentielController extends Controller
                 $optionn=$form->getData();
                 $em->persist($optionn);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre option a été ajoutée avec succées ");
+                $session->getFlashBag()->add('success', " Votre option a été ajoutée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_optionn"));
             }
         }
@@ -832,7 +832,7 @@ class ReferentielController extends Controller
                 $optionn=$form->getData();
                 $em->persist($optionn);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre option a été modifiée avec succées ");
+                $session->getFlashBag()->add('success', " Votre option a été modifiée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_optionn"));
             }
         }
@@ -868,7 +868,7 @@ class ReferentielController extends Controller
             //commit base de données
             $em->flush();
             //afficher la message de succes
-            $session->getFlashBag()->add('success', " Votre localisation a été supprimée avec succées ");
+            $session->getFlashBag()->add('success', " Votre localisation a été supprimée avec succés ");
         }
         catch(\Exception $ex)
         {
@@ -899,7 +899,7 @@ class ReferentielController extends Controller
                 $localisation=$form->getData();
                 $em->persist($localisation);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre localisation a été ajoutée avec succées ");
+                $session->getFlashBag()->add('success', " Votre localisation a été ajoutée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_localisation"));
             }
         }
@@ -926,7 +926,7 @@ class ReferentielController extends Controller
                 $localisation=$form->getData();
                 $em->persist($localisation);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre localisation a été modifiée avec succées ");
+                $session->getFlashBag()->add('success', " Votre localisation a été modifiée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_localisation"));
             }
         }
@@ -962,7 +962,7 @@ class ReferentielController extends Controller
             //commit base de données
             $em->flush();
             //afficher la message de succes
-            $session->getFlashBag()->add('success', " Votre chambre a été supprimée avec succées ");
+            $session->getFlashBag()->add('success', " Votre chambre a été supprimée avec succés ");
         }
         catch(\Exception $ex)
         {
@@ -993,7 +993,7 @@ class ReferentielController extends Controller
                 $chambre=$form->getData();
                 $em->persist($chambre);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre chambre a été ajoutée avec succées ");
+                $session->getFlashBag()->add('success', " Votre chambre a été ajoutée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_chambre"));
             }
         }
@@ -1020,7 +1020,7 @@ class ReferentielController extends Controller
                 $chambre=$form->getData();
                 $em->persist($chambre);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre chambre a été modifiée avec succées ");
+                $session->getFlashBag()->add('success', " Votre chambre a été modifiée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_chambre"));
             }
         }
@@ -1061,7 +1061,7 @@ class ReferentielController extends Controller
             //commit base de données
             $em->flush();
             //afficher la message de succes
-            $session->getFlashBag()->add('success', " Votre arrangement a été supprimé avec succées ");
+            $session->getFlashBag()->add('success', " Votre arrangement a été supprimé avec succés ");
         }
         catch(\Exception $ex)
         {
@@ -1093,7 +1093,7 @@ class ReferentielController extends Controller
                 $arrangement=$form->getData();
                 $em->persist($arrangement);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre arrangement a été ajouté avec succées ");
+                $session->getFlashBag()->add('success', " Votre arrangement a été ajouté avec succés ");
                 return $this->redirect($this->generateUrl("gestion_arrangement"));
             }
         }
@@ -1120,7 +1120,7 @@ class ReferentielController extends Controller
                 $arrangement=$form->getData();
                 $em->persist($arrangement);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre arrangement a été modifié avec succées ");
+                $session->getFlashBag()->add('success', " Votre arrangement a été modifié avec succés ");
                 return $this->redirect($this->generateUrl("gestion_arrangement"));
             }
         }
@@ -1161,7 +1161,7 @@ class ReferentielController extends Controller
             //commit base de données
             $em->flush();
             //afficher la message de succes
-            $session->getFlashBag()->add('success', " Votre tag a été supprimé avec succées ");
+            $session->getFlashBag()->add('success', " Votre tag a été supprimé avec succés ");
         }
         catch(\Exception $ex)
         {
@@ -1193,7 +1193,7 @@ class ReferentielController extends Controller
                 $tag=$form->getData();
                 $em->persist($tag);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre tag a été ajouté avec succées ");
+                $session->getFlashBag()->add('success', " Votre tag a été ajouté avec succés ");
                 return $this->redirect($this->generateUrl("gestion_tag"));
             }
         }
@@ -1220,7 +1220,7 @@ class ReferentielController extends Controller
                 $tag=$form->getData();
                 $em->persist($tag);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre tagt a été modifié avec succées ");
+                $session->getFlashBag()->add('success', " Votre tagt a été modifié avec succés ");
                 return $this->redirect($this->generateUrl("gestion_tag"));
             }
         }
@@ -1261,7 +1261,7 @@ class ReferentielController extends Controller
             //commit base de données
             $em->flush();
             //afficher la message de succes
-            $session->getFlashBag()->add('success', " Votre supplément a été supprimé avec succées ");
+            $session->getFlashBag()->add('success', " Votre supplément a été supprimé avec succés ");
         }
         catch(\Exception $ex)
         {
@@ -1293,7 +1293,7 @@ class ReferentielController extends Controller
                 $supplement=$form->getData();
                 $em->persist($supplement);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre supplément a été ajouté avec succées ");
+                $session->getFlashBag()->add('success', " Votre supplément a été ajouté avec succés ");
                 return $this->redirect($this->generateUrl("gestion_supplement"));
             }
         }
@@ -1320,7 +1320,7 @@ class ReferentielController extends Controller
                 $supplement=$form->getData();
                 $em->persist($supplement);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre supplément a été modifié avec succées ");
+                $session->getFlashBag()->add('success', " Votre supplément a été modifié avec succés ");
                 return $this->redirect($this->generateUrl("gestion_supplement"));
             }
         }
@@ -1361,7 +1361,7 @@ class ReferentielController extends Controller
             //commit base de données
             $em->flush();
             //afficher la message de succes
-            $session->getFlashBag()->add('success', " Votre réduction a été supprimée avec succées ");
+            $session->getFlashBag()->add('success', " Votre réduction a été supprimée avec succés ");
         }
         catch(\Exception $ex)
         {
@@ -1393,7 +1393,7 @@ class ReferentielController extends Controller
                 $reduction=$form->getData();
                 $em->persist($reduction);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre reduction a été ajoutée avec succées ");
+                $session->getFlashBag()->add('success', " Votre reduction a été ajoutée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_reduction"));
             }
         }
@@ -1420,7 +1420,7 @@ class ReferentielController extends Controller
                 $reduction=$form->getData();
                 $em->persist($reduction);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre réduction a été modifiée avec succées ");
+                $session->getFlashBag()->add('success', " Votre réduction a été modifiée avec succés ");
                 return $this->redirect($this->generateUrl("gestion_reduction"));
             }
         }
