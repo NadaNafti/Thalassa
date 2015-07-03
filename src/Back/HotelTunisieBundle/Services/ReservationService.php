@@ -186,6 +186,7 @@ class ReservationService
                 ->setDateFin(\DateTime::createFromFormat('Y-m-d', $result['dateFin']))
                 ->setNuitees($result['nuitees'])
                 ->setSurDemande($result['surDemande'])
+                ->setObservation($data['observation'])
                 ->setOptions($options)
                 ->setEtat(1);
         if ($source == 'backoffice')

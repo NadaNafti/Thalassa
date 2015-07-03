@@ -148,15 +148,15 @@
                                         <div class="row">
                                             {{ formulaire.input("col-md-2","Nom & Prénom",form.client.nomPrenom,true) }}
                                             {{ formulaire.input("col-md-2","tel1",form.client.tel1,true) }}
-                                            {{ formulaire.input("col-md-2","tel2",form.client.tel2,true) }}
+                                            {{ formulaire.input("col-md-2","tel2",form.client.tel2,false) }}
                                         </div>
                                         <div class="row">
-                                            {{ formulaire.input("col-md-8","Adresse",form.client.adresse,true) }}
+                                            {{ formulaire.input("col-md-8","Adresse",form.client.adresse,false) }}
                                         </div>
                                         <div class="row">
-                                            {{ formulaire.input("col-md-2","Matricule Fiscale",form.client.matriculeFiscale,true) }}
-                                            {{ formulaire.input("col-md-2","Registre Commercie",form.client.registreCommercie,true) }}
-                                            {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,true) }}
+                                            {{ formulaire.input("col-md-2","Matricule Fiscale",form.client.matriculeFiscale,false) }}
+                                            {{ formulaire.input("col-md-2","Registre Commercie",form.client.registreCommercie,false) }}
+                                            {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,false) }}
                                         </div>
                                         <hr>
                                         {% for chambre in chambres  %}
@@ -170,6 +170,11 @@
                                                 {% endfor %}
                                             </div>
                                         {% endfor %}
+                                        <hr>
+                                        <h4>Commentaire : <small>Ce commentaire va étre afficher dans le voucher</small> </h4>
+                                        <div class="row">
+                                            {{ formulaire.input("col-md-8",null,form.observation,false) }}
+                                        </div>
                                         <hr>
                                         {% if hotel.options|length >0 %}
                                             <h4>Les Options :</h4>

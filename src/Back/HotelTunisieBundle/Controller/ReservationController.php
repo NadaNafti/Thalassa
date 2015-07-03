@@ -35,8 +35,8 @@ class ReservationController extends Controller
             if ($form->isValid())
             {
                 $data = $form->getData();
-                if ($data['dateDebut']->format('Y-m-d') <= date('Y-m-d'))
-                    $form->get('dateDebut')->addError(new FormError(" Votre date doit être supérieure à la date " . date('d/m/Y')));
+                if ($data['dateDebut']->format('Y-m-d') < date('Y-m-d'))
+                    $form->get('dateDebut')->addError(new FormError("La date minimum est  " . date('d/m/Y')));
                 elseif (is_null($data['hotels']->getSaisonByClient($data['dateDebut']->format('Y-m-d'), $data['client'])) || !$data['hotels']->getSaisonBase()->isValidSaisonBase())
                     $form->get('hotels')->addError(new FormError(" La saison de base est invalide !!!"));
                 elseif ($data['hotels']->getSaisonByClient($data['dateDebut']->format('Y-m-d'), $data['client'])->getMinStay() > $data['nuitees'])
@@ -203,6 +203,7 @@ class ReservationController extends Controller
         }
         foreach ($hotel->getOptions() as $option)
             $form->add('option_' . $option->getId(), 'checkbox', array('label' => $option->getLibelle(), 'required' => false));
+        $form->add('observation','textarea');
         $form = $form->getForm();
         $result = $this->container->get('reservation')->reservation($reservation);
         if ($request->isMethod('post'))

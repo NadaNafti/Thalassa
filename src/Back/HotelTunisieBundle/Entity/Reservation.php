@@ -118,6 +118,13 @@ class Reservation
     private $commentaire;
 
     /**
+     * @var string
+     * Observation va etre noté dans le voucher
+     * @ORM\Column(name="observation", type="text",nullable=true)
+     */
+    private $observation;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="validated", type="datetime" ,nullable=true)
@@ -642,4 +649,27 @@ class Reservation
         return number_format($this->getTotal()-$this->getMontantRegle(), 3, '.', '');
     }
 
+
+    /**
+     * Set observation
+     *
+     * @param string $observation
+     * @return Reservation
+     */
+    public function setObservation($observation)
+    {
+        $this->observation = $observation;
+
+        return $this;
+    }
+
+    /**
+     * Get observation
+     *
+     * @return string 
+     */
+    public function getObservation()
+    {
+        return $this->observation;
+    }
 }

@@ -85,6 +85,9 @@
                     </tfoot>
                 {% endif %}
             </table>
+            <div id="notices">
+                <div class="notice" style="text-align: justify;font-size: 13px;">{{ reservation.observation }}</div>
+            </div>
             <div id="thanks" style="margin-bottom: 20px;">Remarques</div>
             <div id="notices">
                 <div class="notice" style="text-align: justify;font-size: 13px;">Ceci est un VOUCHER vous garantissant le paiement et la confirmation de la réservation et services mentionnés
@@ -100,7 +103,8 @@
                     Toute réclamation devra être transmise à {{ agence.nom }} par tout moyen permettant d’en obtenir
                     un accusé de réception durant le séjour. Passé ce délai, le dossier ne pourra être traité avec la même diligence.
                     La durée du traitement des réclamations dépend des cas. Pour un traitement rapide et efficace de la demande,
-                    il est impératif de transmettre l’ensemble des justificatifs nécessaires.</div>
+                    il est impératif de transmettre l’ensemble des justificatifs nécessaires.
+                </div>
             </div>
         </main>
         <footer>

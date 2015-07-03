@@ -87,13 +87,18 @@
                 {% endfor %}
             {% endif %}
         </div>
+        {% if reservation.observation is not null and reservation.observation is not empty %}
+            <div class="col-md-12">
+                <hr>
+                <p>{{ reservation.observation }}</p>
+            </div>
+        {% endif %}
         {% if reservation.commentaire is not null and reservation.commentaire is not empty %}
             <div class="col-md-12">
                 <hr>
                 <p><h4>Commentaire :</h4> {{ reservation.commentaire }}</p>
             </div>
         {% endif %}
-
         {% if reservation.reglements|length>0 %}
             <div class="col-md-12">
                 <hr>
