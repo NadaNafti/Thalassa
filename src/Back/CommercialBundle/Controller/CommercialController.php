@@ -8,6 +8,8 @@ use Back\CommercialBundle\Entity\Fournisseur;
 use Back\CommercialBundle\Form\FournisseurType;
 use Back\CommercialBundle\Entity\Contact;
 use Back\CommercialBundle\Form\ContactType;
+use Back\CommercialBundle\Form\PieceType;
+use Back\CommercialBundle\Entity\Piece;
 
 class CommercialController extends Controller
 {
@@ -50,7 +52,8 @@ class CommercialController extends Controller
             $em->remove($fournisseur);
             $em->flush();
             $session->getFlashBag()->add('success', " Votre Fournisseur a été supprimé avec succées ");
-        } catch (\Exception $ex)
+        }
+        catch (\Exception $ex)
         {
             $session->getFlashBag()->add('danger', 'Votre Fournisseur est utilisé dans une autre table');
         }
@@ -95,7 +98,8 @@ class CommercialController extends Controller
             $em->remove($contact);
             $em->flush();
             $session->getFlashBag()->add('success', " Votre Contact a été supprimé avec succées ");
-        } catch (\Exception $ex)
+        }
+        catch (\Exception $ex)
         {
             $session->getFlashBag()->add('danger', 'Votre Contact est utilisé dans une autre table');
         }
@@ -106,22 +110,60 @@ class CommercialController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        $form = $this->createFormBuilder()
+                ->add("newPiece", new PieceType())
+                ->add('piece', 'entity', array(
+                    'class' => 'Back\CommercialBundle\Entity\Piece',
+                ))
+                ->getForm();
         $clients = $em->getRepository('BackUserBundle:Client')->findBy(array(), array('nomPrenom' => 'asc'));
         if ($client != 'all')
             $pieces = $em->getRepository('BackCommercialBundle:Piece')->findBy(array('client' => $client), array('id' => 'desc'));
         else
             $pieces = $em->getRepository('BackCommercialBundle:Piece')->findBy(array(), array('id' => 'desc'));
+        if ($request->isMethod('POST'))
+        {
+            $form->submit($request);
+            $date = $form->getData();
+            $piece = $date['piece'];
+            $newPiece = $date['newPiece'];
+            if ($newPiece->getMontantOrigine() >= $piece->getMontantOrigine())
+            {
+                $piece->setNumero($newPiece->getNumero())
+                        ->setModeReglement($newPiece->getModeReglement())
+                        ->setDateEcheance($newPiece->getDateEcheance())
+                        ->setMontant($piece->getMontant() + ($newPiece->getMontantOrigine() - $piece->getMontantOrigine()))
+                        ->setMontantOrigine($newPiece->getMontantOrigine());
+                if ($piece->getMontant() > 0)
+                {
+                    $piece->setDateReglement(null)
+                            ->setRegle(false);
+                $session->getFlashBag()->add('success', " Le nouveau montant de la piéce est  ".$piece->getMontant().' DT');
+                }
+                $em->persist($piece);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre piéce a été remplacé avec succées ");
+            }
+            else
+                $session->getFlashBag()->add('danger', 'Le montant de la nouvelle piéce doit étre superrieur a l\'ancienne ');
+            return $this->redirect($this->generateUrl('liste_piece', array(
+                                'page' => $page,
+                                '$client' => $client
+            )));
+        }
         $paginator = $this->get('knp_paginator');
         $pieces = $paginator->paginate($pieces, $page, 20);
         return $this->render('BackCommercialBundle::pieces.html.twig', array(
+                    'form' => $form->createView(),
                     'pieces' => $pieces,
                     'clients' => $clients
         ));
     }
-    
+
     public function filtrePiecesAction()
     {
-        return $this->redirect($this->generateUrl('liste_piece',array('client'=>  $this->getRequest()->get('client'))));
+        return $this->redirect($this->generateUrl('liste_piece', array('client' => $this->getRequest()->get('client'))));
     }
 
 }

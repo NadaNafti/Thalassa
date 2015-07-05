@@ -203,7 +203,7 @@ class ReservationController extends Controller
         }
         foreach ($hotel->getOptions() as $option)
             $form->add('option_' . $option->getId(), 'checkbox', array('label' => $option->getLibelle(), 'required' => false));
-        $form->add('observation','textarea');
+        $form->add('observation','textarea',array('required'=>FALSE));
         $form = $form->getForm();
         $result = $this->container->get('reservation')->reservation($reservation);
         if ($request->isMethod('post'))

@@ -347,20 +347,26 @@ class Piece
     {
         return $this->reglements;
     }
-    
+
     public function showModeReglement()
     {
-        if($this->modeReglement=="AD")
+        if ($this->modeReglement == "AD")
             return "Autorisation de débit";
-        if($this->modeReglement=="PC")
+        if ($this->modeReglement == "PC")
             return "Pris en charge";
-        if($this->modeReglement=="CB")
+        if ($this->modeReglement == "CB")
             return "Carte Bancaire";
-        if($this->modeReglement=="C")
+        if ($this->modeReglement == "C")
             return "Chèque";
-        if($this->modeReglement=="E")
+        if ($this->modeReglement == "E")
             return "Espece";
-        if($this->modeReglement=="V")
+        if ($this->modeReglement == "V")
             return "Virement";
     }
+
+    public function __toString()
+    {
+        return $this->numero;
+    }
+
 }

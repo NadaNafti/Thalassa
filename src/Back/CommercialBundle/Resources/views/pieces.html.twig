@@ -73,8 +73,9 @@
                                     <td>{{ piece.montantOrigine }}</td>
                                     <td>{{ piece.montant }}</td>
                                     <td class="TableAction">
-                                        {#                                        {{ macros.tableEdit(path('modif_piece',{'id':piece.id})) }}#}
-                                        {#                                        {{ macros.tableDelete(path('supprimer_piece',{'id':piece.id})) }}#}
+                                        <a href="#remplacer" data-id="{{ piece.id }}" data-numero="{{ piece.numero }}" data-toggle="modal" class="btn btn-success center remplacer">
+                                            Remplacer 
+                                        </a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -87,4 +88,78 @@
             </div>
         </div>
     </div>
+    <div id="remplacer" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Remplacer la piéce <span style="color:red" id="numero" ></span> par une autre piéce</h4>
+        </div>
+        {{ form_start(form) }}
+        <div class="modal-body">
+            <div class="row no-display">
+                {{ formulaire.input("col-md-3","piece",form.piece,true) }}
+            </div>
+            <div class="row">
+                {{ formulaire.input("col-md-3","Désignation",form.newPiece.numero,true) }}
+                {{ formulaire.input("col-md-3","Mode de Reglement",form.newPiece.modeReglement,true) }}
+                {{ formulaire.input("col-md-3 no-display echeance ","Date Echeance",form.newPiece.dateEcheance,true) }}
+                {{ formulaire.input("col-md-3","Montant",form.newPiece.montantOrigine,true) }}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-light-grey">
+                Fermer
+            </button>
+            <button type="submit" class="btn btn-blue">
+                Remplacer la piéce
+            </button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("back-assets/plugins/bootstrap-modal/js/bootstrap-modal.js") }}"></script>
+    <script src="{{ asset("back-assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js") }}"></script>
+    <script src="{{ asset("back-assets/js/ui-modals.js") }}"></script>
+    <script>
+        jQuery(document).ready(function () {
+            UIModals.init();
+        });
+    </script>
+{% endblock %}
+{% block jquery %}
+    <script>
+        $(document).ready(function () {
+            $('#form_newPiece_montantOrigine').prop('required', true);
+            $('#form_newPiece_modeReglement').prop('required', true);
+            $('#form_newPiece_numero').prop('required', true);
+            $('.remplacer').click(function(){
+                var id = $(this).data('id');
+                var numero = $(this).data('numero');
+                $('#form_piece').val(id);
+                $('#numero').html(numero);
+            })
+            $('#form_newPiece_modeReglement').change(function () {
+                if ($(this).val() == 'C')
+                {
+                    $('.echeance').removeClass('no-display');
+                    $('#form_newPiece_dateEcheance').prop('required', true);
+                }
+                else
+                {
+                    $('.echeance').addClass('no-display');
+                    $('#form_newPiece_dateEcheance').prop('required', false);
+                }
+            })
+            $('#form_newPiece_numero').keypress(function () {
+                $('#form_newPiece_montantOrigine').prop('disabled', false);
+                $('#form_newPiece_modeReglement').prop('disabled', false);
+                $('#form_newPiece_numero').prop('required', true);
+                $('#form_newPiece_modeReglement').prop('required', true);
+                $('#form_newPiece_montantOrigine').prop('required', true);
+            })
+        })
+    </script>
 {% endblock %}
