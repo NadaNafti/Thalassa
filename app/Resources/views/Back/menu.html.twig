@@ -75,6 +75,20 @@
                     <span class="selected"></span>
                 </a>
                 <ul class="sub-menu">
+                    <li {% if app.request.get('_route') in ['commercial_config_tarif'] %} class="active open"{% endif %} >
+                        <a href="javascript:void(0)"><i class="clip-settings"></i>
+                            <span class="title">Configuration</span><i class="icon-arrow"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li {% if app.request.get('_route')=='commercial_config_tarif' %} class="open"{% endif %}>
+                                <a href="{{ path('commercial_config_tarif') }}">
+                                    <span class="title">Tarif</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="sub-menu">
                     <li {% if app.request.get('_route') in ['commercial_fournisseur','commercial_contact'] %} class="active open"{% endif %} >
                         <a href="javascript:void(0)"><i class="clip-user-plus"></i>
                             <span class="title">Fourn. & contacts</span><i class="icon-arrow"></i>

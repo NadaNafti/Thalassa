@@ -1,0 +1,7 @@
+liste_piece:
+    path:     /pieces/{page}/{client}
+    defaults: { _controller: BackCommercialBundle:Commercial:piece,page:1,client:all }
+
+filtre_pieces:
+    path:     /filtre_pieces
+    defaults: { _controller: BackCommercialBundle:Commercial:filtrePieces }

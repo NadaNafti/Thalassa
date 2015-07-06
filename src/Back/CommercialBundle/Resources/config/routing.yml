@@ -1,23 +1,11 @@
-commercial_fournisseur:
-    path:     /fournisseur/{id}
-    defaults: { _controller: BackCommercialBundle:Commercial:fournisseur,id:null }
-
-delete_commercial_fournisseur:
-    path:     /delete_commercial_fournisseur/{id}
-    defaults: { _controller: BackCommercialBundle:Commercial:deleteFournisseur }
-
-commercial_contact:
-    path:     /contact/{id}
-    defaults: { _controller: BackCommercialBundle:Commercial:contact,id:null }
-
-delete_commercial_contact:
-    path:     /delete_commercial_contact/{id}
-    defaults: { _controller: BackCommercialBundle:Commercial:deleteContact }
-
-liste_piece:
-    path:     /pieces/{page}/{client}
-    defaults: { _controller: BackCommercialBundle:Commercial:piece,page:1,client:all }
-
-filtre_pieces:
-    path:     /filtre_pieces
-    defaults: { _controller: BackCommercialBundle:Commercial:filtrePieces }
+back_commercial_config:
+    resource: "@BackCommercialBundle/Resources/config/routing/config.yml"
+    prefix:   /
+    
+back_commercial_users:
+    resource: "@BackCommercialBundle/Resources/config/routing/users.yml"
+    prefix:   /
+    
+back_commercial_reglement:
+    resource: "@BackCommercialBundle/Resources/config/routing/reglement.yml"
+    prefix:   /

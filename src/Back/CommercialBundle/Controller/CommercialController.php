@@ -10,6 +10,8 @@ use Back\CommercialBundle\Entity\Contact;
 use Back\CommercialBundle\Form\ContactType;
 use Back\CommercialBundle\Form\PieceType;
 use Back\CommercialBundle\Entity\Piece;
+use Back\CommercialBundle\Entity\Tarif;
+use Back\CommercialBundle\Form\TarifType;
 
 class CommercialController extends Controller
 {
@@ -164,6 +166,32 @@ class CommercialController extends Controller
     public function filtrePiecesAction()
     {
 	return $this->redirect($this->generateUrl('liste_piece', array('client' => $this->getRequest()->get('client'))));
+    }
+
+    public function tarifAction()
+    {
+	$em = $this->getDoctrine()->getManager();
+	$session = $this->getRequest()->getSession();
+	$tarif = $em->getRepository('BackCommercialBundle:Tarif')->find(1);
+	if (!$tarif)
+	    $tarif = new Tarif ();
+	$form = $this->createForm(new TarifType(), $tarif);
+	$request = $this->getRequest();
+	if ($request->isMethod('POST'))
+	{
+	    $form->submit($request);
+	    if ($form->isValid())
+	    {
+		$tarif = $form->getData();
+		$em->persist($tarif);
+		$em->flush();
+		$session->getFlashBag()->add('success', " Vos tarif ont été modifié avec succés ");
+		return $this->redirect($this->generateUrl('commercial_config_tarif'));
+	    }
+	}
+	return $this->render('BackCommercialBundle:config:tarif.html.twig', array(
+		    'form' => $form->createView()
+	));
     }
 
 }

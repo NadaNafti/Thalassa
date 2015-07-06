@@ -1,0 +1,15 @@
+commercial_fournisseur:
+    path:     /fournisseur/{id}
+    defaults: { _controller: BackCommercialBundle:Commercial:fournisseur,id:null }
+
+delete_commercial_fournisseur:
+    path:     /delete_commercial_fournisseur/{id}
+    defaults: { _controller: BackCommercialBundle:Commercial:deleteFournisseur }
+
+commercial_contact:
+    path:     /contact/{id}
+    defaults: { _controller: BackCommercialBundle:Commercial:contact,id:null }
+
+delete_commercial_contact:
+    path:     /delete_commercial_contact/{id}
+    defaults: { _controller: BackCommercialBundle:Commercial:deleteContact }

@@ -1,0 +1,26 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Tarif{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >Tarif</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        {{ formulaire.input("col-md-4","",form.timbre,false) }}
+                        {{ formulaire.input("col-md-2","Montant Timbre",form.montantTimbre,false) }}
+                    </div>
+
+                    {{ formulaire.submit("Modifier") }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
