@@ -25,26 +25,6 @@ class SaisonSuppType extends AbstractType
                     'label'   =>'En pourcentage',
                     'required'=>false
                 ))
-            ->add('supp3Lit')
-            ->add('supp3LitPour', 'checkbox', array(
-                    'label'   =>'En pourcentage',
-                    'required'=>false
-                ))
-            ->add('supp3LitMarge')
-            ->add('supp3LitMargePour', 'checkbox', array(
-                    'label'   =>'En pourcentage',
-                    'required'=>false
-                ))
-            ->add('supp4Lit')
-            ->add('supp4LitPour', 'checkbox', array(
-                    'label'   =>'En pourcentage',
-                    'required'=>false
-                ))
-            ->add('supp4LitMarge')
-            ->add('supp4LitMargePour', 'checkbox', array(
-                    'label'   =>'En pourcentage',
-                    'required'=>false
-                ))
             ->add('suppSingleEnfant', 'checkbox', array(
                     'label'   =>'Activer',
                     'required'=>false

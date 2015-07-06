@@ -19,7 +19,7 @@
             <div class="tab-content">
                 <div class="tab-pane in active" id="ArrBase">
                     <div class="row">
-                        <div class="col-md-4" >
+                        <div class="col-md-3">
                             <h3>Arrangements</h3>
                             <ul>
                                 <li>
@@ -161,7 +161,7 @@
                                 </ul>
                             {% endif %}
                         </div>
-                        <div class="col-md-8" >
+                        <div class="col-md-9" >
                             <h3>Supplement <small>{{ saison.arrBase }}</small></h3>
                             <div class="row">
                                 <div class="col-md-6" >
@@ -177,32 +177,10 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li>
-                                            <strong style='white-space:nowrap' >Supp. 4<sup>eme</sup> Lit</strong>
-                                            <ul>
-                                                <li>
-                                                    Prix Achat : {{ saison.saisonSupp.getSupp4LitAchat }}
-                                                </li>
-                                                <li>
-                                                    Prix Vente : {{ saison.saisonSupp.getSupp4LitVente }}
-                                                </li>
-                                            </ul>
-                                        </li>
                                     </ul>
                                 </div>               
                                 <div class="col-md-6">
                                     <ul>
-                                        <li>
-                                            <strong style='white-space:nowrap' >Supp. 3<sup>eme</sup> Lit</strong>
-                                            <ul>
-                                                <li>
-                                                    Prix Achat : {{ saison.saisonSupp.getSupp3LitAchat }}
-                                                </li>
-                                                <li>
-                                                    Prix Vente : {{ saison.saisonSupp.getSupp3LitVente }}
-                                                </li>
-                                            </ul>
-                                        </li>
                                         <li>
                                             <strong style='white-space:nowrap' >Supp. single pour un enfant seul dans une chambre séparé</strong>
                                             <ul>
@@ -234,7 +212,7 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <strong style='white-space:nowrap' >1<sup>er</sup> enfant avec 1 adulte dans une même chambre</strong>
+                                            <strong style='white-space:nowrap' >1<sup>er</sup> enfant avec 1 adulte</strong>
                                             <ul>
                                                 <li>
                                                     <strong style='white-space:nowrap' >Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>
@@ -288,7 +266,7 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <strong style='white-space:nowrap' >2<sup>eme</sup>  enfant ou plus avec 2 adultes ou plus dans une même CH.</strong>
+                                            <strong style='white-space:nowrap' >2<sup>eme</sup>  enfant ou plus avec 2 adultes ou plus.</strong>
                                             <ul>
                                                 <li>
                                                     <strong style='white-space:nowrap' >Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>
@@ -330,7 +308,7 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <strong style='white-space:nowrap' >1<sup>er</sup> enfant avec 2 adultes ou plus dans une même chambre</strong>
+                                            <strong style='white-space:nowrap' >1<sup>er</sup> enfant avec 2 adultes ou plus</strong>
                                             <ul>
                                                 <li>
                                                     <strong style='white-space:nowrap' >Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>
@@ -357,7 +335,7 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <strong style='white-space:nowrap' >2<sup>eme</sup>  enfant ou plus avec 1 adulte dans une même chambre</strong>
+                                            <strong style='white-space:nowrap' >2<sup>eme</sup>  enfant ou plus avec 1 adulte</strong>
                                             <ul>
                                                 <li>
                                                     <strong style='white-space:nowrap' >Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>
@@ -420,7 +398,7 @@
                     {% set arr=saisonArr.arrangement.id %}
                     <div class="tab-pane" id="Arr_{{ arr }}">
                         <div class="row">
-                            <div class="col-md-4" >
+                            <div class="col-md-3" >
                                 <h3>Arrangements</h3>
                                 <ul>
                                     <li>
@@ -562,7 +540,7 @@
                                     </ul>
                                 {% endif %}
                             </div>
-                            <div class="col-md-8" >
+                            <div class="col-md-9" >
                                 <h3>Supplement <small>{{ saisonArr.arrangement }}</small></h3>
                                 <div class="row">
                                     <div class="col-md-6" >
@@ -578,32 +556,10 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li>
-                                                <strong style='white-space:nowrap' >Supp. 4<sup>eme</sup> Lit</strong>
-                                                <ul>
-                                                    <li>
-                                                        Prix Achat : {{ saison.saisonSupp.getSupp4LitAchat(arr) }}
-                                                    </li>
-                                                    <li>
-                                                        Prix Vente : {{ saison.saisonSupp.getSupp4LitVente(arr) }}
-                                                    </li>
-                                                </ul>
-                                            </li>
                                         </ul>
                                     </div>               
                                     <div class="col-md-6">
                                         <ul>
-                                            <li>
-                                                <strong style='white-space:nowrap' >Supp. 3<sup>eme</sup> Lit</strong>
-                                                <ul>
-                                                    <li>
-                                                        Prix Achat : {{ saison.saisonSupp.getSupp3LitAchat(arr) }}
-                                                    </li>
-                                                    <li>
-                                                        Prix Vente : {{ saison.saisonSupp.getSupp3LitVente(arr) }}
-                                                    </li>
-                                                </ul>
-                                            </li>
                                             <li>
                                                 <strong style='white-space:nowrap' >Supp. single pour un enfant seul dans une chambre séparé</strong>
                                                 <ul>
@@ -635,7 +591,7 @@
                                                 </ul>
                                             </li>
                                             <li>
-                                                <strong style='white-space:nowrap' >1<sup>er</sup> enfant avec 1 adulte dans une même chambre</strong>
+                                                <strong style='white-space:nowrap' >1<sup>er</sup> enfant avec 1 adulte</strong>
                                                 <ul>
                                                     <li>
                                                         <strong style='white-space:nowrap' >Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>
@@ -689,7 +645,7 @@
                                                 </ul>
                                             </li>
                                             <li>
-                                                <strong style='white-space:nowrap' >2<sup>eme</sup>  enfant ou plus avec 2 adultes ou plus dans une même CH.</strong>
+                                                <strong style='white-space:nowrap' >2<sup>eme</sup>  enfant ou plus avec 2 adultes ou plus.</strong>
                                                 <ul>
                                                     <li>
                                                         <strong style='white-space:nowrap' >Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>
@@ -731,7 +687,7 @@
                                                 </ul>
                                             </li>
                                             <li>
-                                                <strong style='white-space:nowrap' >1<sup>er</sup> enfant avec 2 adultes ou plus dans une même chambre</strong>
+                                                <strong style='white-space:nowrap' >1<sup>er</sup> enfant avec 2 adultes ou plus</strong>
                                                 <ul>
                                                     <li>
                                                         <strong style='white-space:nowrap' >Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>
@@ -758,7 +714,7 @@
                                                 </ul>
                                             </li>
                                             <li>
-                                                <strong style='white-space:nowrap' >2<sup>eme</sup>  enfant ou plus avec 1 adulte dans une même chambre</strong>
+                                                <strong style='white-space:nowrap' >2<sup>eme</sup>  enfant ou plus avec 1 adulte</strong>
                                                 <ul>
                                                     <li>
                                                         <strong style='white-space:nowrap' >Enfant [{{ hotel.ficheTechnique.min1AgeEnfant }} .. {{ hotel.ficheTechnique.max1AgeEnfant }}]</strong>

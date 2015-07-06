@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SaisonChambre
 {
+
     /**
      * @var integer
      *
@@ -29,7 +30,7 @@ class SaisonChambre
      * @ORM\Column(name="etat", type="boolean", nullable=true)
      */
     private $etat;
-    
+
     /**
      * @var integer
      * @Assert\Range(min = 0)
@@ -64,19 +65,18 @@ class SaisonChambre
      * @ORM\Column(name="contingent", type="integer")
      */
     private $contingent;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Chambre",fetch="EAGER")
      * @ORM\JoinColumn(name="chambre_id", referencedColumnName="id")
      */
     protected $chambre;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Saison", inversedBy="chambres", fetch="EAGER")
      * @ORM\JoinColumn(name="saison_id", referencedColumnName="id",onDelete="CASCADE")
      */
     protected $saison;
-
 
     /**
      * Get id
@@ -85,7 +85,7 @@ class SaisonChambre
      */
     public function getId()
     {
-        return $this->id;
+	return $this->id;
     }
 
     /**
@@ -96,9 +96,9 @@ class SaisonChambre
      */
     public function setMinAdulte($minAdulte)
     {
-        $this->minAdulte = $minAdulte;
+	$this->minAdulte = $minAdulte;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -108,7 +108,7 @@ class SaisonChambre
      */
     public function getMinAdulte()
     {
-        return $this->minAdulte;
+	return $this->minAdulte;
     }
 
     /**
@@ -119,9 +119,9 @@ class SaisonChambre
      */
     public function setMaxAdulte($maxAdulte)
     {
-        $this->maxAdulte = $maxAdulte;
+	$this->maxAdulte = $maxAdulte;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -131,7 +131,7 @@ class SaisonChambre
      */
     public function getMaxAdulte()
     {
-        return $this->maxAdulte;
+	return $this->maxAdulte;
     }
 
     /**
@@ -142,9 +142,9 @@ class SaisonChambre
      */
     public function setMinEnfant($minEnfant)
     {
-        $this->minEnfant = $minEnfant;
+	$this->minEnfant = $minEnfant;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -154,7 +154,7 @@ class SaisonChambre
      */
     public function getMinEnfant()
     {
-        return $this->minEnfant;
+	return $this->minEnfant;
     }
 
     /**
@@ -165,9 +165,9 @@ class SaisonChambre
      */
     public function setMaxEnfant($maxEnfant)
     {
-        $this->maxEnfant = $maxEnfant;
+	$this->maxEnfant = $maxEnfant;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -177,7 +177,7 @@ class SaisonChambre
      */
     public function getMaxEnfant()
     {
-        return $this->maxEnfant;
+	return $this->maxEnfant;
     }
 
     /**
@@ -188,9 +188,9 @@ class SaisonChambre
      */
     public function setContingent($contingent)
     {
-        $this->contingent = $contingent;
+	$this->contingent = $contingent;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -200,7 +200,7 @@ class SaisonChambre
      */
     public function getContingent()
     {
-        return $this->contingent;
+	return $this->contingent;
     }
 
     /**
@@ -211,9 +211,9 @@ class SaisonChambre
      */
     public function setSaison(\Back\HotelTunisieBundle\Entity\Saison $saison = null)
     {
-        $this->saison = $saison;
+	$this->saison = $saison;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -223,7 +223,7 @@ class SaisonChambre
      */
     public function getSaison()
     {
-        return $this->saison;
+	return $this->saison;
     }
 
     /**
@@ -234,9 +234,9 @@ class SaisonChambre
      */
     public function setChambre(\Back\HotelTunisieBundle\Entity\Chambre $chambre = null)
     {
-        $this->chambre = $chambre;
+	$this->chambre = $chambre;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -246,12 +246,12 @@ class SaisonChambre
      */
     public function getChambre()
     {
-        return $this->chambre;
+	return $this->chambre;
     }
-    
+
     public function __toString()
     {
-        return"";
+	return"";
     }
 
     /**
@@ -262,9 +262,9 @@ class SaisonChambre
      */
     public function setEtat($etat)
     {
-        $this->etat = $etat;
+	$this->etat = $etat;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -274,34 +274,35 @@ class SaisonChambre
      */
     public function getEtat()
     {
-        return $this->etat;
+	return $this->etat;
     }
-    
+
     public function __clone()
     {
-        if ($this->id)
-        {
-            $this->id = null ;
-        }
+	if ($this->id)
+	{
+	    $this->id = null;
+	}
     }
-    
+
     public function getSuppReducVente()
     {
-        if($this->chambre->getType()==1)
-            return   $this->saison->getSaisonSupp()->getSuppSingleVente();
-        if($this->chambre->getType()==2)
-            return   0;
-        if($this->chambre->getType()==3)
-            return   $this->saison->getSaisonSupp()->getSupp3LitVente() + $this->saison->getSaisonReduc()->getReduc3LitVente();
-        if($this->chambre->getType()==4)
-            return   $this->saison->getSaisonSupp()->getSupp4LitVente() + $this->saison->getSaisonReduc()->getReduc4LitVente();
-        if($this->chambre->getType()==0)
-        {
-            foreach ($this->saison->getSuppChambres() as $chambre)
-            {
-                if($chambre->getChambre()->getId()==$this->chambre->getId())
-                    return $chambre->getSuppVente();
-            }
-        }
+	if ($this->chambre->getType() == 1)
+	    return $this->saison->getSaisonSupp()->getSuppSingleVente();
+	if ($this->chambre->getType() == 2)
+	    return 0;
+	if ($this->chambre->getType() == 3)
+	    return $this->saison->getSaisonReduc()->getReduc3LitVente();
+	if ($this->chambre->getType() == 4)
+	    return $this->saison->getSaisonReduc()->getReduc4LitVente();
+	if ($this->chambre->getType() == 0)
+	{
+	    foreach ($this->saison->getSuppChambres() as $chambre)
+	    {
+		if ($chambre->getChambre()->getId() == $this->chambre->getId())
+		    return $chambre->getSuppVente();
+	    }
+	}
     }
+
 }

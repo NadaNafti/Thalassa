@@ -87,17 +87,17 @@ class Agence
 
     public function getUploadRootDir()
     {
-        return __dir__ . '/../../../../web/uploads';
+	return __dir__ . '/../../../../web/uploads';
     }
 
     public function getAbsolutePath()
     {
-        return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
+	return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
     }
 
     public function getAssetPath()
     {
-        return 'uploads/' . $this->path;
+	return 'uploads/' . $this->path;
     }
 
     /**
@@ -105,7 +105,7 @@ class Agence
      */
     public function postLoad()
     {
-        $this->updateAt = new \DateTime();
+	$this->updateAt = new \DateTime();
     }
 
     /**
@@ -114,11 +114,11 @@ class Agence
      */
     public function preUpload()
     {
-        $this->tempFile = $this->getAbsolutePath();
-        $this->oldFile = $this->path;
-        $this->updateAt = new \DateTime();
-        if (null !== $this->file)
-            $this->path = sha1(uniqid(mt_rand(), true)) . '.' . $this->file->guessExtension();
+	$this->tempFile = $this->getAbsolutePath();
+	$this->oldFile = $this->path;
+	$this->updateAt = new \DateTime();
+	if (null !== $this->file)
+	    $this->path = sha1(uniqid(mt_rand(), true)) . '.' . $this->file->guessExtension();
     }
 
     /**
@@ -127,13 +127,13 @@ class Agence
      */
     public function upload()
     {
-        if (null !== $this->file)
-        {
-            $this->file->move($this->getUploadRootDir(), $this->path);
-            unset($this->file);
-            if ($this->oldFile != null)
-                unlink($this->tempFile);
-        }
+	if (null !== $this->file)
+	{
+	    $this->file->move($this->getUploadRootDir(), $this->path);
+	    unset($this->file);
+	    if ($this->oldFile != null && file_exists($this->tempFile))
+		unlink($this->tempFile);
+	}
     }
 
     /**
@@ -141,7 +141,7 @@ class Agence
      */
     public function preRemoveUpload()
     {
-        $this->tempFile = $this->getAbsolutePath();
+	$this->tempFile = $this->getAbsolutePath();
     }
 
     /**
@@ -149,10 +149,9 @@ class Agence
      */
     public function removeUpload()
     {
-        if (file_exists($this->tempFile))
-            unlink($this->tempFile);
+	if (file_exists($this->tempFile))
+	    unlink($this->tempFile);
     }
-    
 
     /**
      * Get id
@@ -161,7 +160,7 @@ class Agence
      */
     public function getId()
     {
-        return $this->id;
+	return $this->id;
     }
 
     /**
@@ -172,9 +171,9 @@ class Agence
      */
     public function setNom($nom)
     {
-        $this->nom = $nom;
+	$this->nom = $nom;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -184,7 +183,7 @@ class Agence
      */
     public function getNom()
     {
-        return $this->nom;
+	return $this->nom;
     }
 
     /**
@@ -195,9 +194,9 @@ class Agence
      */
     public function setAdresse($adresse)
     {
-        $this->adresse = $adresse;
+	$this->adresse = $adresse;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -207,7 +206,7 @@ class Agence
      */
     public function getAdresse()
     {
-        return $this->adresse;
+	return $this->adresse;
     }
 
     /**
@@ -218,9 +217,9 @@ class Agence
      */
     public function setTel1($tel1)
     {
-        $this->tel1 = $tel1;
+	$this->tel1 = $tel1;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -230,7 +229,7 @@ class Agence
      */
     public function getTel1()
     {
-        return $this->tel1;
+	return $this->tel1;
     }
 
     /**
@@ -241,9 +240,9 @@ class Agence
      */
     public function setTel2($tel2)
     {
-        $this->tel2 = $tel2;
+	$this->tel2 = $tel2;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -253,7 +252,7 @@ class Agence
      */
     public function getTel2()
     {
-        return $this->tel2;
+	return $this->tel2;
     }
 
     /**
@@ -264,9 +263,9 @@ class Agence
      */
     public function setFax($fax)
     {
-        $this->fax = $fax;
+	$this->fax = $fax;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -276,7 +275,7 @@ class Agence
      */
     public function getFax()
     {
-        return $this->fax;
+	return $this->fax;
     }
 
     /**
@@ -287,9 +286,9 @@ class Agence
      */
     public function setContactEmail($contactEmail)
     {
-        $this->contactEmail = $contactEmail;
+	$this->contactEmail = $contactEmail;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -299,7 +298,7 @@ class Agence
      */
     public function getContactEmail()
     {
-        return $this->contactEmail;
+	return $this->contactEmail;
     }
 
     /**
@@ -310,9 +309,9 @@ class Agence
      */
     public function setSite($site)
     {
-        $this->site = $site;
+	$this->site = $site;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -322,9 +321,8 @@ class Agence
      */
     public function getSite()
     {
-        return $this->site;
+	return $this->site;
     }
-
 
     /**
      * Set updateAt
@@ -334,9 +332,9 @@ class Agence
      */
     public function setUpdateAt($updateAt)
     {
-        $this->updateAt = $updateAt;
+	$this->updateAt = $updateAt;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -346,7 +344,7 @@ class Agence
      */
     public function getUpdateAt()
     {
-        return $this->updateAt;
+	return $this->updateAt;
     }
 
     /**
@@ -357,9 +355,9 @@ class Agence
      */
     public function setPath($path)
     {
-        $this->path = $path;
+	$this->path = $path;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -369,6 +367,7 @@ class Agence
      */
     public function getPath()
     {
-        return $this->path;
+	return $this->path;
     }
+
 }

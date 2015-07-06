@@ -38,14 +38,14 @@
                                     <span class="title">Clients</span>
                                 </a>
                             </li>
-                            <li {% if app.request.get('_route')=='group' %} class="open"{% endif %}>
-                                <a href="{{ path('group') }}">
-                                    <span class="title">Groupes</span>
-                                </a>
-                            </li>
                             <li {% if app.request.get('_route')=='user' %} class="open"{% endif %}>
                                 <a href="{{ path('user') }}">
                                     <span class="title">Utilisateurs</span>
+                                </a>
+                            </li>
+                            <li {% if app.request.get('_route')=='group' %} class="open"{% endif %}>
+                                <a href="{{ path('group') }}">
+                                    <span class="title">Groupes</span>
                                 </a>
                             </li>
                             <li {% if app.request.get('_route')=='back_emails' %} class="open"{% endif %}>

@@ -48,7 +48,7 @@ class Media
      */
     public function postLoad()
     {
-        $this->updateAt=new \DateTime();
+	$this->updateAt = new \DateTime();
     }
 
     /**
@@ -60,8 +60,6 @@ class Media
      * @ORM\Column(type="string",length=255, nullable=true) 
      */
     public $path;
-    
-    
     public $file;
 
     /**
@@ -71,27 +69,27 @@ class Media
 
     public function getUploadRootDir()
     {
-        return __dir__.'/../../../../web/'.$this->getDirectory();
+	return __dir__ . '/../../../../web/' . $this->getDirectory();
     }
 
     public function getDirectory()
     {
-        if($this->hotel)
-            return 'uploads/hotel';
-        if($this->ville)
-            return 'uploads/ville';
-        else
-            return 'uploads';
+	if ($this->hotel)
+	    return 'uploads/hotel';
+	if ($this->ville)
+	    return 'uploads/ville';
+	else
+	    return 'uploads';
     }
 
     public function getAssetPath()
     {
-        return $this->getDirectory().'/'.$this->path;
+	return $this->getDirectory() . '/' . $this->path;
     }
 
     public function getAbsolutePath()
     {
-        return null===$this->path?null:$this->getUploadRootDir().'/'.$this->path;
+	return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
     }
 
     /**
@@ -100,12 +98,12 @@ class Media
      */
     public function preUpload()
     {
-        $this->tempFile=$this->getAbsolutePath();
-        $this->oldFile=$this->getPath();
-        $this->updateAt=new \DateTime();
+	$this->tempFile = $this->getAbsolutePath();
+	$this->oldFile = $this->getPath();
+	$this->updateAt = new \DateTime();
 
-        if(null!==$this->file)
-            $this->path=sha1(uniqid(mt_rand(), true)).'.'.$this->file->guessExtension();
+	if (null !== $this->file)
+	    $this->path = sha1(uniqid(mt_rand(), true)) . '.' . $this->file->guessExtension();
     }
 
     /**
@@ -114,13 +112,13 @@ class Media
      */
     public function upload()
     {
-        if(null!==$this->file)
-        {
-            $this->file->move($this->getUploadRootDir(), $this->path);
-            unset($this->file);
-            if($this->oldFile!=null&&file_exists($this->tempFile))
-                unlink($this->tempFile);
-        }
+	if (null !== $this->file)
+	{
+	    $this->file->move($this->getUploadRootDir(), $this->path);
+	    unset($this->file);
+	    if ($this->oldFile != null && file_exists($this->tempFile))
+		unlink($this->tempFile);
+	}
     }
 
     /**
@@ -128,7 +126,7 @@ class Media
      */
     public function preRemoveUpload()
     {
-        $this->tempFile=$this->getAbsolutePath();
+	$this->tempFile = $this->getAbsolutePath();
     }
 
     /**
@@ -136,8 +134,8 @@ class Media
      */
     public function removeUpload()
     {
-        if(file_exists($this->tempFile))
-            unlink($this->tempFile);
+	if (file_exists($this->tempFile))
+	    unlink($this->tempFile);
     }
 
     /**
@@ -147,17 +145,17 @@ class Media
      */
     public function getId()
     {
-        return $this->id;
+	return $this->id;
     }
 
     public function getPath()
     {
-        return $this->path;
+	return $this->path;
     }
 
     public function getType()
     {
-        return $this->type;
+	return $this->type;
     }
 
     /**
@@ -168,9 +166,9 @@ class Media
      */
     public function setUpdateAt($updateAt)
     {
-        $this->updateAt=$updateAt;
+	$this->updateAt = $updateAt;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -180,7 +178,7 @@ class Media
      */
     public function getUpdateAt()
     {
-        return $this->updateAt;
+	return $this->updateAt;
     }
 
     /**
@@ -191,9 +189,9 @@ class Media
      */
     public function setType($type)
     {
-        $this->type=$type;
+	$this->type = $type;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -204,9 +202,9 @@ class Media
      */
     public function setPath($path)
     {
-        $this->path=$path;
+	$this->path = $path;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -215,11 +213,11 @@ class Media
      * @param \Back\HotelTunisieBundle\Entity\ville $ville
      * @return Media
      */
-    public function setVille(\Back\HotelTunisieBundle\Entity\ville $ville=null)
+    public function setVille(\Back\HotelTunisieBundle\Entity\ville $ville = null)
     {
-        $this->ville=$ville;
+	$this->ville = $ville;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -229,19 +227,16 @@ class Media
      */
     public function getVille()
     {
-        return $this->ville;
-    }
-    
-    
-    public function showType()
-    {
-        if($this->type==1)
-            return 'Principale';
-        if($this->type==2)
-            return 'Album';
-        
+	return $this->ville;
     }
 
+    public function showType()
+    {
+	if ($this->type == 1)
+	    return 'Principale';
+	if ($this->type == 2)
+	    return 'Album';
+    }
 
     /**
      * Set ordre
@@ -251,9 +246,9 @@ class Media
      */
     public function setOrdre($ordre)
     {
-        $this->ordre = $ordre;
+	$this->ordre = $ordre;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -263,7 +258,7 @@ class Media
      */
     public function getOrdre()
     {
-        return $this->ordre;
+	return $this->ordre;
     }
 
     /**
@@ -274,9 +269,9 @@ class Media
      */
     public function setHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotel = null)
     {
-        $this->hotel = $hotel;
+	$this->hotel = $hotel;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -286,6 +281,7 @@ class Media
      */
     public function getHotel()
     {
-        return $this->hotel;
+	return $this->hotel;
     }
+
 }

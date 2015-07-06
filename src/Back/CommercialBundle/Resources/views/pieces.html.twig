@@ -59,7 +59,7 @@
                         </thead>
                         <tbody>
                             {% for piece in pieces %}
-                                <tr class="center">
+                                <tr class="center"  {% if piece.modeReglement in ['AD','PC']  %}style='  background-color: papayawhip;'{% endif %}>
                                     <td>{{ piece.id }}</td>
                                     <td>{{ piece.client }}</td>
                                     <td>{{ piece.dateCreation|date('d/m/Y') }}</td>
@@ -70,10 +70,10 @@
                                             / Echéance {{ piece.dateEcheance|date('d/m/Y') }}
                                         {% endif %}
                                     </td>
-                                    <td>{{ piece.montantOrigine }}</td>
-                                    <td>{{ piece.montant }}</td>
+                                    <td>{{ piece.montantOrigine }} DT</td>
+                                    <td>{{ piece.montant }} DT</td>
                                     <td class="TableAction"> 
-					<a href="#remplacer" data-id="{{ piece.id }}" data-montantorigine="{{ piece.montantOrigine }}" data-numero="{{ piece.numero }}" data-toggle="modal" class="btn btn-xs  tooltips" data-placement="top" data-original-title="Remplacer la piéce">
+					<a href="#remplacer" data-id="{{ piece.id }}" data-montantorigine="{{ piece.montantOrigine }}" data-numero="{{ piece.numero }}" data-toggle="modal" class="remplacer btn btn-xs  tooltips" data-placement="top" data-original-title="Remplacer la piéce">
 					    <i class="fa fa-reply"></i>
 					</a>
                                     </td>
@@ -135,7 +135,7 @@
 	    $('#form_newPiece_montantOrigine').prop('required', true);
 	    $('#form_newPiece_modeReglement').prop('required', true);
 	    $('#form_newPiece_numero').prop('required', true);
-	    $('.remplacer').click(function () {
+	    $('.remplacer').on('click',function () {
 		var id = $(this).data('id');
 		var numero = $(this).data('numero');
 		var montantorigine = $(this).data('montantorigine');
