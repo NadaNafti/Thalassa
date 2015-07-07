@@ -1,0 +1,7 @@
+Back_voyage_organise_referentiel:
+    resource: "@BackVoyageOrganiseBundle/Resources/config/routing/referentiel.yml"
+    prefix:   /ref
+
+Back_voyage_organise:
+    resource: "@BackVoyageOrganiseBundle/Resources/config/routing/voyage_organise.yml"
+    prefix:   /vo/

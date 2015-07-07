@@ -1,0 +1,59 @@
+<?php
+
+namespace Back\VoyageOrganiseBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Description
+ *
+ * @ORM\Table(name="ost_vo_descriptions")
+ * @ORM\Entity()
+ */
+class Description
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="VoyageOrganise", inversedBy="descriptions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $voyage;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="libelle", type="string", length=255)
+     */
+    private $libelle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="texte", type="text")
+     */
+    private $texte;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ordre", type="integer")
+     */
+    private $ordre;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="visible", type="boolean")
+     */
+    private $visible;
+
+}

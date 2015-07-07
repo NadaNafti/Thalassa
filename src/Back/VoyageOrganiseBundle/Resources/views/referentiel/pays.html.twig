@@ -1,5 +1,5 @@
 {% extends ":Back:base.html.twig" %}
-{% block title %}Gestion des fournisseurs{% endblock %}
+{% block title %}Gestion des Pays{% endblock %}
 {% block topbody %}   
     {{ parent() }}
     <li>
@@ -34,14 +34,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for fournisseur in fournisseurs %}
+                            {% for pays in payss %}
                                 <tr>
-                                    <td>{{ fournisseur.id }}</td>
-                                    <td>{{ fournisseur.libelle }}</td>
+                                    <td>{{ pays.id }}</td>
+                                    <td>{{ pays.libelle }}</td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            {{ macros.tableEdit(path('commercial_fournisseur',{'id':fournisseur.id})) }}
-                                            {{ macros.tableDelete(path('delete_commercial_fournisseur',{'id':fournisseur.id})) }}
+                                            {{ macros.tableEdit(path('back_voyages_organises_pays',{'id':pays.id})) }}
+                                            {{ macros.tableDelete(path('delete_back_voyages_organises_pays',{'id':pays.id})) }}
                                         </div>
                                     </td>
                                 </tr>

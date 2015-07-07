@@ -1,0 +1,49 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Liste des voyages organisés{% endblock %}
+{% block description %}Liste{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="{{ path('back_vo_liste') }}" >Voyages organisés</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Nombre de voyages : {{ voyages.getTotalItemCount }}
+                    <div class="panel-tools">
+                        <a class="btn btn-xs btn-link" href="{{ path('back_vo_ajouter') }}"> <i class="fa fa-plus"></i> Ajouter un nouveau</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th class="center" >#</th>
+                                <th class="center" >Libellé</th>
+                                <th class="center" >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for voyage in voyages %}
+                                <tr class="center">
+                                    <td>{{ voyage.id }}</td>
+                                    <td>{{ voyage.libelle|title }}</td>
+                                    <td class="TableAction">
+                                        {{ macros.tableEdit(path('back_vo_ajouter',{'id':voyage.id})) }}
+                                        {{ macros.tableDelete(path('back_vo_supprimer',{'id':voyage.id})) }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="navigation">
+                        {{ knp_pagination_render(voyages) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

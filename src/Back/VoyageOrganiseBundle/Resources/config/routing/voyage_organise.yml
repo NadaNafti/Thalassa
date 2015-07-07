@@ -1,0 +1,11 @@
+back_vo_liste:
+    path:     /liste/{page}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:liste,page:1 }
+
+back_vo_supprimer:
+    path:     /back_vo_supprimer/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:supprimer }
+
+back_vo_ajouter:
+    path:     /ajouter/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:ajouter,id:null }

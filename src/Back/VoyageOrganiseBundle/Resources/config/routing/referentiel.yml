@@ -1,0 +1,15 @@
+back_voyages_organises_destination:
+    path:     /destinations/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Referentiel:destination,id:null }
+
+delete_back_voyages_organises_destination:
+    path:     /delete_back_voyages_organises_destination/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Referentiel:deleteDestination }
+
+back_voyages_organises_pays:
+    path:     /pays/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Referentiel:pays,id:null }
+
+delete_back_voyages_organises_pays:
+    path:     /delete_back_voyages_organises_pays/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Referentiel:deletePays }
