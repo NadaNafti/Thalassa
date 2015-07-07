@@ -73,7 +73,9 @@
             {% if reservation.client.amicale is not null %}
                 <p><strong>Amicale : </strong> {{ reservation.client.amicale }}</p>
             {% endif %}
-            <p><strong>Nom : </strong> {{ reservation.client }}</p>
+            <p><strong>Nom : </strong> {{ reservation.coordonnees.0 }}</p>
+            <p><strong>Tel : </strong> {{ reservation.coordonnees.1 }}</p>
+            <p><strong>Adresse : </strong> {{ reservation.coordonnees.2 }}</p>
             <h4 class="center">Les résidents</h4>
             {% for chambre in reservation.chambres %}
                 <hr>
@@ -226,11 +228,19 @@
                                     {% set totalAchat=totalAchat+ligne.achat  %}
                                 {% endfor %}
                             {% endfor %}
+			    {% if reservation.timbre !=0 %}
+				<tr style="  background-color: antiquewhite;">
+				    <th></th>
+				    <th style="text-align: right;">Timbre</th>
+				    <th style="text-align: right;"></th>
+				    <th style="text-align: right;">{{reservation.timbre|number_format(3,'.','')}}</th>
+				</tr>
+			    {% endif %}
                             <tr style="  background-color: antiquewhite;">
                                 <th></th>
                                 <th style="text-align: right;">Total</th>
                                 <th style="text-align: right;">{{totalAchat|number_format(3,'.','')}}</th>
-                                <th style="text-align: right;">{{totalVente|number_format(3,'.','')}}</th>
+                                <th style="text-align: right;">{{(reservation.timbre+totalVente)|number_format(3,'.','')}}</th>
                             </tr>
                         </tbody>
                     </table>
@@ -273,8 +283,8 @@
     <script src="{{ asset("back-assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js") }}"></script>
     <script src="{{ asset("back-assets/js/ui-modals.js") }}"></script>
     <script>
-                        jQuery(document).ready(function () {
-                            UIModals.init();
-                        });
+			jQuery(document).ready(function () {
+			    UIModals.init();
+			});
     </script>
 {% endblock %}
