@@ -16,10 +16,12 @@ class DescriptionType extends AbstractType
     {
         $builder
             ->add('libelle')
-            ->add('texte')
+            ->add('texte','ckeditor')
             ->add('ordre')
-            ->add('visible')
-            ->add('voyage')
+            ->add('visible','checkbox',array(
+		'label'=>'Visible',
+		'required'=>FALSE
+	    ))
         ;
     }
     

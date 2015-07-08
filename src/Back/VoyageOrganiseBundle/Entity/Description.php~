@@ -56,4 +56,137 @@ class Description
      */
     private $visible;
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set libelle
+     *
+     * @param string $libelle
+     * @return Description
+     */
+    public function setLibelle($libelle)
+    {
+        $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    /**
+     * Get libelle
+     *
+     * @return string 
+     */
+    public function getLibelle()
+    {
+        return $this->libelle;
+    }
+
+    /**
+     * Set texte
+     *
+     * @param string $texte
+     * @return Description
+     */
+    public function setTexte($texte)
+    {
+        $this->texte = $texte;
+
+        return $this;
+    }
+
+    /**
+     * Get texte
+     *
+     * @return string 
+     */
+    public function getTexte()
+    {
+        return $this->texte;
+    }
+
+    /**
+     * Set ordre
+     *
+     * @param integer $ordre
+     * @return Description
+     */
+    public function setOrdre($ordre)
+    {
+        $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    /**
+     * Get ordre
+     *
+     * @return integer 
+     */
+    public function getOrdre()
+    {
+        return $this->ordre;
+    }
+
+    /**
+     * Set visible
+     *
+     * @param boolean $visible
+     * @return Description
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean 
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * Set voyage
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyage
+     * @return Description
+     */
+    public function setVoyage(\Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyage)
+    {
+        $this->voyage = $voyage;
+
+        return $this;
+    }
+
+    /**
+     * Get voyage
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\VoyageOrganise 
+     */
+    public function getVoyage()
+    {
+        return $this->voyage;
+    }
+    
+    public function showVisible()
+    {
+	if($this->visible)
+	    return 'Oui';
+	else
+	    return 'Non';
+    }
 }

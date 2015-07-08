@@ -1,0 +1,44 @@
+{% extends "BackVoyageOrganiseBundle:voyageOrganise:liste.html.twig" %}
+{% block title %}Photos{% endblock %}
+{% block description %}Gestion des photos{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >Photos</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackVoyageOrganiseBundle:voyageOrganise:menu.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+			    <div class="col-md-12">
+				<div class="panel panel-default">
+				    <div class="panel-body">
+					{{ form_start(form) }}
+					<div class="row">
+					    {{ formulaire.file("col-md-4","File",form.file,true) }}
+					    {{ formulaire.input("col-md-2","Type",form.type,true) }}
+					    {{ formulaire.input("col-md-2","Ordre",form.ordre,false) }}
+					    {{ formulaire.input("col-md-2","",form.visible,false) }}
+					</div> 
+					{{ formulaire.submit("Enregistrer") }}
+					{{ form_end(form) }}
+				    </div>
+				</div>
+			    </div>
+			</div>
+			<div class="row">
+			    {% for photo in photos %}
+				{{ macros.albumPhoto(photo) }}
+			    {% endfor %}
+			</div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>                
+{% endblock %}

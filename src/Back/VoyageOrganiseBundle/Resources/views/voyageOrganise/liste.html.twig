@@ -23,6 +23,11 @@
                             <tr>
                                 <th class="center" >#</th>
                                 <th class="center" >Libellé</th>
+                                <th class="center" >Déstination</th>
+                                <th class="center" >Pays</th>
+                                <th class="center" >Départ</th>
+                                <th class="center" >Retour</th>
+                                <th class="center" >Nombre d'inscription</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -31,6 +36,15 @@
                                 <tr class="center">
                                     <td>{{ voyage.id }}</td>
                                     <td>{{ voyage.libelle|title }}</td>
+                                    <td>{{ voyage.destination }}</td>
+                                    <td>
+					{% for pays in voyage.pays %}
+					    {{ pays }}{% if voyage.pays|length!= loop.index %}, {% endif %}
+					{% endfor %}
+				    </td>
+                                    <td>{{ voyage.depart|date('d/m/Y') }}</td>
+                                    <td>{{ voyage.retour|date('d/m/Y') }}</td>
+                                    <td>{{ voyage.nbrInscriptions }}</td>
                                     <td class="TableAction">
                                         {{ macros.tableEdit(path('back_vo_ajouter',{'id':voyage.id})) }}
                                         {{ macros.tableDelete(path('back_vo_supprimer',{'id':voyage.id})) }}

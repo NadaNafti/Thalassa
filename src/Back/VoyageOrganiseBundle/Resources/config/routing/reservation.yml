@@ -1,0 +1,7 @@
+back_voyages_organises_reservation_ajouter:
+    path:     /ajouter
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:ajouter }
+
+back_voyages_organises_reservation:
+    path:     /liste
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:liste }

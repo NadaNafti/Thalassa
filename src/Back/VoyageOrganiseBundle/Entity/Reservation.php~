@@ -1,0 +1,189 @@
+<?php
+
+namespace Back\VoyageOrganiseBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Reservation
+ *
+ * @ORM\Table(name="ost_vo_reservations")
+ * @ORM\Entity()
+ */
+class Reservation
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire", type="text")
+     */
+    private $commentaire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="VoyageOrganise", inversedBy="reservationsVo")
+     * @Assert\NotBlank()
+     */
+    private $voyage;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client")
+     * @Assert\NotBlank()
+     */
+    protected $client;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ReservationLigne", mappedBy="reservationA",cascade={"remove","persist"})
+     */
+    protected $adultes;
+    
+
+    /**
+     * @ORM\OneToMany(targetEntity="ReservationLigne", mappedBy="reservationE",cascade={"remove","persist"})
+     */
+    protected $enfants;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+	return $this->id;
+    }
+
+    /**
+     * Set nbrAdulte
+     *
+     * @param integer $nbrAdulte
+     * @return Reservation
+     */
+    public function setNbrAdulte($nbrAdulte)
+    {
+	$this->nbrAdulte = $nbrAdulte;
+
+	return $this;
+    }
+
+    /**
+     * Get nbrAdulte
+     *
+     * @return integer
+     */
+    public function getNbrAdulte()
+    {
+	return $this->nbrAdulte;
+    }
+
+    /**
+     * Set nbrEnfant
+     *
+     * @param integer $nbrEnfant
+     * @return Reservation
+     */
+    public function setNbrEnfant($nbrEnfant)
+    {
+	$this->nbrEnfant = $nbrEnfant;
+
+	return $this;
+    }
+
+    /**
+     * Get nbrEnfant
+     *
+     * @return integer
+     */
+    public function getNbrEnfant()
+    {
+	return $this->nbrEnfant;
+    }
+
+    /**
+     * Set commentaire
+     *
+     * @param string $commentaire
+     * @return Reservation
+     */
+    public function setCommentaire($commentaire)
+    {
+	$this->commentaire = $commentaire;
+
+	return $this;
+    }
+
+    /**
+     * Get commentaire
+     *
+     * @return string
+     */
+    public function getCommentaire()
+    {
+	return $this->commentaire;
+    }
+
+    /**
+     * Set voyage
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyage
+     * @return Reservation
+     */
+    public function setVoyage(\Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyage = null)
+    {
+	$this->voyage = $voyage;
+
+	return $this;
+    }
+
+    /**
+     * Get voyage
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\VoyageOrganise
+     */
+    public function getVoyage()
+    {
+	return $this->voyage;
+    }
+
+    /**
+     * Set client
+     *
+     * @param \Back\UserBundle\Entity\Client $client
+     * @return Reservation
+     */
+    public function setClient(\Back\UserBundle\Entity\Client $client = null)
+    {
+	$this->client = $client;
+
+	return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return \Back\UserBundle\Entity\Client
+     */
+    public function getClient()
+    {
+	return $this->client;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+	$this->lignes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+}

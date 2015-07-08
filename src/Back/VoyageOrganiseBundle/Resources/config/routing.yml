@@ -5,3 +5,7 @@ Back_voyage_organise_referentiel:
 Back_voyage_organise:
     resource: "@BackVoyageOrganiseBundle/Resources/config/routing/voyage_organise.yml"
     prefix:   /vo/
+
+Back_voyage_organise_reservation:
+    resource: "@BackVoyageOrganiseBundle/Resources/config/routing/reservation.yml"
+    prefix:   /reservation/

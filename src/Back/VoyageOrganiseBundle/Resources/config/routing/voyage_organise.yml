@@ -9,3 +9,19 @@ back_vo_supprimer:
 back_vo_ajouter:
     path:     /ajouter/{id}
     defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:ajouter,id:null }
+
+back_vo_descriptions:
+    path:     /ajouter/{voyage}/description/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:description,id:null }
+
+back_vo_descriptions_delete:
+    path:     /back_vo_descriptions_delete/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:SupprimerDescription }
+
+back_vo_photos:
+    path:     /ajouter/{voyage}/photo
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:photo }
+
+back_vo_photos_delete:
+    path:     /back_vo_photos_delete/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:SupprimerPhoto }

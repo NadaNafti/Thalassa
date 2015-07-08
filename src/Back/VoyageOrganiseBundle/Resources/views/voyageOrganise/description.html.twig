@@ -1,0 +1,69 @@
+{% extends "BackVoyageOrganiseBundle:voyageOrganise:liste.html.twig" %}
+{% block title %}Gestion des Déscriptions{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackVoyageOrganiseBundle:voyageOrganise:menu.html.twig' %}
+		<div class="panel panel-default">
+		    <div class="panel-body">
+			{{ form_start(form) }}
+			<div class="row">
+			    {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
+			    {{ formulaire.input("col-md-2","Ordre",form.ordre,true) }}
+			    {{ formulaire.input("col-md-4","",form.visible,false) }}
+			</div>
+			<div class="row">
+			    {{ formulaire.input("col-md-12","Texte",form.texte,true) }}
+			</div>
+			{{ formulaire.submit("Enregistrer") }}
+			{{ form_end(form) }}
+		    </div>
+		</div>
+	    </div>
+	</div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Libellé</th>
+                                <th>Ordre</th>
+                                <th>Visible</th>
+                                <th>Texte</th>
+                                <th class="center" >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for description in descriptions %}
+                                <tr>
+                                    <td>{{ description.id }}</td>
+                                    <td>{{ description.libelle }}</td>
+                                    <td>{{ description.ordre }}</td>
+                                    <td>{{ description.showVisible }}</td>
+                                    <td>{{ description.texte|raw }}</td>
+                                    <td class="TableAction">
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                            {{ macros.tableEdit(path('back_vo_descriptions',{'voyage':voyage.id,'id':description.id})) }}
+                                            {{ macros.tableDelete(path('back_vo_descriptions_delete',{'id':description.id})) }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

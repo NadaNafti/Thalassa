@@ -181,4 +181,12 @@ class Description
     {
         return $this->voyage;
     }
+    
+    public function showVisible()
+    {
+	if($this->visible)
+	    return 'Oui';
+	else
+	    return 'Non';
+    }
 }

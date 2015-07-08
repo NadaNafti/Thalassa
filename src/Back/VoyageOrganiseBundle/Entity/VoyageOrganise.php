@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * ost_vo_voyages
  *
  * @ORM\Table(name="ost_vo_voyages")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity()
  */
 class VoyageOrganise
@@ -82,7 +83,7 @@ class VoyageOrganise
     /**
      * @var string
      *
-     * @ORM\Column(name="prix", type="decimal", type="decimal", precision=11,nullable=true)
+     * @ORM\Column(name="prix", type="decimal", type="decimal", precision=11 ,scale=3 ,nullable=true)
      */
     private $prix;
 
@@ -128,6 +129,7 @@ class VoyageOrganise
 
     /**
      * @ORM\OneToMany(targetEntity="Back\VoyageOrganiseBundle\Entity\Description", mappedBy="voyage", cascade={"remove"})
+     * @ORM\OrderBy({"ordre" = "ASC"})
      */
     private $descriptions;
 
@@ -136,6 +138,12 @@ class VoyageOrganise
      * @ORM\JoinColumn(name="destination_id", referencedColumnName="id")
      */
     private $destination;
+
+    /**
+     * @Gedmo\Slug(fields={"libelle"})
+     * @ORM\Column(name="slug", length=128, unique=true)
+     */
+    private $slug;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -159,6 +167,7 @@ class VoyageOrganise
      */
     public function __construct()
     {
+	$this->nbrInscriptions=0;
         $this->pays = new \Doctrine\Common\Collections\ArrayCollection();
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->descriptions = new \Doctrine\Common\Collections\ArrayCollection();
@@ -662,5 +671,33 @@ class VoyageOrganise
     public function getDestination()
     {
         return $this->destination;
+    }
+    
+    public function __toString()
+    {
+	return $this->libelle;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return VoyageOrganise
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
