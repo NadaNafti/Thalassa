@@ -325,7 +325,6 @@ class ReservationController extends Controller
         $session = $this->getRequest()->getSession();
         if ($user->getId() == $reservation->getResponsable()->getId())
         {
-            $reglement= new Reglement();
             foreach ($reservation->getReglements() as $reglement)
             {
                 $piece = $reglement->getPiece();

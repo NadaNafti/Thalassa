@@ -24,6 +24,7 @@
                                 <th class="center" >Client</th>
                                 <th class="center" >Nbr. adultes</th>
                                 <th class="center" >Nbr. enfants</th>
+                                <th class="center" >Etat</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -45,8 +46,16 @@
                                     <td>{{ reservation.client|title }}</td>
                                     <td>{{ reservation.adultes|length }}</td>
                                     <td>{{ reservation.enfants|length }}</td>
+                                    <td>
+                                        {{ reservation.showEtat }}<br>
+                                        <span style="color:red">{{ reservation.responsable }}</span>
+                                    </td>
                                     <td class="TableAction">
-
+					{% if reservation.responsable is null %}
+                                            {{ macros.boutton(path('back_voyages_organises_reservation_priseencharge',{'id':reservation.id}),'fa-user','btn-dark-grey','Prendre en charge cette reservation') }}
+                                        {% else %}
+					    {{ macros.boutton(path('back_voyages_organises_reservation_consulter',{'id':reservation.id}),'fa-eye','btn-dark-grey','Consulter la réservation') }}
+					{% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}

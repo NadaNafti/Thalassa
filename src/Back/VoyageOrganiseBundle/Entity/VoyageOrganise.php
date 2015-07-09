@@ -83,7 +83,7 @@ class VoyageOrganise
     /**
      * @var string
      *
-     * @ORM\Column(name="prix", type="decimal", type="decimal", precision=11 ,scale=3 ,nullable=true)
+     * @ORM\Column(name="prix", type="decimal", precision=11 ,scale=3 ,nullable=true)
      */
     private $prix;
 

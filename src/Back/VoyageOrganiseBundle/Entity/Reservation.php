@@ -82,6 +82,13 @@ class Reservation
     protected $enfants;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="total", type="decimal", precision=11 ,scale=3 ,nullable=true)
+     */
+    private $total;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="validated", type="datetime" ,nullable=true)
@@ -259,7 +266,6 @@ class Reservation
 	return $this->enfants;
     }
 
-
     /**
      * Set code
      *
@@ -268,9 +274,9 @@ class Reservation
      */
     public function setCode($code)
     {
-        $this->code = $code;
+	$this->code = $code;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -280,7 +286,7 @@ class Reservation
      */
     public function getCode()
     {
-        return $this->code;
+	return $this->code;
     }
 
     /**
@@ -291,9 +297,9 @@ class Reservation
      */
     public function setEtat($etat)
     {
-        $this->etat = $etat;
+	$this->etat = $etat;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -303,7 +309,7 @@ class Reservation
      */
     public function getEtat()
     {
-        return $this->etat;
+	return $this->etat;
     }
 
     /**
@@ -314,9 +320,9 @@ class Reservation
      */
     public function setFrontOffice($frontOffice)
     {
-        $this->frontOffice = $frontOffice;
+	$this->frontOffice = $frontOffice;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -326,7 +332,7 @@ class Reservation
      */
     public function getFrontOffice()
     {
-        return $this->frontOffice;
+	return $this->frontOffice;
     }
 
     /**
@@ -337,9 +343,9 @@ class Reservation
      */
     public function setValidated($validated)
     {
-        $this->validated = $validated;
+	$this->validated = $validated;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -349,7 +355,7 @@ class Reservation
      */
     public function getValidated()
     {
-        return $this->validated;
+	return $this->validated;
     }
 
     /**
@@ -360,9 +366,9 @@ class Reservation
      */
     public function setCreated($created)
     {
-        $this->created = $created;
+	$this->created = $created;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -372,7 +378,7 @@ class Reservation
      */
     public function getCreated()
     {
-        return $this->created;
+	return $this->created;
     }
 
     /**
@@ -383,9 +389,9 @@ class Reservation
      */
     public function setUpdated($updated)
     {
-        $this->updated = $updated;
+	$this->updated = $updated;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -395,7 +401,7 @@ class Reservation
      */
     public function getUpdated()
     {
-        return $this->updated;
+	return $this->updated;
     }
 
     /**
@@ -406,9 +412,9 @@ class Reservation
      */
     public function setResponsable(\Back\UserBundle\Entity\User $responsable = null)
     {
-        $this->responsable = $responsable;
+	$this->responsable = $responsable;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -418,7 +424,7 @@ class Reservation
      */
     public function getResponsable()
     {
-        return $this->responsable;
+	return $this->responsable;
     }
 
     /**
@@ -429,9 +435,9 @@ class Reservation
      */
     public function addReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
     {
-        $this->reglements[] = $reglements;
+	$this->reglements[] = $reglements;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -441,7 +447,7 @@ class Reservation
      */
     public function removeReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
     {
-        $this->reglements->removeElement($reglements);
+	$this->reglements->removeElement($reglements);
     }
 
     /**
@@ -451,6 +457,53 @@ class Reservation
      */
     public function getReglements()
     {
-        return $this->reglements;
+	return $this->reglements;
     }
+
+    public function showEtat()
+    {
+	if ($this->etat == 1)
+	    return 'Enregistrée';
+	if ($this->etat == 2)
+	    return 'Validée';
+	if ($this->etat == 9)
+	    return 'Annulée';
+    }
+
+    /**
+     * Set total
+     *
+     * @param string $total
+     * @return Reservation
+     */
+    public function setTotal($total)
+    {
+	$this->total = $total;
+
+	return $this;
+    }
+
+    /**
+     * Get total
+     *
+     * @return string 
+     */
+    public function getTotal()
+    {
+	return $this->total;
+    }
+
+    public function getMontantRegle()
+    {
+	$montant = 0;
+	foreach ($this->reglements as $reglement)
+	    $montant+=$reglement->getMontant();
+	return number_format($montant, 3, '.', '');
+    }
+
+    public function getMontantRestant()
+    {
+	return number_format($this->total - $this->getMontantRegle(), 3, '.', '');
+    }
+
 }

@@ -1,6 +1,30 @@
 back_voyages_organises_reservation_ajouter:
     path:     /ajouter
     defaults: { _controller: BackVoyageOrganiseBundle:Reservation:ajouter }
+    
+back_voyages_organises_reservation_validation:
+    path:     /valider/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:valider }
+    
+back_voyages_organises_reservation_total:
+    path:     /total/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:total }
+
+back_voyages_organises_reservation_consulter:
+    path:     /consulter/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:consulter }
+
+back_voyages_organises_reservation_annuler:
+    path:     /annuler/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:annuler }
+
+back_voyages_organises_reservation_supprimer:
+    path:     /delete/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:delete }
+
+back_voyages_organises_reservation_priseencharge:
+    path:     /priseEnCharge/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:priseEnCharge }
 
 back_voyages_organises_reservation:
     path:     /liste/{page}
