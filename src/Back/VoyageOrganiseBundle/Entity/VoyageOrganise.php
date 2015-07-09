@@ -554,10 +554,10 @@ class VoyageOrganise
     /**
      * Add pays
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Pays $pays
+     * @param \Back\HotelTunisieBundle\Entity\Pays $pays
      * @return VoyageOrganise
      */
-    public function addPay(\Back\VoyageOrganiseBundle\Entity\Pays $pays)
+    public function addPay(\Back\HotelTunisieBundle\Entity\Pays $pays)
     {
         $this->pays[] = $pays;
 
@@ -567,9 +567,9 @@ class VoyageOrganise
     /**
      * Remove pays
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Pays $pays
+     * @param \Back\HotelTunisieBundle\Entity\Pays $pays
      */
-    public function removePay(\Back\VoyageOrganiseBundle\Entity\Pays $pays)
+    public function removePay(\Back\HotelTunisieBundle\Entity\Pays $pays)
     {
         $this->pays->removeElement($pays);
     }
