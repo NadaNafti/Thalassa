@@ -47,7 +47,7 @@ class VoyageOrganise
     private $nbrNuit;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Back\VoyageOrganiseBundle\Entity\Pays")
+     * @ORM\ManyToMany(targetEntity="Back\HotelTunisieBundle\Entity\Pays")
      * @ORM\JoinTable(name="ost_vo_voyages_pays")
      */
     private $pays;
