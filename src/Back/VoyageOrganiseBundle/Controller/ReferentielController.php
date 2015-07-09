@@ -6,8 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Back\VoyageOrganiseBundle\Entity\Destination;
 use Back\VoyageOrganiseBundle\Form\DestinationType;
-use Back\VoyageOrganiseBundle\Entity\Pays;
-use Back\VoyageOrganiseBundle\Form\PaysType;
 
 class ReferentielController extends Controller
 {
