@@ -3,6 +3,7 @@
 namespace Back\CommercialBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Piece
@@ -58,7 +59,7 @@ class Piece
 
     /**
      * @var string
-     *
+     * @Assert\Range(min = 1)
      * @ORM\Column(name="montantOrigine", type="decimal", precision=11, scale=3)
      */
     private $montantOrigine;
@@ -346,4 +347,26 @@ class Piece
     {
         return $this->reglements;
     }
+
+    public function showModeReglement()
+    {
+        if ($this->modeReglement == "AD")
+            return "Autorisation de débit";
+        if ($this->modeReglement == "PC")
+            return "Pris en charge";
+        if ($this->modeReglement == "CB")
+            return "Carte Bancaire";
+        if ($this->modeReglement == "C")
+            return "Chèque";
+        if ($this->modeReglement == "E")
+            return "Espece";
+        if ($this->modeReglement == "V")
+            return "Virement";
+    }
+
+    public function __toString()
+    {
+        return $this->numero;
+    }
+
 }

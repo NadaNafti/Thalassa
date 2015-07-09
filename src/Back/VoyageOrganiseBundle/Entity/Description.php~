@@ -24,7 +24,7 @@ class Description
 
     /**
      * @ORM\ManyToOne(targetEntity="VoyageOrganise", inversedBy="descriptions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
      */
     private $voyage;
 

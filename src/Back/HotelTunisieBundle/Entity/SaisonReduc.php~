@@ -1450,7 +1450,7 @@ class SaisonReduc
             $reduc = ($this->getSaison()->prixBaseVente($arrangement) * $this->val1EnfantSepare2 / 100) * -1;
         else
             $reduc = $this->val1EnfantSepare2 * -1;
-        
+
         if ($this->margepour1EnfantSepare)
             $marge = abs($reduc) * $this->marge1EnfantSepare / 100;
         else
@@ -1605,6 +1605,272 @@ class SaisonReduc
         {
             $this->id = null;
         }
+    }
+
+    /**
+     * Return pourcent of reduction example 0.5
+     * @param type $montant
+     * @param type $ordre
+     * @param type $nbrAdulte
+     * @param type $age
+     * @return int
+     */
+    public function getReductionEnfantAchat($montant, $ordre, $nbrAdulte, $age)
+    {
+        $minAge1 = $this->saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant();
+        $minAge2 = $this->saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant();
+        $maxAge1 = $this->saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant();
+        $maxAge2 = $this->saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant();
+        if ($age >= $minAge1 && $age <= $maxAge1)
+        {
+            if ($ordre == 1 && $nbrAdulte == 1)
+            {
+                if ($this->pour1Enfant1Adulte)
+                    $reduc = ($montant * $this->val1Enfant1Adulte1 / 100) * -1;
+                else
+                    $reduc = $this->val1Enfant1Adulte1 * -1;
+            }
+            if ($ordre == 1 && $nbrAdulte == 2)
+            {
+                if ($this->pour1Enfant2Adulte)
+                    $reduc = ($montant * $this->val1Enfant2Adulte1 / 100) * -1;
+                else
+                    $reduc = $this->val1Enfant2Adulte1 * -1;
+            }
+            if ($ordre == 1 && $nbrAdulte == 0)
+            {
+                if ($this->pour1EnfantSepare)
+                    $reduc = ($montant * $this->val1EnfantSepare1 / 100) * -1;
+                else
+                    $reduc = $this->val1EnfantSepare1 * -1;
+            }
+            if ($ordre > 1 && $nbrAdulte == 1)
+            {
+                if ($this->pour2Enfant1Adulte)
+                    $reduc = ($montant * $this->val2Enfant1Adulte1 / 100) * -1;
+                else
+                    $reduc = $this->val2Enfant1Adulte1 * -1;
+            }
+            if ($ordre > 1 && $nbrAdulte == 2)
+            {
+                if ($this->pour2Enfant2Adulte)
+                    $reduc = ($montant * $this->val2Enfant2Adulte1 / 100) * -1;
+                else
+                    $reduc = $this->val2Enfant2Adulte1 * -1;
+            }
+            if ($ordre > 1 && $nbrAdulte == 0)
+            {
+                if ($this->pour2EnfantOuPlusSepare)
+                    $reduc = ($montant * $this->val2EnfantOuPlusSepare1 / 100) * -1;
+                else
+                    $reduc = $this->val2EnfantOuPlusSepare1 * -1;
+            }
+            return number_format($reduc, 3, '.', '');
+        }
+        elseif ($age >= $minAge2 && $age <= $maxAge2)
+        {
+            if ($ordre == 1 && $nbrAdulte == 1)
+            {
+                if ($this->pour1Enfant1Adulte)
+                    $reduc = ($montant * $this->val1Enfant1Adulte2 / 100) * -1;
+                else
+                    $reduc = $this->val1Enfant1Adulte2 * -1;
+            }
+            if ($ordre == 1 && $nbrAdulte == 2)
+            {
+                if ($this->pour1Enfant2Adulte)
+                    $reduc = ($montant * $this->val1Enfant2Adulte2 / 100) * -1;
+                else
+                    $reduc = $this->val1Enfant2Adulte2 * -1;
+            }
+            if ($ordre == 1 && $nbrAdulte == 0)
+            {
+                if ($this->pour1EnfantSepare)
+                    $reduc = ($montant * $this->val1EnfantSepare2 / 100) * -1;
+                else
+                    $reduc = $this->val1EnfantSepare2 * -1;
+            }
+            if ($ordre > 1 && $nbrAdulte == 1)
+            {
+                if ($this->pour2Enfant1Adulte)
+                    $reduc = ($montant * $this->val2Enfant1Adulte2 / 100) * -1;
+                else
+                    $reduc = $this->val2Enfant1Adulte2 * -1;
+            }
+            if ($ordre > 1 && $nbrAdulte == 2)
+            {
+                if ($this->pour2Enfant2Adulte)
+                    $reduc = ($montant * $this->val2Enfant2Adulte2 / 100) * -1;
+                else
+                    $reduc = $this->val2Enfant2Adulte2 * -1;
+            }
+            if ($ordre > 1 && $nbrAdulte == 0)
+            {
+                if ($this->pour2EnfantOuPlusSepare)
+                    $reduc = ($montant * $this->val2EnfantOuPlusSepare2 / 100) * -1;
+                else
+                    $reduc = $this->val2EnfantOuPlusSepare2 * -1;
+            }
+            return number_format($reduc, 3, '.', '');
+        }
+        return 0;
+    }
+
+    /**
+     * Return pourcent of reduction example 0.5
+     * @param type $montant
+     * @param type $ordre
+     * @param type $nbrAdulte
+     * @param type $age
+     * @return int
+     */
+    public function getReductionEnfantVente($montant, $ordre, $nbrAdulte, $age)
+    {
+        $minAge1 = $this->saison->getHotel()->getFicheTechnique()->getMin1AgeEnfant();
+        $minAge2 = $this->saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant();
+        $maxAge1 = $this->saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant();
+        $maxAge2 = $this->saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant();
+        if ($age >= $minAge1 && $age <= $maxAge1)
+        {
+            if ($ordre == 1 && $nbrAdulte == 1)
+            {
+                if ($this->pour1Enfant1Adulte)
+                    $reduc = ($montant * $this->val1Enfant1Adulte1 / 100) * -1;
+                else
+                    $reduc = $this->val1Enfant1Adulte1 * -1;
+                if ($this->margepour1Enfant1Adulte)
+                    $marge = abs($reduc) * $this->marge1Enfant1Adulte / 100;
+                else
+                    $marge = $this->marge1Enfant1Adulte;
+            }
+            if ($ordre == 1 && $nbrAdulte == 2)
+            {
+                if ($this->pour1Enfant2Adulte)
+                    $reduc = ($montant * $this->val1Enfant2Adulte1 / 100) * -1;
+                else
+                    $reduc = $this->val1Enfant2Adulte1 * -1;
+                if ($this->margepour1Enfant2Adulte)
+                    $marge = abs($reduc) * $this->marge1Enfant2Adulte / 100;
+                else
+                    $marge = $this->marge1Enfant2Adulte;
+            }
+            if ($ordre == 1 && $nbrAdulte == 0)
+            {
+                if ($this->pour1EnfantSepare)
+                    $reduc = ($montant * $this->val1EnfantSepare1 / 100) * -1;
+                else
+                    $reduc = $this->val1EnfantSepare1 * -1;
+                if ($this->margepour1EnfantSepare)
+                    $marge = abs($reduc) * $this->marge1EnfantSepare / 100;
+                else
+                    $marge = $this->marge1EnfantSepare;
+            }
+            if ($ordre > 1 && $nbrAdulte == 1)
+            {
+                if ($this->pour2Enfant1Adulte)
+                    $reduc = ($montant * $this->val2Enfant1Adulte1 / 100) * -1;
+                else
+                    $reduc = $this->val2Enfant1Adulte1 * -1;
+                if ($this->margepour2Enfant1Adulte)
+                    $marge = abs($reduc) * $this->marge2Enfant1Adulte / 100;
+                else
+                    $marge = $this->marge2Enfant1Adulte;
+            }
+            if ($ordre > 1 && $nbrAdulte == 2)
+            {
+                if ($this->pour2Enfant2Adulte)
+                    $reduc = ($montant * $this->val2Enfant2Adulte1 / 100) * -1;
+                else
+                    $reduc = $this->val2Enfant2Adulte1 * -1;
+                if ($this->margepour2Enfant2Adulte)
+                    $marge = abs($reduc) * $this->marge2Enfant2Adulte / 100;
+                else
+                    $marge = $this->marge2Enfant2Adulte;
+            }
+            if ($ordre > 1 && $nbrAdulte == 0)
+            {
+                if ($this->pour2EnfantOuPlusSepare)
+                    $reduc = ($montant * $this->val2EnfantOuPlusSepare1 / 100) * -1;
+                else
+                    $reduc = $this->val2EnfantOuPlusSepare1 * -1;
+                if ($this->margepour2EnfantOuPlusSepare)
+                    $marge = abs($reduc) * $this->marge2EnfantOuPlusSepare / 100;
+                else
+                    $marge = $this->marge2EnfantOuPlusSepare;
+            }
+            return number_format($reduc + $marge, 3, '.', '');
+        }
+        elseif ($age >= $minAge2 && $age <= $maxAge2)
+        {
+            if ($ordre == 1 && $nbrAdulte == 1)
+            {
+                if ($this->pour1Enfant1Adulte)
+                    $reduc = ($montant * $this->val1Enfant1Adulte2 / 100) * -1;
+                else
+                    $reduc = $this->val1Enfant1Adulte2 * -1;
+                if ($this->margepour1Enfant1Adulte)
+                    $marge = abs($reduc) * $this->marge1Enfant1Adulte / 100;
+                else
+                    $marge = $this->marge1Enfant1Adulte;
+            }
+            if ($ordre == 1 && $nbrAdulte == 2)
+            {
+                if ($this->pour1Enfant2Adulte)
+                    $reduc = ($montant * $this->val1Enfant2Adulte2 / 100) * -1;
+                else
+                    $reduc = $this->val1Enfant2Adulte2 * -1;
+                if ($this->margepour1Enfant2Adulte)
+                    $marge = abs($reduc) * $this->marge1Enfant2Adulte / 100;
+                else
+                    $marge = $this->marge1Enfant2Adulte;
+            }
+            if ($ordre == 1 && $nbrAdulte == 0)
+            {
+                if ($this->pour1EnfantSepare)
+                    $reduc = ($montant * $this->val1EnfantSepare2 / 100) * -1;
+                else
+                    $reduc = $this->val1EnfantSepare2 * -1;
+                if ($this->margepour1EnfantSepare)
+                    $marge = abs($reduc) * $this->marge1EnfantSepare / 100;
+                else
+                    $marge = $this->marge1EnfantSepare;
+            }
+            if ($ordre > 1 && $nbrAdulte == 1)
+            {
+                if ($this->pour2Enfant1Adulte)
+                    $reduc = ($montant * $this->val2Enfant1Adulte2 / 100) * -1;
+                else
+                    $reduc = $this->val2Enfant1Adulte2 * -1;
+                if ($this->margepour2Enfant1Adulte)
+                    $marge = abs($reduc) * $this->marge2Enfant1Adulte / 100;
+                else
+                    $marge = $this->marge2Enfant1Adulte;
+            }
+            if ($ordre > 1 && $nbrAdulte == 2)
+            {
+                if ($this->pour2Enfant2Adulte)
+                    $reduc = ($montant * $this->val2Enfant2Adulte2 / 100) * -1;
+                else
+                    $reduc = $this->val2Enfant2Adulte2 * -1;
+                if ($this->margepour2Enfant2Adulte)
+                    $marge = abs($reduc) * $this->marge2Enfant2Adulte / 100;
+                else
+                    $marge = $this->marge2Enfant2Adulte;
+            }
+            if ($ordre > 1 && $nbrAdulte == 0)
+            {
+                if ($this->pour2EnfantOuPlusSepare)
+                    $reduc = ($montant * $this->val2EnfantOuPlusSepare2 / 100) * -1;
+                else
+                    $reduc = $this->val2EnfantOuPlusSepare2 * -1;
+                if ($this->margepour2EnfantOuPlusSepare)
+                    $marge = abs($reduc) * $this->marge2EnfantOuPlusSepare / 100;
+                else
+                    $marge = $this->marge2EnfantOuPlusSepare;
+            }
+            return number_format($reduc + $marge, 3, '.', '');
+        }
+        return 0;
     }
 
 }

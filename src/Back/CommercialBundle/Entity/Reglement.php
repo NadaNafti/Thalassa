@@ -33,6 +33,11 @@ class Reglement
     protected $reservation;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Reservation", inversedBy="reglements")
+     */
+    protected $reservationVO;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="date")
@@ -53,7 +58,7 @@ class Reglement
      */
     public function getId()
     {
-        return $this->id;
+	return $this->id;
     }
 
     /**
@@ -64,9 +69,9 @@ class Reglement
      */
     public function setDateCreation($dateCreation)
     {
-        $this->dateCreation=$dateCreation;
+	$this->dateCreation = $dateCreation;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -76,7 +81,7 @@ class Reglement
      */
     public function getDateCreation()
     {
-        return $this->dateCreation;
+	return $this->dateCreation;
     }
 
     /**
@@ -87,9 +92,9 @@ class Reglement
      */
     public function setMontant($montant)
     {
-        $this->montant=$montant;
+	$this->montant = $montant;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -99,9 +104,8 @@ class Reglement
      */
     public function getMontant()
     {
-        return $this->montant;
+	return $this->montant;
     }
-
 
     /**
      * Set piece
@@ -111,9 +115,9 @@ class Reglement
      */
     public function setPiece(\Back\CommercialBundle\Entity\Piece $piece = null)
     {
-        $this->piece = $piece;
+	$this->piece = $piece;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -123,7 +127,7 @@ class Reglement
      */
     public function getPiece()
     {
-        return $this->piece;
+	return $this->piece;
     }
 
     /**
@@ -134,9 +138,9 @@ class Reglement
      */
     public function setReservation(\Back\HotelTunisieBundle\Entity\Reservation $reservation = null)
     {
-        $this->reservation = $reservation;
+	$this->reservation = $reservation;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -146,6 +150,30 @@ class Reglement
      */
     public function getReservation()
     {
-        return $this->reservation;
+	return $this->reservation;
+    }
+
+
+    /**
+     * Set reservationVO
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Reservation $reservationVO
+     * @return Reglement
+     */
+    public function setReservationVO(\Back\VoyageOrganiseBundle\Entity\Reservation $reservationVO = null)
+    {
+        $this->reservationVO = $reservationVO;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationVO
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\Reservation 
+     */
+    public function getReservationVO()
+    {
+        return $this->reservationVO;
     }
 }

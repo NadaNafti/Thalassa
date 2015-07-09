@@ -18,8 +18,18 @@ class ReservationType extends AbstractType
     {
 	$builder
 		->add('commentaire')
-		->add('voyage')
-		->add('client')
+		->add('voyage', 'entity', array(
+		    'class' => 'Back\VoyageOrganiseBundle\Entity\VoyageOrganise',
+		    'required' => true,
+		    'empty_value' => 'Liste des voyages',
+		    'empty_data' => null
+		))
+		->add('client', 'entity', array(
+		    'class' => 'Back\UserBundle\Entity\Client',
+		    'required' => true,
+		    'empty_value' => 'Liste des clients',
+		    'empty_data' => null
+		))
 		->add('adultes', 'collection', array(
 		    'type' => new ReservationLigneType(), 'label' => ' ',
 		    'allow_add' => true,

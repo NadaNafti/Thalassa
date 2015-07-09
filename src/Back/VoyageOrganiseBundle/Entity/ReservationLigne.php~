@@ -45,11 +45,13 @@ class ReservationLigne
 
     /**
      * @ORM\ManyToOne(targetEntity="Reservation", inversedBy="adultes",cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $reservationA;
 
     /**
      * @ORM\ManyToOne(targetEntity="Reservation", inversedBy="enfants",cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $reservationE;
 
@@ -144,4 +146,63 @@ class ReservationLigne
 	return $this->reservationE;
     }
 
+
+    /**
+     * Set passport
+     *
+     * @param string $passport
+     * @return ReservationLigne
+     */
+    public function setPassport($passport)
+    {
+        $this->passport = $passport;
+
+        return $this;
+    }
+
+    /**
+     * Set reservationA
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Reservation $reservationA
+     * @return ReservationLigne
+     */
+    public function setReservationA(\Back\VoyageOrganiseBundle\Entity\Reservation $reservationA = null)
+    {
+        $this->reservationA = $reservationA;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationA
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\Reservation 
+     */
+    public function getReservationA()
+    {
+        return $this->reservationA;
+    }
+
+    /**
+     * Set reservationE
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Reservation $reservationE
+     * @return ReservationLigne
+     */
+    public function setReservationE(\Back\VoyageOrganiseBundle\Entity\Reservation $reservationE = null)
+    {
+        $this->reservationE = $reservationE;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationE
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\Reservation 
+     */
+    public function getReservationE()
+    {
+        return $this->reservationE;
+    }
 }

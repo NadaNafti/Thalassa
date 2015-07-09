@@ -483,7 +483,7 @@ class Reservation
 	    return $total;
 	foreach ($this->chambres as $chambre)
 	    $total+=$chambre->getTotal();
-	return number_format($total, 3, '.', '');
+	return number_format($total+$this->timbre, 3, '.', '');
     }
 
     /**
@@ -708,5 +708,28 @@ class Reservation
     public function getCoordonnees()
     {
         return $this->coordonnees;
+    }
+
+    /**
+     * Set timbre
+     *
+     * @param string $timbre
+     * @return Reservation
+     */
+    public function setTimbre($timbre)
+    {
+        $this->timbre = $timbre;
+
+        return $this;
+    }
+
+    /**
+     * Get timbre
+     *
+     * @return string 
+     */
+    public function getTimbre()
+    {
+        return $this->timbre;
     }
 }

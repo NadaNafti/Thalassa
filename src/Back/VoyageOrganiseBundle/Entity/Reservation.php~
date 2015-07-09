@@ -26,8 +26,36 @@ class Reservation
 
     /**
      * @var string
+     * @ORM\Column(name="code", type="string",nullable=true)
+     */
+    private $code;
+
+    /**
+     * @var integer
      *
-     * @ORM\Column(name="commentaire", type="text")
+     * 1:Enregistrée
+     * 2:Validée
+     * 9:Annulée
+     * @ORM\Column(name="etat", type="integer")
+     */
+    private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\User")
+     */
+    protected $responsable;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="frontOffice", type="boolean", nullable=true)
+     */
+    private $frontOffice;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire", type="text",nullable=true)
      */
     private $commentaire;
 
@@ -47,12 +75,35 @@ class Reservation
      * @ORM\OneToMany(targetEntity="ReservationLigne", mappedBy="reservationA",cascade={"remove","persist"})
      */
     protected $adultes;
-    
 
     /**
      * @ORM\OneToMany(targetEntity="ReservationLigne", mappedBy="reservationE",cascade={"remove","persist"})
      */
     protected $enfants;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="validated", type="datetime" ,nullable=true)
+     */
+    private $validated;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationVO")
+     */
+    protected $reglements;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated;
 
     /**
      * Get id
@@ -62,52 +113,6 @@ class Reservation
     public function getId()
     {
 	return $this->id;
-    }
-
-    /**
-     * Set nbrAdulte
-     *
-     * @param integer $nbrAdulte
-     * @return Reservation
-     */
-    public function setNbrAdulte($nbrAdulte)
-    {
-	$this->nbrAdulte = $nbrAdulte;
-
-	return $this;
-    }
-
-    /**
-     * Get nbrAdulte
-     *
-     * @return integer
-     */
-    public function getNbrAdulte()
-    {
-	return $this->nbrAdulte;
-    }
-
-    /**
-     * Set nbrEnfant
-     *
-     * @param integer $nbrEnfant
-     * @return Reservation
-     */
-    public function setNbrEnfant($nbrEnfant)
-    {
-	$this->nbrEnfant = $nbrEnfant;
-
-	return $this;
-    }
-
-    /**
-     * Get nbrEnfant
-     *
-     * @return integer
-     */
-    public function getNbrEnfant()
-    {
-	return $this->nbrEnfant;
     }
 
     /**
@@ -184,6 +189,74 @@ class Reservation
      */
     public function __construct()
     {
-	$this->lignes = new \Doctrine\Common\Collections\ArrayCollection();
+	$this->adultes = new \Doctrine\Common\Collections\ArrayCollection();
+	$this->enfants = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    /**
+     * Add adultes
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationLigne $adultes
+     * @return Reservation
+     */
+    public function addAdulte(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $adultes)
+    {
+	$this->adultes[] = $adultes;
+
+	return $this;
+    }
+
+    /**
+     * Remove adultes
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationLigne $adultes
+     */
+    public function removeAdulte(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $adultes)
+    {
+	$this->adultes->removeElement($adultes);
+    }
+
+    /**
+     * Get adultes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAdultes()
+    {
+	return $this->adultes;
+    }
+
+    /**
+     * Add enfants
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationLigne $enfants
+     * @return Reservation
+     */
+    public function addEnfant(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $enfants)
+    {
+	$this->enfants[] = $enfants;
+
+	return $this;
+    }
+
+    /**
+     * Remove enfants
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationLigne $enfants
+     */
+    public function removeEnfant(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $enfants)
+    {
+	$this->enfants->removeElement($enfants);
+    }
+
+    /**
+     * Get enfants
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEnfants()
+    {
+	return $this->enfants;
+    }
+
 }

@@ -26,6 +26,34 @@ class Reservation
 
     /**
      * @var string
+     * @ORM\Column(name="code", type="string",nullable=true)
+     */
+    private $code;
+
+    /**
+     * @var integer
+     *
+     * 1:Enregistrée
+     * 2:Validée
+     * 9:Annulée
+     * @ORM\Column(name="etat", type="integer")
+     */
+    private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\User")
+     */
+    protected $responsable;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="frontOffice", type="boolean", nullable=true)
+     */
+    private $frontOffice;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="commentaire", type="text",nullable=true)
      */
@@ -47,12 +75,35 @@ class Reservation
      * @ORM\OneToMany(targetEntity="ReservationLigne", mappedBy="reservationA",cascade={"remove","persist"})
      */
     protected $adultes;
-    
 
     /**
      * @ORM\OneToMany(targetEntity="ReservationLigne", mappedBy="reservationE",cascade={"remove","persist"})
      */
     protected $enfants;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="validated", type="datetime" ,nullable=true)
+     */
+    private $validated;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationVO")
+     */
+    protected $reglements;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated;
 
     /**
      * Get id
@@ -150,9 +201,9 @@ class Reservation
      */
     public function addAdulte(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $adultes)
     {
-        $this->adultes[] = $adultes;
+	$this->adultes[] = $adultes;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -162,7 +213,7 @@ class Reservation
      */
     public function removeAdulte(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $adultes)
     {
-        $this->adultes->removeElement($adultes);
+	$this->adultes->removeElement($adultes);
     }
 
     /**
@@ -172,7 +223,7 @@ class Reservation
      */
     public function getAdultes()
     {
-        return $this->adultes;
+	return $this->adultes;
     }
 
     /**
@@ -183,9 +234,9 @@ class Reservation
      */
     public function addEnfant(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $enfants)
     {
-        $this->enfants[] = $enfants;
+	$this->enfants[] = $enfants;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -195,7 +246,7 @@ class Reservation
      */
     public function removeEnfant(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $enfants)
     {
-        $this->enfants->removeElement($enfants);
+	$this->enfants->removeElement($enfants);
     }
 
     /**
@@ -205,6 +256,201 @@ class Reservation
      */
     public function getEnfants()
     {
-        return $this->enfants;
+	return $this->enfants;
+    }
+
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Reservation
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param integer $etat
+     * @return Reservation
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return integer 
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * Set frontOffice
+     *
+     * @param boolean $frontOffice
+     * @return Reservation
+     */
+    public function setFrontOffice($frontOffice)
+    {
+        $this->frontOffice = $frontOffice;
+
+        return $this;
+    }
+
+    /**
+     * Get frontOffice
+     *
+     * @return boolean 
+     */
+    public function getFrontOffice()
+    {
+        return $this->frontOffice;
+    }
+
+    /**
+     * Set validated
+     *
+     * @param \DateTime $validated
+     * @return Reservation
+     */
+    public function setValidated($validated)
+    {
+        $this->validated = $validated;
+
+        return $this;
+    }
+
+    /**
+     * Get validated
+     *
+     * @return \DateTime 
+     */
+    public function getValidated()
+    {
+        return $this->validated;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Reservation
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Reservation
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set responsable
+     *
+     * @param \Back\UserBundle\Entity\User $responsable
+     * @return Reservation
+     */
+    public function setResponsable(\Back\UserBundle\Entity\User $responsable = null)
+    {
+        $this->responsable = $responsable;
+
+        return $this;
+    }
+
+    /**
+     * Get responsable
+     *
+     * @return \Back\UserBundle\Entity\User 
+     */
+    public function getResponsable()
+    {
+        return $this->responsable;
+    }
+
+    /**
+     * Add reglements
+     *
+     * @param \Back\CommercialBundle\Entity\Reglement $reglements
+     * @return Reservation
+     */
+    public function addReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
+    {
+        $this->reglements[] = $reglements;
+
+        return $this;
+    }
+
+    /**
+     * Remove reglements
+     *
+     * @param \Back\CommercialBundle\Entity\Reglement $reglements
+     */
+    public function removeReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
+    {
+        $this->reglements->removeElement($reglements);
+    }
+
+    /**
+     * Get reglements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReglements()
+    {
+        return $this->reglements;
     }
 }

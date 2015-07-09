@@ -965,7 +965,11 @@ class Hotel
     public function getStars()
     {
         if($this->categorie != null)
-            return $this->categorie->getNombreEtoiles();
+        {
+            if($this->categorie->getNombreEtoiles()!=1)
+                return $this->categorie->getNombreEtoiles();
+            return $this->categorie->getLibelle();
+        }
         else
             return 0;
     }
@@ -1316,5 +1320,20 @@ class Hotel
     public function getTel2()
     {
         return $this->tel2;
+    }
+    
+    public function isValideEmail1()
+    {
+        if(!is_null($this->email1) && !empty($this->email1) )
+            return TRUE;
+        else
+            return FALSE;
+    }
+    public function isValideEmail2()
+    {
+        if(!is_null($this->email2) && !empty($this->email2) )
+            return TRUE;
+        else
+            return FALSE;
     }
 }

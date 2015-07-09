@@ -16,6 +16,7 @@ class ReservationController extends Controller
     {
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
+	$user = $this->get('security.context')->getToken()->getUser();
 	$reservation = new Reservation ();
 	$form = $this->createForm(new ReservationType(), $reservation);
 	$request = $this->getRequest();
@@ -23,6 +24,9 @@ class ReservationController extends Controller
 	{
 	    $form->submit($request);
 	    $reservation = $form->getData();
+	    $reservation->setResponsable($user)
+		    ->setFrontOffice(false)
+		    ->setEtat(1);
 	    $em->persist($reservation);
 	    if (count($reservation->getAdultes()) == 0 && count($reservation->getEnfants()) == 0)
 	    {
@@ -39,6 +43,19 @@ class ReservationController extends Controller
 	}
 	return $this->render('BackVoyageOrganiseBundle:reservation:ajout.html.twig', array(
 		    'form' => $form->createView()
+	));
+    }
+
+    public function listeAction($page)
+    {
+	$em = $this->getDoctrine()->getManager();
+	$session = $this->getRequest()->getSession();
+	$user = $this->get('security.context')->getToken()->getUser();
+	$reservations = $em->getRepository('BackVoyageOrganiseBundle:Reservation')->findAll();
+	$paginator = $this->get('knp_paginator');
+	$reservations = $paginator->paginate($reservations, $page, 20);
+	return $this->render('BackVoyageOrganiseBundle:reservation:liste.html.twig', array(
+		    'reservations' => $reservations
 	));
     }
 

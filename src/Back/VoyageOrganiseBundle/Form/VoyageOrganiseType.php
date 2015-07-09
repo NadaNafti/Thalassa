@@ -45,7 +45,12 @@ class VoyageOrganiseType extends AbstractType
 		->add('descriptionCourte')
 		->add('descriptionLongue','ckeditor')
 		->add('pays')
-		->add('destination')
+		->add('destination', 'entity', array(
+		    'class' => 'Back\VoyageOrganiseBundle\Entity\Destination',
+		    'required' => true,
+		    'empty_value' => 'Liste des déstinations',
+		    'empty_data' => null
+		))
 	;
     }
 

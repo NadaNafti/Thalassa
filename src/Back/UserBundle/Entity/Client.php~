@@ -483,4 +483,37 @@ class Client
     {
         return $this->reservations;
     }
+
+    /**
+     * Add pieces
+     *
+     * @param \Back\CommercialBundle\Entity\Piece $pieces
+     * @return Client
+     */
+    public function addPiece(\Back\CommercialBundle\Entity\Piece $pieces)
+    {
+        $this->pieces[] = $pieces;
+
+        return $this;
+    }
+
+    /**
+     * Remove pieces
+     *
+     * @param \Back\CommercialBundle\Entity\Piece $pieces
+     */
+    public function removePiece(\Back\CommercialBundle\Entity\Piece $pieces)
+    {
+        $this->pieces->removeElement($pieces);
+    }
+
+    /**
+     * Get pieces
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPieces()
+    {
+        return $this->pieces;
+    }
 }

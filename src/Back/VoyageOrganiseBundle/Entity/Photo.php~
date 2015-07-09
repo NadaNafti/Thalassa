@@ -26,7 +26,7 @@ class Photo
 
     /**
      * @ORM\ManyToOne(targetEntity="VoyageOrganise", inversedBy="photos")
-     * @ORM\JoinColumn(name="voyage_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="voyage_id", referencedColumnName="id",onDelete="CASCADE", nullable=false)
      */
     private $voyage;
 
