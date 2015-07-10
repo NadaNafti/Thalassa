@@ -1,3 +1,7 @@
+front_general:
+    resource: "@FrontGeneralBundle/Resources/config/routing.yml"
+    prefix:   /
+
 back_voyage_organise:
     resource: "@BackVoyageOrganiseBundle/Resources/config/routing.yml"
     prefix:   /admin/voyage_organise
