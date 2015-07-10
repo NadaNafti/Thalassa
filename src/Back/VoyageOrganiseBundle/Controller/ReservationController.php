@@ -143,6 +143,11 @@ class ReservationController extends Controller
 	$form = $form->getForm();
 	if ($request->isMethod("POST"))
 	{
+	    if ($reservation->getVoyage()->getNbrInscriptions() >= $reservation->getVoyage()->getNbrInscriptionsMax())
+	    {
+		$session->getFlashBag()->add('info', "il y a plus de place !!!");
+		return $this->redirect($this->generateUrl("back_voyages_organises_reservation_validation", array('id' => $reservation->getId())));
+	    }
 	    $form->submit($request);
 	    $data = $form->getData();
 	    foreach ($pieces as $piece)

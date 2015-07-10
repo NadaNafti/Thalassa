@@ -193,7 +193,7 @@ class ReservationService
 		->setTimbre(0)
 		->setOptions($options)
 		->setEtat(1);
-	if ($tarifCommercial->getTimbre())
+	if ($tarifCommercial && $tarifCommercial->getTimbre())
 	    $reservation->setTimbre($tarifCommercial->getMontantTimbre());
 	if ($source == 'backoffice')
 	{
