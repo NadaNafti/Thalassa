@@ -190,9 +190,7 @@ class ReservationService
 		->setNuitees($result['nuitees'])
 		->setSurDemande($result['surDemande'])
 		->setObservation($data['observation'])
-		->setTimbre(0)
-		->setOptions($options)
-		->setEtat(1);
+		->setOptions($options);
 	if ($tarifCommercial && $tarifCommercial->getTimbre())
 	    $reservation->setTimbre($tarifCommercial->getMontantTimbre());
 	if ($source == 'backoffice')
@@ -311,8 +309,6 @@ class ReservationService
 	}
 	if ($source == 'backoffice' && $this->sendMailHotel($reservation))
 	    $reservation->setHotelNotifier(true);
-	else
-	    $reservation->setHotelNotifier(false);
 	$this->em->flush();
 	return $reservation->getId();
     }

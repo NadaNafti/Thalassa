@@ -11,6 +11,11 @@
     <div class="row">
         {% if reservation.responsable is not null and app.user.id == reservation.responsable.id  %}
             <div class="col-md-12 center">
+                {% if not reservation.surDemande and reservation.etat  == 1 %}
+                    <a href="#remise" data-toggle="modal" class="btn btn-light-grey center">
+                        Editer la Remise 
+                    </a>
+                {% endif %}
                 {% if reservation.etat in [1,9] %}
                     <a href="{{ path('valider_reservation',{'id':reservation.id}) }}" class="btn btn-success center">
                         Valider
@@ -154,8 +159,6 @@
                 <div class="panel-body">
                     <table class="table">
                         <tbody>
-                            {% set totalVente=0 %}
-                            {% set totalAchat=0 %}
                             {% for chambre in reservation.chambres %}
                                 <tr style="background-color: black;color: white;">
                                     <th>{{ chambre.chambre }}</th>
@@ -180,8 +183,6 @@
                                                 <td style="  text-align: right;" >{{ ligne.achat }}</td>
                                                 <td style="text-align: right;">{{ ligne.vente }}</td>
                                             </tr>
-                                            {% set totalVente=totalVente+ligne.vente  %}
-                                            {% set totalAchat=totalAchat+ligne.achat  %}
                                         {% endfor %}
                                     {% endfor %}
                                 {% endfor %}
@@ -202,8 +203,6 @@
                                                 <td style="  text-align: right;" >{{ ligne.achat }}</td>
                                                 <td style="  text-align: right;" >{{ ligne.vente }}</td>
                                             </tr>
-                                            {% set totalVente=totalVente+ligne.vente  %}
-                                            {% set totalAchat=totalAchat+ligne.achat  %}
                                         {% endfor %}
                                     {% endfor %}
                                 {% endfor %}
@@ -214,8 +213,6 @@
                                         <td style="  text-align: right;" >{{ ligne.achat }}</td>
                                         <td style="text-align: right;">{{ ligne.vente }}</td>
                                     </tr>
-                                    {% set totalVente=totalVente+ligne.vente  %}
-                                    {% set totalAchat=totalAchat+ligne.achat  %}
                                 {% endfor %}
                                 {% for ligne in chambre.reductionLignes %}
                                     <tr style="  background-color: dimgray;color: white;">
@@ -224,10 +221,16 @@
                                         <td style="  text-align: right;" >{{ ligne.achat }}</td>
                                         <td style="text-align: right;">{{ ligne.vente }}</td>
                                     </tr>
-                                    {% set totalVente=totalVente+ligne.vente  %}
-                                    {% set totalAchat=totalAchat+ligne.achat  %}
                                 {% endfor %}
                             {% endfor %}
+			    {% if reservation.remise !=0 %}
+				<tr style="  background-color: antiquewhite;">
+				    <th></th>
+				    <th style="text-align: right;">Remise</th>
+				    <th style="text-align: right;"></th>
+				    <th style="text-align: right;"> - {{reservation.remise|number_format(3,'.','')}}</th>
+				</tr>
+			    {% endif %}
 			    {% if reservation.timbre !=0 %}
 				<tr style="  background-color: antiquewhite;">
 				    <th></th>
@@ -239,14 +242,35 @@
                             <tr style="  background-color: antiquewhite;">
                                 <th></th>
                                 <th style="text-align: right;">Total</th>
-                                <th style="text-align: right;">{{totalAchat|number_format(3,'.','')}}</th>
-                                <th style="text-align: right;">{{(reservation.timbre+totalVente)|number_format(3,'.','')}}</th>
+                                <th style="text-align: right;">{{reservation.calcAchat|number_format(3,'.','')}}</th>
+                                <th style="text-align: right;">{{reservation.total}}</th>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         {% endif %}
+    </div>
+    <div id="remise" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Editer la Remise</h4>
+        </div>
+        <form action="{{ path('remise_reservation',{'id':reservation.id}) }}" method="post">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Remise : <input type="text" class="form-control"  name="remise" value="{{ reservation.remise }}" /></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-light-grey">Fermer</button>
+                <button type="submit" class="btn btn-blue">Enregistrer</button>
+            </div>
+        </form>
     </div>
     <div id="annuler" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
         <div class="modal-header">
@@ -267,12 +291,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-light-grey">
-                    Fermer
-                </button>
-                <button type="submit" class="btn btn-blue">
-                    Valider l'annulation
-                </button>
+                <button type="button" data-dismiss="modal" class="btn btn-light-grey">Fermer</button>
+                <button type="submit" class="btn btn-blue">Valider l'annulation</button>
             </div>
         </form>
     </div>

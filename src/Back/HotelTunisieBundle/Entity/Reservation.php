@@ -127,6 +127,13 @@ class Reservation
     /**
      * @var string
      *
+     * @ORM\Column(name="remise", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $remise;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="commentaire", type="text",nullable=true)
      */
     private $commentaire;
@@ -161,6 +168,18 @@ class Reservation
      * @ORM\Column( type="datetime")
      */
     private $updated;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+	$this->etat = 1;
+	$this->hotelNotifier = false;
+	$this->timbre = 0;
+	$this->remise = 0;
+	$this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -308,14 +327,6 @@ class Reservation
     public function getHotel()
     {
 	return $this->hotel;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-	$this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -476,16 +487,6 @@ class Reservation
 	    return 'Annulée';
     }
 
-    public function getTotal()
-    {
-	$total = 0;
-	if ($this->surDemande)
-	    return $total;
-	foreach ($this->chambres as $chambre)
-	    $total+=$chambre->getTotal();
-	return number_format($total+$this->timbre, 3, '.', '');
-    }
-
     /**
      * Set hotelNotifier
      *
@@ -641,6 +642,29 @@ class Reservation
     }
 
     /**
+     * Calculer total de la réservation
+     * @return decimal
+     */
+    public function getTotalNet()
+    {
+	$total = 0;
+	if ($this->surDemande)
+	    return $total;
+	foreach ($this->chambres as $chambre)
+	    $total+=$chambre->getTotal();
+	return number_format($total, 3, '.', '');
+    }
+
+    /**
+     * Calculer le total avec le timbre et le remise
+     * @return decimal
+     */
+    public function getTotal()
+    {
+	return number_format($this->getTotalNet() + $this->timbre - $this->remise, 3, '.', '');
+    }
+
+    /**
      * Get reglements
      *
      * @return \Doctrine\Common\Collections\Collection 
@@ -686,7 +710,6 @@ class Reservation
 	return $this->observation;
     }
 
-
     /**
      * Set coordonnees
      *
@@ -695,9 +718,9 @@ class Reservation
      */
     public function setCoordonnees($coordonnees)
     {
-        $this->coordonnees = $coordonnees;
+	$this->coordonnees = $coordonnees;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -707,7 +730,7 @@ class Reservation
      */
     public function getCoordonnees()
     {
-        return $this->coordonnees;
+	return $this->coordonnees;
     }
 
     /**
@@ -718,9 +741,9 @@ class Reservation
      */
     public function setTimbre($timbre)
     {
-        $this->timbre = $timbre;
+	$this->timbre = $timbre;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -730,6 +753,30 @@ class Reservation
      */
     public function getTimbre()
     {
-        return $this->timbre;
+	return $this->timbre;
     }
+
+    /**
+     * Set remise
+     *
+     * @param string $remise
+     * @return Reservation
+     */
+    public function setRemise($remise)
+    {
+	$this->remise = $remise;
+
+	return $this;
+    }
+
+    /**
+     * Get remise
+     *
+     * @return string 
+     */
+    public function getRemise()
+    {
+	return $this->remise;
+    }
+
 }

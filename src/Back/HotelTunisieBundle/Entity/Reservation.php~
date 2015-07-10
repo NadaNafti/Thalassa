@@ -127,6 +127,13 @@ class Reservation
     /**
      * @var string
      *
+     * @ORM\Column(name="remise", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $remise;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="commentaire", type="text",nullable=true)
      */
     private $commentaire;
@@ -476,14 +483,19 @@ class Reservation
 	    return 'Annulée';
     }
 
-    public function getTotal()
+    public function getTotalNet()
     {
 	$total = 0;
 	if ($this->surDemande)
 	    return $total;
 	foreach ($this->chambres as $chambre)
 	    $total+=$chambre->getTotal();
-	return number_format($total+$this->timbre, 3, '.', '');
+	return number_format($total, 3, '.', '');
+    }
+
+    public function getTotal()
+    {
+	return number_format($this->getTotalNet() + $this->timbre - $this->remise, 3, '.', '');
     }
 
     /**
@@ -686,7 +698,6 @@ class Reservation
 	return $this->observation;
     }
 
-
     /**
      * Set coordonnees
      *
@@ -695,9 +706,9 @@ class Reservation
      */
     public function setCoordonnees($coordonnees)
     {
-        $this->coordonnees = $coordonnees;
+	$this->coordonnees = $coordonnees;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -707,7 +718,7 @@ class Reservation
      */
     public function getCoordonnees()
     {
-        return $this->coordonnees;
+	return $this->coordonnees;
     }
 
     /**
@@ -718,9 +729,9 @@ class Reservation
      */
     public function setTimbre($timbre)
     {
-        $this->timbre = $timbre;
+	$this->timbre = $timbre;
 
-        return $this;
+	return $this;
     }
 
     /**
@@ -730,6 +741,7 @@ class Reservation
      */
     public function getTimbre()
     {
-        return $this->timbre;
+	return $this->timbre;
     }
+
 }
