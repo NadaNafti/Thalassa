@@ -143,9 +143,9 @@ class ReservationController extends Controller
 	$form = $form->getForm();
 	if ($request->isMethod("POST"))
 	{
-	    if ($reservation->getVoyage()->getNbrInscriptions() >= $reservation->getVoyage()->getNbrInscriptionsMax())
+	    if ($reservation->getVoyage()->getNbrInscriptions() + count($reservation->getAdultes()) + count($reservation->getEnfants()) > $reservation->getVoyage()->getNbrInscriptionsMax())
 	    {
-		$session->getFlashBag()->add('info', "il y a plus de place !!!");
+		$session->getFlashBag()->add('info', "il y a plus de place !!!, le nombre d'inscription courant est " . $reservation->getVoyage()->getNbrInscriptions());
 		return $this->redirect($this->generateUrl("back_voyages_organises_reservation_validation", array('id' => $reservation->getId())));
 	    }
 	    $form->submit($request);
@@ -203,10 +203,11 @@ class ReservationController extends Controller
 	    }
 	    if ($reservation->getMontantRestant() == 0)
 	    {
-		$em->persist($reservation->getVoyage()->setNbrInscriptions($reservation->getVoyage()->getNbrInscriptions() + 1));
+		$em->persist($reservation->getVoyage()->setNbrInscriptions($reservation->getVoyage()->getNbrInscriptions() + count($reservation->getAdultes()) + count($reservation->getEnfants())));
 		$em->persist($reservation->setEtat(2)->setValidated(new \DateTime())->setCode($this->container->get('reservation')->getCode()));
 		$em->flush();
 		$session->getFlashBag()->add('success', " Votre Réservation a été validée avec succès ");
+		$session->getFlashBag()->add('info', " Reste encore  ".$reservation->getVoyage()->getNbrInscriptionsMax()-$reservation->getVoyage()->getNbrInscriptions().' places dans '.$reservation->getVoyage()->getLibelle());
 		return $this->redirect($this->generateUrl("back_voyages_organises_reservation_consulter", array('id' => $reservation->getId())));
 	    }
 	    else
