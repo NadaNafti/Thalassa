@@ -1,1 +1,1102 @@
 {% extends ":Front:base.html.twig" %}
+{% block title %}Olé voyage{% endblock %}
+{% block body %}
+    <div class="container">
+	<div class="travel-search">
+	    <div class="travel-search-inner">
+		<ul class="tabs searchTab">
+		    <li><a href="#hotelsSearch" class="active"><span class="hotel mi"></span>Hôtels en tunisie</a></li>
+		    <li><a href="#flightsSearch"><span class="hotel mi"></span>Hôtels dans le monde</a></li>
+		    <li><a href="#vacationsSearch"><span class="vacation mi"></span>Vol</a></li>
+		    <li><a href="#carsSearch"><span class="car mi"></span>Voyages organisés</a></li>
+		    <li><a href="#cruisesSearch"><span class="cruise mi"></span>Voyages à la carte</a></li>
+		</ul>
+
+		<ul class="tabs-content">
+		    <li id="hotelsSearch" class="active">
+			<form role="form" class="row">
+			    <div class="col-xs-12 col-sm-3 col-md-2">
+				<div class="form-group">
+				    <label for="hotelLocation">Ville de destination</label>
+				    <select class="form-control mySelectBoxClass" id="VilleDestination">
+					<option>0</option>
+					<option selected>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				    </select>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-3 col-md-2">
+				<div class="form-group">
+				    <label for="hotelLocation">Catégorie</label>
+				    <select class="form-control mySelectBoxClass" id="Categorie">
+					<option>0</option>
+					<option selected>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				    </select>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="form-group datepicker-wrapper">
+				    <label for="hotel-check-in">Date d'entrée</label>
+				    <input type="text" class="form-control date" id="hotel-check-in" placeholder="dd/dm/yy">
+				    <i class="fa fa-calendar"></i>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="form-group datepicker-wrapper">
+				    <label for="hotel-check-out">Nbr Nuitées</label>
+				    <input type="text" class="form-control" id="NbrNuitee">
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="form-group datepicker-wrapper">
+				    <label for="hotel-check-out">Mot clès</label>
+				    <input type="text" class="form-control" id="MotCles">
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="clear"></div>
+				<button type="submit" class="btn btn-primary btn-block">Search</button>
+			    </div>
+			</form>
+		    </li>
+		    <li id="flightsSearch">
+			<form role="form" class="row">
+			    <div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="form-group">
+				    <label for="flightFrom">From</label>
+				    <input type="text" class="form-control" id="flightFrom" placeholder="Bangkok">
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="form-group">
+				    <label for="flightTo">To</label>
+				    <input type="text" class="form-control" id="flightTo" placeholder="Hong Kong">
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="form-group datepicker-wrapper">
+				    <label for="flightCheckIn">Check-in</label>
+				    <input type="text" class="form-control date" id="flightCheckIn" placeholder="dd/dm/yy">
+				    <i class="fa fa-calendar"></i>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="form-group datepicker-wrapper">
+				    <label for="flightCheckOut">Check-out</label>
+				    <input type="text" class="form-control date" id="flightCheckOut" placeholder="dd/dm/yy">
+				    <i class="fa fa-calendar"></i>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-3 col-md-1">
+				<div class="form-group">
+				    <label for="flightAdult">Adult</label>
+				    <select class="form-control mySelectBoxClass" id="flightAdult">
+					<option>0</option>
+					<option selected>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				    </select>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-3 col-md-1">
+				<div class="form-group">
+				    <label for="flightChild">Child</label>
+				    <select class="form-control mySelectBoxClass" id="flightChild">
+					<option>0</option>
+					<option selected>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				    </select>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-2 col-md-2">
+				<div class="clear"></div>
+				<button type="submit" class="btn btn-primary btn-block">Search</button>
+			    </div>
+			</form>
+		    </li>
+		    <li id="vacationsSearch">
+			<form role="form" class="row">
+			    <div class="col-xs-12 col-sm-4 col-md-4">
+				<div class="form-group">
+				    <label for="vacationLocation">Where to Stay?</label>
+				    <input type="text" class="form-control" id="vacationLocation" placeholder="Thailand">
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="form-group datepicker-wrapper">
+				    <label for="vacation-check-in">Check-in</label>
+				    <input type="text" class="form-control date" id="vacation-check-in" placeholder="dd/dm/yy">
+				    <i class="fa fa-calendar"></i>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="form-group datepicker-wrapper">
+				    <label for="vacation-check-out">Check-out</label>
+				    <input type="text" class="form-control date" id="vacation-check-out" placeholder="dd/dm/yy">
+				    <i class="fa fa-calendar"></i>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-1">
+				<div class="form-group">
+				    <label for="vacationAdult">Adult</label>
+				    <select class="form-control mySelectBoxClass" id="vacationAdult">
+					<option>0</option>
+					<option selected>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				    </select>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-1">
+				<div class="form-group">
+				    <label for="vacationChild">Child</label>
+				    <select class="form-control mySelectBoxClass" id="vacationChild">
+					<option>0</option>
+					<option selected>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				    </select>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="clear"></div>
+				<button type="submit" class="btn btn-primary btn-block">Search</button>
+			    </div>
+			</form>
+		    </li>
+		    <li id="carsSearch">
+			<form role="form" class="row">
+			    <div class="col-xs-12 col-sm-4 col-md-1">
+				<div class="form-group">
+				    <label for="carFrom">From</label>
+				    <input type="text" class="form-control" id="carFrom" placeholder="Bangkok">
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-1">
+				<div class="form-group">
+				    <label for="carTo">To</label>
+				    <input type="text" class="form-control" id="carTo" placeholder="Pattaya">
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="form-group datepicker-wrapper">
+				    <label for="carPickUp">Pick Up</label>
+				    <input type="text" class="form-control date" id="carPickUp" placeholder="dd/dm/yy">
+				    <i class="fa fa-calendar"></i>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-3 col-md-2">
+				<div class="form-group datepicker-wrapper">
+				    <label for="pickUpTime">Hour</label>
+				    <select class="form-control mySelectBoxClass" id="pickUpTime">
+					<option>12:00 AM</option>
+					<option>12:30 AM</option>
+					<option>01:00 AM</option>
+					<option>01:30 AM</option>
+					<option>02:00 AM</option>
+					<option>02:30 AM</option>
+					<option>03:00 AM</option>
+					<option>03:30 AM</option>
+					<option>04:00 AM</option>
+					<option>04:30 AM</option>
+					<option>05:00 AM</option>
+					<option>05:30 AM</option>
+					<option>06:00 AM</option>
+					<option>06:30 AM</option>
+					<option>07:00 AM</option>
+					<option>07:30 AM</option>
+					<option>08:00 AM</option>
+					<option>08:30 AM</option>
+					<option>09:00 AM</option>
+					<option>09:30 AM</option>
+					<option>10:00 AM</option>
+					<option selected>10:30 AM</option>
+					<option>11:00 AM</option>
+					<option>11:30 AM</option>
+					<option>12:00 PM</option>
+					<option>12:30 PM</option>								  
+					<option>01:00 PM</option>
+					<option>01:30 PM</option>
+					<option>02:00 PM</option>
+					<option>02:30 PM</option>
+					<option>03:00 PM</option>
+					<option>03:30 PM</option>
+					<option>04:00 PM</option>
+					<option>04:30 PM</option>
+					<option>05:00 PM</option>
+					<option>05:30 PM</option>
+					<option>06:00 PM</option>
+					<option>06:30 PM</option>
+					<option>07:00 PM</option>
+					<option>07:30 PM</option>
+					<option>08:00 PM</option>
+					<option>08:30 PM</option>
+					<option>09:00 PM</option>
+					<option>09:30 PM</option>
+					<option>10:00 PM</option>
+					<option>10:30 PM</option>
+					<option>11:00 PM</option>
+					<option>11:30 PM</option>		
+				    </select>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="form-group datepicker-wrapper">
+				    <label for="carDropOff">Drop Off</label>
+				    <input type="text" class="form-control date" id="carDropOff" placeholder="dd/dm/yy">
+				    <i class="fa fa-calendar"></i>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-3 col-md-2">
+				<div class="form-group datepicker-wrapper">
+				    <label for="dropOffTime">Hour</label>
+				    <select class="form-control mySelectBoxClass" id="dropOffTime">
+					<option>12:00 AM</option>
+					<option>12:30 AM</option>
+					<option>01:00 AM</option>
+					<option>01:30 AM</option>
+					<option>02:00 AM</option>
+					<option>02:30 AM</option>
+					<option>03:00 AM</option>
+					<option>03:30 AM</option>
+					<option>04:00 AM</option>
+					<option>04:30 AM</option>
+					<option>05:00 AM</option>
+					<option>05:30 AM</option>
+					<option>06:00 AM</option>
+					<option>06:30 AM</option>
+					<option>07:00 AM</option>
+					<option>07:30 AM</option>
+					<option>08:00 AM</option>
+					<option>08:30 AM</option>
+					<option>09:00 AM</option>
+					<option>09:30 AM</option>
+					<option>10:00 AM</option>
+					<option selected>10:30 AM</option>
+					<option>11:00 AM</option>
+					<option>11:30 AM</option>
+					<option>12:00 PM</option>
+					<option>12:30 PM</option>								  
+					<option>01:00 PM</option>
+					<option>01:30 PM</option>
+					<option>02:00 PM</option>
+					<option>02:30 PM</option>
+					<option>03:00 PM</option>
+					<option>03:30 PM</option>
+					<option>04:00 PM</option>
+					<option>04:30 PM</option>
+					<option>05:00 PM</option>
+					<option>05:30 PM</option>
+					<option>06:00 PM</option>
+					<option>06:30 PM</option>
+					<option>07:00 PM</option>
+					<option>07:30 PM</option>
+					<option>08:00 PM</option>
+					<option>08:30 PM</option>
+					<option>09:00 PM</option>
+					<option>09:30 PM</option>
+					<option>10:00 PM</option>
+					<option>10:30 PM</option>
+					<option>11:00 PM</option>
+					<option>11:30 PM</option>	
+				    </select>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-2 col-md-2">
+				<div class="clear"></div>
+				<button type="submit" class="btn btn-primary btn-block">Search</button>
+			    </div>
+			</form>
+		    </li>
+		    <li id="cruisesSearch">
+			<form role="form" class="row">
+			    <div class="col-xs-12 col-sm-4 col-md-3">
+				<div class="form-group">
+				    <label for="cruisesDestinatiom">Destination</label>
+				    <select class="form-control mySelectBoxClass" id="cruisesDestinatiom">
+					<option selected>Show all</option>
+					<optgroup label="Most Popular">
+					    <option>Caribbean</option>
+					    <option>Bahamas</option>
+					    <option>Mexico</option>
+					    <option>Alaska</option>
+					    <option>Europe</option>
+					    <option>Bermuda</option>
+					    <option>Hawaii</option>
+					</optgroup>
+					<optgroup label="Other Destinations">
+					    <option>Africa</option>
+					    <option>Arctic/Antartctic</option>
+					    <option>Asia</option>
+					    <option>Oceania</option>
+					    <option>Central America</option>
+					    <option>Cruise to Nowhere</option>
+					    <option>Galapagos</option>
+					    <option>Greenland/Iceland</option>
+					    <option>Middle East</option>
+					    <option>Pacific Coastal</option>
+					    <option>Panama Canal</option>
+					    <option>South Africa</option>
+					    <option>South Pacific</option>
+					    <option>Tahiti</option>
+					    <option>Transatlantic</option>
+					    <option>World Cruises</option>
+					</optgroup>
+				    </select>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-3">
+				<div class="form-group">
+				    <label for="cruisesWhen">When</label>
+				    <select class="form-control mySelectBoxClass" id="cruisesWhen">
+					<option selected>Show all</option>
+					<option>October 2013</option>
+					<option>November 2013</option>
+					<option>December 2013</option>
+					<option>January 2014</option>
+					<option>February 2014</option>
+					<option>March 2014</option>
+					<option>April 2014</option>
+					<option>May 2014</option>
+					<option>June 2014</option>
+					<option>July 2014</option>
+					<option>August 2014</option>
+					<option>September 2014</option>
+					<option>October 2014</option>
+					<option>November 2014</option>
+					<option>December 2014</option>
+				    </select>
+				</div>
+			    </div>
+			    <div class="col-xs-12 col-sm-4 col-md-6">
+				<div class="clear"></div>
+				<button type="submit" class="btn btn-primary btn-block">Search</button>
+			    </div>
+			</form>
+		    </li>
+		</ul>
+	    </div>
+	</div>
+
+	<div class="clear"></div>
+	<div class="row clearfix pv-30 mt-20">
+	    <div class="col-xs-12 col-sm-12 col-md-12 product-3">
+		<h3 class="section-title mb-30">Top promos hôtels en tunisie</h3>
+		<div class="hot-deal-wrapper">
+		    <div class="hotDeal1Navigation">
+			<a class="hotDeal1-prev"><i class="icon icon-left-open-big"></i></a>
+			<a class="hotDeal1-next"><i class="icon icon-right-open-big"></i></a>
+		    </div>
+
+		    <div id="hot-deal-1" class="owl-carousel items-container small-grid">
+			<div class="item">
+			    <div class="list-item">
+				<div class="list-item-image">
+				    <div class="image-inner">
+					<a class="link-image" href="page-details.html">
+					    <img src="{{ asset('front-assets/images/hotels/hotel-1.jpg') }}" alt="" />
+					    <div class="image-overlay">
+						<div class="overlay-content">
+						    <div class="overlay-icon"><i class="icon_link"></i></div>
+						</div><!--/ .extra-content-->	
+					    </div><!--/ .image-extra-->
+					</a>	
+				    </div>
+				</div><!-- end list-item -->
+				<div class="list-item-label">
+				    <h4 class="list-item-title"><a href="page-details.html" class="inverse">HOTEL RADISSON DJERBA</a></h4>
+				    <br>
+				    <span class="list-item-location">Phuket, Thailand</span>
+
+				    <div class="list-item-price">
+					$150 <span>per night</span>
+				    </div>
+				    <div class="list-item-meta">
+					<span class="rating-static rating-30"></span>
+					<span class="list-item-review">272 Reviews</span>
+				    </div>
+				    <div class="list-item-details">
+					In on announcing if of comparison pianoforte projection. Maids hoped gay yet bed.
+				    </div>
+				    <div class="clear"></div>
+				    <a href="page-details.html" class="btn btn-block">More Details</a>
+				</div>
+			    </div>
+			</div>
+
+			<!--item-->
+			<div class="item">
+			    <div class="list-item">
+				<div class="list-item-image">
+				    <div class="image-inner">
+					<a class="link-image" href="page-details.html">
+					    <img src="{{ asset('front-assets/images/hotels/hotel-2.jpg') }}" alt="" />
+					    <div class="image-overlay">
+						<div class="overlay-content">
+						    <div class="overlay-icon"><i class="icon_link"></i></div>
+						</div><!--/ .extra-content-->	
+					    </div><!--/ .image-extra-->
+					</a>	
+				    </div>
+				</div><!-- end list-item -->
+				<div class="list-item-label">
+				    <h4 class="list-item-title"><a href="page-details.html" class="inverse">HOTEL RADISSON DJERBA</a></h4>
+				    <br>
+				    <span class="list-item-location">Phuket, Thailand</span>
+
+				    <div class="list-item-price">
+					$150 <span>per night</span>
+				    </div>
+				    <div class="list-item-meta">
+					<span class="rating-static rating-30"></span>
+					<span class="list-item-review">272 Reviews</span>
+				    </div>
+				    <div class="list-item-details">
+					In on announcing if of comparison pianoforte projection. Maids hoped gay yet bed.
+				    </div>
+				    <div class="clear"></div>
+				    <a href="page-details.html" class="btn btn-block">More Details</a>
+				</div>
+			    </div>
+			</div>
+
+			<!--item-->
+			<div class="item">
+			    <div class="list-item">
+				<div class="list-item-image">
+				    <div class="image-inner">
+					<a class="link-image" href="page-details.html">
+					    <img src="{{ asset('front-assets/images/hotels/hotel-1.jpg') }}" alt="" />
+					    <div class="image-overlay">
+						<div class="overlay-content">
+						    <div class="overlay-icon"><i class="icon_link"></i></div>
+						</div><!--/ .extra-content-->	
+					    </div><!--/ .image-extra-->
+					</a>	
+				    </div>
+				</div><!-- end list-item -->
+				<div class="list-item-label">
+				    <h4 class="list-item-title"><a href="page-details.html" class="inverse">HOTEL RADISSON DJERBA</a></h4>
+				    <br>
+				    <span class="list-item-location">Phuket, Thailand</span>
+
+				    <div class="list-item-price">
+					$150 <span>per night</span>
+				    </div>
+				    <div class="list-item-meta">
+					<span class="rating-static rating-30"></span>
+					<span class="list-item-review">272 Reviews</span>
+				    </div>
+				    <div class="list-item-details">
+					In on announcing if of comparison pianoforte projection. Maids hoped gay yet bed.
+				    </div>
+				    <div class="clear"></div>
+				    <a href="page-details.html" class="btn btn-block">More Details</a>
+				</div>
+			    </div>
+			</div>
+
+			<!--item-->
+			<div class="item">
+			    <div class="list-item">
+				<div class="list-item-image">
+				    <div class="image-inner">
+					<a class="link-image" href="page-details.html">
+					    <img src="{{ asset('front-assets/images/hotels/hotel-2.jpg') }}" alt="" />
+					    <div class="image-overlay">
+						<div class="overlay-content">
+						    <div class="overlay-icon"><i class="icon_link"></i></div>
+						</div><!--/ .extra-content-->	
+					    </div><!--/ .image-extra-->
+					</a>	
+				    </div>
+				</div><!-- end list-item -->
+				<div class="list-item-label">
+				    <h4 class="list-item-title"><a href="page-details.html" class="inverse">HOTEL RADISSON DJERBA</a></h4>
+				    <br>
+				    <span class="list-item-location">Phuket, Thailand</span>
+
+				    <div class="list-item-price">
+					$150 <span>per night</span>
+				    </div>
+				    <div class="list-item-meta">
+					<span class="rating-static rating-30"></span>
+					<span class="list-item-review">272 Reviews</span>
+				    </div>
+				    <div class="list-item-details">
+					In on announcing if of comparison pianoforte projection. Maids hoped gay yet bed.
+				    </div>
+				    <div class="clear"></div>
+				    <a href="page-details.html" class="btn btn-block">More Details</a>
+				</div>
+			    </div>
+			</div>
+
+			<!--item-->
+			<div class="item">
+			    <div class="list-item">
+				<div class="list-item-image">
+				    <div class="image-inner">
+					<a class="link-image" href="page-details.html">
+					    <img src="{{ asset('front-assets/images/hotels/hotel-1.jpg') }}" alt="" />
+					    <div class="image-overlay">
+						<div class="overlay-content">
+						    <div class="overlay-icon"><i class="icon_link"></i></div>
+						</div><!--/ .extra-content-->	
+					    </div><!--/ .image-extra-->
+					</a>	
+				    </div>
+				</div><!-- end list-item -->
+				<div class="list-item-label">
+				    <h4 class="list-item-title"><a href="page-details.html" class="inverse">HOTEL RADISSON DJERBA</a></h4>
+				    <br>
+				    <span class="list-item-location">Phuket, Thailand</span>
+
+				    <div class="list-item-price">
+					$150 <span>per night</span>
+				    </div>
+				    <div class="list-item-meta">
+					<span class="rating-static rating-30"></span>
+					<span class="list-item-review">272 Reviews</span>
+				    </div>
+				    <div class="list-item-details">
+					In on announcing if of comparison pianoforte projection. Maids hoped gay yet bed.
+				    </div>
+				    <div class="clear"></div>
+				    <a href="page-details.html" class="btn btn-block">More Details</a>
+				</div>
+			    </div>
+			</div>
+
+
+		    </div>
+		</div>
+	    </div>
+	    <div class="clear"></div>
+
+	    <div class="col-xs-12 col-sm-12 col-md-12 mt-30">
+		<div class="gr-style"></div>
+		<h3 class="section-title mv-30">Top Destinations voyages organisés</h3>
+	    </div>
+
+	    <div class="produc-item">
+		<div class="col-xs-12 col-sm-6 col-md-3">
+		    <div class="list-item">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="link-image" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-05.jpg') }}" alt="Image" />
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon"><i class="icon_link"></i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div><!-- end list-item -->
+			<div class="list-item-label">
+			    <h4 class="list-item-title"><a href="page-details.html">Bora Bora, French Polynesia</a></h4>
+			    <div class="list-item-price">
+				<a href="#"><i class="fa-arrow-right"></i></a>
+			    </div>
+			</div>
+		    </div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3">
+		    <div class="list-item">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="link-image" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-06.jpg') }}" alt="Image" />
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon"><i class="icon_link"></i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div><!-- end list-item -->
+			<div class="list-item-label">
+			    <h4 class="list-item-title"><a href="page-details.html">Hong Kong, China</a></h4>
+			    <div class="list-item-price">
+				<a href="#"><i class="fa-arrow-right"></i></a>
+			    </div>
+			</div>
+		    </div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3">
+		    <div class="list-item">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="link-image" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-07.jpg') }}" alt="Image" />
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon"><i class="icon_link"></i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div><!-- end list-item -->
+			<div class="list-item-label">
+			    <h4 class="list-item-title"><a href="page-details.html">Mykonos, Greece</a></h4>
+			    <div class="list-item-price">
+				<a href="#"><i class="fa-arrow-right"></i></a>
+			    </div>
+			</div>
+		    </div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3">
+		    <div class="list-item">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="link-image" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-08.jpg') }}" alt="Image" />
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon"><i class="icon_link"></i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div><!-- end list-item -->
+			<div class="list-item-label">
+			    <h4 class="list-item-title"><a href="page-details.html">San Francisco, USA</a></h4>
+			    <div class="list-item-price">
+				<a href="#"><i class="fa-arrow-right"></i></a>
+			    </div>
+			</div>
+		    </div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3">
+		    <div class="list-item">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="link-image" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-01.jpg') }}" alt="Image" />
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon"><i class="icon_link"></i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div><!-- end list-item -->
+			<div class="list-item-label">
+			    <h4 class="list-item-title"><a href="page-details.html">Dubai, UAE</a></h4>
+			    <div class="list-item-price">
+				<a href="#"><i class="fa-arrow-right"></i></a>
+			    </div>
+			</div>
+		    </div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3">
+		    <div class="list-item">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="link-image" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-02.jpg') }}" alt="Image" />
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon"><i class="icon_link"></i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div><!-- end list-item -->
+			<div class="list-item-label">
+			    <h4 class="list-item-title"><a href="page-details.html">Varenna, Italy</a></h4>
+			    <div class="list-item-price">
+				<a href="#"><i class="fa-arrow-right"></i></a>
+			    </div>
+			</div>
+		    </div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3">
+		    <div class="list-item">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="link-image" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-03.jpg') }}" alt="Image" />
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon"><i class="icon_link"></i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div><!-- end list-item -->
+			<div class="list-item-label">
+			    <h4 class="list-item-title"><a href="page-details.html">Santorini, Greece</a></h4>
+			    <div class="list-item-price">
+				<a href="#"><i class="fa-arrow-right"></i></a>
+			    </div>
+			</div>
+		    </div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3">
+		    <div class="list-item">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="link-image" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-04.jpg') }}" alt="Image" />
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon"><i class="icon_link"></i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div><!-- end list-item -->
+			<div class="list-item-label">
+			    <h4 class="list-item-title"><a href="page-details.html">New York, USa</a></h4>
+			    <div class="list-item-price">
+				<a href="#"><i class="fa-arrow-right"></i></a>
+			    </div>
+			</div>
+		    </div>
+		</div>
+	    </div>
+
+
+	</div>
+	<div class="gr-style"></div>
+	<h3 class="section-title mv-30">Top Programmes & Activités</h3>
+	<div class="row pv-30 mt-20 product-4">
+	    <div class="col-xs-12 col-sm-4 col-md-4">
+		<div class="list-item">
+		    <div class="list-item-image">
+			<div class="image-inner">
+			    <img src="{{ asset('front-assets/images/list-items/item-wide-01.jpg') }}" alt="" />
+			</div>
+			<div class="minimal-top-label">
+			    <h3>Circuits</h3>
+			</div>
+		    </div><!-- end list-item -->
+		    <ul class="minimal-label pd-img">
+			<li>
+			    <img src="{{ asset('front-assets/images/list-items/item-square-01.jpg') }}" alt="" />
+			    <a href="#">Barcelo Malaga</a>
+			    <div class="minimal-price"><span>from</span> <strong>$99</strong></div>
+			    <div class="minimal-meta">
+				<span class="rating-static rating-30"></span>
+				<span class="minimal-location">Spain</span>
+			    </div>
+			</li>
+			<li>
+			    <img src="{{ asset('front-assets/images/list-items/item-square-02.jpg') }}" alt="" />
+			    <a href="#">Village Inn Studios & Family Apartments</a>
+			    <div class="minimal-price"><span>from</span> <strong>$250</strong></div>
+			    <div class="minimal-meta">
+				<span class="rating-static rating-40"></span>
+				<span class="minimal-location">Zakynthos</span>
+			    </div>
+			</li>
+			<li>
+			    <img src="{{ asset('front-assets/images/list-items/item-square-03.jpg') }}" alt="" />
+			    <a href="#">Comfort Suites Paradise Island</a>
+			    <div class="minimal-price"><span>from</span> <strong>$120</strong></div>
+			    <div class="minimal-meta">
+				<span class="rating-static rating-45"></span>
+				<span class="minimal-location">Bahamas</span>
+			    </div>
+			</li>
+		    </ul>
+		</div>
+	    </div>
+	    <div class="col-xs-12 col-sm-4 col-md-4">
+		<div class="list-item">
+		    <div class="list-item-image">
+			<div class="image-inner">
+			    <img src="{{ asset('front-assets/images/list-items/item-wide-03.jpg') }}" alt="" />
+			</div>
+			<div class="minimal-top-label">
+			    <h3>OMRA 2015</h3>
+			</div>
+		    </div><!-- end list-item -->
+		    <ul class="minimal-label pd-img">
+			<li>
+			    <img src="{{ asset('front-assets/images/list-items/item-square-04.jpg') }}" alt="" />
+			    <a href="#">Ambassador Santorini Luxury Villas & Suites </a>
+			    <div class="minimal-price"><span>from</span> <strong>$139</strong></div>
+			    <div class="minimal-meta">
+				<span class="rating-static rating-30"></span>
+				<span class="minimal-location">Greece</span>
+			    </div>
+			</li>
+			<li>
+			    <img src="{{ asset('front-assets/images/list-items/item-square-05.jpg') }}" alt="" />
+			    <a href="#">Maitai Polynesia</a>
+			    <div class="minimal-price"><span>from</span> <strong>$370</strong></div>
+			    <div class="minimal-meta">
+				<span class="rating-static rating-40"></span>
+				<span class="minimal-location">Bora Bora</span>
+			    </div>
+			</li>
+			<li>
+			    <img src="{{ asset('front-assets/images/list-items/item-square-06.jpg') }}" alt="" />
+			    <a href="#"> Turquoise Cay Boutique Hotel</a>
+			    <div class="minimal-price"><span>from</span> <strong>$329</strong></div>
+			    <div class="minimal-meta">
+				<span class="rating-static rating-45"></span>
+				<span class="minimal-location">Bahamas</span>
+			    </div>
+			</li>
+		    </ul>
+		</div>
+	    </div>
+	    <div class="col-xs-12 col-sm-4 col-md-4">
+		<div class="list-item">
+		    <div class="list-item-image">
+			<div class="image-inner">
+			    <img src="{{ asset('front-assets/images/list-items/item-wide-03.jpg') }}" alt="" />
+			</div>
+			<div class="minimal-top-label">
+			    <h3>Soirées & Festivités</h3>
+			</div>
+		    </div><!-- end list-item -->
+		    <ul class="minimal-label pd-img">
+			<li>
+			    <img src="{{ asset('front-assets/images/list-items/item-square-07.jpg') }}" alt="" />
+			    <a href="#">Baywalk Residence Pattaya</a>
+			    <div class="minimal-price"><span>from</span> <strong>$99</strong></div>
+			    <div class="minimal-meta">
+				<span class="rating-static rating-30"></span>
+				<span class="minimal-location">Thailand</span>
+			    </div>
+			</li>
+			<li>
+			    <img src="{{ asset('front-assets/images/list-items/item-square-08.jpg') }}" alt="" />
+			    <a href="#">Pension Alice et Raphael Bora-Bora</a>
+			    <div class="minimal-price"><span>from</span> <strong>$400</strong></div>
+			    <div class="minimal-meta">
+				<span class="rating-static rating-40"></span>
+				<span class="minimal-location">Bora Bora</span>
+			    </div>
+			</li>
+			<li>
+			    <img src="{{ asset('front-assets/images/list-items/item-square-09.jpg') }}" alt="" />
+			    <a href="#">Fairmont Nile City</a>
+			    <div class="minimal-price"><span>from</span> <strong>$290</strong></div>
+			    <div class="minimal-meta">
+				<span class="rating-static rating-45"></span>
+				<span class="minimal-location">Egypt</span>
+			    </div>
+			</li>
+		    </ul>
+		</div>
+	    </div>
+	</div>
+
+    </div>
+    <footer id="footer">
+	<div class="primary-footer">
+	    <div class="container">
+		<div class="row pt-50 pb-30">
+		    <div class="col-xs-12 col-sm-3 col-md-3 rs-mb" style="padding: 0px 5px 5px 5px;">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-05.jpg') }}" alt="Image">
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon" style="border: none;"><i>Thème 1</i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-3 col-md-3 xs-mb" style="padding: 0px 5px 5px 5px;">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-06.jpg') }}" alt="Image">
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon" style="border: none;"><i>Thème 2</i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-6 col-md-6 xs-mb" style="padding: 0px 5px 5px 5px;">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="" href="page-details.html">
+				    <img src="http://www.jettours.com/fileadmin/image/idea-box/450x220_noces.jpg" style="width: 100%;height: 209px;">
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon" style="border: none;"><i>Thème 3</i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-3 col-md-3 rs-mb" style="padding: 5px 5px 5px 5px;">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-07.jpg') }}" alt="Image">
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon" style="border: none;"><i>Thème 4</i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-6 col-md-6 xs-mb" style="padding: 5px 5px 5px 5px;">
+			<img src="{{ asset('front-assets/images/blockidees/idees_voyages.jpg') }}" style="width: 100%;height: 209px;">
+		    </div>
+		    <div class="col-xs-12 col-sm-3 col-md-3 xs-mb" style="padding: 5px 5px 5px 5px;">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-04.jpg') }}" alt="Image">
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon" style="border: none;"><i>Thème 5</i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-6 col-md-6 xs-mb" style="padding: 5px 5px 5px 5px;">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="" href="page-details.html">
+				    <img src="http://www.jettours.com/fileadmin/image/idea-box/450x220_sport.jpg" style="width: 100%;height: 209px;">
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon" style="border: none;"><i>Thème 6</i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-3 col-md-3 rs-mb" style="padding: 5px 5px 5px 5px;">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-03.jpg') }}" alt="Image">
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon" style="border: none;"><i>Thème 7</i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-3 col-md-3 xs-mb" style="padding: 5px 5px 5px 5px;">
+			<div class="list-item-image">
+			    <div class="image-inner">
+				<a class="" href="page-details.html">
+				    <img src="{{ asset('front-assets/images/list-items/top-destination-02.jpg') }}" alt="Image">
+				    <div class="image-overlay">
+					<div class="overlay-content">
+					    <div class="overlay-icon" style="border: none;"><i>Thème 8</i></div>
+					</div><!--/ .extra-content-->	
+				    </div><!--/ .image-extra-->
+				</a>	
+			    </div>
+			</div>
+		    </div>
+		</div>
+	    </div>
+	</div>
+    </footer>
+    <div class="container">
+	<div class="gr-style"></div>				
+	<div class="row pv-30 mt-20 product-4">
+	    <div class="col-xs-12 col-sm-4 col-md-4">
+		<div class="list-item">
+		    <div class="list-item-image">
+			<div class="image-inner">
+			    <a class="link-image" href="page-details.html">
+				<img src="{{ asset('front-assets/images/list-items/item-wide-05.jpg') }}" alt="" />
+				<div class="image-overlay">
+				    <div class="overlay-content">
+					<div class="overlay-icon"><i class="icon_link"></i></div>
+				    </div><!--/ .extra-content-->	
+				</div><!--/ .image-extra-->
+			    </a>	
+			</div>
+		    </div><!-- end list-item -->
+		    <div class="product-4-label">
+			<h3><a href="#">Zealously prevailed be arranging do. Set arranging too dejection.</a></h3>
+			<div class="bb2 mb-20"></div>
+			<p>Sir margaret drawings repeated recurred exercise laughing may you but. Do repeated whatever to welcomed absolute no. Fat surprise although outlived and informed shy dissuade property.</p>
+			<a href="#" class="more-link">More</a>
+		    </div>
+		</div>
+	    </div>
+	    <div class="col-xs-12 col-sm-4 col-md-4">
+		<div class="list-item">
+		    <div class="list-item-image">
+			<div class="image-inner">
+			    <a class="link-image" href="page-details.html">
+				<img src="{{ asset('front-assets/images/list-items/item-wide-04.jpg') }}" alt="" />
+				<div class="image-overlay">
+				    <div class="overlay-content">
+					<div class="overlay-icon"><i class="icon_link"></i></div>
+				    </div><!--/ .extra-content-->	
+				</div><!--/ .image-extra-->
+			    </a>	
+			</div>
+		    </div><!-- end list-item -->
+		    <div class="product-4-label">
+			<h3><a href="#">Greatly hearted has who believe. Drift allow green son walls years.</a></h3>
+			<div class="bb2 mb-20"></div>
+			<p>Sir margaret drawings repeated recurred exercise laughing may you but. Do repeated whatever to welcomed absolute no. Fat surprise although outlived and informed shy dissuade property.</p>
+			<a href="#" class="more-link">More</a>
+		    </div>
+		</div>
+	    </div>
+	    <div class="col-xs-12 col-sm-4 col-md-4">
+		<div class="list-item">
+		    <div class="list-item-image">
+			<div class="image-inner">
+			    <a class="link-image" href="page-details.html">
+				<img src="{{ asset('front-assets/images/list-items/item-wide-06.jpg') }}" alt="" />
+				<div class="image-overlay">
+				    <div class="overlay-content">
+					<div class="overlay-icon"><i class="icon_link"></i></div>
+				    </div><!--/ .extra-content-->	
+				</div><!--/ .image-extra-->
+			    </a>	
+			</div>
+		    </div><!-- end list-item -->
+		    <div class="product-4-label">
+			<h3><a href="#">Partments occasional boisterous as solicitude to introduced.</a></h3>
+			<div class="bb2 mb-20"></div>
+			<p>Sir margaret drawings repeated recurred exercise laughing may you but. Do repeated whatever to welcomed absolute no. Fat surprise although outlived and informed shy dissuade property.</p>
+			<div class=""><a href="#" class="more-link">More</a></div>
+		    </div>
+		</div>
+	    </div>
+	</div>
+    </div>
+{% endblock %}
