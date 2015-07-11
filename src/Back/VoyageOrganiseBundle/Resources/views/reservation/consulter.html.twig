@@ -98,17 +98,19 @@
 		    <table class="table">
 			<thead>
 			    <tr>
+				<th class="center">#</th>
 				<th class="center">Nom</th>
 				<th class="center">Passport</th>
 			    </tr>
 			</thead>
 			<tbody>
-			    <tr>
-				{% for adulte in reservation.adultes %}
+			    {% for adulte in reservation.adultes %}
+				<tr>
+				    <td class="center">{{ loop.index }}</td>
 				    <td class="center">{{ adulte.nomPrenom }}</td>
 				    <td class="center">{{ adulte.passport }}</td>
-				{% endfor %}
-			    </tr>
+				</tr>
+			    {% endfor %}
 			</tbody>
 		    </table>
 		</div>
@@ -120,19 +122,21 @@
 			<table class="table">
 			    <thead>
 				<tr>
+				    <th class="center">#</th>
 				    <th class="center">Nom</th>
 				    <th class="center">Age</th>
 				    <th class="center">Passport</th>
 				</tr>
 			    </thead>
 			    <tbody>
-				<tr>
-				    {% for enfants in reservation.enfants %}
+				{% for enfants in reservation.enfants %}
+				    <tr>
+					<td class="center">{{ loop.index }}</td>
 					<td class="center">{{ enfants.nomPrenom }}</td>
 					<td class="center">{{ enfants.age }}</td>
 					<td class="center">{{ enfants.passport }}</td>
-				    {% endfor %}
-				</tr>
+				    </tr>
+				{% endfor %}
 			    </tbody>
 			</table>
 		    </div>
@@ -152,7 +156,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h4>Montant total de la réservation : <input type="text" required name="total" value="{{ reservation.total }}" /> </h4>
-                            
+
                     </div>
                 </div>
             </div>
