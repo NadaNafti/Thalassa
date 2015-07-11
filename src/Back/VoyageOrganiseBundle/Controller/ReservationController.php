@@ -95,7 +95,7 @@ class ReservationController extends Controller
 		$em->remove($reglement);
 	    }
 	    if ($reservation->getEtat() == 2)
-		$em->persist($reservation->getVoyage()->setNbrInscriptions($reservation->getVoyage()->getNbrInscriptions() - 1));
+		$em->persist($reservation->getVoyage()->setNbrInscriptions($reservation->getVoyage()->getNbrInscriptions() - count($reservation->getAdultes()) - count($reservation->getEnfants())));
 	    $em->persist($reservation->setEtat(9)->setCommentaire($request->get('commentaire')));
 	    $em->flush();
 	    $session->getFlashBag()->add('success', "Réservation a été annullée avec succès ");
