@@ -113,6 +113,24 @@ class Reservation
     private $updated;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="coordonnees", type="array")
+     */
+    private $coordonnees;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+	$this->etat = 1;
+	$this->coordonnees = array();
+	$this->adultes = new \Doctrine\Common\Collections\ArrayCollection();
+	$this->enfants = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -189,15 +207,6 @@ class Reservation
     public function getClient()
     {
 	return $this->client;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-	$this->adultes = new \Doctrine\Common\Collections\ArrayCollection();
-	$this->enfants = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -504,6 +513,29 @@ class Reservation
     public function getMontantRestant()
     {
 	return number_format($this->total - $this->getMontantRegle(), 3, '.', '');
+    }
+
+    /**
+     * Set coordonnees
+     *
+     * @param array $coordonnees
+     * @return Reservation
+     */
+    public function setCoordonnees($coordonnees)
+    {
+	$this->coordonnees = $coordonnees;
+
+	return $this;
+    }
+
+    /**
+     * Get coordonnees
+     *
+     * @return array 
+     */
+    public function getCoordonnees()
+    {
+	return $this->coordonnees;
     }
 
 }

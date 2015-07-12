@@ -113,6 +113,23 @@ class Reservation
     private $updated;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="coordonnees", type="array")
+     */
+    private $coordonnees;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+	$this->etat=1;
+	$this->adultes = new \Doctrine\Common\Collections\ArrayCollection();
+	$this->enfants = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -189,15 +206,6 @@ class Reservation
     public function getClient()
     {
 	return $this->client;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-	$this->adultes = new \Doctrine\Common\Collections\ArrayCollection();
-	$this->enfants = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -468,6 +476,42 @@ class Reservation
 	    return 'Validée';
 	if ($this->etat == 9)
 	    return 'Annulée';
+    }
+
+    /**
+     * Set total
+     *
+     * @param string $total
+     * @return Reservation
+     */
+    public function setTotal($total)
+    {
+	$this->total = $total;
+
+	return $this;
+    }
+
+    /**
+     * Get total
+     *
+     * @return string 
+     */
+    public function getTotal()
+    {
+	return $this->total;
+    }
+
+    public function getMontantRegle()
+    {
+	$montant = 0;
+	foreach ($this->reglements as $reglement)
+	    $montant+=$reglement->getMontant();
+	return number_format($montant, 3, '.', '');
+    }
+
+    public function getMontantRestant()
+    {
+	return number_format($this->total - $this->getMontantRegle(), 3, '.', '');
     }
 
 }

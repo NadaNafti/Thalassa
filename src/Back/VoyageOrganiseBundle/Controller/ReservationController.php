@@ -29,7 +29,7 @@ class ReservationController extends Controller
 	    $reservation = $form->getData();
 	    $reservation->setResponsable($user)
 		    ->setFrontOffice(false)
-		    ->setEtat(1);
+		    ->setCoordonnees(array($reservation->getClient()->getNomPrenom(), $reservation->getClient()->getTel1(), $reservation->getClient()->getAdresse()));
 	    $em->persist($reservation);
 	    if (count($reservation->getAdultes()) == 0 && count($reservation->getEnfants()) == 0)
 	    {
@@ -207,7 +207,7 @@ class ReservationController extends Controller
 		$em->persist($reservation->setEtat(2)->setValidated(new \DateTime())->setCode($this->container->get('reservation')->getCode()));
 		$em->flush();
 		$session->getFlashBag()->add('success', " Votre Réservation a été validée avec succès ");
-		$session->getFlashBag()->add('info', " Reste encore  ".$reservation->getVoyage()->getNbrInscriptionsMax()-$reservation->getVoyage()->getNbrInscriptions().' places dans '.$reservation->getVoyage()->getLibelle());
+		$session->getFlashBag()->add('info', 'Reste encore ' . ($reservation->getVoyage()->getNbrInscriptionsMax() - $reservation->getVoyage()->getNbrInscriptions()) . ' places dans ' . $reservation->getVoyage()->getLibelle());
 		return $this->redirect($this->generateUrl("back_voyages_organises_reservation_consulter", array('id' => $reservation->getId())));
 	    }
 	    else
