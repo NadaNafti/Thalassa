@@ -178,6 +178,7 @@ class Reservation
 	$this->hotelNotifier = false;
 	$this->timbre = 0;
 	$this->remise = 0;
+	$this->coordonnees=array();
 	$this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
