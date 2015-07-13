@@ -336,7 +336,7 @@ class ReservationService
 	$user = $this->container->get('security.context')->getToken()->getUser();
 	$sender = $user->getEmail();
 	$hotel = $reservation->getHotel();
-	if ($hotel->isValideEmail1() || $hotel->isValideEmail2())
+	if ($hotel->isValideEmail1() || $hotel->isValideEmail2() && false)
 	{
 	    $message = \Swift_Message::newInstance()
 		    ->setSubject('Nouvelle Réservation de la par ' . $agence->getNom())
