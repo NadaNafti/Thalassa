@@ -1,14 +1,17 @@
 <nav>
     <ul class="sf-menu">
-        <li class="current">
-            <a href="#">Hôtels</a>
+        <li {% if app.request.get('_route')=='accueil' %}class="current"{% endif %}>
+            <a href="{{ path('accueil') }}">Accueil</a>
+        </li>
+        <li {% if app.request.getPathInfo|split('/HotelTunisie')|length > 1 %}class="current"{% endif %}>
+            <a href="javascript:void(0)">Hôtels</a>
             <ul class="col4 mega">
                 <li class="col2">
                     <ol>
                         <li class="title">Hôtels en tunisie</a></li>
-                        <li><a href="index-hotels-tunisie.php">Olé Sélection</a></li>
-                        <li><a href="list-hotels-tunisie.php">Top Promo</a></li>
-                        <li><a href="#">Les plus recommandés</a></li>
+                        <li><a href="{{ path('front_hoteltunisie_accueil') }}">Olé Sélection</a></li>
+                        <li><a href="{{ path('front_hoteltunisie_accueil') }}">Top Promo</a></li>
+                        <li><a href="{{ path('front_hoteltunisie_accueil') }}">Les plus recommandés</a></li>
                     </ol>
                 </li>
                 <li class="col2">

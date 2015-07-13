@@ -50,44 +50,42 @@
                 <div class="large-header my_sticky">
                     <div class="clearfix">
                         <div class="logo">
-                            <a href="index.php" title="Logo"><img src="{{ asset('front-assets/images/logo.png') }}" alt="Logo"></a>
+                            <a href="{{ path('accueil') }}" title="Logo"><img src="{{ asset('front-assets/images/logo.png') }}" alt="Logo"></a>
                         </div>
 			{% include ':Front:menu.html.twig' %}
                     </div>
                 </div>   
             </header>
-	    {% include ':Front:slider.html.twig' %}
-            <div id="content_wrapper">
-	    {% block body %}{% endblock %}
+		{% block body %}
+		{% endblock %}
+	    {% include ':Front:footer.html.twig' %}    
 	</div>
-	{% include ':Front:footer.html.twig' %}    
-    </div>
-    <!-- Scripts -->
-    {% block javascripts %}
-	<script src="{{ asset('front-assets/js/jquery.v2.0.3.js') }}"></script>
-	<script src="{{ asset('front-assets/bootstrap/js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('front-assets/js/jquery-ui.min.js') }}"></script> 
-	<script src="{{ asset('front-assets/js/plugins.js') }}"></script>
-	<script src="{{ asset('front-assets/js/sliders.js') }}"></script>
-	<script src="{{ asset('front-assets/js/custom.js') }}"></script>  
-	<script >
-	    setTimeout(function () {
-		$('.menu-voayge').addClass('animated bounceIn').show();
-	    }, 1000);
+	<!-- Scripts -->
+	{% block javascripts %}
+	    <script src="{{ asset('front-assets/js/jquery.v2.0.3.js') }}"></script>
+	    <script src="{{ asset('front-assets/bootstrap/js/bootstrap.min.js') }}"></script>
+	    <script src="{{ asset('front-assets/js/jquery-ui.min.js') }}"></script> 
+	    <script src="{{ asset('front-assets/js/plugins.js') }}"></script>
+	    <script src="{{ asset('front-assets/js/sliders.js') }}"></script>
+	    <script src="{{ asset('front-assets/js/custom.js') }}"></script>  
+	    <script >
+		setTimeout(function () {
+		    $('.menu-voayge').addClass('animated bounceIn').show();
+		}, 1000);
 
-	    if ($(window).width() > 786) {
-		$('.menu-voayge a.smd').on('mouseenter', function () {
-		    $('.image-hover').hide();
-		    $(this).parent().children('.image-hover').addClass('animated fadeInDown').fadeIn();
-		});
+		if ($(window).width() > 786) {
+		    $('.menu-voayge a.smd').on('mouseenter', function () {
+			$('.image-hover').hide();
+			$(this).parent().children('.image-hover').addClass('animated fadeInDown').fadeIn();
+		    });
 
-		$('.menu-voayge .image-hover').on('mouseleave', function () {
-		    $(this).parent().children('.image-hover').removeClass('animated fadeInDown').fadeOut();
-		});
-	    }
-	</script>
-    {% endblock %}
-    {% block jquery %}
-    {% endblock %}
-</body>
+		    $('.menu-voayge .image-hover').on('mouseleave', function () {
+			$(this).parent().children('.image-hover').removeClass('animated fadeInDown').fadeOut();
+		    });
+		}
+	    </script>
+	{% endblock %}
+	{% block jquery %}
+	{% endblock %}
+    </body>
 </html>

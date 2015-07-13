@@ -1,3 +1,7 @@
 accueil:
     path:     /
     defaults: { _controller: FrontGeneralBundle:Default:accueil }
+
+front_hoteltunisie:
+    resource: "@FrontGeneralBundle/Resources/config/routing/hoteltunisie.yml"
+    prefix:   /HotelTunisie

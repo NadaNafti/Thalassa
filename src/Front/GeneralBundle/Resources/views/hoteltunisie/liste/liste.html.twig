@@ -1,0 +1,96 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Liste hôtels en Tunisie{% endblock %}
+{% block body %}
+    <div id="page_title">
+	<div class="container clearfix">
+	    <div class="page-name">{{ block('title') }}</div>
+	    <div class="breadcrumb clearfix">
+		<a href="{{ path('accueil') }}">Accueil</a>
+		<a href="{{ path('front_hoteltunisie_accueil') }}">Hôtels en Tunisie</a>
+		<span class="current-page">{{ block('title') }}</span>
+	    </div>
+	</div>
+    </div>
+    <div class="banner-intern">
+	<img src="{{ asset('front-assets/images/banner-2.png') }}" style="width:100%">
+    </div>
+    <div id="content_wrapper">
+	<div class="container">
+	    <div class="row clearfix pv-30 mt-20">
+		{% include 'FrontGeneralBundle:hoteltunisie/liste:filtre.html.twig' %}
+		<div class="col-xs-12 col-sm-8 col-md-9">
+		    {% include 'FrontGeneralBundle:hoteltunisie/liste:sort.html.twig' %}
+		    <div class="row items-container list-style">
+			{% for hotel in hotels %}
+			    {% set saison = hotel.getSaisonPromotionByDate('now'|date('Y-m-d')) %}
+			    <div class="col-xs-12 col-sm-12 col-md-12">
+				<div class="list-item">
+				    <div class="list-item-image">
+					<div class="image-inner">
+					    <a class="link-image" href="details-hotels-tunisie.php">
+						<img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=270&h=195" alt="" />
+						<div class="image-overlay">
+						    <div class="overlay-content">
+							<div class="overlay-icon"><i class="icon_link"></i></div>
+						    </div>
+						</div>
+					    </a>
+					</div>
+				    </div><!-- end list-item -->
+				    <div class="list-item-label">
+					<div class="left">
+					    <h4 class="list-item-title"><a href="details-hotels-tunisie.php" class="inverse">{{ hotel|title  }}</a></h4>
+					    <span class="list-item-location">{{ hotel.ville|title }}, Min stay : {{ saison.minStay }} nuitée(s)</span>
+					    <div class="list-item-details">
+						<div class="clear mt-10"></div>
+						{% if  hotel.descriptionCourte|length >200 %}
+                                                    {{ hotel.descriptionCourte|slice(0, 200)|raw }} ...
+                                                {% else %}
+                                                    {{ hotel.descriptionCourte|raw }}
+                                                {% endif %}
+						<ul class="hotelpreferences">
+						    <li class="icohp-internet toptip" title="Internet"></li>
+						    <li class="icohp-air toptip" title="Air"></li>
+						    <li class="icohp-pool toptip" title="Swimming Pool"></li>
+						    <li class="icohp-childcare toptip" title="Childcare"></li>
+						    <li class="icohp-fitness toptip" title="Fitness"></li>
+						    <li class="icohp-breakfast toptip" title="Breakfast"></li>
+						    <li class="icohp-parking toptip" title="Parking"></li>
+						    <li class="icohp-pets toptip" title="Pets"></li>
+						</ul>
+						<div class="clear mb-10"></div>
+					    </div>
+					</div>
+					<div class="right">
+					    <div class="list-item-meta">
+						<span class="list-item-review" style="top: inherit;{#right: 20px;#}">Par pers & nuit en {{ saison.arrBase }}</span>
+					    </div>
+					    <div class="list-item-price" style="font-size: 20px;text-align: center;">
+						{% if saison.type is null %}
+						    Sur Demande
+						{% else %}
+						    {{ saison.prixDeBase }} DT
+						{% endif %}
+					    </div>
+					    <a href="details-hotels-tunisie.php" class="btn">Réserver</a>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			{% endfor %}
+		    </div>
+		    <div class="clear"></div>
+
+		    <nav class="paging pull-right">
+			{#<p>Page {{ app.request.get('page') }} of 06</p>#}
+			{{ knp_pagination_render(hotels) }}
+		    </nav>
+
+		</div>
+
+		<div class="clear"></div>
+
+	    </div>
+	</div>
+    </div>
+{% endblock %}
