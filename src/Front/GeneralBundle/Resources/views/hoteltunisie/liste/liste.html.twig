@@ -27,7 +27,7 @@
 				<div class="list-item">
 				    <div class="list-item-image">
 					<div class="image-inner">
-					    <a class="link-image" href="details-hotels-tunisie.php">
+					    <a class="link-image" href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}">
 						{% if hotel.photoPrincipal is not null %}
 						    <img src="{{ asset(hotel.photoPrincipal.assetPath) }}" alt="" style="width: 270px;height: 195px" />
 						{% else %}
@@ -48,7 +48,7 @@
 					    <div class="list-item-details">
 						<div class="clear mt-10"></div>
                                                     {{ hotel.descriptionCourte|raw }}
-						<ul class="hotelpreferences">
+						{#<ul class="hotelpreferences">
 						    <li class="icohp-internet toptip" title="Internet"></li>
 						    <li class="icohp-air toptip" title="Air"></li>
 						    <li class="icohp-pool toptip" title="Swimming Pool"></li>
@@ -58,21 +58,23 @@
 						    <li class="icohp-parking toptip" title="Parking"></li>
 						    <li class="icohp-pets toptip" title="Pets"></li>
 						</ul>
-						<div class="clear mb-10"></div>
+						<div class="clear mb-10"></div>#}
 					    </div>
 					</div>
 					<div class="right">
 					    <div class="list-item-meta">
-						<span class="list-item-review" style="top: inherit;{#right: 20px;#}">Par pers & nuit en {{ saison.arrBase }}</span>
+						<span class="list-item-review" style="top: inherit;{#right: 20px;#}">
+						    Par pers & nuit <br> en <br> {{ saison.arrBase }}
+						</span>
 					    </div>
-					    <div class="list-item-price" style="font-size: 20px;text-align: center;">
+					    <div class="list-item-price" style="font-size: 15px;text-align: center;white-space: nowrap;">
 						{% if saison.type is null %}
 						    Sur Demande
 						{% else %}
 						    {{ saison.prixDeBase }} DT
 						{% endif %}
 					    </div>
-					    <a href="details-hotels-tunisie.php" class="btn">Réserver</a>
+					    <a href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}" class="btn">Réserver</a>
 					</div>
 				    </div>
 				</div>

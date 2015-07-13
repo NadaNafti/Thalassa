@@ -42,7 +42,7 @@
         <div id="preloader">
             <div id="status">&nbsp;</div>
         </div>
-        <div id="body_wrapper" class="full">
+        <div id="body_wrapper" class="full trip">
             <header id="header">
 		{% include ':Front:topnav.html.twig' %}
 
@@ -63,12 +63,13 @@
 	<!-- Scripts -->
 	{% block javascripts %}
 	    <script src="{{ asset('front-assets/js/jquery.v2.0.3.js') }}"></script>
+{#	    <script src="{{ asset('front-assets/js/initialize-google-map.js') }}"></script>#}
 	    <script src="{{ asset('front-assets/bootstrap/js/bootstrap.min.js') }}"></script>
 	    <script src="{{ asset('front-assets/js/jquery-ui.min.js') }}"></script> 
 	    <script src="{{ asset('front-assets/js/plugins.js') }}"></script>
 	    <script src="{{ asset('front-assets/js/sliders.js') }}"></script>
 	    <script src="{{ asset('front-assets/js/custom.js') }}"></script>  
-	    <script >
+	    {#<script >
 		setTimeout(function () {
 		    $('.menu-voayge').addClass('animated bounceIn').show();
 		}, 1000);
@@ -83,7 +84,7 @@
 			$(this).parent().children('.image-hover').removeClass('animated fadeInDown').fadeOut();
 		    });
 		}
-	    </script>
+	    </script>#}
 	{% endblock %}
 	{% block jquery %}
 	{% endblock %}

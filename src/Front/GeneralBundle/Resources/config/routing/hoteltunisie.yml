@@ -7,3 +7,7 @@ front_hoteltunisie_list:
     defaults: { _controller: FrontGeneralBundle:HotelTunisie:liste,page:1,categorie:all,chaine:all,ville:all,name:null }
     requirements:
         page:  \d+
+    
+front_hoteltunisie_details:
+    path:     /{slug}
+    defaults: { _controller: FrontGeneralBundle:HotelTunisie:details }
