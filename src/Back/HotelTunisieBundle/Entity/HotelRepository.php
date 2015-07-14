@@ -106,10 +106,13 @@ class HotelRepository extends EntityRepository
 	}
 	if ($name != 'all')
 	{
-	    $orX = $query->expr()->orX();
+	    $orX = $query->expr()->andX();
 	    $name = explode('+', $name);
 	    foreach ($name as $mot)
-		$orX->add( $query->expr()->like("UPPER(h.libelle)", "UPPER('%" . $mot . "%')"));
+	    {
+		if($mot!='')
+		    $orX->add( $query->expr()->like("UPPER(h.libelle)", "UPPER('%" . $mot . "%')"));
+	    }
 	    $query->andWhere($orX);
 	}
 	$query->orderBy("h.libelle", 'asc');
