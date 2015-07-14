@@ -441,7 +441,9 @@ $(document).ready(function(){
 	});
 	
 	/* jQuery UI - Datepicker */
-	$('input.date').datepicker();
+	$('input.date').datepicker({
+	    'dateFormat':'yy-mm-dd'
+	});
 	
 	// fitVids
 	$("body").fitVids();

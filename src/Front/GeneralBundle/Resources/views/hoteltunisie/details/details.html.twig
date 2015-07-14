@@ -1,7 +1,7 @@
 {% extends ":Front:base.html.twig" %}
 {% block title %}{{ hotel }}{% endblock %}
 {% block body %}
-    {% set saison = hotel.getSaisonPromotionByDate('now'|date('Y-m-d')) %}
+    {% set saison = hotel.getSaisonPromotionByDate(app.request.session.get('dateDebut')) %}
     <div id="page_title">
 	<div class="container clearfix">
 	    <div class="page-name">{{ block('title') }}</div>
@@ -478,7 +478,7 @@
 				</div>
 				<ul class="small-list-item">
 				    {% for hot in hotels if hotel.id!=hot.id %}
-					{% set sai = hot.getSaisonPromotionByDate('now'|date('Y-m-d')) %}
+					{% set sai = hot.getSaisonPromotionByDate(app.request.session.get('dateDebut')) %}
 					<li>
 					    <a href="{{ path('front_hoteltunisie_details',{'slug':hot.slug}) }}" class="image-small-list">
 						{% if hot.photoPrincipal is not null %}

@@ -56,14 +56,14 @@
                     </div>
                 </div>   
             </header>
-		{% block body %}
-		{% endblock %}
+	    {% block body %}
+	    {% endblock %}
 	    {% include ':Front:footer.html.twig' %}    
 	</div>
 	<!-- Scripts -->
 	{% block javascripts %}
 	    <script src="{{ asset('front-assets/js/jquery.v2.0.3.js') }}"></script>
-{#	    <script src="{{ asset('front-assets/js/initialize-google-map.js') }}"></script>#}
+	    {#	    <script src="{{ asset('front-assets/js/initialize-google-map.js') }}"></script>#}
 	    <script src="{{ asset('front-assets/bootstrap/js/bootstrap.min.js') }}"></script>
 	    <script src="{{ asset('front-assets/js/jquery-ui.min.js') }}"></script> 
 	    <script src="{{ asset('front-assets/js/plugins.js') }}"></script>
@@ -86,6 +86,15 @@
 		}
 	    </script>#}
 	{% endblock %}
+	<script>
+	    $('input.date').datepicker({
+		'dateFormat': 'yy-mm-dd',
+		beforeShowDay: function (date) {
+		    var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+		    return [string > "{{ 'now'|date('Y-m-d') }}"]
+		}
+	    });
+	</script>
 	{% block jquery %}
 	{% endblock %}
     </body>
