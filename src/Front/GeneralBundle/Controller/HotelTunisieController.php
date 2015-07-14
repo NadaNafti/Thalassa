@@ -51,6 +51,7 @@ class HotelTunisieController extends Controller
 		    'villes' => $villes,
 		    'chaines' => $chaines,
 		    'categories' => $categories,
+		    'motcle' =>  urldecode($name)
 	));
     }
 
