@@ -47,7 +47,11 @@
 					    <span class="list-item-location">{{ hotel.ville|title }}, Min stay : {{ saison.minStay }} nuitée(s)</span>
 					    <div class="list-item-details">
 						<div class="clear mt-10"></div>
-						{{ hotel.descriptionCourte|raw }}
+						{% if  hotel.descriptionCourte|length >200 %}
+                                                    {{ hotel.descriptionCourte|slice(0, 200)|raw }} ...
+                                                {% else %}
+                                                    {{ hotel.descriptionCourte|raw }}
+                                                {% endif %}
 					    </div>
 					    <a href="javascript:void(0)" class="showChambre" style="float: right;">Liste des chambres</a>
 					</div>

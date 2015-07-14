@@ -38,14 +38,6 @@ class HotelTunisieController extends Controller
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
 	$request = $this->getRequest();
-	if ($request->isMethod('POST'))
-	{
-	    $session->set('nuitees', $request->get('nuitees'));
-	    $session->set('dateDebut', $request->get('dateDebut'));
-	    return $this->redirect($this->generateUrl('front_hoteltunisie_list', array(
-				'name' => urlencode($request->get('motcles')),
-	    )));
-	}
 	$pays = $em->getRepository('BackHotelTunisieBundle:Pays')->findOneBy(array('code' => 'tn'));
 	$villes = $em->getRepository('BackHotelTunisieBundle:Ville')->findBy(array('pays' => $pays), array('libelle' => 'asc'));
 	$chaines = $em->getRepository('BackHotelTunisieBundle:Chaine')->findBy(array(), array('libelle' => 'asc'));
