@@ -40,31 +40,21 @@
 						</div>
 					    </a>
 					</div>
-				    </div><!-- end list-item -->
+				    </div>
 				    <div class="list-item-label">
 					<div class="left">
-					    <h4 class="list-item-title"><a href="details-hotels-tunisie.php" class="inverse">{{ hotel|title  }}</a></h4>
+					    <h4 class="list-item-title"><a href="details-hotels-tunisie.php" class="inverse">{{ hotel|title  }}</a> - {{ getStars(hotel.getStars)|raw }}</h4>
 					    <span class="list-item-location">{{ hotel.ville|title }}, Min stay : {{ saison.minStay }} nuitée(s)</span>
 					    <div class="list-item-details">
 						<div class="clear mt-10"></div>
-                                                    {{ hotel.descriptionCourte|raw }}
-						{#<ul class="hotelpreferences">
-						    <li class="icohp-internet toptip" title="Internet"></li>
-						    <li class="icohp-air toptip" title="Air"></li>
-						    <li class="icohp-pool toptip" title="Swimming Pool"></li>
-						    <li class="icohp-childcare toptip" title="Childcare"></li>
-						    <li class="icohp-fitness toptip" title="Fitness"></li>
-						    <li class="icohp-breakfast toptip" title="Breakfast"></li>
-						    <li class="icohp-parking toptip" title="Parking"></li>
-						    <li class="icohp-pets toptip" title="Pets"></li>
-						</ul>
-						<div class="clear mb-10"></div>#}
+						{{ hotel.descriptionCourte|raw }}
 					    </div>
+					    <a href="javascript:void(0)" class="showChambre" style="float: right;">Liste des chambres</a>
 					</div>
 					<div class="right">
 					    <div class="list-item-meta">
-						<span class="list-item-review" style="top: inherit;{#right: 20px;#}">
-						    Par pers & nuit <br> en <br> {{ saison.arrBase }}
+						<span class="list-item-review" style="top: inherit;text-align: center;  left: -12px;{#right: 20px;#}">
+						    {#Par pers & nuit  en  #}{{ saison.arrBase }}
 						</span>
 					    </div>
 					    <div class="list-item-price" style="font-size: 15px;text-align: center;white-space: nowrap;">
@@ -74,9 +64,34 @@
 						    {{ saison.prixDeBase }} DT
 						{% endif %}
 					    </div>
-					    <a href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}" class="btn">Réserver</a>
+					    <a href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}" class="btn">Détails</a>
 					</div>
 				    </div>
+				    <table class="table table-striped" style="display: none">
+					<tbody>
+					    {% for chambre in saison.chambres %}
+						<tr>
+						    <td style="  width: 270px;">{{ chambre.chambre|title }}</td>
+						    <td>{{ saison.arrBase|title }}</td>
+						    <td class="center red bold">Sur demande</td>
+						    <td class="green bold" style="text-align: right;">
+							{% if saison.type is null %}
+							    <span style="color: red">Sur Demande</span>
+							{% else %}
+							    {% if chambre.chambre.type==3 %}
+								{% set suppreduc=chambre.suppReducVente/3 %}
+							    {% elseif chambre.chambre.type==4 %}
+								{% set suppreduc=chambre.suppReducVente/4 %}
+							    {% else %}
+								{% set suppreduc=chambre.suppReducVente %}
+							    {% endif %}
+							    {{ saison.prixDeBase + suppreduc }} DT
+							{% endif %}
+						    </td>
+						</tr>
+					    {% endfor %}
+					</tbody>
+				    </table>
 				</div>
 			    </div>
 			{% endfor %}
@@ -95,4 +110,14 @@
 	    </div>
 	</div>
     </div>
+{% endblock %}
+{% block jquery %}
+    <script>
+	$(document).ready(function () {
+	    $('.showChambre').on('click', function () {
+		var table = $(this).parent().parent().parent().find('.table');
+		table.toggle();
+	    })
+	})
+    </script>
 {% endblock %}

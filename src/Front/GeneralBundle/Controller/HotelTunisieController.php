@@ -19,10 +19,10 @@ class HotelTunisieController extends Controller
 	$villes = $em->getRepository('BackHotelTunisieBundle:Ville')->findBy(array(), array('libelle' => 'asc'));
 	$chaines = $em->getRepository('BackHotelTunisieBundle:Chaine')->findBy(array(), array('libelle' => 'asc'));
 	$categories = $em->getRepository('BackHotelTunisieBundle:Categorie')->findBy(array(), array('libelle' => 'asc'));
-	$hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->filtreFrontOffice($categorie, $chaine, $ville, $name);
+	$hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->filtreFrontOfficePlus($categorie, $chaine, $ville, $name);
 	$hotels=  $this->removeInvalideHotel($hotels);
 	$paginator = $this->get('knp_paginator');
-	$hotels = $paginator->paginate($newHotels, $page, 20);
+	$hotels = $paginator->paginate($hotels, $page, 20);
 	return $this->render('FrontGeneralBundle:hoteltunisie/liste:liste.html.twig', array(
 		    'hotels' => $hotels,
 		    'villes' => $villes,
@@ -35,7 +35,7 @@ class HotelTunisieController extends Controller
     {
 	$em = $this->getDoctrine()->getManager();
 	$hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->findOneBy(array('slug' => $slug));
-	$hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->findBy(array('ville' => $hotel->getVille()));
+	$hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->findBy(array('ville' => $hotel->getVille()),array(),5);
 	$hotels=  $this->removeInvalideHotel($hotels);
 	return $this->render('FrontGeneralBundle:hoteltunisie/details:details.html.twig', array(
 		    'hotel' => $hotel,
@@ -48,7 +48,7 @@ class HotelTunisieController extends Controller
 	$newHotels = array();
 	foreach ($hotels as $hotel)
 	{
-	    if (!is_null($hotel->getSaisonBase()) && $hotel->getSaisonBase()->isValidSaisonBase())
+	    if (!is_null($hotel->getSaisonBase()) && $hotel->getSaisonBase()->isValidSaisonBase() && !$hotel->isInStopSales())
 		$newHotels[] = $hotel;
 	}
 	return $newHotels;

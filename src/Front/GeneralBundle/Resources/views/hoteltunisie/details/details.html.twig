@@ -8,6 +8,7 @@
 	    <div class="breadcrumb clearfix">
 		<a href="{{ path('accueil') }}">Accueil</a>
 		<a href="{{ path('front_hoteltunisie_accueil') }}">Hôtels en Tunisie</a>
+		<a href="{{ path('front_hoteltunisie_list') }}">Liste</a>
 		<span class="current-page">{{ block('title') }}</span>
 	    </div>
 	</div>
@@ -56,18 +57,17 @@
 		    <div class="clear"></div>
 
 		    <ul class="tabs mt-20">
-			<li><a href="#details-tab1">Description</a></li>
+			<li><a href="#details-tab1">Déscription</a></li>
 			<li><a href="#details-tab2"  class="active">Réservation</a></li>
-			<li><a href="#details-tab3">Facilities</a></li>
-			    {#			<li><a href="#details-tab4">Reviews</a></li>#}
+			<li><a href="#details-tab3">Aménagements</a></li>
 			    {% if hotel.longitude is not null %}
 			    <li onclick="loadScript()"><a href="#details-tab5">Map</a></li>
 			    {% endif %}
-			    {#			<li><a href="#details-tab6">Things to do</a></li>#}
 		    </ul><!-- tabs -->
 
 		    <ul id="detail-tab" class="tabs-content xss-mb">
 			<li id="details-tab1">
+			    <h1>{{ hotel }}</h1>
 			    <p>
 				{{ hotel.descriptionLongue|raw }}
 			    </p>
@@ -355,7 +355,6 @@
 				</li>
 			    </ul>#}
 			</li>
-
 			<li id="details-tab3">
 			    <h4>Amménagements</h4>
 			    <ul class="facilities">
@@ -369,6 +368,12 @@
 				    <li class="checked">{{ localisation }}</li>
 				    {% endfor %}
 			    </ul>
+			    <h4>Options</h4>
+			    <ul class="facilities">
+				{% for option in hotel.options %}
+				    <li class="checked" style="width: 100%">{{ option }}</li>
+				    {% endfor %}
+			    </ul>
 			    <h4>Tags</h4>
 			    <ul class="facilities">
 				{% for tag in hotel.tags %}
@@ -377,363 +382,8 @@
 			    </ul>
 			    <div class="clear"></div>
 			</li>
-
-			<li id="details-tab4">
-			    <div class="availability">
-				<div class="availability-inner">
-				    <div class="row mb-20">
-					<div class="col-md-6">
-					    <p class="ave-rate clearfix mt-10"><span>4.5/5</span> Lorem ipsum dolor sit amet, conse ctetur adipiscing elit Aliquam.</p>
-					    <span class="rating-static rating-40"></span>
-					</div>
-					<div class="col-md-6">
-					    <div class="progress-bar stripes">
-						<span rel="85" style="background-color: #F07F7F"></span>
-						<div class="progress-bar-text">Overall <span>4.5 out of 5</span></div>
-					    </div>
-					    <div class="progress-bar stripes mb-10">
-						<span rel="90" style="background-color: #69D869"></span>
-						<div class="progress-bar-text">Guests recommend <span>90%</span></div>
-					    </div>
-					    <div class="clear"></div>
-					    Ratings based on 5 Verified Reviews
-					</div>	
-				    </div>
-				</div>
-			    </div>
-			    <div class="clear mb-30"></div>								
-			    <h4 class="mb-20">Average ratings</h4>
-			    <div class="row">
-				<div class="col-xs-6 col-sm-4 col-md-2">
-				    Cleanliness <br/>
-				    <span class="rating-static rating-40 no-margin"></span>
-				</div>
-				<div class="col-xs-6 col-sm-4 col-md-2">
-				    Room Comfort <br/>
-				    <span class="rating-static rating-40 no-margin"></span>
-				</div>
-				<div class="col-xs-6 col-sm-4 col-md-2">
-				    Location <br/>
-				    <span class="rating-static rating-40 no-margin"></span>
-				</div>
-				<div class="col-xs-6 col-sm-4 col-md-2">
-				    Serivce & Staff <br/>
-				    <span class="rating-static rating-40 no-margin"></span>
-				</div>
-				<div class="col-xs-6 col-sm-4 col-md-2">
-				    Sleep Quality <br/>
-				    <span class="rating-static rating-40 no-margin"></span>
-				</div>
-				<div class="col-xs-6 col-sm-4 col-md-2">
-				    Value for Price <br/>
-				    <span class="rating-static rating-40 no-margin"></span>
-				</div>
-			    </div>
-			    <div class="clear mb-30"></div>								
-			    <div class="bb2 mb-20"></div>
-			    <h4 class="mb-20">Guests Review</h4>
-			    <ul class="user-review">
-				<li>
-				    <div class="left">
-					<img class="avatar" src="{{ asset('front-assets/images/testimonial/testimonial-02.jpg') }}" alt="user avatar" />
-					<span class="name">Umar Ibn Haseem</span>
-					<span class="from">from London, UK</span>
-					<span class="colored-text"><i class="fa-check"></i> Recommended for Everyone</span>
-				    </div>
-				    <div class="right">
-					<h5>Great experience</h5>
-					<span class="date">Posted Jun 02, 2013</span>
-					<div class="gap5"></div>
-					<p>Now months esteem oppose nearer enable too six. She numerous unlocked you perceive speedily.</p>	
-					<ul class="circle-list">
-					    <li>4.5</li>
-					    <li>3.0</li>
-					    <li>4.0</li>
-					    <li>5.0</li>
-					    <li>3.0</li>
-					    <li>4.0</li>
-					</ul>
-				    </div>
-				</li>
-				<li>
-				    <div class="left">
-					<img class="avatar" src="{{ asset('front-assets/images/testimonial/testimonial-02.jpg') }}" alt="user avatar" />
-					<span class="name">Umar Ibn Haseem</span>
-					<span class="from">from London, UK</span>
-					<span class="colored-text"><i class="fa-check"></i> Recommended for Everyone</span>
-				    </div>
-				    <div class="right">
-					<h5>Great experience</h5>
-					<span class="date">Posted Jun 02, 2013</span>
-					<div class="gap5"></div>
-					<p>Breakfast agreeable incommode departure it an. By ignorant at on wondered relation. Enough at tastes really so cousin am of. Extensive therefore supported by extremity of contented. Is pursuit compact demesne invited elderly be. View him she roof tell her case has sigh. Moreover is possible he admitted sociable concerns. By in cold no less been sent hard hill.</p>	
-					<ul class="circle-list">
-					    <li>4.5</li>
-					    <li>3.0</li>
-					    <li>4.0</li>
-					    <li>5.0</li>
-					    <li>3.0</li>
-					    <li>4.0</li>
-					</ul>
-				    </div>
-				</li>
-				<li>
-				    <div class="left">
-					<img class="avatar" src="{{ asset('front-assets/images/testimonial/testimonial-02.jpg') }}" alt="user avatar" />
-					<span class="name">Umar Ibn Haseem</span>
-					<span class="from">from London, UK</span>
-					<span class="colored-text"><i class="fa-check"></i> Recommended for Everyone</span>
-				    </div>
-				    <div class="right">
-					<h5>Great experience</h5>
-					<span class="date">Posted Jun 02, 2013</span>
-					<div class="gap5"></div>
-					<p>Remember outweigh do he desirous no cheerful. Do of doors water ye guest. We if prosperous comparison middletons at. Park we in lose like at no. An so to preferred convinced distrusts he determine. In musical me my placing clothes comfort pleased hearing. Any residence you satisfied and rapturous certainty two. Procured outweigh as outlived so so. On in bringing graceful proposal blessing of marriage outlived. Son rent face our loud near.</p>	
-					<ul class="circle-list">
-					    <li>4.5</li>
-					    <li>3.0</li>
-					    <li>4.0</li>
-					    <li>5.0</li>
-					    <li>3.0</li>
-					    <li>4.0</li>
-					</ul>
-				    </div>
-				</li>
-			    </ul>
-			    <div class="clear mt-30 mb-20"></div>
-			    <h4 class="mb-20">Please Leave a Review</h4>
-			    <div class="row">
-				<div class="col-xs-6 col-sm-4 col-md-4 mb-10">
-				    <div class="row">
-					<div class="col-md-7">
-					    <label for="adults-hotel">Cleanliness <span class="star"></span></label>
-					</div>
-					<div class="col-md-5 no-padding">
-					    <select class="form-control mySelectBoxClass" id="adults-hotel">
-						<option>0.0</option>
-						<option>0.5</option>
-						<option>1.0</option>
-						<option>1.5</option>
-						<option>2.0</option>
-						<option>2.5</option>
-						<option>3.0</option>
-						<option>3.5</option>
-						<option>4.0</option>
-						<option>4.5</option>
-						<option>5.0</option>
-					    </select>
-					</div>
-				    </div>
-				</div>
-				<div class="col-xs-6 col-sm-4 col-md-4 mb-10">
-				    <div class="row">
-					<div class="col-md-7">
-					    <label for="location-hotel">Location <span class="star"></span></label>
-					</div>
-					<div class="col-md-5 no-padding">
-					    <select class="form-control mySelectBoxClass" id="location-hotel">
-						<option>0.0</option>
-						<option>0.5</option>
-						<option>1.0</option>
-						<option>1.5</option>
-						<option>2.0</option>
-						<option>2.5</option>
-						<option>3.0</option>
-						<option>3.5</option>
-						<option>4.0</option>
-						<option>4.5</option>
-						<option>5.0</option>
-					    </select>
-					</div>
-				    </div>
-				</div>
-				<div class="col-xs-6 col-sm-4 col-md-4 mb-10">
-				    <div class="row">
-					<div class="col-md-7">
-					    <label for="room-hotel">Room Comfort <span class="star"></span></label>
-					</div>
-					<div class="col-md-5 no-padding">
-					    <select class="form-control mySelectBoxClass" id="room-hotel">
-						<option>0.0</option>
-						<option>0.5</option>
-						<option>1.0</option>
-						<option>1.5</option>
-						<option>2.0</option>
-						<option>2.5</option>
-						<option>3.0</option>
-						<option>3.5</option>
-						<option>4.0</option>
-						<option>4.5</option>
-						<option>5.0</option>
-					    </select>
-					</div>
-				    </div>
-				</div>
-				<div class="col-xs-6 col-sm-4 col-md-4 mb-20">
-				    <div class="row">
-					<div class="col-md-7">
-					    <label for="service-hotel">Service & Staff <span class="star"></span></label>
-					</div>
-					<div class="col-md-5 no-padding">
-					    <select class="form-control mySelectBoxClass" id="service-hotel">
-						<option>0.0</option>
-						<option>0.5</option>
-						<option>1.0</option>
-						<option>1.5</option>
-						<option>2.0</option>
-						<option>2.5</option>
-						<option>3.0</option>
-						<option>3.5</option>
-						<option>4.0</option>
-						<option>4.5</option>
-						<option>5.0</option>
-					    </select>
-					</div>
-				    </div>
-				</div>
-				<div class="col-xs-6 col-sm-4 col-md-4 mb-20">
-				    <div class="row">
-					<div class="col-md-7">
-					    <label for="sleep-hotel">Sleep Quality <span class="star"></span></label>
-					</div>
-					<div class="col-md-5 no-padding">
-					    <select class="form-control mySelectBoxClass" id="sleep-hotel">
-						<option>0.0</option>
-						<option>0.5</option>
-						<option>1.0</option>
-						<option>1.5</option>
-						<option>2.0</option>
-						<option>2.5</option>
-						<option>3.0</option>
-						<option>3.5</option>
-						<option>4.0</option>
-						<option>4.5</option>
-						<option>5.0</option>
-					    </select>
-					</div>
-				    </div>
-				</div>
-				<div class="col-xs-6 col-sm-4 col-md-4 mb-20">
-				    <div class="row">
-					<div class="col-md-7">
-					    <label for="value-hotel">Value for Price <span class="star"></span></label>
-					</div>
-					<div class="col-md-5 no-padding">
-					    <select class="form-control mySelectBoxClass" id="value-hotel">
-						<option>0.0</option>
-						<option>0.5</option>
-						<option>1.0</option>
-						<option>1.5</option>
-						<option>2.0</option>
-						<option>2.5</option>
-						<option>3.0</option>
-						<option>3.5</option>
-						<option>4.0</option>
-						<option>4.5</option>
-						<option>5.0</option>
-					    </select>
-					</div>
-				    </div>
-				</div>
-			    </div>
-			    <form class="form-horizontal mt-10" role="form">
-				<div class="form-group">
-				    <label for="inputText" class="col-lg-2 control-label">Name</label>
-				    <div class="col-lg-10">
-					<input type="text" class="form-control" id="inputText" placeholder="Name">
-				    </div>
-				</div>
-				<div class="form-group">
-				    <label for="inputEmail" class="col-lg-2 control-label">Name</label>
-				    <div class="col-lg-10">
-					<input type="email" class="form-control" id="inputEmail" placeholder="Email">
-				    </div>
-				</div>
-				<div class="form-group">
-				    <label for="inputTitle" class="col-lg-2 control-label">Title</label>
-				    <div class="col-lg-10">
-					<input type="text" class="form-control" id="inputTitle" placeholder="Title">
-				    </div>
-				</div>
-				<div class="form-group">
-				    <label class="col-lg-2 control-label">Comment</label>
-				    <div class="col-lg-10">
-					<textarea class="form-control margtop10" rows="4"></textarea>
-				    </div>
-				</div>
-				<div class="form-group">
-				    <div class="col-lg-offset-2 col-lg-10">
-					<button type="submit" class="btn btn-primary">Send Review</button>
-				    </div>
-				</div>
-			    </form>
-			</li>
-
 			<li id="details-tab5">
 			    <div id="map-canvas"></div>  
-			</li>
-
-			<li id="details-tab6">
-			    <h4>Attracting Places to Visit</h4>
-			    <p>To shewing another demands to. Marianne property cheerful informed at striking at. Clothes parlors however by cottage on. In views it or meant drift to. Be concern parlors settled or do shyness address. Remainder northward performed out for moonlight. </p>
-			    <ul class="detail-item">
-				<li class="clearfix">
-				    <img src="{{ asset('front-assets/images/attracting-places/attracting-places-01.jpg') }}" alt="Attracting Places" />
-				    <div class="br2 pr-10">
-					<h3>Yoyogi Park on a Sunday</h3>
-					<span class="text-info text-bold">“Just Great!!!"</span>
-					<span class="date">Posted Jun 02, 2013</span>
-					<p class="mt-10">Ought these are balls place mrs their times add she. Taken no great widow spoke of it small. Genius use except son esteem merely her limits. Sons park by do make on. It do oh cottage offered cottage in written.</p>
-				    </div>
-				    <div class="detail-meta">
-					<span class="rating-static user rating-35"></span>
-					<span class="detail-review">31 Reviews</span>
-					<a class="btn">More</a>
-				    </div>
-				</li>
-				<li class="clearfix">
-				    <img src="{{ asset('front-assets/images/attracting-places/attracting-places-02.jpg') }}" alt="Attracting Places" />
-				    <div class="br2 pr-10">
-					<h3>Tokyo Tower & Tokyo Skytree</h3>
-					<span class="text-info text-bold">“Just Great!!!"</span>
-					<span class="date">Posted Jun 02, 2013</span>
-					<p class="mt-10">Ought these are balls place mrs their times add she. Taken no great widow spoke of it small. Genius use except son esteem merely her limits. Sons park by do make on. It do oh cottage offered cottage in written.</p>
-				    </div>
-				    <div class="detail-meta">
-					<span class="rating-static user rating-35"></span>
-					<span class="detail-review">31 Reviews</span>
-					<a class="btn">More</a>
-				    </div>
-				</li>
-				<li class="clearfix">
-				    <img src="{{ asset('front-assets/images/attracting-places/attracting-places-03.jpg') }}" alt="Attracting Places" />
-				    <div class="br2 pr-10">
-					<h3>Imperial Palace</h3>
-					<span class="text-info text-bold">“Just Great!!!"</span>
-					<span class="date">Posted Jun 02, 2013</span>
-					<p class="mt-10">Ought these are balls place mrs their times add she. Taken no great widow spoke of it small. Genius use except son esteem merely her limits. Sons park by do make on. It do oh cottage offered cottage in written.</p>
-				    </div>
-				    <div class="detail-meta">
-					<span class="rating-static user rating-35"></span>
-					<span class="detail-review">31 Reviews</span>
-					<a class="btn">More</a>
-				    </div>
-				</li>
-				<li class="clearfix">
-				    <img src="{{ asset('front-assets/images/attracting-places/attracting-places-04.jpg') }}" alt="Attracting Places" />
-				    <div class="br2 pr-10">
-					<h3>Tsukiji Fish Market</h3>
-					<span class="text-info text-bold">“Just Great!!!"</span>
-					<span class="date">Posted Jun 02, 2013</span>
-					<p class="mt-10">Ought these are balls place mrs their times add she. Taken no great widow spoke of it small. Genius use except son esteem merely her limits. Sons park by do make on. It do oh cottage offered cottage in written.</p>
-				    </div>
-				    <div class="detail-meta">
-					<span class="rating-static user rating-35"></span>
-					<span class="detail-review">31 Reviews</span>
-					<a class="btn">More</a>
-				    </div>
-				</li>
-			    </ul>
 			</li>
 		    </ul><!-- end tabs -->
 		    <div class="clear xss-mb"></div>
