@@ -1,6 +1,15 @@
 {% extends ":Front:base.html.twig" %}
 {% block title %}Hôtel en tunisie{% endblock %}
 {% block body %}
+    <div id="page_title">
+	<div class="container clearfix">
+	    <div class="page-name">{{ block('title') }}</div>
+	    <div class="breadcrumb clearfix">
+		<a href="{{ path('accueil') }}">Accueil</a>
+		<span class="current-page">Hôtels en Tunisie</span>
+	    </div>
+	</div>
+    </div>
     <div id="slider_wrapper">
 	<div class="owl-slider-wrapper center-capture">
 	    <div id="owl-slider" class="owl-carousel owl-theme">
