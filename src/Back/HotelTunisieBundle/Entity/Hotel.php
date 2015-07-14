@@ -384,7 +384,7 @@ class Hotel
      */
     public function getDescriptionCourte()
     {
-	return $this->descriptionCourte;
+	return strip_tags ($this->descriptionCourte);
     }
 
     /**
