@@ -77,7 +77,7 @@ class HotelTunisieController extends Controller
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
 	$request = $this->getRequest();
-	if(!$session->has('nuitees'))
+	if (!$session->has('nuitees'))
 	{
 	    $session->set('nuitees', 1);
 	    $session->set('dateDebut', date('Y-m-d'));
@@ -103,7 +103,7 @@ class HotelTunisieController extends Controller
     {
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
-	if(!$session->has('nuitees'))
+	if (!$session->has('nuitees'))
 	{
 	    $session->set('nuitees', 1);
 	    $session->set('dateDebut', date('Y-m-d'));
@@ -122,7 +122,7 @@ class HotelTunisieController extends Controller
 	$newHotels = array();
 	foreach ($hotels as $hotel)
 	{
-	    if (!is_null($hotel->getSaisonBase()) && $hotel->getSaisonBase()->isValidSaisonBase() && !$hotel->isInStopSales() && $hotel->getEtat()==1)
+	    if (!is_null($hotel->getSaisonBase()) && $hotel->getSaisonBase()->isValidSaisonBase() && !$hotel->isInStopSales() && $hotel->getEtat() == 1)
 		$newHotels[] = $hotel;
 	}
 	return $newHotels;
