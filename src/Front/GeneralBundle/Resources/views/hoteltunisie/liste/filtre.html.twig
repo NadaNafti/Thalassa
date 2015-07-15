@@ -7,49 +7,59 @@
 	<div class="search-filter">
 	    <ul class="search-tabs-content">
 		<li id="search-f-hotels" class="active">
-		    <form role="form" class="row" method="post" action="{{ path('front_hoteltunisie_accueil') }}">
+		    <form role="form" class="row" method="post" action="{{ path('front_hoteltunisie_filtre') }}">
 			<div class="col-xs-12 col-sm-12 col-md-12">
 			    <div class="form-group">
 				<label for="hotelLocation">Mot clès</label>
-				<input type="text" class="form-control" id="hotelLocation" name="motcles" value="{{ motcle }}">
+				<input type="text" class="form-control" id="hotelLocation" name="motclesSearch" value="{{ motcle }}">
 			    </div>
 			</div>
 			<div class="clear"></div>
 			<div class="col-xs-7 col-sm-7 col-md-7">
 			    <div class="form-group datepicker-wrapper">
 				<label for="hotel-check-in">Date d'entrée</label>
-				<input type="text" class="form-control date" name="dateDebut" id="hotel-check-in" value="{{ app.request.session.get('dateDebut') }}">
+				<input type="text" class="form-control date" name="dateDebutSearch" id="hotel-check-in" value="{{ app.request.session.get('dateDebut') }}">
 				<i class="fa fa-calendar"></i>
 			    </div>
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 			    <div class="form-group datepicker-wrapper">
 				<label for="hotel-check-out">Nbr Nuitées</label>
-				<input type="number" min="1"  class="form-control" name="nuitees" value="{{ app.request.session.get('nuitees') }}" id="hotel-check-out">
+				<input type="number" min="1"  class="form-control" name="nuiteesSearch" value="{{ app.request.session.get('nuitees') }}" id="hotel-check-out">
 			    </div>
 			</div>
 			<div class="clear"></div>
 			<div class="col-xs-12 col-sm-12 col-md-12">
 			    <div class="form-group">
-				<label for="hotelLocation">Ville de destination</label>
-				<select class="form-control mySelectBoxClass" name="ville" id="VilleDestination">
-				    <option value="all">Tous les villes</option>
-				    {% for ville in villes %}
-					<option value="{{ ville.id }}" {% if ville.id==app.request.get('ville') %}selected{% endif %}>{{ ville }}</option>
-				    {% endfor %}
-				</select>
-			    </div>
-			</div>
-			<div class="clear"></div>
-			<div class="col-xs-12 col-sm-12 col-md-12">
-			    <div class="form-group">
-				<label for="hotelLocation">Catégorie</label>
-				<select class="form-control mySelectBoxClass" name="categorie" id="Categorie">
-				    <option value="all">Tous les carégories</option>
+				<label for="hotelLocation">Catégories</label>
+				<fieldset>
+				    {% set categoriesSplit = app.request.get('categorie')|split(',') %}
 				    {% for categorie in categories %}
-					<option value="{{ categorie.id }}" {% if categorie.id==app.request.get('categorie') %}selected{% endif %}>{{ categorie }}</option>
+					<div class="styled-checkbox">
+					    <label>
+						<input type="checkbox" name="categorie_{{ categorie.id }}" {% if categorie.id in categoriesSplit %}checked{% endif %} value="{{ categorie.id }}">
+						{{ categorie|title }}
+					    </label>
+					</div>
 				    {% endfor %}
-				</select>
+				</fieldset>
+			    </div>
+			</div>
+			<div class="clear"></div>
+			<div class="col-xs-12 col-sm-12 col-md-12">
+			    <div class="form-group">
+				<label for="hotelLocation">Villes de destination</label>
+				<fieldset>
+				    {% set villesSplit = app.request.get('ville')|split(',') %}
+				    {% for ville in villes %}
+					<div class="styled-checkbox">
+					    <label>
+						<input type="checkbox" name="ville_{{ ville.id }}" {% if ville.id in villesSplit %}checked{% endif %} value="{{ ville.id }}">
+						{{ ville|title }}
+					    </label>
+					</div>
+				    {% endfor %}
+				</fieldset>
 			    </div>
 			</div>
 			<div class="clear"></div>
@@ -61,7 +71,8 @@
 			    <button type="submit" class="btn btn-primary">Recherche</button>
 			</div>
 		    </form>
-		</li><!-- end hotel tab content -->
+		</li>
+		<!-- end hotel tab content -->
 		{#		<li id="search-f-flights">
 				    <form role="form" class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">

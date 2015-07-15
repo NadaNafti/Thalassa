@@ -8,6 +8,12 @@ front_hoteltunisie_list:
     requirements:
         page:  \d+
     
+front_hoteltunisie_filtre:
+    path:     /filtre/{page}/{categorie}/{chaine}/{ville}/{name}
+    defaults: { _controller: FrontGeneralBundle:HotelTunisie:filtre,page:1,categorie:all,chaine:all,ville:all,name:null }
+    requirements:
+        page:  \d+
+    
 front_hoteltunisie_details:
     path:     /{slug}
     defaults: { _controller: FrontGeneralBundle:HotelTunisie:details }

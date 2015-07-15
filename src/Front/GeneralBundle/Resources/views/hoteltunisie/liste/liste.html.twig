@@ -27,6 +27,11 @@
 				<div class="list-item">
 				    <div class="list-item-image">
 					<div class="image-inner">
+					    {% if saison.type==2 %}
+						<div class="list-item-price" style="z-index:9;  font-size: 15px;  left: 0px;  top: 20px;  background: red;  color: #FFF;  padding: 3px;  width: 90%;  text-align: center;">
+						    {{ saison }}
+						</div>
+					    {% endif %}
 					    <a class="link-image" href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}">
 						{% if hotel.photoPrincipal is not null %}
 						    <img src="{{ asset(hotel.photoPrincipal.assetPath) }}" alt="" style="width: 270px;height: 195px" />
