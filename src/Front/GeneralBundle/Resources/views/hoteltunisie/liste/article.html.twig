@@ -46,7 +46,7 @@
 		    {% if saison.type is null %}
 			Sur Demande
 		    {% else %}
-			{{ saison.prixDeBase }} DT
+			{{ saison.prixDeBase|number_format(0) }} DT
 		    {% endif %}
 		</div>
 		<a href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}" class="btn">Détails</a>
