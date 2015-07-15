@@ -67,328 +67,13 @@
 
 		    <ul id="detail-tab" class="tabs-content xss-mb">
 			<li id="details-tab1">
-			    <h1>{{ hotel }}</h1>
-			    <p>
-				{{ hotel.descriptionLongue|raw }}
-			    </p>
-
-
-			    <ul class="check-in-out">
-				<li><i class="fa-clock-o"></i> Check-In Time<span>12 : 00 pm </span></li>
-				<li><i class="fa-clock-o"></i> Check-Out Time<span>12 : 00 pm</span></li>
-			    </ul>
-
-			    {#			    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>#}
-
-			    <ul class="address">
-				<li><i class="fa-map-marker"></i>{{ hotel.adresse }}</li>
-				    {% if hotel.tel1 is not null %}
-				    <li><i class="fa-phone"></i> {{ hotel.tel1 }}</li>
-				    {% endif %}
-				    {% if hotel.tel2 is not null %}
-				    <li><i class="fa-phone"></i> {{ hotel.tel2 }}</li>
-				    {% endif %}
-			    </ul>    
-			    <div class="clear mb-20"></div>
+			    {% include 'FrontGeneralBundle:hoteltunisie/details:description.html.twig' %}
 			</li>
-
 			<li id="details-tab2" class="active">
-			    {#<div class="availability">
-				<div class="availability-inner">
-				    <div class="form-group datepicker-wrapper  mr-10">
-					<label for="availability1-check-in">Check-in</label>
-					<input type="text" class="form-control date" id="availability1-check-in" placeholder="dd/dm/yy">
-					<i class="fa fa-calendar"></i>
-				    </div>						
-				    <div class="form-group datepicker-wrapper mr-20">
-					<label for="availability1-check-out">Check-out</label>
-					<input type="text" class="form-control date" id="availability1-check-out" placeholder="dd/dm/yy">
-					<i class="fa fa-calendar"></i>
-				    </div>							
-				    <div class="add-room-wrapper clearfix mr-20 xss-mb">
-					<div class="room1" >
-					    <div class="add-room">
-						<div class="two-fourth">
-						    <span>Room 1</span><br/>
-						    <div class="addroom1 block">
-							<a onclick="addroom2()">+ Add room</a>
-						    </div>							
-						</div>
-						<div class="one-fourth mr">
-						    <span>Room Type</span>
-						    <select class="form-control mySelectBoxClass">
-							<option>01</option>
-							<option selected>02</option>
-							<option>03</option>
-							<option>04</option>
-							<option>05</option>
-						    </select>
-						</div>	
-						<div class="one-fourth mr">
-						    <span>Adult</span>
-						    <select class="form-control mySelectBoxClass">
-							<option>1</option>
-							<option selected>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						    </select>
-						</div>							
-						<div class="one-fourth">
-						    <span>Child</span>
-						    <select class="form-control mySelectBoxClass">
-							<option>0</option>
-							<option selected>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						    </select>
-						</div>
-					    </div><!-- add-room -->
-					</div><!-- end room1 -->	
-					<div class="room2 none">
-					    <div class="clearfix"></div>
-					    <div class="line1"></div>
-					    <div class="add-room">
-						<div class="two-fourth">
-						    <span>Room 2</span><br/>
-						    <div class="addroom2 block"><a onclick="addroom3()" class="inline">+ Add room</a> | 
-							<a onclick="removeroom2()" class="add-room-close"></a></div>
-						</div>
-						<div class="one-fourth mr">
-						    <span>Room Type</span>
-						    <select class="form-control mySelectBoxClass">
-							<option>01</option>
-							<option selected>02</option>
-							<option>03</option>
-							<option>04</option>
-							<option>05</option>
-						    </select>
-						</div>	
-						<div class="one-fourth mr">
-						    <span>Adult</span>
-						    <select class="form-control mySelectBoxClass">
-							<option>1</option>
-							<option selected>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						    </select>
-						</div>							
-						<div class="one-fourth">
-						    <span>Child</span>
-						    <select class="form-control mySelectBoxClass">
-							<option>0</option>
-							<option selected>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						    </select>
-						</div>
-					    </div><!-- add-room -->
-					</div><!-- end room2 -->		
-					<div class="room3 none">
-					    <div class="clearfix"></div>
-					    <div class="line1"></div>
-					    <div class="add-room">
-						<div class="two-fourth">
-						    <span>Room 3</span><br/>
-						    <div class="addroom3 block"><a onclick="addroom3()">+ Add room</a> | 
-							<a onclick="removeroom3()" class="add-room-close"></a></div>
-						</div>
-						<div class="one-fourth mr">
-						    <span>Room Type</span>
-						    <select class="form-control mySelectBoxClass">
-							<option>01</option>
-							<option selected>02</option>
-							<option>03</option>
-							<option>04</option>
-							<option>05</option>
-						    </select>
-						</div>	
-						<div class="one-fourth mr">
-						    <span>Adult</span>
-						    <select class="form-control mySelectBoxClass">
-							<option>1</option>
-							<option selected>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						    </select>
-						</div>							
-						<div class="one-fourth">
-						    <span>Child</span>
-						    <select class="form-control mySelectBoxClass">
-							<option>0</option>
-							<option selected>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						    </select>
-						</div>
-					    </div><!-- add-room -->
-					</div><!-- end room3 -->
-				    </div><!-- end add-room wrapper -->
-				    <div class="update">
-					<button type="button" class="btn btn-info">Update <i class="fa-check"></i></button>
-				    </div>
-				    <div class="clear"></div>
-				</div>
-			    </div>
-			    <div class="clear mb-30"></div>
-			    <h4>Room Type</h4>
-			    <ul class="detail-item">
-				<li class="clearfix">
-				    <img src="{{ asset('front-assets/images/room-types/room-type-01.jpg') }}" alt="room type" />
-				    <div class="br2">
-					<h3>Standard Double room</h3>
-					<span>Max Occupancy: 2 adults</span>
-					<ul class="hotelpreferences mt-10 mb-20">
-					    <li class="icohp-internet"></li>
-					    <li class="icohp-air"></li>
-					    <li class="icohp-pool"></li>
-					    <li class="icohp-childcare"></li>
-					    <li class="icohp-fitness"></li>
-					    <li class="icohp-breakfast"></li>
-					    <li class="icohp-parking"></li>
-					</ul>
-					<div class="clearfix"></div>
-					<ul class="checklist2 text-info mt-20">
-					    <li>FREE Cancellation</li>
-					    <li>Pay at hotel or pay today </li>
-					</ul>
-				    </div>
-				    <div class="detail-meta">
-					<div class="detail-price">
-					    $150 <span>avg/night</span>
-					</div>
-					<span class="text-warning text-bold ">5 left</span>
-					<a href="page-details.html" class="btn">Book Now!</a>
-				    </div>
-				</li>
-				<li class="clearfix">
-				    <img src="{{ asset('front-assets/images/room-types/room-type-02.jpg') }}" alt="room type" />
-				    <div class="br2">
-					<h3>Standard Double room</h3>
-					<span>Max Occupancy: 3 adults</span>
-					<ul class="hotelpreferences mt-10 mb-20">
-					    <li class="icohp-internet"></li>
-					    <li class="icohp-air"></li>
-					    <li class="icohp-pool"></li>
-					    <li class="icohp-childcare"></li>
-					    <li class="icohp-fitness"></li>
-					    <li class="icohp-breakfast"></li>
-					    <li class="icohp-parking"></li>
-					</ul>
-					<div class="clearfix"></div>
-					<ul class="checklist2 text-info mt-20">
-					    <li>FREE Cancellation</li>
-					    <li>Pay at hotel or pay today </li>
-					</ul>
-				    </div>
-				    <div class="detail-meta">
-					<div class="detail-price">
-					    $150 <span>avg/night</span>
-					</div>
-					<span>15 available</span>
-					<a href="page-details.html" class="btn">Book Now!</a>
-				    </div>
-				</li>
-				<li class="clearfix">
-				    <img src="{{ asset('front-assets/images/room-types/room-type-03.jpg') }}" alt="room type" />
-				    <div class="br2">
-					<h3>Standard Double room</h3>
-					<span>Max Occupancy: 2 adults</span>
-					<ul class="hotelpreferences mt-10 mb-20">
-					    <li class="icohp-internet"></li>
-					    <li class="icohp-air"></li>
-					    <li class="icohp-pool"></li>
-					    <li class="icohp-childcare"></li>
-					    <li class="icohp-fitness"></li>
-					    <li class="icohp-breakfast"></li>
-					    <li class="icohp-parking"></li>
-					</ul>
-					<div class="clearfix"></div>
-					<ul class="checklist2 text-info mt-20">
-					    <li>FREE Cancellation</li>
-					    <li>Pay at hotel or pay today </li>
-					</ul>
-				    </div>
-				    <div class="detail-meta">
-					<div class="detail-price">
-					    $150 <span>avg/night</span>
-					</div>
-					<span class="text-danger text-bold">Booked!</span>
-					<a href="page-details.html" class="btn">Book Now!</a>
-				    </div>
-				</li>
-				<li class="clearfix">
-				    <img src="{{ asset('front-assets/images/room-types/room-type-04.jpg') }}" alt="room type" />
-				    <div class="br2">
-					<h3>Standard Double room</h3>
-					<span>Max Occupancy: 2 adults</span>
-					<ul class="hotelpreferences mt-10 mb-20">
-					    <li class="icohp-internet"></li>
-					    <li class="icohp-air"></li>
-					    <li class="icohp-pool"></li>
-					    <li class="icohp-childcare"></li>
-					    <li class="icohp-fitness"></li>
-					    <li class="icohp-breakfast"></li>
-					    <li class="icohp-parking"></li>
-					</ul>
-					<div class="clearfix"></div>
-					<ul class="checklist2 text-info mt-20">
-					    <li>FREE Cancellation</li>
-					    <li>Pay at hotel or pay today </li>
-					</ul>
-				    </div>
-				    <div class="detail-meta">
-					<div class="detail-price">
-					    $150 <span>avg/night</span>
-					</div>
-					<span class="text-warning text-bold ">2 left</span>
-					<a href="page-details.html" class="btn">Book Now!</a>
-				    </div>
-				</li>
-			    </ul>#}
+			    {% include 'FrontGeneralBundle:hoteltunisie/details:reservation.html.twig' %}
 			</li>
 			<li id="details-tab3">
-			    {% if hotel.amenagements |length> 0%}
-				<h4>Amménagements</h4>
-				<ul class="facilities">
-				    {% for ammenagement in hotel.amenagements %}
-					<li class="checked">{{ ammenagement }}</li>
-					{% endfor %}
-				</ul>
-			    {% endif %}
-			    {% if hotel.localisations |length> 0%}
-				<h4>Localisations</h4>
-				<ul class="facilities">
-				    {% for localisation in hotel.localisations %}
-					<li class="checked">{{ localisation }}</li>
-					{% endfor %}
-				</ul>
-			    {% endif %}
-			    {% if hotel.options |length> 0%}
-				<h4>Options</h4>
-				<ul class="facilities">
-				    {% for option in hotel.options %}
-					<li class="checked" style="width: 100%">{{ option }}</li>
-					{% endfor %}
-				</ul>
-			    {% endif %}
-			    {% if hotel.tags |length> 0%}
-				<h4>Tags</h4>
-				<ul class="facilities">
-				    {% for tag in hotel.tags %}
-					<li class="checked">{{ tag }}</li>
-					{% endfor %}
-				</ul>
-			    {% endif %}
-			    <div class="clear"></div>
+			    {% include 'FrontGeneralBundle:hoteltunisie/details:amenagement.html.twig' %}
 			</li>
 			<li id="details-tab5">
 			    <div id="map-canvas"></div>  
@@ -408,76 +93,11 @@
 				</p>
 			    </div>
 			</div>
-
-			{#<div class="sidebar-item mb-20">
-			    <div class="lp-box">
-				<i class="text-info wi-thermometer"></i>
-				<h4>Weather Around This Hotel</h4>
+			{% if  hotel.tripAdvisor is not null and  hotel.tripAdvisor is not empty %}
+			    <div class="sidebar-item mb-20">
+				{{ hotel.tripAdvisor|raw }}
 			    </div>
-			    <div class="weather-widget">
-				<div class="today-date">
-				    <span class="time">07.30 pm - </span>
-				    <span class="date">Mon. July 28th, 2013</span>
-				</div>
-				<div class="today-weather">
-				    <div class="today-icon"><i class="wi-day-cloudy-gusts"></i></div>
-				    <div class="today-temperature">
-					<span>Max: 25</span>
-					22 <i class="wi-celcius"></i>
-					<span>Min: 17</span>
-				    </div>
-				</div>
-				<div class="clear"></div>
-				<ul class="daily-weather clearfix">
-				    <li>
-					<span class="day">tue</span>
-					<i class="wi-day-cloudy"></i>
-					<span class="max">22</span>
-					<span class="min">17</span>
-				    </li>
-				    <li>
-					<span class="day">wed</span>
-					<i class="wi-day-rain"></i>
-					<span class="max">23</span>
-					<span class="min">18</span>
-				    </li>
-				    <li>
-					<span class="day">thu</span>
-					<i class="wi-day-storm-showers"></i>
-					<span class="max">23</span>
-					<span class="min">18</span>
-				    </li>
-				    <li>
-					<span class="day">fri</span>
-					<i class="wi-day-sunny"></i>
-					<span class="max">24</span>
-					<span class="min">19</span>
-				    </li>
-				    <li>
-					<span class="day">sat</span>
-					<i class="wi-day-sprinkle"></i>
-					<span class="max">25</span>
-					<span class="min">20</span>
-				    </li>
-				    <li>
-					<span class="day">sun</span>
-					<i class="wi-day-lightning"></i>
-					<span class="max">25</span>
-					<span class="min">20</span>
-				    </li>
-				</ul>
-			    </div>
-			</div>
-
-			<div class="sidebar-item mb-20">
-			    <div class="lp-box">
-				<i class="text-info fa-phone-square"></i>
-				<h4>Need Assistance?</h4>
-				<p>Our team is 24/7 at your service to help you with your booking issues or answer any related questions</p>
-				<span class="text-info font24">+1900 12 213 21</span>
-			    </div>
-			</div>#}
-
+			{% endif %}
 			{% if hotels|length>1 %}
 			    <div class="sidebar-item mb-20">
 				<div class="lp-box">
@@ -515,13 +135,16 @@
 
 		    </div>
 		</div>
-
 	    </div>
 	</div>
     </div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <style>
+	#CDSWIDSSP {width: 100% !important;}
+	#CDSWIDSSP.widSSPnarrow .widSSPData .widSSPBranding dd {width: 100% !important;}
+    </style>
     {% if hotel.longitude is not null and hotel.latitude is not null %}
 	<script>
 	    function initialize() {
@@ -644,4 +267,93 @@
 
 	</script>
     {% endif %}
+    <script>
+	
+    {% set saison = hotel.getSaisonPromotionByDate(app.request.session.get('dateDebut')) %}
+        $(document).ready(function () {
+            var obj = {                    {% for chambre in saison.chambres %}
+            {{ 'minAdulte'~chambre.chambre.id~':'~chambre.minAdulte|raw }},
+            {{ 'maxAdulte'~chambre.chambre.id~':'~chambre.maxAdulte|raw }},
+            {{ 'minEnfant'~chambre.chambre.id~':'~chambre.minEnfant|raw }},
+        {{ 'maxEnfant'~chambre.chambre.id~':'~chambre.maxEnfant|raw }},                    {% endfor %}
+                                };
+                                $(document).on('change', '.AdulteChambre', function () {
+                                    var chambre = $(this).data('chambre');
+                                    var ordre = $(this).data('ordre');
+                                    var val = $(this).val();
+                                    var nbrKids = obj['maxAdulte' + chambre] - val;
+                                    $(this).parent().parent().find('.EnfantChambre').val(nbrKids);
+                                    Block = $(this).parent().parent().find('.ages .row');
+                                    var exist = Block.children().length;
+                                    if (exist < nbrKids)
+                                    {
+                                        for (var i = 1; i <= nbrKids; i++)
+                                        {
+                                            if (i > exist)
+                                                Block.append('<div class="col-md-1"><label>Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in 1..17 %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var toRemove = (exist - nbrKids);
+                                        var nmbr = Block.children().length;
+                                        for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                                            Block.children().eq(i).remove();
+                                    }
+                                })
+                                $('.chambresSelect').change(function () {
+                                    var nbrRooms = $(this).val();
+                                    var id = $(this).data('id');
+                                    Block = $(this).parent().parent().parent().find('.details');
+                                    var exist = Block.children().length;
+                                    if (exist < nbrRooms)
+                                    {
+                                        for (var i = 1; i <= nbrRooms; i++)
+                                        {
+                                            if (i > exist)
+                                            {
+                                                BlockChambre = window['getChambre' + id](i);
+                                                Block.append(BlockChambre);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var toRemove = (exist - nbrRooms);
+                                        var nmbr = Block.children().length;
+                                        for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                                            Block.children().eq(i).remove();
+                                    }
+                                })
+                                $(document).on('change', '.EnfantChambre', function () {
+                                    var chambre = $(this).data('chambre');
+                                    var ordre = $(this).data('ordre');
+                                    var nbrKids = $(this).val();
+                                    $(this).parent().parent().find('.AdulteChambre').val(obj['maxAdulte' + chambre] - nbrKids);
+                                    Block = $(this).parent().parent().find('.ages .row');
+                                    var exist = Block.children().length;
+                                    if (exist < nbrKids)
+                                    {
+                                        for (var i = 1; i <= nbrKids; i++)
+                                        {
+                                            if (i > exist)
+                                                Block.append('<div class="col-md-2"><label>Age Enf. ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var toRemove = (exist - nbrKids);
+                                        var nmbr = Block.children().length;
+                                        for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                                            Block.children().eq(i).remove();
+                                    }
+
+                                })
+                            });{% for ch in saison.chambres %}
+                            function getChambre{{ ch.id }}(i)
+                            {
+                                return '<div class="row" style="  border: 1px solid #eee;  padding: 10px 0px;  margin: 15px 0px;"><div class="col-md-2" style="padding-top: 25px;">    Chambre ' + i + ' </div><div class="col-md-2">    <label>Adulte</label>    <select name="adulte_{{ ch.chambre.id }}_' + i + '" data-ordre="' + i + '" data-chambre="{{ ch.chambre.id }}"  class="form-control AdulteChambre">        {% for i in ch.maxAdulte..ch.minAdulte %}            <option value="{{ i }}" >{{ i }}</option>        {% endfor %}    </select></div><div class="col-md-2">    <label>Enfant</label>    <select name="enfant_{{ ch.chambre.id }}_' + i + '" class="form-control  EnfantChambre" data-ordre="' + i + '" data-chambre="{{ ch.chambre.id }}">        {% for i in ch.minEnfant..ch.maxEnfant %}            <option value="{{ i }}" >{{ i }}</option>        {% endfor %}    </select></div><div class="col-md-4">    <label>Arrangement</label>    <select name="arrangement_{{ ch.chambre.id }}_' + i + '" class="form-control">        <option value="{{ saison.arrBase.id }}" >{{ saison.arrBase }} (Arr base)</option>{% for arr in saison.arrangements if arr.etat==1 %}<option value="{{ arr.arrangement.id }}" >{{ arr.arrangement }} </option>{% endfor %}</select></div><div class="clearfix"></div><div class="col-md-2"></div><div class="col-md-10 ages" style="margin-top: 10px;" ><div class="row">{% if ch.minEnfant!=0 %}{% for i in 1..ch.minEnfant %}<div class="col-md-2"><label>Age Enf. {{ loop.index }} </label><select name="age_{{ ch.chambre.id }}_' + i + '_{{ loop.index }}" class="form-control" style="width: 70px;" >{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>{% endfor %}{% endif %}</div></div>{% for supp in saison.autresSupplements if verifSuppReducDate(supp.supp,dateDebut,dateFin) %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label><input name="supp_{{ ch.chambre.id }}_' + i + '_{{ supp.supp.id }}" {% if supp.supp.obligatoire %}checked  disabled{% endif %} type="checkbox"/> {{ supp }}</label>    </div>{% endfor %}{% for vue in saison.vues %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label><input name="vue_{{ ch.chambre.id }}_' + i + '_{{ vue.vue.id }}" type="checkbox"/> {{ vue.vue }}</label>    </div>{% endfor %}{% for reduc in saison.autresReductions if verifSuppReducDate(reduc.reduc,dateDebut,dateFin) %}    <div class="col-md-2"></div>    <div class="col-md-10">        <label>- {{ reduc }}</label>    </div>{% endfor %}</div>';
+                            }
+        {% endfor %}
+        </script>   
 {% endblock %}

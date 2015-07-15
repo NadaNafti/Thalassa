@@ -111,7 +111,7 @@ class HotelTunisieController extends Controller
 	$newHotels = array();
 	foreach ($hotels as $hotel)
 	{
-	    if (!is_null($hotel->getSaisonBase()) && $hotel->getSaisonBase()->isValidSaisonBase() && !$hotel->isInStopSales())
+	    if (!is_null($hotel->getSaisonBase()) && $hotel->getSaisonBase()->isValidSaisonBase() && !$hotel->isInStopSales() && $hotel->getEtat()==1)
 		$newHotels[] = $hotel;
 	}
 	return $newHotels;
