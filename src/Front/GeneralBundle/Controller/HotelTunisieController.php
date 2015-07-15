@@ -77,6 +77,11 @@ class HotelTunisieController extends Controller
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
 	$request = $this->getRequest();
+	if(!$session->has('nuitees'))
+	{
+	    $session->set('nuitees', 1);
+	    $session->set('dateDebut', date('Y-m-d'));
+	}
 	$pays = $em->getRepository('BackHotelTunisieBundle:Pays')->findOneBy(array('code' => 'tn'));
 	$villes = $em->getRepository('BackHotelTunisieBundle:Ville')->findBy(array('pays' => $pays), array('libelle' => 'asc'));
 //	$chaines = $em->getRepository('BackHotelTunisieBundle:Chaine')->findBy(array(), array('libelle' => 'asc'));
@@ -97,6 +102,12 @@ class HotelTunisieController extends Controller
     public function detailsAction($slug)
     {
 	$em = $this->getDoctrine()->getManager();
+	$session = $this->getRequest()->getSession();
+	if(!$session->has('nuitees'))
+	{
+	    $session->set('nuitees', 1);
+	    $session->set('dateDebut', date('Y-m-d'));
+	}
 	$hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->findOneBy(array('slug' => $slug));
 	$hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->findBy(array('ville' => $hotel->getVille()), array(), 5);
 	$hotels = $this->removeInvalideHotel($hotels);
