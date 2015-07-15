@@ -101,6 +101,13 @@ class Hotel
     private $descriptionLongue;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="tripAdvisor", type="text",nullable=true)
+     */
+    private $tripAdvisor;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Chaine", fetch="EAGER")
      * @ORM\JoinColumn(name="chaine_id", referencedColumnName="id")
      * @ORM\OrderBy({"libelle" = "ASC"})
@@ -1361,4 +1368,27 @@ class Hotel
 	return $album;
     }
 
+
+    /**
+     * Set tripAdvisor
+     *
+     * @param string $tripAdvisor
+     * @return Hotel
+     */
+    public function setTripAdvisor($tripAdvisor)
+    {
+        $this->tripAdvisor = $tripAdvisor;
+
+        return $this;
+    }
+
+    /**
+     * Get tripAdvisor
+     *
+     * @return string 
+     */
+    public function getTripAdvisor()
+    {
+        return $this->tripAdvisor;
+    }
 }
