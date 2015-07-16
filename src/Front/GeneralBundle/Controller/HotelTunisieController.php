@@ -101,7 +101,6 @@ class HotelTunisieController extends Controller
 	$hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->findOneBy(array('slug' => $slug));
 	$hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->findBy(array('ville' => $hotel->getVille()), array(), 5);
 	$hotels = $this->removeInvalideHotel($hotels);
-	dump($session->get('nuitees'));
 	return $this->render('FrontGeneralBundle:hoteltunisie/details:details.html.twig', array(
 		    'hotel' => $hotel,
 		    'hotels' => $hotels
