@@ -173,13 +173,13 @@ class ReservationService
 	$hotel = $this->em->getRepository('BackHotelTunisieBundle:Hotel')->find($result['hotel']);
 	$tarifCommercial = $this->em->getRepository('BackCommercialBundle:Tarif')->find(1);
 	$client = $data['client'];
-	$this->em->persist($client);
+	//$this->em->persist($client);
 	$coordoonnes = array($client->getNomPrenom(), $client->getTel1(), $client->getAdresse());
 	$reservation = new Reservation();
 	$options = array();
 	foreach ($hotel->getOptions() as $option)
 	{
-	    if ($data['option_' . $option->getId()])
+	    if (defined($data['option_' . $option->getId()]) && $data['option_' . $option->getId()])
 		$options[] = $option->getId();
 	}
 	$reservation->setClient($client)
@@ -189,8 +189,9 @@ class ReservationService
 		->setDateFin(\DateTime::createFromFormat('Y-m-d', $result['dateFin']))
 		->setNuitees($result['nuitees'])
 		->setSurDemande($result['surDemande'])
-		->setObservation($data['observation'])
 		->setOptions($options);
+	if (defined($data['observation']))
+	    $reservation->setObservation($data['observation']);
 	if ($tarifCommercial && $tarifCommercial->getTimbre())
 	    $reservation->setTimbre($tarifCommercial->getMontantTimbre());
 	if ($source == 'backoffice')
