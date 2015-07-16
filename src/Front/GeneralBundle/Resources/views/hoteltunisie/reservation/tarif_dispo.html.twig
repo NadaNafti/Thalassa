@@ -1,0 +1,171 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Tarif & dispo{% endblock %}
+{% block body %}
+    <div id="page_title">
+	<div class="container clearfix">
+	    <div class="page-name">{{ block('title') }}</div>
+	    <div class="breadcrumb clearfix">
+		<a href="{{ path('accueil') }}">Accueil</a>
+		<a href="{{ path('front_hoteltunisie_accueil') }}">Hôtels en Tunisie</a>
+		<a href="{{ path('front_hoteltunisie_list') }}">Liste</a>
+		<span class="current-page">{{ block('title') }}</span>
+	    </div>
+	</div>
+    </div><!-- end slider_wrapper -->
+
+    <div id="content_wrapper">
+        <div class="container">
+            <div class="row clearfix pv-50">
+                <div id="main" class="col-sms-6 col-sm-8 col-md-9">
+                    {% include ':Front:alert.html.twig' %}
+                    <div class="booking-section travelo-box tabs-content">
+                        <div class="person-information" >
+                            <h2>Tarif & dispo</h2>
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th> # </th>
+                                        <th> Chambre </th>
+                                        <th> Arrangement </th>
+                                        <th> Adulte </th>
+                                        <th> Enfant </th>
+                                        <th> Suppléments & vues </th>
+                                        <th> Total </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% set total=0 %}
+                                    {% for chambre in resultat.chambres %}
+                                        {% set total=total + chambre.total %}
+                                        <tr>
+                                            <td> {{ loop.index }} </td>
+                                            <td> {{ getNameChambre(chambre.details.chambre) }} </td>
+                                            <td> {{ getNameArrangement(chambre.details.arrangement) }} </td>
+                                            <td> {{ chambre.adultes|length }} </td>
+                                            <td> {{ chambre.enfants|length }} </td>
+                                            <td>
+                                                {% for supp in chambre.details.supp %}
+                                                    - {{ getNameSupp(supp) }}<br>
+                                                {% endfor %}
+                                                {% for vue in chambre.details.vue %}
+                                                    - {{ getNameVue(vue) }}<br>
+                                                {% endfor %}
+                                            </td>
+                                            <td style="text-align: right">
+                                                {% if resultat.surDemande %}
+                                                    Sur demande
+                                                {% else %}
+                                                    {{ chambre.total|number_format(3,'.','') }} 
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6"  style="text-align: right">
+                                                Total :
+                                            </td>
+                                            <td style="text-align: right">
+                                                {% if resultat.surDemande %}
+                                                    Sur demande
+                                                {% else %}
+                                                    {{ total|number_format(3,'.','') }} 
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="panel-body">
+                                <h2> Valider la réservation</h2>
+                                <hr>
+                                {{ form_start(form) }}
+                                <h4>Client :</h4>
+                                <div style="display: none">
+                                    {{ formulaire.input("col-md-2","",form.observation,false) }}
+                                    {{ formulaire.input("col-md-2","",form.client.responsable,false) }}
+                                </div>
+                                <div class="row">
+                                    {{ formulaire.input("col-md-4","Nom ",form.client.nomPrenom,true) }}
+                                    {{ formulaire.input("col-md-4","Tel 1",form.client.tel1,true) }}
+                                    {{ formulaire.input("col-md-4","Tel 2",form.client.tel2,true) }}
+                                </div>
+                                <div class="row">
+                                    {{ formulaire.input("col-md-12","Adresse",form.client.adresse,true) }}
+                                </div>
+                                <div class="no-display">
+                                    {{ formulaire.input("col-md-4","Matricule Fiscale",form.client.matriculeFiscale,true) }}
+                                    {{ formulaire.input("col-md-4","Registre Commercie",form.client.registreCommercie,true) }}
+                                    {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,true) }}
+                                </div>
+                                <hr>
+                                {% for chambre in chambres  %}
+                                    <h4>Chambre {{ loop.index }} <small>{{ getNameChambre(chambre.chambre) }}</small> :</h4>
+                                    <div class="row">
+                                        {% for adulte in chambre.adultes %}
+                                            {{ formulaire.input("col-md-3","Adulte "~loop.index,form[adulte],true) }}
+                                        {% endfor %}
+                                        {% for enfant in chambre.enfants %}
+                                            {{ formulaire.input("col-md-3","Enfant "~loop.index,form[enfant],true) }}
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+				<hr>
+				{% if hotel.options|length >0 %}
+				    <h4>Les Options :</h4>
+				    <div class="row">
+					{% for option in hotel.options  %}
+					    {{ formulaire.input("col-md-12",null,form['option_'~option.id],false) }}
+					{% endfor %}
+				    </div>
+				{% endif %}
+                                {{ formulaire.submit("Valider la réservation") }}
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-sms-6 col-sm-4 col-md-3" >
+                    <div class="booking-details travelo-box tabs-content">
+                        <h4>Détails hôtel</h4>
+                        <article class="image-box hotel listing-style1">
+                            <figure class="clearfix">
+                                <a href="javascript:void(0)" class="hover-effect middle-block">
+				    {% if hotel.photoPrincipal is not null %}
+					<img src="{{ asset(hotel.photoPrincipal.assetPath) }}" alt="" style="width: 270px;height: 160px" />
+				    {% else %}
+					<img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=270&h=160" alt="" style="width: 270px;height: 160px" />
+				    {% endif %}
+				</a>
+                                <div class="travel-title">
+                                    <h5 class="box-title">{{ hotel|title }}<small>{{ hotel.ville }} {{ hotel.ville.pays }}</small></h5>
+                                </div>
+                            </figure>
+                            <div class="details">
+                                <div class="feedback">
+                                    {% if hotel.getPorcentageStars  %}
+                                        <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container" title="4 stars">
+                                            <span style="width: {{ hotel.getPorcentageStars }}%;" class="five-stars"></span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="constant-column-3 timing clearfix">
+                                    <div class="check-in">
+                                        <label>Debut</label>
+                                        <span>{{ dateDebut|date('d/m/Y') }}</span>
+                                    </div>
+                                    <div class="duration text-center">
+                                        <i class="soap-icon-clock"></i>
+                                        <span>{{ nuitees }} Nuitées</span>
+                                    </div>
+                                    <div class="check-out">
+                                        <label>Fin</label>
+                                        <span>{{ dateFin|date('d/m/Y') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

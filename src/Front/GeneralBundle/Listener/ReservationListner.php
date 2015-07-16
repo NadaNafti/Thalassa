@@ -41,7 +41,10 @@ class ReservationListner
 		{
 		    $saison = $hotel->getSaisonPromotionByDate($this->session->get('dateDebut'));
 		    if ($saison->getMinStay() > $this->session->get('nuitees'))
+		    {
 			$this->session->set('nuitees', $saison->getMinStay());
+			$this->session->getFlashBag()->add('Info', " Le min Stay est " . $saison->getMinStay());
+		    }
 		}
 		else
 		    $event->setResponse(new RedirectResponse($this->router->generate('front_hoteltunisie_list')));

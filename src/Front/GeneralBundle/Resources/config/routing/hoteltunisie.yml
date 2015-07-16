@@ -17,3 +17,19 @@ front_hoteltunisie_filtre:
 front_hoteltunisie_details:
     path:     /{slug}
     defaults: { _controller: FrontGeneralBundle:HotelTunisie:details }
+    
+front_hoteltunisie_edit_periode:
+    path:     /{slug}/editer_periode
+    defaults: { _controller: FrontGeneralBundle:HotelTunisie:editPeriode }
+    
+front_hoteltunisie_reservation:
+    path:     /booking/{slug}/reservation
+    defaults: { _controller: FrontGeneralBundle:HotelTunisie:reservation }
+    
+front_hoteltunisie_tarif_dispo:
+    path:     /{slug}/tarif_dispo
+    defaults: { _controller: FrontGeneralBundle:HotelTunisie:tarifDispo }
+    
+front_hoteltunisie_thinkyou:
+    path:     /{slug}/thinkyou
+    defaults: { _controller: FrontGeneralBundle:HotelTunisie:thinkyou }

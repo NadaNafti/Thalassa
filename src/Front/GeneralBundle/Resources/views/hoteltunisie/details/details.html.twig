@@ -26,7 +26,7 @@
 			    {% if saison.type is null %}
 				Sur Demande
 			    {% else %}
-				{{ saison.prixDeBase }} DT
+				{{ saison.prixDeBase|number_format(0) }} DT
 			    {% endif %}
 			    <span>Par pers & nuit en {{ saison.arrBase }}</span>
 			</div>
@@ -55,6 +55,8 @@
 		    {% endif %}
 
 		    <div class="clear"></div>
+		    {% include ':Front:alert.html.twig' %}
+		    <div class="clear"></div>
 
 		    <ul class="tabs mt-20">
 			<li><a href="#details-tab1">Déscription</a></li>
@@ -81,7 +83,6 @@
 		    </ul><!-- end tabs -->
 		    <div class="clear xss-mb"></div>
 		</div>
-
 		<div class="col-xs-12 col-sm-4 col-md-3">
 		    <div class="sidebar hotel-sidebar">
 

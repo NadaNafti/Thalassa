@@ -1,0 +1,33 @@
+{% for class,messages in app.session.getFlashBag %}
+    {% for msg in messages %}
+	<div class="notification-box notification-box-info mb-20" style="margin-top: 30px;">
+	    <p>{{ class }} !!!</p>
+	    <span class="font12">• {{ msg |raw }}.</span>
+	    <a href="#" class="notification-close notification-close-info"><i class="fa-times"></i></a>
+	</div>
+{#        <div class="alert alert-{{ class }}">
+            <button data-dismiss="alert" class="close">
+                &times;
+            </button>
+            <strong>
+                {% if class == "success" %}
+                    <i class="fa fa-checclass-circle"></i>
+                    <strong>Succés!</strong>
+                {% endif %}
+                {% if class == "info" %}
+                    <i class="fa fa-info-circle"></i>
+                    <strong>Information!</strong>
+                {% endif %}
+                {% if class == "warning" %}
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <strong>Avertissement!</strong>
+                {% endif %}
+                {% if class == "danger" %}
+                    <i class="fa fa-times-circle"></i>
+                    <strong>Erreur!</strong>
+                {% endif %}
+            </strong>
+            {{ msg |raw }}
+        </div>#}
+    {% endfor %}
+{% endfor %}

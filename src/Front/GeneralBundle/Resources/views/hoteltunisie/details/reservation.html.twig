@@ -1,9 +1,28 @@
+<h2>Période</h2>
+<form method="post" action="{{ path('front_hoteltunisie_edit_periode',{'slug':app.request.get('slug')}) }}" role="form" id="form" style="  margin-bottom: 50px;">
+    <div class="row">
+	<div class="col-sm-6 col-md-3">
+	    <label>Date de réservation</label>
+	    <div class="datepicker-wrap red">
+		<input type="date" name="dateDebut" class="form-control" value="{{ app.request.session.get('dateDebut') }}"  required />
+	    </div>
+	</div>
+	<div class="col-sm-6 col-md-3">
+	    <label>Nombre de nuitées </label>
+	    <div class="">
+		<input type="number" name="nuitees" class="form-control" value="{{ app.request.session.get('nuitees') }}" min="{{ saison.minStay }}" max="20" required />
+	    </div>
+	</div>
+    </div>
+    <button type="submit" class="btn btn-primary" style="float: right;">Modifié la période</button>
+</form>
+<hr>
 <h2>Réservation - {{ hotel|title }}</h2>
-<form method="post" action="" role="form" id="form">
+<form method="post" action="{{ path('front_hoteltunisie_reservation',{'slug':hotel.slug}) }}" role="form" id="form">
     <div class="panel-body">
 	{% for chambre in saison.chambres if chambre.etat==1 %}
 	    <div class="row" style="margin-bottom: 5px;">
-		<div class="row"  style="  padding: 10px;  background-color: #eee;">
+		<div class="row"  style="  padding: 10px;  background-color: linen;">
 		    <div class="col-md-4">
 			<label>{{ chambre.chambre }}</label>
 			<select name="chambre_{{ chambre.chambre.id }}" data-id="{{ chambre.id }}" class="form-control chambresSelect">
@@ -12,13 +31,13 @@
 			    {% endfor %}
 			</select>
 		    </div>
-		    {% if saison.prixBaseVente+chambre.getSuppReducVente>0 %}
-			<div class="col-md-8" style="  padding-top: 30px;"> A partir de <strong> {{chambre.prixChambre}}</strong> DT par personne en <strong>{{ saison.arrBase }}</strong></div>
+		    {% if chambre.prixChambre>0 %}
+			<div class="col-md-8" style="  padding-top: 30px;"> A partir de <strong> {{chambre.prixChambre|number_format(0)}}</strong> DT par personne en <strong>{{ saison.arrBase }}</strong></div>
 		    {% endif %}
 		</div>
 		<div class="row details"></div>
 	    </div>
 	{% endfor %}
     </div>
-    <button type="submit" class="btn" style="float: right;">Tarif & dispo</button>
+    <button type="submit" class="btn btn-primary" style="float: right;">Tarif & dispo</button>
 </form>

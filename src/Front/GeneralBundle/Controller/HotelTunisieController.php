@@ -3,6 +3,7 @@
 namespace Front\GeneralBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Back\UserBundle\Form\ClientType;
 
 class HotelTunisieController extends Controller
 {
@@ -116,6 +117,177 @@ class HotelTunisieController extends Controller
 		$newHotels[] = $hotel;
 	}
 	return $newHotels;
+    }
+
+    public function editPeriodeAction($slug)
+    {
+	$em = $this->getDoctrine()->getManager();
+	$session = $this->getRequest()->getSession();
+	$request = $this->getRequest();
+	if ($request->isMethod('POST'))
+	{
+	    if (date('Y-m-d') < $request->get('dateDebut'))
+	    {
+		$hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->findOneBy(array('slug' => $slug));
+		$session->set('dateDebut', $request->get('dateDebut'));
+		$saison = $hotel->getSaisonPromotionByDate($session->get('dateDebut'));
+		if ($saison->getMinStay() <= $request->get('nuitees'))
+		{
+		    $session->set('nuitees', $request->get('nuitees'));
+		    $session->getFlashBag()->add('Succés', " Votre période a été modifié avec succés ");
+		}
+		else
+		    $session->getFlashBag()->add('Info', " Le min Stay est " . $saison->getMinStay());
+	    }
+	    else
+		$session->getFlashBag()->add('Erreur', "La date doit étre supperieur à la date courrante");
+	}
+	return $this->redirect($this->generateUrl('front_hoteltunisie_details', array('slug' => $slug)));
+    }
+
+    public function reservationAction($slug)
+    {
+	$em = $this->getDoctrine()->getManager();
+	$session = $this->getRequest()->getSession();
+	$request = $this->getRequest();
+	$user = $this->get('security.context')->getToken()->getUser();
+	$client = $user->getClient();
+	if (is_null($client))
+	{
+	    $session->getFlashBag()->add('info', "Tu dois avoir un compte client");
+	    return $this->redirect($this->generateUrl("front_hoteltunisie_details", array('slug' => $slug)));
+	}
+	$hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->findOneBy(array('slug' => $slug));
+	if (!$session->has('reservation'))
+	{
+	    $reservation = array();
+	    $reservation['hotel'] = $hotel->getId();
+	    $reservation['client'] = $client->getId();
+	    $reservation['dateDebut'] = $session->get('dateDebut');
+	    $saison = $this->container->get('saisons')->getSaisonByClient($hotel, $client, $reservation['dateDebut']);
+	    $reservation['nuitees'] = $session->get('nuitees');
+	    $reservation['dateFin'] = date('Y-m-d', strtotime($reservation['dateDebut'] . ' + 1 day'));
+	    $session->set('reservation', $reservation);
+	}
+	else
+	    $reservation = $session->get('reservation');
+	$saison = $this->container->get('saisons')->getSaisonByClient($hotel, $client, $reservation['dateDebut']);
+	$reservation['saison'] = $saison->getId();
+	$reservation['chambres'] = array();
+	$Verif = FALSE;
+	foreach ($saison->getChambres() as $chambre)
+	{
+	    $tab = array();
+	    $idch = $chambre->getChambre()->getId();
+	    if ($request->get("chambre_" . $idch) > 0)
+	    {
+		$Verif = TRUE;
+		for ($i = 1; $i <= $request->get("chambre_" . $idch); $i++)
+		{
+		    $occupants = $request->get('adulte_' . $idch . '_' . $i);
+		    for ($j = 1; $j <= $request->get('enfant_' . $idch . '_' . $i); $j++)
+			$occupants.=',' . $request->get('age_' . $idch . '_' . $i . '_' . $j);
+		    $tab['chambre'] = $idch;
+		    $tab['occupants'] = $occupants;
+		    $tab['arrangement'] = $request->get('arrangement_' . $idch . '_' . $i);
+		    $tab['supp'] = array();
+		    $tab['vue'] = array();
+		    $tab['reduc'] = array();
+		    foreach ($saison->getAutresSupplements() as $supp)
+		    {
+			if ($this->container->get('Library')->verifSuppReducDate($supp->getSupp(), $dateDebut, $dateFin) && $supp->getSupp()->getObligatoire() || $request->get('supp_' . $idch . '_' . $i . '_' . $supp->getSupp()->getId()))
+			    $tab['supp'][] = $supp->getSupp()->getId();
+		    }
+
+		    foreach ($saison->getAutresReductions() as $reduc)
+		    {
+			if ($this->container->get('Library')->verifSuppReducDate($reduc->getReduc(), $dateDebut, $dateFin))
+			    $tab['reduc'][] = $reduc->getReduc()->getId();
+		    }
+		    foreach ($saison->getVues() as $vue)
+		    {
+			if ($request->get('vue_' . $idch . '_' . $i . '_' . $vue->getVue()->getId()))
+			    $tab['vue'][] = $vue->getVue()->getId();
+		    }
+		    $reservation['chambres'][] = $tab;
+		}
+	    }
+	}
+	$session->set('reservation', $reservation);
+	if ($Verif)
+	    return $this->redirect($this->generateUrl("front_hoteltunisie_tarif_dispo", array('slug' => $slug)));
+	else
+	{
+	    $session->getFlashBag()->add('info', "Vous devez choisir au moin une chambre");
+	    return $this->redirect($this->generateUrl("front_hoteltunisie_details", array('slug' => $slug)));
+	}
+    }
+
+    public function tarifDispoAction($slug)
+    {
+	$user = $this->get('security.context')->getToken()->getUser();
+	$em = $this->getDoctrine()->getManager();
+	$session = $this->getRequest()->getSession();
+	$request = $this->getRequest();
+	$reservation = $session->get('reservation');
+	$hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->find($reservation['hotel']);
+	$client = $em->getRepository("BackUserBundle:Client")->find($reservation['client']);
+	$form = $this->createFormBuilder()
+		->add("client", new ClientType(), array('data' => $client));
+	$ordre = 1;
+	$chambres = array();
+	foreach ($reservation['chambres'] as $value)
+	{
+	    $adulte = array();
+	    $enfant = array();
+	    $tab = explode(',', $value['occupants']);
+	    for ($i = 1; $i <= $tab[0]; $i++)
+	    {
+		$form->add("chambre" . $ordre . "adulte" . $i, 'text');
+		$adulte[] = "chambre" . $ordre . "adulte" . $i;
+	    }
+	    for ($i = 1; $i <= count($tab) - 1; $i++)
+	    {
+		$form->add("chambre" . $ordre . "Enfant" . $i, 'text');
+		$enfant[] = "chambre" . $ordre . "Enfant" . $i;
+	    }
+	    $ordre++;
+	    $chambres[] = array('chambre' => $value['chambre'], 'adultes' => $adulte, 'enfants' => $enfant);
+	}
+	foreach ($hotel->getOptions() as $option)
+	    $form->add('option_' . $option->getId(), 'checkbox', array('label' => $option->getLibelle(), 'required' => false));
+	$form->add('observation', 'textarea', array('required' => FALSE));
+	$form = $form->getForm();
+	$result = $this->container->get('reservation')->reservation($reservation);
+	if ($request->isMethod('post'))
+	{
+	    $form->submit($request);
+	    $data = $form->getData();
+	    $result = $this->container->get('reservation')->saveReservation($data, $result, 'frontoffice');
+	    $session->remove('reservation');
+	    return $this->redirect($this->generateUrl("front_hoteltunisie_thinkyou", array('slug' => $slug)));
+	}
+	$reservation = $session->get('reservation');
+	return $this->render('FrontGeneralBundle:hoteltunisie/reservation:tarif_dispo.html.twig', array(
+		    'form' => $form->createView(),
+		    'chambres' => $chambres,
+		    'hotel' => $hotel,
+		    'client' => $client,
+		    'nuitees' => $reservation['nuitees'],
+		    'dateDebut' => new \DateTime($reservation['dateDebut']),
+		    'dateFin' => new \DateTime($reservation['dateFin']),
+		    'resultat' => $result,
+	));
+    }
+
+    public function thinkyouAction($slug)
+    {
+	$em = $this->getDoctrine()->getManager();
+	$session = $this->getRequest()->getSession();
+	$hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->findOneBy(array('slug' => $slug));
+	return $this->render('FrontGeneralBundle:hoteltunisie/reservation:thinkyou.html.twig', array(
+		    'slug' => $slug
+	));
     }
 
 }

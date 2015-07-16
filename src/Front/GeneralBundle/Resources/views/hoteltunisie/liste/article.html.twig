@@ -63,7 +63,7 @@
 			    {% if saison.type is null %}
 				<span style="color: red">Sur Demande</span>
 			    {% else %}
-				{{ chambre.prixChambre }} DT
+				{{ chambre.prixChambre|number_format(0) }} DT
 			    {% endif %}
 			</td>
 		    </tr>
