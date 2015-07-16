@@ -310,7 +310,7 @@ class SaisonChambre
 	if ($this->chambre->getType() == 3)
 	    return number_format($this->saison->prixBaseVente()+$this->getSuppReducVente()/3, 3, '.', '');
 	if ($this->chambre->getType() == 4)
-	    return number_format($this->saison->prixBaseVente()+$this->getSuppReducVente()/4, 3, '.', '');
+	    return number_format($this->saison->prixBaseVente()+$this->getSuppReducVente()/4+$this->saison->getSaisonReduc()->getReduc3LitVente()/4, 3, '.', '');
 	return number_format($this->saison->prixBaseVente()+$this->getSuppReducVente(), 3, '.', '');
     }
 
