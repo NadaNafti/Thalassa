@@ -13,7 +13,7 @@
 			</select>
 		    </div>
 		    {% if saison.prixBaseVente+chambre.getSuppReducVente>0 %}
-			<div class="col-md-8" style="  padding-top: 30px;"> A partir de <strong> {{saison.prixBaseVente+chambre.getSuppReducVente}}</strong> DT par personne en <strong>{{ saison.arrBase }}</strong></div>
+			<div class="col-md-8" style="  padding-top: 30px;"> A partir de <strong> {{chambre.prixChambre}}</strong> DT par personne en <strong>{{ saison.arrBase }}</strong></div>
 		    {% endif %}
 		</div>
 		<div class="row details"></div>

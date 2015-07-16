@@ -63,14 +63,7 @@
 			    {% if saison.type is null %}
 				<span style="color: red">Sur Demande</span>
 			    {% else %}
-				{% if chambre.chambre.type==3 %}
-				    {% set suppreduc=chambre.suppReducVente/3 %}
-				{% elseif chambre.chambre.type==4 %}
-				    {% set suppreduc=chambre.suppReducVente/4 %}
-				{% else %}
-				    {% set suppreduc=chambre.suppReducVente %}
-				{% endif %}
-				{{ (saison.prixDeBase + suppreduc)|number_format(3,'.') }} DT
+				{{ chambre.prixChambre }} DT
 			    {% endif %}
 			</td>
 		    </tr>
