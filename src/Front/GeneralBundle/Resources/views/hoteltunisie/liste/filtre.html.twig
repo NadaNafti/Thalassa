@@ -1,7 +1,7 @@
 <div class="col-xs-12 col-sm-4 col-md-3">
     <div class="sidebar">
 	<div class="counting-result">
-	    <span class="">{{ hotels.getTotalItemCount }}</span> Hôtels trouvés
+	    <span class="counthotel">{{ hotels.getTotalItemCount }}</span> Hôtels trouvés
 	</div>
 	<div class="clear" style="height: 5px;"></div>
 	<form role="form" {#class="row"#} method="post" action="{{ path('front_hoteltunisie_filtre') }}">
@@ -41,7 +41,7 @@
 	    </div>
 	    <div class="clear" style="height: 5px;"></div>
 	    <div class="another-toggle">
-		<h5>Catégories</h5>
+		<h5 {% if app.request.get('categorie') != 'all' %}class="active"{% endif %} >Catégories</h5>
 		<div class="another-toggle-inner">
 		    <div class="clear mb-10"></div>
 		    <fieldset>
@@ -50,7 +50,8 @@
 			    <div class="styled-checkbox">
 				<label>
 				    <input type="checkbox" name="categorie_{{ categorie.id }}" {% if categorie.id in categoriesSplit %}checked{% endif %} value="{{ categorie.id }}">
-				    {{ categorie|title }}
+				    {% if categorie.nombreEtoiles >1 %}<span class="rating-static rating-{{ categorie.nombreEtoiles*10 }}"></span>{% endif %}
+				    <span class="counting">{{ categorie|title }}</span>
 				</label>
 			    </div>
 			{% endfor %}
@@ -66,7 +67,32 @@
 	    </div>
 	    <div class="clear" style="height: 5px;"></div>
 	    <div class="another-toggle">
-		<h5>Villes</h5>
+		<h5 {% if app.request.get('chaine') != 'all' %}class="active"{% endif %} >Chaines</h5>
+		<div class="another-toggle-inner">
+		    <div class="clear mb-10"></div>
+		    <fieldset>
+			{% set chainesSplit = app.request.get('chaine')|split(',') %}
+			{% for chaine in chaines %}
+			    <div class="styled-checkbox">
+				<label>
+				    <input type="checkbox" name="chaine_{{ chaine.id }}" {% if chaine.id in chainesSplit %}checked{% endif %} value="{{ chaine.id }}">
+				    {{ chaine|title }}
+				</label>
+			    </div>
+			{% endfor %}
+			<div class="clear"></div>
+			<div class="clear mb-20"></div>
+			<div class="col-xs-6 col-sm-6 col-md-6">
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6">
+			    <button type="submit" class="btn btn-primary">Recherche</button>
+			</div>
+		    </fieldset>
+		</div>
+	    </div>
+	    <div class="clear" style="height: 5px;"></div>
+	    <div class="another-toggle">
+		<h5 {% if app.request.get('ville') != 'all' %}class="active"{% endif %} >Villes</h5>
 		<div class="another-toggle-inner">
 		    <div class="clear mb-10"></div>
 		    <fieldset>
@@ -90,6 +116,5 @@
 		</div>
 	    </div>
 	</form>
-
     </div>
 </div>

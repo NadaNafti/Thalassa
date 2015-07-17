@@ -493,7 +493,7 @@ jQuery(function(jQuery) {
 	});
 	jQuery('.counthotel').countTo({
 		from: 1,
-		to: 453,
+		to: jQuery('.counthotel').html(),
 		speed: 2000,
 		refreshInterval: 50,
 		onComplete: function(value) {
