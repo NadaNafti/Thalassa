@@ -3,3 +3,13 @@ services:
         class: Back\UserBundle\Form\Type\RegistrationFormType
         tags:
             - { name: form.type, alias: back_user_registration }
+            
+    users:
+        class: Back\UserBundle\Services\UserService
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @session
+            - @service_container
+            - @mailer
+            - @templating
+            

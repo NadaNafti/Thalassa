@@ -25,6 +25,13 @@ class Client
     private $id;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="passager", type="boolean", nullable=true)
+     */
+    public $passager;
+
+    /**
      * @var string
      * @Assert\NotBlank()
      * @ORM\Column(name="nomPrenom", type="string", length=255)
@@ -448,6 +455,7 @@ class Client
      */
     public function __construct()
     {
+	$this->passager=FALSE;
         $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
