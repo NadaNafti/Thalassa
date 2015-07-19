@@ -173,7 +173,6 @@ class ReservationService
 	$hotel = $this->em->getRepository('BackHotelTunisieBundle:Hotel')->find($result['hotel']);
 	$tarifCommercial = $this->em->getRepository('BackCommercialBundle:Tarif')->find(1);
 	$client = $data['client'];
-	//$this->em->persist($client);
 	$coordoonnes = array($client->getNomPrenom(), $client->getTel1(), $client->getAdresse());
 	$reservation = new Reservation();
 	$options = array();
@@ -311,6 +310,7 @@ class ReservationService
 	if ($source == 'backoffice' && $this->sendMailHotel($reservation))
 	    $reservation->setHotelNotifier(true);
 	$this->em->flush();
+	$this->container->get('users')->refreshPassager();
 	return $reservation->getId();
     }
 
