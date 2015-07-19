@@ -39,8 +39,22 @@ class UserService
 		    ->setAdresse('No Address');
 	    $this->em->persist($passager);
 	    $this->em->flush();
-	    return $passager;
+	    return $passager->setNomPrenom(NULL)->setTel1(NULL)->setAdresse(NULL);
 	}
     }
-
+    
+    public function refreshPassager()
+    {
+	$passager = $this->em->getRepository('BackUserBundle:Client')->findOneBy(array('passager' => TRUE));
+	if ($passager)
+	{
+	    $passager->setPassager(TRUE)
+		    ->setNomPrenom('Passager')
+		    ->setTel1('No Tel')
+		    ->setAdresse('No Address');
+	    $this->em->persist($passager);
+	    $this->em->flush();
+	}
+    }
+    
 }
