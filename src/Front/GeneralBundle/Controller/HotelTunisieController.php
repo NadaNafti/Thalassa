@@ -161,12 +161,10 @@ class HotelTunisieController extends Controller
 	$session = $this->getRequest()->getSession();
 	$request = $this->getRequest();
 	$user = $this->get('security.context')->getToken()->getUser();
-	$client = $user->getClient();
-	if (is_null($client))
-	{
-	    $session->getFlashBag()->add('info', "Tu dois avoir un compte client");
-	    return $this->redirect($this->generateUrl("front_hoteltunisie_details", array('slug' => $slug)));
-	}
+	if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') && !is_null($user->getClient()))
+	    $client = $user->getClient();
+	else
+	    $client = $this->container->get('users')->getPassager();
 	$hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->findOneBy(array('slug' => $slug));
 	if (!$session->has('reservation'))
 	{
@@ -241,7 +239,10 @@ class HotelTunisieController extends Controller
 	$request = $this->getRequest();
 	$reservation = $session->get('reservation');
 	$hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->find($reservation['hotel']);
-	$client = $em->getRepository("BackUserBundle:Client")->find($reservation['client']);
+	if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') && !is_null($user->getClient()))
+	    $client = $user->getClient();
+	else
+	    $client = $this->container->get('users')->getPassager();
 	$form = $this->createFormBuilder()
 		->add("client", new ClientType(), array('data' => $client));
 	$ordre = 1;

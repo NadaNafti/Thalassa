@@ -59,6 +59,7 @@
                                                 {% endif %}
                                             </td>
                                         </tr>
+                                    {% endfor %}
                                         <tr>
                                             <td colspan="6"  style="text-align: right">
                                                 Total :
@@ -71,7 +72,6 @@
                                                 {% endif %}
                                             </td>
                                         </tr>
-                                    {% endfor %}
                                 </tbody>
                             </table>
                             <div class="panel-body">
@@ -91,7 +91,7 @@
                                 <div class="row">
                                     {{ formulaire.input("col-md-12","Adresse",form.client.adresse,true) }}
                                 </div>
-                                <div class="no-display">
+				<div style="display: none">
                                     {{ formulaire.input("col-md-4","Matricule Fiscale",form.client.matriculeFiscale,true) }}
                                     {{ formulaire.input("col-md-4","Registre Commercie",form.client.registreCommercie,true) }}
                                     {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,true) }}
