@@ -38,7 +38,7 @@ class UserService
 	    $this->em->persist($passager);
 	    $this->em->flush();
 	}
-	return $passager->setNomPrenom(NULL)->setTel1(NULL)->setAdresse(NULL);
+	return $passager->setNomPrenom(NULL)->setTel1(NULL)->setTel2(NULL)->setAdresse(NULL);
     }
 
     public function refreshPassager()
@@ -49,6 +49,7 @@ class UserService
 	    $passager->setPassager(TRUE)
 		    ->setNomPrenom('Passager')
 		    ->setTel1('No Tel')
+		    ->setTel2('No Tel')
 		    ->setAdresse('No Address');
 	    $this->em->persist($passager);
 	    $this->em->flush();
