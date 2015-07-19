@@ -28,9 +28,7 @@ class UserService
     public function getPassager()
     {
 	$passager = $this->em->getRepository('BackUserBundle:Client')->findOneBy(array('passager' => TRUE));
-	if ($passager)
-	    return $passager;
-	else
+	if (!$passager)
 	{
 	    $passager = new Client();
 	    $passager->setPassager(TRUE)
@@ -39,10 +37,10 @@ class UserService
 		    ->setAdresse('No Address');
 	    $this->em->persist($passager);
 	    $this->em->flush();
-	    return $passager->setNomPrenom(NULL)->setTel1(NULL)->setAdresse(NULL);
 	}
+	return $passager->setNomPrenom(NULL)->setTel1(NULL)->setAdresse(NULL);
     }
-    
+
     public function refreshPassager()
     {
 	$passager = $this->em->getRepository('BackUserBundle:Client')->findOneBy(array('passager' => TRUE));
@@ -56,5 +54,5 @@ class UserService
 	    $this->em->flush();
 	}
     }
-    
+
 }
