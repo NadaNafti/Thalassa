@@ -80,7 +80,10 @@
             {% endif %}
             <p><strong>Nom : </strong> {{ reservation.coordonnees.0 }}</p>
             <p><strong>Tel : </strong> {{ reservation.coordonnees.1 }}</p>
-            <p><strong>Adresse : </strong> {{ reservation.coordonnees.2 }}</p>
+            <p><strong>Tel : </strong> {{ reservation.coordonnees.2 }}</p>
+	    {% if reservation.coordonnees.3 is defined %}
+		<p><strong>Adresse : </strong> {{ reservation.coordonnees.3 }}</p>
+	    {% endif %}
             <h4 class="center">Les résidents</h4>
             {% for chambre in reservation.chambres %}
                 <hr>

@@ -491,4 +491,13 @@ class ReservationController extends Controller
 	));
     }
 
+    public function notificationAction()
+    {
+	$em = $this->getDoctrine()->getManager();
+	$reservations = $em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice(1, 'all', "r.id", "desc");
+	return $this->render('BackHotelTunisieBundle:Reservation:notification.html.twig', array(
+		    'reservations' => $reservations
+	));
+    }
+
 }

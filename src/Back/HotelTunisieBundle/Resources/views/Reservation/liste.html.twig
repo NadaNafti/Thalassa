@@ -103,6 +103,9 @@
                                     </td>
                                     <td>
                                         {{ reservation.coordonnees.0|title }}<br>
+					{% if reservation.client.passager %}
+					    <span style="color:firebrick">Passager</span>
+					{% endif %}
                                         <span style="color:red">{{ reservation.client.amicale }}</span>
                                     </td>
                                     <td>
