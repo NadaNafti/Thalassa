@@ -25,6 +25,11 @@
 		<a href="{{ path('fos_user_security_logout') }}" class="login-modal" style="border-right: none">
 		    <i class="fa-sign-in mi"></i>Se déconnecter
 		</a>
+		{% if is_granted('ROLE_ADMIN') %}
+		    <a href="{{ path('tableaubord') }}" target="_blank" class="login-modal" style="border-right: none">
+			<i class="fa-lock mi"></i>Back Office
+		    </a>
+		{% endif %}
 		<p class="login-modal" style="  cursor: inherit;">
 		    <strong>Bienvenue</strong> {{ app.user }}
 		</p>
