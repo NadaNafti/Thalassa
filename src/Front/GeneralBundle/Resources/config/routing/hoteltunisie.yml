@@ -30,6 +30,6 @@ front_hoteltunisie_tarif_dispo:
     path:     /{slug}/tarif_dispo
     defaults: { _controller: FrontGeneralBundle:HotelTunisie:tarifDispo }
     
-front_hoteltunisie_thinkyou:
-    path:     /{slug}/thinkyou
-    defaults: { _controller: FrontGeneralBundle:HotelTunisie:thinkyou }
+front_hoteltunisie_thankyou:
+    path:     /{slug}/success/{id}
+    defaults: { _controller: FrontGeneralBundle:HotelTunisie:thankyou }

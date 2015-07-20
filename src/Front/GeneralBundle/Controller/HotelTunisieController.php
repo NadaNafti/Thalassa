@@ -4,6 +4,7 @@ namespace Front\GeneralBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Back\UserBundle\Form\ClientType;
+use Back\HotelTunisieBundle\Entity\Reservation;
 
 class HotelTunisieController extends Controller
 {
@@ -276,7 +277,10 @@ class HotelTunisieController extends Controller
 	    $data = $form->getData();
 	    $result = $this->container->get('reservation')->saveReservation($data, $result, 'frontoffice');
 	    $session->remove('reservation');
-	    return $this->redirect($this->generateUrl("front_hoteltunisie_thinkyou", array('slug' => $slug)));
+	    return $this->redirect($this->generateUrl("front_hoteltunisie_thankyou", array(
+				'slug' => $slug,
+				'id' => $result
+	    )));
 	}
 	$reservation = $session->get('reservation');
 	return $this->render('FrontGeneralBundle:hoteltunisie/reservation:tarif_dispo.html.twig', array(
@@ -291,13 +295,13 @@ class HotelTunisieController extends Controller
 	));
     }
 
-    public function thinkyouAction($slug)
+    public function thankyouAction($slug, Reservation $reservation)
     {
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
 	$hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->findOneBy(array('slug' => $slug));
-	return $this->render('FrontGeneralBundle:hoteltunisie/reservation:thinkyou.html.twig', array(
-		    'slug' => $slug
+	return $this->render('FrontGeneralBundle:hoteltunisie/reservation:thankyou.html.twig', array(
+		    'reservation' => $reservation,
 	));
     }
 
