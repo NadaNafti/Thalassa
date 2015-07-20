@@ -1,0 +1,31 @@
+<li class="dropdown">
+    <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
+	<i class="clip-star"></i>
+	<span class="badge"> {{ reservations|length }}</span>
+    </a>
+    <ul class="dropdown-menu notifications">
+	<li>
+	    <span class="dropdown-menu-title">Vous avez {{ reservations|length }} réservation(s)</span>
+	</li>
+	<li>
+	    <div class="drop-down-wrapper">
+		<ul>
+		    {% for reservation in reservations %}
+			<li>
+			    <a href="{{ path('consulter_reservation',{'id':reservation.id}) }}">
+				<span class="label label-primary"><i class="fa fa-star"></i></span>
+				<span class="message">{{ reservation.coordonnees.0 }}</span>
+				<span class="time">{{ reservation.created|date('d/m/Y H:i') }}</span>
+			    </a>
+			</li>
+		    {% endfor %}
+		</ul>
+	    </div>
+	</li>
+	<li class="view-all">
+	    <a href="{{ path('liste_reservations') }}">
+		Voir toutes les réservations <i class="fa fa-arrow-circle-o-right"></i>
+	    </a>
+	</li>
+    </ul>
+</li>

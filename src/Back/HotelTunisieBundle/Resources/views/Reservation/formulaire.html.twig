@@ -77,13 +77,7 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-6" style="padding-top: 28px;">
-                                                                {% if chambre.chambre.type in [0,1,2] %}
-                                                                    <strong> {{saison.prixBaseVente+chambre.getSuppReducVente}} DT</strong> par personne en <strong>{{ saison.arrBase }}</strong>
-                                                                {% elseif chambre.chambre.type == 3%}
-                                                                    <strong> {{saison.prixBaseVente }} DT</strong> par personne et réduction 3<sup>eme</sup> Lit <strong> {{chambre.getSuppReducVente}} DT</strong> en <strong>{{ saison.arrBase }}</strong>
-                                                                {% elseif chambre.chambre.type == 4%}
-                                                                    <strong> {{saison.prixBaseVente }} DT</strong> par personne et réduction 4<sup>eme</sup> Lit <strong> {{chambre.getSuppReducVente}} DT</strong> en <strong>{{ saison.arrBase }}</strong>
-                                                                {% endif %}
+								 A partir de <strong> {{chambre.prixChambre|number_format(0)}}</strong> DT par personne en <strong>{{ saison.arrBase }}</strong>
                                                             </div>
                                                         </div>
                                                         <div class="row details"></div>
