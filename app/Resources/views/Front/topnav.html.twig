@@ -26,7 +26,7 @@
 		    <i class="fa-sign-in mi"></i>Se déconnecter
 		</a>
 		{% if is_granted('ROLE_ADMIN') %}
-		    <a href="{{ path('tableaubord') }}" target="_blank" class="login-modal" style="border-right: none">
+		    <a href="{{ path('tableaubord') }}" target="_blank" class="login-modal">
 			<i class="fa-lock mi"></i>Back Office
 		    </a>
 		{% endif %}
