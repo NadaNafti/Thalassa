@@ -226,7 +226,7 @@ class ReservationController extends Controller
     {
 	$em = $this->getDoctrine()->getManager();
 	$reservations = $em->getRepository('BackVoyageOrganiseBundle:Reservation')->filtre(1);
-	return $this->render('BackVoyageOrganiseBundle:Reservation:notification.html.twig', array(
+	return $this->render('BackVoyageOrganiseBundle:reservation:notification.html.twig', array(
 		    'reservations' => $reservations
 	));
     }
