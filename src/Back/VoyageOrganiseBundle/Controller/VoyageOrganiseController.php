@@ -17,7 +17,7 @@ class VoyageOrganiseController extends Controller
     public function listeAction($page)
     {
 	$em = $this->getDoctrine()->getManager();
-	$voyageOrgainses = $em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->findAll();
+	$voyageOrgainses = $em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->filtre();
 	$paginator = $this->get('knp_paginator');
 	$voyageOrgainses = $paginator->paginate($voyageOrgainses, $page, 20);
 	return $this->render('BackVoyageOrganiseBundle:voyageOrganise:liste.html.twig', array(

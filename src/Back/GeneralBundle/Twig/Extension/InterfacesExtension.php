@@ -34,18 +34,27 @@ class InterfacesExtension extends \Twig_Extension
     {
 	$start_date = $date;
 	$since_start = $start_date->diff(new \DateTime());
+	if ($since_start->y == 1)
+	    return $since_start->y . ' Année';
 	if ($since_start->y != 0)
 	    return $since_start->y . ' Années';
+	if ($since_start->m == 1)
+	    return $since_start->m . ' Moi';
 	if ($since_start->m != 0)
 	    return $since_start->m . ' Mois';
+	if ($since_start->d == 1)
+	    return $since_start->d . ' Jour';
 	if ($since_start->d != 0)
 	    return $since_start->d . ' Jours';
+	if ($since_start->h == 1)
+	    return $since_start->h . ' Heure';
 	if ($since_start->h != 0)
 	    return $since_start->h . ' Heures';
+	if ($since_start->i == 1)
+	    return $since_start->i . ' Minute';
 	if ($since_start->i != 0)
 	    return $since_start->i . ' Minutes';
-	if ($since_start->s != 0)
-	    return $since_start->s . ' Secondes';
+	return $since_start->s . ' Secondes';
     }
 
     public function getName()
