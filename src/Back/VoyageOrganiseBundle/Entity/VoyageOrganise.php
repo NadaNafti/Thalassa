@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="ost_vo_voyages")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Back\VoyageOrganiseBundle\Entity\VoyageOrganiseRepository")
  */
 class VoyageOrganise
 {
