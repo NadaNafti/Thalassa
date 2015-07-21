@@ -1,0 +1,9 @@
+front_voyageorganise_accueil:
+    path:     /
+    defaults: { _controller: FrontGeneralBundle:VoyageOrganise:accueil }
+    
+front_voyageorganise_liste:
+    path:     /liste/{page}
+    defaults: { _controller: FrontGeneralBundle:VoyageOrganise:liste,page:1 }
+    requirements:
+        page:  \d+

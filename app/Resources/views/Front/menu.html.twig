@@ -24,15 +24,15 @@
                 </li>
             </ul>
         </li>
-        <li>
+        <li {% if app.request.getPathInfo|split('/VoyageOrganise')|length > 1 %}class="current"{% endif %}>
             <a href="#">Voyages à l'étranger</a>
             <ul class="col4 mega">
                 <li class="col2">
                     <ol>
                         <li class="title">Voyages organisés</li>
-                        <li><a href="index-voyages-organises.php">Olé Sélection</a></li>
-                        <li><a href="list-voyages-organises.php">Top destinations</a></li>
-                        <li><a href="#">Les plus recommandés</a></li>
+                        <li><a href="{{ path('front_voyageorganise_accueil') }}">Olé Sélection</a></li>
+                        <li><a href="{{ path('front_voyageorganise_accueil') }}">Top destinations</a></li>
+                        <li><a href="{{ path('front_voyageorganise_accueil') }}">Les plus recommandés</a></li>
                     </ol>
                 </li>
                 <li class="col2">

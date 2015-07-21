@@ -1,0 +1,441 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Voyage Organisé{% endblock %}
+{% block body %}
+    <div id="page_title">
+	<div class="container clearfix">
+	    <div class="page-name">{{ block('title') }}</div>
+	    <div class="breadcrumb clearfix">
+		<a href="{{ path('accueil') }}">Accueil</a>
+		<span class="current-page">{{ block('title') }}</span>
+	    </div>
+	</div>
+    </div>
+    <div id="slider_wrapper">
+	<div class="owl-slider-wrapper center-capture">
+	    <div id="owl-slider" class="owl-carousel owl-theme">
+
+		<div class="item">
+		    <img class="lazyOwl" data-src="{{ asset('front-assets/images/sliders/owlSlider-01.jpg') }}" alt="Image">
+		    <div class="owl-capture">
+			<p class="owl-price">Starting From $190 only</p>
+			<h2><a href="#" class="right-capture">Exotic Paradise Relax</a></h2>
+			<p>Phuket, Thailand</p>
+		    </div>
+		</div>
+		<div class="item">
+		    <img class="lazyOwl" data-src="{{ asset('front-assets/images/sliders/owlSlider-02.jpg') }}" alt="Image">
+		    <div class="owl-capture">
+			<p class="owl-price">Starting From $250 only</p>
+			<h2><a href="#" class="right-capture">Explore Romantic City</a></h2>
+			<p>Venice, Italy</p>
+		    </div>
+		</div>
+		<div class="item">
+		    <img class="lazyOwl" data-src="{{ asset('front-assets/images/sliders/owlSlider-03.jpg') }}" alt="Image">
+		    <div class="owl-capture">
+			<p class="owl-price">Starting From $370 only</p>
+			<h2><a href="#" class="right-capture">Enjoy Your Modern Life</a></h2>
+			<p>Paris, France</p>
+		    </div>
+		</div>
+		<div class="item">
+		    <img class="lazyOwl" data-src="{{ asset('front-assets/images/sliders/owlSlider-04.jpg') }}" alt="Image">
+		    <div class="owl-capture">
+			<p class="owl-price">Starting From $400 only</p>
+			<h2><a href="#" class="right-capture">Your Honeymoon Day</a></h2>
+			<p>Santorini, Greece</p>
+		    </div>
+		</div>
+	    </div>
+	    <div class="owlSliderNavigation">
+		<a class="owlSlider-prev"><i class="arrow_carrot-left_alt2"></i></a>
+		<a class="owlSlider-next"><i class="arrow_carrot-right_alt2"></i></a>
+	    </div>
+	</div>
+    </div>
+    <div id="content_wrapper">
+	<div class="container">
+
+	    <div class="travel-search">
+		<div class="travel-search-inner">
+		    <ul class="tabs searchTab">
+			<li><a href="#hotelsSearch"><span class="car mi"></span>Voyages organisés</a></li>
+		    </ul><!-- tabs -->
+
+		    <ul class="tabs-content">
+			<li id="hotelsSearch" class="active">
+			    <form role="form" class="row" method="post" action="{{ path('front_voyageorganise_liste') }}">
+				<div class="col-xs-12 col-sm-3 col-md-2">
+				    <div class="form-group">
+					<label for="hotelLocation">Ville de destination</label>
+					<select class="form-control mySelectBoxClass" id="VilleDestination">
+					    <option>0</option>
+					    <option selected>1</option>
+					    <option>2</option>
+					    <option>3</option>
+					    <option>4</option>
+					    <option>5</option>
+					</select>
+				    </div>
+				</div>
+				<div class="col-xs-12 col-sm-3 col-md-2">
+				    <div class="form-group">
+					<label for="hotelLocation">Catégorie</label>
+					<select class="form-control mySelectBoxClass" id="Categorie">
+					    <option>0</option>
+					    <option selected>1</option>
+					    <option>2</option>
+					    <option>3</option>
+					    <option>4</option>
+					    <option>5</option>
+					</select>
+				    </div>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-2">
+				    <div class="form-group datepicker-wrapper">
+					<label for="hotel-check-in">Date d'entrée</label>
+					<input type="text" class="form-control date" id="hotel-check-in" placeholder="dd/dm/yy">
+					<i class="fa fa-calendar"></i>
+				    </div>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-2">
+				    <div class="form-group datepicker-wrapper">
+					<label for="hotel-check-out">Nbr Nuitées</label>
+					<input type="text" class="form-control" id="NbrNuitee">
+				    </div>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-2">
+				    <div class="form-group datepicker-wrapper">
+					<label for="hotel-check-out">Mot clès</label>
+					<input type="text" class="form-control" id="MotCles">
+				    </div>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-2">
+				    <div class="clear"></div>
+				    <button type="submit" class="btn btn-primary btn-block">Search</button>
+				</div>
+			    </form>
+			</li>
+		    </ul>
+		</div>
+	    </div>
+
+	    <div class="clear"></div>
+	    <div class="row clearfix pv-30 mt-20">
+		<div class="col-xs-12 col-sm-12 col-md-12 mt-30">
+		    <h3 class="section-title mv-30">Top Destinations voyages organisés</h3>
+		</div>
+
+		<div class="produc-item">
+		    <div class="col-xs-12 col-sm-6 col-md-3">
+			<div class="list-item">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="link-image" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-05.jpg') }}" alt="Image" />
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon"><i class="icon_link"></i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div><!-- end list-item -->
+			    <div class="list-item-label">
+				<h4 class="list-item-title"><a href="page-details.html">Bora Bora, French Polynesia</a></h4>
+				<div class="list-item-price">
+				    <a href="#"><i class="fa-arrow-right"></i></a>
+				</div>
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-6 col-md-3">
+			<div class="list-item">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="link-image" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-06.jpg') }}" alt="Image" />
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon"><i class="icon_link"></i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div><!-- end list-item -->
+			    <div class="list-item-label">
+				<h4 class="list-item-title"><a href="page-details.html">Hong Kong, China</a></h4>
+				<div class="list-item-price">
+				    <a href="#"><i class="fa-arrow-right"></i></a>
+				</div>
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-6 col-md-3">
+			<div class="list-item">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="link-image" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-07.jpg') }}" alt="Image" />
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon"><i class="icon_link"></i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div><!-- end list-item -->
+			    <div class="list-item-label">
+				<h4 class="list-item-title"><a href="page-details.html">Mykonos, Greece</a></h4>
+				<div class="list-item-price">
+				    <a href="#"><i class="fa-arrow-right"></i></a>
+				</div>
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-6 col-md-3">
+			<div class="list-item">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="link-image" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-08.jpg') }}" alt="Image" />
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon"><i class="icon_link"></i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div><!-- end list-item -->
+			    <div class="list-item-label">
+				<h4 class="list-item-title"><a href="page-details.html">San Francisco, USA</a></h4>
+				<div class="list-item-price">
+				    <a href="#"><i class="fa-arrow-right"></i></a>
+				</div>
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-6 col-md-3">
+			<div class="list-item">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="link-image" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-01.jpg') }}" alt="Image" />
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon"><i class="icon_link"></i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div><!-- end list-item -->
+			    <div class="list-item-label">
+				<h4 class="list-item-title"><a href="page-details.html">Dubai, UAE</a></h4>
+				<div class="list-item-price">
+				    <a href="#"><i class="fa-arrow-right"></i></a>
+				</div>
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-6 col-md-3">
+			<div class="list-item">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="link-image" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-02.jpg') }}" alt="Image" />
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon"><i class="icon_link"></i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div><!-- end list-item -->
+			    <div class="list-item-label">
+				<h4 class="list-item-title"><a href="page-details.html">Varenna, Italy</a></h4>
+				<div class="list-item-price">
+				    <a href="#"><i class="fa-arrow-right"></i></a>
+				</div>
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-6 col-md-3">
+			<div class="list-item">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="link-image" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-03.jpg') }}" alt="Image" />
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon"><i class="icon_link"></i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div><!-- end list-item -->
+			    <div class="list-item-label">
+				<h4 class="list-item-title"><a href="page-details.html">Santorini, Greece</a></h4>
+				<div class="list-item-price">
+				    <a href="#"><i class="fa-arrow-right"></i></a>
+				</div>
+			    </div>
+			</div>
+		    </div>
+		    <div class="col-xs-12 col-sm-6 col-md-3">
+			<div class="list-item">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="link-image" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-04.jpg') }}" alt="Image" />
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon"><i class="icon_link"></i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div><!-- end list-item -->
+			    <div class="list-item-label">
+				<h4 class="list-item-title"><a href="page-details.html">New York, USa</a></h4>
+				<div class="list-item-price">
+				    <a href="#"><i class="fa-arrow-right"></i></a>
+				</div>
+			    </div>
+			</div>
+		    </div>
+		</div>
+
+
+	    </div>
+	    <div class="gr-style"></div>
+	</div>
+	<footer>
+	    <div class="primary-footer">
+		<div class="container">
+		    <div class="row pt-50 pb-30">
+			<div class="col-xs-12 col-sm-3 col-md-3 rs-mb" style="padding: 0px 5px 5px 5px;">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-05.jpg') }}" alt="Image">
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon" style="border: none;"><i>Thème 1</i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div>
+			</div>
+			<div class="col-xs-12 col-sm-3 col-md-3 xs-mb" style="padding: 0px 5px 5px 5px;">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-06.jpg') }}" alt="Image">
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon" style="border: none;"><i>Thème 2</i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 xs-mb" style="padding: 0px 5px 5px 5px;">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="" href="page-details.html">
+					<img src="http://www.jettours.com/fileadmin/image/idea-box/450x220_noces.jpg" style="width: 100%;height: 209px;">
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon" style="border: none;"><i>Thème 3</i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div>
+			</div>
+			<div class="col-xs-12 col-sm-3 col-md-3 rs-mb" style="padding: 5px 5px 5px 5px;">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-07.jpg') }}" alt="Image">
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon" style="border: none;"><i>Thème 4</i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 xs-mb" style="padding: 5px 5px 5px 5px;">
+			    <img src="{{ asset('front-assets/images/blockidees/idees_voyages.jpg') }}" style="width: 100%;height: 209px;">
+			</div>
+			<div class="col-xs-12 col-sm-3 col-md-3 xs-mb" style="padding: 5px 5px 5px 5px;">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-04.jpg') }}" alt="Image">
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon" style="border: none;"><i>Thème 5</i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 xs-mb" style="padding: 5px 5px 5px 5px;">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="" href="page-details.html">
+					<img src="http://www.jettours.com/fileadmin/image/idea-box/450x220_sport.jpg" style="width: 100%;height: 209px;">
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon" style="border: none;"><i>Thème 6</i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div>
+			</div>
+			<div class="col-xs-12 col-sm-3 col-md-3 rs-mb" style="padding: 5px 5px 5px 5px;">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-03.jpg') }}" alt="Image">
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon" style="border: none;"><i>Thème 7</i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div>
+			</div>
+			<div class="col-xs-12 col-sm-3 col-md-3 xs-mb" style="padding: 5px 5px 5px 5px;">
+			    <div class="list-item-image">
+				<div class="image-inner">
+				    <a class="" href="page-details.html">
+					<img src="{{ asset('front-assets/images/list-items/top-destination-02.jpg') }}" alt="Image">
+					<div class="image-overlay">
+					    <div class="overlay-content">
+						<div class="overlay-icon" style="border: none;"><i>Thème 8</i></div>
+					    </div><!--/ .extra-content-->	
+					</div><!--/ .image-extra-->
+				    </a>	
+				</div>
+			    </div>
+			</div>
+
+
+		    </div>
+
+		</div>
+	    </div>
+	</footer>
+
+    </div><!-- end content_wrapper -->
+
+{% endblock %}

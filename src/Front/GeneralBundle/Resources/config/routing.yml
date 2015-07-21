@@ -5,3 +5,7 @@ accueil:
 front_hoteltunisie:
     resource: "@FrontGeneralBundle/Resources/config/routing/hoteltunisie.yml"
     prefix:   /HotelTunisie
+
+front_voyageorganise:
+    resource: "@FrontGeneralBundle/Resources/config/routing/voyageorganise.yml"
+    prefix:   /VoyageOrganise
