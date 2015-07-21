@@ -27,5 +27,5 @@ back_voyages_organises_reservation_priseencharge:
     defaults: { _controller: BackVoyageOrganiseBundle:Reservation:priseEnCharge }
 
 back_voyages_organises_reservation:
-    path:     /liste/{page}
-    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:liste,page:1 }
+    path:     /liste/{page}/{etat}/{sort}/{direction}
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:liste,page:1,etat:1,sort:r.id,direction:desc }

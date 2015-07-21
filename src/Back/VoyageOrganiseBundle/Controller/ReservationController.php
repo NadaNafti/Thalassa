@@ -11,6 +11,7 @@ use Back\VoyageOrganiseBundle\Form\ReservationLigneType;
 use Back\CommercialBundle\Entity\Piece;
 use Back\CommercialBundle\Form\PieceType;
 use Back\CommercialBundle\Entity\Reglement;
+use Back\VoyageOrganiseBundle\Entity\ReservationRepository;
 
 class ReservationController extends Controller
 {
@@ -27,15 +28,13 @@ class ReservationController extends Controller
 	{
 	    $form->submit($request);
 	    $reservation = $form->getData();
-	    $reservation->setResponsable($user)
-		    ->setFrontOffice(false)
-		    ->setCoordonnees(array($reservation->getClient()->getNomPrenom(), $reservation->getClient()->getTel1(), $reservation->getClient()->getAdresse()));
-	    $em->persist($reservation);
 	    if (count($reservation->getAdultes()) == 0 && count($reservation->getEnfants()) == 0)
 	    {
 		$session->getFlashBag()->add('warning', "Vous devez  choisir au moin un adulte ");
 		return $this->redirect($this->generateUrl('back_voyages_organises_reservation_ajouter'));
 	    }
+	    $reservation->setResponsable($user)->setCoordonnees(array($reservation->getClient()->getNomPrenom(), $reservation->getClient()->getTel1(), $reservation->getClient()->getTel2(), $reservation->getClient()->getAdresse()));
+	    $em->persist($reservation);
 	    foreach ($reservation->getAdultes() as $adulte)
 		$em->persist($adulte->setReservationA($reservation)->setAge(null));
 	    foreach ($reservation->getEnfants() as $enfant)
@@ -49,12 +48,13 @@ class ReservationController extends Controller
 	));
     }
 
-    public function listeAction($page)
+    public function listeAction($page, $etat, $sort, $direction)
     {
 	$em = $this->getDoctrine()->getManager();
-	$session = $this->getRequest()->getSession();
-	$user = $this->get('security.context')->getToken()->getUser();
-	$reservations = $em->getRepository('BackVoyageOrganiseBundle:Reservation')->findAll();
+	$request=$this->getRequest();
+	if($request->isMethod("POST"))
+	    return $this->redirect($this->generateUrl('back_voyages_organises_reservation',array('etat'=>$request->get('etatFiltre'))));
+	$reservations = $em->getRepository('BackVoyageOrganiseBundle:Reservation')->filtre($etat, $sort, $direction);
 	$paginator = $this->get('knp_paginator');
 	$reservations = $paginator->paginate($reservations, $page, 20);
 	return $this->render('BackVoyageOrganiseBundle:reservation:liste.html.twig', array(
@@ -219,6 +219,15 @@ class ReservationController extends Controller
 		    'reservation' => $reservation,
 		    'form' => $form->createView(),
 		    'pieces' => $pieces,
+	));
+    }
+    
+    public function notificationAction()
+    {
+	$em = $this->getDoctrine()->getManager();
+	$reservations = $em->getRepository('BackVoyageOrganiseBundle:Reservation')->filtre(1);
+	return $this->render('BackVoyageOrganiseBundle:Reservation:notification.html.twig', array(
+		    'reservations' => $reservations
 	));
     }
 
