@@ -1,6 +1,6 @@
 <li class="dropdown">
-    <a title="Réservation Hôtel en tunisie"  data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:void(0)">
-	<i class="clip-star"></i>
+    <a title="Réservation Voyage Organisé"  data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:void(0)">
+	<i class="clip-tree-2"></i>
 	<span class="badge"> {{ reservations|length }}</span>
     </a>
     <ul class="dropdown-menu notifications">
@@ -12,7 +12,7 @@
 		<ul>
 		    {% for reservation in reservations %}
 			<li>
-			    <a href="{{ path('consulter_reservation',{'id':reservation.id}) }}">
+			    <a href="{{ path('back_voyages_organises_reservation_consulter',{'id':reservation.id}) }}">
 				<span class="label label-primary"><i class="fa fa-star"></i></span>
 				<span class="message">{{ reservation.coordonnees.0 }}</span>
 				<span class="time">{{ differenceBetweenDates(reservation.created) }}</span>
@@ -23,7 +23,7 @@
 	    </div>
 	</li>
 	<li class="view-all">
-	    <a href="{{ path('liste_reservations') }}">
+	    <a href="{{ path('back_voyages_organises_reservation') }}">
 		Voir toutes les réservations <i class="fa fa-arrow-circle-o-right"></i>
 	    </a>
 	</li>

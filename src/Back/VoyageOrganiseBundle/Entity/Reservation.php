@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Reservation
  *
  * @ORM\Table(name="ost_vo_reservations")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Back\VoyageOrganiseBundle\Entity\ReservationRepository")
  */
 class Reservation
 {
@@ -124,6 +124,7 @@ class Reservation
      */
     public function __construct()
     {
+	$this->frontOffice=false;
 	$this->etat = 1;
 	$this->coordonnees = array();
 	$this->adultes = new \Doctrine\Common\Collections\ArrayCollection();
