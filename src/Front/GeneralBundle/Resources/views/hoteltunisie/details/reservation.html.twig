@@ -33,6 +33,8 @@
 		    </div>
 		    {% if chambre.prixChambre>0 %}
 			<div class="col-md-8" style="  padding-top: 30px;"> A partir de <strong> {{chambre.prixChambre|number_format(0)}}</strong> DT par personne en <strong>{{ saison.arrBase }}</strong></div>
+		    {% else %}
+			<div class="col-md-8" style="  padding-top: 30px;">Prix sur demande</div>
 		    {% endif %}
 		</div>
 		<div class="row details"></div>

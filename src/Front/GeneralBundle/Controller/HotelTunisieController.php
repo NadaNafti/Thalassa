@@ -238,6 +238,8 @@ class HotelTunisieController extends Controller
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
 	$request = $this->getRequest();
+	$request->getSession()->set('_security.target_path', $request->getUri());
+	dump($request->getUri());
 	$reservation = $session->get('reservation');
 	$hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->find($reservation['hotel']);
 	if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') && !is_null($user->getClient()))
@@ -292,6 +294,7 @@ class HotelTunisieController extends Controller
 		    'dateDebut' => new \DateTime($reservation['dateDebut']),
 		    'dateFin' => new \DateTime($reservation['dateFin']),
 		    'resultat' => $result,
+		    'csrf_token'=>$this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
 	));
     }
 

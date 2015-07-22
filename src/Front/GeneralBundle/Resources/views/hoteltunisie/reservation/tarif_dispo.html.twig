@@ -81,7 +81,7 @@
 				{{ formulaire.input("col-md-2","",form.client.responsable,false) }}
 			    </div>
 			    <div class="row">
-				{{ formulaire.input("col-md-4","Nom ",form.client.nomPrenom,true) }}
+				{{ formulaire.input("col-md-4","Nom & prénom ",form.client.nomPrenom,true) }}
 				{{ formulaire.input("col-md-4","Tel 1",form.client.tel1,true) }}
 				{{ formulaire.input("col-md-4","Tel 2",form.client.tel2,true) }}
 			    </div>
@@ -122,24 +122,65 @@
 				    En choisissant de compléter cette réservation Je reconnais que je l'ai lu et accepté les  <a href="#" class="clblue">règles & restrictions</a> <a href="#" class="clblue">termes et conditions</a> , and <a href="#" class="clblue">politique de confidentialité</a>.
 				</label>
 			    </div>
-			    {{ formulaire.submit("Valider la réservation") }}
+			    <hr>
+			    <div class="row">
+				<div class="col-md-8"></div>
+				<div class="col-md-4">
+				    <button class="btn btn-primary btn-block" type="submit">
+					Validation <i class="fa fa-arrow-circle-right"></i>
+				    </button>
+				</div>
+			    </div>
 			    {{ form_end(form) }}
 			</div>
 		    </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4" >
 		    <div class="sidebar hotel-sidebar">
+			{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+			    <div class="sidebar-item mb-20">
+				<div class="lp-box">
+				    <i class="text-info fa-lock"></i>
+				    <h4>Authentification</h4>
+				    <form action="{{ path("fos_user_security_check") }}" method="post">
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+					<input type="hidden" name="_target_path" value="{{ app.request.uri() }}" />
+					<div class="row">
+					    <div class="col-md-10">
+						<div class="form-group">
+						    <label for="first-name">Identifiant ou Email</label>
+						    <input type="text" id="username" name="_username"  required="required" class="form-control" />
+						</div>
+					    </div>
+					</div>
+					<div class="row">
+					    <div class="col-md-10">
+						<div class="form-group">
+						    <label for="first-name">Mots de passe</label>
+						    <input type="password" id="password" name="_password"  required="required" class="form-control" />
+						</div>
+					    </div>
+					</div>
+					<div class="row">
+					    <button type="submit" class="btn btn-primary" id="_submit" name="_submit"  style="float: right;">S'authentifier</button>
+					</div>
+				    </form>
+				</div>
+			    </div>
+			{% endif %}
 			<div class="sidebar-item mb-20">
 			    <div class="summary-payment">
 				<div class="summary-header mb-30">
 				    {% if hotel.photoPrincipal is not null %}
 					<img src="{{ asset(hotel.photoPrincipal.assetPath) }}" alt="" style="width: 75px;height: 65px" />
 				    {% else %}
-					<img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=75&h=65" alt="" style="width: 75px;height: 65px" />
+					<img src="https://placeholdit.imgix.net/~text?txtsize=10&txt=No%20image%20available&w=75&h=65" alt="" style="width: 75px;height: 65px" />
 				    {% endif %}
-				    <h3 class="no-mb">{{ hotel|title }}  {{ getStars(hotel.getStars)|raw }}</h3>
+				    <h3 class="no-mb">{{ hotel|title }}</h3>
 				    <span>{{ hotel.ville }}</span>
-				    {#				    <span class="rating-static rating-45"></span>#}
+				    {% if hotel.categorie.nombreEtoiles != 1 %}
+					<span class="rating-static rating-{{ hotel.categorie.nombreEtoiles*10 }}"></span>
+				    {% endif %}
 				</div>
 				<div class="bb2 mb-30"></div>
 				<table class="table table-bordered table-striped mb-30">
