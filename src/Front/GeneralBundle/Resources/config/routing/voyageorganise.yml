@@ -7,3 +7,8 @@ front_voyageorganise_liste:
     defaults: { _controller: FrontGeneralBundle:VoyageOrganise:liste,page:1 }
     requirements:
         page:  \d+
+        
+front_voyageorganise_details:
+    path:     /{slug}
+    defaults: { _controller: FrontGeneralBundle:VoyageOrganise:details }
+    

@@ -1,0 +1,27 @@
+<div class="col-xs-12 col-sm-6 col-md-4">
+    <div class="list-item">
+	<div class="list-item-image">
+	    <div class="image-inner">
+		<a class="link-image" href="{{ path('front_voyageorganise_details',{'slug':voyage.slug}) }}">
+		    {% if voyage.photoPrincipal is not null %}
+			<img src="{{ asset(voyage.photoPrincipal.assetPath) }}" alt="" style="width: 270px;height: 195px" />
+		    {% else %}
+			<img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=270&h=195" alt="" />
+		    {% endif %}
+		    <div class="image-overlay">
+			<div class="overlay-content">
+			    <div class="overlay-icon"><i class="icon_link"></i></div>
+			</div>
+		    </div>
+		</a>	
+	    </div>
+	</div><!-- end list-item -->
+	<div class="list-item-label">
+	    <h4 class="list-item-title"><a href="page-details.html" class="inverse">{{ voyage }}</a></h4>
+	    <div class="list-item-price">
+		<span>à partir de</span> {{ voyage.prix }} DT
+	    </div>
+	    <a href="{{ path('front_voyageorganise_details',{'slug':voyage.slug}) }}" class="btn btn-small">Details</a>
+	</div>
+    </div>
+</div>
