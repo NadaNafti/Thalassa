@@ -700,4 +700,27 @@ class VoyageOrganise
     {
         return $this->slug;
     }
+
+    public function getPhotoPrincipal()
+    {
+	if (count($this->photos) == 0)
+	    return null;
+	foreach ($this->photos as $image)
+	{
+	    if ($image->getType() == 1)
+		return $image;
+	}
+	return null;
+    }
+
+    public function getPhotosAlbum()
+    {
+	$album =array();
+	foreach ($this->photos as $image)
+	{
+	    if ($image->getType() == 2)
+		$album[]=$image;
+	}
+	return $album;
+    }
 }
