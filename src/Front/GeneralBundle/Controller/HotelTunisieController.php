@@ -167,19 +167,19 @@ class HotelTunisieController extends Controller
 	else
 	    $client = $this->container->get('users')->getPassager();
 	$hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->findOneBy(array('slug' => $slug));
-	if (!$session->has('reservation'))
-	{
+//	if (!$session->has('reservation'))
+//	{
 	    $reservation = array();
 	    $reservation['hotel'] = $hotel->getId();
 	    $reservation['client'] = $client->getId();
 	    $reservation['dateDebut'] = $session->get('dateDebut');
 	    $saison = $this->container->get('saisons')->getSaisonByClient($hotel, $client, $reservation['dateDebut']);
 	    $reservation['nuitees'] = $session->get('nuitees');
-	    $reservation['dateFin'] = date('Y-m-d', strtotime($reservation['dateDebut'] . ' + 1 day'));
+	    $reservation['dateFin'] = date('Y-m-d', strtotime($reservation['dateDebut'] . ' + ' . ($reservation['nuitees'] - 1) . ' day'));
 	    $session->set('reservation', $reservation);
-	}
-	else
-	    $reservation = $session->get('reservation');
+//	}
+//	else
+//	    $reservation = $session->get('reservation');
 	$saison = $this->container->get('saisons')->getSaisonByClient($hotel, $client, $reservation['dateDebut']);
 	$reservation['saison'] = $saison->getId();
 	$reservation['chambres'] = array();

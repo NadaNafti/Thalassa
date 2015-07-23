@@ -22,7 +22,7 @@
 				</tr>
 				<tr>
 				    <td>Duration: </td>
-				    <td>{{ reservation.nuitees }} nuitées ({{ reservation.dateDebut|date('d/m/Y') }} - {{ reservation.dateFin|date('d/m/Y') }})</td>
+				    <td>{{ reservation.nuitees }} nuitées ({{ reservation.dateDebut|date('d/m/Y') }} - {{ reservation.dateFin|date_modify("+1 day")|date('d/m/Y') }})</td>
 				</tr>
 			    </tbody>
 			</table>
@@ -45,7 +45,7 @@
 				    {% if reservation.hotel.photoPrincipal is not null %}
 					<img src="{{ asset(reservation.hotel.photoPrincipal.assetPath) }}" alt="" style="width: 75px;height: 65px" />
 				    {% else %}
-					<img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=75&h=65" alt="" style="width: 75px;height: 65px" />
+					<img src="https://placeholdit.imgix.net/~text?txtsize=15&txt=No%20image%20available&w=75&h=65" alt="" style="width: 75px;height: 65px" />
 				    {% endif %}
 				    <h3 class="no-mb">{{ reservation.hotel|title }}</h3>
 				    <span>{{ reservation.hotel.ville }}</span>
@@ -56,10 +56,7 @@
 				<div class="bb2 mb-30"></div>
 				<table class="table table-bordered table-striped mb-30">
 				    <tr>
-					<td colspan=2><span class="text-bold">{{ reservation.nuitees }} nuitées</span>: {{ reservation.dateDebut|date('d/m/Y') }} - {{ reservation.dateFin|date('d/m/Y') }}</td>
-				    </tr>
-				    <tr>
-					<td colspan=2><span class="text-bold">Room 1</span>: Standard Double Room</td>
+					<td colspan=2><span class="text-bold">{{ reservation.nuitees }} nuitées</span>: {{ reservation.dateDebut|date('d/m/Y') }} - {{ reservation.dateFin|date_modify("+1 day")|date('d/m/Y') }}</td>
 				    </tr>
 				    {% for chambre in reservation.chambres %}
 					<tr>

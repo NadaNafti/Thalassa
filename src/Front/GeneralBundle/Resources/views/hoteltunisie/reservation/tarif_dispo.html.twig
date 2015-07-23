@@ -114,7 +114,7 @@
 				    {% endfor %}
 				</div>
 			    {% endif %}
-			    <h3 class="section-title mt-40">Revoir et réserver votre voyage<span class="step active">4</span></h3>
+			    <h3 class="section-title mt-40">Revoir et réserver votre séjour<span class="step active">4</span></h3>
 			    <div class="bb2 mb-20"></div>
 			    <div class="styled-checkbox mt-10">
 				<label>
@@ -185,7 +185,7 @@
 				<div class="bb2 mb-30"></div>
 				<table class="table table-bordered table-striped mb-30">
 				    <tr>
-					<td colspan=2><span class="text-bold">{{ nuitees }} Nuitées</span>: {{ dateDebut|date('d/m/Y') }} - {{ dateFin|date('d/m/Y') }}</td>
+					<td colspan=2><span class="text-bold">{{ nuitees }} Nuitées</span>: {{ dateDebut|date('d/m/Y') }} - {{ dateFin|date_modify("+1 day")|date('d/m/Y') }}</td>
 				    </tr>
 				    {% set total=0 %}
                                     {% for chambre in resultat.chambres %}
