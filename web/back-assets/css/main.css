@@ -425,7 +425,7 @@ a.bricky:hover {
 	z-index: 1000;
 }
 .navbar-tools .drop-down-wrapper {
-	/*height: 250px;*/
+	max-height: 450px;
 	width: 270px;
 	overflow: hidden;
 	position: relative;
