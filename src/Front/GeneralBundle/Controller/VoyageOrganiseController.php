@@ -69,7 +69,8 @@ class VoyageOrganiseController extends Controller
 	}
 	return $this->render('FrontGeneralBundle:voyageorganise/details:details.html.twig', array(
 		    'voyage' => $voyage,
-		    'form' => $form->createView()
+		    'form' => $form->createView(),
+		    'csrf_token'=>$this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
 	));
     }
     
