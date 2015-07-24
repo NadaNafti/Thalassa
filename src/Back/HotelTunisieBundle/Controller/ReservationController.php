@@ -260,7 +260,7 @@ class ReservationController extends Controller
 	$em->persist($reservation->setResponsable($user));
 	$em->flush();
 	$session->getFlashBag()->add('success', "Vous avez pris en charge cette réservation avec succès ");
-	return $this->redirect($this->generateUrl("liste_reservations"));
+	return $this->redirect($this->generateUrl("consulter_reservation",array('id'=>$reservation->getId())));
     }
 
     public function consulterAction(Reservation $reservation)

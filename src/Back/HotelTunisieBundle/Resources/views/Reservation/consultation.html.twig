@@ -33,6 +33,12 @@
                 {% endif %}
                 <hr>
             </div>
+        {% else %}
+	    <div class="col-md-12 center">
+		<a href="{{ path('prise_en_charge_reservations',{'id':reservation.id}) }}" class="btn btn-success center" onclick="javascript:return(confirm('Etes-vous certain de vouloir prendre en charge cette reservation ?'))">
+		    Prendre en charge cette réservation
+		</a>
+            </div>
         {% endif %}
         <div class="col-md-3">
             <h4 class="center">Réservation</h4><hr>

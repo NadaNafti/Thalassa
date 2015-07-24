@@ -1,11 +1,11 @@
 <li class="dropdown">
-    <a title="Réservation Hôtel en tunisie"  data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:void(0)">
+    <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:void(0)">
 	<i class="clip-star"></i>
 	<span class="badge"> {{ reservations|length }}</span>
     </a>
     <ul class="dropdown-menu notifications">
 	<li>
-	    <span class="dropdown-menu-title">Vous avez {{ reservations|length }} réservation(s)</span>
+	    <span class="dropdown-menu-title center">Hôtels en tunisie</span>
 	</li>
 	<li>
 	    <div class="drop-down-wrapper">
@@ -13,7 +13,7 @@
 		    {% for reservation in reservations %}
 			<li>
 			    <a href="{{ path('consulter_reservation',{'id':reservation.id}) }}">
-				<span class="label label-primary"><i class="fa fa-star"></i></span>
+				<span class="label label-{% if reservation.frontOffice  %}danger{% else %}primary{% endif %}"><i class="fa fa-star"></i></span>
 				<span class="message">{{ reservation.coordonnees.0 }}</span>
 				<span class="time">{{ differenceBetweenDates(reservation.created) }}</span>
 			    </a>

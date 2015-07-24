@@ -28,6 +28,12 @@
                 {% endif %}
                 <hr>
             </div>
+        {% else %}
+	    <div class="col-md-12 center">
+		<a href="{{ path('back_voyages_organises_reservation_priseencharge',{'id':reservation.id}) }}" class="btn btn-success center" onclick="javascript:return(confirm('Etes-vous certain de vouloir prendre en charge cette reservation ?'))">
+		    Prendre en charge cette réservation
+		</a>
+            </div>
         {% endif %}
         <div class="col-md-3">
             <h4 class="center">Réservation</h4><hr>
@@ -41,7 +47,12 @@
         </div>
         <div class="col-md-3">
             <h4 class="center">Client</h4><hr>
-            <p><strong> Nom & prénom : </strong> {{ reservation.client }}</p>
+            <p><strong> Nom & prénom : </strong> {{ reservation.coordonnees.0 }}</p>
+            <p>{{ reservation.coordonnees.1 }}</p>
+            <p>{{ reservation.coordonnees.2 }}</p>
+	    {% if reservation.coordonnees.3 is defined %}
+		<p>{{ reservation.coordonnees.3 }}</p>
+	    {% endif %}
         </div>
         {% if reservation.commentaire is not null and reservation.commentaire is not empty %}
             <div class="col-md-12">
@@ -205,8 +216,8 @@
     <script src="{{ asset("back-assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js") }}"></script>
     <script src="{{ asset("back-assets/js/ui-modals.js") }}"></script>
     <script>
-			jQuery(document).ready(function () {
-			    UIModals.init();
-			});
+		    jQuery(document).ready(function () {
+			UIModals.init();
+		    });
     </script>
 {% endblock %}
