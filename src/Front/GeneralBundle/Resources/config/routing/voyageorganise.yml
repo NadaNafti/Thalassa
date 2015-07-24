@@ -12,3 +12,7 @@ front_voyageorganise_details:
     path:     /{slug}
     defaults: { _controller: FrontGeneralBundle:VoyageOrganise:details }
     
+front_voyageorganise_thankyou:
+    path:     /{slug}/success/{reservation}
+    defaults: { _controller: FrontGeneralBundle:VoyageOrganise:success }
+    
