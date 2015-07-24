@@ -46,6 +46,13 @@
 		    </a>
 		</li>
 	    </ul>
+	    <ul class="sub-menu">
+		<li {% if app.request.get('_route')=='back_vo_ajouter' %} class="open"{% endif %}>
+		    <a href="{{ path('back_vo_ajouter') }}">
+			<span class="title">Nouvelle</span>
+		    </a>
+		</li>
+	    </ul>
 	</li>
     </ul>
 </li>

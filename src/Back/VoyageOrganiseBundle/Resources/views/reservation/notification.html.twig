@@ -1,11 +1,11 @@
 <li class="dropdown">
-    <a title="Réservation Voyage Organisé"  data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:void(0)">
+    <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:void(0)">
 	<i class="clip-tree-2"></i>
 	<span class="badge"> {{ reservations|length }}</span>
     </a>
     <ul class="dropdown-menu notifications">
 	<li>
-	    <span class="dropdown-menu-title">Vous avez {{ reservations|length }} réservation(s)</span>
+	    <span class="dropdown-menu-title center">Voyages Organisés</span>
 	</li>
 	<li>
 	    <div class="drop-down-wrapper">
@@ -13,7 +13,7 @@
 		    {% for reservation in reservations %}
 			<li>
 			    <a href="{{ path('back_voyages_organises_reservation_consulter',{'id':reservation.id}) }}">
-				<span class="label label-primary"><i class="fa fa-star"></i></span>
+				<span class="label label-{% if reservation.frontOffice  %}danger{% else %}primary{% endif %}"><i class="fa fa-plane"></i></span>
 				<span class="message">{{ reservation.coordonnees.0 }}</span>
 				<span class="time">{{ differenceBetweenDates(reservation.created) }}</span>
 			    </a>

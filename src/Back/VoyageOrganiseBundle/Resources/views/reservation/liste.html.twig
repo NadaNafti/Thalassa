@@ -79,7 +79,11 @@
                                         </span>
                                     </td>
                                     <td>{{ reservation.voyage|title }}</td>
-                                    <td>{{ reservation.coordonnees.0 }}</td>
+                                    <td>
+					{{ reservation.coordonnees.0 }}
+					{% if reservation.client.passager %}
+					    <span style="color:firebrick">Passager</span>
+					{% endif %}</td>
                                     <td>{{ reservation.adultes|length }}</td>
                                     <td>{{ reservation.enfants|length }}</td>
                                     <td>

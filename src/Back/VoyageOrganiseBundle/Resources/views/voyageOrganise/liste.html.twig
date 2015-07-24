@@ -25,9 +25,10 @@
                                 <th class="center" >Libellé</th>
                                 <th class="center" >Destination</th>
                                 <th class="center" >Pays</th>
-                                <th class="center" >Départ</th>
-                                <th class="center" >Retour</th>
-                                <th class="center" >Nombre d'inscription</th>
+                                <th class="center" >Départ & Retour</th>
+                                <th class="center" >Debit & fin inscr.</th>
+                                <th class="center" >Min & Max inscr.</th>
+                                <th class="center" >Nbr. d'inscr.</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -42,8 +43,9 @@
 					    {{ pays }}{% if voyage.pays|length!= loop.index %}, {% endif %}
 					{% endfor %}
 				    </td>
-                                    <td>{{ voyage.depart|date('d/m/Y') }}</td>
-                                    <td>{{ voyage.retour|date('d/m/Y') }}</td>
+                                    <td>{{ voyage.depart|date('d/m/Y') }} - {{ voyage.retour|date('d/m/Y') }}</td>
+                                    <td>{{ voyage.debutInscription|date('d/m/Y') }} - {{ voyage.finInscription|date('d/m/Y') }}</td>
+                                    <td>{{ voyage.nbrInscriptionsMin }} - {{ voyage.nbrInscriptionsMax }}</td>
                                     <td>{{ voyage.nbrInscriptions }}</td>
                                     <td class="TableAction">
                                         {{ macros.tableEdit(path('back_vo_ajouter',{'id':voyage.id})) }}
