@@ -155,8 +155,6 @@ class Client
      */
     public function getNomPrenom()
     {
-	if($this->passager)
-	    return 'Passager';
         return $this->nomPrenom;
     }
 
