@@ -64,55 +64,38 @@
 
 		    <ul class="tabs-content">
 			<li id="hotelsSearch" class="active">
-			    <form role="form" class="row" method="post" action="{{ path('front_voyageorganise_liste') }}">
-				<div class="col-xs-12 col-sm-3 col-md-2">
+			    <form role="form" class="row" method="post" action="{{ path('front_voyageorganise_accueil') }}">
+				<div class="col-xs-12 col-sm-3 col-md-3">
 				    <div class="form-group">
 					<label for="hotelLocation">Ville de destination</label>
-					<select class="form-control mySelectBoxClass" id="VilleDestination">
-					    <option>0</option>
-					    <option selected>1</option>
-					    <option>2</option>
-					    <option>3</option>
-					    <option>4</option>
-					    <option>5</option>
+					<select class="form-control mySelectBoxClass" name="destinations" id="VilleDestination">
+					    <option value="all">Tous les destinations</option>
+					    {% for destination in destinations %}
+						<option value="{{ destination.id }}">{{ destination }}</option>
+					    {% endfor %}
 					</select>
 				    </div>
 				</div>
-				<div class="col-xs-12 col-sm-3 col-md-2">
+				<div class="col-xs-12 col-sm-3 col-md-3">
 				    <div class="form-group">
-					<label for="hotelLocation">Catégorie</label>
-					<select class="form-control mySelectBoxClass" id="Categorie">
-					    <option>0</option>
-					    <option selected>1</option>
-					    <option>2</option>
-					    <option>3</option>
-					    <option>4</option>
-					    <option>5</option>
+					<label for="hotelLocation">Pays</label>
+					<select class="form-control mySelectBoxClass" name="pays" id="Pays">
+					    <option value="all">Tous les pays</option>
+					    {% for pay in pays %}
+						<option value="{{ pay.id }}">{{ pay }}</option>
+					    {% endfor %}
 					</select>
 				    </div>
 				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
-				    <div class="form-group datepicker-wrapper">
-					<label for="hotel-check-in">Date d'entrée</label>
-					<input type="text" class="form-control date" id="hotel-check-in" placeholder="dd/dm/yy">
-					<i class="fa fa-calendar"></i>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
-				    <div class="form-group datepicker-wrapper">
-					<label for="hotel-check-out">Nbr Nuitées</label>
-					<input type="text" class="form-control" id="NbrNuitee">
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="col-xs-12 col-sm-4 col-md-3">
 				    <div class="form-group datepicker-wrapper">
 					<label for="hotel-check-out">Mot clès</label>
-					<input type="text" class="form-control" id="MotCles">
+					<input type="text" class="form-control" id="MotCles" name="motcles">
 				    </div>
 				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="col-xs-12 col-sm-4 col-md-3">
 				    <div class="clear"></div>
-				    <button type="submit" class="btn btn-primary btn-block">Search</button>
+				    <button type="submit" class="btn btn-primary btn-block">Recherche</button>
 				</div>
 			    </form>
 			</li>

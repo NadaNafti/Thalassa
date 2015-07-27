@@ -15,19 +15,63 @@ class VoyageOrganiseController extends Controller
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
 	$request = $this->getRequest();
-	return $this->render('FrontGeneralBundle:voyageorganise:accueil.html.twig');
+	$pays = $em->getRepository('BackHotelTunisieBundle:Pays')->findBy(array(), array('libelle' => 'asc'));
+	$destinations = $em->getRepository('BackVoyageOrganiseBundle:Destination')->findBy(array(), array('libelle' => 'asc'));
+	if ($request->isMethod('POST'))
+	{
+	    return $this->redirect($this->generateUrl('front_voyageorganise_liste', array(
+				'destinations' => $request->get('destinations'),
+				'pays' => $request->get('pays'),
+				'name' => urlencode($request->get('motcles')),
+	    )));
+	}
+	return $this->render('FrontGeneralBundle:voyageorganise:accueil.html.twig', array(
+		    'destinations' => $destinations,
+		    'pays' => $pays
+	));
     }
 
-    public function listeAction($page)
+    public function listeAction($page, $destinations, $pays, $name)
     {
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
 	$request = $this->getRequest();
-	$voyages = $em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->filtre();
+	$listePays = $em->getRepository('BackHotelTunisieBundle:Pays')->findBy(array(), array('libelle' => 'asc'));
+	$listeDestinations = $em->getRepository('BackVoyageOrganiseBundle:Destination')->findBy(array(), array('libelle' => 'asc'));
+	if ($request->isMethod('POST'))
+	{
+	    $destinationArray = array();
+	    $paysArray = array();
+	    $arrays = array();
+	    foreach ($listeDestinations as $dest)
+	    {
+		if ($request->get('destinations_' . $dest->getId()))
+		    $destinationArray[] = $dest->getId();
+	    }
+	    foreach ($listePays as $pay)
+	    {
+		if ($request->get('pays_' . $pay->getId()))
+		    $paysArray[] = $pay->getId();
+	    }
+	    if (count($destinationArray) == 0)
+		$arrays['destinations'] = 'all';
+	    else
+		$arrays['destinations'] = implode(',', $destinationArray);
+	    if (count($paysArray) == 0)
+		$arrays['pays'] = 'all';
+	    else
+		$arrays['pays'] = implode(',', $paysArray);
+	    $arrays['name'] = urlencode($request->get('motclesSearch'));
+	    return $this->redirect($this->generateUrl('front_voyageorganise_liste', $arrays));
+	}
+	$voyages = $em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->filtre($destinations, $pays, $name);
 	$paginator = $this->get('knp_paginator');
 	$voyages = $paginator->paginate($voyages, $page, 20);
 	return $this->render('FrontGeneralBundle:voyageorganise/liste:liste.html.twig', array(
-		    'voyages' => $voyages
+		    'voyages' => $voyages,
+		    'destinations' => $listeDestinations,
+		    'pays' => $listePays,
+		    'motcle' => urldecode($name)
 	));
     }
 
@@ -55,7 +99,7 @@ class VoyageOrganiseController extends Controller
 	    if (count($reservation->getAdultes()) == 0 && count($reservation->getEnfants()) == 0)
 	    {
 		$session->getFlashBag()->add('warning', "Vous devez  choisir au moin un adulte ");
-		return $this->redirect($this->generateUrl('front_voyageorganise_details',array('slug'=>$slug)));
+		return $this->redirect($this->generateUrl('front_voyageorganise_details', array('slug' => $slug)));
 	    }
 	    $reservation->setCoordonnees(array($reservation->getClient()->getNomPrenom(), $reservation->getClient()->getTel1(), $reservation->getClient()->getTel2(), $reservation->getClient()->getAdresse()));
 	    $em->persist($reservation->setFrontOffice(TRUE));
@@ -65,16 +109,16 @@ class VoyageOrganiseController extends Controller
 		$em->persist($enfant->setReservationE($reservation));
 	    $em->flush();
 	    $this->container->get('users')->getPassager();
-	    return $this->redirect($this->generateUrl('front_voyageorganise_thankyou',array('slug'=>$slug,'reservation'=>$reservation->getId())));
+	    return $this->redirect($this->generateUrl('front_voyageorganise_thankyou', array('slug' => $slug, 'reservation' => $reservation->getId())));
 	}
 	return $this->render('FrontGeneralBundle:voyageorganise/details:details.html.twig', array(
 		    'voyage' => $voyage,
 		    'form' => $form->createView(),
-		    'csrf_token'=>$this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
+		    'csrf_token' => $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
 	));
     }
-    
-    public function successAction($slug, Reservation $reservation )
+
+    public function successAction($slug, Reservation $reservation)
     {
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
