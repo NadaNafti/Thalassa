@@ -27,6 +27,31 @@
 	    </div>
 	    <div class="clear" style="height: 5px;"></div>
 	    <div class="another-toggle">
+		<h5 {% if app.request.get('themes') != 'all' %}class="active"{% endif %} >Themes</h5>
+		<div class="another-toggle-inner">
+		    <div class="clear mb-10"></div>
+		    <fieldset>
+			{% set themesSplit = app.request.get('themes')|split(',') %}
+			{% for theme in themes %}
+			    <div class="styled-checkbox">
+				<label>
+				    <input type="checkbox" name="themes_{{ theme.id }}" {% if theme.id in themesSplit %}checked{% endif %} value="{{ theme.id }}">
+				    {{ theme|title }}
+				</label>
+			    </div>
+			{% endfor %}
+			<div class="clear"></div>
+			<div class="clear mb-20"></div>
+			<div class="col-xs-6 col-sm-6 col-md-6">
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6">
+			    <button type="submit" class="btn btn-primary">Recherche</button>
+			</div>
+		    </fieldset>
+		</div>
+	    </div>
+	    <div class="clear" style="height: 5px;"></div>
+	    <div class="another-toggle">
 		<h5 {% if app.request.get('destinations') != 'all' %}class="active"{% endif %} >Destinations</h5>
 		<div class="another-toggle-inner">
 		    <div class="clear mb-10"></div>

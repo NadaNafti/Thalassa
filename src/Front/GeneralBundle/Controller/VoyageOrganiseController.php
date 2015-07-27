@@ -17,42 +17,56 @@ class VoyageOrganiseController extends Controller
 	$request = $this->getRequest();
 	$pays = $em->getRepository('BackHotelTunisieBundle:Pays')->findBy(array(), array('libelle' => 'asc'));
 	$destinations = $em->getRepository('BackVoyageOrganiseBundle:Destination')->findBy(array(), array('libelle' => 'asc'));
+	$themes = $em->getRepository('BackVoyageOrganiseBundle:Theme')->findBy(array(), array('libelle' => 'asc'));
 	if ($request->isMethod('POST'))
 	{
 	    return $this->redirect($this->generateUrl('front_voyageorganise_liste', array(
 				'destinations' => $request->get('destinations'),
 				'pays' => $request->get('pays'),
+				'themes' => $request->get('themes'),
 				'name' => urlencode($request->get('motcles')),
 	    )));
 	}
 	return $this->render('FrontGeneralBundle:voyageorganise:accueil.html.twig', array(
 		    'destinations' => $destinations,
+		    'themes' => $themes,
 		    'pays' => $pays
 	));
     }
 
-    public function listeAction($page, $destinations, $pays, $name)
+    public function listeAction($page,$themes, $destinations, $pays, $name)
     {
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
 	$request = $this->getRequest();
 	$listePays = $em->getRepository('BackHotelTunisieBundle:Pays')->findBy(array(), array('libelle' => 'asc'));
 	$listeDestinations = $em->getRepository('BackVoyageOrganiseBundle:Destination')->findBy(array(), array('libelle' => 'asc'));
+	$listeThemes = $em->getRepository('BackVoyageOrganiseBundle:Theme')->findBy(array(), array('libelle' => 'asc'));
 	if ($request->isMethod('POST'))
 	{
 	    $destinationArray = array();
 	    $paysArray = array();
+	    $themesArray = array();
 	    $arrays = array();
 	    foreach ($listeDestinations as $dest)
 	    {
 		if ($request->get('destinations_' . $dest->getId()))
 		    $destinationArray[] = $dest->getId();
 	    }
+	    foreach ($listeThemes as $th)
+	    {
+		if ($request->get('themes_' . $th->getId()))
+		    $themesArray[] = $th->getId();
+	    }
 	    foreach ($listePays as $pay)
 	    {
 		if ($request->get('pays_' . $pay->getId()))
 		    $paysArray[] = $pay->getId();
 	    }
+	    if (count($themesArray) == 0)
+		$arrays['themes'] = 'all';
+	    else
+		$arrays['themes'] = implode(',', $themesArray);
 	    if (count($destinationArray) == 0)
 		$arrays['destinations'] = 'all';
 	    else
@@ -64,12 +78,13 @@ class VoyageOrganiseController extends Controller
 	    $arrays['name'] = urlencode($request->get('motclesSearch'));
 	    return $this->redirect($this->generateUrl('front_voyageorganise_liste', $arrays));
 	}
-	$voyages = $em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->filtre($destinations, $pays, $name);
+	$voyages = $em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->filtre($themes,$destinations, $pays, $name);
 	$paginator = $this->get('knp_paginator');
 	$voyages = $paginator->paginate($voyages, $page, 20);
 	return $this->render('FrontGeneralBundle:voyageorganise/liste:liste.html.twig', array(
 		    'voyages' => $voyages,
 		    'destinations' => $listeDestinations,
+		    'themes' => $listeThemes,
 		    'pays' => $listePays,
 		    'motcle' => urldecode($name)
 	));

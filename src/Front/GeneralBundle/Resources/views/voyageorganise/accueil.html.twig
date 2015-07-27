@@ -65,7 +65,18 @@
 		    <ul class="tabs-content">
 			<li id="hotelsSearch" class="active">
 			    <form role="form" class="row" method="post" action="{{ path('front_voyageorganise_accueil') }}">
-				<div class="col-xs-12 col-sm-3 col-md-3">
+				<div class="col-xs-12 col-sm-3 col-md-2">
+				    <div class="form-group">
+					<label for="hotelLocation">Themes</label>
+					<select class="form-control mySelectBoxClass" name="themes" id="Villetheme">
+					    <option value="all">Tous les themes</option>
+					    {% for theme in themes %}
+						<option value="{{ theme.id }}">{{ theme }}</option>
+					    {% endfor %}
+					</select>
+				    </div>
+				</div>
+				<div class="col-xs-12 col-sm-3 col-md-2">
 				    <div class="form-group">
 					<label for="hotelLocation">Ville de destination</label>
 					<select class="form-control mySelectBoxClass" name="destinations" id="VilleDestination">
@@ -76,7 +87,7 @@
 					</select>
 				    </div>
 				</div>
-				<div class="col-xs-12 col-sm-3 col-md-3">
+				<div class="col-xs-12 col-sm-3 col-md-2">
 				    <div class="form-group">
 					<label for="hotelLocation">Pays</label>
 					<select class="form-control mySelectBoxClass" name="pays" id="Pays">
@@ -87,13 +98,13 @@
 					</select>
 				    </div>
 				</div>
-				<div class="col-xs-12 col-sm-4 col-md-3">
+				<div class="col-xs-12 col-sm-4 col-md-2">
 				    <div class="form-group datepicker-wrapper">
 					<label for="hotel-check-out">Mot clès</label>
 					<input type="text" class="form-control" id="MotCles" name="motcles">
 				    </div>
 				</div>
-				<div class="col-xs-12 col-sm-4 col-md-3">
+				<div class="col-xs-12 col-sm-4 col-md-2">
 				    <div class="clear"></div>
 				    <button type="submit" class="btn btn-primary btn-block">Recherche</button>
 				</div>

@@ -3,8 +3,8 @@ front_voyageorganise_accueil:
     defaults: { _controller: FrontGeneralBundle:VoyageOrganise:accueil }
     
 front_voyageorganise_liste:
-    path:     /liste/{page}/{destinations}/{pays}/{name}
-    defaults: { _controller: FrontGeneralBundle:VoyageOrganise:liste,page:1,destinations:all,pays:all,name:null }
+    path:     /liste/{page}/{themes}/{destinations}/{pays}/{name}
+    defaults: { _controller: FrontGeneralBundle:VoyageOrganise:liste,page:1,themes:all,destinations:all,pays:all,name:null }
     requirements:
         page:  \d+
         
