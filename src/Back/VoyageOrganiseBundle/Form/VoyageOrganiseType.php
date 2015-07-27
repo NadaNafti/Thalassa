@@ -44,6 +44,7 @@ class VoyageOrganiseType extends AbstractType
 		->add('nbrInscriptionsMax')
 		->add('descriptionCourte')
 		->add('descriptionLongue','ckeditor')
+		->add('themes')
 		->add('pays')
 		->add('destination', 'entity', array(
 		    'class' => 'Back\VoyageOrganiseBundle\Entity\Destination',

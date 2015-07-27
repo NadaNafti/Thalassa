@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="ost_vo_voyages")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Back\VoyageOrganiseBundle\Entity\VoyageOrganiseRepository")
  */
 class VoyageOrganise
 {
@@ -47,10 +47,16 @@ class VoyageOrganise
     private $nbrNuit;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Back\VoyageOrganiseBundle\Entity\Pays")
+     * @ORM\ManyToMany(targetEntity="Back\HotelTunisieBundle\Entity\Pays")
      * @ORM\JoinTable(name="ost_vo_voyages_pays")
      */
     private $pays;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Theme")
+     * @ORM\JoinTable(name="ost_vo_voyages_themes")
+     */
+    private $themes;
 
     /**
      * @var \DateTime
@@ -83,7 +89,7 @@ class VoyageOrganise
     /**
      * @var string
      *
-     * @ORM\Column(name="prix", type="decimal", type="decimal", precision=11 ,scale=3 ,nullable=true)
+     * @ORM\Column(name="prix", type="decimal", precision=11 ,scale=3 ,nullable=true)
      */
     private $prix;
 
@@ -554,10 +560,10 @@ class VoyageOrganise
     /**
      * Add pays
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Pays $pays
+     * @param \Back\HotelTunisieBundle\Entity\Pays $pays
      * @return VoyageOrganise
      */
-    public function addPay(\Back\VoyageOrganiseBundle\Entity\Pays $pays)
+    public function addPay(\Back\HotelTunisieBundle\Entity\Pays $pays)
     {
         $this->pays[] = $pays;
 
@@ -567,9 +573,9 @@ class VoyageOrganise
     /**
      * Remove pays
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Pays $pays
+     * @param \Back\HotelTunisieBundle\Entity\Pays $pays
      */
-    public function removePay(\Back\VoyageOrganiseBundle\Entity\Pays $pays)
+    public function removePay(\Back\HotelTunisieBundle\Entity\Pays $pays)
     {
         $this->pays->removeElement($pays);
     }
@@ -699,5 +705,28 @@ class VoyageOrganise
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    public function getPhotoPrincipal()
+    {
+	if (count($this->photos) == 0)
+	    return null;
+	foreach ($this->photos as $image)
+	{
+	    if ($image->getType() == 1)
+		return $image;
+	}
+	return null;
+    }
+
+    public function getPhotosAlbum()
+    {
+	$album =array();
+	foreach ($this->photos as $image)
+	{
+	    if ($image->getType() == 2)
+		$album[]=$image;
+	}
+	return $album;
     }
 }

@@ -5,3 +5,11 @@ back_voyages_organises_destination:
 delete_back_voyages_organises_destination:
     path:     /delete_back_voyages_organises_destination/{id}
     defaults: { _controller: BackVoyageOrganiseBundle:Referentiel:deleteDestination }
+
+back_voyages_organises_theme:
+    path:     /theme/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Referentiel:theme,id:null }
+
+delete_back_voyages_organises_theme:
+    path:     /delete_back_voyages_organises_theme/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Referentiel:deleteTheme }

@@ -24,6 +24,7 @@
                                 <th class="center" >#</th>
                                 <th class="center" >Libellé</th>
                                 <th class="center" >Destination</th>
+                                <th class="center" >Themes</th>
                                 <th class="center" >Pays</th>
                                 <th class="center" >Départ & Retour</th>
                                 <th class="center" >Debit & fin inscr.</th>
@@ -38,11 +39,8 @@
                                     <td>{{ voyage.id }}</td>
                                     <td>{{ voyage.libelle|title }}</td>
                                     <td>{{ voyage.destination }}</td>
-                                    <td>
-					{% for pays in voyage.pays %}
-					    {{ pays }}{% if voyage.pays|length!= loop.index %}, {% endif %}
-					{% endfor %}
-				    </td>
+                                    <td>{% for theme in voyage.themes %}{{ theme }}<br>{% endfor %} </td>
+                                    <td>{% for pays in voyage.pays %}{{ pays }}<br>{% endfor %}</td>
                                     <td>{{ voyage.depart|date('d/m/Y') }} - {{ voyage.retour|date('d/m/Y') }}</td>
                                     <td>{{ voyage.debutInscription|date('d/m/Y') }} - {{ voyage.finInscription|date('d/m/Y') }}</td>
                                     <td>{{ voyage.nbrInscriptionsMin }} - {{ voyage.nbrInscriptionsMax }}</td>
