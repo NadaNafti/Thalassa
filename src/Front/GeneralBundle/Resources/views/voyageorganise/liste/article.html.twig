@@ -17,7 +17,7 @@
 	    </div>
 	</div><!-- end list-item -->
 	<div class="list-item-label">
-	    <h4 class="list-item-title"><a href="page-details.html" class="inverse">{{ voyage }}</a></h4>
+	    <h4 class="list-item-title"><a href="{{ path('front_voyageorganise_details',{'slug':voyage.slug}) }}" class="inverse">{{ voyage }}</a></h4>
 	    <div class="list-item-price">
 		<span>à partir de</span> {{ voyage.prix }} DT
 	    </div>
