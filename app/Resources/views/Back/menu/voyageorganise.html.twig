@@ -34,6 +34,13 @@
 		    </a>
 		</li>
 	    </ul>
+	    <ul class="sub-menu">
+		<li {% if app.request.get('_route')=='back_voyages_organises_theme' %} class="open"{% endif %}>
+		    <a href="{{ path('back_voyages_organises_theme') }}">
+			<span class="title">Theme</span>
+		    </a>
+		</li>
+	    </ul>
 	</li>
 	<li {% if app.request.get('_route') in ['back_vo_liste','back_vo_ajouter','back_vo_photos','back_vo_descriptions'] %} class="active open"{% endif %} >
 	    <a href="javascript:void(0)"><i class="clip-world"></i>

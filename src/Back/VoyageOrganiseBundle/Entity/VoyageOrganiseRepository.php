@@ -7,10 +7,11 @@ use Doctrine\ORM\EntityRepository;
 class VoyageOrganiseRepository extends EntityRepository
 {
 
-    public function filtre($destination='all',$pays='all',$name='all')
+    public function filtre($themes='all',$destination='all',$pays='all',$name='all',$orderBy='v.libelle',$direction='asc')
     {
 	$query = $this->createQueryBuilder('v');
 	$query->join('v.pays', 'p');
+	$query->join('v.themes', 't');
 	$query->where('v.finInscription >= :date')->setParameter('date', date('Y-m-d'));
 	$query->andWhere('v.nbrInscriptions < v.nbrInscriptionsMax');
 	if ($destination != 'all')
@@ -19,6 +20,14 @@ class VoyageOrganiseRepository extends EntityRepository
 	    $destinations = explode(',', $destination);
 	    foreach ($destinations as $dest)
 		$orX->add($query->expr()->eq("v.destination", $dest));
+	    $query->andWhere($orX);
+	}
+	if ($themes != 'all')
+	{
+	    $orX = $query->expr()->orX();
+	    $themes = explode(',', $themes);
+	    foreach ($themes as $theme)
+		$orX->add($query->expr()->eq("t.id", $theme));
 	    $query->andWhere($orX);
 	}
 	if ($pays != 'all')
@@ -40,7 +49,7 @@ class VoyageOrganiseRepository extends EntityRepository
 	    }
 	    $query->andWhere($orX);
 	}
-	$query->orderBy("v.libelle", 'asc');
+	$query->orderBy($orderBy, $direction);
 	return $query->getQuery()->getResult();
     }
 

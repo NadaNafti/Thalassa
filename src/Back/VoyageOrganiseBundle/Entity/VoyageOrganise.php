@@ -51,6 +51,12 @@ class VoyageOrganise
      * @ORM\JoinTable(name="ost_vo_voyages_pays")
      */
     private $pays;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Theme")
+     * @ORM\JoinTable(name="ost_vo_voyages_themes")
+     */
+    private $themes;
 
     /**
      * @var \DateTime
@@ -722,5 +728,38 @@ class VoyageOrganise
 		$album[]=$image;
 	}
 	return $album;
+    }
+
+    /**
+     * Add themes
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Theme $themes
+     * @return VoyageOrganise
+     */
+    public function addTheme(\Back\VoyageOrganiseBundle\Entity\Theme $themes)
+    {
+        $this->themes[] = $themes;
+
+        return $this;
+    }
+
+    /**
+     * Remove themes
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Theme $themes
+     */
+    public function removeTheme(\Back\VoyageOrganiseBundle\Entity\Theme $themes)
+    {
+        $this->themes->removeElement($themes);
+    }
+
+    /**
+     * Get themes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getThemes()
+    {
+        return $this->themes;
     }
 }
