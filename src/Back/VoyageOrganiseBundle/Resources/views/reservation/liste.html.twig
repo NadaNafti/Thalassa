@@ -82,8 +82,9 @@
                                     <td>
 					{{ reservation.coordonnees.0 }}
 					{% if reservation.client.passager %}
-					    <span style="color:firebrick">Passager</span>
-					{% endif %}</td>
+					    <br><span style="color:firebrick">Passager</span>
+					{% endif %}
+				    </td>
                                     <td>{{ reservation.adultes|length }}</td>
                                     <td>{{ reservation.enfants|length }}</td>
                                     <td>
