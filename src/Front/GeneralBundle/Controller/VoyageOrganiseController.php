@@ -15,6 +15,7 @@ class VoyageOrganiseController extends Controller
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
 	$request = $this->getRequest();
+	$sliders = $em->getRepository('FrontConfigBundle:SliderVO')->findBy(array(), array('ordre' => 'asc'));
 	$pays = $em->getRepository('BackHotelTunisieBundle:Pays')->findBy(array(), array('libelle' => 'asc'));
 	$destinations = $em->getRepository('BackVoyageOrganiseBundle:Destination')->findBy(array(), array('libelle' => 'asc'));
 	$themes = $em->getRepository('BackVoyageOrganiseBundle:Theme')->findBy(array(), array('libelle' => 'asc'));
@@ -30,11 +31,12 @@ class VoyageOrganiseController extends Controller
 	return $this->render('FrontGeneralBundle:voyageorganise:accueil.html.twig', array(
 		    'destinations' => $destinations,
 		    'themes' => $themes,
-		    'pays' => $pays
+		    'pays' => $pays,
+		    'sliders'=>$sliders
 	));
     }
 
-    public function listeAction($page,$themes, $destinations, $pays, $name)
+    public function listeAction($page, $themes, $destinations, $pays, $name)
     {
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
@@ -78,7 +80,7 @@ class VoyageOrganiseController extends Controller
 	    $arrays['name'] = urlencode($request->get('motclesSearch'));
 	    return $this->redirect($this->generateUrl('front_voyageorganise_liste', $arrays));
 	}
-	$voyages = $em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->filtre($themes,$destinations, $pays, $name);
+	$voyages = $em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->filtre($themes, $destinations, $pays, $name);
 	$paginator = $this->get('knp_paginator');
 	$voyages = $paginator->paginate($voyages, $page, 20);
 	return $this->render('FrontGeneralBundle:voyageorganise/liste:liste.html.twig', array(

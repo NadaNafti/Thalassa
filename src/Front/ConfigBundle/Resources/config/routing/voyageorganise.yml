@@ -5,3 +5,11 @@ front_config_voyageorganise_topdestination:
 front_config_voyageorganise_topdestination_delete:
     path:     /topdestinationDelete/{id}
     defaults: { _controller: FrontConfigBundle:VoyageOrganise:deleteTopDestination }
+
+front_config_voyageorganise_slider:
+    path:     /slider/{id}
+    defaults: { _controller: FrontConfigBundle:VoyageOrganise:slider,id:null }
+    
+front_config_voyageorganise_slider_delete:
+    path:     /sliderDelete/{id}
+    defaults: { _controller: FrontConfigBundle:VoyageOrganise:deleteSlider }
