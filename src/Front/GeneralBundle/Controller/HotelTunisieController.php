@@ -280,7 +280,7 @@ class HotelTunisieController extends Controller
 	    $session->remove('reservation');
 	    return $this->redirect($this->generateUrl("front_hoteltunisie_thankyou", array(
 				'slug' => $slug,
-				'id' => $result
+				'reservation' => $result
 	    )));
 	}
 	$reservation = $session->get('reservation');

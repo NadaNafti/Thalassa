@@ -1,0 +1,3 @@
+config_front_voyageorganise:
+    resource: "@FrontConfigBundle/Resources/config/routing/voyageorganise.yml"
+    prefix:   /VoyageOrganise

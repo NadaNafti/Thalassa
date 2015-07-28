@@ -1,0 +1,7 @@
+front_config_voyageorganise_topdestination:
+    path:     /topdestination/{id}
+    defaults: { _controller: FrontConfigBundle:VoyageOrganise:topDestination,id:null }
+    
+front_config_voyageorganise_topdestination_delete:
+    path:     /topdestinationDelete/{id}
+    defaults: { _controller: FrontConfigBundle:VoyageOrganise:deleteTopDestination }

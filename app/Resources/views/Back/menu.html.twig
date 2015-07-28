@@ -10,6 +10,7 @@
                     <span class="title"> Tableau de bord </span>{% if app.request.get('_route')=='tableaubord' %}<span class="selected"></span>{% endif %}
                 </a>
             </li>
+            {% include ':Back/menu:frontoffice.html.twig' %}
             {% include ':Back/menu:administration.html.twig' %}
             {% include ':Back/menu:commercial.html.twig' %}
             {% include ':Back/menu:hoteltunisie.html.twig' %}

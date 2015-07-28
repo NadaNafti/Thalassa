@@ -1,0 +1,4 @@
+services:
+#    front_config.example:
+#        class: Front\ConfigBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
