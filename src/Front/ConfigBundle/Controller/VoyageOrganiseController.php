@@ -47,16 +47,9 @@ class VoyageOrganiseController extends Controller
     {
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
-	try
-	{
-	    $em->remove($topDestination);
-	    $em->flush();
-	    $session->getFlashBag()->add('success', " Votre top destination a été supprimé avec succées ");
-	}
-	catch (\Exception $ex)
-	{
-	    $session->getFlashBag()->add('danger', 'Votre destination est utilisé dans une autre table');
-	}
+	$em->remove($topDestination);
+	$em->flush();
+	$session->getFlashBag()->add('success', " Votre top destination a été supprimé avec succées ");
 	return $this->redirect($this->generateUrl('front_config_voyageorganise_topdestination'));
     }
 
@@ -102,16 +95,9 @@ class VoyageOrganiseController extends Controller
     {
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
-	try
-	{
-	    $em->remove($slider);
-	    $em->flush();
-	    $session->getFlashBag()->add('success', " Votre slider a été supprimé avec succées ");
-	}
-	catch (\Exception $ex)
-	{
-	    $session->getFlashBag()->add('danger', 'Votre slider est utilisé dans une autre table');
-	}
+	$em->remove($slider);
+	$em->flush();
+	$session->getFlashBag()->add('success', " Votre slider a été supprimé avec succées ");
 	return $this->redirect($this->generateUrl('front_config_voyageorganise_slider'));
     }
 

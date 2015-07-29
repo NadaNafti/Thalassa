@@ -1,0 +1,70 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Slider{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Titre1",form.titre1,true) }}
+                        {{ formulaire.input("col-md-3","Titre2",form.titre2,true) }}
+                        {{ formulaire.input("col-md-3","Titre3",form.titre3,true) }}
+                        {{ formulaire.input("col-md-3","Url",form.url,true) }}
+		    </div>
+		    <div class="row">
+                        {{ formulaire.input("col-md-2","Ordre",form.ordre,true) }}
+                        {{ formulaire.input("col-md-4","Photo (1350 x 560)",form.file,true) }}
+                    </div>
+                    {{ formulaire.submit("Enregistrer") }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover"  id="sample_1">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Titre 1</th>
+                                <th>Titre 2</th>
+                                <th>Titre 3</th>
+                                <th>Url</th>
+                                <th>Ordre</th>
+                                <th class="center" >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for slider in sliders %}
+                                <tr>
+                                    <td class="center"><img src="{{ asset(slider.assetPath) }}" style="width: 50px;height: 50px"></td>
+                                    <td>{{ slider.titre1 }}</td>
+                                    <td>{{ slider.titre2 }}</td>
+                                    <td>{{ slider.titre3 }}</td>
+                                    <td>{{ slider.url }}</td>
+                                    <td>{{ slider.ordre }}</td>
+                                    <td class="TableAction">
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                            {{ macros.tableEdit(path('config_front_hoteltunisie_slider',{'id':slider.id})) }}
+                                            {{ macros.tableDelete(path('config_front_hoteltunisie_slider_delete',{'id':slider.id})) }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,7 @@
+config_front_hoteltunisie_slider:
+    path:     /slider/{id}
+    defaults: { _controller: FrontConfigBundle:HotelTunisie:slider,id:null }
+    
+config_front_hoteltunisie_slider_delete:
+    path:     /sliderDelete/{id}
+    defaults: { _controller: FrontConfigBundle:HotelTunisie:deleteSlider }

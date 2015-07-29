@@ -14,6 +14,7 @@ class HotelTunisieController extends Controller
 	$em = $this->getDoctrine()->getManager();
 	$session = $this->getRequest()->getSession();
 	$request = $this->getRequest();
+	$sliders = $em->getRepository('FrontConfigBundle:SliderSHT')->findBy(array(), array('ordre' => 'asc'));
 	$pays = $em->getRepository('BackHotelTunisieBundle:Pays')->findOneBy(array('code' => 'tn'));
 	$villes = $em->getRepository('BackHotelTunisieBundle:Ville')->findBy(array('pays' => $pays), array('libelle' => 'asc'));
 	$chaines = $em->getRepository('BackHotelTunisieBundle:Chaine')->findBy(array(), array('libelle' => 'asc'));
@@ -32,6 +33,7 @@ class HotelTunisieController extends Controller
 		    'villes' => $villes,
 		    'chaines' => $chaines,
 		    'categories' => $categories,
+		    'sliders' => $sliders
 	));
     }
 
@@ -169,14 +171,14 @@ class HotelTunisieController extends Controller
 	$hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->findOneBy(array('slug' => $slug));
 //	if (!$session->has('reservation'))
 //	{
-	    $reservation = array();
-	    $reservation['hotel'] = $hotel->getId();
-	    $reservation['client'] = $client->getId();
-	    $reservation['dateDebut'] = $session->get('dateDebut');
-	    $saison = $this->container->get('saisons')->getSaisonByClient($hotel, $client, $reservation['dateDebut']);
-	    $reservation['nuitees'] = $session->get('nuitees');
-	    $reservation['dateFin'] = date('Y-m-d', strtotime($reservation['dateDebut'] . ' + ' . ($reservation['nuitees'] - 1) . ' day'));
-	    $session->set('reservation', $reservation);
+	$reservation = array();
+	$reservation['hotel'] = $hotel->getId();
+	$reservation['client'] = $client->getId();
+	$reservation['dateDebut'] = $session->get('dateDebut');
+	$saison = $this->container->get('saisons')->getSaisonByClient($hotel, $client, $reservation['dateDebut']);
+	$reservation['nuitees'] = $session->get('nuitees');
+	$reservation['dateFin'] = date('Y-m-d', strtotime($reservation['dateDebut'] . ' + ' . ($reservation['nuitees'] - 1) . ' day'));
+	$session->set('reservation', $reservation);
 //	}
 //	else
 //	    $reservation = $session->get('reservation');
@@ -293,7 +295,7 @@ class HotelTunisieController extends Controller
 		    'dateDebut' => new \DateTime($reservation['dateDebut']),
 		    'dateFin' => new \DateTime($reservation['dateFin']),
 		    'resultat' => $result,
-		    'csrf_token'=>$this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
+		    'csrf_token' => $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
 	));
     }
 
