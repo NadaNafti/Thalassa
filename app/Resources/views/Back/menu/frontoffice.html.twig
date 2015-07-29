@@ -22,6 +22,13 @@
 		    </a>
 		</li>
 	    </ul>
+	    <ul class="sub-menu">
+		<li {% if app.request.get('_route')in ['front_config_voyageorganise_blockmetro'] %} class="open"{% endif %}>
+		    <a href="{{ path('front_config_voyageorganise_blockmetro') }}">
+			<span class="title">Idées Voyages</span>
+		    </a>
+		</li>
+	    </ul>
 	</li>
     </ul>
 </li>

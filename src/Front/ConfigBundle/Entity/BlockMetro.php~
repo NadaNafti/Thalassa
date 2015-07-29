@@ -1,0 +1,162 @@
+<?php
+
+namespace Front\ConfigBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * BlockMetro
+ *
+ * @ORM\Table(name="ost_front_blockmetro")
+ * @ORM\Entity
+ */
+class BlockMetro
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="libelle", type="string", length=255)
+     */
+    private $libelle;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $theme1;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Media")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $photo1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $theme2;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Media")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $photo2;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $theme3;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Media")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $photo3;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $theme4;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Media")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $photo4;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $theme5;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Media")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $photo5;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $theme6;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Media")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $photo6;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $theme7;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Media")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $photo7;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $theme8;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Media")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $photo8;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+	return $this->id;
+    }
+
+    /**
+     * Set libelle
+     *
+     * @param string $libelle
+     * @return BlockMetro
+     */
+    public function setLibelle($libelle)
+    {
+	$this->libelle = $libelle;
+
+	return $this;
+    }
+
+    /**
+     * Get libelle
+     *
+     * @return string 
+     */
+    public function getLibelle()
+    {
+	return $this->libelle;
+    }
+
+}

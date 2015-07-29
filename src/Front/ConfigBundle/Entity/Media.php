@@ -3,16 +3,16 @@
 namespace Front\ConfigBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\validator\Constraints as Assert;
 
 /**
- * TopDestination
+ * Media
  *
- * @ORM\Table(name="ost_front_topdestination")
+ * @ORM\Table("ost_front_vo")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
-class TopDestination
+class Media
 {
 
     /**
@@ -25,45 +25,11 @@ class TopDestination
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Destination")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    protected $destination;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="ordre", type="integer")
-     */
-    private $ordre;
-
-    /**
      * @var \DateTime
      * 
-     * @ORM\Column(name="updated_at",type="datetime", nullable=true) 
+     * @ORM\COlumn(name="updated_at",type="datetime", nullable=true) 
      */
     private $updateAt;
-
-    /**
-     * @ORM\Column(type="string",length=255, nullable=true) 
-     */
-    public $path;
-    public $file;
-
-    public function getUploadRootDir()
-    {
-	return __dir__ . '/../../../../web/uploads/VoyageOrganise/TopDestination';
-    }
-
-    public function getAbsolutePath()
-    {
-	return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
-    }
-
-    public function getAssetPath()
-    {
-	return 'uploads/VoyageOrganise/TopDestination/' . $this->path;
-    }
 
     /**
      * @ORM\PostLoad()
@@ -74,15 +40,41 @@ class TopDestination
     }
 
     /**
+     * @ORM\Column(type="string",length=255, nullable=true) 
+     */
+    public $path;
+    public $file;
+
+    public function getUploadRootDir()
+    {
+	return __dir__ . '/../../../../web/' . $this->getDirectory();
+    }
+
+    public function getDirectory()
+    {
+	    return 'uploads/VoyageOrganise/BlocMetro';
+    }
+
+    public function getAssetPath()
+    {
+	return $this->getDirectory() . '/' . $this->path;
+    }
+
+    public function getAbsolutePath()
+    {
+	return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
+    }
+
+    /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate() 
      */
     public function preUpload()
     {
 	$this->tempFile = $this->getAbsolutePath();
-	$this->oldFile = $this->path;
+	$this->oldFile = $this->getPath();
 	$this->updateAt = new \DateTime();
-	
+
 	if (null !== $this->file)
 	    $this->path = sha1(uniqid(mt_rand(), true)) . '.' . $this->file->guessExtension();
     }
@@ -129,57 +121,16 @@ class TopDestination
 	return $this->id;
     }
 
-    /**
-     * Set ordre
-     *
-     * @param integer $ordre
-     * @return TopDestination
-     */
-    public function setOrdre($ordre)
+    public function getPath()
     {
-	$this->ordre = $ordre;
-
-	return $this;
-    }
-
-    /**
-     * Get ordre
-     *
-     * @return integer 
-     */
-    public function getOrdre()
-    {
-	return $this->ordre;
-    }
-
-    /**
-     * Set destination
-     *
-     * @param \Back\VoyageOrganiseBundle\Entity\Destination $destination
-     * @return TopDestination
-     */
-    public function setDestination(\Back\VoyageOrganiseBundle\Entity\Destination $destination = null)
-    {
-	$this->destination = $destination;
-
-	return $this;
-    }
-
-    /**
-     * Get destination
-     *
-     * @return \Back\VoyageOrganiseBundle\Entity\Destination 
-     */
-    public function getDestination()
-    {
-	return $this->destination;
+	return $this->path;
     }
 
     /**
      * Set updateAt
      *
      * @param \DateTime $updateAt
-     * @return TopDestination
+     * @return Media
      */
     public function setUpdateAt($updateAt)
     {
@@ -202,7 +153,7 @@ class TopDestination
      * Set path
      *
      * @param string $path
-     * @return TopDestination
+     * @return Media
      */
     public function setPath($path)
     {
@@ -211,14 +162,8 @@ class TopDestination
 	return $this;
     }
 
-    /**
-     * Get path
-     *
-     * @return string 
-     */
-    public function getPath()
+    public function __toString()
     {
-	return $this->path;
+	return $this->getAssetPath();
     }
-
 }

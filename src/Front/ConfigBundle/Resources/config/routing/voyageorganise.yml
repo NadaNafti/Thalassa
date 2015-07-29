@@ -13,3 +13,7 @@ front_config_voyageorganise_slider:
 front_config_voyageorganise_slider_delete:
     path:     /sliderDelete/{id}
     defaults: { _controller: FrontConfigBundle:VoyageOrganise:deleteSlider }
+
+front_config_voyageorganise_blockmetro:
+    path:     /blockmetro
+    defaults: { _controller: FrontConfigBundle:VoyageOrganise:blockMetro }

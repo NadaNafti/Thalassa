@@ -6,33 +6,28 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SliderVOType extends AbstractType
+class MediaType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-	$builder
-		->add('ordre')
-		->add('titre1')
-		->add('titre2')
-		->add('titre3')
-		->add('url')
-		->add('file', 'file', array('required' => false))
-	;
+        $builder
+            ->add('file', 'file', array('required'=>false))
+            ->add('updateAt');
+        ;
     }
-
+    
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-	$resolver->setDefaults(array(
-	    'data_class' => 'Front\ConfigBundle\Entity\SliderVO'
-	));
+        $resolver->setDefaults(array(
+            'data_class' => 'Front\ConfigBundle\Entity\Media'
+        ));
     }
 
     /**
@@ -40,7 +35,6 @@ class SliderVOType extends AbstractType
      */
     public function getName()
     {
-	return 'front_configbundle_slidervo';
+        return 'front_configbundle_media';
     }
-
 }
