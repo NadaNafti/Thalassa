@@ -30,7 +30,7 @@ class HotelTunisieController extends Controller
 		$em->persist($slider);
 		$em->flush();
 		$session->getFlashBag()->add('success', "Votre slider a été mise a jour avec succès ");
-		return $this->redirect($this->generateUrl("front_config_hoteltunisie_slider"));
+		return $this->redirect($this->generateUrl("config_front_hoteltunisie_slider"));
 	    }
 	}
 	return $this->render('FrontConfigBundle:HotelTunisie:slider.html.twig', array(
@@ -46,7 +46,7 @@ class HotelTunisieController extends Controller
 	$em->remove($slider);
 	$em->flush();
 	$session->getFlashBag()->add('success', " Votre slider a été supprimé avec succées ");
-	return $this->redirect($this->generateUrl('front_config_hoteltunisie_slider'));
+	return $this->redirect($this->generateUrl('config_front_hoteltunisie_slider'));
     }
 
 }
