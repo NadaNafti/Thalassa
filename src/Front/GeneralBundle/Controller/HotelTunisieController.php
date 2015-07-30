@@ -29,11 +29,14 @@ class HotelTunisieController extends Controller
 				'name' => urlencode($request->get('motcles')),
 	    )));
 	}
+	$hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->filtreFrontOfficePlus('all', 'all', 'all', null);
+	$hotels=$this->removeInvalideHotel($hotels, TRUE);
 	return $this->render('FrontGeneralBundle:hoteltunisie:accueil.html.twig', array(
 		    'villes' => $villes,
 		    'chaines' => $chaines,
 		    'categories' => $categories,
-		    'sliders' => $sliders
+		    'sliders' => $sliders,
+		    'hotels'=>  $hotels,
 	));
     }
 
@@ -121,13 +124,16 @@ class HotelTunisieController extends Controller
 	));
     }
 
-    public function removeInvalideHotel($hotels)
+    public function removeInvalideHotel($hotels, $topPromo=FALSE)
     {
 	$newHotels = array();
 	foreach ($hotels as $hotel)
 	{
 	    if (!is_null($hotel->getSaisonBase()) && $hotel->getSaisonBase()->isValidSaisonBase() && !$hotel->isInStopSales() && $hotel->getEtat() == 1)
-		$newHotels[] = $hotel;
+	    {
+		if(!$topPromo || $hotel->getSaisonPromotionByDate(date('Y-m-d'))->getType()==2)
+		    $newHotels[] = $hotel;
+	    }
 	}
 	return $newHotels;
     }
