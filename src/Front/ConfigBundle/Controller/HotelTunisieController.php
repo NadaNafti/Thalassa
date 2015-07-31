@@ -56,7 +56,7 @@ class HotelTunisieController extends Controller
         $em = $this->getDoctrine()->getManager();
         $hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->filtreFrontOfficePlus();
         $hotels = $this->removeInvalideHotel($hotels, false);
-        return $this->render('FrontConfigBundle:hoteltunisie:showTopPromo.html.twig', array(
+        return $this->render('FrontConfigBundle:HotelTunisie:showTopPromo.html.twig', array(
                     'hotels' => $hotels,
         ));
     }
@@ -96,7 +96,7 @@ class HotelTunisieController extends Controller
 		return $this->redirect($this->generateUrl("config_front_hoteltunisie_blockmetro"));
 	    }
 	}
-	return $this->render('FrontConfigBundle:hoteltunisie:blockMetro.html.twig', array(
+	return $this->render('FrontConfigBundle:HotelTunisie:blockMetro.html.twig', array(
 		    'form' => $form->createView(),
 		    'blockMetro' => $blockMetro
 	));
@@ -106,7 +106,7 @@ class HotelTunisieController extends Controller
     {
 	$em = $this->getDoctrine()->getManager();
 	$blockMetro = $em->getRepository('FrontConfigBundle:BlockMetroSHT')->find(1);
-	return $this->render('FrontConfigBundle:hoteltunisie:showBlockMetro.html.twig', array(
+	return $this->render('FrontConfigBundle:HotelTunisie:showBlockMetro.html.twig', array(
 		    'blockMetro' => $blockMetro,
 	));
     }
