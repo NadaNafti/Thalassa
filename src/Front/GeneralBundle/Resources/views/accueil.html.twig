@@ -8,387 +8,103 @@
 		<div class="travel-search-inner">
 		    <ul class="tabs searchTab">
 			<li><a href="#hotelsSearch" class="active"><span class="hotel mi"></span>Hôtels en tunisie</a></li>
-			<li><a href="#flightsSearch"><span class="hotel mi"></span>Hôtels dans le monde</a></li>
-			<li><a href="#vacationsSearch"><span class="vacation mi"></span>Vol</a></li>
-			<li><a href="#carsSearch"><span class="car mi"></span>Voyages organisés</a></li>
-			<li><a href="#cruisesSearch"><span class="cruise mi"></span>Voyages à la carte</a></li>
+			<li><a href="#voyageSearch"><span class="car mi"></span>Voyages organisés</a></li>
 		    </ul>
 
 		    <ul class="tabs-content">
 			<li id="hotelsSearch" class="active">
-			    <form role="form" class="row">
+			    <form role="form" class="row" method="post" action="{{ path('front_hoteltunisie_accueil') }}">
+                                <div class="col-xs-12 col-sm-3 col-md-2">
+                                    <div class="form-group">
+                                        <label for="hotelLocation">Ville de destination</label>
+                                        <select class="form-control mySelectBoxClass" name="ville" id="">
+                                            <option value="all">Tous les villes</option>
+                                            {% for ville in villes %}
+                                                <option value="{{ ville.id }}">{{ ville }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-3 col-md-2">
+                                    <div class="form-group">
+                                        <label for="hotelLocation">Catégorie</label>
+                                        <select class="form-control mySelectBoxClass" name="categorie" id="">
+                                            <option value="all">Tous les carégories</option>
+                                            {% for categorie in categories %}
+                                                <option value="{{ categorie.id }}">{{ categorie }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                    <div class="form-group datepicker-wrapper">
+                                        <label for="hotel-check-in">Date d'entrée</label>
+                                        <input type="text" class="form-control date" value="{{ 'now'|date_modify("+1 day")|date("Y-m-d") }}" id="hotel-check-in" name="dateDebut" placeholder="yyyy-mm-dd">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                    <div class="form-group datepicker-wrapper">
+                                        <label for="hotel-check-out">Nbr Nuitées</label>
+                                        <input type="number" name="nuitees" min="1" value="1" class="form-control" id="">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                    <div class="form-group datepicker-wrapper">
+                                        <label for="hotel-check-out">Mot clès</label>
+                                        <input type="text" class="form-control" id="MotCles" name="motcles">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                    <div class="clear"></div>
+                                    <button type="submit" class="btn btn-primary btn-block">Recherche</button>
+                                </div>
+                            </form>
+			</li>
+			<li id="voyageSearch">
+			    <form role="form" class="row" method="post" action="{{ path('front_voyageorganise_accueil') }}">
 				<div class="col-xs-12 col-sm-3 col-md-2">
+				    <div class="form-group">
+					<label for="hotelLocation">Themes</label>
+					<select class="form-control mySelectBoxClass" name="themes" id="">
+					    <option value="all">Tous les themes</option>
+					    {% for theme in themes %}
+						<option value="{{ theme.id }}">{{ theme }}</option>
+					    {% endfor %}
+					</select>
+				    </div>
+				</div>
+				<div class="col-xs-12 col-sm-3 col-md-3">
 				    <div class="form-group">
 					<label for="hotelLocation">Ville de destination</label>
-					<select class="form-control mySelectBoxClass" id="VilleDestination">
-					    <option>0</option>
-					    <option selected>1</option>
-					    <option>2</option>
-					    <option>3</option>
-					    <option>4</option>
-					    <option>5</option>
+					<select class="form-control mySelectBoxClass" name="destinations" id="">
+					    <option value="all">Tous les destinations</option>
+					    {% for destination in destinations %}
+						<option value="{{ destination.id }}">{{ destination }}</option>
+					    {% endfor %}
 					</select>
 				    </div>
 				</div>
 				<div class="col-xs-12 col-sm-3 col-md-2">
 				    <div class="form-group">
-					<label for="hotelLocation">Catégorie</label>
-					<select class="form-control mySelectBoxClass" id="Categorie">
-					    <option>0</option>
-					    <option selected>1</option>
-					    <option>2</option>
-					    <option>3</option>
-					    <option>4</option>
-					    <option>5</option>
+					<label for="hotelLocation">Pays</label>
+					<select class="form-control mySelectBoxClass" name="pays" id="">
+					    <option value="all">Tous les pays</option>
+					    {% for pay in pays %}
+						<option value="{{ pay.id }}">{{ pay }}</option>
+					    {% endfor %}
 					</select>
 				    </div>
 				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
-				    <div class="form-group datepicker-wrapper">
-					<label for="hotel-check-in">Date d'entrée</label>
-					<input type="text" class="form-control date" id="hotel-check-in" placeholder="dd/dm/yy">
-					<i class="fa fa-calendar"></i>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
-				    <div class="form-group datepicker-wrapper">
-					<label for="hotel-check-out">Nbr Nuitées</label>
-					<input type="text" class="form-control" id="NbrNuitee">
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
+				<div class="col-xs-12 col-sm-4 col-md-3">
 				    <div class="form-group datepicker-wrapper">
 					<label for="hotel-check-out">Mot clès</label>
-					<input type="text" class="form-control" id="MotCles">
+					<input type="text" class="form-control" id="MotCles" name="motcles">
 				    </div>
 				</div>
 				<div class="col-xs-12 col-sm-4 col-md-2">
 				    <div class="clear"></div>
-				    <button type="submit" class="btn btn-primary btn-block">Search</button>
-				</div>
-			    </form>
-			</li>
-			<li id="flightsSearch">
-			    <form role="form" class="row">
-				<div class="col-xs-12 col-sm-4 col-md-2">
-				    <div class="form-group">
-					<label for="flightFrom">From</label>
-					<input type="text" class="form-control" id="flightFrom" placeholder="Bangkok">
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
-				    <div class="form-group">
-					<label for="flightTo">To</label>
-					<input type="text" class="form-control" id="flightTo" placeholder="Hong Kong">
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
-				    <div class="form-group datepicker-wrapper">
-					<label for="flightCheckIn">Check-in</label>
-					<input type="text" class="form-control date" id="flightCheckIn" placeholder="dd/dm/yy">
-					<i class="fa fa-calendar"></i>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
-				    <div class="form-group datepicker-wrapper">
-					<label for="flightCheckOut">Check-out</label>
-					<input type="text" class="form-control date" id="flightCheckOut" placeholder="dd/dm/yy">
-					<i class="fa fa-calendar"></i>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-3 col-md-1">
-				    <div class="form-group">
-					<label for="flightAdult">Adult</label>
-					<select class="form-control mySelectBoxClass" id="flightAdult">
-					    <option>0</option>
-					    <option selected>1</option>
-					    <option>2</option>
-					    <option>3</option>
-					    <option>4</option>
-					    <option>5</option>
-					</select>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-3 col-md-1">
-				    <div class="form-group">
-					<label for="flightChild">Child</label>
-					<select class="form-control mySelectBoxClass" id="flightChild">
-					    <option>0</option>
-					    <option selected>1</option>
-					    <option>2</option>
-					    <option>3</option>
-					    <option>4</option>
-					    <option>5</option>
-					</select>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-2 col-md-2">
-				    <div class="clear"></div>
-				    <button type="submit" class="btn btn-primary btn-block">Search</button>
-				</div>
-			    </form>
-			</li>
-			<li id="vacationsSearch">
-			    <form role="form" class="row">
-				<div class="col-xs-12 col-sm-4 col-md-4">
-				    <div class="form-group">
-					<label for="vacationLocation">Where to Stay?</label>
-					<input type="text" class="form-control" id="vacationLocation" placeholder="Thailand">
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
-				    <div class="form-group datepicker-wrapper">
-					<label for="vacation-check-in">Check-in</label>
-					<input type="text" class="form-control date" id="vacation-check-in" placeholder="dd/dm/yy">
-					<i class="fa fa-calendar"></i>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
-				    <div class="form-group datepicker-wrapper">
-					<label for="vacation-check-out">Check-out</label>
-					<input type="text" class="form-control date" id="vacation-check-out" placeholder="dd/dm/yy">
-					<i class="fa fa-calendar"></i>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-1">
-				    <div class="form-group">
-					<label for="vacationAdult">Adult</label>
-					<select class="form-control mySelectBoxClass" id="vacationAdult">
-					    <option>0</option>
-					    <option selected>1</option>
-					    <option>2</option>
-					    <option>3</option>
-					    <option>4</option>
-					    <option>5</option>
-					</select>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-1">
-				    <div class="form-group">
-					<label for="vacationChild">Child</label>
-					<select class="form-control mySelectBoxClass" id="vacationChild">
-					    <option>0</option>
-					    <option selected>1</option>
-					    <option>2</option>
-					    <option>3</option>
-					    <option>4</option>
-					    <option>5</option>
-					</select>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
-				    <div class="clear"></div>
-				    <button type="submit" class="btn btn-primary btn-block">Search</button>
-				</div>
-			    </form>
-			</li>
-			<li id="carsSearch">
-			    <form role="form" class="row">
-				<div class="col-xs-12 col-sm-4 col-md-1">
-				    <div class="form-group">
-					<label for="carFrom">From</label>
-					<input type="text" class="form-control" id="carFrom" placeholder="Bangkok">
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-1">
-				    <div class="form-group">
-					<label for="carTo">To</label>
-					<input type="text" class="form-control" id="carTo" placeholder="Pattaya">
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
-				    <div class="form-group datepicker-wrapper">
-					<label for="carPickUp">Pick Up</label>
-					<input type="text" class="form-control date" id="carPickUp" placeholder="dd/dm/yy">
-					<i class="fa fa-calendar"></i>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-3 col-md-2">
-				    <div class="form-group datepicker-wrapper">
-					<label for="pickUpTime">Hour</label>
-					<select class="form-control mySelectBoxClass" id="pickUpTime">
-					    <option>12:00 AM</option>
-					    <option>12:30 AM</option>
-					    <option>01:00 AM</option>
-					    <option>01:30 AM</option>
-					    <option>02:00 AM</option>
-					    <option>02:30 AM</option>
-					    <option>03:00 AM</option>
-					    <option>03:30 AM</option>
-					    <option>04:00 AM</option>
-					    <option>04:30 AM</option>
-					    <option>05:00 AM</option>
-					    <option>05:30 AM</option>
-					    <option>06:00 AM</option>
-					    <option>06:30 AM</option>
-					    <option>07:00 AM</option>
-					    <option>07:30 AM</option>
-					    <option>08:00 AM</option>
-					    <option>08:30 AM</option>
-					    <option>09:00 AM</option>
-					    <option>09:30 AM</option>
-					    <option>10:00 AM</option>
-					    <option selected>10:30 AM</option>
-					    <option>11:00 AM</option>
-					    <option>11:30 AM</option>
-					    <option>12:00 PM</option>
-					    <option>12:30 PM</option>								  
-					    <option>01:00 PM</option>
-					    <option>01:30 PM</option>
-					    <option>02:00 PM</option>
-					    <option>02:30 PM</option>
-					    <option>03:00 PM</option>
-					    <option>03:30 PM</option>
-					    <option>04:00 PM</option>
-					    <option>04:30 PM</option>
-					    <option>05:00 PM</option>
-					    <option>05:30 PM</option>
-					    <option>06:00 PM</option>
-					    <option>06:30 PM</option>
-					    <option>07:00 PM</option>
-					    <option>07:30 PM</option>
-					    <option>08:00 PM</option>
-					    <option>08:30 PM</option>
-					    <option>09:00 PM</option>
-					    <option>09:30 PM</option>
-					    <option>10:00 PM</option>
-					    <option>10:30 PM</option>
-					    <option>11:00 PM</option>
-					    <option>11:30 PM</option>		
-					</select>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-2">
-				    <div class="form-group datepicker-wrapper">
-					<label for="carDropOff">Drop Off</label>
-					<input type="text" class="form-control date" id="carDropOff" placeholder="dd/dm/yy">
-					<i class="fa fa-calendar"></i>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-3 col-md-2">
-				    <div class="form-group datepicker-wrapper">
-					<label for="dropOffTime">Hour</label>
-					<select class="form-control mySelectBoxClass" id="dropOffTime">
-					    <option>12:00 AM</option>
-					    <option>12:30 AM</option>
-					    <option>01:00 AM</option>
-					    <option>01:30 AM</option>
-					    <option>02:00 AM</option>
-					    <option>02:30 AM</option>
-					    <option>03:00 AM</option>
-					    <option>03:30 AM</option>
-					    <option>04:00 AM</option>
-					    <option>04:30 AM</option>
-					    <option>05:00 AM</option>
-					    <option>05:30 AM</option>
-					    <option>06:00 AM</option>
-					    <option>06:30 AM</option>
-					    <option>07:00 AM</option>
-					    <option>07:30 AM</option>
-					    <option>08:00 AM</option>
-					    <option>08:30 AM</option>
-					    <option>09:00 AM</option>
-					    <option>09:30 AM</option>
-					    <option>10:00 AM</option>
-					    <option selected>10:30 AM</option>
-					    <option>11:00 AM</option>
-					    <option>11:30 AM</option>
-					    <option>12:00 PM</option>
-					    <option>12:30 PM</option>								  
-					    <option>01:00 PM</option>
-					    <option>01:30 PM</option>
-					    <option>02:00 PM</option>
-					    <option>02:30 PM</option>
-					    <option>03:00 PM</option>
-					    <option>03:30 PM</option>
-					    <option>04:00 PM</option>
-					    <option>04:30 PM</option>
-					    <option>05:00 PM</option>
-					    <option>05:30 PM</option>
-					    <option>06:00 PM</option>
-					    <option>06:30 PM</option>
-					    <option>07:00 PM</option>
-					    <option>07:30 PM</option>
-					    <option>08:00 PM</option>
-					    <option>08:30 PM</option>
-					    <option>09:00 PM</option>
-					    <option>09:30 PM</option>
-					    <option>10:00 PM</option>
-					    <option>10:30 PM</option>
-					    <option>11:00 PM</option>
-					    <option>11:30 PM</option>	
-					</select>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-2 col-md-2">
-				    <div class="clear"></div>
-				    <button type="submit" class="btn btn-primary btn-block">Search</button>
-				</div>
-			    </form>
-			</li>
-			<li id="cruisesSearch">
-			    <form role="form" class="row">
-				<div class="col-xs-12 col-sm-4 col-md-3">
-				    <div class="form-group">
-					<label for="cruisesDestinatiom">Destination</label>
-					<select class="form-control mySelectBoxClass" id="cruisesDestinatiom">
-					    <option selected>Show all</option>
-					    <optgroup label="Most Popular">
-						<option>Caribbean</option>
-						<option>Bahamas</option>
-						<option>Mexico</option>
-						<option>Alaska</option>
-						<option>Europe</option>
-						<option>Bermuda</option>
-						<option>Hawaii</option>
-					    </optgroup>
-					    <optgroup label="Other Destinations">
-						<option>Africa</option>
-						<option>Arctic/Antartctic</option>
-						<option>Asia</option>
-						<option>Oceania</option>
-						<option>Central America</option>
-						<option>Cruise to Nowhere</option>
-						<option>Galapagos</option>
-						<option>Greenland/Iceland</option>
-						<option>Middle East</option>
-						<option>Pacific Coastal</option>
-						<option>Panama Canal</option>
-						<option>South Africa</option>
-						<option>South Pacific</option>
-						<option>Tahiti</option>
-						<option>Transatlantic</option>
-						<option>World Cruises</option>
-					    </optgroup>
-					</select>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-3">
-				    <div class="form-group">
-					<label for="cruisesWhen">When</label>
-					<select class="form-control mySelectBoxClass" id="cruisesWhen">
-					    <option selected>Show all</option>
-					    <option>October 2013</option>
-					    <option>November 2013</option>
-					    <option>December 2013</option>
-					    <option>January 2014</option>
-					    <option>February 2014</option>
-					    <option>March 2014</option>
-					    <option>April 2014</option>
-					    <option>May 2014</option>
-					    <option>June 2014</option>
-					    <option>July 2014</option>
-					    <option>August 2014</option>
-					    <option>September 2014</option>
-					    <option>October 2014</option>
-					    <option>November 2014</option>
-					    <option>December 2014</option>
-					</select>
-				    </div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-6">
-				    <div class="clear"></div>
-				    <button type="submit" class="btn btn-primary btn-block">Search</button>
+				    <button type="submit" class="btn btn-primary btn-block">Recherche</button>
 				</div>
 			    </form>
 			</li>
