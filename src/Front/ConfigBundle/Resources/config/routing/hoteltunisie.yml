@@ -5,3 +5,7 @@ config_front_hoteltunisie_slider:
 config_front_hoteltunisie_slider_delete:
     path:     /sliderDelete/{id}
     defaults: { _controller: FrontConfigBundle:HotelTunisie:deleteSlider }
+
+config_front_hoteltunisie_blockmetro:
+    path:     /blockmetro
+    defaults: { _controller: FrontConfigBundle:HotelTunisie:blockMetro }

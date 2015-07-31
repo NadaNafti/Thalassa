@@ -16,7 +16,7 @@
                         {{ formulaire.input("col-md-3","Libelle",form.libelle,true) }}
                     </div>
                     <div class="row">
-                        {{ formulaire.input("col-md-3","Theme 1",form.theme1,true) }}
+                        {{ formulaire.input("col-md-3","Tag 1",form.tag1,true) }}
                         {{ formulaire.input("col-md-4","Photo 1 (290 x 209)",form.photo1.file,true) }}
                         {% if blockMetro.photo1.assetPath is defined %}
                             <div class="col-md-4">
@@ -25,7 +25,7 @@
                         {% endif %}
                     </div>
                     <div class="row">
-                        {{ formulaire.input("col-md-3","Theme 2",form.theme2,true) }}
+                        {{ formulaire.input("col-md-3","Tag 2",form.tag2,true) }}
                         {{ formulaire.input("col-md-4","Photo 2 (290 x 209)",form.photo2.file,true) }}
                         {% if blockMetro.photo1.assetPath is defined %}
                             <div class="col-md-4">
@@ -34,7 +34,7 @@
                         {% endif %}
                     </div>
                     <div class="row">
-                        {{ formulaire.input("col-md-3","Theme 3",form.theme3,true) }}
+                        {{ formulaire.input("col-md-3","Tag 3",form.tag3,true) }}
                         {{ formulaire.input("col-md-4","Photo 3 (590 x 209)",form.photo3.file,true) }}
                         {% if blockMetro.photo1.assetPath is defined %}
                             <div class="col-md-4">
@@ -43,7 +43,7 @@
                         {% endif %}
                     </div>
                     <div class="row">
-                        {{ formulaire.input("col-md-3","Theme 4",form.theme4,true) }}
+                        {{ formulaire.input("col-md-3","Tag 4",form.tag4,true) }}
                         {{ formulaire.input("col-md-4","Photo 4 (290 x 209)",form.photo4.file,true) }}
                         {% if blockMetro.photo1.assetPath is defined %}
                             <div class="col-md-4">
@@ -52,7 +52,7 @@
                         {% endif %}
                     </div>
                     <div class="row">
-                        {{ formulaire.input("col-md-3","Theme 5",form.theme5,true) }}
+                        {{ formulaire.input("col-md-3","Tag 5",form.tag5,true) }}
                         {{ formulaire.input("col-md-4","Photo 5 (290 x 209)",form.photo5.file,true) }}
                         {% if blockMetro.photo1.assetPath is defined %}
                             <div class="col-md-4">
@@ -61,7 +61,7 @@
                         {% endif %}
                     </div>
                     <div class="row">
-                        {{ formulaire.input("col-md-3","Theme 6",form.theme6,true) }}
+                        {{ formulaire.input("col-md-3","Tag 6",form.tag6,true) }}
                         {{ formulaire.input("col-md-4","Photo 6 (590 x 209)",form.photo6.file,true) }}
                         {% if blockMetro.photo1.assetPath is defined %}
                             <div class="col-md-4">
@@ -70,7 +70,7 @@
                         {% endif %}
                     </div>
                     <div class="row">
-                        {{ formulaire.input("col-md-3","Theme 7",form.theme7,true) }}
+                        {{ formulaire.input("col-md-3","Tag 7",form.tag7,true) }}
                         {{ formulaire.input("col-md-4","Photo 7 (290 x 209)",form.photo7.file,true) }}
                         {% if blockMetro.photo1.assetPath is defined %}
                             <div class="col-md-4">
@@ -79,7 +79,7 @@
                         {% endif %}
                     </div>
                     <div class="row">
-                        {{ formulaire.input("col-md-3","Theme 8",form.theme8,true) }}
+                        {{ formulaire.input("col-md-3","Tag 8",form.tag8,true) }}
                         {{ formulaire.input("col-md-4","Photo 8 (290 x 209)",form.photo8.file,true) }}
                         {% if blockMetro.photo1.assetPath is defined %}
                             <div class="col-md-4">
@@ -89,7 +89,7 @@
                     </div>
                     <div class="no-display">
                         {% for i in 1..8 %}
-                            {{ formulaire.input("col-md-3","Theme 8",form['photo'~i].updateAt,true) }}
+                            {{ formulaire.input("col-md-3","Tag 8",form['photo'~i].updateAt,true) }}
                         {% endfor %}
                     </div>
                     {{ formulaire.submit("Enregistrer") }}
