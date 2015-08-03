@@ -15,7 +15,7 @@
             <div id="owl-slider" class="owl-carousel owl-theme">
                 {% for slider in sliders %}
                     <div class="item">
-                        <img class="lazyOwl" data-src="{{ asset(slider.assetPath) }}" alt="Image" style="width: 1350px;height: 560px">
+                        <img class="lazyOwl" data-src="{{ asset(slider.assetPath) }}" alt="Image" style="height: 560px">
                         <div class="owl-capture">
                             <p class="owl-price">{{ slider.titre1 }}</p>
                             <h2><a href="{{ slider.url }}" class="right-capture">{{ slider.titre2 }}</a></h2>
