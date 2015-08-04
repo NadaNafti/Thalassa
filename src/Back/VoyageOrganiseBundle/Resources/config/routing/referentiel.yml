@@ -6,6 +6,14 @@ delete_back_voyages_organises_destination:
     path:     /delete_back_voyages_organises_destination/{id}
     defaults: { _controller: BackVoyageOrganiseBundle:Referentiel:deleteDestination }
 
+back_voyages_organises_hotel:
+    path:     /hotel/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Referentiel:hotel,id:null }
+
+delete_back_voyages_organises_hotel:
+    path:     /delete_back_voyages_organises_hotel/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Referentiel:deleteHotel }
+
 back_voyages_organises_theme:
     path:     /theme/{id}
     defaults: { _controller: BackVoyageOrganiseBundle:Referentiel:theme,id:null }

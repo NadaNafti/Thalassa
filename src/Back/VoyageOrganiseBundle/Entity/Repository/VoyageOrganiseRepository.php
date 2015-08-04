@@ -1,6 +1,6 @@
 <?php
 
-namespace Back\VoyageOrganiseBundle\Entity;
+namespace Back\VoyageOrganiseBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -12,8 +12,7 @@ class VoyageOrganiseRepository extends EntityRepository
 	$query = $this->createQueryBuilder('v');
 	$query->join('v.pays', 'p');
 	$query->join('v.themes', 't');
-	$query->where('v.finInscription >= :date')->setParameter('date', date('Y-m-d'));
-	$query->andWhere('v.nbrInscriptions < v.nbrInscriptionsMax');
+	$query->where($query->expr()->isNotNull('v.id'));
 	if ($destination != 'all')
 	{
 	    $orX = $query->expr()->orX();

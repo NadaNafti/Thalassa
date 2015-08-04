@@ -1,6 +1,6 @@
 <?php
 
-namespace Back\VoyageOrganiseBundle\Entity;
+namespace Back\VoyageOrganiseBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

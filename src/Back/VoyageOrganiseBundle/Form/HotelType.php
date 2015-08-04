@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DescriptionType extends AbstractType
+class HotelType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,16 +16,7 @@ class DescriptionType extends AbstractType
     {
         $builder
             ->add('libelle')
-            ->add('texte','ckeditor')
-            ->add('ordre')
-            ->add('visible','checkbox',array(
-		'label'=>'Visible',
-		'required'=>FALSE
-	    ))
-            ->add('lateral','checkbox',array(
-		'label'=>'Latéral',
-		'required'=>FALSE
-	    ))
+            ->add('categorie')
         ;
     }
     
@@ -35,7 +26,7 @@ class DescriptionType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Back\VoyageOrganiseBundle\Entity\Description'
+            'data_class' => 'Back\VoyageOrganiseBundle\Entity\Hotel'
         ));
     }
 
@@ -44,6 +35,6 @@ class DescriptionType extends AbstractType
      */
     public function getName()
     {
-        return 'back_voyageorganisebundle_description';
+        return 'back_voyageorganisebundle_hotel';
     }
 }

@@ -1,0 +1,84 @@
+{% extends "BackVoyageOrganiseBundle:voyageOrganise:liste.html.twig" %}
+{% block title %}Gestion des Circuits{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackVoyageOrganiseBundle:voyageOrganise:menu.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            {{ formulaire.select2("col-md-4","Période",form.periodeC,true) }}
+                            {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-3","Prix Adulte Achat",form.adulteAchat,true) }}
+                            {{ formulaire.input("col-md-3","Prix Adulte Vente",form.adulteVente,true) }}
+                            {{ formulaire.input("col-md-3","Prix Enfant Achat",form.enfantAchat,true) }}
+                            {{ formulaire.input("col-md-3","Prix Enfant Vente",form.enfantVente,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-1","",form.obligatoire,false) }}
+                        </div>
+                        {{ formulaire.submit("Enregistrer") }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">#</th>
+                                <th rowspan="2">Période</th>
+                                <th rowspan="2">Libellé</th>
+                                <th colspan="2">Adulte</th>
+                                <th colspan="2">Enfant</th>
+                                <th rowspan="2">Obligatoire</th>
+                                <th rowspan="2" class="center" >Action</th>
+                            </tr>
+                            <tr>
+                                <th>Achat</th>
+                                <th>Vente</th>
+                                <th>Achat</th>
+                                <th>Vente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ligne in lignes %}
+                                <tr>
+                                    <td>{{ ligne.id }}</td>
+                                    <td>{{ ligne.periodeC }}</td>
+                                    <td>{{ ligne.libelle }}</td>
+                                    <td>{{ ligne.adulteAchat }}</td>
+                                    <td>{{ ligne.adulteVente }}</td>
+                                    <td>{{ ligne.enfantAchat }}</td>
+                                    <td>{{ ligne.enfantVente }}</td>
+                                    <td>{% if ligne.obligatoire %}Oui{% else %}Non{% endif %}</td>
+                                    <td class="TableAction">
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                            {{ macros.tableEdit(path('back_vo_circuit',{'voyage':voyage.id,'id':ligne.id})) }}
+                                            {{ macros.tableDelete(path('back_vo_circuit_delete',{'id':ligne.id})) }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

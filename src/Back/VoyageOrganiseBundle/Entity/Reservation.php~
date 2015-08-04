@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Reservation
  *
  * @ORM\Table(name="ost_vo_reservations")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Back\VoyageOrganiseBundle\Entity\Repository\ReservationRepository")
  */
 class Reservation
 {
@@ -124,7 +124,9 @@ class Reservation
      */
     public function __construct()
     {
-	$this->etat=1;
+	$this->frontOffice=false;
+	$this->etat = 1;
+	$this->coordonnees = array();
 	$this->adultes = new \Doctrine\Common\Collections\ArrayCollection();
 	$this->enfants = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -512,6 +514,29 @@ class Reservation
     public function getMontantRestant()
     {
 	return number_format($this->total - $this->getMontantRegle(), 3, '.', '');
+    }
+
+    /**
+     * Set coordonnees
+     *
+     * @param array $coordonnees
+     * @return Reservation
+     */
+    public function setCoordonnees($coordonnees)
+    {
+	$this->coordonnees = $coordonnees;
+
+	return $this;
+    }
+
+    /**
+     * Get coordonnees
+     *
+     * @return array 
+     */
+    public function getCoordonnees()
+    {
+	return $this->coordonnees;
     }
 
 }

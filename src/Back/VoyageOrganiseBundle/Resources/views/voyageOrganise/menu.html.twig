@@ -1,8 +1,28 @@
-{% if app.request.get('id') is not null  %}
+{% if voyage.id is not null  %}
     <ul id="myTab" class="nav nav-tabs tab-bricky">
 	<li {% if app.request.get('_route')=='back_vo_ajouter' %}class="active"{% endif %}>
 	    <a href="{{ path("back_vo_ajouter",{'id':voyage.id}) }}">
 		<i class="green fa fa-home"></i> {{ voyage }}
+	    </a>
+	</li>
+	<li {% if app.request.get('_route')=='back_vo_periode' %}class="active"{% endif %}>
+	    <a href="{{ path("back_vo_periode",{'voyage':voyage.id}) }}">
+		<i class="green fa fa-list"></i> Périodes ({{ voyage.periodes|length }})
+	    </a>
+	</li>
+	<li {% if app.request.get('_route')=='back_vo_pack' %}class="active"{% endif %}>
+	    <a href="{{ path("back_vo_pack",{'voyage':voyage.id}) }}">
+		<i class="green fa fa-list"></i> Packs ({{ voyage.countPacks }})
+	    </a>
+	</li>
+	<li {% if app.request.get('_route')=='back_vo_circuit' %}class="active"{% endif %}>
+	    <a href="{{ path("back_vo_circuit",{'voyage':voyage.id}) }}">
+		<i class="green fa fa-list"></i> Circuits {#({{ voyage.countCircuits }})#}
+	    </a>
+	</li>
+	<li {% if app.request.get('_route')=='back_vo_frais' %}class="active"{% endif %}>
+	    <a href="{{ path("back_vo_frais",{'voyage':voyage.id}) }}">
+		<i class="green fa fa-list"></i> Frais divers {#({{ voyage.countFrais }})#}
 	    </a>
 	</li>
 	<li {% if app.request.get('_route')=='back_vo_descriptions' %}class="active"{% endif %}>

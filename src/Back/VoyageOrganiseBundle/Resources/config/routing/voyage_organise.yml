@@ -25,3 +25,39 @@ back_vo_photos:
 back_vo_photos_delete:
     path:     /back_vo_photos_delete/{id}
     defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:SupprimerPhoto }
+
+back_vo_periode:
+    path:     /ajouter/{voyage}/periodes/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:periode,id:null }
+
+back_vo_periode_delete:
+    path:     /back_vo_periodes_delete/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:SupprimerPeriode}
+
+back_vo_pack:
+    path:     /ajouter/{voyage}/pack/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:pack,id:null }
+
+back_vo_pack_delete:
+    path:     /back_vo_pack_delete/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:SupprimerPack}
+
+back_vo_ligne_pach_delete:
+    path:     /back_vo_ligne_pach_delete/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:SupprimerPackLigne}
+
+back_vo_circuit:
+    path:     /ajouter/{voyage}/circuit/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:circuit,id:null }
+
+back_vo_circuit_delete:
+    path:     /back_vo_circuit_delete/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:SupprimerCircuit}
+
+back_vo_frais:
+    path:     /ajouter/{voyage}/frais/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:frais,id:null }
+
+back_vo_frais_delete:
+    path:     /back_vo_frais_delete/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:SupprimerFrais}

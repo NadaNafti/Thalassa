@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="ost_vo_voyages")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
- * @ORM\Entity(repositoryClass="Back\VoyageOrganiseBundle\Entity\VoyageOrganiseRepository")
+ * @ORM\Entity(repositoryClass="Back\VoyageOrganiseBundle\Entity\Repository\VoyageOrganiseRepository")
  */
 class VoyageOrganise
 {
@@ -51,40 +51,12 @@ class VoyageOrganise
      * @ORM\JoinTable(name="ost_vo_voyages_pays")
      */
     private $pays;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Theme")
      * @ORM\JoinTable(name="ost_vo_voyages_themes")
      */
     private $themes;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateDepart", type="date")
-     */
-    private $depart;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateRetour", type="date")
-     */
-    private $retour;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="debut_inscription", type="date")
-     */
-    private $debutInscription;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fin_inscription", type="date")
-     */
-    private $finInscription;
 
     /**
      * @var string
@@ -94,39 +66,11 @@ class VoyageOrganise
     private $prix;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="nbr_inscriptions", type="integer",nullable=true)
-     */
-    private $nbrInscriptions;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="nbr_inscriptions_min", type="integer")
-     */
-    private $nbrInscriptionsMin;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="nbr_inscriptions_max", type="integer")
-     */
-    private $nbrInscriptionsMax;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="description_courte", type="text")
      */
     private $descriptionCourte;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description_longue", type="text")
-     */
-    private $descriptionLongue;
 
     /**
      * @ORM\OneToMany(targetEntity="Photo", mappedBy="voyage", cascade={"remove"})
@@ -144,6 +88,11 @@ class VoyageOrganise
      * @ORM\JoinColumn(name="destination_id", referencedColumnName="id")
      */
     private $destination;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Periode", mappedBy="voyage")
+     */
+    private $periodes;
 
     /**
      * @Gedmo\Slug(fields={"libelle"})
@@ -173,7 +122,8 @@ class VoyageOrganise
      */
     public function __construct()
     {
-	$this->nbrInscriptions=0;
+        $this->nbrInscriptions = 0;
+        $this->periodes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->pays = new \Doctrine\Common\Collections\ArrayCollection();
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->descriptions = new \Doctrine\Common\Collections\ArrayCollection();
@@ -259,98 +209,6 @@ class VoyageOrganise
     }
 
     /**
-     * Set depart
-     *
-     * @param \DateTime $depart
-     * @return VoyageOrganise
-     */
-    public function setDepart($depart)
-    {
-        $this->depart = $depart;
-
-        return $this;
-    }
-
-    /**
-     * Get depart
-     *
-     * @return \DateTime 
-     */
-    public function getDepart()
-    {
-        return $this->depart;
-    }
-
-    /**
-     * Set retour
-     *
-     * @param \DateTime $retour
-     * @return VoyageOrganise
-     */
-    public function setRetour($retour)
-    {
-        $this->retour = $retour;
-
-        return $this;
-    }
-
-    /**
-     * Get retour
-     *
-     * @return \DateTime 
-     */
-    public function getRetour()
-    {
-        return $this->retour;
-    }
-
-    /**
-     * Set debutInscription
-     *
-     * @param \DateTime $debutInscription
-     * @return VoyageOrganise
-     */
-    public function setDebutInscription($debutInscription)
-    {
-        $this->debutInscription = $debutInscription;
-
-        return $this;
-    }
-
-    /**
-     * Get debutInscription
-     *
-     * @return \DateTime 
-     */
-    public function getDebutInscription()
-    {
-        return $this->debutInscription;
-    }
-
-    /**
-     * Set finInscription
-     *
-     * @param \DateTime $finInscription
-     * @return VoyageOrganise
-     */
-    public function setFinInscription($finInscription)
-    {
-        $this->finInscription = $finInscription;
-
-        return $this;
-    }
-
-    /**
-     * Get finInscription
-     *
-     * @return \DateTime 
-     */
-    public function getFinInscription()
-    {
-        return $this->finInscription;
-    }
-
-    /**
      * Set prix
      *
      * @param string $prix
@@ -374,75 +232,6 @@ class VoyageOrganise
     }
 
     /**
-     * Set nbrInscriptions
-     *
-     * @param integer $nbrInscriptions
-     * @return VoyageOrganise
-     */
-    public function setNbrInscriptions($nbrInscriptions)
-    {
-        $this->nbrInscriptions = $nbrInscriptions;
-
-        return $this;
-    }
-
-    /**
-     * Get nbrInscriptions
-     *
-     * @return integer 
-     */
-    public function getNbrInscriptions()
-    {
-        return $this->nbrInscriptions;
-    }
-
-    /**
-     * Set nbrInscriptionsMin
-     *
-     * @param integer $nbrInscriptionsMin
-     * @return VoyageOrganise
-     */
-    public function setNbrInscriptionsMin($nbrInscriptionsMin)
-    {
-        $this->nbrInscriptionsMin = $nbrInscriptionsMin;
-
-        return $this;
-    }
-
-    /**
-     * Get nbrInscriptionsMin
-     *
-     * @return integer 
-     */
-    public function getNbrInscriptionsMin()
-    {
-        return $this->nbrInscriptionsMin;
-    }
-
-    /**
-     * Set nbrInscriptionsMax
-     *
-     * @param integer $nbrInscriptionsMax
-     * @return VoyageOrganise
-     */
-    public function setNbrInscriptionsMax($nbrInscriptionsMax)
-    {
-        $this->nbrInscriptionsMax = $nbrInscriptionsMax;
-
-        return $this;
-    }
-
-    /**
-     * Get nbrInscriptionsMax
-     *
-     * @return integer 
-     */
-    public function getNbrInscriptionsMax()
-    {
-        return $this->nbrInscriptionsMax;
-    }
-
-    /**
      * Set descriptionCourte
      *
      * @param string $descriptionCourte
@@ -463,29 +252,6 @@ class VoyageOrganise
     public function getDescriptionCourte()
     {
         return $this->descriptionCourte;
-    }
-
-    /**
-     * Set descriptionLongue
-     *
-     * @param string $descriptionLongue
-     * @return VoyageOrganise
-     */
-    public function setDescriptionLongue($descriptionLongue)
-    {
-        $this->descriptionLongue = $descriptionLongue;
-
-        return $this;
-    }
-
-    /**
-     * Get descriptionLongue
-     *
-     * @return string 
-     */
-    public function getDescriptionLongue()
-    {
-        return $this->descriptionLongue;
     }
 
     /**
@@ -678,10 +444,10 @@ class VoyageOrganise
     {
         return $this->destination;
     }
-    
+
     public function __toString()
     {
-	return $this->libelle;
+        return $this->libelle;
     }
 
     /**
@@ -709,25 +475,25 @@ class VoyageOrganise
 
     public function getPhotoPrincipal()
     {
-	if (count($this->photos) == 0)
-	    return null;
-	foreach ($this->photos as $image)
-	{
-	    if ($image->getType() == 1)
-		return $image;
-	}
-	return null;
+        if (count($this->photos) == 0)
+            return null;
+        foreach ($this->photos as $image)
+        {
+            if ($image->getType() == 1)
+                return $image;
+        }
+        return null;
     }
 
     public function getPhotosAlbum()
     {
-	$album =array();
-	foreach ($this->photos as $image)
-	{
-	    if ($image->getType() == 2)
-		$album[]=$image;
-	}
-	return $album;
+        $album = array();
+        foreach ($this->photos as $image)
+        {
+            if ($image->getType() == 2)
+                $album[] = $image;
+        }
+        return $album;
     }
 
     /**
@@ -761,5 +527,66 @@ class VoyageOrganise
     public function getThemes()
     {
         return $this->themes;
+    }
+
+    /**
+     * Add periodes
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Periode $periodes
+     * @return VoyageOrganise
+     */
+    public function addPeriode(\Back\VoyageOrganiseBundle\Entity\Periode $periodes)
+    {
+        $this->periodes[] = $periodes;
+
+        return $this;
+    }
+
+    /**
+     * Remove periodes
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Periode $periodes
+     */
+    public function removePeriode(\Back\VoyageOrganiseBundle\Entity\Periode $periodes)
+    {
+        $this->periodes->removeElement($periodes);
+    }
+
+    /**
+     * Get periodes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPeriodes()
+    {
+        return $this->periodes;
+    }
+    
+    public function countPacks()
+    {
+        $count=0;
+        foreach ($this->periodes as $periode)
+        {
+            $count+=  count($periode->getPacks());
+        }
+        return $count;
+    }
+    public function countCircuits()
+    {
+        $count=0;
+        foreach ($this->periodes as $periode)
+        {
+            $count+=  count($periode->getCircuits());
+        }
+        return $count;
+    }
+    public function countFrais()
+    {
+        $count=0;
+        foreach ($this->periodes as $periode)
+        {
+            $count+=  count($periode->getFrais());
+        }
+        return $count;
     }
 }

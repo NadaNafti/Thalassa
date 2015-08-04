@@ -56,8 +56,19 @@ class Description
      */
     private $visible;
 
-
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="lateral", type="boolean")
+     */
+    private $lateral;
+    
+    public function __construct()
+    {
+        $this->lateral=FALSE;
+    }
+
+        /**
      * Get id
      *
      * @return integer 
@@ -188,5 +199,28 @@ class Description
 	    return 'Oui';
 	else
 	    return 'Non';
+    }
+
+    /**
+     * Set lateral
+     *
+     * @param boolean $lateral
+     * @return Description
+     */
+    public function setLateral($lateral)
+    {
+        $this->lateral = $lateral;
+
+        return $this;
+    }
+
+    /**
+     * Get lateral
+     *
+     * @return boolean 
+     */
+    public function getLateral()
+    {
+        return $this->lateral;
     }
 }
