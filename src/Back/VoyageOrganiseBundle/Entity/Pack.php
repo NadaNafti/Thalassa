@@ -380,33 +380,12 @@ class Pack
     }
 
     /**
-     * Set voyage
-     *
-     * @param \Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyage
-     * @return Pack
-     */
-    public function setVoyage(\Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyage = null)
-    {
-        $this->voyage = $voyage;
-
-        return $this;
-    }
-
-    /**
-     * Get voyage
-     *
-     * @return \Back\VoyageOrganiseBundle\Entity\VoyageOrganise 
-     */
-    public function getVoyage()
-    {
-        return $this->voyage;
-    }
-    /**
      * Constructor
      */
     public function __construct()
     {
         $this->hotels = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->supplements = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 

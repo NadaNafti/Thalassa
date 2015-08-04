@@ -218,7 +218,7 @@ class VoyageOrganiseController extends Controller
             if ($form->isValid())
             {
                 $pack = $form->getData();
-                $em->persist($pack->setVoyage($voyage));
+                $em->persist($pack);
                 foreach ($pack->getSupplements() as $supp)
                     $em->persist($supp->setPack($pack));
                 $em->flush();
@@ -257,7 +257,7 @@ class VoyageOrganiseController extends Controller
         $em->flush();
         $session->getFlashBag()->add('success', " Votre pack  a été supprimé avec succées ");
         return $this->redirect($this->generateUrl('back_vo_pack', array(
-                            'voyage' => $pack->getVoyage()->getId()
+                            'voyage' => $pack->getPeriode()->getVoyage()->getId()
         )));
     }
 
