@@ -51,6 +51,7 @@
                                 <th>Min-Max</th>
                                 <th>Debut-Fin inscription</th>
                                 <th>Départ garantie</th>
+                                <th>Packs</th>
                                 <th>Circuits</th>
                                 <th>Autres frais</th>
                                 <th class="center" >Action</th>
@@ -67,6 +68,7 @@
                                     <td>{{ periode.min }} - {{ periode.max }}</td>
                                     <td>{{ periode.debutInscription|date('d/m/Y') }} - {{ periode.finInscription|date('d/m/Y') }}</td>
                                     <td>{% if periode.departGarantie %}Oui{% else %}Non{% endif %}</td>
+                                    <td>{{ periode.packs|length }}</td>
                                     <td>{{ periode.circuits|length }}</td>
                                     <td>{{ periode.frais|length }}</td>
                                     <td class="TableAction">
