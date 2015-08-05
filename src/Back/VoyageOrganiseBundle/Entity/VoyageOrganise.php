@@ -557,8 +557,18 @@ class VoyageOrganise
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getPeriodes()
+    public function getPeriodes($valide=FALSE)
     {
+        if($valide)
+        {
+            $array=array();
+            foreach ($this->periodes as $periode)
+            {
+                if($periode->getDebutInscription()->format('Y-m-d')>=date('Y-m-d') && $periode->getFinInscription()->format('Y-m-d')<=date('Y-m-d'))
+                    $array[]=$periode;
+                return $periode;
+            }
+        }
         return $this->periodes;
     }
     
