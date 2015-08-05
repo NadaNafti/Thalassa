@@ -20,11 +20,15 @@
             <h4 class="list-item-title" style="white-space: nowrap"><a href="{{ path('front_voyageorganise_details',{'slug':voyage.slug}) }}" class="inverse">{{ voyage }}</a></h4>
             <span class="list-item-location">{{ voyage.destination }}</span>
             <div class="list-item-meta">
-                <span class="rating-static" style="margin-top: -8px;background: inherit">à partir de</span>
+                <span class="rating-static" style="margin-top: -8px;background: inherit">A partir de</span>
                 <span class="list-item-review">{{ voyage.prix }} DT</span>
             </div>
-            <div class="list-item-details">
-                In on announcing if of comparison pianoforte projection. Maids hoped gay yet bed.
+            <div class="list-item-details" style="height: 60px;">
+                {% if  voyage.descriptionCourte|length >80 %}
+                    {{ voyage.descriptionCourte|slice(0, 80)|raw }} ...
+                {% else %}
+                    {{ voyage.descriptionCourte|raw }}
+                {% endif %}
             </div>
             <div class="clear"></div>
             <a href="{{ path('front_voyageorganise_details',{'slug':voyage.slug}) }}" class="btn btn-block">Détails</a>
