@@ -190,7 +190,7 @@ class VoyageOrganiseController extends Controller
         $session = $this->getRequest()->getSession();
         if (count($voyage->getPeriodes()) == 0)
         {
-            $session->getFlashBag()->add('info', " Vous devrez avoir au moin une période");
+            $session->getFlashBag()->add('info', " Vous devez avoir au moin une période");
             return $this->redirect($this->generateUrl('back_vo_periode', array('voyage' => $voyage->getId())));
         }
         if (is_null($id))
@@ -267,7 +267,7 @@ class VoyageOrganiseController extends Controller
         $session = $this->getRequest()->getSession();
         if (count($voyage->getPeriodes()) == 0)
         {
-            $session->getFlashBag()->add('info', " Vous devrez avoir au moin une période");
+            $session->getFlashBag()->add('info', " Vous devez avoir au moin une période");
             return $this->redirect($this->generateUrl('back_vo_periode', array('voyage' => $voyage->getId())));
         }
         if (is_null($id))
@@ -328,7 +328,7 @@ class VoyageOrganiseController extends Controller
         $session = $this->getRequest()->getSession();
         if (count($voyage->getPeriodes()) == 0)
         {
-            $session->getFlashBag()->add('info', " Vous devrez avoir au moin une période");
+            $session->getFlashBag()->add('info', " Vous devez avoir au moin une période");
             return $this->redirect($this->generateUrl('back_vo_periode', array('voyage' => $voyage->getId())));
         }
         if (is_null($id))
