@@ -10,7 +10,7 @@
                         {% if periode.departGarantie %}
                            ( le départ est garantie )
                         {% else  %}
-                            ( Reste encore {{ periode.min-periode.nombreInscription }} places )
+                            ( Reste encore {{ periode.min -(periode.nombreInscription+periode.nombreInscriptionInitiale) }} place(s) pour valider la voyage )
                         {% endif %}
                     </span>
                     <div class="clearfix"></div>
