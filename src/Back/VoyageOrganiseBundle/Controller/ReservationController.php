@@ -15,39 +15,6 @@ use Back\VoyageOrganiseBundle\Entity\ReservationRepository;
 
 class ReservationController extends Controller
 {
-
-    public function ajouterAction()
-    {
-	$em = $this->getDoctrine()->getManager();
-	$session = $this->getRequest()->getSession();
-	$user = $this->get('security.context')->getToken()->getUser();
-	$reservation = new Reservation ();
-	$form = $this->createForm(new ReservationType(), $reservation);
-	$request = $this->getRequest();
-	if ($request->isMethod('POST'))
-	{
-	    $form->submit($request);
-	    $reservation = $form->getData();
-	    if (count($reservation->getAdultes()) == 0 && count($reservation->getEnfants()) == 0)
-	    {
-		$session->getFlashBag()->add('warning', "Vous devez  choisir au moin un adulte ");
-		return $this->redirect($this->generateUrl('back_voyages_organises_reservation_ajouter'));
-	    }
-	    $reservation->setResponsable($user)->setCoordonnees(array($reservation->getClient()->getNomPrenom(), $reservation->getClient()->getTel1(), $reservation->getClient()->getTel2(), $reservation->getClient()->getAdresse()));
-	    $em->persist($reservation);
-	    foreach ($reservation->getAdultes() as $adulte)
-		$em->persist($adulte->setReservationA($reservation)->setAge(null));
-	    foreach ($reservation->getEnfants() as $enfant)
-		$em->persist($enfant->setReservationE($reservation));
-	    $em->flush();
-	    $session->getFlashBag()->add('success', " Votre Réservation a été ajoutée avec succées ");
-	    return $this->redirect($this->generateUrl("back_voyages_organises_reservation"));
-	}
-	return $this->render('BackVoyageOrganiseBundle:reservation:ajout.html.twig', array(
-		    'form' => $form->createView()
-	));
-    }
-
     public function listeAction($page, $etat, $sort, $direction)
     {
 	$em = $this->getDoctrine()->getManager();
