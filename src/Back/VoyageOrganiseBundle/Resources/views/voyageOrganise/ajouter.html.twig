@@ -20,26 +20,13 @@
 			    {{ formulaire.input("col-md-3","Prix",form.prix,true) }}
 			</div>
 			<div class="row">
-			    {{ formulaire.input("col-md-3","Nbr Jour",form.nbrJour,true) }}
-			    {{ formulaire.input("col-md-3","Nbr Nuitées",form.nbrNuit,true) }}
-			    {{ formulaire.input("col-md-3","Depart",form.depart,true) }}
-			    {{ formulaire.input("col-md-3","Retour",form.retour,true) }}
-			</div>
-			<div class="row">
-			    {{ formulaire.input("col-md-3","Debut inscription",form.debutInscription,true) }}
-			    {{ formulaire.input("col-md-3","Fin inscription",form.finInscription,true) }}
-			    {{ formulaire.input("col-md-3","Nbr Min inscription",form.nbrInscriptionsMin,true) }}
-			    {{ formulaire.input("col-md-3","Nbr Max inscription",form.nbrInscriptionsMax,true) }}
-			</div>
-			<div class="row">
-			    {{ formulaire.select2("col-md-6","Pays",form.pays,true) }}
-			    {{ formulaire.select2("col-md-6","Themes",form.themes,true) }}
+			    {{ formulaire.input("col-md-1","Jours",form.nbrJour,true) }}
+			    {{ formulaire.input("col-md-1","Nuits",form.nbrNuit,true) }}
+			    {{ formulaire.select2("col-md-5","Pays",form.pays,true) }}
+			    {{ formulaire.select2("col-md-5","Themes",form.themes,true) }}
 			</div>
 			<div class="row">
 			    {{ formulaire.input("col-md-12","Description Courte",form.descriptionCourte,true) }}
-			</div>
-			<div class="row">
-			    {{ formulaire.input("col-md-12","Description Longue",form.descriptionLongue,true) }}
 			</div>
 			{{ formulaire.submit("Enregistrer") }}
 			{{ form_end(form) }}

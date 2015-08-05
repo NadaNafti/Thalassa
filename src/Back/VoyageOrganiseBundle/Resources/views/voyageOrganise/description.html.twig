@@ -17,7 +17,8 @@
 			<div class="row">
 			    {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
 			    {{ formulaire.input("col-md-2","Ordre",form.ordre,true) }}
-			    {{ formulaire.input("col-md-4","",form.visible,false) }}
+			    {{ formulaire.input("col-md-2","",form.visible,false) }}
+			    {{ formulaire.input("col-md-2","",form.lateral,false) }}
 			</div>
 			<div class="row">
 			    {{ formulaire.input("col-md-12","Texte",form.texte,true) }}
@@ -40,6 +41,7 @@
                                 <th>Libellé</th>
                                 <th>Ordre</th>
                                 <th>Visible</th>
+                                <th>Latéral/Central</th>
                                 <th>Texte</th>
                                 <th class="center" >Action</th>
                             </tr>
@@ -51,6 +53,7 @@
                                     <td>{{ description.libelle }}</td>
                                     <td>{{ description.ordre }}</td>
                                     <td>{{ description.showVisible }}</td>
+                                    <td>{% if description.lateral %}Latéral{% else %}Central{%endif%}</td>
                                     <td>{{ description.texte|raw }}</td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">

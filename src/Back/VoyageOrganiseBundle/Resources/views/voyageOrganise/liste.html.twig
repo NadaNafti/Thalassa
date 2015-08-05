@@ -26,10 +26,7 @@
                                 <th class="center" >Destination</th>
                                 <th class="center" >Themes</th>
                                 <th class="center" >Pays</th>
-                                <th class="center" >Départ & Retour</th>
-                                <th class="center" >Debit & fin inscr.</th>
-                                <th class="center" >Min & Max inscr.</th>
-                                <th class="center" >Nbr. d'inscr.</th>
+                                <th class="center" >Périodes</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -41,10 +38,7 @@
                                     <td>{{ voyage.destination }}</td>
                                     <td>{% for theme in voyage.themes %}{{ theme }}<br>{% endfor %} </td>
                                     <td>{% for pays in voyage.pays %}{{ pays }}<br>{% endfor %}</td>
-                                    <td>{{ voyage.depart|date('d/m/Y') }} - {{ voyage.retour|date('d/m/Y') }}</td>
-                                    <td>{{ voyage.debutInscription|date('d/m/Y') }} - {{ voyage.finInscription|date('d/m/Y') }}</td>
-                                    <td>{{ voyage.nbrInscriptionsMin }} - {{ voyage.nbrInscriptionsMax }}</td>
-                                    <td>{{ voyage.nbrInscriptions }}</td>
+                                    <td>{% for periode in voyage.periodes %}{{ periode.libelle }}<br>{% endfor %}</td>
                                     <td class="TableAction">
                                         {{ macros.tableEdit(path('back_vo_ajouter',{'id':voyage.id})) }}
                                         {{ macros.tableDelete(path('back_vo_supprimer',{'id':voyage.id})) }}

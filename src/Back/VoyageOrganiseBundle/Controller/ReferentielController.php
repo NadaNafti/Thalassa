@@ -8,6 +8,8 @@ use Back\VoyageOrganiseBundle\Entity\Destination;
 use Back\VoyageOrganiseBundle\Form\DestinationType;
 use Back\VoyageOrganiseBundle\Entity\Theme;
 use Back\VoyageOrganiseBundle\Form\ThemeType;
+use Back\VoyageOrganiseBundle\Entity\Hotel;
+use Back\VoyageOrganiseBundle\Form\HotelType;
 
 class ReferentielController extends Controller
 {
@@ -102,6 +104,52 @@ class ReferentielController extends Controller
 	    $session->getFlashBag()->add('danger', 'Votre theme est utilisé dans les voyages organisés');
 	}
 	return $this->redirect($this->generateUrl('back_voyages_organises_theme'));
+    }
+
+    public function hotelAction($id)
+    {
+	$em = $this->getDoctrine()->getManager();
+	$session = $this->getRequest()->getSession();
+	if (is_null($id))
+	    $hotel = new Hotel();
+	else
+	    $hotel = $em->getRepository('BackVoyageOrganiseBundle:Hotel')->find($id);
+	$hotels = $em->getRepository('BackVoyageOrganiseBundle:Hotel')->findBy(array(), array('id'=>'desc'));
+	$form = $this->createForm(new HotelType(), $hotel);
+	$request = $this->getRequest();
+	if ($request->isMethod('POST'))
+	{
+	    $form->submit($request);
+	    if ($form->isValid())
+	    {
+		$hotel = $form->getData();
+		$em->persist($hotel);
+		$em->flush();
+		$session->getFlashBag()->add('success', " Votre hotel a été ajouté avec succées ");
+		return $this->redirect($this->generateUrl('back_voyages_organises_hotel'));
+	    }
+	}
+	return $this->render('BackVoyageOrganiseBundle:referentiel:hotel.html.twig', array(
+		    'form' => $form->createView(),
+		    'hotels' => $hotels,
+	));
+    }
+
+    public function deleteHotelAction(Hotel $hotel)
+    {
+	$em = $this->getDoctrine()->getManager();
+	$session = $this->getRequest()->getSession();
+	try
+	{
+	    $em->remove($hotel);
+	    $em->flush();
+	    $session->getFlashBag()->add('success', " Votre hotel a été supprimé avec succées ");
+	}
+	catch (\Exception $ex)
+	{
+	    $session->getFlashBag()->add('danger', 'Votre hotel est utilisé dans les voyages organisés');
+	}
+	return $this->redirect($this->generateUrl('back_voyages_organises_hotel'));
     }
 
 }

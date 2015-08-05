@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Reservation
  *
  * @ORM\Table(name="ost_vo_reservations")
- * @ORM\Entity(repositoryClass="Back\VoyageOrganiseBundle\Entity\ReservationRepository")
+ * @ORM\Entity(repositoryClass="Back\VoyageOrganiseBundle\Entity\Repository\ReservationRepository")
  */
 class Reservation
 {
