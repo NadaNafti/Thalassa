@@ -102,35 +102,10 @@ class VoyageOrganiseController extends Controller
 	    $client = $user->getClient();
 	else
 	    $client = $this->container->get('users')->getPassager();
-	$reservation = new Reservation();
-	$reservation->setVoyage($voyage);
-	$form = $this->createForm(new ReservationType(), $reservation)
-		->remove('commentaire')
-		->remove('voyage')
-		->add("client", new ClientType(), array('data' => $client));
 	$request = $this->getRequest();
-	if ($request->isMethod('POST'))
-	{
-	    $form->submit($request);
-	    $reservation = $form->getData();
-	    if (count($reservation->getAdultes()) == 0 && count($reservation->getEnfants()) == 0)
-	    {
-		$session->getFlashBag()->add('warning', "Vous devez  choisir au moin un adulte ");
-		return $this->redirect($this->generateUrl('front_voyageorganise_details', array('slug' => $slug)));
-	    }
-	    $reservation->setCoordonnees(array($reservation->getClient()->getNomPrenom(), $reservation->getClient()->getTel1(), $reservation->getClient()->getTel2(), $reservation->getClient()->getAdresse()));
-	    $em->persist($reservation->setFrontOffice(TRUE));
-	    foreach ($reservation->getAdultes() as $adulte)
-		$em->persist($adulte->setReservationA($reservation)->setAge(null));
-	    foreach ($reservation->getEnfants() as $enfant)
-		$em->persist($enfant->setReservationE($reservation));
-	    $em->flush();
-	    $this->container->get('users')->getPassager();
-	    return $this->redirect($this->generateUrl('front_voyageorganise_thankyou', array('slug' => $slug, 'reservation' => $reservation->getId())));
-	}
+
 	return $this->render('FrontGeneralBundle:voyageorganise/details:details.html.twig', array(
 		    'voyage' => $voyage,
-		    'form' => $form->createView(),
 		    'csrf_token' => $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
 	));
     }

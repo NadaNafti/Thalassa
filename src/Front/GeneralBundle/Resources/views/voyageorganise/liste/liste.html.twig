@@ -2,36 +2,36 @@
 {% block title %}Liste des voyages Organisés{% endblock %}
 {% block body %}
     <div id="page_title">
-	<div class="container clearfix">
-	    <div class="page-name">{{ block('title') }}</div>
-	    <div class="breadcrumb clearfix">
-		<a href="{{ path('accueil') }}">Accueil</a>
-		<a href="{{ path('front_voyageorganise_accueil') }}">Voyages Organisés</a>
-		<span class="current-page">Liste</span>
-	    </div>
-	</div>
+        <div class="container clearfix">
+            <div class="page-name">{{ block('title') }}</div>
+            <div class="breadcrumb clearfix">
+                <a href="{{ path('accueil') }}">Accueil</a>
+                <a href="{{ path('front_voyageorganise_accueil') }}">Voyages Organisés</a>
+                <span class="current-page">Liste</span>
+            </div>
+        </div>
     </div>
     <div class="banner-intern">
-	<img src="{{ asset('front-assets/images/banner-2.png') }}" style="width:100%">
+        <img src="{{ asset('front-assets/images/banner-2.png') }}" style="width:100%">
     </div>
     <div id="content_wrapper">
-	<div class="container">
-	    <div class="row clearfix pv-30 mt-20">
-		{% include 'FrontGeneralBundle:voyageorganise/liste:filtre.html.twig' %}
-		<div class="col-xs-12 col-sm-8 col-md-9">
-		    {% include 'FrontGeneralBundle:voyageorganise/liste:sort.html.twig' %}
-		    <div class="row items-container product-2">
-			{% for voyage in voyages %}
-			    {% include 'FrontGeneralBundle:voyageorganise/liste:article.html.twig' %}
-			{% endfor %}
-		    </div>
-		    <div class="clear"></div>
-		    <nav class="paging pull-right">
-			{{ knp_pagination_render(voyages) }}
-		    </nav>
-		</div>
-		<div class="clear"></div>
-	    </div>
-	</div>
+        <div class="container">
+            <div class="row clearfix pv-30 mt-20">
+                {% include 'FrontGeneralBundle:voyageorganise/liste:filtre.html.twig' %}
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    {% include 'FrontGeneralBundle:voyageorganise/liste:sort.html.twig' %}
+                    <div class="row items-container">
+                        {% for voyage in voyages %}
+                            {% include 'FrontGeneralBundle:voyageorganise/liste:article.html.twig' %}
+                        {% endfor %}
+                    </div>
+                    <div class="clear"></div>
+                    <nav class="paging pull-right">
+                        {{ knp_pagination_render(voyages) }}
+                    </nav>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
     </div>
 {% endblock %}

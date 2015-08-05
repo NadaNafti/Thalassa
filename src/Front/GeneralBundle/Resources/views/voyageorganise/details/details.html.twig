@@ -2,150 +2,162 @@
 {% block title %}{{ voyage }}{% endblock %}
 {% block body %}
     <div id="page_title">
-	<div class="container clearfix">
-	    <div class="page-name">{{ block('title') }}</div>
-	    <div class="breadcrumb clearfix">
-		<a href="{{ path('accueil') }}">Accueil</a>
-		<a href="{{ path('front_voyageorganise_accueil') }}">Voyages Organisés</a>
-		<a href="{{ path('front_voyageorganise_liste') }}">Liste</a>
-		<span class="current-page">{{ block('title') }}</span>
-	    </div>
-	</div>
+        <div class="container clearfix">
+            <div class="page-name">{{ block('title') }}</div>
+            <div class="breadcrumb clearfix">
+                <a href="{{ path('accueil') }}">Accueil</a>
+                <a href="{{ path('front_voyageorganise_accueil') }}">Voyages Organisés</a>
+                <a href="{{ path('front_voyageorganise_liste') }}">Liste</a>
+                <span class="current-page">{{ block('title') }}</span>
+            </div>
+        </div>
     </div>
     <div id="content_wrapper">
-	<div class="container">
-	    <div class="row clearfix pv-50">
-		<div class="col-xs-12 col-sm-8 col-md-9">
-		    <div class="detail-header clearfix">
-			<div class="detail-header-name">
-			    <h3 class="hotel-name no-mb">{{ voyage }}</h3>
-			    <span class="hotel-location"><i class="fa-map-marker mi text-warning"></i>{{ voyage.destination }}</span>
-			</div>
-			<div class="detail-header-price">
-			    <span>à partir de</span> {{ voyage.prix }}
-			</div>
-		    </div>
-		    {% if voyage.photosAlbum|length > 0 %}
-			<div id="detail-slider">
-			    <div>
-				<div id="exposure"></div>
-				<div class="clear"></div>	
-			    </div>
-			    <div class="panel">	
-				<div id="left"><a href="javascript:void(0);" class="left-arrow"></a></div>				
-				<ul id="details-slider-images">
-				    {% for image in voyage.photosAlbum %}
-					<li><a href="{{ asset(image.assetPath) }}"><img src="{{ asset(image.assetPath) }}" alt="Detailts" title="Photo num ° {{ loop.index }}" /></a></li>
-					    {% endfor %}
-				</ul>	
-				<div id="right"><a href="javascript:void(0);" class="right-arrow"></a></div>
-				<div class="clear"></div>
-			    </div>
-			</div>
-		    {% endif %}
-		    <div class="clear"></div>
-		    {% include ':Front:alert.html.twig' %}
-		    <div class="clear"></div>
-		    <ul class="tabs mt-20">
-			<li><a href="#details-tab1"  class="active">Description</a></li>
-			<li><a href="#details-tab2">Réservation</a></li>
-		    </ul>
-		    <ul id="detail-tab" class="tabs-content xss-mb">
-			{% include 'FrontGeneralBundle:voyageorganise/details:description.html.twig' %}
-			{% include 'FrontGeneralBundle:voyageorganise/details:reservation.html.twig' %}			
-		    </ul>
-		    <div class="clear xss-mb"></div>
-		</div>
-		<div class="col-xs-12 col-sm-4 col-md-3">
-		    <div class="sidebar hotel-sidebar">
-			<div class="sidebar-item mb-20">
-			    <div class="lp-box">
-				<i class="text-info fa-quote-left"></i>
-				<p class="no-mb">{{ voyage.descriptionCourte }}</p>
-			    </div>
-			</div>
-		    </div>
-		    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-			<div class="sidebar-item mb-20">
-			    <div class="lp-box">
-				<i class="text-info fa-lock"></i>
-				<h4>Authentification</h4>
-				<form action="{{ path("fos_user_security_check") }}" method="post">
-				    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-				    <input type="hidden" name="_target_path" value="{{ app.request.uri() }}" />
-				    <div class="row">
-					<div class="col-md-10">
-					    <div class="form-group">
-						<label for="first-name">Identifiant ou Email</label>
-						<input type="text" id="username" name="_username"  required="required" class="form-control" />
-					    </div>
-					</div>
-				    </div>
-				    <div class="row">
-					<div class="col-md-10">
-					    <div class="form-group">
-						<label for="first-name">Mots de passe</label>
-						<input type="password" id="password" name="_password"  required="required" class="form-control" />
-					    </div>
-					</div>
-				    </div>
-				    <div class="row">
-					<button type="submit" class="btn btn-primary" id="_submit" name="_submit"  style="float: right;">S'authentifier</button>
-				    </div>
-				</form>
-			    </div>
-			</div>
-		    {% endif %}
-		</div>
-	    </div>
-	</div>
+        <div class="container">
+            <div class="row clearfix pv-50">
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    <div class="detail-header clearfix">
+                        <div class="detail-header-name">
+                            <h3 class="hotel-name no-mb">{{ voyage }}</h3>
+                            <span class="hotel-location"><i class="fa-map-marker mi text-warning"></i>{{ voyage.destination }}</span>
+                        </div>
+                        <div class="detail-header-price">
+                            <span>à partir de</span> {{ voyage.prix }}
+                        </div>
+                    </div>
+                    {% if voyage.photosAlbum|length > 0 %}
+                        <div id="detail-slider">
+                            <div>
+                                <div id="exposure"></div>
+                                <div class="clear"></div>	
+                            </div>
+                            <div class="panel">	
+                                <div id="left"><a href="javascript:void(0);" class="left-arrow"></a></div>				
+                                <ul id="details-slider-images">
+                                    {% for image in voyage.photosAlbum %}
+                                        <li><a href="{{ asset(image.assetPath) }}"><img src="{{ asset(image.assetPath) }}" alt="Detailts" title="Photo num ° {{ loop.index }}" /></a></li>
+                                            {% endfor %}
+                                </ul>	
+                                <div id="right"><a href="javascript:void(0);" class="right-arrow"></a></div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="clear"></div>
+                    {% include ':Front:alert.html.twig' %}
+                    <div class="clear"></div>
+                    <ul class="tabs mt-20">
+                        <li><a href="#details-tab1"  class="active">Description</a></li>
+                            {% if voyage.periodes(true)|length >0 %}
+                            <li><a href="#details-tab2">Périodes</a></li>
+                            {% endif %}
+                    </ul>
+                    <ul id="detail-tab" class="tabs-content xss-mb">
+                        {% include 'FrontGeneralBundle:voyageorganise/details:description.html.twig' %}
+                        {% include 'FrontGeneralBundle:voyageorganise/details:periodes.html.twig' %}			
+                    </ul>
+                    <div class="clear xss-mb"></div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="sidebar hotel-sidebar">
+                        <div class="sidebar-item mb-20">
+                            <div class="lp-box">
+                                <i class="text-info fa-quote-left"></i>
+                                <p class="no-mb">{{ voyage.descriptionCourte }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <div class="sidebar-item mb-20">
+                            <div class="lp-box">
+                                <i class="text-info fa-lock"></i>
+                                <h4>Authentification</h4>
+                                <form action="{{ path("fos_user_security_check") }}" method="post">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                                    <input type="hidden" name="_target_path" value="{{ app.request.uri() }}" />
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                                <label for="first-name">Identifiant ou Email</label>
+                                                <input type="text" id="username" name="_username"  required="required" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                                <label for="first-name">Mots de passe</label>
+                                                <input type="password" id="password" name="_password"  required="required" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <button type="submit" class="btn btn-primary" id="_submit" name="_submit"  style="float: right;">S'authentifier</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% for description in voyage.descriptions if description.visible==true and  description.lateral %}
+                        <div class="sidebar hotel-sidebar">
+                            <div class="sidebar-item mb-20">
+                                <div class="lp-box">
+                                    <h4>{{ description.libelle|title }} </h4>
+                                    {{ description.texte|raw }}  
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block jquery %}
     <script>
-	$(document).ready(function () {
-	    $('#back_voyageorganisebundle_reservation_adultes').parent().hide();
-	    $('#back_voyageorganisebundle_reservation_enfants').parent().hide();
-	    $('#nbrAdultes').change(function () {
-		var nbrAdulte = $(this).val();
-		var exist = $('.adultes').children().length;
-		if (exist < nbrAdulte)
-		{
-		    for (var i = 1; i <= nbrAdulte; i++)
-		    {
-			var ordre = i - 1;
-			if (i > exist)
-			    $('.adultes').append('<div class="row"><div class="col-md-4"><div class="form-group"><label class="control-label">Nom &amp; Prénom <span class="symbol required"></span>    </label>    <input required type="text" id="back_voyageorganisebundle_reservation_adultes_' + ordre + '_nomPrenom" name="back_voyageorganisebundle_reservation[adultes][' + ordre + '][nomPrenom]" required="required" maxlength="255" class="form-control">    </div></div><div class="col-md-4"><div class="form-group"><label class="control-label">Passport <span class="symbol required"></span>    </label>    <input required type="text" id="back_voyageorganisebundle_reservation_adultes_' + ordre + '_passport" name="back_voyageorganisebundle_reservation[adultes][' + ordre + '][passport]" required="required" maxlength="100" class="form-control">    </div></div><div class="col-md-2" style="display:none"><div class="form-group"><label class="control-label">Age <span class="symbol required"></span>    </label>    <select id="back_voyageorganisebundle_reservation_adultes_' + ordre + '_age" name="back_voyageorganisebundle_reservation[adultes][' + ordre + '][age]" class="form-control">{% for i in 0..17 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}</select></div></div></div>');
-		    }
-		}
-		else
-		{
-		    var toRemove = (exist - nbrAdulte);
-		    var nmbr = $('.adultes').children().length;
-		    for (var i = nmbr; i >= (nmbr - toRemove); i--)
-			$('.adultes').children().eq(i).remove();
-		}
-	    })
-	    $('#nbrEnfants').change(function () {
-		var nbrAdulte = $(this).val();
-		var exist = $('.enfants').children().length;
-		if (exist < nbrAdulte)
-		{
-		    for (var i = 1; i <= nbrAdulte; i++)
-		    {
-			var ordre = i - 1;
-			if (i > exist)
-			    $('.enfants').append('<div class="row"><div class="col-md-4"><div class="form-group"><label class="control-label">Nom &amp; Prénom <span class="symbol required"></span>    </label>    <input required type="text" id="back_voyageorganisebundle_reservation_enfants_' + ordre + '_nomPrenom" name="back_voyageorganisebundle_reservation[enfants][' + ordre + '][nomPrenom]" required="required" maxlength="255" class="form-control">    </div></div><div class="col-md-4"><div class="form-group"><label class="control-label">Passport <span class="symbol required"></span>    </label>    <input required type="text" id="back_voyageorganisebundle_reservation_enfants_' + ordre + '_passport" name="back_voyageorganisebundle_reservation[enfants][' + ordre + '][passport]" required="required" maxlength="100" class="form-control">    </div></div><div class="col-md-2"><div class="form-group"><label class="control-label">Age <span class="symbol required"></span>    </label>    <select id="back_voyageorganisebundle_reservation_enfants_' + ordre + '_age" required name="back_voyageorganisebundle_reservation[enfants][' + ordre + '][age]" class="form-control">{% for i in 1..17 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}</select></div></div></div>');
-		    }
-		}
-		else
-		{
-		    var toRemove = (exist - nbrAdulte);
-		    var nmbr = $('.enfants').children().length;
-		    for (var i = nmbr; i >= (nmbr - toRemove); i--)
-			$('.enfants').children().eq(i).remove();
-		}
-	    })
-	})
+        $(document).ready(function () {
+            $('#back_voyageorganisebundle_reservation_adultes').parent().hide();
+            $('#back_voyageorganisebundle_reservation_enfants').parent().hide();
+            $('#nbrAdultes').change(function () {
+                var nbrAdulte = $(this).val();
+                var exist = $('.adultes').children().length;
+                if (exist < nbrAdulte)
+                {
+                    for (var i = 1; i <= nbrAdulte; i++)
+                    {
+                        var ordre = i - 1;
+                        if (i > exist)
+                            $('.adultes').append('<div class="row"><div class="col-md-4"><div class="form-group"><label class="control-label">Nom &amp; Prénom <span class="symbol required"></span>    </label>    <input required type="text" id="back_voyageorganisebundle_reservation_adultes_' + ordre + '_nomPrenom" name="back_voyageorganisebundle_reservation[adultes][' + ordre + '][nomPrenom]" required="required" maxlength="255" class="form-control">    </div></div><div class="col-md-4"><div class="form-group"><label class="control-label">Passport <span class="symbol required"></span>    </label>    <input required type="text" id="back_voyageorganisebundle_reservation_adultes_' + ordre + '_passport" name="back_voyageorganisebundle_reservation[adultes][' + ordre + '][passport]" required="required" maxlength="100" class="form-control">    </div></div><div class="col-md-2" style="display:none"><div class="form-group"><label class="control-label">Age <span class="symbol required"></span>    </label>    <select id="back_voyageorganisebundle_reservation_adultes_' + ordre + '_age" name="back_voyageorganisebundle_reservation[adultes][' + ordre + '][age]" class="form-control">{% for i in 0..17 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}</select></div></div></div>');
+                    }
+                }
+                else
+                {
+                    var toRemove = (exist - nbrAdulte);
+                    var nmbr = $('.adultes').children().length;
+                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                        $('.adultes').children().eq(i).remove();
+                }
+            })
+            $('#nbrEnfants').change(function () {
+                var nbrAdulte = $(this).val();
+                var exist = $('.enfants').children().length;
+                if (exist < nbrAdulte)
+                {
+                    for (var i = 1; i <= nbrAdulte; i++)
+                    {
+                        var ordre = i - 1;
+                        if (i > exist)
+                            $('.enfants').append('<div class="row"><div class="col-md-4"><div class="form-group"><label class="control-label">Nom &amp; Prénom <span class="symbol required"></span>    </label>    <input required type="text" id="back_voyageorganisebundle_reservation_enfants_' + ordre + '_nomPrenom" name="back_voyageorganisebundle_reservation[enfants][' + ordre + '][nomPrenom]" required="required" maxlength="255" class="form-control">    </div></div><div class="col-md-4"><div class="form-group"><label class="control-label">Passport <span class="symbol required"></span>    </label>    <input required type="text" id="back_voyageorganisebundle_reservation_enfants_' + ordre + '_passport" name="back_voyageorganisebundle_reservation[enfants][' + ordre + '][passport]" required="required" maxlength="100" class="form-control">    </div></div><div class="col-md-2"><div class="form-group"><label class="control-label">Age <span class="symbol required"></span>    </label>    <select id="back_voyageorganisebundle_reservation_enfants_' + ordre + '_age" required name="back_voyageorganisebundle_reservation[enfants][' + ordre + '][age]" class="form-control">{% for i in 1..17 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}</select></div></div></div>');
+                    }
+                }
+                else
+                {
+                    var toRemove = (exist - nbrAdulte);
+                    var nmbr = $('.enfants').children().length;
+                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                        $('.enfants').children().eq(i).remove();
+                }
+            })
+        })
     </script>
 {% endblock %}

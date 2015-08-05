@@ -1,15 +1,18 @@
 <li id="details-tab1"  class="active">
     <h1>{{ voyage }} <small>{{ voyage.nbrJour }} jours et {{ voyage.nbrNuit }} nuits</small></h1>
-    <ul class="check-in-out">
-	<li><i class="fa-map-marker"></i> {{ voyage.destination }}</li>
-	<li><i class="fa-clock-o"></i> Date de départ<span>{{ voyage.depart|date('d/m/Y') }}</span></li>
-	<li><i class="fa-clock-o"></i> Date de retour<span>{{ voyage.retour|date('d/m/Y') }}</span></li>
-    </ul>
-    {{ voyage.descriptionLongue|raw }}  
-
-    {% for description in voyage.descriptions if description.visible==true %}
-	<div class="clear mb-20"></div>
-	<h2>{{ description.libelle|title }} </h2>
-	{{ description.texte|raw }}  
+    {% if voyage.periodes(true)|length >0 %}
+        <h4>Les périodes : </h4>
+        <ul class="check-in-out">
+            {% for periode in voyage.periodes(true) %}
+                <li>
+                    <i class="fa-clock-o"></i> Du <strong>{{ periode.depart|date('d/m/Y') }}</strong> au <strong>{{ periode.retour|date('d/m/Y') }}</strong> 
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% for description in voyage.descriptions if description.visible==true and not description.lateral %}
+        <div class="clear mb-20"></div>
+        <h4>{{ description.libelle|title }} </h4>
+        {{ description.texte|raw }}  
     {% endfor %}
 </li>
