@@ -557,46 +557,49 @@ class VoyageOrganise
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getPeriodes($valide=FALSE)
+    public function getPeriodes($valide = FALSE)
     {
-        if($valide)
+        if ($valide)
         {
-            $array=array();
+            $array = array();
             foreach ($this->periodes as $periode)
             {
-                if($periode->getDebutInscription()->format('Y-m-d')>=date('Y-m-d') && $periode->getFinInscription()->format('Y-m-d')<=date('Y-m-d'))
-                    $array[]=$periode;
-                return $periode;
+                if ($periode->getDebutInscription()->format('Y-m-d') <= date('Y-m-d') && $periode->getFinInscription()->format('Y-m-d') >= date('Y-m-d'))
+                    $array[] = $periode;
             }
+            return $array;
         }
         return $this->periodes;
     }
-    
+
     public function countPacks()
     {
-        $count=0;
+        $count = 0;
         foreach ($this->periodes as $periode)
         {
-            $count+=  count($periode->getPacks());
+            $count+= count($periode->getPacks());
         }
         return $count;
     }
+
     public function countCircuits()
     {
-        $count=0;
+        $count = 0;
         foreach ($this->periodes as $periode)
         {
-            $count+=  count($periode->getCircuits());
+            $count+= count($periode->getCircuits());
         }
         return $count;
     }
+
     public function countFrais()
     {
-        $count=0;
+        $count = 0;
         foreach ($this->periodes as $periode)
         {
-            $count+=  count($periode->getFrais());
+            $count+= count($periode->getFrais());
         }
         return $count;
     }
+
 }
