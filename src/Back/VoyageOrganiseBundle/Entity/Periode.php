@@ -74,6 +74,13 @@ class Periode
     /**
      * @var integer
      *
+     * @ORM\Column(name="nombreInscriptionInitiale", type="integer")
+     */
+    private $nombreInscriptionInitiale;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="min", type="integer")
      */
     private $min;
@@ -119,6 +126,7 @@ class Periode
     public function __construct()
     {
 	$this->nombreInscription=0;
+	$this->nombreInscriptionInitiale=0;
         $this->departGarantie=FALSE;
         $this->packs= new \Doctrine\Common\Collections\ArrayCollection();
         $this->circuits= new \Doctrine\Common\Collections\ArrayCollection();
@@ -491,5 +499,28 @@ class Periode
     public function getFrais()
     {
         return $this->frais;
+    }
+
+    /**
+     * Set nombreInscriptionInitiale
+     *
+     * @param integer $nombreInscriptionInitiale
+     * @return Periode
+     */
+    public function setNombreInscriptionInitiale($nombreInscriptionInitiale)
+    {
+        $this->nombreInscriptionInitiale = $nombreInscriptionInitiale;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreInscriptionInitiale
+     *
+     * @return integer 
+     */
+    public function getNombreInscriptionInitiale()
+    {
+        return $this->nombreInscriptionInitiale;
     }
 }

@@ -37,6 +37,7 @@ class PeriodeType extends AbstractType
 		    'widget' => 'single_text',
 		    'format' => 'yyyy-MM-dd',
 		))
+            ->add('nombreInscriptionInitiale')
             ->add('min')
             ->add('max')
             ->add('departGarantie', 'checkbox', array(

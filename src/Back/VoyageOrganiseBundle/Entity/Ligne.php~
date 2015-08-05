@@ -259,4 +259,50 @@ class Ligne
     }
 
 
+
+    /**
+     * Set periodeC
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Periode $periodeC
+     * @return Ligne
+     */
+    public function setPeriodeC(\Back\VoyageOrganiseBundle\Entity\Periode $periodeC = null)
+    {
+        $this->periodeC = $periodeC;
+
+        return $this;
+    }
+
+    /**
+     * Get periodeC
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\Periode 
+     */
+    public function getPeriodeC()
+    {
+        return $this->periodeC;
+    }
+
+    /**
+     * Set periodeF
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Periode $periodeF
+     * @return Ligne
+     */
+    public function setPeriodeF(\Back\VoyageOrganiseBundle\Entity\Periode $periodeF = null)
+    {
+        $this->periodeF = $periodeF;
+
+        return $this;
+    }
+
+    /**
+     * Get periodeF
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\Periode 
+     */
+    public function getPeriodeF()
+    {
+        return $this->periodeF;
+    }
 }

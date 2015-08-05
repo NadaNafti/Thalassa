@@ -21,10 +21,11 @@
 			    {{ formulaire.input("col-md-3","Retour",form.retour,false) }}
 			</div>
 			<div class="row">
-			    {{ formulaire.input("col-md-3","Min inscription",form.min,true) }}
-			    {{ formulaire.input("col-md-3","Max inscription",form.max,true) }}
-			    {{ formulaire.input("col-md-3","Debut Inscription",form.debutInscription,false) }}
-			    {{ formulaire.input("col-md-3","Fin Inscription",form.finInscription,false) }}
+			    {{ formulaire.input("col-md-2","Insc. initiale",form.nombreInscriptionInitiale,true) }}
+			    {{ formulaire.input("col-md-2","Min Insc.",form.min,true) }}
+			    {{ formulaire.input("col-md-2","Max Insc.",form.max,true) }}
+			    {{ formulaire.input("col-md-3","Debut Insc.",form.debutInscription,false) }}
+			    {{ formulaire.input("col-md-3","Fin Insc.",form.finInscription,false) }}
 			</div>
 			<div class="row">
 			    {{ formulaire.input("col-md-3","",form.departGarantie,null) }}
@@ -45,7 +46,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Libellé</th>
-                                <th>Nbr .Insc</th>
+                                <th>Insc. ini</th>
+                                <th>Insc.</th>
                                 <th>Prix</th>
                                 <th>Période</th>
                                 <th>Min-Max</th>
@@ -62,6 +64,7 @@
                                 <tr>
                                     <td>{{ periode.id }}</td>
                                     <td>{{ periode.libelle }}</td>
+                                    <td>{{ periode.nombreInscriptionInitiale }}</td>
                                     <td>{{ periode.nombreInscription }}</td>
                                     <td>{{ periode.prix }}</td>
                                     <td>{{ periode.depart|date('d/m/Y') }} - {{ periode.retour|date('d/m/Y') }}</td>
