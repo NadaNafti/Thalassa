@@ -11,7 +11,7 @@ use Back\VoyageOrganiseBundle\Form\ReservationLigneType;
 use Back\CommercialBundle\Entity\Piece;
 use Back\CommercialBundle\Form\PieceType;
 use Back\CommercialBundle\Entity\Reglement;
-use Back\VoyageOrganiseBundle\Entity\ReservationRepository;
+use Back\VoyageOrganiseBundle\Entity\ReservationPersonne;
 
 class ReservationController extends Controller
 {

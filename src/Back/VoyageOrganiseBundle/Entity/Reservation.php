@@ -72,16 +72,6 @@ class Reservation
     protected $client;
 
     /**
-     * @ORM\OneToMany(targetEntity="ReservationLigne", mappedBy="reservationA",cascade={"remove","persist"})
-     */
-    protected $adultes;
-
-    /**
-     * @ORM\OneToMany(targetEntity="ReservationLigne", mappedBy="reservationE",cascade={"remove","persist"})
-     */
-    protected $enfants;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="total", type="decimal", precision=11 ,scale=3 ,nullable=true)
@@ -99,6 +89,32 @@ class Reservation
      * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationVO")
      */
     protected $reglements;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ReservationChambre", mappedBy="reservation")
+     */
+    protected $chambres;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="supplements", type="array")
+     */
+    private $supplements;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="circuits", type="array")
+     */
+    private $circuits;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="frais", type="array")
+     */
+    private $frais;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -124,11 +140,14 @@ class Reservation
      */
     public function __construct()
     {
-	$this->frontOffice=false;
-	$this->etat = 1;
-	$this->coordonnees = array();
-	$this->adultes = new \Doctrine\Common\Collections\ArrayCollection();
-	$this->enfants = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->$reglements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->frontOffice = false;
+        $this->etat = 1;
+        $this->coordonnees = array();
+        $this->supplements = array();
+        $this->frais = array();
+        $this->circuits = array();
     }
 
     /**
@@ -138,7 +157,7 @@ class Reservation
      */
     public function getId()
     {
-	return $this->id;
+        return $this->id;
     }
 
     /**
@@ -149,9 +168,9 @@ class Reservation
      */
     public function setCommentaire($commentaire)
     {
-	$this->commentaire = $commentaire;
+        $this->commentaire = $commentaire;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -161,7 +180,7 @@ class Reservation
      */
     public function getCommentaire()
     {
-	return $this->commentaire;
+        return $this->commentaire;
     }
 
     /**
@@ -172,9 +191,9 @@ class Reservation
      */
     public function setVoyage(\Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyage = null)
     {
-	$this->voyage = $voyage;
+        $this->voyage = $voyage;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -184,7 +203,7 @@ class Reservation
      */
     public function getVoyage()
     {
-	return $this->voyage;
+        return $this->voyage;
     }
 
     /**
@@ -195,9 +214,9 @@ class Reservation
      */
     public function setClient(\Back\UserBundle\Entity\Client $client = null)
     {
-	$this->client = $client;
+        $this->client = $client;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -207,73 +226,7 @@ class Reservation
      */
     public function getClient()
     {
-	return $this->client;
-    }
-
-    /**
-     * Add adultes
-     *
-     * @param \Back\VoyageOrganiseBundle\Entity\ReservationLigne $adultes
-     * @return Reservation
-     */
-    public function addAdulte(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $adultes)
-    {
-	$this->adultes[] = $adultes;
-
-	return $this;
-    }
-
-    /**
-     * Remove adultes
-     *
-     * @param \Back\VoyageOrganiseBundle\Entity\ReservationLigne $adultes
-     */
-    public function removeAdulte(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $adultes)
-    {
-	$this->adultes->removeElement($adultes);
-    }
-
-    /**
-     * Get adultes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAdultes()
-    {
-	return $this->adultes;
-    }
-
-    /**
-     * Add enfants
-     *
-     * @param \Back\VoyageOrganiseBundle\Entity\ReservationLigne $enfants
-     * @return Reservation
-     */
-    public function addEnfant(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $enfants)
-    {
-	$this->enfants[] = $enfants;
-
-	return $this;
-    }
-
-    /**
-     * Remove enfants
-     *
-     * @param \Back\VoyageOrganiseBundle\Entity\ReservationLigne $enfants
-     */
-    public function removeEnfant(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $enfants)
-    {
-	$this->enfants->removeElement($enfants);
-    }
-
-    /**
-     * Get enfants
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEnfants()
-    {
-	return $this->enfants;
+        return $this->client;
     }
 
     /**
@@ -284,9 +237,9 @@ class Reservation
      */
     public function setCode($code)
     {
-	$this->code = $code;
+        $this->code = $code;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -296,7 +249,7 @@ class Reservation
      */
     public function getCode()
     {
-	return $this->code;
+        return $this->code;
     }
 
     /**
@@ -307,9 +260,9 @@ class Reservation
      */
     public function setEtat($etat)
     {
-	$this->etat = $etat;
+        $this->etat = $etat;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -319,7 +272,7 @@ class Reservation
      */
     public function getEtat()
     {
-	return $this->etat;
+        return $this->etat;
     }
 
     /**
@@ -330,9 +283,9 @@ class Reservation
      */
     public function setFrontOffice($frontOffice)
     {
-	$this->frontOffice = $frontOffice;
+        $this->frontOffice = $frontOffice;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -342,7 +295,7 @@ class Reservation
      */
     public function getFrontOffice()
     {
-	return $this->frontOffice;
+        return $this->frontOffice;
     }
 
     /**
@@ -353,9 +306,9 @@ class Reservation
      */
     public function setValidated($validated)
     {
-	$this->validated = $validated;
+        $this->validated = $validated;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -365,7 +318,7 @@ class Reservation
      */
     public function getValidated()
     {
-	return $this->validated;
+        return $this->validated;
     }
 
     /**
@@ -376,9 +329,9 @@ class Reservation
      */
     public function setCreated($created)
     {
-	$this->created = $created;
+        $this->created = $created;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -388,7 +341,7 @@ class Reservation
      */
     public function getCreated()
     {
-	return $this->created;
+        return $this->created;
     }
 
     /**
@@ -399,9 +352,9 @@ class Reservation
      */
     public function setUpdated($updated)
     {
-	$this->updated = $updated;
+        $this->updated = $updated;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -411,7 +364,7 @@ class Reservation
      */
     public function getUpdated()
     {
-	return $this->updated;
+        return $this->updated;
     }
 
     /**
@@ -422,9 +375,9 @@ class Reservation
      */
     public function setResponsable(\Back\UserBundle\Entity\User $responsable = null)
     {
-	$this->responsable = $responsable;
+        $this->responsable = $responsable;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -434,7 +387,7 @@ class Reservation
      */
     public function getResponsable()
     {
-	return $this->responsable;
+        return $this->responsable;
     }
 
     /**
@@ -445,9 +398,9 @@ class Reservation
      */
     public function addReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
     {
-	$this->reglements[] = $reglements;
+        $this->reglements[] = $reglements;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -457,7 +410,7 @@ class Reservation
      */
     public function removeReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
     {
-	$this->reglements->removeElement($reglements);
+        $this->reglements->removeElement($reglements);
     }
 
     /**
@@ -467,17 +420,17 @@ class Reservation
      */
     public function getReglements()
     {
-	return $this->reglements;
+        return $this->reglements;
     }
 
     public function showEtat()
     {
-	if ($this->etat == 1)
-	    return 'Enregistrée';
-	if ($this->etat == 2)
-	    return 'Validée';
-	if ($this->etat == 9)
-	    return 'Annulée';
+        if ($this->etat == 1)
+            return 'Enregistrée';
+        if ($this->etat == 2)
+            return 'Validée';
+        if ($this->etat == 9)
+            return 'Annulée';
     }
 
     /**
@@ -488,9 +441,9 @@ class Reservation
      */
     public function setTotal($total)
     {
-	$this->total = $total;
+        $this->total = $total;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -500,20 +453,20 @@ class Reservation
      */
     public function getTotal()
     {
-	return $this->total;
+        return $this->total;
     }
 
     public function getMontantRegle()
     {
-	$montant = 0;
-	foreach ($this->reglements as $reglement)
-	    $montant+=$reglement->getMontant();
-	return number_format($montant, 3, '.', '');
+        $montant = 0;
+        foreach ($this->reglements as $reglement)
+            $montant+=$reglement->getMontant();
+        return number_format($montant, 3, '.', '');
     }
 
     public function getMontantRestant()
     {
-	return number_format($this->total - $this->getMontantRegle(), 3, '.', '');
+        return number_format($this->total - $this->getMontantRegle(), 3, '.', '');
     }
 
     /**
@@ -524,9 +477,9 @@ class Reservation
      */
     public function setCoordonnees($coordonnees)
     {
-	$this->coordonnees = $coordonnees;
+        $this->coordonnees = $coordonnees;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -536,7 +489,109 @@ class Reservation
      */
     public function getCoordonnees()
     {
-	return $this->coordonnees;
+        return $this->coordonnees;
     }
 
+    /**
+     * Set supplements
+     *
+     * @param array $supplements
+     * @return Reservation
+     */
+    public function setSupplements($supplements)
+    {
+        $this->supplements = $supplements;
+
+        return $this;
+    }
+
+    /**
+     * Get supplements
+     *
+     * @return array 
+     */
+    public function getSupplements()
+    {
+        return $this->supplements;
+    }
+
+    /**
+     * Set circuits
+     *
+     * @param array $circuits
+     * @return Reservation
+     */
+    public function setCircuits($circuits)
+    {
+        $this->circuits = $circuits;
+
+        return $this;
+    }
+
+    /**
+     * Get circuits
+     *
+     * @return array 
+     */
+    public function getCircuits()
+    {
+        return $this->circuits;
+    }
+
+    /**
+     * Set frais
+     *
+     * @param array $frais
+     * @return Reservation
+     */
+    public function setFrais($frais)
+    {
+        $this->frais = $frais;
+
+        return $this;
+    }
+
+    /**
+     * Get frais
+     *
+     * @return array 
+     */
+    public function getFrais()
+    {
+        return $this->frais;
+    }
+
+
+    /**
+     * Add chambres
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres
+     * @return Reservation
+     */
+    public function addChambre(\Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres)
+    {
+        $this->chambres[] = $chambres;
+
+        return $this;
+    }
+
+    /**
+     * Remove chambres
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres
+     */
+    public function removeChambre(\Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres)
+    {
+        $this->chambres->removeElement($chambres);
+    }
+
+    /**
+     * Get chambres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChambres()
+    {
+        return $this->chambres;
+    }
 }
