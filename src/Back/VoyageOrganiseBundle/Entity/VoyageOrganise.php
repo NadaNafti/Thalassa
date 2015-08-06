@@ -564,10 +564,7 @@ class VoyageOrganise
             $array = array();
             foreach ($this->periodes as $periode)
             {
-                if (
-                        $periode->getDebutInscription()->format('Y-m-d') <= date('Y-m-d') && $periode->getFinInscription()->format('Y-m-d') >= date('Y-m-d') &&
-                        ($periode->getDepartGarantie() || $periode->getNombreInscription() < $periode->getMax())
-                )
+                if ($periode->isValide())
                     $array[] = $periode;
             }
             return $array;
