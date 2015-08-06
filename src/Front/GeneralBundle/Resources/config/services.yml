@@ -1,6 +1,14 @@
 services:        
-    reservationlistner:
-      class: Front\GeneralBundle\Listener\ReservationListner
+    reservationlistnerSHT:
+      class: Front\GeneralBundle\Listener\ReservationListnerSHT
+      arguments:
+          - @service_container
+          - @session
+          - @doctrine.orm.entity_manager
+      tags:
+        - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }     
+    reservationlistnerVO:
+      class: Front\GeneralBundle\Listener\ReservationListnerVO
       arguments:
           - @service_container
           - @session

@@ -19,7 +19,7 @@
                     <div class="detail-price">
                         <span>A partir de</span>{{ periode.prix }} dt
                     </div>
-                    <a href="page-details.html" class="btn">Réservation</a>
+                    <a href="{{ path('front_voyageorganise_reservation',{'slug':voyage.slug,'periode':periode.id}) }}" class="btn">Réservation</a>
                 </div>
             </li>
         {% endfor %}

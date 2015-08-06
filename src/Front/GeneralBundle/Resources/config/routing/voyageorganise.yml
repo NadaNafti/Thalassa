@@ -8,6 +8,10 @@ front_voyageorganise_liste:
     requirements:
         page:  \d+
         
+front_voyageorganise_hotel_ajax:
+    path:     /front_voyageorganise_hotel_ajax
+    defaults: { _controller: FrontGeneralBundle:VoyageOrganise:packToHotelsAjax }
+        
 front_voyageorganise_details:
     path:     /{slug}
     defaults: { _controller: FrontGeneralBundle:VoyageOrganise:details }
@@ -15,4 +19,16 @@ front_voyageorganise_details:
 front_voyageorganise_thankyou:
     path:     /{slug}/success/{reservation}
     defaults: { _controller: FrontGeneralBundle:VoyageOrganise:success }
+    requirements:
+        reservation:  \d+
+        
+front_voyageorganise_reservation:
+    path:     /{slug}/{periode}
+    defaults: { _controller: FrontGeneralBundle:VoyageOrganise:reservation }
+    requirements:
+        periode:  \d+
+        
+front_voyageorganise_occupationchambre:
+    path:     /{slug}/OccupationChambre
+    defaults: { _controller: FrontGeneralBundle:VoyageOrganise:occChambre }
     
