@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ReservationLigneType extends AbstractType
+class ReservationPersonneType extends AbstractType
 {
 
     /**
@@ -30,7 +30,7 @@ class ReservationLigneType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
 	$resolver->setDefaults(array(
-	    'data_class' => 'Back\VoyageOrganiseBundle\Entity\ReservationLigne'
+	    'data_class' => 'Back\VoyageOrganiseBundle\Entity\ReservationPersonne'
 	));
     }
 
@@ -39,7 +39,7 @@ class ReservationLigneType extends AbstractType
      */
     public function getName()
     {
-	return 'back_voyageorganisebundle_reservationligne';
+	return 'back_voyageorganisebundle_reservationpersonne';
     }
 
 }

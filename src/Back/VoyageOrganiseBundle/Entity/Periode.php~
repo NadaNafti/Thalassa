@@ -500,4 +500,27 @@ class Periode
     {
         return $this->frais;
     }
+
+    /**
+     * Set nombreInscriptionInitiale
+     *
+     * @param integer $nombreInscriptionInitiale
+     * @return Periode
+     */
+    public function setNombreInscriptionInitiale($nombreInscriptionInitiale)
+    {
+        $this->nombreInscriptionInitiale = $nombreInscriptionInitiale;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreInscriptionInitiale
+     *
+     * @return integer 
+     */
+    public function getNombreInscriptionInitiale()
+    {
+        return $this->nombreInscriptionInitiale;
+    }
 }

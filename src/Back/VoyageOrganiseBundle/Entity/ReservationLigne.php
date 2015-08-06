@@ -7,12 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ReservationLigne
  *
- * @ORM\Table(name="ost_vo_reservation_lignes")
- * @ORM\Entity()
+ * @ORM\Table(name="ost_vo_reservations_lignes")
+ * @ORM\Entity
  */
 class ReservationLigne
 {
-
     /**
      * @var integer
      *
@@ -25,184 +24,160 @@ class ReservationLigne
     /**
      * @var string
      *
-     * @ORM\Column(name="nom_prenom", type="string", length=255)
+     * @ORM\Column(name="code", type="string", length=255)
      */
-    private $nomPrenom;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="age", type="integer",nullable=true)
-     */
-    private $age;
+    private $code;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="passport", type="string", length=100)
+     * @ORM\Column(name="libelle", type="string", length=255)
      */
-    private $passport;
+    private $libelle;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Reservation", inversedBy="adultes",cascade={"persist"})
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @var string
+     *
+     * @ORM\Column(name="achat", type="decimal", precision=11 ,scale=3)
      */
-    private $reservationA;
+    private $achat;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Reservation", inversedBy="enfants",cascade={"persist"})
+     * @var string
+     *
+     * @ORM\Column(name="vente", type="decimal", precision=11 ,scale=3)
+     */
+    private $vente;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="ReservationPersonne", inversedBy="lignes",cascade={"persist"})
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private $reservationE;
+    private $personne;
+
 
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
-	return $this->id;
+        return $this->id;
     }
 
     /**
-     * Set nomPrenom
+     * Set code
      *
-     * @param string $nomPrenom
+     * @param string $code
      * @return ReservationLigne
      */
-    public function setNomPrenom($nomPrenom)
+    public function setCode($code)
     {
-	$this->nomPrenom = $nomPrenom;
-
-	return $this;
-    }
-
-    /**
-     * Get nomPrenom
-     *
-     * @return string
-     */
-    public function getNomPrenom()
-    {
-	return $this->nomPrenom;
-    }
-
-    /**
-     * Set age
-     *
-     * @param integer $age
-     * @return ReservationLigne
-     */
-    public function setAge($age)
-    {
-	$this->age = $age;
-
-	return $this;
-    }
-
-    /**
-     * Get age
-     *
-     * @return integer
-     */
-    public function getAge()
-    {
-	return $this->age;
-    }
-
-    /**
-     * Set dateNaissance
-     *
-     * @param \DateTime $dateNaissance
-     * @return ReservationLigne
-     */
-    public function setDateNaissance($dateNaissance)
-    {
-	$this->dateNaissance = $dateNaissance;
-
-	return $this;
-    }
-
-    /**
-     * Get passport
-     *
-     * @return string
-     */
-    public function getPassport()
-    {
-	return $this->passport;
-    }
-
-    /**
-     * Get reservation
-     *
-     * @return \Back\VoyageOrganiseBundle\Entity\Reservation
-     */
-    public function getReservation()
-    {
-	if (!is_null($this->reservationA))
-	    return $this->reservationA;
-	return $this->reservationE;
-    }
-
-
-    /**
-     * Set passport
-     *
-     * @param string $passport
-     * @return ReservationLigne
-     */
-    public function setPassport($passport)
-    {
-        $this->passport = $passport;
+        $this->code = $code;
 
         return $this;
     }
 
     /**
-     * Set reservationA
+     * Get code
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Reservation $reservationA
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set libelle
+     *
+     * @param string $libelle
      * @return ReservationLigne
      */
-    public function setReservationA(\Back\VoyageOrganiseBundle\Entity\Reservation $reservationA = null)
+    public function setLibelle($libelle)
     {
-        $this->reservationA = $reservationA;
+        $this->libelle = $libelle;
 
         return $this;
     }
 
     /**
-     * Get reservationA
+     * Get libelle
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Reservation 
+     * @return string 
      */
-    public function getReservationA()
+    public function getLibelle()
     {
-        return $this->reservationA;
+        return $this->libelle;
     }
 
     /**
-     * Set reservationE
+     * Set achat
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Reservation $reservationE
+     * @param string $achat
      * @return ReservationLigne
      */
-    public function setReservationE(\Back\VoyageOrganiseBundle\Entity\Reservation $reservationE = null)
+    public function setAchat($achat)
     {
-        $this->reservationE = $reservationE;
+        $this->achat = $achat;
 
         return $this;
     }
 
     /**
-     * Get reservationE
+     * Get achat
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Reservation 
+     * @return string 
      */
-    public function getReservationE()
+    public function getAchat()
     {
-        return $this->reservationE;
+        return $this->achat;
+    }
+
+    /**
+     * Set vente
+     *
+     * @param string $vente
+     * @return ReservationLigne
+     */
+    public function setVente($vente)
+    {
+        $this->vente = $vente;
+
+        return $this;
+    }
+
+    /**
+     * Get vente
+     *
+     * @return string 
+     */
+    public function getVente()
+    {
+        return $this->vente;
+    }
+
+    /**
+     * Set personne
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationPersonne $personne
+     * @return ReservationLigne
+     */
+    public function setPersonne(\Back\VoyageOrganiseBundle\Entity\ReservationPersonne $personne = null)
+    {
+        $this->personne = $personne;
+
+        return $this;
+    }
+
+    /**
+     * Get personne
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\ReservationPersonne 
+     */
+    public function getPersonne()
+    {
+        return $this->personne;
     }
 }
