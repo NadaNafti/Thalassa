@@ -525,7 +525,7 @@ class Periode
 
     public function isValide()
     {
-        if ($this->getDebutInscription()->format('Y-m-d') <= date('Y-m-d') && $this->getFinInscription()->format('Y-m-d') >= date('Y-m-d') && ($this->getDepartGarantie() || $this->getNombreInscription() < $this->getMax()))
+        if (count($this->packs)>0  && $this->getDebutInscription()->format('Y-m-d') <= date('Y-m-d') && $this->getFinInscription()->format('Y-m-d') >= date('Y-m-d') && ($this->getDepartGarantie() || $this->getNombreInscription() < $this->getMax()))
             return true;
         return false;
     }
