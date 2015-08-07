@@ -31,28 +31,28 @@ class Ligne
     /**
      * @var string
      *
-     * @ORM\Column(name="adulteAchat", type="decimal")
+     * @ORM\Column(name="adulteAchat", type="decimal", precision=11 ,scale=3)
      */
     private $adulteAchat;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="adulteVente", type="decimal")
+     * @ORM\Column(name="adulteVente", type="decimal", precision=11 ,scale=3)
      */
     private $adulteVente;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="enfantAchat", type="decimal")
+     * @ORM\Column(name="enfantAchat", type="decimal", precision=11 ,scale=3)
      */
     private $enfantAchat;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="enfantVente", type="decimal")
+     * @ORM\Column(name="enfantVente", type="decimal", precision=11 ,scale=3)
      */
     private $enfantVente;
 
