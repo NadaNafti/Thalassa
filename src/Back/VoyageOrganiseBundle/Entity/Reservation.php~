@@ -140,6 +140,8 @@ class Reservation
      */
     public function __construct()
     {
+        $this->$reglements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
         $this->frontOffice = false;
         $this->etat = 1;
         $this->coordonnees = array();
@@ -559,4 +561,37 @@ class Reservation
         return $this->frais;
     }
 
+
+    /**
+     * Add chambres
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres
+     * @return Reservation
+     */
+    public function addChambre(\Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres)
+    {
+        $this->chambres[] = $chambres;
+
+        return $this;
+    }
+
+    /**
+     * Remove chambres
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres
+     */
+    public function removeChambre(\Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres)
+    {
+        $this->chambres->removeElement($chambres);
+    }
+
+    /**
+     * Get chambres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChambres()
+    {
+        return $this->chambres;
+    }
 }

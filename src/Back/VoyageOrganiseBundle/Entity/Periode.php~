@@ -98,7 +98,7 @@ class Periode
      * @ORM\Column(name="departGarantie", type="boolean" , nullable=true)
      */
     private $departGarantie;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="VoyageOrganise", inversedBy="periodes")
      * @ORM\JoinColumn(onDelete="CASCADE")
@@ -109,28 +109,28 @@ class Periode
      * @ORM\OneToMany(targetEntity="Pack", mappedBy="periode")
      */
     private $packs;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Ligne", mappedBy="periodeC")
      */
     private $circuits;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Ligne", mappedBy="periodeF")
      */
     private $frais;
-    
+
     /**
      * Constructor
      */
     public function __construct()
     {
-	$this->nombreInscription=0;
-	$this->nombreInscriptionInitiale=0;
-        $this->departGarantie=FALSE;
-        $this->packs= new \Doctrine\Common\Collections\ArrayCollection();
-        $this->circuits= new \Doctrine\Common\Collections\ArrayCollection();
-        $this->frais= new \Doctrine\Common\Collections\ArrayCollection();
+        $this->nombreInscription = 0;
+        $this->nombreInscriptionInitiale = 0;
+        $this->departGarantie = FALSE;
+        $this->packs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->circuits = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->frais = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -373,7 +373,6 @@ class Periode
         return $this->departGarantie;
     }
 
-
     /**
      * Set voyage
      *
@@ -429,7 +428,7 @@ class Periode
     {
         return $this->packs;
     }
-    
+
     public function __toString()
     {
         return $this->libelle;
@@ -523,4 +522,12 @@ class Periode
     {
         return $this->nombreInscriptionInitiale;
     }
+
+    public function isValide()
+    {
+        if ($this->getDebutInscription()->format('Y-m-d') <= date('Y-m-d') && $this->getFinInscription()->format('Y-m-d') >= date('Y-m-d') && ($this->getDepartGarantie() || $this->getNombreInscription() < $this->getMax()))
+            return true;
+        return false;
+    }
+
 }

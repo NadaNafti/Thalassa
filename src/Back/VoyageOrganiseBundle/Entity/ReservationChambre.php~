@@ -73,4 +73,67 @@ class ReservationChambre
         return $this->type;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->occupants = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set reservation
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Reservation $reservation
+     * @return ReservationChambre
+     */
+    public function setReservation(\Back\VoyageOrganiseBundle\Entity\Reservation $reservation = null)
+    {
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Get reservation
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\Reservation 
+     */
+    public function getReservation()
+    {
+        return $this->reservation;
+    }
+
+    /**
+     * Add occupants
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationPersonne $occupants
+     * @return ReservationChambre
+     */
+    public function addOccupant(\Back\VoyageOrganiseBundle\Entity\ReservationPersonne $occupants)
+    {
+        $this->occupants[] = $occupants;
+
+        return $this;
+    }
+
+    /**
+     * Remove occupants
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationPersonne $occupants
+     */
+    public function removeOccupant(\Back\VoyageOrganiseBundle\Entity\ReservationPersonne $occupants)
+    {
+        $this->occupants->removeElement($occupants);
+    }
+
+    /**
+     * Get occupants
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOccupants()
+    {
+        return $this->occupants;
+    }
 }
