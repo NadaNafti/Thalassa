@@ -1,5 +1,5 @@
 {% extends ":Front:base.html.twig" %}
-{% block title %}{{ periode }}{% endblock %}
+{% block title %}Réservation{% endblock %}
 {% block body %}
     <div id="page_title">
         <div class="container clearfix">
@@ -21,9 +21,87 @@
                     <div class="white-bg payment-wrapper">
                         {% include ':Front:alert.html.twig' %}
                         <div class="person-information" >
-                            <h3 class="section-title">Information Personnelle <span class="step active">1</span></h3>
-                            <hr>
                             {{ form_start(form) }}
+                            <h3 class="section-title">Hébergement <span class="step active">1</span></h3>
+                            <div class="bb2 mb-10"></div>
+                            {% for ch in ['single','double','triple','quadruple'] %}
+                                <div class="row">
+                                    <div class="col-md-3"><h4 style="padding-top: 5px;">Chambre  {{ ch }}</h4></div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <select name='chambre{{ ch }}' class="form-control">
+                                                <option value="">0</option>
+                                                {% for i in 1..10 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6"><p style="padding-top: 5px;"> à partir de {{ attribute(pack, ch~'Vente') }} DT</p></div>
+                                </div>
+                            {% endfor %}
+                            <div class="row">
+                                <div class="col-md-6"><p style="padding-top: 5px;">Réduction enfant [2..12] ans : {{ pack.enfantVente }} DT</p></div>
+                            </div>
+                            <div class="mb-20"></div>
+                            <div class="bb2 mb-10"></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {% for option in pack.supplements %}
+                                        <div class="styled-checkbox mt-10">
+                                            <label><input type="checkbox" name="supp{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}<small>Obligatoire</small>{% endif %}</label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="mb-20"></div>
+                            <h3 class="section-title">Circuits & excursions<span class="step active">2</span></h3>
+                            <div class="bb2 mb-10"></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                        <th></th>
+                                        <th>Prix Adulte</th>
+                                        <th>Prix Enfant</th>
+                                        </thead>
+                                        {% for option in periode.circuits %}
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="styled-checkbox mt-10">
+                                                            <label><input type="checkbox" name="circuit{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}<small>Obligatoire</small>{% endif %}</label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="styled-checkbox mt-10">
+                                                            {{ option.adulteVente }} DT
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="styled-checkbox mt-10">
+                                                            {{ option.enfantVente }} DT
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="mb-20"></div>
+                            <h3 class="section-title">Autres frais divers<span class="step active">3</span></h3>
+                            <div class="bb2 mb-10"></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {% for option in periode.frais %}
+                                        <div class="styled-checkbox mt-10">
+                                            <label><input type="checkbox" name="frai{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}<small>Obligatoire</small>{% endif %}</label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="mb-20"></div>
+                            <h3 class="section-title">Information Personnelle <span class="step active">4</span></h3>
+                            <div class="bb2 mb-10"></div>
                             <h4>Client :</h4>
                             <div style="display: none">
                                 {{ formulaire.input("col-md-2","",form.client.responsable,false) }}
@@ -41,17 +119,20 @@
                                 {{ formulaire.input("col-md-4","Registre Commercie",form.client.registreCommercie,true) }}
                                 {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,true) }}
                             </div>
-                            <h3 class="section-title">Pack Hôtels <span class="step active">2</span></h3>
-                            <div class="row">
-                                {{ formulaire.input("col-md-12",null,form.pack,true) }}
-                            </div>			    
-                            <div class="row" id="hotels"></div>		
-                            <hr>
+                            <h3 class="section-title mt-40">Revoir et réserver votre séjour<span class="step active">5</span></h3>
+                            <div class="bb2 mb-10"></div>
+                            <div class="styled-checkbox mt-10">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckbox" id="optionsCheckbox1" required value="option1">
+                                    En choisissant de compléter cette réservation Je reconnais que je l'ai lu et accepté les  <a href="#" class="clblue">règles & restrictions</a> <a href="#" class="clblue">termes et conditions</a> , and <a href="#" class="clblue">politique de confidentialité</a>.
+                                </label>
+                            </div>
+                            <div class="bb2 mb-10"></div>
                             <div class="row">
                                 <div class="col-md-8"></div>
                                 <div class="col-md-4">
                                     <button class="btn btn-primary btn-block" type="submit">
-                                        Occupation des chambres <i class="fa fa-arrow-circle-right"></i>
+                                        Validation <i class="fa fa-arrow-circle-right"></i>
                                     </button>
                                 </div>
                             </div>
@@ -61,37 +142,6 @@
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4" >
                     <div class="sidebar hotel-sidebar">
-                        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <div class="sidebar-item mb-20">
-                                <div class="lp-box">
-                                    <i class="text-info fa-lock"></i>
-                                    <h4>Authentification</h4>
-                                    <form action="{{ path("fos_user_security_check") }}" method="post">
-                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                                        <input type="hidden" name="_target_path" value="{{ app.request.uri() }}" />
-                                        <div class="row">
-                                            <div class="col-md-10">
-                                                <div class="form-group">
-                                                    <label for="first-name">Identifiant ou Email</label>
-                                                    <input type="text" id="username" name="_username"  required="required" class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-10">
-                                                <div class="form-group">
-                                                    <label for="first-name">Mots de passe</label>
-                                                    <input type="password" id="password" name="_password"  required="required" class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <button type="submit" class="btn btn-primary" id="_submit" name="_submit"  style="float: right;">S'authentifier</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        {% endif %}
                         <div class="sidebar-item mb-20">
                             <div class="summary-payment">
                                 <div class="summary-header  mb-30">
@@ -102,13 +152,15 @@
                                     {% endif %}
                                     <h3 class="no-mb">{{ periode.voyage|title }}</h3>
                                     <span>{{ periode.voyage.destination }}</span>
-                                </div>
                                 </div><div class="bb2 mb-30"></div>
-				<table class="table table-bordered table-striped mb-30">
-				    <tr>
-					<td colspan=2><span class="text-bold">Période :</span> Du {{ periode.depart|date('d/m/Y') }} au {{ periode.retour|date('d/m/Y') }}</td>
-				    </tr>
-				</table>
+                                <table class="table table-bordered table-striped mb-30">
+                                    <tr>
+                                        <td colspan=2><span class="text-bold">Période :</span> Du {{ periode.depart|date('d/m/Y') }} au {{ periode.retour|date('d/m/Y') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan=2><span class="text-bold">Pack :</span> {{ pack }}</td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -117,25 +169,12 @@
         </div>
     </div>
 {% endblock %}
-{% block jquery %}
-    <script>
-        $(document).ready(function () {
-            $('#form_pack').on('change', function () {
-                var val = $(this).val();
-                $('#hotels').html("<div class='col-md-12'><p>Loading ...</p></div>");
-                $.ajax({
-                    url: '{{ path('front_voyageorganise_hotel_ajax') }}',
-                    data: {'pack': val},
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function (json) {
-                        $('#hotels').html('');
-                        $.each(json, function (index, value) {
-                            $('#hotels').append("<div class='col-md-12'><p> - <strong>"+value['libelle']+"</strong> ( "+value['categorie']+") </p></div>");
-                        });
-                    }
-                });
-            });
-        })
-    </script>
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        label small{
+            font-size: 10px;
+            color:red;
+        }
+    </style>
 {% endblock %}

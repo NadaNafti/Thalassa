@@ -35,8 +35,10 @@
                                 <div id="left"><a href="javascript:void(0);" class="left-arrow"></a></div>				
                                 <ul id="details-slider-images">
                                     {% for image in voyage.photosAlbum %}
-                                        <li><a href="{{ asset(image.assetPath) }}"><img src="{{ asset(image.assetPath) }}" alt="Detailts" title="Photo num ° {{ loop.index }}" /></a></li>
-                                            {% endfor %}
+                                        <li>
+                                            <a href="{{ asset(image.assetPath) }}"><img src="{{ asset(image.assetPath) }}" alt="Detailts" title="Photo num ° {{ loop.index }}" /></a>
+                                        </li>
+                                    {% endfor %}
                                 </ul>	
                                 <div id="right"><a href="javascript:void(0);" class="right-arrow"></a></div>
                                 <div class="clear"></div>
@@ -48,9 +50,9 @@
                     <div class="clear"></div>
                     <ul class="tabs mt-20">
                         <li><a href="#details-tab1"  class="active">Description</a></li>
-                            {% if voyage.periodes(true)|length >0 %}
-                            <li><a href="#details-tab2">Périodes</a></li>
-                            {% endif %}
+                            {% for periode in voyage.periodes(true) %}
+                            <li><a href="#periode-{{ loop.index }}">{{ periode }}</a></li>
+                            {% endfor %}
                     </ul>
                     <ul id="detail-tab" class="tabs-content xss-mb">
                         {% include 'FrontGeneralBundle:voyageorganise/details:description.html.twig' %}

@@ -23,12 +23,7 @@ front_voyageorganise_thankyou:
         reservation:  \d+
         
 front_voyageorganise_reservation:
-    path:     /{slug}/{periode}
+    path:     /{slug}/{pack}
     defaults: { _controller: FrontGeneralBundle:VoyageOrganise:reservation }
     requirements:
         periode:  \d+
-        
-front_voyageorganise_occupationchambre:
-    path:     /{slug}/OccupationChambre
-    defaults: { _controller: FrontGeneralBundle:VoyageOrganise:occChambre }
-    

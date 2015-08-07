@@ -1,27 +1,40 @@
-<li id="details-tab2">
-    <h4>Périodes</h4>
-    <ul class="detail-item">
-        {% for periode in voyage.periodes(true) %}
-            <li class="clearfix" style=" padding-left: 20px;">
-                <div class="br2">
-                    <h3>{{ periode }}</h3> 
-                    <span>
-                        <i class="fa-clock-o"></i> Du <strong>{{ periode.depart|date('d/m/Y') }}</strong> au <strong>{{ periode.retour|date('d/m/Y') }}</strong>
-                        {% if periode.departGarantie %}
-                           ( le départ est garantie )
-                        {% else  %}
-                            ( Reste encore {{ periode.min -(periode.nombreInscription+periode.nombreInscriptionInitiale) }} place(s) pour valider la voyage )
-                        {% endif %}
-                    </span>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="detail-meta" style="top: 6px;padding: 0px">
-                    <div class="detail-price">
-                        <span>A partir de</span>{{ periode.prix }} dt
+{% for periode in voyage.periodes(true) %}
+    <li id="periode-{{ loop.index }}">
+        <h1>{{ periode }} </h1>
+        <p style="margin-bottom:0px"><small><i class="fa-clock-o"></i> Du <strong>{{ periode.depart|date('d/m/Y') }}</strong> au <strong>{{ periode.retour|date('d/m/Y') }}</strong></small></p>
+        <p style="margin-bottom:0px">
+            {% if periode.departGarantie %}
+                ( le départ est garantie )
+            {% else  %}
+                ( Reste encore {{ periode.min -(periode.nombreInscription+periode.nombreInscriptionInitiale) }} place(s) pour valider le voyage )
+            {% endif %}
+        </p>
+        <div class="clear mb-30"></div>
+        <h4>Liste des packs</h4>
+        <ul class="detail-item">
+            {% for pack in periode.packs %}
+                <li class="clearfix">
+                    {% if pack.path is not null %}
+                        <img src="{{ asset(pack.assetPath) }}" alt="" style="width: 230px;height: 144px" />
+                    {% else %}
+                        <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=230&h=144" alt="" />
+                    {% endif %}
+                    <div class="br2">
+                        <h3>{{ pack }}</h3>
+                        <span>Les hôtels :</span>
+                        <div class="clearfix"></div>
+                        <ul class="checklist1">
+                            {% for hotel in pack.hotels %}
+                                <li>{{ hotel }} ({{ hotel.categorie }})</li>
+                                {% endfor %}
+                        </ul>
                     </div>
-                    <a href="{{ path('front_voyageorganise_reservation',{'slug':voyage.slug,'periode':periode.id}) }}" class="btn">Réservation</a>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
-</li>
+                    <div class="detail-meta">
+                        <a href="{{ path('front_voyageorganise_reservation',{'slug':voyage.slug,'pack':pack.id}) }}" class="btn">Réservation</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </li>
+{% endfor %}

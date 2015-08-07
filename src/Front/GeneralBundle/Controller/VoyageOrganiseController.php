@@ -7,6 +7,7 @@ use Back\UserBundle\Form\ClientType;
 use Back\VoyageOrganiseBundle\Form\ReservationType;
 use Back\VoyageOrganiseBundle\Entity\Reservation;
 use Back\VoyageOrganiseBundle\Entity\Periode;
+use Back\VoyageOrganiseBundle\Entity\Pack;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -143,69 +144,87 @@ class VoyageOrganiseController extends Controller
         return $response;
     }
 
-    public function reservationAction($slug, Periode $periode)
+//    public function reservationAction($slug, Periode $periode)
+//    {
+//        $em = $this->getDoctrine()->getManager();
+//        $session = $this->getRequest()->getSession();
+//        $request = $this->getRequest();
+//        $voyage = $em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->findOneBy(array('slug' => $slug));
+//        $user = $this->get('security.context')->getToken()->getUser();
+//        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') && !is_null($user->getClient()))
+//            $client = $user->getClient();
+//        else
+//            $client = $this->container->get('users')->getPassager();
+//        $form = $this->createFormBuilder()
+//                ->add("client", new ClientType(), array('data' => $client))
+//                ->add("pack", 'entity', array(
+//            'class' => 'BackVoyageOrganiseBundle:Pack',
+//            'query_builder' => function(EntityRepository $er) use ($periode)
+//            {
+//                return $er->createQueryBuilder('p')
+//                        ->where('p.periode = :id')
+//                        ->setParameter('id', $periode->getId())
+//                        ->orderBy('p.id', 'desc');
+//                ;
+//            },
+//            'required' => true,
+//            'empty_value' => 'Liste des packs disponlible',
+//            'empty_data' => null
+//        ));
+//        $form = $form->getForm();
+//        if ($request->isMethod('POST'))
+//        {
+//            $form->submit($request);
+//            if ($form->isValid())
+//            {
+//                $data = $form->getData();
+//                $reservationVO['voyage'] = $periode->getVoyage()->getId();
+//                $reservationVO['periode'] = $periode->getId();
+//                $reservationVO['client'] = $data['client']->getId();
+//                $reservationVO['coordonnes'] = array($data['client']->getNomPrenom(), $data['client']->getTel1(), $data['client']->getTel2(), $data['client']->getAdresse());
+//                $reservationVO['pack'] = $data['pack']->getId();
+//                $session->set('reservationVO', $reservationVO);
+//                return $this->redirect($this->generateUrl('front_voyageorganise_occupationchambre', array('slug' => $slug)));
+//            }
+//        }
+//        return $this->render('FrontGeneralBundle:voyageorganise:reservation.html.twig', array(
+//                    'csrf_token' => $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate'),
+//                    'form' => $form->createView(),
+//                    'periode' => $periode,
+//        ));
+//    }
+//
+//    public function occChambreAction($slug)
+//    {
+//        $em = $this->getDoctrine()->getManager();
+//        $session = $this->getRequest()->getSession();
+//        $request = $this->getRequest();
+//        $reservationVO=$session->get('reservationVO');
+//        $periode=$em->getRepository('BackVoyageOrganiseBundle:Periode')->find($reservationVO['periode']);
+//        $pack=$em->getRepository('BackVoyageOrganiseBundle:Pack')->find($reservationVO['pack']);
+//        $form = $this->createFormBuilder();
+//        $form = $form->getForm();
+//        return $this->render('FrontGeneralBundle:voyageorganise:occChambre.html.twig', array(
+//                    'form' => $form->createView(),
+//                    'periode' => $periode,
+//                    'pack'=>$pack
+//        ));
+//    }
+    
+    public function reservationAction($slug, Pack $pack)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
-        $request = $this->getRequest();
-        $voyage = $em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->findOneBy(array('slug' => $slug));
         $user = $this->get('security.context')->getToken()->getUser();
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') && !is_null($user->getClient()))
             $client = $user->getClient();
         else
             $client = $this->container->get('users')->getPassager();
         $form = $this->createFormBuilder()
-                ->add("client", new ClientType(), array('data' => $client))
-                ->add("pack", 'entity', array(
-            'class' => 'BackVoyageOrganiseBundle:Pack',
-            'query_builder' => function(EntityRepository $er) use ($periode)
-            {
-                return $er->createQueryBuilder('p')
-                        ->where('p.periode = :id')
-                        ->setParameter('id', $periode->getId())
-                        ->orderBy('p.id', 'desc');
-                ;
-            },
-            'required' => true,
-            'empty_value' => 'Liste des packs disponlible',
-            'empty_data' => null
-        ));
+                ->add("client", new ClientType(), array('data' => $client));
         $form = $form->getForm();
-        if ($request->isMethod('POST'))
-        {
-            $form->submit($request);
-            if ($form->isValid())
-            {
-                $data = $form->getData();
-                $reservationVO['voyage'] = $periode->getVoyage()->getId();
-                $reservationVO['periode'] = $periode->getId();
-                $reservationVO['client'] = $data['client']->getId();
-                $reservationVO['coordonnes'] = array($data['client']->getNomPrenom(), $data['client']->getTel1(), $data['client']->getTel2(), $data['client']->getAdresse());
-                $reservationVO['pack'] = $data['pack']->getId();
-                $session->set('reservationVO', $reservationVO);
-                return $this->redirect($this->generateUrl('front_voyageorganise_occupationchambre', array('slug' => $slug)));
-            }
-        }
         return $this->render('FrontGeneralBundle:voyageorganise:reservation.html.twig', array(
-                    'csrf_token' => $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate'),
                     'form' => $form->createView(),
-                    'periode' => $periode,
-        ));
-    }
-
-    public function occChambreAction($slug)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
-        $request = $this->getRequest();
-        $reservationVO=$session->get('reservationVO');
-        $periode=$em->getRepository('BackVoyageOrganiseBundle:Periode')->find($reservationVO['periode']);
-        $pack=$em->getRepository('BackVoyageOrganiseBundle:Pack')->find($reservationVO['pack']);
-        $form = $this->createFormBuilder();
-        $form = $form->getForm();
-        return $this->render('FrontGeneralBundle:voyageorganise:occChambre.html.twig', array(
-                    'form' => $form->createView(),
-                    'periode' => $periode,
+                    'periode' => $pack->getPeriode(),
                     'pack'=>$pack
         ));
     }
