@@ -13,13 +13,13 @@
         <h4>Liste des packs</h4>
         <ul class="detail-item">
             {% for pack in periode.packs %}
-                <li class="clearfix" style="min-height: 170px;">
+                <li class="clearfix">
                     {% if pack.path is not null %}
                         <img src="{{ asset(pack.assetPath) }}" alt="" style="width: 230px;height: 144px" />
                     {% else %}
                         <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=230&h=144" alt="" />
                     {% endif %}
-                    <div class="br2">
+                    <div class="br2" style="min-height: 145px;">
                         <h3>{{ pack }}</h3>
                         <span>Les hôtels :</span>
                         <div class="clearfix"></div>
