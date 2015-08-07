@@ -157,4 +157,27 @@ class ReservationLigne
     {
         return $this->vente;
     }
+
+    /**
+     * Set personne
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationPersonne $personne
+     * @return ReservationLigne
+     */
+    public function setPersonne(\Back\VoyageOrganiseBundle\Entity\ReservationPersonne $personne = null)
+    {
+        $this->personne = $personne;
+
+        return $this;
+    }
+
+    /**
+     * Get personne
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\ReservationPersonne 
+     */
+    public function getPersonne()
+    {
+        return $this->personne;
+    }
 }

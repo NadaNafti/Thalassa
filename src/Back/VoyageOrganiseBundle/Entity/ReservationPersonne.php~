@@ -153,4 +153,90 @@ class ReservationPersonne
         return $this;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->lignes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set enfant
+     *
+     * @param boolean $enfant
+     * @return ReservationPersonne
+     */
+    public function setEnfant($enfant)
+    {
+        $this->enfant = $enfant;
+
+        return $this;
+    }
+
+    /**
+     * Get enfant
+     *
+     * @return boolean 
+     */
+    public function getEnfant()
+    {
+        return $this->enfant;
+    }
+
+    /**
+     * Set chambre
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambre
+     * @return ReservationPersonne
+     */
+    public function setChambre(\Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambre = null)
+    {
+        $this->chambre = $chambre;
+
+        return $this;
+    }
+
+    /**
+     * Get chambre
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\ReservationChambre 
+     */
+    public function getChambre()
+    {
+        return $this->chambre;
+    }
+
+    /**
+     * Add lignes
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationLigne $lignes
+     * @return ReservationPersonne
+     */
+    public function addLigne(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $lignes)
+    {
+        $this->lignes[] = $lignes;
+
+        return $this;
+    }
+
+    /**
+     * Remove lignes
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationLigne $lignes
+     */
+    public function removeLigne(\Back\VoyageOrganiseBundle\Entity\ReservationLigne $lignes)
+    {
+        $this->lignes->removeElement($lignes);
+    }
+
+    /**
+     * Get lignes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLignes()
+    {
+        return $this->lignes;
+    }
 }

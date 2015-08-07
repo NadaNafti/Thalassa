@@ -17,6 +17,9 @@ class PackType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+                ->add('file', 'file', array('required' => false))
+                ->add('description','ckeditor')
+                ->add('updateAt')
                 ->add('libelle')
                 ->add('singleAchat')
                 ->add('singleVente')
