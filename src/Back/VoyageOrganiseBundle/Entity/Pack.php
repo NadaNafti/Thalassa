@@ -23,13 +23,6 @@ class Pack
     private $id;
     
     /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text",nullable=true)
-     */
-    private $description;
-    
-    /**
      * @ORM\ManyToMany(targetEntity="Hotel")
      * @ORM\JoinTable(name="ost_vo_voyages_packs_hotels")
      */
@@ -571,29 +564,6 @@ class Pack
     public function __toString()
     {
         return $this->libelle;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Pack
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
     }
 
     /**

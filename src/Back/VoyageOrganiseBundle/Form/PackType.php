@@ -18,7 +18,6 @@ class PackType extends AbstractType
     {
         $builder
                 ->add('file', 'file', array('required' => false))
-                ->add('description','ckeditor')
                 ->add('updateAt')
                 ->add('libelle')
                 ->add('singleAchat')
