@@ -29,7 +29,7 @@
                                     <div class="col-md-3"><h4 style="padding-top: 5px;">Chambre  {{ ch }}</h4></div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <select name='chambre{{ ch }}' class="form-control">
+                                            <select name='chambre{{ ch }}' class="form-control" id="{{ ch }}">
                                                 <option value="">0</option>
                                                 {% for i in 1..10 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}
                                             </select>
@@ -37,69 +37,123 @@
                                     </div>
                                     <div class="col-md-6"><p style="padding-top: 5px;"> à partir de {{ attribute(pack, ch~'Vente') }} DT</p></div>
                                 </div>
+                                <div class="occupants"></div>
+                                <div class="bb2 mb-10"></div>
                             {% endfor %}
                             <div class="row">
                                 <div class="col-md-6"><p style="padding-top: 5px;">Réduction enfant [2..12] ans : {{ pack.enfantVente }} DT</p></div>
                             </div>
                             <div class="mb-20"></div>
-                            <div class="bb2 mb-10"></div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    {% for option in pack.supplements %}
-                                        <div class="styled-checkbox mt-10">
-                                            <label><input type="checkbox" name="supp{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}<small>Obligatoire</small>{% endif %}</label>
-                                        </div>
-                                    {% endfor %}
+                            {% if pack.supplements|length >0 %}
+                                <div class="bb2 mb-10"></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <th></th>
+                                            <th>Prix Adulte</th>
+                                            <th>Prix Enfant</th>
+                                            </thead>
+                                            {% for option in pack.supplements %}
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                <label><input type="checkbox" name="supplement{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}<small>Obligatoire</small>{% endif %}</label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                {{ option.adulteVente }} DT
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                {{ option.enfantVente }} DT
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-20"></div>
-                            <h3 class="section-title">Circuits & excursions<span class="step active">2</span></h3>
-                            <div class="bb2 mb-10"></div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                        <th></th>
-                                        <th>Prix Adulte</th>
-                                        <th>Prix Enfant</th>
-                                        </thead>
-                                        {% for option in periode.circuits %}
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="styled-checkbox mt-10">
-                                                            <label><input type="checkbox" name="circuit{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}<small>Obligatoire</small>{% endif %}</label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="styled-checkbox mt-10">
-                                                            {{ option.adulteVente }} DT
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="styled-checkbox mt-10">
-                                                            {{ option.enfantVente }} DT
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        {% endfor %}
-                                    </table>
+                                <div class="mb-20"></div>
+                            {% endif %}
+                            {% if periode.circuits|length >0 %}
+                                <h3 class="section-title">Circuits & excursions<span class="step active">2</span></h3>
+                                <div class="bb2 mb-10"></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <th></th>
+                                            <th>Prix Adulte</th>
+                                            <th>Prix Enfant</th>
+                                            </thead>
+                                            {% for option in periode.circuits %}
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                <label><input type="checkbox" name="circuit{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}<small>Obligatoire</small>{% endif %}</label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                {{ option.adulteVente }} DT
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                {{ option.enfantVente }} DT
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-20"></div>
-                            <h3 class="section-title">Autres frais divers<span class="step active">3</span></h3>
-                            <div class="bb2 mb-10"></div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    {% for option in periode.frais %}
-                                        <div class="styled-checkbox mt-10">
-                                            <label><input type="checkbox" name="frai{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}<small>Obligatoire</small>{% endif %}</label>
-                                        </div>
-                                    {% endfor %}
+                                <div class="mb-20"></div>
+                            {% endif %}
+                            {% if periode.frais|length >0 %}
+                                <h3 class="section-title">Autres frais divers<span class="step active">3</span></h3>
+                                <div class="bb2 mb-10"></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <th></th>
+                                            <th>Prix Adulte</th>
+                                            <th>Prix Enfant</th>
+                                            </thead>
+                                            {% for option in periode.frais %}
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                <label><input type="checkbox" name="circuit{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}<small>Obligatoire</small>{% endif %}</label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                {{ option.adulteVente }} DT
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                {{ option.enfantVente }} DT
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-20"></div>
+                                <div class="mb-20"></div>
+                            {% endif %}
                             <h3 class="section-title">Information Personnelle <span class="step active">4</span></h3>
                             <div class="bb2 mb-10"></div>
                             <h4>Client :</h4>
@@ -177,4 +231,90 @@
             color:red;
         }
     </style>
+{% endblock %}
+{% block jquery %}
+    <script>
+        $(document).ready(function () {
+            $("#single").on('change', function () {
+                var nbrChambre = $(this).val();
+                var block = $(this).parent().parent().parent().next();
+                var exist = block.children().length;
+                if (exist < nbrChambre)
+                {
+                    for (var i = 1; i <= nbrChambre; i++)
+                    {
+                        if (i > exist)
+                            block.append('<div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre '+i+' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'" required class="form-control"><option value=""></option><option value="adulte">+12</option></select></div></div></div></div>');
+                    }
+                }
+                else
+                {
+                    var toRemove = (exist - nbrChambre);
+                    var nmbr = block.children().length;
+                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                        block.children().eq(i).remove();
+                }
+            })
+            $("#double").on('change', function () {
+                var nbrChambre = $(this).val();
+                var block = $(this).parent().parent().parent().next();
+                var exist = block.children().length;
+                if (exist < nbrChambre)
+                {
+                    for (var i = 1; i <= nbrChambre; i++)
+                    {
+                        if (i > exist)
+                            block.append('<div><div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre '+i+' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_1" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_2" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div></div>');
+                    }
+                }
+                else
+                {
+                    var toRemove = (exist - nbrChambre);
+                    var nmbr = block.children().length;
+                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                        block.children().eq(i).remove();
+                }
+            })
+            $("#triple").on('change', function () {
+                var nbrChambre = $(this).val();
+                var block = $(this).parent().parent().parent().next();
+                var exist = block.children().length;
+                if (exist < nbrChambre)
+                {
+                    for (var i = 1; i <= nbrChambre; i++)
+                    {
+                        if (i > exist)
+                            block.append('<div><div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre '+i+' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_1" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_2" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_3" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div></div>');
+                    }
+                }
+                else
+                {
+                    var toRemove = (exist - nbrChambre);
+                    var nmbr = block.children().length;
+                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                        block.children().eq(i).remove();
+                }
+            })
+            $("#quadruple").on('change', function () {
+                var nbrChambre = $(this).val();
+                var block = $(this).parent().parent().parent().next();
+                var exist = block.children().length;
+                if (exist < nbrChambre)
+                {
+                    for (var i = 1; i <= nbrChambre; i++)
+                    {
+                        if (i > exist)
+                            block.append('<div><div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre '+i+' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_1" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_2" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_3" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_4" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_4" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_4" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div></div>');
+                    }
+                }
+                else
+                {
+                    var toRemove = (exist - nbrChambre);
+                    var nmbr = block.children().length;
+                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                        block.children().eq(i).remove();
+                }
+            })
+        })
+    </script>
 {% endblock %}
