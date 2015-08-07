@@ -13,7 +13,7 @@
         <h4>Liste des packs</h4>
         <ul class="detail-item">
             {% for pack in periode.packs %}
-                <li class="clearfix">
+                <li class="clearfix" style="min-height: 170px;">
                     {% if pack.path is not null %}
                         <img src="{{ asset(pack.assetPath) }}" alt="" style="width: 230px;height: 144px" />
                     {% else %}
