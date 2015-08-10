@@ -48,6 +48,10 @@
                                 </tbody>
                             </table>
                         {% endfor %}
+
+                        <div class="bb2 mb-15"></div>
+                        <div class="mb-15 center">Total : <span class="font24 text-success">{{ reservation.totalLigneVente }} DT</span></div>
+                        <div class="bb2 mb-30"></div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
@@ -63,6 +67,71 @@
                                     <h3 class="no-mb">{{ reservation.voyage|title }}</h3>
                                     <span>{{ reservation.voyage.destination }}</span>
                                 </div>
+                                <div class="bb2 mb-30"></div>
+                                <table class="table table-bordered table-striped mb-30">
+                                    <tr>
+                                        <td colspan=2><span class="text-bold">Période :</span> Du {{ reservation.pack.periode.depart|date('d/m/Y') }} au {{ reservation.pack.periode.retour|date('d/m/Y') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan=2><span class="text-bold">Pack :</span> {{ reservation.pack }}</td>
+                                    </tr>
+                                    {% for chambre in reservation.chambres %}
+                                        <tr>
+                                            <td>
+                                                <span class="text-bold">Chambre  {{ chambre.nomType }}</span>:<br>
+                                                Suppléments
+                                                <!-- Collapse 1 -->	
+                                                <button type="button" class="summary-collapse mt-5" data-toggle="collapse" data-target="#collapse1"></button>
+                                                <div id="collapse1" class="collapse" style="height: auto;">
+                                                    <div class="left font12 text-info">
+                                                        {% for supp in reservation.supplements %}
+                                                            - {{ getNameSuppPack(supp) }}<br>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <div class="clearfix"></div>	
+                                                </div>
+                                                <!-- End of collapse 1 -->
+                                                <div class="clearfix"></div>	
+
+
+                                                Circuits & excursions
+                                                <!-- Collapse 1 -->	
+                                                <button type="button" class="summary-collapse collapsed mt-5" data-toggle="collapse" data-target="#collapse2"></button>
+                                                <div id="collapse2" class="collapse">
+                                                    <div class="left font12 text-info">
+                                                        {% for supp in reservation.circuits %}
+                                                            - {{ getNameSuppPack(supp) }}<br>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <div class="clearfix"></div>	
+                                                </div>
+                                                <!-- End of collapse 1 -->
+                                                <div class="clearfix"></div>	
+
+                                                Autres frais divers
+                                                <!-- Collapse 1 -->	
+                                                <button type="button" class="summary-collapse collapsed mt-5" data-toggle="collapse" data-target="#collapse3"></button>
+                                                <div id="collapse3" class="collapse">
+                                                    <div class="left font12 text-info">
+                                                        {% for supp in reservation.frais %}
+                                                            - {{ getNameSuppPack(supp) }}<br>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <div class="clearfix"></div>	
+                                                </div>
+                                                <!-- End of collapse 1 -->
+                                                <div class="clearfix"></div>	
+
+                                            </td>
+                                            <td class="center" style="vertical-align: middle;">
+                                                {{ chambre.totalLigneVente }} DT
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                                <div class="bb2 mb-20"></div>
+                                <span class="left">Total:</span>
+                                <span class="right text-success text-bold font24">{{ reservation.totalLigneVente }} DT</span>
                                 <div class="clear mb-10"></div>
                             </div>
                         </div>

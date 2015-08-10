@@ -162,118 +162,22 @@ class VoyageOrganiseController extends Controller
         $form = $form->getForm();
         if ($request->isMethod('POST'))
         {
-            $periode = $pack->getPeriode();
-            $supplements = array();
-            $circuits = array();
-            $frais = array();
-            $chambres = array(
-                array('single', 1, $pack->getSingleAchat(), $pack->getSingleVente()),
-                array('double', 2, $pack->getDoubleAchat(), $pack->getDoubleVente()),
-                array('triple', 3, $pack->getTripleAchat(), $pack->getTripleVente()),
-                array('quadruple', 4, $pack->getQuadrupleAchat(), $pack->getQuadrupleVente())
-            );
             $form->submit($request);
-            $data = $form->getData();
-            $coordoonnes = array($client->getNomPrenom(), $client->getTel1(), $client->getTel2(), $client->getAdresse());
-            $nbrPassagers = $request->get('chambresingle') + $request->get('chambredouble') * 2 + $request->get('chambretriple') * 3 + $request->get('chambrequadruple') * 4;
+            $data = $request->request->all();
+            $nbrPassagers = $data['chambresingle'] + $data['chambredouble'] * 2 + $data['chambretriple'] * 3 + $data['chambrequadruple'] * 4;
             if ($nbrPassagers == 0)
             {
                 $session->getFlashBag()->add('Erreur', "Vous devrez choisir au moin une chambre.");
                 return $this->redirect($this->generateUrl('front_voyageorganise_reservation', array('slug' => $slug, 'pack' => $pack->getId())));
             }
-            elseif ($periode->getDepartGarantie() && $nbrPassagers < $periode->getMin())
+            elseif ($pack->getPeriode()->getDepartGarantie() && $nbrPassagers < $pack->getPeriode()->getMin())
             {
-                $session->getFlashBag()->add('Erreur', "Vous devrez choisir au moin " . $periode->getMin() . " personnes.");
+                $session->getFlashBag()->add('Erreur', "Vous devrez choisir au moin " . $pack->getPeriode()->getMin() . " personnes.");
                 return $this->redirect($this->generateUrl('front_voyageorganise_reservation', array('slug' => $slug, 'pack' => $pack->getId())));
             }
-            $reservation = new Reservation();
-            $reservation->setClient($client)
-                    ->setCoordonnees($coordoonnes)
-                    ->setEtat(1)
-                    ->setFrontOffice(true)
-                    ->setVoyage($periode->getVoyage());
-            $em->persist($reservation);
-            $x = 0;
-            foreach ($chambres as $ch)
-            {
-                for ($i = 1; $i <= $request->get('chambre' . $ch[0]); $i++)
-                {
-                    $reservationChambre = new ReservationChambre();
-                    $reservationChambre->setReservation($reservation)
-                            ->setType($ch[1]);
-                    $em->persist($reservationChambre);
-                    for ($p = 1; $p <= $ch[1]; $p++)
-                    {
-                        $x++;
-                        $reservationPersonne = new ReservationPersonne();
-                        $reservationPersonne->setChambre($reservationChambre)
-                                ->setNomPrenom($request->get($ch[0] . '_nom_' . $i . '_' . $p))
-                                ->setPassport($request->get($ch[0] . '_passport_' . $i . '_' . $p));
-                        if ($request->get($ch[0] . '_age_' . $i . '_' . $p) != 'adulte')
-                            $reservationPersonne->setAge($request->get($ch[0] . '_age_' . $i . '_' . $p))->setEnfant(true);
-                        else
-                            $reservationPersonne->setAge(null)->setEnfant(false);
-                        $em->persist($reservationPersonne);
-                        $reservationLigne = new ReservationLigne();
-                        $reservationLigne->setPersonne($reservationPersonne)
-                                ->setLibelle('Logement chambre ' . $ch[0])
-                                ->setCode('chambre_' . $ch[0])
-                                ->setAchat($ch[2])
-                                ->setVente($ch[3]);
-                        $em->persist($reservationLigne);
-                        foreach ($pack->getSupplements() as $supp)
-                        {
-                            if ($supp->getObligatoire() || $request->get('supplement' . $supp->getId()))
-                            {
-                                if ($x == 1)
-                                    $supplements[] = $supp->getId();
-                                $reservationLigne = new ReservationLigne();
-                                $reservationLigne->setPersonne($reservationPersonne)
-                                        ->setLibelle($supp->getLibelle())
-                                        ->setCode('Supplement')
-                                        ->setAchat($supp->getAdulteAchat())
-                                        ->setVente($supp->getAdulteVente());
-                                $em->persist($reservationLigne);
-                            }
-                        }
-                        foreach ($periode->getCircuits() as $supp)
-                        {
-                            if ($supp->getObligatoire() || $request->get('circuit' . $supp->getId()))
-                            {
-                                if ($x == 1)
-                                    $circuits[] = $supp->getId();
-                                $reservationLigne = new ReservationLigne();
-                                $reservationLigne->setPersonne($reservationPersonne);
-                                if (!$reservationPersonne->getEnfant())
-                                    $reservationLigne->setAchat($supp->getAdulteAchat())->setVente($supp->getAdulteVente())->setCode('CircuitAdl')->setLibelle($supp->getLibelle() . ' adulte');
-                                else
-                                    $reservationLigne->setAchat($supp->getEnfantAchat())->setVente($supp->getEnfantVente())->setCode('CircuitEnf')->setLibelle($supp->getLibelle() . ' enfant');
-                                $em->persist($reservationLigne);
-                            }
-                        }
-                        foreach ($periode->getFrais() as $supp)
-                        {
-                            if ($supp->getObligatoire() || $request->get('frai' . $supp->getId()))
-                            {
-                                if ($x == 1)
-                                    $frais[] = $supp->getId();
-                                $reservationLigne = new ReservationLigne();
-                                $reservationLigne->setPersonne($reservationPersonne);
-                                if (!$reservationPersonne->getEnfant())
-                                    $reservationLigne->setAchat($supp->getAdulteAchat())->setVente($supp->getAdulteVente())->setCode('FraisDiversAdl')->setLibelle($supp->getLibelle() . ' adulte');
-                                else
-                                    $reservationLigne->setAchat($supp->getEnfantAchat())->setVente($supp->getEnfantVente())->setCode('FraisDiversEnf')->setLibelle($supp->getLibelle() . ' enfant');
-                                $em->persist($reservationLigne);
-                            }
-                        }
-                    }
-                }
-            }
-            $em->flush();
-            $em->persist($reservation->setSupplements($supplements)->setCircuits($circuits)->setFrais($frais));
             return $this->redirect($this->generateUrl('front_voyageorganise_thankyou', array(
                                 'slug' => $slug,
-                                'reservation' => $reservation->getId()
+                                'reservation' => $this->container->get('reservationVO')->saveReservation($pack,$client, $data, 'frontoffice')
             )));
         }
         return $this->render('FrontGeneralBundle:voyageorganise:reservation.html.twig', array(
