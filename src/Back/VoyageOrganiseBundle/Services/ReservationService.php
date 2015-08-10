@@ -10,6 +10,7 @@ use Back\VoyageOrganiseBundle\Entity\Reservation;
 use Back\VoyageOrganiseBundle\Entity\ReservationChambre;
 use Back\VoyageOrganiseBundle\Entity\ReservationLigne;
 use Back\VoyageOrganiseBundle\Entity\ReservationPersonne;
+use Back\UserBundle\Entity\Client;
 
 class ReservationService
 {
@@ -29,7 +30,7 @@ class ReservationService
         $this->templating = $templating;
     }
 
-    public function saveReservation(Pack $pack, $data, $source)
+    public function saveReservation(Pack $pack, Client $client, $data, $source)
     {
         $periode = $pack->getPeriode();
         $supplements = array();
