@@ -571,35 +571,4 @@ class VoyageOrganise
         }
         return $this->periodes;
     }
-
-    public function countPacks()
-    {
-        $count = 0;
-        foreach ($this->periodes as $periode)
-        {
-            $count+= count($periode->getPacks());
-        }
-        return $count;
-    }
-
-    public function countCircuits()
-    {
-        $count = 0;
-        foreach ($this->periodes as $periode)
-        {
-            $count+= count($periode->getCircuits());
-        }
-        return $count;
-    }
-
-    public function countFrais()
-    {
-        $count = 0;
-        foreach ($this->periodes as $periode)
-        {
-            $count+= count($periode->getFrais());
-        }
-        return $count;
-    }
-
 }
