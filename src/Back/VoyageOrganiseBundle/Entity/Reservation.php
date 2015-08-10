@@ -427,7 +427,7 @@ class Reservation
     }
 
     /**
-     * Get total
+     * Get total Vente
      *
      * @return string 
      */
@@ -448,7 +448,7 @@ class Reservation
     }
 
     /**
-     * Get total
+     * Get total Achat
      *
      * @return string 
      */
