@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Ligne
 {
+
     /**
      * @var integer
      *
@@ -45,14 +46,14 @@ class Ligne
     /**
      * @var string
      *
-     * @ORM\Column(name="enfantAchat", type="decimal", precision=11 ,scale=3)
+     * @ORM\Column(name="enfantAchat", type="decimal", precision=11 ,scale=3, nullable=true)
      */
     private $enfantAchat;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="enfantVente", type="decimal", precision=11 ,scale=3)
+     * @ORM\Column(name="enfantVente", type="decimal", precision=11 ,scale=3, nullable=true)
      */
     private $enfantVente;
 
@@ -62,25 +63,33 @@ class Ligne
      * @ORM\Column(name="obligatoire", type="boolean" , nullable=true)
      */
     private $obligatoire;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Pack", inversedBy="supplements")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $pack;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Periode", inversedBy="circuits")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $periodeC;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Periode", inversedBy="frais")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $periodeF;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->enfantAchat = 0;
+        $this->enfantVente = 0;
+    }
 
     /**
      * Get id
@@ -252,13 +261,11 @@ class Ligne
     {
         return $this->pack;
     }
-    
+
     public function __toString()
     {
         return $this->libelle;
     }
-
-
 
     /**
      * Set periodeC
@@ -305,4 +312,5 @@ class Ligne
     {
         return $this->periodeF;
     }
+
 }

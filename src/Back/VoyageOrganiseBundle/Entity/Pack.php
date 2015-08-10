@@ -90,20 +90,6 @@ class Pack
      * @ORM\Column(name="quadrupleVente", type="decimal", precision=11 ,scale=3)
      */
     private $quadrupleVente;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="enfantAchat", type="decimal", precision=11 ,scale=3)
-     */
-    private $enfantAchat;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="enfantVente", type="decimal", precision=11 ,scale=3)
-     */
-    private $enfantVente;
     
     /**
      * @ORM\ManyToOne(targetEntity="Periode", inversedBy="packs")
@@ -414,52 +400,6 @@ class Pack
     public function getQuadrupleVente()
     {
         return $this->quadrupleVente;
-    }
-
-    /**
-     * Set enfantAchat
-     *
-     * @param string $enfantAchat
-     * @return Pack
-     */
-    public function setEnfantAchat($enfantAchat)
-    {
-        $this->enfantAchat = $enfantAchat;
-
-        return $this;
-    }
-
-    /**
-     * Get enfantAchat
-     *
-     * @return string 
-     */
-    public function getEnfantAchat()
-    {
-        return $this->enfantAchat;
-    }
-
-    /**
-     * Set enfantVente
-     *
-     * @param string $enfantVente
-     * @return Pack
-     */
-    public function setEnfantVente($enfantVente)
-    {
-        $this->enfantVente = abs($enfantVente);
-
-        return $this;
-    }
-
-    /**
-     * Get enfantVente
-     *
-     * @return string 
-     */
-    public function getEnfantVente()
-    {
-        return $this->enfantVente;
     }
 
     /**

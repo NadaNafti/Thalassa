@@ -28,8 +28,6 @@ class PackType extends AbstractType
                 ->add('tripleVente')
                 ->add('quadrupleAchat')
                 ->add('quadrupleVente')
-                ->add('enfantAchat')
-                ->add('enfantVente')
                 ->add('periode')
                 ->add('hotels')
                 ->add('supplements', 'collection', array(

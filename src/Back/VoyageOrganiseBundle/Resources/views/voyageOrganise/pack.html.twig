@@ -45,11 +45,6 @@
                             {{ formulaire.input("col-md-3","Prix achat",form.quadrupleAchat,true) }}
                             {{ formulaire.input("col-md-3","Prix Vente",form.quadrupleVente,true) }}
                         </div>
-                        <div class="row">
-                            <div class="col-md-3" style="padding-top: 25px;text-align: center;">Réduction Enfant</div>
-                            {{ formulaire.input("col-md-3","Prix achat",form.enfantAchat,true) }}
-                            {{ formulaire.input("col-md-3","Prix Vente",form.enfantVente,true) }}
-                        </div>
                         <h2>Les Supplémenets <a id="addSupplement" href="javascript:void(0)" style="font-size: 13px;"><span class="fa fa-plus" ></span> Ajouter une ligne</a></h2>
                         <div class="supplements">
                             {% for supp in form.supplements %}
@@ -59,11 +54,11 @@
                                             {{ macros.tableDelete(path("back_vo_ligne_pach_delete",{'id':supp.vars.data.id})) }}
                                         </label>
                                     </div>
-                                    {{ formulaire.input("col-md-2","Libellé",supp.libelle,true) }}
+                                    {{ formulaire.input("col-md-4","Libellé",supp.libelle,true) }}
                                     {{ formulaire.input("col-md-2","Prix Adulte Achat",supp.adulteAchat,true) }}
                                     {{ formulaire.input("col-md-2","Prix Adulte Vente",supp.adulteVente,true) }}
-                                    {{ formulaire.input("col-md-2","Prix Enfant Achat",supp.enfantAchat,true) }}
-                                    {{ formulaire.input("col-md-2","Prix Enfant Vente",supp.enfantVente,true) }}
+                                    {{ formulaire.input("col-md-2 no-display","Prix Enfant Achat",supp.enfantAchat,true) }}
+                                    {{ formulaire.input("col-md-2 no-display","Prix Enfant Vente",supp.enfantVente,true) }}
                                     {{ formulaire.input("col-md-1","",supp.obligatoire,false) }}
                                 </div>
                             {% endfor %}
@@ -116,7 +111,7 @@
         $(document).ready(function () {
         $('#addSupplement').click(function () {
         var exist = $('.supplements').children().length;
-                $('.supplements').append('<div class="row"><div class="col-md-1" style="width: 8%"></div><div class="col-md-2"><div class="form-group"><label class="control-label">Libellé <span class="symbol required"></span></label><input type="text" id="back_voyageorganisebundle_pack_supplements_' + exist + '_libelle" name="back_voyageorganisebundle_pack[supplements][' + exist + '][libelle]" required="required" maxlength="255" class="form-control"></div></div><div class="col-md-2"><div class="form-group"><label class="control-label">Prix Adulte Achat <span class="symbol required"></span></label><input type="text" id="back_voyageorganisebundle_pack_supplements_' + exist + '_adulteAchat" name="back_voyageorganisebundle_pack[supplements][' + exist + '][adulteAchat]" required="required" class="form-control"></div></div><div class="col-md-2"><div class="form-group"><label class="control-label">Prix Adulte Vente <span class="symbol required"></span></label><input type="text" id="back_voyageorganisebundle_pack_supplements_' + exist + '_adulteVente" name="back_voyageorganisebundle_pack[supplements][' + exist + '][adulteVente]" required="required" class="form-control"></div></div><div class="col-md-2"><div class="form-group"><label class="control-label">Prix Enfant Achat <span class="symbol required"></span></label><input type="text" id="back_voyageorganisebundle_pack_supplements_' + exist + '_enfantAchat" name="back_voyageorganisebundle_pack[supplements][' + exist + '][enfantAchat]" required="required" class="form-control"></div></div><div class="col-md-2"><div class="form-group"><label class="control-label">Prix Enfant Vente <span class="symbol required"></span></label><input type="text" id="back_voyageorganisebundle_pack_supplements_' + exist + '_enfantVente" name="back_voyageorganisebundle_pack[supplements][' + exist + '][enfantVente]" required="required" class="form-control"></div></div><div class="col-md-1"><div class="form-group"><label class="control-label"> </label><div class="checkbox"><label><input type="checkbox" id="back_voyageorganisebundle_pack_supplements_' + exist + '_obligatoire" name="back_voyageorganisebundle_pack[supplements][' + exist + '][obligatoire]" value="1">Obligatoire</label></div></div></div></div>');
+                $('.supplements').append('<div class="row"><div class="col-md-1" style="width: 8%"></div><div class="col-md-4"><div class="form-group"><label class="control-label">Libellé <span class="symbol required"></span></label><input type="text" id="back_voyageorganisebundle_pack_supplements_' + exist + '_libelle" name="back_voyageorganisebundle_pack[supplements][' + exist + '][libelle]" required="required" maxlength="255" class="form-control"></div></div><div class="col-md-2"><div class="form-group"><label class="control-label">Prix Adulte Achat <span class="symbol required"></span></label><input type="text" id="back_voyageorganisebundle_pack_supplements_' + exist + '_adulteAchat" name="back_voyageorganisebundle_pack[supplements][' + exist + '][adulteAchat]" required="required" class="form-control"></div></div><div class="col-md-2"><div class="form-group"><label class="control-label">Prix Adulte Vente <span class="symbol required"></span></label><input type="text" id="back_voyageorganisebundle_pack_supplements_' + exist + '_adulteVente" name="back_voyageorganisebundle_pack[supplements][' + exist + '][adulteVente]" required="required" class="form-control"></div></div><div class="col-md-2  no-display"><div class="form-group"><label class="control-label">Prix Enfant Achat <span class="symbol required"></span></label><input type="text" id="back_voyageorganisebundle_pack_supplements_' + exist + '_enfantAchat" name="back_voyageorganisebundle_pack[supplements][' + exist + '][enfantAchat]" class="form-control"></div></div><div class="col-md-2 no-display"><div class="form-group"><label class="control-label">Prix Enfant Vente <span class="symbol required"></span></label><input type="text" id="back_voyageorganisebundle_pack_supplements_' + exist + '_enfantVente" name="back_voyageorganisebundle_pack[supplements][' + exist + '][enfantVente]" class="form-control"></div></div><div class="col-md-1"><div class="form-group"><label class="control-label"> </label><div class="checkbox"><label><input type="checkbox" id="back_voyageorganisebundle_pack_supplements_' + exist + '_obligatoire" name="back_voyageorganisebundle_pack[supplements][' + exist + '][obligatoire]" value="1">Obligatoire</label></div></div></div></div>');
         })
         })
     </script>
