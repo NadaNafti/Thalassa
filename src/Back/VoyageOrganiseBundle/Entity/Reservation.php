@@ -66,6 +66,11 @@ class Reservation
     private $voyage;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Pack")
+     */
+    private $pack;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client")
      * @Assert\NotBlank()
      */
@@ -606,4 +611,27 @@ class Reservation
         return $this->chambres;
     }
 
+
+    /**
+     * Set pack
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Pack $pack
+     * @return Reservation
+     */
+    public function setPack(\Back\VoyageOrganiseBundle\Entity\Pack $pack = null)
+    {
+        $this->pack = $pack;
+
+        return $this;
+    }
+
+    /**
+     * Get pack
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\Pack 
+     */
+    public function getPack()
+    {
+        return $this->pack;
+    }
 }
