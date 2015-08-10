@@ -440,7 +440,7 @@ class Reservation
     {
         $total = 0;
         foreach ($this->chambres as $chambre)
-            $total=$chambre->getTotalLigneVente();
+            $total+=$chambre->getTotalLigneVente();
         return $total;
     }
 
@@ -454,7 +454,7 @@ class Reservation
         $total = 0;
         foreach ($this->chambres as $chambre)
         {
-            $total=$chambre->getTotalLigneAchat();
+            $total+=$chambre->getTotalLigneAchat();
         }
         return $total;
     }
