@@ -66,17 +66,15 @@ class Reservation
     private $voyage;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Pack")
+     */
+    private $pack;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client")
      * @Assert\NotBlank()
      */
     protected $client;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="total", type="decimal", precision=11 ,scale=3 ,nullable=true)
-     */
-    private $total;
 
     /**
      * @var \DateTime
@@ -140,7 +138,7 @@ class Reservation
      */
     public function __construct()
     {
-        $this->$reglements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
         $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
         $this->frontOffice = false;
         $this->etat = 1;
@@ -434,26 +432,45 @@ class Reservation
     }
 
     /**
-     * Set total
-     *
-     * @param string $total
-     * @return Reservation
-     */
-    public function setTotal($total)
-    {
-        $this->total = $total;
-
-        return $this;
-    }
-
-    /**
-     * Get total
+     * Get total Vente
      *
      * @return string 
      */
-    public function getTotal()
+    public function getTotalLigneVente()
     {
-        return $this->total;
+        $total = 0;
+        foreach ($this->chambres as $chambre)
+        {
+            foreach ($chambre->getOccupants() as $occ)
+            {
+                foreach ($occ->getLignes() as $ligne)
+                {
+                    $total+=$ligne->getVente();
+                }
+            }
+        }
+        return $total;
+    }
+
+    /**
+     * Get total Achat
+     *
+     * @return string 
+     */
+    public function getTotalLigneAchat()
+    {
+        $total = 0;
+        foreach ($this->chambres as $chambre)
+        {
+            foreach ($chambre->getOccupants() as $occ)
+            {
+                foreach ($occ->getLignes() as $ligne)
+                {
+                    $total+=$ligne->getAchat();
+                }
+            }
+        }
+        return $total;
     }
 
     public function getMontantRegle()
@@ -561,7 +578,6 @@ class Reservation
         return $this->frais;
     }
 
-
     /**
      * Add chambres
      *
@@ -594,4 +610,5 @@ class Reservation
     {
         return $this->chambres;
     }
+
 }

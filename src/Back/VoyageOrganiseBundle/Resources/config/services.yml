@@ -5,3 +5,12 @@ services:
             - { name: twig.extension }
         arguments:
             em: "@doctrine.orm.entity_manager"
+            
+    reservationVO:
+        class: Back\VoyageOrganiseBundle\Services\ReservationService
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @session
+            - @service_container
+            - @mailer
+            - @templating
