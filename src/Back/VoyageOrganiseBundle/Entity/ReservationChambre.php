@@ -136,4 +136,17 @@ class ReservationChambre
     {
         return $this->occupants;
     }
+    
+    public function getNomType()
+    {
+        if($this->type==1)
+            return 'single';
+        if($this->type==2)
+            return 'double';
+        if($this->type==3)
+            return 'tripe';
+        if($this->type==4)
+            return 'quadruple';
+        
+    }
 }
