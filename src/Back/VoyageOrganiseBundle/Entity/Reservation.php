@@ -72,13 +72,6 @@ class Reservation
     protected $client;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="total", type="decimal", precision=11 ,scale=3 ,nullable=true)
-     */
-    private $total;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="validated", type="datetime" ,nullable=true)
@@ -434,16 +427,24 @@ class Reservation
     }
 
     /**
-     * Set total
+     * Get total
      *
-     * @param string $total
-     * @return Reservation
+     * @return string 
      */
-    public function setTotal($total)
+    public function getTotalLigneVente()
     {
-        $this->total = $total;
-
-        return $this;
+        $total = 0;
+        foreach ($this->chambres as $chambre)
+        {
+            foreach ($chambre->getOccupants() as $occ)
+            {
+                foreach ($occ->getLignes() as $ligne)
+                {
+                    $total+=$ligne->getVente();
+                }
+            }
+        }
+        return $total;
     }
 
     /**
@@ -451,9 +452,20 @@ class Reservation
      *
      * @return string 
      */
-    public function getTotal()
+    public function getTotalLigneAchat()
     {
-        return $this->total;
+        $total = 0;
+        foreach ($this->chambres as $chambre)
+        {
+            foreach ($chambre->getOccupants() as $occ)
+            {
+                foreach ($occ->getLignes() as $ligne)
+                {
+                    $total+=$ligne->getAchat();
+                }
+            }
+        }
+        return $total;
     }
 
     public function getMontantRegle()
@@ -561,7 +573,6 @@ class Reservation
         return $this->frais;
     }
 
-
     /**
      * Add chambres
      *
@@ -594,4 +605,5 @@ class Reservation
     {
         return $this->chambres;
     }
+
 }
