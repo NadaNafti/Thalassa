@@ -140,7 +140,7 @@ class Reservation
      */
     public function __construct()
     {
-        $this->$reglements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
         $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
         $this->frontOffice = false;
         $this->etat = 1;
