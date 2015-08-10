@@ -13,7 +13,6 @@
             </div>
         </div>
     </div>
-
     <div id="content_wrapper">
         <div class="container">
             <div class="row clearfix pv-50">
@@ -29,7 +28,7 @@
                                     <div class="col-md-3"><h4 style="padding-top: 5px;">Chambre  {{ ch }}</h4></div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <select name='chambre{{ ch }}' class="form-control" id="{{ ch }}">
+                                            <select data-name="{{ ch }}" name='chambre{{ ch }}' class="form-control" id="{{ ch }}">
                                                 <option value="">0</option>
                                                 {% for i in 1..10 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}
                                             </select>
@@ -40,9 +39,6 @@
                                 <div class="occupants"></div>
                                 <div class="bb2 mb-10"></div>
                             {% endfor %}
-                            <div class="row">
-                                <div class="col-md-6"><p style="padding-top: 5px;">Réduction enfant [2..12] ans : {{ pack.enfantVente }} DT</p></div>
-                            </div>
                             <div class="mb-20"></div>
                             {% if pack.supplements|length >0 %}
                                 <div class="bb2 mb-10"></div>
@@ -133,7 +129,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="styled-checkbox mt-10">
-                                                                <label><input type="checkbox" name="circuit{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}<small>Obligatoire</small>{% endif %}</label>
+                                                                <label><input type="checkbox" name="frai{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}<small>Obligatoire</small>{% endif %}</label>
                                                             </div>
                                                         </td>
                                                         <td>
@@ -196,6 +192,37 @@
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4" >
                     <div class="sidebar hotel-sidebar">
+                        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <div class="sidebar-item mb-20">
+                                <div class="lp-box">
+                                    <i class="text-info fa-lock"></i>
+                                    <h4>Authentification</h4>
+                                    <form action="{{ path("fos_user_security_check") }}" method="post">
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                                        <input type="hidden" name="_target_path" value="{{ app.request.uri() }}" />
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="form-group">
+                                                    <label for="first-name">Identifiant ou Email</label>
+                                                    <input type="text" id="username" name="_username"  required="required" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="form-group">
+                                                    <label for="first-name">Mots de passe</label>
+                                                    <input type="password" id="password" name="_password"  required="required" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <button type="submit" class="btn btn-primary" id="_submit" name="_submit"  style="float: right;">S'authentifier</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endif %}
                         <div class="sidebar-item mb-20">
                             <div class="summary-payment">
                                 <div class="summary-header  mb-30">
@@ -235,8 +262,9 @@
 {% block jquery %}
     <script>
         $(document).ready(function () {
-            $("#single").on('change', function () {
+            $("#single,#double,#triple,#quadruple").on('change', function () {
                 var nbrChambre = $(this).val();
+                var name = $(this).data('name');
                 var block = $(this).parent().parent().parent().next();
                 var exist = block.children().length;
                 if (exist < nbrChambre)
@@ -244,67 +272,17 @@
                     for (var i = 1; i <= nbrChambre; i++)
                     {
                         if (i > exist)
-                            block.append('<div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre '+i+' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'" required class="form-control"><option value=""></option><option value="adulte">+12</option></select></div></div></div></div>');
-                    }
-                }
-                else
-                {
-                    var toRemove = (exist - nbrChambre);
-                    var nmbr = block.children().length;
-                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
-                        block.children().eq(i).remove();
-                }
-            })
-            $("#double").on('change', function () {
-                var nbrChambre = $(this).val();
-                var block = $(this).parent().parent().parent().next();
-                var exist = block.children().length;
-                if (exist < nbrChambre)
-                {
-                    for (var i = 1; i <= nbrChambre; i++)
-                    {
-                        if (i > exist)
-                            block.append('<div><div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre '+i+' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_1" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_2" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div></div>');
-                    }
-                }
-                else
-                {
-                    var toRemove = (exist - nbrChambre);
-                    var nmbr = block.children().length;
-                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
-                        block.children().eq(i).remove();
-                }
-            })
-            $("#triple").on('change', function () {
-                var nbrChambre = $(this).val();
-                var block = $(this).parent().parent().parent().next();
-                var exist = block.children().length;
-                if (exist < nbrChambre)
-                {
-                    for (var i = 1; i <= nbrChambre; i++)
-                    {
-                        if (i > exist)
-                            block.append('<div><div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre '+i+' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_1" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_2" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_3" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div></div>');
-                    }
-                }
-                else
-                {
-                    var toRemove = (exist - nbrChambre);
-                    var nmbr = block.children().length;
-                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
-                        block.children().eq(i).remove();
-                }
-            })
-            $("#quadruple").on('change', function () {
-                var nbrChambre = $(this).val();
-                var block = $(this).parent().parent().parent().next();
-                var exist = block.children().length;
-                if (exist < nbrChambre)
-                {
-                    for (var i = 1; i <= nbrChambre; i++)
-                    {
-                        if (i > exist)
-                            block.append('<div><div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre '+i+' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_1" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_2" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_3" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="single_nom_'+i+'_4" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="single_passport_'+i+'_4" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="single_age_'+i+'_4" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div></div>');
+                        {
+                            if (name == 'single')
+                                block.append('<div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre ' + i + ' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_1" required class="form-control"><option value=""></option><option value="adulte">+12</option></select></div></div></div></div>');
+                            if (name == 'double')
+                                block.append('<div><div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre ' + i + ' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_1" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_2" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div></div>');
+                            if (name == 'triple')
+                                block.append('<div><div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre ' + i + ' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_1" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_2" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_3" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div></div>');
+                            if (name == 'quadruple')
+                                block.append('<div><div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre ' + i + ' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_1" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_2" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_3" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_4" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_4" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_4" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div></div>');
+
+                        }
                     }
                 }
                 else
