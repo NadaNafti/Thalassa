@@ -32,9 +32,9 @@
                     {% endif %}
                 </div>
                 <div id="invoice">
-                    <h1>Voucher # {{ reservation.code }}</h1>
-                    <div class="date">Validé par <strong>{{ reservation.responsable }}</strong> le <strong>{{ reservation.validated|date('d/m/Y h:i') }}</strong></div>
-                    <div class="date">Réservation pour <strong>{{ reservation.nuitees }} nuitée(s)</strong> à partir du <strong>{{ reservation.dateDebut|date('d/m/Y') }}</strong></div>
+                    <h1>Voucher # {{ NumVoucher(reservation.id) }}</h1>
+                    <div class="date">Validé {#par <strong>{{ reservation.responsable }}</strong>#} le <strong>{{ reservation.validated|date('d/m/Y h:i') }}</strong></div>
+                <div class="date">{{ reservation.nuitees }} nuitée(s) à partir du {{ reservation.dateDebut|date('d/m/Y') }} au {{ reservation.dateFin|date_modify("+1 day")|date('d/m/Y') }}</div>
                 </div>
             </div>
             <table border="0" cellspacing="0" cellpadding="0">
@@ -90,20 +90,8 @@
             </div>
             <div id="thanks" style="margin-bottom: 20px;">Remarques</div>
             <div id="notices">
-                <div class="notice" style="text-align: justify;font-size: 13px;">Ceci est un VOUCHER vous garantissant le paiement et la confirmation de la réservation et services mentionnés
-                    dessus. Tout autre service, extra ou frais supplémentaires produit durant le séjour seront à payer par le client
-                    directement à l'hôtel.
-                    Toute modification ou annulation de ce VOUCHER entraîne des frais, pénalité ou retenue portant sur tout ou
-                    partie du prix du séjour. Veuillez pour cela nous contacter.
-                    A partir du jour du check­in toute annulation ou demande de modification ne pourra faire l'objet d'aucun
-                    remboursement . les séjours partiellement consommés ne sont pas remboursables.
-                    {{ agence.nom }} peut être amené, pour des raisons multiples et légitimes (sur­booking, Travaux…)
-                    de substituer l'hôtel initialement réservé par un autre hôtel similaire.
-                    L'hôtel se réserve le droit de vous demander une caution pour tout extra ou frais supplémentaires.
-                    Toute réclamation devra être transmise à {{ agence.nom }} par tout moyen permettant d’en obtenir
-                    un accusé de réception durant le séjour. Passé ce délai, le dossier ne pourra être traité avec la même diligence.
-                    La durée du traitement des réclamations dépend des cas. Pour un traitement rapide et efficace de la demande,
-                    il est impératif de transmettre l’ensemble des justificatifs nécessaires.
+                <div class="notice" style="text-align: justify;font-size: 13px;">
+                    {{ getTexteVoucher() }}
                 </div>
             </div>
         </main>
