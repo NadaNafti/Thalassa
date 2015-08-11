@@ -74,7 +74,7 @@
             {% endif %}
             <h4 class="center">Etat : {{ reservation.showEtat }}</h4>
             {% if reservation.etat==2 %}
-                <h4 class="center">Num voucher : <a target="_blank" href="{{ path('voucher_reservation',{'id':reservation.id}) }}">{{ reservation.code  }}</a>, le {{ reservation.validated|date('d/m/Y h:i') }}</h4>
+                <h4 class="center">Num voucher : <a target="_blank" href="{{ path('voucher_reservation',{'id':reservation.id}) }}">{{ NumVoucher(reservation.id) }}</a>, le {{ reservation.validated|date('d/m/Y h:i') }}</h4>
             {% endif %}
             <h5 class="center">{% if reservation.responsable is not null %} Prise en charge par : {{ reservation.responsable }} {% endif %}</h5>
         </div>

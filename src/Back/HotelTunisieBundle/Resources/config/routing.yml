@@ -2,6 +2,10 @@ Hotel_Tunisie_Referentiel:
     resource: "@BackHotelTunisieBundle/Resources/config/routing/referentiel.yml"
     prefix:   /referentiel
 
+Hotel_Tunisie_Configuration:
+    resource: "@BackHotelTunisieBundle/Resources/config/routing/configuration.yml"
+    prefix:   /configuration
+
 Hotel_Tunisie_Reservation:
     resource: "@BackHotelTunisieBundle/Resources/config/routing/reservation.yml"
     prefix:   /reservation

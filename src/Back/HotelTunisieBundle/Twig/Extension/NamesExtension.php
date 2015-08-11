@@ -23,7 +23,36 @@ class NamesExtension extends \Twig_Extension
             'getNameVue' => new \Twig_Function_Method($this, 'getNameVue'),
             'getNameSupp' => new \Twig_Function_Method($this, 'getNameSupp'),
             'getNameOption' => new \Twig_Function_Method($this, 'getNameOption'),
+            'NumVoucher' => new \Twig_Function_Method($this, 'NumVoucher'),
+            'getTexteVoucher' => new \Twig_Function_Method($this, 'getTexteVoucher'),
         );
+    }
+
+    public function getTexteVoucher()
+    {
+        $ConfigVoucher = $this->em->getRepository("BackHotelTunisieBundle:ConfigurationVoucher")->find(1);
+        if ($ConfigVoucher)
+            return $ConfigVoucher->getTexteVoucher();
+        else
+            return null;
+    }
+
+    public function NumVoucher($id)
+    {
+        $reservation = $this->em->getRepository("BackHotelTunisieBundle:Reservation")->find($id);
+        $ConfigVoucher = $this->em->getRepository("BackHotelTunisieBundle:ConfigurationVoucher")->find(1);
+        if ($reservation)
+        {
+            if ($ConfigVoucher)
+            {
+                if ($ConfigVoucher->getTypeNumerotation() == 1)
+                    return $reservation->getValidated()->format('Y') . $reservation->getCode();
+                if ($ConfigVoucher->getTypeNumerotation() == 2)
+                    return $reservation->getCode() . $reservation->getValidated()->format('/m/Y');
+            }
+            else
+                return $reservation->getCode();
+        }
     }
 
     public function getNameChambre($id)

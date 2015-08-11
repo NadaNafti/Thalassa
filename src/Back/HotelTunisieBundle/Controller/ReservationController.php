@@ -331,7 +331,7 @@ class ReservationController extends Controller
 		$em->persist($piece->setMontant($piece->getMontant() + $reglement->getMontant())->setRegle(false)->setDateReglement(null));
 		$em->remove($reglement);
 	    }
-	    $em->persist($reservation->setEtat(9)->setCommentaire($request->get('commentaire')));
+	    $em->persist($reservation->setEtat(9)->setCode(null)->setValidated(null)->setCommentaire($request->get('commentaire')));
 	    $em->flush();
 	    $session->getFlashBag()->add('success', "Réservation a été annullée avec succès ");
 	}

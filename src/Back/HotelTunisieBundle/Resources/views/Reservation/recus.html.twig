@@ -9,7 +9,7 @@
     <aside style="margin-top: 105px;">
         <span style="position: absolute;margin-top: -122px;"><img alt="" src="{{ asset(agence.assetPath) }}"></span>
         <h1>
-            <span style="letter-spacing: 2px;margin-right: 125px;">Reçu N° {{ reservation.code }}</span>
+            <span style="letter-spacing: 2px;margin-right: 125px;">Reçu N° {{ NumVoucher(reservation.id) }}</span>
         </h1>
         <table class="meta" style="margin-top: -75px;">
             <tr>
@@ -85,7 +85,7 @@
         <aside style="margin-top: 130px;">
             <span style="position: absolute;margin-top: -105px;"><img alt="" src="{{ asset(agence.assetPath) }}"></span>
             <h1>
-                <span style="letter-spacing: 2px;margin-right: 125px;">Reçu N° {{ reservation.code }}</span>
+                <span style="letter-spacing: 2px;margin-right: 125px;">Reçu N° {{ NumVoucher(reservation.id) }}</span>
             </h1>
             <table class="meta" style="margin-top: -75px;">
                 <tr>

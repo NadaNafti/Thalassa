@@ -48,14 +48,14 @@ class Agence
     /**
      * @var string
      *
-     * @ORM\Column(name="tel2", type="string", length=255)
+     * @ORM\Column(name="tel2", type="string", length=255,nullable=true)
      */
     private $tel2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fax", type="string", length=255)
+     * @ORM\Column(name="fax", type="string", length=255,nullable=true)
      */
     private $fax;
 

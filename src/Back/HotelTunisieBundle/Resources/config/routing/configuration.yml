@@ -1,0 +1,3 @@
+sht_connfiguration_voucher:
+    path:     /voucher
+    defaults: { _controller: BackHotelTunisieBundle:Configuration:voucher }
