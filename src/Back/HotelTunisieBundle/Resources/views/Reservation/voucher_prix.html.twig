@@ -61,12 +61,12 @@
                             {% for enfant in chambre.enfants %}
                                 <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">{{ enfant.nom }} ({{ enfant.age }} ans)</p>
                             {% endfor %}
-{#                            {% for supp in chambre.supplements %}
+                            {% for supp in chambre.supplements %}
                                 <p style="margin-left: 15px;margin-top: 0px;margin-bottom: 0px;"> - {{ getNameSupp(supp) }}</p>
                             {% endfor %}
                             {% for vue in chambre.vues %}
                                 <p style="margin-left: 15px;margin-top: 0px;margin-bottom: 0px;"> - {{ getNameVue(vue) }}</p>
-                            {% endfor %}#}
+                            {% endfor %}
                         </td>
                         <td class="unit" style="text-align: center;border-right: 1px solid #FFFFFF;"> {{ chambre.adultes|length }} </td>
                         <td class="unit" style="text-align: center;border-right: 1px solid #FFFFFF;"> {{ chambre.enfants|length }} </td>

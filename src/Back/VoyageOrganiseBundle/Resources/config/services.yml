@@ -1,5 +1,5 @@
 services:
-    names:
+    namesVO:
         class: Back\VoyageOrganiseBundle\Twig\Extension\NamesExtension
         tags:
             - { name: twig.extension }

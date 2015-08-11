@@ -58,10 +58,10 @@
                 </p>
 
                 {% for supp in chambre.supplements %}
-{#                    <p> - {{ getNameSupp(supp) }}</p>#}
+                    <p> - {{ getNameSupp(supp) }}</p>
                 {% endfor %}
                 {% for vue in chambre.vues %}
-{#                    <p> - {{ getNameVue(vue) }}</p>#}
+                    <p> - {{ getNameVue(vue) }}</p>
                 {% endfor %}
             {% endfor %}
         </div>
@@ -105,7 +105,7 @@
                 <h4 class="center">Options</h4>
                 <hr>
                 {% for option in reservation.options %}
-{#                    <p> - {{ getNameOption(option) }}</p>#}
+                    <p> - {{ getNameOption(option) }}</p>
                 {% endfor %}
             {% endif %}
         </div>
