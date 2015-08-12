@@ -134,6 +134,20 @@ class Reservation
     private $coordonnees;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="timbre", type="decimal", precision=2, scale=1,nullable=true)
+     */
+    private $timbre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="remise", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $remise;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -440,15 +454,7 @@ class Reservation
     {
         $total = 0;
         foreach ($this->chambres as $chambre)
-        {
-            foreach ($chambre->getOccupants() as $occ)
-            {
-                foreach ($occ->getLignes() as $ligne)
-                {
-                    $total+=$ligne->getVente();
-                }
-            }
-        }
+            $total+=$chambre->getTotalLigneVente();
         return $total;
     }
 
@@ -462,13 +468,7 @@ class Reservation
         $total = 0;
         foreach ($this->chambres as $chambre)
         {
-            foreach ($chambre->getOccupants() as $occ)
-            {
-                foreach ($occ->getLignes() as $ligne)
-                {
-                    $total+=$ligne->getAchat();
-                }
-            }
+            $total+=$chambre->getTotalLigneAchat();
         }
         return $total;
     }
@@ -611,4 +611,27 @@ class Reservation
         return $this->chambres;
     }
 
+
+    /**
+     * Set pack
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Pack $pack
+     * @return Reservation
+     */
+    public function setPack(\Back\VoyageOrganiseBundle\Entity\Pack $pack = null)
+    {
+        $this->pack = $pack;
+
+        return $this;
+    }
+
+    /**
+     * Get pack
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\Pack 
+     */
+    public function getPack()
+    {
+        return $this->pack;
+    }
 }

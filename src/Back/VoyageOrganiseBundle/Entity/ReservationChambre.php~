@@ -34,7 +34,7 @@ class ReservationChambre
      * @ORM\Column(name="type", type="integer")
      */
     private $type;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="ReservationPersonne", mappedBy="chambre")
      */
@@ -136,17 +136,43 @@ class ReservationChambre
     {
         return $this->occupants;
     }
-    
+
     public function getNomType()
     {
-        if($this->type==1)
+        if ($this->type == 1)
             return 'single';
-        if($this->type==2)
+        if ($this->type == 2)
             return 'double';
-        if($this->type==3)
+        if ($this->type == 3)
             return 'tripe';
-        if($this->type==4)
+        if ($this->type == 4)
             return 'quadruple';
-        
     }
+
+    /**
+     * Get total Vente
+     *
+     * @return string 
+     */
+    public function getTotalLigneVente()
+    {
+        $total = 0;
+        foreach ($this->occupants as $occ)
+            $total+=$occ->getTotalLigneVente();
+        return $total;
+    }
+
+    /**
+     * Get total Achat
+     *
+     * @return string 
+     */
+    public function getTotalLigneAchat()
+    {
+        $total = 0;
+        foreach ($this->occupants as $occ)
+            $total+=$occ->getTotalLigneAchat();
+        return $total;
+    }
+
 }
