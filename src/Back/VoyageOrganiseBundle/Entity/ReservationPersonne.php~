@@ -239,4 +239,30 @@ class ReservationPersonne
     {
         return $this->lignes;
     }
+    
+    /**
+     * Get total Vente
+     *
+     * @return string 
+     */
+    public function getTotalLigneVente()
+    {
+        $total = 0;
+            foreach ($this->lignes as $ligne)
+                $total+=$ligne->getVente();
+        return $total;
+    }
+
+    /**
+     * Get total Achat
+     *
+     * @return string 
+     */
+    public function getTotalLigneAchat()
+    {
+        $total = 0;
+            foreach ($this->lignes as $ligne)
+                $total+=$ligne->getAchat();
+        return $total;
+    }
 }

@@ -34,7 +34,7 @@
                 <div id="invoice">
                     <h1>Voucher # {{ NumVoucher(reservation.id) }}</h1>
                     <div class="date">Validé {#par <strong>{{ reservation.responsable }}</strong>#} le <strong>{{ reservation.validated|date('d/m/Y h:i') }}</strong></div>
-                    <div class="date">{{ reservation.nuitees }} nuitée(s) à partir du {{ reservation.dateDebut|date('d/m/Y') }} au {{ reservation.dateFin|date_modify("+1 day")|date('d/m/Y') }}</div>
+                    <div class="date">{{ reservation.nuitees }} nuitée(s), Du {{ reservation.dateDebut|date('d/m/Y') }} au {{ reservation.dateFin|date_modify("+1 day")|date('d/m/Y') }}</div>
                 </div>
             </div>
             <table border="0" cellspacing="0" cellpadding="0">
@@ -95,8 +95,8 @@
                 </div>
             </div>
             {% if reservation.hotel.longitude is not null and reservation.hotel.latitude is not null  %}
-                <div id="" style="text-align: center">
-                    <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=11&size=300x200&markers=color:blue%7Clabel:H%7C{{ reservation.hotel.longitude }},{{ reservation.hotel.latitude }}"/>
+                <div style="text-align: center;margin-top: 20px;border-bottom: 1px solid black;border-top: 1px solid black;">
+                    <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=11&size=1000x200&markers=color:blue%7Clabel:H%7C{{ reservation.hotel.longitude }},{{ reservation.hotel.latitude }}"/>
                 </div>
             {% endif %}
         </main>

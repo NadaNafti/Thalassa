@@ -9,5 +9,6 @@
 /composer.phar
 /vendor/
 /nbproject/
+/.idea/
 /web/bundles/
 /web/uploads/

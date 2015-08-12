@@ -43,12 +43,15 @@ class ReservationService
             array('quadruple', 4, $pack->getQuadrupleAchat(), $pack->getQuadrupleVente())
         );
         $coordoonnes = array($client->getNomPrenom(), $client->getTel1(), $client->getTel2(), $client->getAdresse());
+        $tarifCommercial = $this->em->getRepository('BackCommercialBundle:Tarif')->find(1);
         $reservation = new Reservation();
         $reservation->setClient($client)
                 ->setCoordonnees($coordoonnes)
                 ->setEtat(1)
                 ->setPack($pack)
                 ->setVoyage($periode->getVoyage());
+        if ($tarifCommercial && $tarifCommercial->getTimbre())
+            $reservation->setTimbre($tarifCommercial->getMontantTimbre());
         if($source=='frontoffice')
             $reservation->setFrontOffice (TRUE);
         $this->em->persist($reservation);
