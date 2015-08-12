@@ -175,4 +175,9 @@ class ReservationChambre
         return $total;
     }
 
+    public function __toString()
+    {
+      return $this->getNomType();
+    }
+
 }
