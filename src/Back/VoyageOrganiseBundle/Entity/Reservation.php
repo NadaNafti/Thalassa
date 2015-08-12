@@ -682,4 +682,13 @@ class Reservation
     {
         return $this->remise;
     }
+
+    /**
+     * Calculer le total avec le timbre et le remise
+     * @return decimal
+     */
+    public function getTotal()
+    {
+        return number_format($this->getTotalLigneVente() + $this->timbre - $this->remise, 3, '.', '');
+    }
 }
