@@ -1,58 +1,72 @@
 {% extends "BackHotelTunisieBundle:Reservation:liste.html.twig" %}
 {% block title %}Consulter la réservation{% endblock %}
 {% block description %}{% endblock %}
-{% block topbody %}   
+{% block topbody %}
     {{ parent() }}
     <li>
-        <a href="javascript:void(0)" >Consultation</a>
+        <a href="javascript:void(0)">Consultation</a>
     </li>
 {% endblock %}
 {% block body %}
     <div class="row">
-        {% if reservation.responsable is not null and app.user.id == reservation.responsable.id  %}
+        {% if reservation.responsable is not null and app.user.id == reservation.responsable.id %}
             <div class="col-md-12 center">
                 {% if reservation.etat in [1,9] %}
-                    <a  href="#valider" data-toggle="modal" class="btn btn-success center">
+                    <a href="#valider" data-toggle="modal" class="btn btn-success center">
                         Valider
                     </a>
                 {% endif %}
                 {% if reservation.etat in [1,2] %}
                     <a href="#annuler" data-toggle="modal" class="btn btn-warning center">
-                        Annuler 
+                        Annuler
                     </a>
                 {% endif %}
                 {% if reservation.etat in [1] %}
-                    <a href="{{ path('back_voyages_organises_reservation_supprimer',{'id':reservation.id}) }}" class="btn btn-danger center" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette reservation ?'))">
+                    <a href="{{ path('back_voyages_organises_reservation_supprimer',{'id':reservation.id}) }}"
+                       class="btn btn-danger center"
+                       onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette reservation ?'))">
                         Supprimer
                     </a>
                 {% endif %}
                 <hr>
             </div>
         {% else %}
-	    <div class="col-md-12 center">
-		<a href="{{ path('back_voyages_organises_reservation_priseencharge',{'id':reservation.id}) }}" class="btn btn-success center" onclick="javascript:return(confirm('Etes-vous certain de vouloir prendre en charge cette reservation ?'))">
-		    Prendre en charge cette réservation
-		</a>
+            <div class="col-md-12 center">
+                <a href="{{ path('back_voyages_organises_reservation_priseencharge',{'id':reservation.id}) }}"
+                   class="btn btn-success center"
+                   onclick="javascript:return(confirm('Etes-vous certain de vouloir prendre en charge cette reservation ?'))">
+                    Prendre en charge cette réservation
+                </a>
             </div>
         {% endif %}
         <div class="col-md-3">
-            <h4 class="center">Réservation</h4><hr>
+            <h4 class="center">Réservation</h4>
+            <hr>
             <p><strong>Voyage organisé : </strong> {{ reservation.voyage }}</p>
         </div>
         <div class="col-md-6">
             <h5 class="center">N° : {{ reservation.id }}</h5>
+
             <h3 class="center">{{ reservation.voyage }}</h3>
             <h4 class="center">Etat : {{ reservation.showEtat }}</h4>
             <h5 class="center">{% if reservation.responsable is not null %} Prise en charge par : {{ reservation.responsable }} {% endif %}</h5>
         </div>
         <div class="col-md-3">
-            <h4 class="center">Client</h4><hr>
+            <h4 class="center">Client</h4>
+            <hr>
             <p><strong> Nom & prénom : </strong> {{ reservation.coordonnees.0 }}</p>
+
             <p>{{ reservation.coordonnees.1 }}</p>
+
             <p>{{ reservation.coordonnees.2 }}</p>
-	    {% if reservation.coordonnees.3 is defined %}
-		<p>{{ reservation.coordonnees.3 }}</p>
-	    {% endif %}
+            {% if reservation.coordonnees.3 is defined %}
+                <p>{{ reservation.coordonnees.3 }}</p>
+            {% endif %}
+            <h4 class="center">Chambre </h4>
+            <hr>
+            {% for chambre in reservation.chambres %}
+                <p> - Chambre {{ chambre }}</p>
+            {% endfor %}
         </div>
         {% if reservation.commentaire is not null and reservation.commentaire is not empty %}
             <div class="col-md-12">
@@ -64,96 +78,113 @@
             <div class="col-md-12">
                 <hr>
                 <h2 class="center">Piéces de réglement</h2>
+
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th>Piece</th>
-                                    <th>Mode Reglement</th>
-                                    <th>Date du réglement</th>
-                                    <th style="text-align: right">Montant piéce</th>
-                                    <th style="text-align: right">Montant payé</th>
-                                </tr>
+                            <tr>
+                                <th>Piece</th>
+                                <th>Mode Reglement</th>
+                                <th>Date du réglement</th>
+                                <th style="text-align: right">Montant piéce</th>
+                                <th style="text-align: right">Montant payé</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                {% for reglement in reservation.reglements %}
-                                    <tr>
-                                        <td>{{ reglement.piece.numero }}</td>
-                                        <td>
-                                            {{ reglement.piece.showModeReglement }}
-                                            {% if reglement.piece.modeReglement == 'C' %}
-                                                / Echéance {{ reglement.piece.dateEcheance|date('d/m/Y') }}
-                                            {% endif %}
-                                        </td>
-                                        <td>{{ reglement.dateCreation|date('d/m/Y') }}</td>
-                                        <td style="text-align: right" >{{ reglement.piece.montantOrigine }} DT</td>
-                                        <td style="color:red;text-align: right" >{{ reglement.montant }} DT</td>
-                                    </tr>
-                                {% endfor %}
+                            {% for reglement in reservation.reglements %}
                                 <tr>
-                                    <td colspan="4" style="text-align: right" >Montant régle</td>
-                                    <td style="color:red;text-align: right" >{{ reservation.montantRegle }} DT</td>
+                                    <td>{{ reglement.piece.numero }}</td>
+                                    <td>
+                                        {{ reglement.piece.showModeReglement }}
+                                        {% if reglement.piece.modeReglement == 'C' %}
+                                            / Echéance {{ reglement.piece.dateEcheance|date('d/m/Y') }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ reglement.dateCreation|date('d/m/Y') }}</td>
+                                    <td style="text-align: right">{{ reglement.piece.montantOrigine }} DT</td>
+                                    <td style="color:red;text-align: right">{{ reglement.montant }} DT</td>
                                 </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="4" style="text-align: right">Montant régle</td>
+                                <td style="color:red;text-align: right">{{ reservation.montantRegle }} DT</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         {% endif %}
-	<div class="col-md-12">
-	    <hr>
-	    <h2>Adultes : </h2>
-	    <div class="panel panel-default">
-		<div class="panel-body">
-		    <table class="table">
-			<thead>
-			    <tr>
-				<th class="center">#</th>
-				<th class="center">Nom</th>
-				<th class="center">Passport</th>
-			    </tr>
-			</thead>
-			<tbody>
-			    {% for adulte in reservation.adultes %}
-				<tr>
-				    <td class="center">{{ loop.index }}</td>
-				    <td class="center">{{ adulte.nomPrenom }}</td>
-				    <td class="center">{{ adulte.passport }}</td>
-				</tr>
-			    {% endfor %}
-			</tbody>
-		    </table>
-		</div>
-	    </div>
-	    {% if reservation.enfants|length != 0%}
-		<h2>Enfants : </h2>
-		<div class="panel panel-default">
-		    <div class="panel-body">
-			<table class="table">
-			    <thead>
-				<tr>
-				    <th class="center">#</th>
-				    <th class="center">Nom</th>
-				    <th class="center">Age</th>
-				    <th class="center">Passport</th>
-				</tr>
-			    </thead>
-			    <tbody>
-				{% for enfants in reservation.enfants %}
-				    <tr>
-					<td class="center">{{ loop.index }}</td>
-					<td class="center">{{ enfants.nomPrenom }}</td>
-					<td class="center">{{ enfants.age }}</td>
-					<td class="center">{{ enfants.passport }}</td>
-				    </tr>
-				{% endfor %}
-			    </tbody>
-			</table>
-		    </div>
-		</div>
-	    {% endif %}
-	</div>
+        <div class="col-md-12">
+            <hr>
+            <h2>Lignes : </h2>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table">
+                        <tbody>
+                        {% for chambre in reservation.chambres %}
+                            <tr style="background-color: azure;">
+                                <td class="center">Chambre {{ chambre }}</td>
+                                <td colspan="8"></td>
+                            </tr>
+                            {% for personne in chambre.occupants %}
+                                <tr style="background-color: cornsilk;">
+                                    <td></td>
+                                    <td class="center">
+                                        {% if personne.enfant %}Enfant{% else %}Adulte{% endif %}
+                                    </td>
+                                    <td class="center">{{ personne.nomPrenom }}</td>
+                                    <td class="center">{{ personne.passport }}</td>
+                                    <td class="center">{% if personne.enfant %}{{ personne.age }}{% endif %}</td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                {% for ligne in personne.lignes %}
+                                    <tr>
+                                        <td colspan="5"></td>
+                                        <td class="center">{{ ligne.libelle }}</td>
+                                        <td style="text-align: right;">{{ ligne.achat }}</td>
+                                        <td style="text-align: right;">{{ ligne.vente }}</td>
+                                        <td><a href="javascript:void(0)" data-id="{{ ligne.id }}"><span class="clip-pencil-3"></span></a></td>
+                                    </tr>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                        <tr style="background-color: azure;">
+                            <td colspan="5"></td>
+                            <td style="text-align: right;">Somme</td>
+                            <td style="text-align: right;">{{ reservation.totalLigneAchat }}</td>
+                            <td style="text-align: right;">{{ reservation.totalLigneVente }}</td>
+                            <td></td>
+                        </tr>
+                        {% if reservation.remise!=0 %}
+                            <tr style="background-color: azure;">
+                                <td colspan="6"></td>
+                                <td style="text-align: right;">Remise</td>
+                                <td style="text-align: right;">{{ reservation.remise }}</td>
+                                <td></td>
+                            </tr>
+                        {% endif %}
+                        {% if reservation.timbre!=0 %}
+                            <tr style="background-color: azure;">
+                                <td colspan="6"></td>
+                                <td style="text-align: right;">Timbre</td>
+                                <td style="text-align: right;">{{ reservation.timbre }}</td>
+                                <td></td>
+                            </tr>
+                        {% endif %}
+                        <tr style="background-color: azure;">
+                            <td colspan="6"></td>
+                            <td style="text-align: right;">Total</td>
+                            <td style="text-align: right;">{{ reservation.total }}</td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="valider" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
         <div class="modal-header">
@@ -166,7 +197,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4>Montant total de la réservation : <input type="text" required name="total" value="{{ reservation.total }}" /> </h4>
+                        <h4>Montant total de la réservation : <input type="text" required name="total"
+                                                                     value="{{ reservation.total }}"/></h4>
 
                     </div>
                 </div>
@@ -193,8 +225,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h4>Commentaire</h4>
+
                         <p>
-                            <textarea name="commentaire" class="form-control" ></textarea>
+                            <textarea name="commentaire" class="form-control"></textarea>
                         </p>
                     </div>
                 </div>
@@ -216,8 +249,8 @@
     <script src="{{ asset("back-assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js") }}"></script>
     <script src="{{ asset("back-assets/js/ui-modals.js") }}"></script>
     <script>
-		    jQuery(document).ready(function () {
-			UIModals.init();
-		    });
+        jQuery(document).ready(function () {
+            UIModals.init();
+        });
     </script>
 {% endblock %}

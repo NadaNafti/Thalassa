@@ -457,7 +457,7 @@ class Reservation
         $total = 0;
         foreach ($this->chambres as $chambre)
             $total+=$chambre->getTotalLigneVente();
-        return $total;
+        return number_format($total, 3, '.', '');
     }
 
     /**
@@ -469,10 +469,8 @@ class Reservation
     {
         $total = 0;
         foreach ($this->chambres as $chambre)
-        {
             $total+=$chambre->getTotalLigneAchat();
-        }
-        return $total;
+        return number_format($total, 3, '.', '');
     }
 
     public function getMontantRegle()
@@ -657,7 +655,7 @@ class Reservation
      */
     public function getTimbre()
     {
-        return $this->timbre;
+        return number_format($this->timbre, 3, '.', '');
     }
 
     /**
@@ -680,7 +678,7 @@ class Reservation
      */
     public function getRemise()
     {
-        return $this->remise;
+        return number_format($this->remise, 3, '.', '');
     }
 
     /**
