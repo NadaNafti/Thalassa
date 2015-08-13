@@ -50,7 +50,7 @@
                         {% endfor %}
 
                         <div class="bb2 mb-15"></div>
-                        <div class="mb-15 center">Total : <span class="font24 text-success">{{ reservation.totalLigneVente }} DT</span></div>
+                        <div class="mb-15 center">Total : <span class="font24 text-success">{{ reservation.total }} DT</span></div>
                         <div class="bb2 mb-30"></div>
                     </div>
                 </div>
@@ -128,10 +128,16 @@
                                             </td>
                                         </tr>
                                     {% endfor %}
+                                    {% if reservation.timbre != 0 %}
+                                        <tr>
+                                            <td><span class="text-bold">Timbre Fiscale</span></td>
+                                            <td>{{ reservation.timbre }} DT</td>
+                                        </tr>
+                                    {% endif %}
                                 </table>
                                 <div class="bb2 mb-20"></div>
                                 <span class="left">Total:</span>
-                                <span class="right text-success text-bold font24">{{ reservation.totalLigneVente }} DT</span>
+                                <span class="right text-success text-bold font24">{{ reservation.total }} DT</span>
                                 <div class="clear mb-10"></div>
                             </div>
                         </div>
