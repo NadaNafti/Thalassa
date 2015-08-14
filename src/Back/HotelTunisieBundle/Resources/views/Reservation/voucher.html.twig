@@ -92,13 +92,9 @@
             <tr>
                 <td colspan="6" style="text-align: left;color: #555555;">
                     <h3>Options :</h3>
-
-                    <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">
-                        {% for option in reservation.options %}
-
-                    <p> - {{ getNameOption(option) }}</p>
+                    {% for option in reservation.options %}
+                        <p style="margin: 0 0 0 30px;"> - {{ getNameOption(option) }}</p>
                     {% endfor %}
-                    </p>
                 </td>
             </tr>
             </tfoot>
@@ -107,7 +103,7 @@
     <div id="notices">
         <div class="notice" style="text-align: justify;font-size: 13px;">{{ reservation.observation }}</div>
     </div>
-    <div id="thanks" style="margin-bottom: 20px;">Remarques</div>
+    {#<div id="thanks" style="margin-bottom: 20px;">Remarques</div>#}
     <div id="notices">
         <div class="notice" style="text-align: justify;font-size: 13px;">
             {{ getTexteVoucher()|raw }}

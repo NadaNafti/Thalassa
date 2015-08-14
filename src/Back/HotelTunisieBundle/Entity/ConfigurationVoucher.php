@@ -36,7 +36,7 @@
         /**
          * @var string
          *
-         * @ORM\Column(name="texteVoucher", type="text")
+         * @ORM\Column(name="texteVoucher", type="text", nullable=true)
          */
         private $texteVoucher;
         /**
