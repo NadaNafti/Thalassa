@@ -1368,4 +1368,27 @@ class Hotel
 	return $album;
     }
 
+
+    /**
+     * Set tripAdvisor
+     *
+     * @param string $tripAdvisor
+     * @return Hotel
+     */
+    public function setTripAdvisor($tripAdvisor)
+    {
+        $this->tripAdvisor = $tripAdvisor;
+
+        return $this;
+    }
+
+    /**
+     * Get tripAdvisor
+     *
+     * @return string 
+     */
+    public function getTripAdvisor()
+    {
+        return $this->tripAdvisor;
+    }
 }

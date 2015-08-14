@@ -170,6 +170,19 @@ class Reservation
     private $updated;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+	$this->etat = 1;
+	$this->hotelNotifier = false;
+	$this->timbre = 0;
+	$this->remise = 0;
+	$this->coordonnees=array();
+	$this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -315,14 +328,6 @@ class Reservation
     public function getHotel()
     {
 	return $this->hotel;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-	$this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -483,21 +488,6 @@ class Reservation
 	    return 'Annulée';
     }
 
-    public function getTotalNet()
-    {
-	$total = 0;
-	if ($this->surDemande)
-	    return $total;
-	foreach ($this->chambres as $chambre)
-	    $total+=$chambre->getTotal();
-	return number_format($total, 3, '.', '');
-    }
-
-    public function getTotal()
-    {
-	return number_format($this->getTotalNet() + $this->timbre - $this->remise, 3, '.', '');
-    }
-
     /**
      * Set hotelNotifier
      *
@@ -653,6 +643,29 @@ class Reservation
     }
 
     /**
+     * Calculer total de la réservation
+     * @return decimal
+     */
+    public function getTotalNet()
+    {
+	$total = 0;
+	if ($this->surDemande)
+	    return $total;
+	foreach ($this->chambres as $chambre)
+	    $total+=$chambre->getTotal();
+	return number_format($total, 3, '.', '');
+    }
+
+    /**
+     * Calculer le total avec le timbre et le remise
+     * @return decimal
+     */
+    public function getTotal()
+    {
+	return number_format($this->getTotalNet() + $this->timbre - $this->remise, 3, '.', '');
+    }
+
+    /**
      * Get reglements
      *
      * @return \Doctrine\Common\Collections\Collection 
@@ -742,6 +755,29 @@ class Reservation
     public function getTimbre()
     {
 	return $this->timbre;
+    }
+
+    /**
+     * Set remise
+     *
+     * @param string $remise
+     * @return Reservation
+     */
+    public function setRemise($remise)
+    {
+	$this->remise = $remise;
+
+	return $this;
+    }
+
+    /**
+     * Get remise
+     *
+     * @return string 
+     */
+    public function getRemise()
+    {
+	return $this->remise;
     }
 
 }

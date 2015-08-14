@@ -17,7 +17,12 @@ class ConfigurationVoucherType extends AbstractType
     {
         $builder
                 ->add('debutVoucher')
-                ->add('texteVoucher')
+                ->add('gmaps', 'checkbox', array(
+                    'label'   =>'Activer google maps dans le voucher',
+                    'required'=>false
+                ))
+                ->add('codeCouleur')
+                ->add('texteVoucher','ckeditor')
                 ->add('typeNumerotation', 'choice', array(
                     'choices' => array(
                         1 => 'Année, num Piéce',

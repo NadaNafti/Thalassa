@@ -83,7 +83,11 @@
                                             {% endif %}
                                         </span>
                                 </td>
-                                <td>{{ reservation.voyage|title }}</td>
+                                <td>
+                                    {{ reservation.voyage|title }}<br>
+                                    <span style="color:red">Du {{ reservation.pack.periode.depart|date('d/m/Y') }} au {{ reservation.pack.periode.retour|date('d/m/Y') }}</span>
+                                    ({{ reservation.pack }})
+                                </td>
                                 <td>
                                     {{ reservation.coordonnees.0 }}
                                     {% if reservation.client.passager %}

@@ -265,4 +265,9 @@ class ReservationPersonne
                 $total+=$ligne->getAchat();
         return $total;
     }
+
+    public function __toString()
+    {
+        return $this->nomPrenom;
+    }
 }
