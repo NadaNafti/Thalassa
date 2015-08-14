@@ -4,7 +4,7 @@
         <p style="margin-bottom:0px"><small><i class="fa-clock-o"></i> Du <strong>{{ periode.depart|date('d/m/Y') }}</strong> au <strong>{{ periode.retour|date('d/m/Y') }}</strong></small></p>
         <p style="margin-bottom:0px">
             {% if periode.departGarantie %}
-                ( le départ est garantie )
+                ( Départ est garantie )
             {% else  %}
                 ( Reste encore {{ periode.min -(periode.nombreInscription+periode.nombreInscriptionInitiale) }} place(s) pour valider le voyage )
             {% endif %}

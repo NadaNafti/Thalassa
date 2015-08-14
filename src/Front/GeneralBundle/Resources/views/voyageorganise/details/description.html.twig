@@ -4,8 +4,8 @@
         <h4>Les périodes : </h4>
         <ul class="check-in-out">
             {% for periode in voyage.periodes(true) %}
-                <li>
-                    <i class="fa-clock-o"></i> Du <strong>{{ periode.depart|date('d/m/Y') }}</strong> au <strong>{{ periode.retour|date('d/m/Y') }}</strong> 
+                <li style="width: inherit;">
+                    <i class="fa-clock-o"></i> <strong>{{ periode|title }}</strong> :  Du <strong>{{ periode.depart|date('d/m/Y') }}</strong> au <strong>{{ periode.retour|date('d/m/Y') }}</strong>
                 </li>
             {% endfor %}
         </ul>
