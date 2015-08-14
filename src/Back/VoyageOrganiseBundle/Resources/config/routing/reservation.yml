@@ -25,3 +25,15 @@ back_voyages_organises_reservation_priseencharge:
 back_voyages_organises_reservation:
     path:     /liste/{page}/{etat}/{sort}/{direction}
     defaults: { _controller: BackVoyageOrganiseBundle:Reservation:liste,page:1,etat:1,sort:r.id,direction:desc }
+
+back_voyages_organises_reservation_ligne_supprimer:
+    path:     /reservation_ligne_supprimer/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:deleteLigne }
+
+back_voyages_organises_reservation_ligne_edit:
+    path:     /reservation_ligne_edit/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:editLigne }
+
+back_voyages_organises_reservation_remise:
+    path:     /reservation_remise/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:remise }

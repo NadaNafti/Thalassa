@@ -1,9 +1,9 @@
 {% extends ":Back:base.html.twig" %}
 {% block title %}Configuration voucher{% endblock %}
-{% block topbody %}   
+{% block topbody %}
     {{ parent() }}
     <li>
-        <a href="javascript:void(0)" >{{ block('title') }}</a>
+        <a href="javascript:void(0)">{{ block('title') }}</a>
     </li>
 {% endblock %}
 {% block body %}
@@ -14,8 +14,10 @@
                 <div class="panel-body">
                     {{ form_start(form) }}
                     <div class="row">
-                        {{ formulaire.input("col-md-4","Debut Voucher",form.debutVoucher,true) }}
-                        {{ formulaire.input("col-md-4","Type numerotation",form.typeNumerotation,true) }}
+                        {{ formulaire.input("col-md-3","Debut Voucher",form.debutVoucher,true) }}
+                        {{ formulaire.input("col-md-3","Type numerotation",form.typeNumerotation,true) }}
+                        {{ formulaire.input("col-md-3","Code Couleur",form.codeCouleur,true) }}
+                        {{ formulaire.input("col-md-3","",form.gmaps,false) }}
                     </div>
                     <div class="row">
                         {{ formulaire.input("col-md-12","Texte Voucher",form.texteVoucher,true) }}
