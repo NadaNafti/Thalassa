@@ -125,11 +125,6 @@
          * @ORM\Column(name="remise", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $remise;
-        /**
-         * @var string
-         * @ORM\Column(name="lot", type="string",nullable=true)
-         */
-        private $lot;
 
         /**
          * Constructor
@@ -660,22 +655,5 @@
             foreach($this->chambres as $chambre)
                 $nbrOccupant += $chambre->getNombreOccupants();
             return $nbrOccupant;
-        }
-
-        /**
-         * @return string
-         */
-        public function getLot()
-        {
-            return $this->lot;
-        }
-
-        /**
-         * @param string $lot
-         */
-        public function setLot($lot)
-        {
-            $this->lot = $lot;
-            return $this;
         }
     }
