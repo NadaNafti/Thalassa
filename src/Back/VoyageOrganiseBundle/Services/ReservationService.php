@@ -28,15 +28,6 @@
             $this->templating = $templating;
         }
 
-        public function getLastLot($id)
-        {
-            $voyage = $this->em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->find($id);
-            $reservation = $this->em->getRepository('BackVoyageOrganiseBundle:Reservation')->findOneBy(array('etat' => 2,'voyage' => $voyage),array('id' => 'DESC'),1,1);
-            if($reservation)
-                return $reservation->getLot();
-            return date('ymdhis');
-        }
-
         public function saveReservation(Pack $pack,Client $client,$data,$source)
         {
             $periode = $pack->getPeriode();

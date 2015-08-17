@@ -44,6 +44,8 @@
             $em = $this->getDoctrine()->getManager();
             $session = $this->getRequest()->getSession();
             $request = $this->getRequest();
+            if(!$reservation->getPack()->getPeriode()->getDepartGarantie() &&  ($reservation->getPack()->getPeriode()->getMax() - $reservation->getPack()->getPeriode()->getNombreInscription()) <= 0)
+                $session->getFlashBag()->add('info','Il y a plus de place dans cette Période <br><strong>Maximum d\'inscription : </strong>' . $reservation->getPack()->getPeriode()->getMax() . '<br><strong>Nombre de place</strong> : ' . $reservation->getPack()->getPeriode()->getNombreInscription());
             $reservationLigne = new ReservationLigne();
             $form = $this->createForm(new ReservationLigneType(),$reservationLigne->setCode('Manuelle'));
             if($request->isMethod('POST')){
@@ -68,7 +70,7 @@
             $em = $this->getDoctrine()->getManager();
             $request = $this->getRequest();
             $session = $this->getRequest()->getSession();
-            $periode=$reservation->getPack()->getPeriode();
+            $periode = $reservation->getPack()->getPeriode();
             if($user->getId() == $reservation->getResponsable()->getId()){
                 foreach($reservation->getReglements() as $reglement){
                     $piece = $reglement->getPiece();
@@ -77,7 +79,7 @@
                 }
                 if($reservation->getEtat() == 2)
                     $em->persist($periode->setNombreInscription($periode->getNombreInscription() - $reservation->getNombreOccupants()));
-                $em->persist($reservation->setLot(NULL)->setValidated(null)->setEtat(9)->setCommentaire($request->get('commentaire')));
+                $em->persist($reservation->setValidated(NULL)->setEtat(9)->setCommentaire($request->get('commentaire')));
                 $em->flush();
                 $session->getFlashBag()->add('success',"Réservation a été annullée avec succès ");
             }
@@ -123,10 +125,6 @@
                 $form->add('piece' . $piece->getId(),'checkbox',array('label' => $piece->getNumero(),'required' => FALSE));
             $form = $form->getForm();
             if($request->isMethod("POST")){
-                //if($periode->getDepartGarantie() || $periode->getNombreInscription() + $reservation->getNombreOccupants() > $periode->getMax()){
-                //    $session->getFlashBag()->add('info',"il y a plus de place !!!, le nombre d'inscription courant est " . $reservation->getVoyage()->getNbrInscriptions());
-                //    return $this->redirect($this->generateUrl("back_voyages_organises_reservation_validation",array('id' => $reservation->getId())));
-                //}
                 $form->submit($request);
                 $data = $form->getData();
                 foreach($pieces as $piece){
@@ -170,19 +168,9 @@
                         $session->getFlashBag()->add('danger',"Le montant de la piéce doit étre suppérieure à 0");
                 }
                 if($reservation->getMontantRestant() == 0){
-                    if($periode->getDepartGarantie())
-                        $em->persist($reservation->setLot(date('ymdhis')));
-                    elseif($periode->getNombreInscription() + $reservation->getNombreOccupants() > $periode->getMax())
-                    {
-                        $em->persist($periode->setNombreInscription($reservation->getNombreOccupants()));
-                        $em->persist($reservation->setLot(date('ymdhis')));
-                        $session->getFlashBag()->add('info',"Nous avons plus de place, un nouveau lot a été crée");
-                    }
-                    else
-                    {
+                    if(!$periode->getDepartGarantie()){
                         $em->persist($periode->setNombreInscription($periode->getNombreInscription() + $reservation->getNombreOccupants()));
-                        $em->persist($reservation->setLot($this->container->get('reservationVO')->getLastLot($reservation->getVoyage()->getId())));
-                        $session->getFlashBag()->add('info','Reste encore ' . ($periode->getMax()-$periode->getNombreInscription()) . ' places dans ' . $reservation->getVoyage()->getLibelle());
+                        $session->getFlashBag()->add('info','Reste encore ' . ($periode->getMax() - $periode->getNombreInscription()) . ' places dans ' . $reservation->getVoyage()->getLibelle());
                     }
                     $em->persist($reservation->setEtat(2)->setValidated(new \DateTime()));
                     $em->flush();
@@ -193,6 +181,8 @@
                 $em->flush();
                 return $this->redirect($this->generateUrl("back_voyages_organises_reservation_validation",array('id' => $reservation->getId())));
             }
+            if(!$reservation->getPack()->getPeriode()->getDepartGarantie() &&  ($reservation->getPack()->getPeriode()->getMax() - $reservation->getPack()->getPeriode()->getNombreInscription()) <= 0)
+                $session->getFlashBag()->add('info','Il y a plus de place dans cette Période <br><strong>Maximum d\'inscription : </strong>' . $reservation->getPack()->getPeriode()->getMax() . '<br><strong>Nombre de place</strong> : ' . $reservation->getPack()->getPeriode()->getNombreInscription());
             return $this->render('BackVoyageOrganiseBundle:reservation:validation.html.twig',array(
                 'reservation' => $reservation,
                 'form'        => $form->createView(),
