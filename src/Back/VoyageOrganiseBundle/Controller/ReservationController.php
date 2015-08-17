@@ -44,7 +44,7 @@
             $em = $this->getDoctrine()->getManager();
             $session = $this->getRequest()->getSession();
             $request = $this->getRequest();
-            if(!$reservation->getPack()->getPeriode()->getDepartGarantie() &&  ($reservation->getPack()->getPeriode()->getMax() - $reservation->getPack()->getPeriode()->getNombreInscription()) <= 0)
+            if($reservation->getEtat()==1 && !$reservation->getPack()->getPeriode()->getDepartGarantie() &&  ($reservation->getPack()->getPeriode()->getMax() - $reservation->getPack()->getPeriode()->getNombreInscription()) <= 0)
                 $session->getFlashBag()->add('info','Il y a plus de place dans cette Période <br><strong>Maximum d\'inscription : </strong>' . $reservation->getPack()->getPeriode()->getMax() . '<br><strong>Nombre de place</strong> : ' . $reservation->getPack()->getPeriode()->getNombreInscription());
             $reservationLigne = new ReservationLigne();
             $form = $this->createForm(new ReservationLigneType(),$reservationLigne->setCode('Manuelle'));
@@ -77,7 +77,7 @@
                     $em->persist($piece->setMontant($piece->getMontant() + $reglement->getMontant())->setRegle(FALSE)->setDateReglement(NULL));
                     $em->remove($reglement);
                 }
-                if($reservation->getEtat() == 2)
+                if($reservation->getEtat() == 2 && !$reservation->getPack()->getPeriode()->getDepartGarantie())
                     $em->persist($periode->setNombreInscription($periode->getNombreInscription() - $reservation->getNombreOccupants()));
                 $em->persist($reservation->setValidated(NULL)->setEtat(9)->setCommentaire($request->get('commentaire')));
                 $em->flush();
