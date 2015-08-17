@@ -318,7 +318,7 @@ class VoyageOrganiseController extends Controller
         $em->flush();
         $session->getFlashBag()->add('success', " Votre ligne  a été supprimé avec succées ");
         return $this->redirect($this->generateUrl('back_vo_circuit', array(
-                            'voyage' => $pack->getVoyage()->getId()
+                            'voyage' => $ligne->getPeriodeC()->getVoyage()->getId()
         )));
     }
 
@@ -379,7 +379,7 @@ class VoyageOrganiseController extends Controller
         $em->flush();
         $session->getFlashBag()->add('success', " Votre ligne  a été supprimé avec succées ");
         return $this->redirect($this->generateUrl('back_vo_frais', array(
-                            'voyage' => $pack->getVoyage()->getId()
+                            'voyage' => $ligne->getPeriodeF()->getVoyage()->getId()
         )));
     }
 

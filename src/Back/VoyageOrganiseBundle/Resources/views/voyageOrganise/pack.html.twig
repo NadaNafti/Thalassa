@@ -26,22 +26,22 @@
                             {{ formulaire.select2("col-md-12","Hotels",form.hotels,true) }}
                         </div>
                         <div class="row">
-                            <div class="col-md-3" style="padding-top: 25px;text-align: center;">Chambre single</div>
+                            {{ formulaire.input("col-md-2","",form.single,false) }}
                             {{ formulaire.input("col-md-3","Prix achat",form.singleAchat,true) }}
                             {{ formulaire.input("col-md-3","Prix Vente",form.singleVente,true) }}
                         </div>
                         <div class="row">
-                            <div class="col-md-3" style="padding-top: 25px;text-align: center;">Chambre Double</div>
+                            {{ formulaire.input("col-md-2","",form.double,false) }}
                             {{ formulaire.input("col-md-3","Prix achat",form.doubleAchat,true) }}
                             {{ formulaire.input("col-md-3","Prix Vente",form.doubleVente,true) }}
                         </div>
                         <div class="row">
-                            <div class="col-md-3" style="padding-top: 25px;text-align: center;">Chambre Triple</div>
+                            {{ formulaire.input("col-md-2","",form.triple,false) }}
                             {{ formulaire.input("col-md-3","Prix achat",form.tripleAchat,true) }}
                             {{ formulaire.input("col-md-3","Prix Vente",form.tripleVente,true) }}
                         </div>
                         <div class="row">
-                            <div class="col-md-3" style="padding-top: 25px;text-align: center;">Chambre Quadruple</div>
+                            {{ formulaire.input("col-md-2","",form.quadruple,false) }}
                             {{ formulaire.input("col-md-3","Prix achat",form.quadrupleAchat,true) }}
                             {{ formulaire.input("col-md-3","Prix Vente",form.quadrupleVente,true) }}
                         </div>
