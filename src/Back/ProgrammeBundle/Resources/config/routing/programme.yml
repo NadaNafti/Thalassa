@@ -25,3 +25,11 @@ back_programme_photo:
 back_programme_photo_delete:
     path:     /back_programme_photo_delete/{id}
     defaults: { _controller: BackProgrammeBundle:Programme:photoDelete }
+
+back_programme_periode:
+    path:     /programme/periode/{programme}/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:periode,id:null }
+
+back_programme_periode_delete:
+    path:     /back_programme_photo_delete/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:periodeDelete }

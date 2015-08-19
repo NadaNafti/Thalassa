@@ -200,4 +200,27 @@ class Description
     {
         return $this->lateral;
     }
+
+    /**
+     * Set programme
+     *
+     * @param \Back\ProgrammeBundle\Entity\Programme $programme
+     * @return Description
+     */
+    public function setProgramme(\Back\ProgrammeBundle\Entity\Programme $programme)
+    {
+        $this->programme = $programme;
+
+        return $this;
+    }
+
+    /**
+     * Get programme
+     *
+     * @return \Back\ProgrammeBundle\Entity\Programme 
+     */
+    public function getProgramme()
+    {
+        return $this->programme;
+    }
 }

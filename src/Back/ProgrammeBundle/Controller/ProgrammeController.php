@@ -9,6 +9,8 @@
     use Back\ProgrammeBundle\Form\DescriptionType;
     use Back\ProgrammeBundle\Entity\Photo;
     use Back\ProgrammeBundle\Form\PhotoType;
+    use Back\ProgrammeBundle\Entity\Periode;
+    use Back\ProgrammeBundle\Form\PeriodeType;
 
     class ProgrammeController extends Controller
     {
@@ -111,7 +113,7 @@
                 )));
             }
             return $this->render('BackProgrammeBundle:programme:photo.html.twig',array(
-                'form'   => $form->createView(),
+                'form'      => $form->createView(),
                 'programme' => $programme,
             ));
         }
@@ -124,5 +126,31 @@
             $em->flush();
             $session->getFlashBag()->add('success'," Votre photo a été supprimé avec succées ");
             return $this->redirect($this->generateUrl('back_programme_photo',array('programme' => $photo->getProgramme()->getId())));
+        }
+
+        public function periodeAction(Programme $programme,$id)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $session = $this->getRequest()->getSession();
+            if(is_null($id))
+                $periode = new Periode();
+            else
+                $periode = $em->getRepository('BackProgrammeBundle:Periode')->find($id);
+            $form = $this->createForm(new PeriodeType(),$periode);
+            $request = $this->getRequest();
+            if($request->isMethod('POST')){
+                $form->submit($request);
+                if($form->isValid()){
+                    $periode = $form->getData();
+                    $em->persist($periode->setProgramme($programme));
+                    $em->flush();
+                    $session->getFlashBag()->add('success'," Votre déscription a été traité avec succées ");
+                    return $this->redirect($this->generateUrl('back_programme_periode',array('programme' => $programme->getId())));
+                }
+            }
+            return $this->render('BackProgrammeBundle:programme:periode.html.twig',array(
+                'form'      => $form->createView(),
+                'programme' => $programme,
+            ));
         }
     }

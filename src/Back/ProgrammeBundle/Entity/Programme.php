@@ -1,376 +1,401 @@
 <?php
+    namespace Back\ProgrammeBundle\Entity;
 
-namespace Back\ProgrammeBundle\Entity;
-
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
-
-/**
- * ost_vo_voyages
- *
- * @ORM\Table(name="ost_pr_programmes")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
- * @ORM\Entity()
- */
-class Programme
-{
+    use Doctrine\ORM\Mapping as ORM;
+    use Gedmo\Mapping\Annotation as Gedmo;
+    use Symfony\Component\Validator\Constraints as Assert;
 
     /**
-     * @var integer
+     * ost_vo_voyages
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Table(name="ost_pr_programmes")
+     * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
+     * @ORM\Entity()
      */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="libelle", type="string", length=255)
-     */
-    private $libelle;
-
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Theme")
-     * @ORM\JoinTable(name="ost_pr_programme_themes")
-     */
-    private $themes;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prix", type="decimal", precision=11 ,scale=3 ,nullable=true)
-     */
-    private $prix;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description_courte", type="text")
-     */
-    private $descriptionCourte;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Photo", mappedBy="programme", cascade={"remove"})
-     */
-    private $photos;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Description", mappedBy="programme", cascade={"remove"})
-     * @ORM\OrderBy({"ordre" = "ASC"})
-     */
-    private $descriptions;
-
-
-    /**
-     * @Gedmo\Slug(fields={"libelle"})
-     * @ORM\Column(name="slug", length=128, unique=true)
-     */
-    private $slug;
-
-    /**
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column( type="datetime")
-     */
-    private $created;
-
-    /**
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column( type="datetime")
-     */
-    private $updated;
-
-    /**
-     * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
-     */
-    private $deletedAt;
-
-
-    /**
-     * Constructor
-     */
-    public function __construct()
+    class Programme
     {
-        $this->themes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->descriptions = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="id", type="integer")
+         * @ORM\Id
+         * @ORM\GeneratedValue(strategy="AUTO")
+         */
+        private $id;
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="libelle", type="string", length=255)
+         */
+        private $libelle;
 
+        /**
+         * @ORM\ManyToMany(targetEntity="Theme")
+         * @ORM\JoinTable(name="ost_pr_programme_themes")
+         */
+        private $themes;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="prix", type="decimal", precision=11 ,scale=3 ,nullable=true)
+         */
+        private $prix;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="description_courte", type="text")
+         */
+        private $descriptionCourte;
+
+        /**
+         * @ORM\OneToMany(targetEntity="Photo", mappedBy="programme", cascade={"remove"})
+         */
+        private $photos;
+
+        /**
+         * @ORM\OneToMany(targetEntity="Description", mappedBy="programme", cascade={"remove"})
+         * @ORM\OrderBy({"ordre" = "ASC"})
+         */
+        private $descriptions;
+
+        /**
+         * @ORM\OneToMany(targetEntity="Periode", mappedBy="programme", cascade={"remove"})
+         * @ORM\OrderBy({"depart" = "ASC"})
+         */
+        private $periodes;
+
+        /**
+         * @Gedmo\Slug(fields={"libelle"})
+         * @ORM\Column(name="slug", length=128, unique=true)
+         */
+        private $slug;
+
+        /**
+         * @Gedmo\Timestampable(on="create")
+         * @ORM\Column( type="datetime")
+         */
+        private $created;
+
+        /**
+         * @Gedmo\Timestampable(on="update")
+         * @ORM\Column( type="datetime")
+         */
+        private $updated;
+
+        /**
+         * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
+         */
+        private $deletedAt;
+
+        /**
+         * Constructor
+         */
+        public function __construct()
+        {
+            $this->periodes = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->themes = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->descriptions = new \Doctrine\Common\Collections\ArrayCollection();
+        }
+
+        /**
+         * Get id
+         *
+         * @return integer
+         */
+        public function getId()
+        {
+            return $this->id;
+        }
+
+        /**
+         * Set libelle
+         *
+         * @param string $libelle
+         * @return Programme
+         */
+        public function setLibelle($libelle)
+        {
+            $this->libelle = $libelle;
+            return $this;
+        }
+
+        /**
+         * Get libelle
+         *
+         * @return string
+         */
+        public function getLibelle()
+        {
+            return $this->libelle;
+        }
+
+        /**
+         * Set prix
+         *
+         * @param string $prix
+         * @return Programme
+         */
+        public function setPrix($prix)
+        {
+            $this->prix = $prix;
+            return $this;
+        }
+
+        /**
+         * Get prix
+         *
+         * @return string
+         */
+        public function getPrix()
+        {
+            return $this->prix;
+        }
+
+        /**
+         * Set descriptionCourte
+         *
+         * @param string $descriptionCourte
+         * @return Programme
+         */
+        public function setDescriptionCourte($descriptionCourte)
+        {
+            $this->descriptionCourte = $descriptionCourte;
+            return $this;
+        }
+
+        /**
+         * Get descriptionCourte
+         *
+         * @return string
+         */
+        public function getDescriptionCourte()
+        {
+            return $this->descriptionCourte;
+        }
+
+        /**
+         * Set slug
+         *
+         * @param string $slug
+         * @return Programme
+         */
+        public function setSlug($slug)
+        {
+            $this->slug = $slug;
+            return $this;
+        }
+
+        /**
+         * Get slug
+         *
+         * @return string
+         */
+        public function getSlug()
+        {
+            return $this->slug;
+        }
+
+        /**
+         * Set created
+         *
+         * @param \DateTime $created
+         * @return Programme
+         */
+        public function setCreated($created)
+        {
+            $this->created = $created;
+            return $this;
+        }
+
+        /**
+         * Get created
+         *
+         * @return \DateTime
+         */
+        public function getCreated()
+        {
+            return $this->created;
+        }
+
+        /**
+         * Set updated
+         *
+         * @param \DateTime $updated
+         * @return Programme
+         */
+        public function setUpdated($updated)
+        {
+            $this->updated = $updated;
+            return $this;
+        }
+
+        /**
+         * Get updated
+         *
+         * @return \DateTime
+         */
+        public function getUpdated()
+        {
+            return $this->updated;
+        }
+
+        /**
+         * Set deletedAt
+         *
+         * @param \DateTime $deletedAt
+         * @return Programme
+         */
+        public function setDeletedAt($deletedAt)
+        {
+            $this->deletedAt = $deletedAt;
+            return $this;
+        }
+
+        /**
+         * Get deletedAt
+         *
+         * @return \DateTime
+         */
+        public function getDeletedAt()
+        {
+            return $this->deletedAt;
+        }
+
+        /**
+         * Add themes
+         *
+         * @param \Back\ProgrammeBundle\Entity\Theme $themes
+         * @return Programme
+         */
+        public function addTheme(\Back\ProgrammeBundle\Entity\Theme $themes)
+        {
+            $this->themes[] = $themes;
+            return $this;
+        }
+
+        /**
+         * Remove themes
+         *
+         * @param \Back\ProgrammeBundle\Entity\Theme $themes
+         */
+        public function removeTheme(\Back\ProgrammeBundle\Entity\Theme $themes)
+        {
+            $this->themes->removeElement($themes);
+        }
+
+        /**
+         * Get themes
+         *
+         * @return \Doctrine\Common\Collections\Collection
+         */
+        public function getThemes()
+        {
+            return $this->themes;
+        }
+
+        /**
+         * Add photos
+         *
+         * @param \Back\ProgrammeBundle\Entity\Photo $photos
+         * @return Programme
+         */
+        public function addPhoto(\Back\ProgrammeBundle\Entity\Photo $photos)
+        {
+            $this->photos[] = $photos;
+            return $this;
+        }
+
+        /**
+         * Remove photos
+         *
+         * @param \Back\ProgrammeBundle\Entity\Photo $photos
+         */
+        public function removePhoto(\Back\ProgrammeBundle\Entity\Photo $photos)
+        {
+            $this->photos->removeElement($photos);
+        }
+
+        /**
+         * Get photos
+         *
+         * @return \Doctrine\Common\Collections\Collection
+         */
+        public function getPhotos()
+        {
+            return $this->photos;
+        }
+
+        /**
+         * Add descriptions
+         *
+         * @param \Back\ProgrammeBundle\Entity\Description $descriptions
+         * @return Programme
+         */
+        public function addDescription(\Back\ProgrammeBundle\Entity\Description $descriptions)
+        {
+            $this->descriptions[] = $descriptions;
+            return $this;
+        }
+
+        /**
+         * Remove descriptions
+         *
+         * @param \Back\ProgrammeBundle\Entity\Description $descriptions
+         */
+        public function removeDescription(\Back\ProgrammeBundle\Entity\Description $descriptions)
+        {
+            $this->descriptions->removeElement($descriptions);
+        }
+
+        /**
+         * Get descriptions
+         *
+         * @return \Doctrine\Common\Collections\Collection
+         */
+        public function getDescriptions()
+        {
+            return $this->descriptions;
+        }
+
+        public function __toString()
+        {
+            return $this->libelle;
+        }
+    
     /**
-     * Set libelle
+     * Add periodes
      *
-     * @param string $libelle
+     * @param \Back\ProgrammeBundle\Entity\Periode $periodes
      * @return Programme
      */
-    public function setLibelle($libelle)
+    public function addPeriode(\Back\ProgrammeBundle\Entity\Periode $periodes)
     {
-        $this->libelle = $libelle;
+        $this->periodes[] = $periodes;
 
         return $this;
     }
 
     /**
-     * Get libelle
+     * Remove periodes
      *
-     * @return string 
+     * @param \Back\ProgrammeBundle\Entity\Periode $periodes
      */
-    public function getLibelle()
+    public function removePeriode(\Back\ProgrammeBundle\Entity\Periode $periodes)
     {
-        return $this->libelle;
+        $this->periodes->removeElement($periodes);
     }
 
     /**
-     * Set prix
-     *
-     * @param string $prix
-     * @return Programme
-     */
-    public function setPrix($prix)
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
-    /**
-     * Get prix
-     *
-     * @return string 
-     */
-    public function getPrix()
-    {
-        return $this->prix;
-    }
-
-    /**
-     * Set descriptionCourte
-     *
-     * @param string $descriptionCourte
-     * @return Programme
-     */
-    public function setDescriptionCourte($descriptionCourte)
-    {
-        $this->descriptionCourte = $descriptionCourte;
-
-        return $this;
-    }
-
-    /**
-     * Get descriptionCourte
-     *
-     * @return string 
-     */
-    public function getDescriptionCourte()
-    {
-        return $this->descriptionCourte;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Programme
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     * @return Programme
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime 
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     * @return Programme
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime 
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
-
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     * @return Programme
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
-    }
-
-    /**
-     * Add themes
-     *
-     * @param \Back\ProgrammeBundle\Entity\Theme $themes
-     * @return Programme
-     */
-    public function addTheme(\Back\ProgrammeBundle\Entity\Theme $themes)
-    {
-        $this->themes[] = $themes;
-
-        return $this;
-    }
-
-    /**
-     * Remove themes
-     *
-     * @param \Back\ProgrammeBundle\Entity\Theme $themes
-     */
-    public function removeTheme(\Back\ProgrammeBundle\Entity\Theme $themes)
-    {
-        $this->themes->removeElement($themes);
-    }
-
-    /**
-     * Get themes
+     * Get periodes
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getThemes()
+    public function getPeriodes()
     {
-        return $this->themes;
-    }
-
-    /**
-     * Add photos
-     *
-     * @param \Back\ProgrammeBundle\Entity\Photo $photos
-     * @return Programme
-     */
-    public function addPhoto(\Back\ProgrammeBundle\Entity\Photo $photos)
-    {
-        $this->photos[] = $photos;
-
-        return $this;
-    }
-
-    /**
-     * Remove photos
-     *
-     * @param \Back\ProgrammeBundle\Entity\Photo $photos
-     */
-    public function removePhoto(\Back\ProgrammeBundle\Entity\Photo $photos)
-    {
-        $this->photos->removeElement($photos);
-    }
-
-    /**
-     * Get photos
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getPhotos()
-    {
-        return $this->photos;
-    }
-
-    /**
-     * Add descriptions
-     *
-     * @param \Back\ProgrammeBundle\Entity\Description $descriptions
-     * @return Programme
-     */
-    public function addDescription(\Back\ProgrammeBundle\Entity\Description $descriptions)
-    {
-        $this->descriptions[] = $descriptions;
-
-        return $this;
-    }
-
-    /**
-     * Remove descriptions
-     *
-     * @param \Back\ProgrammeBundle\Entity\Description $descriptions
-     */
-    public function removeDescription(\Back\ProgrammeBundle\Entity\Description $descriptions)
-    {
-        $this->descriptions->removeElement($descriptions);
-    }
-
-    /**
-     * Get descriptions
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDescriptions()
-    {
-        return $this->descriptions;
-    }
-
-    public function __toString()
-    {
-        return $this->libelle;
+        return $this->periodes;
     }
 }

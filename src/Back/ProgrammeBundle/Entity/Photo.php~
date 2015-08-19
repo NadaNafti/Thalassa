@@ -235,4 +235,27 @@ class Photo
 	return $this->visible;
     }
 
+
+    /**
+     * Set programme
+     *
+     * @param \Back\ProgrammeBundle\Entity\Programme $programme
+     * @return Photo
+     */
+    public function setProgramme(\Back\ProgrammeBundle\Entity\Programme $programme)
+    {
+        $this->programme = $programme;
+
+        return $this;
+    }
+
+    /**
+     * Get programme
+     *
+     * @return \Back\ProgrammeBundle\Entity\Programme 
+     */
+    public function getProgramme()
+    {
+        return $this->programme;
+    }
 }

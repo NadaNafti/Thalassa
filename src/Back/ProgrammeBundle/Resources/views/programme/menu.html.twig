@@ -4,10 +4,10 @@
             <a href="{{ path("back_programme",{'id':programme.id}) }}"> <i class="green fa fa-home"></i> {{ programme }}
             </a>
         </li>
-        {#<li {% if app.request.get('_route')=='back_vo_periode' %}class="active"{% endif %}>#}
-            {#<a href="{{ path("back_vo_periode",{'voyage':voyage.id}) }}">#}
-                {#<i class="green fa fa-list"></i> Périodes ({{ voyage.periodes|length }}) </a>#}
-        {#</li>#}
+        <li {% if app.request.get('_route')=='back_programme_periode' %}class="active"{% endif %}>
+            <a href="{{ path("back_programme_periode",{'programme':programme.id}) }}">
+                <i class="green fa fa-list"></i> Périodes ({{ programme.periodes|length }}) </a>
+        </li>
         {#<li {% if app.request.get('_route')=='back_vo_pack' %}class="active"{% endif %}>#}
             {#<a href="{{ path("back_vo_pack",{'voyage':voyage.id}) }}"> <i class="green fa fa-list"></i> Packs </a>#}
         {#</li>#}
