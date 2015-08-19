@@ -1,0 +1,4 @@
+services:
+#    back_programme.example:
+#        class: Back\ProgrammeBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

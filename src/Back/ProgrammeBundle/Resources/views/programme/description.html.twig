@@ -1,9 +1,9 @@
-{% extends "BackVoyageOrganiseBundle:voyageOrganise:liste.html.twig" %}
+{% extends "BackProgrammeBundle:programme:liste.html.twig" %}
 {% block title %}Gestion des Déscriptions{% endblock %}
 {% block topbody %}
     {{ parent() }}
     <li>
-        <a href="javascript:void(0)">{{ block('title') }}</a>
+        <a href="javascript:void(0)" >{{ block('title') }}</a>
     </li>
 {% endblock %}
 {% block body %}
@@ -43,22 +43,22 @@
                             <th>Visible</th>
                             <th>Latéral/Central</th>
                             <th>Texte</th>
-                            <th class="center">Action</th>
+                            <th class="center" >Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for description in descriptions %}
+                        {% for description in programme.descriptions %}
                             <tr>
                                 <td>{{ description.id }}</td>
                                 <td>{{ description.libelle }}</td>
                                 <td>{{ description.ordre }}</td>
                                 <td>{{ description.showVisible }}</td>
-                                <td>{% if description.lateral %}Latéral{% else %}Central{% endif %}</td>
+                                <td>{% if description.lateral %}Latéral{% else %}Central{%endif%}</td>
                                 <td>{{ description.texte|raw }}</td>
                                 <td class="TableAction">
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                        {{ macros.tableEdit(path('back_vo_descriptions',{'voyage':voyage.id,'id':description.id})) }}
-                                        {{ macros.tableDelete(path('back_vo_descriptions_delete',{'id':description.id})) }}
+                                        {{ macros.tableEdit(path('back_programme_description',{'programme':programme.id,'id':description.id})) }}
+                                        {{ macros.tableDelete(path('back_programme_description_delete',{'id':description.id})) }}
                                     </div>
                                 </td>
                             </tr>

@@ -1,0 +1,92 @@
+<?php
+
+namespace Back\ProgrammeBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * ost_vo_voyages
+ *
+ * @ORM\Table(name="ost_pr_programmes")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
+ * @ORM\Entity()
+ */
+class Programme
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="libelle", type="string", length=255)
+     */
+    private $libelle;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Theme")
+     * @ORM\JoinTable(name="ost_pr_programme_themes")
+     */
+    private $themes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prix", type="decimal", precision=11 ,scale=3 ,nullable=true)
+     */
+    private $prix;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description_courte", type="text")
+     */
+    private $descriptionCourte;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="programme", cascade={"remove"})
+     */
+    private $photos;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Description", mappedBy="programme", cascade={"remove"})
+     * @ORM\OrderBy({"ordre" = "ASC"})
+     */
+    private $descriptions;
+
+
+    /**
+     * @Gedmo\Slug(fields={"libelle"})
+     * @ORM\Column(name="slug", length=128, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated;
+
+    /**
+     * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
+     */
+    private $deletedAt;
+
+
+}

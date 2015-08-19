@@ -1,5 +1,5 @@
 <?php
-    namespace Back\VoyageOrganiseBundle\Form;
+    namespace Back\ProgrammeBundle\Form;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +15,7 @@
         {
             $builder
                 ->add('libelle')
-                ->add('texte','ckeditor')
+                ->add('texte')
                 ->add('ordre')
                 ->add('visible','checkbox',array(
                     'label'    => 'Visible',
@@ -24,7 +24,7 @@
                 ->add('lateral','checkbox',array(
                     'label'    => 'Latéral',
                     'required' => FALSE,
-                ));
+                ));;
         }
 
         /**
@@ -33,7 +33,7 @@
         public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
             $resolver->setDefaults(array(
-                'data_class' => 'Back\VoyageOrganiseBundle\Entity\Description',
+                'data_class' => 'Back\ProgrammeBundle\Entity\Description',
             ));
         }
 
@@ -42,6 +42,6 @@
          */
         public function getName()
         {
-            return 'back_voyageorganisebundle_description';
+            return 'back_programmebundle_description';
         }
     }
