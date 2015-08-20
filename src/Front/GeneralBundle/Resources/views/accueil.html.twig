@@ -115,147 +115,147 @@
 
             {{ render(controller('FrontConfigBundle:HotelTunisie:showTopPromo')) }}
             {{ render(controller('FrontConfigBundle:VoyageOrganise:showTopDestination')) }}
-            <div class="gr-style"></div>
-            <h3 class="section-title mv-30">Top Programmes & Activités</h3>
+            {% if false %}
+                <div class="gr-style"></div>
+                <h3 class="section-title mv-30">Top Programmes & Activités</h3>
+                <div class="row pv-30 mt-20 product-4">
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="list-item">
+                            <div class="list-item-image">
+                                <div class="image-inner">
+                                    <img src="{{ asset('front-assets/images/list-items/item-wide-01.jpg') }}" alt=""/>
+                                </div>
+                                <div class="minimal-top-label">
+                                    <h3>Circuits</h3>
+                                </div>
+                            </div>
+                            <!-- end list-item -->
+                            <ul class="minimal-label pd-img">
+                                <li>
+                                    <img src="{{ asset('front-assets/images/list-items/item-square-01.jpg') }}" alt=""/>
+                                    <a href="#">Barcelo Malaga</a>
 
-            <div class="row pv-30 mt-20 product-4">
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="list-item">
-                        <div class="list-item-image">
-                            <div class="image-inner">
-                                <img src="{{ asset('front-assets/images/list-items/item-wide-01.jpg') }}" alt=""/>
-                            </div>
-                            <div class="minimal-top-label">
-                                <h3>Circuits</h3>
-                            </div>
+                                    <div class="minimal-price"><span>from</span> <strong>$99</strong></div>
+                                    <div class="minimal-meta">
+                                        <span class="rating-static rating-30"></span>
+                                        <span class="minimal-location">Spain</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <img src="{{ asset('front-assets/images/list-items/item-square-02.jpg') }}" alt=""/>
+                                    <a href="#">Village Inn Studios & Family Apartments</a>
+
+                                    <div class="minimal-price"><span>from</span> <strong>$250</strong></div>
+                                    <div class="minimal-meta">
+                                        <span class="rating-static rating-40"></span>
+                                        <span class="minimal-location">Zakynthos</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <img src="{{ asset('front-assets/images/list-items/item-square-03.jpg') }}" alt=""/>
+                                    <a href="#">Comfort Suites Paradise Island</a>
+
+                                    <div class="minimal-price"><span>from</span> <strong>$120</strong></div>
+                                    <div class="minimal-meta">
+                                        <span class="rating-static rating-45"></span>
+                                        <span class="minimal-location">Bahamas</span>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                        <!-- end list-item -->
-                        <ul class="minimal-label pd-img">
-                            <li>
-                                <img src="{{ asset('front-assets/images/list-items/item-square-01.jpg') }}" alt=""/>
-                                <a href="#">Barcelo Malaga</a>
-
-                                <div class="minimal-price"><span>from</span> <strong>$99</strong></div>
-                                <div class="minimal-meta">
-                                    <span class="rating-static rating-30"></span>
-                                    <span class="minimal-location">Spain</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="list-item">
+                            <div class="list-item-image">
+                                <div class="image-inner">
+                                    <img src="{{ asset('front-assets/images/list-items/item-wide-03.jpg') }}" alt=""/>
                                 </div>
-                            </li>
-                            <li>
-                                <img src="{{ asset('front-assets/images/list-items/item-square-02.jpg') }}" alt=""/>
-                                <a href="#">Village Inn Studios & Family Apartments</a>
-
-                                <div class="minimal-price"><span>from</span> <strong>$250</strong></div>
-                                <div class="minimal-meta">
-                                    <span class="rating-static rating-40"></span>
-                                    <span class="minimal-location">Zakynthos</span>
+                                <div class="minimal-top-label">
+                                    <h3>OMRA 2015</h3>
                                 </div>
-                            </li>
-                            <li>
-                                <img src="{{ asset('front-assets/images/list-items/item-square-03.jpg') }}" alt=""/>
-                                <a href="#">Comfort Suites Paradise Island</a>
+                            </div>
+                            <!-- end list-item -->
+                            <ul class="minimal-label pd-img">
+                                <li>
+                                    <img src="{{ asset('front-assets/images/list-items/item-square-04.jpg') }}" alt=""/>
+                                    <a href="#">Ambassador Santorini Luxury Villas & Suites </a>
 
-                                <div class="minimal-price"><span>from</span> <strong>$120</strong></div>
-                                <div class="minimal-meta">
-                                    <span class="rating-static rating-45"></span>
-                                    <span class="minimal-location">Bahamas</span>
+                                    <div class="minimal-price"><span>from</span> <strong>$139</strong></div>
+                                    <div class="minimal-meta">
+                                        <span class="rating-static rating-30"></span>
+                                        <span class="minimal-location">Greece</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <img src="{{ asset('front-assets/images/list-items/item-square-05.jpg') }}" alt=""/>
+                                    <a href="#">Maitai Polynesia</a>
+
+                                    <div class="minimal-price"><span>from</span> <strong>$370</strong></div>
+                                    <div class="minimal-meta">
+                                        <span class="rating-static rating-40"></span>
+                                        <span class="minimal-location">Bora Bora</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <img src="{{ asset('front-assets/images/list-items/item-square-06.jpg') }}" alt=""/>
+                                    <a href="#"> Turquoise Cay Boutique Hotel</a>
+
+                                    <div class="minimal-price"><span>from</span> <strong>$329</strong></div>
+                                    <div class="minimal-meta">
+                                        <span class="rating-static rating-45"></span>
+                                        <span class="minimal-location">Bahamas</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="list-item">
+                            <div class="list-item-image">
+                                <div class="image-inner">
+                                    <img src="{{ asset('front-assets/images/list-items/item-wide-03.jpg') }}" alt=""/>
                                 </div>
-                            </li>
-                        </ul>
+                                <div class="minimal-top-label">
+                                    <h3>Soirées & Festivités</h3>
+                                </div>
+                            </div>
+                            <!-- end list-item -->
+                            <ul class="minimal-label pd-img">
+                                <li>
+                                    <img src="{{ asset('front-assets/images/list-items/item-square-07.jpg') }}" alt=""/>
+                                    <a href="#">Baywalk Residence Pattaya</a>
+
+                                    <div class="minimal-price"><span>from</span> <strong>$99</strong></div>
+                                    <div class="minimal-meta">
+                                        <span class="rating-static rating-30"></span>
+                                        <span class="minimal-location">Thailand</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <img src="{{ asset('front-assets/images/list-items/item-square-08.jpg') }}" alt=""/>
+                                    <a href="#">Pension Alice et Raphael Bora-Bora</a>
+
+                                    <div class="minimal-price"><span>from</span> <strong>$400</strong></div>
+                                    <div class="minimal-meta">
+                                        <span class="rating-static rating-40"></span>
+                                        <span class="minimal-location">Bora Bora</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <img src="{{ asset('front-assets/images/list-items/item-square-09.jpg') }}" alt=""/>
+                                    <a href="#">Fairmont Nile City</a>
+
+                                    <div class="minimal-price"><span>from</span> <strong>$290</strong></div>
+                                    <div class="minimal-meta">
+                                        <span class="rating-static rating-45"></span>
+                                        <span class="minimal-location">Egypt</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="list-item">
-                        <div class="list-item-image">
-                            <div class="image-inner">
-                                <img src="{{ asset('front-assets/images/list-items/item-wide-03.jpg') }}" alt=""/>
-                            </div>
-                            <div class="minimal-top-label">
-                                <h3>OMRA 2015</h3>
-                            </div>
-                        </div>
-                        <!-- end list-item -->
-                        <ul class="minimal-label pd-img">
-                            <li>
-                                <img src="{{ asset('front-assets/images/list-items/item-square-04.jpg') }}" alt=""/>
-                                <a href="#">Ambassador Santorini Luxury Villas & Suites </a>
-
-                                <div class="minimal-price"><span>from</span> <strong>$139</strong></div>
-                                <div class="minimal-meta">
-                                    <span class="rating-static rating-30"></span>
-                                    <span class="minimal-location">Greece</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="{{ asset('front-assets/images/list-items/item-square-05.jpg') }}" alt=""/>
-                                <a href="#">Maitai Polynesia</a>
-
-                                <div class="minimal-price"><span>from</span> <strong>$370</strong></div>
-                                <div class="minimal-meta">
-                                    <span class="rating-static rating-40"></span>
-                                    <span class="minimal-location">Bora Bora</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="{{ asset('front-assets/images/list-items/item-square-06.jpg') }}" alt=""/>
-                                <a href="#"> Turquoise Cay Boutique Hotel</a>
-
-                                <div class="minimal-price"><span>from</span> <strong>$329</strong></div>
-                                <div class="minimal-meta">
-                                    <span class="rating-static rating-45"></span>
-                                    <span class="minimal-location">Bahamas</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="list-item">
-                        <div class="list-item-image">
-                            <div class="image-inner">
-                                <img src="{{ asset('front-assets/images/list-items/item-wide-03.jpg') }}" alt=""/>
-                            </div>
-                            <div class="minimal-top-label">
-                                <h3>Soirées & Festivités</h3>
-                            </div>
-                        </div>
-                        <!-- end list-item -->
-                        <ul class="minimal-label pd-img">
-                            <li>
-                                <img src="{{ asset('front-assets/images/list-items/item-square-07.jpg') }}" alt=""/>
-                                <a href="#">Baywalk Residence Pattaya</a>
-
-                                <div class="minimal-price"><span>from</span> <strong>$99</strong></div>
-                                <div class="minimal-meta">
-                                    <span class="rating-static rating-30"></span>
-                                    <span class="minimal-location">Thailand</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="{{ asset('front-assets/images/list-items/item-square-08.jpg') }}" alt=""/>
-                                <a href="#">Pension Alice et Raphael Bora-Bora</a>
-
-                                <div class="minimal-price"><span>from</span> <strong>$400</strong></div>
-                                <div class="minimal-meta">
-                                    <span class="rating-static rating-40"></span>
-                                    <span class="minimal-location">Bora Bora</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="{{ asset('front-assets/images/list-items/item-square-09.jpg') }}" alt=""/>
-                                <a href="#">Fairmont Nile City</a>
-
-                                <div class="minimal-price"><span>from</span> <strong>$290</strong></div>
-                                <div class="minimal-meta">
-                                    <span class="rating-static rating-45"></span>
-                                    <span class="minimal-location">Egypt</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
+            {% endif %}
         </div>
         <footer id="footer">
             <div class="primary-footer">
@@ -264,92 +264,96 @@
                 </div>
             </div>
         </footer>
-        <div class="container">
-            <div class="gr-style"></div>
-            <div class="row pv-30 mt-20 product-4">
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="list-item">
-                        <div class="list-item-image">
-                            <div class="image-inner">
-                                <a class="link-image" href="page-details.html">
-                                    <img src="{{ asset('front-assets/images/list-items/item-wide-05.jpg') }}" alt=""/>
+        {% if true %}
+            <div class="container">
+                <div class="gr-style"></div>
+                <div class="row pv-30 mt-20 product-4">
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="list-item">
+                            <div class="list-item-image">
+                                <div class="image-inner">
+                                    <a class="link-image" href="page-details.html">
+                                        <img src="{{ asset('front-assets/images/list-items/item-wide-05.jpg') }}" alt=""/>
 
-                                    <div class="image-overlay">
-                                        <div class="overlay-content">
-                                            <div class="overlay-icon"><i class="icon_link"></i></div>
+                                        <div class="image-overlay">
+                                            <div class="overlay-content">
+                                                <div class="overlay-icon"><i class="icon_link"></i></div>
+                                            </div>
+                                            <!--/ .extra-content-->
                                         </div>
-                                        <!--/ .extra-content-->
-                                    </div>
-                                    <!--/ .image-extra-->
-                                </a>
+                                        <!--/ .image-extra-->
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <!-- end list-item -->
-                        <div class="product-4-label">
-                            <h3><a href="#">Zealously prevailed be arranging do. Set arranging too dejection.</a></h3>
+                            <!-- end list-item -->
+                            <div class="product-4-label">
+                                <h3><a href="#">Zealously prevailed be arranging do. Set arranging too dejection.</a>
+                                </h3>
 
-                            <div class="bb2 mb-20"></div>
-                            <p>Sir margaret drawings repeated recurred exercise laughing may you but. Do repeated whatever to welcomed absolute no. Fat surprise although outlived and informed shy dissuade property.</p>
-                            <a href="#" class="more-link">More</a>
+                                <div class="bb2 mb-20"></div>
+                                <p>Sir margaret drawings repeated recurred exercise laughing may you but. Do repeated whatever to welcomed absolute no. Fat surprise although outlived and informed shy dissuade property.</p>
+                                <a href="#" class="more-link">More</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="list-item">
-                        <div class="list-item-image">
-                            <div class="image-inner">
-                                <a class="link-image" href="page-details.html">
-                                    <img src="{{ asset('front-assets/images/list-items/item-wide-04.jpg') }}" alt=""/>
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="list-item">
+                            <div class="list-item-image">
+                                <div class="image-inner">
+                                    <a class="link-image" href="page-details.html">
+                                        <img src="{{ asset('front-assets/images/list-items/item-wide-04.jpg') }}" alt=""/>
 
-                                    <div class="image-overlay">
-                                        <div class="overlay-content">
-                                            <div class="overlay-icon"><i class="icon_link"></i></div>
+                                        <div class="image-overlay">
+                                            <div class="overlay-content">
+                                                <div class="overlay-icon"><i class="icon_link"></i></div>
+                                            </div>
+                                            <!--/ .extra-content-->
                                         </div>
-                                        <!--/ .extra-content-->
-                                    </div>
-                                    <!--/ .image-extra-->
-                                </a>
+                                        <!--/ .image-extra-->
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <!-- end list-item -->
-                        <div class="product-4-label">
-                            <h3><a href="#">Greatly hearted has who believe. Drift allow green son walls years.</a></h3>
+                            <!-- end list-item -->
+                            <div class="product-4-label">
+                                <h3><a href="#">Greatly hearted has who believe. Drift allow green son walls years.</a>
+                                </h3>
 
-                            <div class="bb2 mb-20"></div>
-                            <p>Sir margaret drawings repeated recurred exercise laughing may you but. Do repeated whatever to welcomed absolute no. Fat surprise although outlived and informed shy dissuade property.</p>
-                            <a href="#" class="more-link">More</a>
+                                <div class="bb2 mb-20"></div>
+                                <p>Sir margaret drawings repeated recurred exercise laughing may you but. Do repeated whatever to welcomed absolute no. Fat surprise although outlived and informed shy dissuade property.</p>
+                                <a href="#" class="more-link">More</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="list-item">
-                        <div class="list-item-image">
-                            <div class="image-inner">
-                                <a class="link-image" href="page-details.html">
-                                    <img src="{{ asset('front-assets/images/list-items/item-wide-06.jpg') }}" alt=""/>
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="list-item">
+                            <div class="list-item-image">
+                                <div class="image-inner">
+                                    <a class="link-image" href="page-details.html">
+                                        <img src="{{ asset('front-assets/images/list-items/item-wide-06.jpg') }}" alt=""/>
 
-                                    <div class="image-overlay">
-                                        <div class="overlay-content">
-                                            <div class="overlay-icon"><i class="icon_link"></i></div>
+                                        <div class="image-overlay">
+                                            <div class="overlay-content">
+                                                <div class="overlay-icon"><i class="icon_link"></i></div>
+                                            </div>
+                                            <!--/ .extra-content-->
                                         </div>
-                                        <!--/ .extra-content-->
-                                    </div>
-                                    <!--/ .image-extra-->
-                                </a>
+                                        <!--/ .image-extra-->
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <!-- end list-item -->
-                        <div class="product-4-label">
-                            <h3><a href="#">Partments occasional boisterous as solicitude to introduced.</a></h3>
+                            <!-- end list-item -->
+                            <div class="product-4-label">
+                                <h3><a href="#">Partments occasional boisterous as solicitude to introduced.</a></h3>
 
-                            <div class="bb2 mb-20"></div>
-                            <p>Sir margaret drawings repeated recurred exercise laughing may you but. Do repeated whatever to welcomed absolute no. Fat surprise although outlived and informed shy dissuade property.</p>
+                                <div class="bb2 mb-20"></div>
+                                <p>Sir margaret drawings repeated recurred exercise laughing may you but. Do repeated whatever to welcomed absolute no. Fat surprise although outlived and informed shy dissuade property.</p>
 
-                            <div class=""><a href="#" class="more-link">More</a></div>
+                                <div class=""><a href="#" class="more-link">More</a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 {% endblock %}

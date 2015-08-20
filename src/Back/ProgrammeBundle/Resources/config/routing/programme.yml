@@ -1,0 +1,43 @@
+back_programme_liste:
+    path:     /liste/{page}
+    defaults: { _controller: BackProgrammeBundle:Programme:liste,page:1 }
+
+back_programme:
+    path:     /programme/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:programme,id:null }
+
+back_programme_delete:
+    path:     /delete/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:delete }
+
+back_programme_description:
+    path:     /programme/description/{programme}/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:description,id:null }
+
+back_programme_description_delete:
+    path:     /back_programme_description_delete/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:descriptionDelete }
+
+back_programme_photo:
+    path:     /programme/photo/{programme}/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:photo,id:null }
+
+back_programme_photo_delete:
+    path:     /back_programme_photo_delete/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:photoDelete }
+
+back_programme_periode:
+    path:     /programme/periode/{programme}/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:periode,id:null }
+
+back_programme_periode_delete:
+    path:     /back_programme_photo_delete/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:periodeDelete }
+
+back_programme_supplements:
+    path:     /programme/supplements/{programme}/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:supplement,id:null }
+
+back_programme_supplements_delete:
+    path:     /back_programme_supplements_delete/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:supplementDelete }

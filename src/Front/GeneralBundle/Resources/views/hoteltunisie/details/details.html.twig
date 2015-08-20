@@ -3,144 +3,148 @@
 {% block body %}
     {% set saison = hotel.getSaisonPromotionByDate(app.request.session.get('dateDebut')) %}
     <div id="page_title">
-	<div class="container clearfix">
-	    <div class="page-name">{{ block('title') }}</div>
-	    <div class="breadcrumb clearfix">
-		<a href="{{ path('accueil') }}">Accueil</a>
-		<a href="{{ path('front_hoteltunisie_accueil') }}">Hôtels en Tunisie</a>
-		<a href="{{ path('front_hoteltunisie_list') }}">Liste</a>
-		<span class="current-page">{{ block('title') }}</span>
-	    </div>
-	</div>
+        <div class="container clearfix">
+            <div class="page-name">{{ block('title') }}</div>
+            <div class="breadcrumb clearfix">
+                <a href="{{ path('accueil') }}">Accueil</a>
+                <a href="{{ path('front_hoteltunisie_accueil') }}">Hôtels en Tunisie</a>
+                <a href="{{ path('front_hoteltunisie_list') }}">Liste</a>
+                <span class="current-page">{{ block('title') }}</span>
+            </div>
+        </div>
     </div><!-- end slider_wrapper -->
     <div id="content_wrapper">
-	<div class="container">
-	    <div class="row clearfix pv-50">
-		<div class="col-xs-12 col-sm-8 col-md-9">
-		    <div class="detail-header clearfix">
-			<div class="detail-header-name">
-			    <h3 class="hotel-name no-mb">{{ hotel }}</h3>
-			    <span class="hotel-location"><i class="fa-map-marker mi text-warning"></i>{{ hotel.ville }}</span>
-			</div>
-			<div class="detail-header-price">
-			    {% if saison.type is null %}
-				Sur Demande
-			    {% else %}
-				{{ saison.prixDeBase|number_format(0) }} DT
-			    {% endif %}
-			    <span>Par pers & nuit en {{ saison.arrBase }}</span>
-			</div>
-			<div class="detail-header-review">
-			    {{ getStars(hotel.getStars)|raw }}
-			    <p>436 réservations</p>
-			</div>
-		    </div>
-		    {% if hotel.photosAlbum|length > 0 %}
-			<div id="detail-slider">
-			    <div>
-				<div id="exposure"></div>
-				<div class="clear"></div>	
-			    </div>
-			    <div class="panel">	
-				<div id="left"><a href="javascript:void(0);" class="left-arrow"></a></div>				
-				<ul id="details-slider-images">
-				    {% for image in hotel.photosAlbum %}
-					<li><a href="{{ asset(image.assetPath) }}"><img src="{{ asset(image.assetPath) }}" alt="Detailts" title="Photo num ° {{ loop.index }}" /></a></li>
-					    {% endfor %}
-				</ul>	
-				<div id="right"><a href="javascript:void(0);" class="right-arrow"></a></div>
-				<div class="clear"></div>
-			    </div>
-			</div>
-		    {% endif %}
+        <div class="container">
+            <div class="row clearfix pv-50">
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    <div class="detail-header clearfix">
+                        <div class="detail-header-name">
+                            <h3 class="hotel-name no-mb">{{ hotel }}</h3>
+                            <span class="hotel-location"><i class="fa-map-marker mi text-warning"></i>{{ hotel.ville }}
+                            </span>
+                        </div>
+                        <div class="detail-header-price">
+                            {% if saison.type is null %}
+                                Sur Demande
+                            {% else %}
+                                {{ saison.prixDeBase|number_format(0) }} DT
+                            {% endif %}
+                            <span>Par pers & nuit en {{ saison.arrBase }}</span>
+                        </div>
+                        <div class="detail-header-review">
+                            {{ getStars(hotel.getStars)|raw }}
+                            <p>{{ hotel.tel1 }}</p>
+                        </div>
+                    </div>
+                    {% if hotel.photosAlbum|length > 0 %}
+                        <div id="detail-slider">
+                            <div>
+                                <div id="exposure"></div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="panel">
+                                <div id="left"><a href="javascript:void(0);" class="left-arrow"></a></div>
+                                <ul id="details-slider-images">
+                                    {% for image in hotel.photosAlbum %}
+                                        <li>
+                                            <a href="{{ asset(image.assetPath) }}"><img src="{{ asset(image.assetPath) }}" alt="Detailts" title="Photo num ° {{ loop.index }}"/></a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                <div id="right"><a href="javascript:void(0);" class="right-arrow"></a></div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    {% endif %}
 
-		    <div class="clear"></div>
-		    {% include ':Front:alert.html.twig' %}
-		    <div class="clear"></div>
+                    <div class="clear"></div>
+                    {% include ':Front:alert.html.twig' %}
+                    <div class="clear"></div>
 
-		    <ul class="tabs mt-20">
-			<li><a href="#details-tab1">Déscription</a></li>
-			<li><a href="#details-tab2"  class="active">Réservation</a></li>
-			<li><a href="#details-tab3">Aménagements</a></li>
-			    {% if hotel.longitude is not null %}
-			    <li onclick="loadScript()"><a href="#details-tab5">Map</a></li>
-			    {% endif %}
-		    </ul><!-- tabs -->
+                    <ul class="tabs mt-20">
+                        <li><a href="#details-tab1">Déscription</a></li>
+                        <li><a href="#details-tab2" class="active">Réservation</a></li>
+                        <li><a href="#details-tab3">Aménagements</a></li>
+                        {% if hotel.longitude is not null %}
+                            <li onclick="loadScript()"><a href="#details-tab5">Map</a></li>
+                        {% endif %}
+                    </ul>
+                    <!-- tabs -->
 
-		    <ul id="detail-tab" class="tabs-content xss-mb">
-			<li id="details-tab1">
-			    {% include 'FrontGeneralBundle:hoteltunisie/details:description.html.twig' %}
-			</li>
-			<li id="details-tab2" class="active">
-			    {% include 'FrontGeneralBundle:hoteltunisie/details:reservation.html.twig' %}
-			</li>
-			<li id="details-tab3">
-			    {% include 'FrontGeneralBundle:hoteltunisie/details:amenagement.html.twig' %}
-			</li>
-			<li id="details-tab5">
-			    <div id="map-canvas"></div>  
-			</li>
-		    </ul><!-- end tabs -->
-		    <div class="clear xss-mb"></div>
-		</div>
-		<div class="col-xs-12 col-sm-4 col-md-3">
-		    <div class="sidebar hotel-sidebar">
+                    <ul id="detail-tab" class="tabs-content xss-mb">
+                        <li id="details-tab1">
+                            {% include 'FrontGeneralBundle:hoteltunisie/details:description.html.twig' %}
+                        </li>
+                        <li id="details-tab2" class="active">
+                            {% include 'FrontGeneralBundle:hoteltunisie/details:reservation.html.twig' %}
+                        </li>
+                        <li id="details-tab3">
+                            {% include 'FrontGeneralBundle:hoteltunisie/details:amenagement.html.twig' %}
+                        </li>
+                        <li id="details-tab5">
+                            <div id="map-canvas"></div>
+                        </li>
+                    </ul>
+                    <!-- end tabs -->
+                    <div class="clear xss-mb"></div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="sidebar hotel-sidebar">
 
-			<div class="sidebar-item mb-20">
-			    <div class="lp-box">
-				<i class="text-info fa-quote-left"></i>
-				<p class="no-mb">
-				    {{ hotel.descriptionCourte|raw }}
-				</p>
-				<p style="color: chocolate">
-				    {% for tag in hotel.tags %}#{{ tag }} {% endfor %} 
-				</p>
-			    </div>
-			</div>
-			{% if  hotel.tripAdvisor is not null and  hotel.tripAdvisor is not empty %}
-			    <div class="sidebar-item mb-20">
-				{{ hotel.tripAdvisor|raw }}
-			    </div>
-			{% endif %}
-			{% if hotels|length>1 %}
-			    <div class="sidebar-item mb-20">
-				<div class="lp-box">
-				    <i class="text-info fa-heart"></i>
-				    <h4>Similaires dans cette ville</h4>
-				</div>
-				<ul class="small-list-item">
-				    {% for hot in hotels if hotel.id!=hot.id %}
-					{% set sai = hot.getSaisonPromotionByDate(app.request.session.get('dateDebut')) %}
-					<li>
-					    <a href="{{ path('front_hoteltunisie_details',{'slug':hot.slug}) }}" class="image-small-list">
-						{% if hot.photoPrincipal is not null %}
-						    <img src="{{ asset(hot.photoPrincipal.assetPath) }}" alt="" style="width:60px;height: 72px" />
-						{% else %}
-						    <img src="https://placeholdit.imgix.net/~text?txtsize=10&txt=No%20image&w=60&h=71" alt="" style="width:60px;height: 72px"  />
-						{% endif %}
-					    </a>
-					    <a href="{{ path('front_hoteltunisie_details',{'slug':hot.slug}) }}" class="text-bold inverse">{{ hot }}</a>
-					    <div class="price-small">
-						<strong>
-						    {% if sai.type is null %}
-							Sur Demande
-						    {% else %}
-							{{ sai.prixDeBase }} DT
-						    {% endif %}
-						</strong>
-						<span>Par pers & nuit</span>
-					    </div>
-					    {{ getStars(hot.getStars)|raw }}
-					</li>
-				    {% endfor %}
-				</ul>
-			    </div>
-			{% endif %}
+                        <div class="sidebar-item mb-20">
+                            <div class="lp-box">
+                                <i class="text-info fa-quote-left"></i>
+                                <p class="no-mb">
+                                    {{ hotel.descriptionCourte|raw }}
+                                </p>
+                                <p style="color: chocolate">
+                                    {% for tag in hotel.tags %}#{{ tag }} {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                        {% if  hotel.tripAdvisor is not null and  hotel.tripAdvisor is not empty %}
+                            <div class="sidebar-item mb-20">
+                                {{ hotel.tripAdvisor|raw }}
+                            </div>
+                        {% endif %}
+                        {% if hotels|length>1 %}
+                            <div class="sidebar-item mb-20">
+                                <div class="lp-box">
+                                    <i class="text-info fa-heart"></i>
+                                    <h4>Similaires dans {{ hotel.ville }}</h4>
+                                </div>
+                                <ul class="small-list-item">
+                                    {% for hot in hotels if hotel.id!=hot.id %}
+                                        {% set sai = hot.getSaisonPromotionByDate(app.request.session.get('dateDebut')) %}
+                                        <li>
+                                            <a href="{{ path('front_hoteltunisie_details',{'slug':hot.slug}) }}" class="image-small-list">
+                                                {% if hot.photoPrincipal is not null %}
+                                                    <img src="{{ asset(hot.photoPrincipal.assetPath) }}" alt="" style="width:60px;height: 72px"/>
+                                                {% else %}
+                                                    <img src="https://placeholdit.imgix.net/~text?txtsize=10&txt=No%20image&w=60&h=71" alt="" style="width:60px;height: 72px"/>
+                                                {% endif %}
+                                            </a>
+                                            <a href="{{ path('front_hoteltunisie_details',{'slug':hot.slug}) }}" class="text-bold inverse">{{ hot }}</a>
+                                            <div class="price-small">
+                                                <strong>
+                                                    {% if sai.type is null %}
+                                                        Sur Demande
+                                                    {% else %}
+                                                        {{ sai.prixDeBase }} DT
+                                                    {% endif %}
+                                                </strong> <span>Par pers & nuit</span>
+                                            </div>
+                                            {{ getStars(hot.getStars)|raw }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
 
-		    </div>
-		</div>
-	    </div>
-	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block javascripts %}

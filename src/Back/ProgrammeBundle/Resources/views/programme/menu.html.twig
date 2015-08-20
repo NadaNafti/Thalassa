@@ -1,0 +1,26 @@
+{% if programme.id is not null %}
+    <ul id="myTab" class="nav nav-tabs tab-bricky">
+        <li {% if app.request.get('_route')=='back_programme' %}class="active"{% endif %}>
+            <a href="{{ path("back_programme",{'id':programme.id}) }}"> <i class="green fa fa-home"></i> {{ programme }}
+            </a>
+        </li>
+        <li {% if app.request.get('_route')=='back_programme_periode' %}class="active"{% endif %}>
+            <a href="{{ path("back_programme_periode",{'programme':programme.id}) }}">
+                <i class="green fa fa-list"></i> Périodes ({{ programme.periodes|length }}) </a>
+        </li>
+        {% if programme.periodes|length>0 %}
+            <li {% if app.request.get('_route')=='back_programme_supplements' %}class="active"{% endif %}>
+                <a href="{{ path("back_programme_supplements",{'programme':programme.id}) }}">
+                    <i class="green fa fa-list"></i> Les Suppléments </a>
+            </li>
+        {% endif %}
+        <li {% if app.request.get('_route')=='back_programme_description' %}class="active"{% endif %}>
+            <a href="{{ path("back_programme_description",{'programme':programme.id}) }}">
+                <i class="green fa fa-list"></i> Déscriptions ({{ programme.descriptions|length }}) </a>
+        </li>
+        <li {% if app.request.get('_route')=='back_programme_photo' %}class="active"{% endif %}>
+            <a href="{{ path("back_programme_photo",{'programme':programme.id}) }}">
+                <i class="green fa fa-image"></i> Images ({{ programme.photos|length }}) </a>
+        </li>
+    </ul>
+{% endif %}

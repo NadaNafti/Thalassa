@@ -1,11 +1,11 @@
 <?php
-    namespace Back\VoyageOrganiseBundle\Form;
+    namespace Back\ProgrammeBundle\Form;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-    class DescriptionType extends AbstractType
+    class PhotoType extends AbstractType
     {
         /**
          * @param FormBuilderInterface $builder
@@ -14,15 +14,14 @@
         public function buildForm(FormBuilderInterface $builder,array $options)
         {
             $builder
-                ->add('libelle')
-                ->add('texte','ckeditor')
+                ->add('file','file',array('required' => TRUE))
+                ->add('type','choice',array(
+                    'choices'  => array('1' => 'Principale','2' => 'Album'),
+                    'required' => TRUE,
+                ))
                 ->add('ordre')
                 ->add('visible','checkbox',array(
                     'label'    => 'Visible',
-                    'required' => FALSE,
-                ))
-                ->add('lateral','checkbox',array(
-                    'label'    => 'Latéral',
                     'required' => FALSE,
                 ));
         }
@@ -33,7 +32,7 @@
         public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
             $resolver->setDefaults(array(
-                'data_class' => 'Back\VoyageOrganiseBundle\Entity\Description',
+                'data_class' => 'Back\ProgrammeBundle\Entity\Photo',
             ));
         }
 
@@ -42,6 +41,6 @@
          */
         public function getName()
         {
-            return 'back_voyageorganisebundle_description';
+            return 'back_prgrammebundle_photo';
         }
     }

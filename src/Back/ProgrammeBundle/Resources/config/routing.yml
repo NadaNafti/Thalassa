@@ -1,0 +1,11 @@
+Back_programme_referentiel:
+    resource: "@BackProgrammeBundle/Resources/config/routing/referentiel.yml"
+    prefix:   /ref
+
+Back_programme:
+    resource: "@BackProgrammeBundle/Resources/config/routing/programme.yml"
+    prefix:   /pr/
+
+Back_programme_reservation:
+    resource: "@BackProgrammeBundle/Resources/config/routing/reservation.yml"
+    prefix:   /reservation/

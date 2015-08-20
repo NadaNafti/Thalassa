@@ -1,0 +1,7 @@
+back_programme_theme:
+    path:     /theme/{id}
+    defaults: { _controller: BackProgrammeBundle:Referentiel:theme,id:null }
+
+delete_back_programme_theme:
+    path:     /delete_back_programme_theme/{id}
+    defaults: { _controller: BackProgrammeBundle:Referentiel:deleteTheme }
