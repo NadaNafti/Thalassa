@@ -31,7 +31,7 @@
         private $libelle;
 
         /**
-         * @ORM\ManyToMany(targetEntity="Theme")
+         * @ORM\ManyToMany(targetEntity="Theme", inversedBy="programmes")
          * @ORM\JoinTable(name="ost_pr_programme_themes")
          */
         private $themes;
