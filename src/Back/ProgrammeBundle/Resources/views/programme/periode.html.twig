@@ -19,8 +19,10 @@
                             {{ formulaire.input("col-md-4","Départ",form.depart,false) }}
                             {{ formulaire.input("col-md-4","Retour",form.retour,false) }}
                         </div>  <div class="row">
-                            {{ formulaire.input("col-md-4","Prix Adulte",form.prixAdulte,false) }}
-                            {{ formulaire.input("col-md-4","Prix Enfant",form.prixEnfant,false) }}
+                            {{ formulaire.input("col-md-3","Prix Adulte Achat",form.prixAdulteAchat,false) }}
+                            {{ formulaire.input("col-md-3","Prix Enfant Achat",form.prixEnfantAchat,false) }}
+                            {{ formulaire.input("col-md-3","Prix Adulte Vente",form.prixAdulteVente,false) }}
+                            {{ formulaire.input("col-md-3","Prix Enfant Vente",form.prixEnfantVente,false) }}
                         </div>
                         <div class="row">
                             {{ formulaire.input("col-md-2","Insc. initiale",form.nombreInscriptionInitiale,true) }}
@@ -43,20 +45,26 @@
                     <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
                         <thead>
                         <tr>
-                            <th rowspan="2">#</th>
-                            <th rowspan="2">Libellé</th>
-                            <th rowspan="2">Insc. ini</th>
-                            <th rowspan="2">Insc.</th>
-                            <th colspan="2">Prix</th>
-                            <th rowspan="2">Période</th>
-                            <th rowspan="2">Min-Max</th>
-                            <th rowspan="2">Debut-Fin inscription</th>
-                            <th rowspan="2">Supp</th>
-                            <th rowspan="2" class="center">Action</th>
+                            <th rowspan="3">#</th>
+                            <th rowspan="3">Libellé</th>
+                            <th rowspan="3">Insc. ini</th>
+                            <th rowspan="3">Insc.</th>
+                            <th colspan="4" class="center">Prix</th>
+                            <th rowspan="3">Période</th>
+                            <th rowspan="3">Min-Max</th>
+                            <th rowspan="3">Debut-Fin inscription</th>
+                            <th rowspan="3">Supp</th>
+                            <th rowspan="3" class="center">Action</th>
                         </tr>
                         <tr>
-                            <td>Adulte</td>
-                            <td>Enfant</td>
+                            <td colspan="2" class="center">Adulte</td>
+                            <td colspan="2" class="center">Enfant</td>
+                        </tr>
+                        <tr>
+                            <td>Achat</td>
+                            <td>Vente</td>
+                            <td>Achat</td>
+                            <td>Vente</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -66,8 +74,10 @@
                                 <td>{{ periode.libelle }}</td>
                                 <td>{{ periode.nombreInscriptionInitiale }}</td>
                                 <td>{{ periode.nombreInscription }}</td>
-                                <td>{{ periode.prixAdulte }}</td>
-                                <td>{{ periode.prixEnfant }}</td>
+                                <td>{{ periode.prixAdulteAchat }}</td>
+                                <td>{{ periode.prixEnfantAchat }}</td>
+                                <td>{{ periode.prixAdulteVente }}</td>
+                                <td>{{ periode.prixEnfantVente }}</td>
                                 <td>{{ periode.depart|date('d/m/Y') }} - {{ periode.retour|date('d/m/Y') }}</td>
                                 <td>{{ periode.min }} - {{ periode.max }}</td>
                                 <td>{{ periode.debutInscription|date('d/m/Y') }} - {{ periode.finInscription|date('d/m/Y') }}</td>

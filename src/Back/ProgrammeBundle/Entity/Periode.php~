@@ -86,16 +86,30 @@
         /**
          * @var string
          *
-         * @ORM\Column(name="prixAdulte", type="decimal", precision=11 ,scale=3)
+         * @ORM\Column(name="prixAdulteAchat", type="decimal", precision=11 ,scale=3)
          */
-        private $prixAdulte;
+        private $prixAdulteAchat;
 
         /**
          * @var string
          *
-         * @ORM\Column(name="prixEnfant", type="decimal", precision=11 ,scale=3)
+         * @ORM\Column(name="prixEnfantAchat", type="decimal", precision=11 ,scale=3)
          */
-        private $prixEnfant;
+        private $prixEnfantAchat;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="prixAdulteVente", type="decimal", precision=11 ,scale=3)
+         */
+        private $prixAdulteVente;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="prixEnfantVente", type="decimal", precision=11 ,scale=3)
+         */
+        private $prixEnfantVente;
 
         /**
          * @ORM\ManyToOne(targetEntity="Programme", inversedBy="periodes")
@@ -105,12 +119,13 @@
 
         /**
          * @ORM\OneToMany(targetEntity="Ligne", mappedBy="periode", cascade={"remove"})
-         * @ORM\OrderBy({"depart" = "ASC"})
+         * @ORM\OrderBy({"id" = "ASC"})
          */
         private $supplements;
 
         public function __construct()
         {
+            $this->supplements = new \Doctrine\Common\Collections\ArrayCollection();
             $this->nombreInscription = 0;
             $this->nombreInscriptionInitiale = 0;
         }
@@ -351,46 +366,22 @@
         }
 
         /**
-         * Set prixAdulte
+         * Remove supplements
          *
-         * @param string $prixAdulte
-         * @return Periode
+         * @param \Back\ProgrammeBundle\Entity\Ligne $supplements
          */
-        public function setPrixAdulte($prixAdulte)
+        public function removeSupplement(\Back\ProgrammeBundle\Entity\Ligne $supplements)
         {
-            $this->prixAdulte = $prixAdulte;
-            return $this;
+            $this->supplements->removeElement($supplements);
         }
 
         /**
-         * Get prixAdulte
+         * Get supplements
          *
-         * @return string
+         * @return \Doctrine\Common\Collections\Collection
          */
-        public function getPrixAdulte()
+        public function getSupplements()
         {
-            return $this->prixAdulte;
-        }
-
-        /**
-         * Set prixEnfant
-         *
-         * @param string $prixEnfant
-         * @return Periode
-         */
-        public function setPrixEnfant($prixEnfant)
-        {
-            $this->prixEnfant = $prixEnfant;
-            return $this;
-        }
-
-        /**
-         * Get prixEnfant
-         *
-         * @return string
-         */
-        public function getPrixEnfant()
-        {
-            return $this->prixEnfant;
+            return $this->supplements;
         }
     }

@@ -223,4 +223,26 @@
         {
             return $this->libelle;
         }
+
+        /**
+         * Set periode
+         *
+         * @param \Back\ProgrammeBundle\Entity\Periode $periode
+         * @return Ligne
+         */
+        public function setPeriode(\Back\ProgrammeBundle\Entity\Periode $periode = NULL)
+        {
+            $this->periode = $periode;
+            return $this;
+        }
+
+        /**
+         * Get periode
+         *
+         * @return \Back\ProgrammeBundle\Entity\Periode
+         */
+        public function getPeriode()
+        {
+            return $this->periode;
+        }
     }
