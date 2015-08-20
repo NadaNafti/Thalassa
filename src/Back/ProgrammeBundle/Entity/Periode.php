@@ -86,16 +86,30 @@
         /**
          * @var string
          *
-         * @ORM\Column(name="prixAdulte", type="decimal", precision=11 ,scale=3)
+         * @ORM\Column(name="prixAdulteAchat", type="decimal", precision=11 ,scale=3)
          */
-        private $prixAdulte;
+        private $prixAdulteAchat;
 
         /**
          * @var string
          *
-         * @ORM\Column(name="prixEnfant", type="decimal", precision=11 ,scale=3)
+         * @ORM\Column(name="prixEnfantAchat", type="decimal", precision=11 ,scale=3)
          */
-        private $prixEnfant;
+        private $prixEnfantAchat;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="prixAdulteVente", type="decimal", precision=11 ,scale=3)
+         */
+        private $prixAdulteVente;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="prixEnfantVente", type="decimal", precision=11 ,scale=3)
+         */
+        private $prixEnfantVente;
 
         /**
          * @ORM\ManyToOne(targetEntity="Programme", inversedBy="periodes")
@@ -352,49 +366,117 @@
         }
 
         /**
-         * Set prixAdulte
+         * Remove supplements
          *
-         * @param string $prixAdulte
-         * @return Periode
+         * @param \Back\ProgrammeBundle\Entity\Ligne $supplements
          */
-        public function setPrixAdulte($prixAdulte)
+        public function removeSupplement(\Back\ProgrammeBundle\Entity\Ligne $supplements)
         {
-            $this->prixAdulte = $prixAdulte;
-            return $this;
+            $this->supplements->removeElement($supplements);
         }
 
         /**
-         * Get prixAdulte
+         * Get supplements
          *
-         * @return string
+         * @return \Doctrine\Common\Collections\Collection
          */
-        public function getPrixAdulte()
+        public function getSupplements()
         {
-            return $this->prixAdulte;
-        }
-
-        /**
-         * Set prixEnfant
-         *
-         * @param string $prixEnfant
-         * @return Periode
-         */
-        public function setPrixEnfant($prixEnfant)
-        {
-            $this->prixEnfant = $prixEnfant;
-            return $this;
-        }
-
-        /**
-         * Get prixEnfant
-         *
-         * @return string
-         */
-        public function getPrixEnfant()
-        {
-            return $this->prixEnfant;
+            return $this->supplements;
         }
     
+    /**
+     * Set prixAdulteAchat
+     *
+     * @param string $prixAdulteAchat
+     * @return Periode
+     */
+    public function setPrixAdulteAchat($prixAdulteAchat)
+    {
+        $this->prixAdulteAchat = $prixAdulteAchat;
+
+        return $this;
+    }
+
+    /**
+     * Get prixAdulteAchat
+     *
+     * @return string 
+     */
+    public function getPrixAdulteAchat()
+    {
+        return $this->prixAdulteAchat;
+    }
+
+    /**
+     * Set prixEnfantAchat
+     *
+     * @param string $prixEnfantAchat
+     * @return Periode
+     */
+    public function setPrixEnfantAchat($prixEnfantAchat)
+    {
+        $this->prixEnfantAchat = $prixEnfantAchat;
+
+        return $this;
+    }
+
+    /**
+     * Get prixEnfantAchat
+     *
+     * @return string 
+     */
+    public function getPrixEnfantAchat()
+    {
+        return $this->prixEnfantAchat;
+    }
+
+    /**
+     * Set prixAdulteVente
+     *
+     * @param string $prixAdulteVente
+     * @return Periode
+     */
+    public function setPrixAdulteVente($prixAdulteVente)
+    {
+        $this->prixAdulteVente = $prixAdulteVente;
+
+        return $this;
+    }
+
+    /**
+     * Get prixAdulteVente
+     *
+     * @return string 
+     */
+    public function getPrixAdulteVente()
+    {
+        return $this->prixAdulteVente;
+    }
+
+    /**
+     * Set prixEnfantVente
+     *
+     * @param string $prixEnfantVente
+     * @return Periode
+     */
+    public function setPrixEnfantVente($prixEnfantVente)
+    {
+        $this->prixEnfantVente = $prixEnfantVente;
+
+        return $this;
+    }
+
+    /**
+     * Get prixEnfantVente
+     *
+     * @return string 
+     */
+    public function getPrixEnfantVente()
+    {
+        return $this->prixEnfantVente;
+    }
+
     /**
      * Add supplements
      *
@@ -406,25 +488,5 @@
         $this->supplements[] = $supplements;
 
         return $this;
-    }
-
-    /**
-     * Remove supplements
-     *
-     * @param \Back\ProgrammeBundle\Entity\Ligne $supplements
-     */
-    public function removeSupplement(\Back\ProgrammeBundle\Entity\Ligne $supplements)
-    {
-        $this->supplements->removeElement($supplements);
-    }
-
-    /**
-     * Get supplements
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getSupplements()
-    {
-        return $this->supplements;
     }
 }
