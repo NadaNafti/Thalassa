@@ -86,15 +86,34 @@
         /**
          * @var string
          *
-         * @ORM\Column(name="prix", type="decimal", precision=11 ,scale=3)
+         * @ORM\Column(name="prixAdulte", type="decimal", precision=11 ,scale=3)
          */
-        private $prix;
+        private $prixAdulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="prixEnfant", type="decimal", precision=11 ,scale=3)
+         */
+        private $prixEnfant;
 
         /**
          * @ORM\ManyToOne(targetEntity="Programme", inversedBy="periodes")
          * @ORM\JoinColumn(onDelete="CASCADE")
          */
         private $programme;
+
+        /**
+         * @ORM\OneToMany(targetEntity="Ligne", mappedBy="periode", cascade={"remove"})
+         * @ORM\OrderBy({"depart" = "ASC"})
+         */
+        private $supplements;
+
+        public function __construct()
+        {
+            $this->nombreInscription = 0;
+            $this->nombreInscriptionInitiale = 0;
+        }
 
         /**
          * Get id
@@ -305,24 +324,73 @@
         }
 
         /**
-         * Set prix
+         * Set programme
          *
-         * @param string $prix
+         * @param \Back\ProgrammeBundle\Entity\Programme $programme
          * @return Periode
          */
-        public function setPrix($prix)
+        public function setProgramme(\Back\ProgrammeBundle\Entity\Programme $programme = NULL)
         {
-            $this->prix = $prix;
+            $this->programme = $programme;
             return $this;
         }
 
         /**
-         * Get prix
+         * Get programme
+         *
+         * @return \Back\ProgrammeBundle\Entity\Programme
+         */
+        public function getProgramme()
+        {
+            return $this->programme;
+        }
+
+        public function __toString()
+        {
+            return $this->libelle;
+        }
+
+        /**
+         * Set prixAdulte
+         *
+         * @param string $prixAdulte
+         * @return Periode
+         */
+        public function setPrixAdulte($prixAdulte)
+        {
+            $this->prixAdulte = $prixAdulte;
+            return $this;
+        }
+
+        /**
+         * Get prixAdulte
          *
          * @return string
          */
-        public function getPrix()
+        public function getPrixAdulte()
         {
-            return $this->prix;
+            return $this->prixAdulte;
+        }
+
+        /**
+         * Set prixEnfant
+         *
+         * @param string $prixEnfant
+         * @return Periode
+         */
+        public function setPrixEnfant($prixEnfant)
+        {
+            $this->prixEnfant = $prixEnfant;
+            return $this;
+        }
+
+        /**
+         * Get prixEnfant
+         *
+         * @return string
+         */
+        public function getPrixEnfant()
+        {
+            return $this->prixEnfant;
         }
     }

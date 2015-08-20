@@ -15,10 +15,12 @@
                     <div class="panel-body">
                         {{ form_start(form) }}
                         <div class="row">
-                            {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
-                            {{ formulaire.input("col-md-3","Prix",form.prix,true) }}
-                            {{ formulaire.input("col-md-3","Départ",form.depart,false) }}
-                            {{ formulaire.input("col-md-3","Retour",form.retour,false) }}
+                            {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
+                            {{ formulaire.input("col-md-4","Départ",form.depart,false) }}
+                            {{ formulaire.input("col-md-4","Retour",form.retour,false) }}
+                        </div>  <div class="row">
+                            {{ formulaire.input("col-md-4","Prix Adulte",form.prixAdulte,false) }}
+                            {{ formulaire.input("col-md-4","Prix Enfant",form.prixEnfant,false) }}
                         </div>
                         <div class="row">
                             {{ formulaire.input("col-md-2","Insc. initiale",form.nombreInscriptionInitiale,true) }}
@@ -41,15 +43,20 @@
                     <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Libellé</th>
-                            <th>Insc. ini</th>
-                            <th>Insc.</th>
-                            <th>Prix</th>
-                            <th>Période</th>
-                            <th>Min-Max</th>
-                            <th>Debut-Fin inscription</th>
-                            <th class="center">Action</th>
+                            <th rowspan="2">#</th>
+                            <th rowspan="2">Libellé</th>
+                            <th rowspan="2">Insc. ini</th>
+                            <th rowspan="2">Insc.</th>
+                            <th colspan="2">Prix</th>
+                            <th rowspan="2">Période</th>
+                            <th rowspan="2">Min-Max</th>
+                            <th rowspan="2">Debut-Fin inscription</th>
+                            <th rowspan="2">Supp</th>
+                            <th rowspan="2" class="center">Action</th>
+                        </tr>
+                        <tr>
+                            <td>Adulte</td>
+                            <td>Enfant</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -59,10 +66,12 @@
                                 <td>{{ periode.libelle }}</td>
                                 <td>{{ periode.nombreInscriptionInitiale }}</td>
                                 <td>{{ periode.nombreInscription }}</td>
-                                <td>{{ periode.prix }}</td>
+                                <td>{{ periode.prixAdulte }}</td>
+                                <td>{{ periode.prixEnfant }}</td>
                                 <td>{{ periode.depart|date('d/m/Y') }} - {{ periode.retour|date('d/m/Y') }}</td>
                                 <td>{{ periode.min }} - {{ periode.max }}</td>
                                 <td>{{ periode.debutInscription|date('d/m/Y') }} - {{ periode.finInscription|date('d/m/Y') }}</td>
+                                <td>{% for supp in periode.supplements %}- {{ supp }}<br>{% endfor %}</td>
                                 <td class="TableAction">
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
                                         {{ macros.tableEdit(path('back_programme_periode',{'programme':programme.id,'id':periode.id})) }}

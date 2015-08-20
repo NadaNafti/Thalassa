@@ -86,9 +86,16 @@
         /**
          * @var string
          *
-         * @ORM\Column(name="prix", type="decimal", precision=11 ,scale=3)
+         * @ORM\Column(name="prixAdulte", type="decimal", precision=11 ,scale=3)
          */
-        private $prix;
+        private $prixAdulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="prixEnfant", type="decimal", precision=11 ,scale=3)
+         */
+        private $prixEnfant;
 
         /**
          * @ORM\ManyToOne(targetEntity="Programme", inversedBy="periodes")
@@ -96,10 +103,17 @@
          */
         private $programme;
 
+        /**
+         * @ORM\OneToMany(targetEntity="Ligne", mappedBy="periode", cascade={"remove"})
+         * @ORM\OrderBy({"id" = "ASC"})
+         */
+        private $supplements;
+
         public function __construct()
         {
-            $this->nombreInscription=0;
-            $this->nombreInscriptionInitiale=0;
+            $this->supplements = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->nombreInscription = 0;
+            $this->nombreInscriptionInitiale = 0;
         }
 
         /**
@@ -311,28 +325,6 @@
         }
 
         /**
-         * Set prix
-         *
-         * @param string $prix
-         * @return Periode
-         */
-        public function setPrix($prix)
-        {
-            $this->prix = $prix;
-            return $this;
-        }
-
-        /**
-         * Get prix
-         *
-         * @return string
-         */
-        public function getPrix()
-        {
-            return $this->prix;
-        }
-
-        /**
          * Set programme
          *
          * @param \Back\ProgrammeBundle\Entity\Programme $programme
@@ -358,4 +350,81 @@
         {
             return $this->libelle;
         }
+
+        /**
+         * Set prixAdulte
+         *
+         * @param string $prixAdulte
+         * @return Periode
+         */
+        public function setPrixAdulte($prixAdulte)
+        {
+            $this->prixAdulte = $prixAdulte;
+            return $this;
+        }
+
+        /**
+         * Get prixAdulte
+         *
+         * @return string
+         */
+        public function getPrixAdulte()
+        {
+            return $this->prixAdulte;
+        }
+
+        /**
+         * Set prixEnfant
+         *
+         * @param string $prixEnfant
+         * @return Periode
+         */
+        public function setPrixEnfant($prixEnfant)
+        {
+            $this->prixEnfant = $prixEnfant;
+            return $this;
+        }
+
+        /**
+         * Get prixEnfant
+         *
+         * @return string
+         */
+        public function getPrixEnfant()
+        {
+            return $this->prixEnfant;
+        }
+    
+    /**
+     * Add supplements
+     *
+     * @param \Back\ProgrammeBundle\Entity\Ligne $supplements
+     * @return Periode
+     */
+    public function addSupplement(\Back\ProgrammeBundle\Entity\Ligne $supplements)
+    {
+        $this->supplements[] = $supplements;
+
+        return $this;
     }
+
+    /**
+     * Remove supplements
+     *
+     * @param \Back\ProgrammeBundle\Entity\Ligne $supplements
+     */
+    public function removeSupplement(\Back\ProgrammeBundle\Entity\Ligne $supplements)
+    {
+        $this->supplements->removeElement($supplements);
+    }
+
+    /**
+     * Get supplements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSupplements()
+    {
+        return $this->supplements;
+    }
+}

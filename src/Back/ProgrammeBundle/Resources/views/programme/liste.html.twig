@@ -25,7 +25,7 @@
                             <th class="center">#</th>
                             <th class="center">Libellé</th>
                             <th class="center">Themes</th>
-                            {#<th class="center" >Périodes</th>#}
+                            <th class="center" >Périodes</th>
                             <th class="center">Action</th>
                         </tr>
                         </thead>
@@ -35,7 +35,7 @@
                                 <td>{{ programme.id }}</td>
                                 <td>{{ programme.libelle|title }}</td>
                                 <td>{% for theme in programme.themes %}- {{ theme }}<br>{% endfor %}</td>
-                                {#<td>{% for periode in programme.periodes %}{{ periode.libelle }}<br>{% endfor %}</td>#}
+                                <td>{% for periode in programme.periodes %}- {{ periode.libelle }}<br>{% endfor %}</td>
                                 <td class="TableAction">
                                     {{ macros.tableEdit(path('back_programme',{'id':programme.id})) }}
                                     {{ macros.tableDelete(path('back_programme_delete',{'id':programme.id})) }}

@@ -39,7 +39,7 @@
         /**
          * @var string
          *
-         * @ORM\Column(name="prix", type="decimal", precision=11 ,scale=3 ,nullable=true)
+         * @ORM\Column(name="prix", type="decimal", precision=11 ,scale=3)
          */
         private $prix;
 
@@ -95,6 +95,7 @@
          */
         public function __construct()
         {
+            $this->periodes = new \Doctrine\Common\Collections\ArrayCollection();
             $this->themes = new \Doctrine\Common\Collections\ArrayCollection();
             $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
             $this->descriptions = new \Doctrine\Common\Collections\ArrayCollection();
@@ -364,4 +365,37 @@
         {
             return $this->libelle;
         }
+    
+    /**
+     * Add periodes
+     *
+     * @param \Back\ProgrammeBundle\Entity\Periode $periodes
+     * @return Programme
+     */
+    public function addPeriode(\Back\ProgrammeBundle\Entity\Periode $periodes)
+    {
+        $this->periodes[] = $periodes;
+
+        return $this;
     }
+
+    /**
+     * Remove periodes
+     *
+     * @param \Back\ProgrammeBundle\Entity\Periode $periodes
+     */
+    public function removePeriode(\Back\ProgrammeBundle\Entity\Periode $periodes)
+    {
+        $this->periodes->removeElement($periodes);
+    }
+
+    /**
+     * Get periodes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPeriodes()
+    {
+        return $this->periodes;
+    }
+}

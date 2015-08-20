@@ -33,3 +33,11 @@ back_programme_periode:
 back_programme_periode_delete:
     path:     /back_programme_photo_delete/{id}
     defaults: { _controller: BackProgrammeBundle:Programme:periodeDelete }
+
+back_programme_supplements:
+    path:     /programme/supplements/{programme}/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:supplement,id:null }
+
+back_programme_supplements_delete:
+    path:     /back_programme_supplements_delete/{id}
+    defaults: { _controller: BackProgrammeBundle:Programme:supplementDelete }

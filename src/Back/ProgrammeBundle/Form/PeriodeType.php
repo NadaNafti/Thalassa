@@ -38,7 +38,8 @@
                     'format'   => 'yyyy-MM-dd',
                 ))
                 ->add('nombreInscriptionInitiale')
-                ->add('prix');
+                ->add('prixAdulte')
+                ->add('prixEnfant');
         }
 
         /**

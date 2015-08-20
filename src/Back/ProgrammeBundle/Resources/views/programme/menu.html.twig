@@ -8,16 +8,12 @@
             <a href="{{ path("back_programme_periode",{'programme':programme.id}) }}">
                 <i class="green fa fa-list"></i> Périodes ({{ programme.periodes|length }}) </a>
         </li>
-        {#<li {% if app.request.get('_route')=='back_vo_pack' %}class="active"{% endif %}>#}
-            {#<a href="{{ path("back_vo_pack",{'voyage':voyage.id}) }}"> <i class="green fa fa-list"></i> Packs </a>#}
-        {#</li>#}
-        {#<li {% if app.request.get('_route')=='back_vo_circuit' %}class="active"{% endif %}>#}
-            {#<a href="{{ path("back_vo_circuit",{'voyage':voyage.id}) }}"> <i class="green fa fa-list"></i> Circuits </a>#}
-        {#</li>#}
-        {#<li {% if app.request.get('_route')=='back_vo_frais' %}class="active"{% endif %}>#}
-            {#<a href="{{ path("back_vo_frais",{'voyage':voyage.id}) }}"> <i class="green fa fa-list"></i> Frais divers#}
-            {#</a>#}
-        {#</li>#}
+        {% if programme.periodes|length>0 %}
+            <li {% if app.request.get('_route')=='back_programme_supplements' %}class="active"{% endif %}>
+                <a href="{{ path("back_programme_supplements",{'programme':programme.id}) }}">
+                    <i class="green fa fa-list"></i> Les Suppléments </a>
+            </li>
+        {% endif %}
         <li {% if app.request.get('_route')=='back_programme_description' %}class="active"{% endif %}>
             <a href="{{ path("back_programme_description",{'programme':programme.id}) }}">
                 <i class="green fa fa-list"></i> Déscriptions ({{ programme.descriptions|length }}) </a>
