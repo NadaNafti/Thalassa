@@ -365,37 +365,57 @@
         {
             return $this->libelle;
         }
-    
-    /**
-     * Add periodes
-     *
-     * @param \Back\ProgrammeBundle\Entity\Periode $periodes
-     * @return Programme
-     */
-    public function addPeriode(\Back\ProgrammeBundle\Entity\Periode $periodes)
-    {
-        $this->periodes[] = $periodes;
 
-        return $this;
-    }
+        /**
+         * Add periodes
+         *
+         * @param \Back\ProgrammeBundle\Entity\Periode $periodes
+         * @return Programme
+         */
+        public function addPeriode(\Back\ProgrammeBundle\Entity\Periode $periodes)
+        {
+            $this->periodes[] = $periodes;
+            return $this;
+        }
 
-    /**
-     * Remove periodes
-     *
-     * @param \Back\ProgrammeBundle\Entity\Periode $periodes
-     */
-    public function removePeriode(\Back\ProgrammeBundle\Entity\Periode $periodes)
-    {
-        $this->periodes->removeElement($periodes);
-    }
+        /**
+         * Remove periodes
+         *
+         * @param \Back\ProgrammeBundle\Entity\Periode $periodes
+         */
+        public function removePeriode(\Back\ProgrammeBundle\Entity\Periode $periodes)
+        {
+            $this->periodes->removeElement($periodes);
+        }
 
-    /**
-     * Get periodes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getPeriodes()
-    {
-        return $this->periodes;
+        /**
+         * Get periodes
+         *
+         * @return \Doctrine\Common\Collections\Collection
+         */
+        public function getPeriodes()
+        {
+            return $this->periodes;
+        }
+
+        public function getPhotoPrincipal()
+        {
+            if(count($this->photos) == 0)
+                return NULL;
+            foreach($this->photos as $image){
+                if($image->getType() == 1)
+                    return $image;
+            }
+            return NULL;
+        }
+
+        public function getPhotosAlbum()
+        {
+            $album = array();
+            foreach($this->photos as $image){
+                if($image->getType() == 2)
+                    $album[] = $image;
+            }
+            return $album;
+        }
     }
-}
