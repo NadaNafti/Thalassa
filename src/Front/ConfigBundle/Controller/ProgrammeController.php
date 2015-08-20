@@ -78,7 +78,7 @@
         {
             $em = $this->getDoctrine()->getManager();
             $blockMetro = $em->getRepository('FrontConfigBundle:BlockMetroPR')->find(1);
-            return $this->render('FrontConfigBundle:programme:showBlockMetro.html.twig',array(
+            return $this->render('FrontConfigBundle:Programme:showBlockMetro.html.twig',array(
                 'blockMetro' => $blockMetro,
             ));
         }
@@ -87,7 +87,7 @@
         {
             $em = $this->getDoctrine()->getManager();
             $topProgrammes = $em->getRepository('FrontConfigBundle:TopProgramme')->findAll();
-            return $this->render('FrontConfigBundle:programme:showTopTheme.html.twig',array(
+            return $this->render('FrontConfigBundle:Programme:showTopTheme.html.twig',array(
                 'topProgrammes' => $topProgrammes,
             ));
         }
