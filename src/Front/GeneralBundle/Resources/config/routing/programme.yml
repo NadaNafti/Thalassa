@@ -1,0 +1,25 @@
+front_programme_accueil:
+    path:     /
+    defaults: { _controller: FrontGeneralBundle:Programme:accueil }
+    
+front_programme_liste:
+    path:     /liste/{page}/{themes}/{name}
+    defaults: { _controller: FrontGeneralBundle:Programme:liste,page:1,themes:all,name:null }
+    requirements:
+        page:  \d+
+        
+front_programme_details:
+    path:     /{slug}
+    defaults: { _controller: FrontGeneralBundle:Programme:details }
+    
+#front_programme_thankyou:
+#    path:     /{slug}/success/{reservation}
+#    defaults: { _controller: FrontGeneralBundle:Programme:success }
+#    requirements:
+#        reservation:  \d+
+#
+#front_programme_reservation:
+#    path:     /{slug}/{pack}
+#    defaults: { _controller: FrontGeneralBundle:Programme:reservation }
+#    requirements:
+#        periode:  \d+

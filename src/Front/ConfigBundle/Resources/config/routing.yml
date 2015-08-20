@@ -5,3 +5,7 @@ config_front_voyageorganise:
 config_front_hoteltunisie:
     resource: "@FrontConfigBundle/Resources/config/routing/hoteltunisie.yml"
     prefix:   /HotelTunisie
+
+config_front_programme:
+    resource: "@FrontConfigBundle/Resources/config/routing/programme.yml"
+    prefix:   /Programme

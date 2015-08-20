@@ -8,10 +8,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * BlockMetro
  *
- * @ORM\Table(name="ost_front_blockmetro")
+ * @ORM\Table(name="ost_front_blockmetro_pr")
  * @ORM\Entity
  */
-class BlockMetro
+class BlockMetroPR
 {
 
     /**
@@ -31,7 +31,7 @@ class BlockMetro
     private $libelle;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\ProgrammeBundle\Entity\Theme")
      */
     protected $theme1;
     
@@ -42,7 +42,7 @@ class BlockMetro
     protected $photo1;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\ProgrammeBundle\Entity\Theme")
      */
     protected $theme2;
     
@@ -53,7 +53,7 @@ class BlockMetro
     protected $photo2;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\ProgrammeBundle\Entity\Theme")
      */
     protected $theme3;
     
@@ -64,7 +64,7 @@ class BlockMetro
     protected $photo3;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\ProgrammeBundle\Entity\Theme")
      */
     protected $theme4;
     
@@ -75,7 +75,7 @@ class BlockMetro
     protected $photo4;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\ProgrammeBundle\Entity\Theme")
      */
     protected $theme5;
     
@@ -86,7 +86,7 @@ class BlockMetro
     protected $photo5;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\ProgrammeBundle\Entity\Theme")
      */
     protected $theme6;
     
@@ -97,7 +97,7 @@ class BlockMetro
     protected $photo6;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\ProgrammeBundle\Entity\Theme")
      */
     protected $theme7;
     
@@ -108,7 +108,7 @@ class BlockMetro
     protected $photo7;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\ProgrammeBundle\Entity\Theme")
      */
     protected $theme8;
     
@@ -155,10 +155,10 @@ class BlockMetro
     /**
      * Set theme1
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme1
+     * @param \Back\ProgrammeBundle\Entity\Theme $theme1
      * @return BlockMetro
      */
-    public function setTheme1(\Back\VoyageOrganiseBundle\Entity\Theme $theme1 = null)
+    public function setTheme1(\Back\ProgrammeBundle\Entity\Theme $theme1 = null)
     {
         $this->theme1 = $theme1;
 
@@ -168,7 +168,7 @@ class BlockMetro
     /**
      * Get theme1
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\ProgrammeBundle\Entity\Theme 
      */
     public function getTheme1()
     {
@@ -201,10 +201,10 @@ class BlockMetro
     /**
      * Set theme2
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme2
+     * @param \Back\ProgrammeBundle\Entity\Theme $theme2
      * @return BlockMetro
      */
-    public function setTheme2(\Back\VoyageOrganiseBundle\Entity\Theme $theme2 = null)
+    public function setTheme2(\Back\ProgrammeBundle\Entity\Theme $theme2 = null)
     {
         $this->theme2 = $theme2;
 
@@ -214,7 +214,7 @@ class BlockMetro
     /**
      * Get theme2
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\ProgrammeBundle\Entity\Theme 
      */
     public function getTheme2()
     {
@@ -247,10 +247,10 @@ class BlockMetro
     /**
      * Set theme3
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme3
+     * @param \Back\ProgrammeBundle\Entity\Theme $theme3
      * @return BlockMetro
      */
-    public function setTheme3(\Back\VoyageOrganiseBundle\Entity\Theme $theme3 = null)
+    public function setTheme3(\Back\ProgrammeBundle\Entity\Theme $theme3 = null)
     {
         $this->theme3 = $theme3;
 
@@ -260,7 +260,7 @@ class BlockMetro
     /**
      * Get theme3
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\ProgrammeBundle\Entity\Theme 
      */
     public function getTheme3()
     {
@@ -293,10 +293,10 @@ class BlockMetro
     /**
      * Set theme4
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme4
+     * @param \Back\ProgrammeBundle\Entity\Theme $theme4
      * @return BlockMetro
      */
-    public function setTheme4(\Back\VoyageOrganiseBundle\Entity\Theme $theme4 = null)
+    public function setTheme4(\Back\ProgrammeBundle\Entity\Theme $theme4 = null)
     {
         $this->theme4 = $theme4;
 
@@ -306,7 +306,7 @@ class BlockMetro
     /**
      * Get theme4
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\ProgrammeBundle\Entity\Theme 
      */
     public function getTheme4()
     {
@@ -339,10 +339,10 @@ class BlockMetro
     /**
      * Set theme5
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme5
+     * @param \Back\ProgrammeBundle\Entity\Theme $theme5
      * @return BlockMetro
      */
-    public function setTheme5(\Back\VoyageOrganiseBundle\Entity\Theme $theme5 = null)
+    public function setTheme5(\Back\ProgrammeBundle\Entity\Theme $theme5 = null)
     {
         $this->theme5 = $theme5;
 
@@ -352,7 +352,7 @@ class BlockMetro
     /**
      * Get theme5
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\ProgrammeBundle\Entity\Theme 
      */
     public function getTheme5()
     {
@@ -385,10 +385,10 @@ class BlockMetro
     /**
      * Set theme6
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme6
+     * @param \Back\ProgrammeBundle\Entity\Theme $theme6
      * @return BlockMetro
      */
-    public function setTheme6(\Back\VoyageOrganiseBundle\Entity\Theme $theme6 = null)
+    public function setTheme6(\Back\ProgrammeBundle\Entity\Theme $theme6 = null)
     {
         $this->theme6 = $theme6;
 
@@ -398,7 +398,7 @@ class BlockMetro
     /**
      * Get theme6
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\ProgrammeBundle\Entity\Theme 
      */
     public function getTheme6()
     {
@@ -431,10 +431,10 @@ class BlockMetro
     /**
      * Set theme7
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme7
+     * @param \Back\ProgrammeBundle\Entity\Theme $theme7
      * @return BlockMetro
      */
-    public function setTheme7(\Back\VoyageOrganiseBundle\Entity\Theme $theme7 = null)
+    public function setTheme7(\Back\ProgrammeBundle\Entity\Theme $theme7 = null)
     {
         $this->theme7 = $theme7;
 
@@ -444,7 +444,7 @@ class BlockMetro
     /**
      * Get theme7
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\ProgrammeBundle\Entity\Theme 
      */
     public function getTheme7()
     {
@@ -477,10 +477,10 @@ class BlockMetro
     /**
      * Set theme8
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme8
+     * @param \Back\ProgrammeBundle\Entity\Theme $theme8
      * @return BlockMetro
      */
-    public function setTheme8(\Back\VoyageOrganiseBundle\Entity\Theme $theme8 = null)
+    public function setTheme8(\Back\ProgrammeBundle\Entity\Theme $theme8 = null)
     {
         $this->theme8 = $theme8;
 
@@ -490,7 +490,7 @@ class BlockMetro
     /**
      * Get theme8
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\ProgrammeBundle\Entity\Theme 
      */
     public function getTheme8()
     {

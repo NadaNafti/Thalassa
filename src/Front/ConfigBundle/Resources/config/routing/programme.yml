@@ -1,0 +1,19 @@
+front_config_programme_slider:
+    path:     /slider/{id}
+    defaults: { _controller: FrontConfigBundle:Programme:slider,id:null }
+    
+front_config_programme_slider_delete:
+    path:     /sliderDelete/{id}
+    defaults: { _controller: FrontConfigBundle:Programme:deleteSlider }
+
+front_config_programme_blockmetro:
+    path:     /blockmetro
+    defaults: { _controller: FrontConfigBundle:Programme:blockMetro }
+
+front_config_programme_topprogramme:
+    path:     /topProgramme/{id}
+    defaults: { _controller: FrontConfigBundle:Programme:topProgramme,id:null }
+
+front_config_programme_topprogramme_delete:
+    path:     /topprogramme_delete/{id}
+    defaults: { _controller: FrontConfigBundle:Programme:topProgrammeDelete }

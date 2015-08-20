@@ -1,0 +1,39 @@
+{% if topProgrammes|length>0 %}
+    <div class="gr-style"></div>
+    <h3 class="section-title mv-30">Top Programmes & Activités</h3>
+    <div class="row pv-30 mt-20 product-4">
+        {% for topProgramme in topProgrammes %}
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="list-item">
+                    <div class="list-item-image">
+                        <div class="image-inner">
+                            <img src="{{ asset(topProgramme.assetPath) }}" alt="" style="width: 370px;height: 160px"/>
+                        </div>
+                        <div class="minimal-top-label">
+                            <h3>{{ topProgramme.theme }}</h3>
+                        </div>
+                    </div>
+                    <!-- end list-item -->
+                    <ul class="minimal-label pd-img">
+                        {% for programme in topProgramme.theme.programmes %}
+                            <li>
+                                {% if programme.photoPrincipal is not null %}
+                                    <img src="{{ asset(programme.photoPrincipal.assetPath) }}" style="width: 70px;height: 70px" alt=""/>
+                                {% else %}
+                                    <img src="https://placeholdit.imgix.net/~text?txtsize=10&txt=Not%20image%20available&w=70&h=70" style="width: 70px;height: 70px" alt=""/>
+                                {% endif %}
+                                <a href="#">{{ programme }}</a>
+                                <div class="minimal-price"><span>A partir de</span>
+                                    <strong>{{ programme.prix }} DT</strong></div>
+                                {#<div class="minimal-meta">#}
+                                    {#<span class="rating-static rating-30"></span>#}
+                                    {#<span class="minimal-location">Spain</span>#}
+                                {#</div>#}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

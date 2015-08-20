@@ -8,10 +8,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * BlockMetro
  *
- * @ORM\Table(name="ost_front_blockmetro")
+ * @ORM\Table(name="ost_front_blockmetro_sht")
  * @ORM\Entity
  */
-class BlockMetro
+class BlockMetroSHT
 {
 
     /**
@@ -31,9 +31,9 @@ class BlockMetro
     private $libelle;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Tag")
      */
-    protected $theme1;
+    protected $tag1;
     
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist","remove"})
@@ -42,9 +42,9 @@ class BlockMetro
     protected $photo1;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Tag")
      */
-    protected $theme2;
+    protected $tag2;
     
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist","remove"})
@@ -53,9 +53,9 @@ class BlockMetro
     protected $photo2;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Tag")
      */
-    protected $theme3;
+    protected $tag3;
     
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist","remove"})
@@ -64,9 +64,9 @@ class BlockMetro
     protected $photo3;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Tag")
      */
-    protected $theme4;
+    protected $tag4;
     
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist","remove"})
@@ -75,9 +75,9 @@ class BlockMetro
     protected $photo4;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Tag")
      */
-    protected $theme5;
+    protected $tag5;
     
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist","remove"})
@@ -86,9 +86,9 @@ class BlockMetro
     protected $photo5;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Tag")
      */
-    protected $theme6;
+    protected $tag6;
     
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist","remove"})
@@ -97,9 +97,9 @@ class BlockMetro
     protected $photo6;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Tag")
      */
-    protected $theme7;
+    protected $tag7;
     
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist","remove"})
@@ -108,9 +108,9 @@ class BlockMetro
     protected $photo7;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\VoyageOrganiseBundle\Entity\Theme")
+     * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Tag")
      */
-    protected $theme8;
+    protected $tag8;
     
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist","remove"})
@@ -153,26 +153,26 @@ class BlockMetro
 
 
     /**
-     * Set theme1
+     * Set tag1
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme1
+     * @param \Back\HotelTunisieBundle\Entity\Tag $tag1
      * @return BlockMetro
      */
-    public function setTheme1(\Back\VoyageOrganiseBundle\Entity\Theme $theme1 = null)
+    public function setTag1(\Back\HotelTunisieBundle\Entity\Tag $tag1 = null)
     {
-        $this->theme1 = $theme1;
+        $this->tag1 = $tag1;
 
         return $this;
     }
 
     /**
-     * Get theme1
+     * Get tag1
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\HotelTunisieBundle\Entity\Tag 
      */
-    public function getTheme1()
+    public function getTag1()
     {
-        return $this->theme1;
+        return $this->tag1;
     }
 
     /**
@@ -199,26 +199,26 @@ class BlockMetro
     }
 
     /**
-     * Set theme2
+     * Set tag2
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme2
+     * @param \Back\HotelTunisieBundle\Entity\Tag $tag2
      * @return BlockMetro
      */
-    public function setTheme2(\Back\VoyageOrganiseBundle\Entity\Theme $theme2 = null)
+    public function setTag2(\Back\HotelTunisieBundle\Entity\Tag $tag2 = null)
     {
-        $this->theme2 = $theme2;
+        $this->tag2 = $tag2;
 
         return $this;
     }
 
     /**
-     * Get theme2
+     * Get tag2
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\HotelTunisieBundle\Entity\Tag 
      */
-    public function getTheme2()
+    public function getTag2()
     {
-        return $this->theme2;
+        return $this->tag2;
     }
 
     /**
@@ -245,26 +245,26 @@ class BlockMetro
     }
 
     /**
-     * Set theme3
+     * Set tag3
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme3
+     * @param \Back\HotelTunisieBundle\Entity\Tag $tag3
      * @return BlockMetro
      */
-    public function setTheme3(\Back\VoyageOrganiseBundle\Entity\Theme $theme3 = null)
+    public function setTag3(\Back\HotelTunisieBundle\Entity\Tag $tag3 = null)
     {
-        $this->theme3 = $theme3;
+        $this->tag3 = $tag3;
 
         return $this;
     }
 
     /**
-     * Get theme3
+     * Get tag3
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\HotelTunisieBundle\Entity\Tag 
      */
-    public function getTheme3()
+    public function getTag3()
     {
-        return $this->theme3;
+        return $this->tag3;
     }
 
     /**
@@ -291,26 +291,26 @@ class BlockMetro
     }
 
     /**
-     * Set theme4
+     * Set tag4
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme4
+     * @param \Back\HotelTunisieBundle\Entity\Tag $tag4
      * @return BlockMetro
      */
-    public function setTheme4(\Back\VoyageOrganiseBundle\Entity\Theme $theme4 = null)
+    public function setTag4(\Back\HotelTunisieBundle\Entity\Tag $tag4 = null)
     {
-        $this->theme4 = $theme4;
+        $this->tag4 = $tag4;
 
         return $this;
     }
 
     /**
-     * Get theme4
+     * Get tag4
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\HotelTunisieBundle\Entity\Tag 
      */
-    public function getTheme4()
+    public function getTag4()
     {
-        return $this->theme4;
+        return $this->tag4;
     }
 
     /**
@@ -337,26 +337,26 @@ class BlockMetro
     }
 
     /**
-     * Set theme5
+     * Set tag5
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme5
+     * @param \Back\HotelTunisieBundle\Entity\Tag $tag5
      * @return BlockMetro
      */
-    public function setTheme5(\Back\VoyageOrganiseBundle\Entity\Theme $theme5 = null)
+    public function setTag5(\Back\HotelTunisieBundle\Entity\Tag $tag5 = null)
     {
-        $this->theme5 = $theme5;
+        $this->tag5 = $tag5;
 
         return $this;
     }
 
     /**
-     * Get theme5
+     * Get tag5
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\HotelTunisieBundle\Entity\Tag 
      */
-    public function getTheme5()
+    public function getTag5()
     {
-        return $this->theme5;
+        return $this->tag5;
     }
 
     /**
@@ -383,26 +383,26 @@ class BlockMetro
     }
 
     /**
-     * Set theme6
+     * Set tag6
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme6
+     * @param \Back\HotelTunisieBundle\Entity\Tag $tag6
      * @return BlockMetro
      */
-    public function setTheme6(\Back\VoyageOrganiseBundle\Entity\Theme $theme6 = null)
+    public function setTag6(\Back\HotelTunisieBundle\Entity\Tag $tag6 = null)
     {
-        $this->theme6 = $theme6;
+        $this->tag6 = $tag6;
 
         return $this;
     }
 
     /**
-     * Get theme6
+     * Get tag6
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\HotelTunisieBundle\Entity\Tag 
      */
-    public function getTheme6()
+    public function getTag6()
     {
-        return $this->theme6;
+        return $this->tag6;
     }
 
     /**
@@ -429,26 +429,26 @@ class BlockMetro
     }
 
     /**
-     * Set theme7
+     * Set tag7
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme7
+     * @param \Back\HotelTunisieBundle\Entity\Tag $tag7
      * @return BlockMetro
      */
-    public function setTheme7(\Back\VoyageOrganiseBundle\Entity\Theme $theme7 = null)
+    public function setTag7(\Back\HotelTunisieBundle\Entity\Tag $tag7 = null)
     {
-        $this->theme7 = $theme7;
+        $this->tag7 = $tag7;
 
         return $this;
     }
 
     /**
-     * Get theme7
+     * Get tag7
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\HotelTunisieBundle\Entity\Tag 
      */
-    public function getTheme7()
+    public function getTag7()
     {
-        return $this->theme7;
+        return $this->tag7;
     }
 
     /**
@@ -475,26 +475,26 @@ class BlockMetro
     }
 
     /**
-     * Set theme8
+     * Set tag8
      *
-     * @param \Back\VoyageOrganiseBundle\Entity\Theme $theme8
+     * @param \Back\HotelTunisieBundle\Entity\Tag $tag8
      * @return BlockMetro
      */
-    public function setTheme8(\Back\VoyageOrganiseBundle\Entity\Theme $theme8 = null)
+    public function setTag8(\Back\HotelTunisieBundle\Entity\Tag $tag8 = null)
     {
-        $this->theme8 = $theme8;
+        $this->tag8 = $tag8;
 
         return $this;
     }
 
     /**
-     * Get theme8
+     * Get tag8
      *
-     * @return \Back\VoyageOrganiseBundle\Entity\Theme 
+     * @return \Back\HotelTunisieBundle\Entity\Tag 
      */
-    public function getTheme8()
+    public function getTag8()
     {
-        return $this->theme8;
+        return $this->tag8;
     }
 
     /**

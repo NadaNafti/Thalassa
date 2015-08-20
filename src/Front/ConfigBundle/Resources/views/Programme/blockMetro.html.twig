@@ -1,0 +1,101 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Block Metro{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Libelle",form.libelle,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Theme 1",form.theme1,true) }}
+                        {{ formulaire.input("col-md-4","Photo 1 (290 x 209)",form.photo1.file,true) }}
+                        {% if blockMetro.photo1.assetPath is defined %}
+                            <div class="col-md-4">
+                                <img src="{{ asset(blockMetro.photo1.assetPath) }}" style="width: 50px;height: 50px">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Theme 2",form.theme2,true) }}
+                        {{ formulaire.input("col-md-4","Photo 2 (290 x 209)",form.photo2.file,true) }}
+                        {% if blockMetro.photo1.assetPath is defined %}
+                            <div class="col-md-4">
+                                <img src="{{ asset(blockMetro.photo2.assetPath) }}" style="width: 50px;height: 50px">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Theme 3",form.theme3,true) }}
+                        {{ formulaire.input("col-md-4","Photo 3 (590 x 209)",form.photo3.file,true) }}
+                        {% if blockMetro.photo1.assetPath is defined %}
+                            <div class="col-md-4">
+                                <img src="{{ asset(blockMetro.photo3.assetPath) }}" style="width: 50px;height: 50px">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Theme 4",form.theme4,true) }}
+                        {{ formulaire.input("col-md-4","Photo 4 (290 x 209)",form.photo4.file,true) }}
+                        {% if blockMetro.photo1.assetPath is defined %}
+                            <div class="col-md-4">
+                                <img src="{{ asset(blockMetro.photo4.assetPath) }}" style="width: 50px;height: 50px">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Theme 5",form.theme5,true) }}
+                        {{ formulaire.input("col-md-4","Photo 5 (290 x 209)",form.photo5.file,true) }}
+                        {% if blockMetro.photo1.assetPath is defined %}
+                            <div class="col-md-4">
+                                <img src="{{ asset(blockMetro.photo5.assetPath) }}" style="width: 50px;height: 50px">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Theme 6",form.theme6,true) }}
+                        {{ formulaire.input("col-md-4","Photo 6 (590 x 209)",form.photo6.file,true) }}
+                        {% if blockMetro.photo1.assetPath is defined %}
+                            <div class="col-md-4">
+                                <img src="{{ asset(blockMetro.photo6.assetPath) }}" style="width: 50px;height: 50px">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Theme 7",form.theme7,true) }}
+                        {{ formulaire.input("col-md-4","Photo 7 (290 x 209)",form.photo7.file,true) }}
+                        {% if blockMetro.photo1.assetPath is defined %}
+                            <div class="col-md-4">
+                                <img src="{{ asset(blockMetro.photo7.assetPath) }}" style="width: 50px;height: 50px">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Theme 8",form.theme8,true) }}
+                        {{ formulaire.input("col-md-4","Photo 8 (290 x 209)",form.photo8.file,true) }}
+                        {% if blockMetro.photo1.assetPath is defined %}
+                            <div class="col-md-4">
+                                <img src="{{ asset(blockMetro.photo8.assetPath) }}" style="width: 50px;height: 50px">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="no-display">
+                        {% for i in 1..8 %}
+                            {{ formulaire.input("col-md-3","Theme 8",form['photo'~i].updateAt,true) }}
+                        {% endfor %}
+                    </div>
+                    {{ formulaire.submit("Enregistrer") }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
