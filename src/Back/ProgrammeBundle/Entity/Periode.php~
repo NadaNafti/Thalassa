@@ -384,4 +384,109 @@
         {
             return $this->supplements;
         }
+    
+    /**
+     * Set prixAdulteAchat
+     *
+     * @param string $prixAdulteAchat
+     * @return Periode
+     */
+    public function setPrixAdulteAchat($prixAdulteAchat)
+    {
+        $this->prixAdulteAchat = $prixAdulteAchat;
+
+        return $this;
     }
+
+    /**
+     * Get prixAdulteAchat
+     *
+     * @return string 
+     */
+    public function getPrixAdulteAchat()
+    {
+        return $this->prixAdulteAchat;
+    }
+
+    /**
+     * Set prixEnfantAchat
+     *
+     * @param string $prixEnfantAchat
+     * @return Periode
+     */
+    public function setPrixEnfantAchat($prixEnfantAchat)
+    {
+        $this->prixEnfantAchat = $prixEnfantAchat;
+
+        return $this;
+    }
+
+    /**
+     * Get prixEnfantAchat
+     *
+     * @return string 
+     */
+    public function getPrixEnfantAchat()
+    {
+        return $this->prixEnfantAchat;
+    }
+
+    /**
+     * Set prixAdulteVente
+     *
+     * @param string $prixAdulteVente
+     * @return Periode
+     */
+    public function setPrixAdulteVente($prixAdulteVente)
+    {
+        $this->prixAdulteVente = $prixAdulteVente;
+
+        return $this;
+    }
+
+    /**
+     * Get prixAdulteVente
+     *
+     * @return string 
+     */
+    public function getPrixAdulteVente()
+    {
+        return $this->prixAdulteVente;
+    }
+
+    /**
+     * Set prixEnfantVente
+     *
+     * @param string $prixEnfantVente
+     * @return Periode
+     */
+    public function setPrixEnfantVente($prixEnfantVente)
+    {
+        $this->prixEnfantVente = $prixEnfantVente;
+
+        return $this;
+    }
+
+    /**
+     * Get prixEnfantVente
+     *
+     * @return string 
+     */
+    public function getPrixEnfantVente()
+    {
+        return $this->prixEnfantVente;
+    }
+
+    /**
+     * Add supplements
+     *
+     * @param \Back\ProgrammeBundle\Entity\Ligne $supplements
+     * @return Periode
+     */
+    public function addSupplement(\Back\ProgrammeBundle\Entity\Ligne $supplements)
+    {
+        $this->supplements[] = $supplements;
+
+        return $this;
+    }
+}

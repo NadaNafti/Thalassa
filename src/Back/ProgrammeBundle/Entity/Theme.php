@@ -30,6 +30,11 @@ class Theme
     private $libelle;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Programme", mappedBy="themes")
+     **/
+    private $programmes;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -67,4 +72,44 @@ class Theme
 	return $this->libelle;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->programmes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add programmes
+     *
+     * @param \Back\ProgrammeBundle\Entity\Programme $programmes
+     * @return Theme
+     */
+    public function addProgramme(\Back\ProgrammeBundle\Entity\Programme $programmes)
+    {
+        $this->programmes[] = $programmes;
+
+        return $this;
+    }
+
+    /**
+     * Remove programmes
+     *
+     * @param \Back\ProgrammeBundle\Entity\Programme $programmes
+     */
+    public function removeProgramme(\Back\ProgrammeBundle\Entity\Programme $programmes)
+    {
+        $this->programmes->removeElement($programmes);
+    }
+
+    /**
+     * Get programmes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProgrammes()
+    {
+        return $this->programmes;
+    }
 }

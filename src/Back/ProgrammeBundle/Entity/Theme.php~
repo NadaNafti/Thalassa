@@ -30,6 +30,11 @@ class Theme
     private $libelle;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Programme", mappedBy="themes")
+     **/
+    private $programmes;
+
+    /**
      * Get id
      *
      * @return integer 
