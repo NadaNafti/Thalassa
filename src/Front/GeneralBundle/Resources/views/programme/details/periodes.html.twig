@@ -1,0 +1,27 @@
+<li id="periodes">
+    <ul class="detail-item">
+        {% for periode in programme.periodes(TRUE) %}
+            <li class="clearfix" style="    padding: 20px 160px 25px 50px;">
+                <div class="br2" style="min-height: 145px;    min-height: 55px;">
+                    <h3>{{ periode }} <small> Du {{ periode.depart|date('d/m/Y') }} au {{ periode.retour|date('d/m/Y') }}</small></h3>
+                    <ul class="checklist1">
+                        <li><strong>Prix Adulte</strong> : {{ periode.prixAdulteVente }} DT</li>
+                        <li><strong>Prix Enfant</strong> : {{ periode.prixEnfantVente }} DT</li>
+                        {% if periode.supplements|length >0 %}
+                            <li><strong>Suppléments</strong> :
+                                <ul class="checklist1">
+                                    {% for supplement in periode.supplements %}
+                                        <li><strong>{{ supplement }}</strong> : Prix Adulte :  {{ supplement.adulteVente }} DT, Prix Enfant :  {{ supplement.enfantVente }} DT {% if supplement.obligatoire %}(Obligatoire){% else %}(Optionel){% endif %}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="detail-meta">
+                    <a href="" class="btn">Réservation</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</li>

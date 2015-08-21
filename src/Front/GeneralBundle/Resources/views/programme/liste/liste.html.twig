@@ -1,0 +1,47 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Liste des programmes & activités{% endblock %}
+{% block body %}
+    <div id="page_title">
+        <div class="container clearfix">
+            <div class="page-name">{{ block('title') }}</div>
+            <div class="breadcrumb clearfix">
+                <a href="{{ path('accueil') }}">Accueil</a>
+                <a href="{{ path('front_programme_accueil') }}">Hôtels en Tunisie</a>
+                <span class="current-page">{{ block('title') }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="banner-intern">
+        <img src="{{ asset('front-assets/images/banner-2.png') }}" style="width:100%">
+    </div>
+    <div id="content_wrapper">
+        <div class="container">
+            <div class="row clearfix pv-30 mt-20">
+                {% include 'FrontGeneralBundle:programme/liste:filtre.html.twig' %}
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    {% include 'FrontGeneralBundle:programme/liste:sort.html.twig' %}
+                    <div class="row items-container">
+                        {% for programme in programmes %}
+                            {% include 'FrontGeneralBundle:programme/liste:article.html.twig' %}
+                        {% endfor %}
+                    </div>
+                    <div class="clear"></div>
+                    <nav class="paging pull-right">
+                        {{ knp_pagination_render(programmes) }}
+                    </nav>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block jquery %}
+    <script>
+        $(document).ready(function () {
+            $('.showChambre').on('click', function () {
+                var table = $(this).parent().parent().parent().find('.table');
+                table.toggle();
+            })
+        })
+    </script>
+{% endblock %}

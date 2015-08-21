@@ -1,0 +1,18 @@
+<li id="details-tab1"  class="active">
+    <h1>{{ programme }} </h1>
+    {#{% if programme.periodes(true)|length >0 %}#}
+        {#<h4>Les périodes : </h4>#}
+        {#<ul class="check-in-out">#}
+            {#{% for periode in programme.periodes(true) %}#}
+                {#<li style="width: inherit;">#}
+                    {#<i class="fa-clock-o"></i> <strong>{{ periode|title }}</strong> :  Du <strong>{{ periode.depart|date('d/m/Y') }}</strong> au <strong>{{ periode.retour|date('d/m/Y') }}</strong>#}
+                {#</li>#}
+            {#{% endfor %}#}
+        {#</ul>#}
+    {#{% endif %}#}
+    {% for description in programme.descriptions if description.visible==true and not description.lateral %}
+        <div class="clear mb-20"></div>
+        <h4>{{ description.libelle|title }} </h4>
+        {{ description.texte|raw }}  
+    {% endfor %}
+</li>

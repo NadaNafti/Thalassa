@@ -7,9 +7,9 @@
             <div class="travel-search">
                 <div class="travel-search-inner">
                     <ul class="tabs searchTab">
-                        <li><a href="#hotelsSearch" class="active"><span class="hotel mi"></span>Hôtels en tunisie</a>
-                        </li>
-                        <li><a href="#voyageSearch"><span class="car mi"></span>Voyages organisés</a></li>
+                        <li><a href="#hotelsSearch" class="active"><span class="hotel mi"></span>Hôtels en tunisie</a></li>
+                        <li><a href="#voyageSearch"><span class="flight mi"></span>Voyages organisés</a></li>
+                        <li><a href="#programmeSearch"><span class="vacation mi"></span>Programmes & Activités</a></li>
                     </ul>
 
                     <ul class="tabs-content">
@@ -98,6 +98,31 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-4 col-md-3">
+                                    <div class="form-group datepicker-wrapper">
+                                        <label for="hotel-check-out">Mot clès</label>
+                                        <input type="text" class="form-control" id="MotCles" name="motcles">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                    <div class="clear"></div>
+                                    <button type="submit" class="btn btn-primary btn-block">Recherche</button>
+                                </div>
+                            </form>
+                        </li>
+                        <li id="programmeSearch">
+                            <form role="form" class="row" method="post" action="{{ path('front_programme_accueil') }}">
+                                <div class="col-xs-12 col-sm-3 col-md-4">
+                                    <div class="form-group">
+                                        <label for="hotelLocation">Themes</label>
+                                        <select class="form-control mySelectBoxClass" name="ville" id="Theme">
+                                            <option value="all">Tous les themes</option>
+                                            {% for theme in themesP %}
+                                                <option value="{{ theme.id }}">{{ theme }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-4">
                                     <div class="form-group datepicker-wrapper">
                                         <label for="hotel-check-out">Mot clès</label>
                                         <input type="text" class="form-control" id="MotCles" name="motcles">

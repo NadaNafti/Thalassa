@@ -89,7 +89,7 @@ class VoyageOrganiseController extends Controller
         }
         $voyages = $em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->filtre($themes, $destinations, $pays, $name);
         $paginator = $this->get('knp_paginator');
-        $voyages = $paginator->paginate($voyages, $page, 20);
+        $voyages = $paginator->paginate($voyages, $page, 9);
         return $this->render('FrontGeneralBundle:voyageorganise/liste:liste.html.twig', array(
                     'voyages' => $voyages,
                     'destinations' => $listeDestinations,

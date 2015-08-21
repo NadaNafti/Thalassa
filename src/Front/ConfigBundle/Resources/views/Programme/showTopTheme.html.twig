@@ -22,13 +22,9 @@
                                 {% else %}
                                     <img src="https://placeholdit.imgix.net/~text?txtsize=10&txt=Not%20image%20available&w=70&h=70" style="width: 70px;height: 70px" alt=""/>
                                 {% endif %}
-                                <a href="#">{{ programme }}</a>
+                                <a href="{{ path('front_programme_details',{'slug':programme.slug}) }}">{{ programme }}</a>
                                 <div class="minimal-price"><span>A partir de</span>
                                     <strong>{{ programme.prix }} DT</strong></div>
-                                {#<div class="minimal-meta">#}
-                                    {#<span class="rating-static rating-30"></span>#}
-                                    {#<span class="minimal-location">Spain</span>#}
-                                {#</div>#}
                             </li>
                         {% endfor %}
                     </ul>
