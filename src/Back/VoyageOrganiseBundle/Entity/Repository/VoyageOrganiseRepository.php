@@ -10,8 +10,6 @@ class VoyageOrganiseRepository extends EntityRepository
     public function filtre($themes='all',$destination='all',$pays='all',$name='all',$orderBy='v.libelle',$direction='asc')
     {
 	$query = $this->createQueryBuilder('v');
-	$query->join('v.pays', 'p');
-	$query->join('v.themes', 't');
 	$query->where($query->expr()->isNotNull('v.id'));
 	if ($destination != 'all')
 	{
@@ -23,6 +21,7 @@ class VoyageOrganiseRepository extends EntityRepository
 	}
 	if ($themes != 'all')
 	{
+		$query->join('v.themes', 't');
 	    $orX = $query->expr()->orX();
 	    $themes = explode(',', $themes);
 	    foreach ($themes as $theme)
@@ -31,6 +30,7 @@ class VoyageOrganiseRepository extends EntityRepository
 	}
 	if ($pays != 'all')
 	{
+		$query->join('v.pays', 'p');
 	    $orX = $query->expr()->orX();
 	    $pays = explode(',', $pays);
 	    foreach ($pays as $pay)
