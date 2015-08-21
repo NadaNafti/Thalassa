@@ -10,7 +10,7 @@
      *
      * @ORM\Table(name="ost_pr_programmes")
      * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
-     * @ORM\Entity()
+     * @ORM\Entity(repositoryClass="Back\ProgrammeBundle\Entity\Repository\ProgrammeRepository")
      */
     class Programme
     {
