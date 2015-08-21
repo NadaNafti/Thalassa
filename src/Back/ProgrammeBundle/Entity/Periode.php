@@ -487,7 +487,7 @@
 
         public function isValide()
         {
-            if($this->debutInscription()->format('Y-m-d') <= date('Y-m-d') && $this->finInscription()->format('Y-m-d') >= date('Y-m-d') &&  $this->nombreInscription() < $this->max())
+            if($this->debutInscription->format('Y-m-d') <= date('Y-m-d') && $this->finInscription->format('Y-m-d') >= date('Y-m-d') &&  $this->nombreInscription < $this->max)
                 return TRUE;
             return FALSE;
         }
