@@ -68,7 +68,7 @@
         {
             $em = $this->getDoctrine()->getManager();
             $programme = $em->getRepository('BackProgrammeBundle:Programme')->findOneBy(array('slug' => $slug));
-            return $this->render('FrontGeneralBundle:Programme/details:details.html.twig',array(
+            return $this->render('FrontGeneralBundle:programme/details:details.html.twig',array(
                 'programme' => $programme,
             ));
         }
