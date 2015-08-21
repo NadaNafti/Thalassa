@@ -393,8 +393,16 @@
          *
          * @return \Doctrine\Common\Collections\Collection
          */
-        public function getPeriodes()
+        public function getPeriodes($valide = FALSE)
         {
+            if($valide){
+                $array = array();
+                foreach($this->periodes as $periode){
+                    if($periode->isValide())
+                        $array[] = $periode;
+                }
+                return $array;
+            }
             return $this->periodes;
         }
 
@@ -417,5 +425,12 @@
                     $album[] = $image;
             }
             return $album;
+        }
+
+        public function isValide()
+        {
+            if(count($this->getPeriodes(TRUE)) != 0)
+                return TRUE;
+            return FALSE;
         }
     }
