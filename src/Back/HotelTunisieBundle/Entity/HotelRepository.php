@@ -76,9 +76,7 @@ class HotelRepository extends EntityRepository
     public function filtreFrontOfficePlus($categorie = 'all', $chaine = 'all', $ville = 'all', $tag = 'all', $name = null)
     {
         $query = $this->createQueryBuilder('h');
-        $query->join('h.ville', "v");
         $query->join('v.pays', "p");
-        $query->join('h.tags', "t");
         $query->where('p.code=:code')->setParameter('code', 'tn');
         $query->andWhere('h.etat=:etat')->setParameter('etat', TRUE);
         if ($categorie != 'all')
@@ -91,6 +89,7 @@ class HotelRepository extends EntityRepository
         }
         if ($tag != 'all')
         {
+            $query->join('h.tags', "t");
             $orX = $query->expr()->orX();
             $tags = explode(',', $tag);
             foreach ($tags as $ta)
@@ -99,6 +98,7 @@ class HotelRepository extends EntityRepository
         }
         if ($ville != 'all')
         {
+            $query->join('h.ville', "v");
             $orX = $query->expr()->orX();
             $villes = explode(',', $ville);
             foreach ($villes as $vil)

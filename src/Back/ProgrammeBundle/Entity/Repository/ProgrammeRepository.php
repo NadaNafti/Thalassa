@@ -8,9 +8,9 @@
         public function filtre($themes = 'all',$name = NULL)
         {
             $query = $this->createQueryBuilder('p');
-            $query->join('p.themes',"t");
             $query->where($query->expr()->isNotNull('p.id'));
             if($themes != 'all'){
+                $query->join('p.themes',"t");
                 $orX = $query->expr()->orX();
                 $themess = explode(',',$themes);
                 foreach($themess as $th)
