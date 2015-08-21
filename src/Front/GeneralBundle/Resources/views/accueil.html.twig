@@ -7,7 +7,8 @@
             <div class="travel-search">
                 <div class="travel-search-inner">
                     <ul class="tabs searchTab">
-                        <li><a href="#hotelsSearch" class="active"><span class="hotel mi"></span>Hôtels en tunisie</a></li>
+                        <li><a href="#hotelsSearch" class="active"><span class="hotel mi"></span>Hôtels en tunisie</a>
+                        </li>
                         <li><a href="#voyageSearch"><span class="flight mi"></span>Voyages organisés</a></li>
                         <li><a href="#programmeSearch"><span class="vacation mi"></span>Programmes & Activités</a></li>
                     </ul>
@@ -114,7 +115,7 @@
                                 <div class="col-xs-12 col-sm-3 col-md-4">
                                     <div class="form-group">
                                         <label for="hotelLocation">Themes</label>
-                                        <select class="form-control mySelectBoxClass" name="ville" id="Theme">
+                                        <select class="form-control" name="ville" id="Theme">
                                             <option value="all">Tous les themes</option>
                                             {% for theme in themesP %}
                                                 <option value="{{ theme.id }}">{{ theme }}</option>
@@ -128,6 +129,7 @@
                                         <input type="text" class="form-control" id="MotCles" name="motcles">
                                     </div>
                                 </div>
+                                <div class="col-xs-12 col-sm-4 col-md-2"></div>
                                 <div class="col-xs-12 col-sm-4 col-md-2">
                                     <div class="clear"></div>
                                     <button type="submit" class="btn btn-primary btn-block">Recherche</button>
@@ -137,7 +139,6 @@
                     </ul>
                 </div>
             </div>
-
             {{ render(controller('FrontConfigBundle:HotelTunisie:showTopPromo')) }}
             {{ render(controller('FrontConfigBundle:Programme:showTopTheme')) }}
             {{ render(controller('FrontConfigBundle:VoyageOrganise:showTopDestination')) }}
