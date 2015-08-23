@@ -87,9 +87,14 @@
         protected $reglements;
 
         /**
-         * @ORM\OneToMany(targetEntity="ReservationPersonne", mappedBy="reservation")
+         * @ORM\OneToMany(targetEntity="ReservationPersonne", mappedBy="reservationA")
          */
-        protected $occupants;
+        protected $adultes;
+
+        /**
+         * @ORM\OneToMany(targetEntity="ReservationPersonne", mappedBy="reservationE")
+         */
+        protected $enfants;
 
         /**
          * @var array
@@ -517,37 +522,6 @@
             return $this->reglements;
         }
 
-        /**
-         * Add occupants
-         *
-         * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $occupants
-         * @return Reservation
-         */
-        public function addOccupant(\Back\ProgrammeBundle\Entity\ReservationPersonne $occupants)
-        {
-            $this->occupants[] = $occupants;
-            return $this;
-        }
-
-        /**
-         * Remove occupants
-         *
-         * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $occupants
-         */
-        public function removeOccupant(\Back\ProgrammeBundle\Entity\ReservationPersonne $occupants)
-        {
-            $this->occupants->removeElement($occupants);
-        }
-
-        /**
-         * Get occupants
-         *
-         * @return \Doctrine\Common\Collections\Collection
-         */
-        public function getOccupants()
-        {
-            return $this->occupants;
-        }
 
         public function totalAchat()
         {
@@ -569,4 +543,70 @@
         {
             return number_format($this->totalVente() + $this->timbre - $this->remise,3,'.','');
         }
+    
+    /**
+     * Add adultes
+     *
+     * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $adultes
+     * @return Reservation
+     */
+    public function addAdulte(\Back\ProgrammeBundle\Entity\ReservationPersonne $adultes)
+    {
+        $this->adultes[] = $adultes;
+
+        return $this;
     }
+
+    /**
+     * Remove adultes
+     *
+     * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $adultes
+     */
+    public function removeAdulte(\Back\ProgrammeBundle\Entity\ReservationPersonne $adultes)
+    {
+        $this->adultes->removeElement($adultes);
+    }
+
+    /**
+     * Get adultes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAdultes()
+    {
+        return $this->adultes;
+    }
+
+    /**
+     * Add enfants
+     *
+     * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $enfants
+     * @return Reservation
+     */
+    public function addEnfant(\Back\ProgrammeBundle\Entity\ReservationPersonne $enfants)
+    {
+        $this->enfants[] = $enfants;
+
+        return $this;
+    }
+
+    /**
+     * Remove enfants
+     *
+     * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $enfants
+     */
+    public function removeEnfant(\Back\ProgrammeBundle\Entity\ReservationPersonne $enfants)
+    {
+        $this->enfants->removeElement($enfants);
+    }
+
+    /**
+     * Get enfants
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEnfants()
+    {
+        return $this->enfants;
+    }
+}
