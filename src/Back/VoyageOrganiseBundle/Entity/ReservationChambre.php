@@ -19,17 +19,20 @@
          * @ORM\GeneratedValue(strategy="AUTO")
          */
         private $id;
+
         /**
          * @ORM\ManyToOne(targetEntity="Reservation", inversedBy="chambres",cascade={"persist"})
          * @ORM\JoinColumn(onDelete="CASCADE")
          */
         private $reservation;
+
         /**
          * @var integer
          *
          * @ORM\Column(name="type", type="integer")
          */
         private $type;
+
         /**
          * @ORM\OneToMany(targetEntity="ReservationPersonne", mappedBy="chambre")
          */
