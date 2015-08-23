@@ -21,13 +21,6 @@
         private $id;
 
         /**
-         * @var boolean
-         *
-         * @ORM\Column(name="enfant", type="boolean" , nullable=true)
-         */
-        private $enfant;
-
-        /**
          * @var string
          *
          * @ORM\Column(name="nom_prenom", type="string", length=255)
@@ -49,10 +42,16 @@
         private $passport;
 
         /**
-         * @ORM\ManyToOne(targetEntity="Reservation", inversedBy="occupants",cascade={"persist"})
+         * @ORM\ManyToOne(targetEntity="Reservation", inversedBy="adultes",cascade={"persist"})
          * @ORM\JoinColumn(onDelete="CASCADE")
          */
-        private $reservation;
+        private $reservationA;
+
+        /**
+         * @ORM\ManyToOne(targetEntity="Reservation", inversedBy="enfants",cascade={"persist"})
+         * @ORM\JoinColumn(onDelete="CASCADE")
+         */
+        private $reservationE;
 
         /**
          * @ORM\OneToMany(targetEntity="ReservationLigne", mappedBy="personne")
@@ -155,27 +154,7 @@
             $this->lignes = new \Doctrine\Common\Collections\ArrayCollection();
         }
 
-        /**
-         * Set enfant
-         *
-         * @param boolean $enfant
-         * @return ReservationPersonne
-         */
-        public function setEnfant($enfant)
-        {
-            $this->enfant = $enfant;
-            return $this;
-        }
 
-        /**
-         * Get enfant
-         *
-         * @return boolean
-         */
-        public function getEnfant()
-        {
-            return $this->enfant;
-        }
 
         /**
          * Get lignes
@@ -216,5 +195,27 @@
         public function __toString()
         {
             return $this->nomPrenom;
+        }
+
+        /**
+         * Add lignes
+         *
+         * @param \Back\ProgrammeBundle\Entity\ReservationLigne $lignes
+         * @return ReservationPersonne
+         */
+        public function addLigne(\Back\ProgrammeBundle\Entity\ReservationLigne $lignes)
+        {
+            $this->lignes[] = $lignes;
+            return $this;
+        }
+
+        /**
+         * Remove lignes
+         *
+         * @param \Back\ProgrammeBundle\Entity\ReservationLigne $lignes
+         */
+        public function removeLigne(\Back\ProgrammeBundle\Entity\ReservationLigne $lignes)
+        {
+            $this->lignes->removeElement($lignes);
         }
     }
