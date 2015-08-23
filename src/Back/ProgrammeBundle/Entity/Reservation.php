@@ -142,6 +142,8 @@
         public function __construct()
         {
             $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->adultes = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->enfants = new \Doctrine\Common\Collections\ArrayCollection();
             $this->frontOffice = FALSE;
             $this->remise = 0;
             $this->timbre = 0;
@@ -526,16 +528,20 @@
         public function totalAchat()
         {
             $total=0;
-            foreach($this->occupants as $occupant)
-                $total+=$occupant->getTotalLigneAchat();
+            foreach($this->adultes as $adulte)
+                $total+=$adulte->getTotalLigneAchat();
+            foreach($this->enfants as $enfant)
+                $total+=$enfant->getTotalLigneAchat();
             return $total;
         }
 
         public function totalVente()
         {
             $total=0;
-            foreach($this->occupants as $occupant)
-                $total+=$occupant->getTotalLigneVente();
+            foreach($this->adultes as $adulte)
+                $total+=$adulte->getTotalLigneVente();
+            foreach($this->enfants as $enfant)
+                $total+=$enfant->getTotalLigneVente();
             return $total;
         }
 
