@@ -93,8 +93,6 @@
                 $this->em->persist($reservationLigne);
                 foreach($periode->getSupplements() as $supp){
                     if($supp->getObligatoire() || isset($data['supplement' . $supp->getId()])){
-                        if($i == 1)
-                            $supplements[] = $supp->getId();
                         $reservationLigne = new ReservationLigne();
                         $reservationLigne->setPersonne($reservationPersonne)
                             ->setLibelle($supp->getLibelle())

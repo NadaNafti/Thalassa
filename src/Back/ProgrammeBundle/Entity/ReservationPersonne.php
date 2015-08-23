@@ -154,8 +154,6 @@
             $this->lignes = new \Doctrine\Common\Collections\ArrayCollection();
         }
 
-
-
         /**
          * Get lignes
          *
@@ -218,50 +216,48 @@
         {
             $this->lignes->removeElement($lignes);
         }
-    
-    /**
-     * Set reservationA
-     *
-     * @param \Back\ProgrammeBundle\Entity\Reservation $reservationA
-     * @return ReservationPersonne
-     */
-    public function setReservationA(\Back\ProgrammeBundle\Entity\Reservation $reservationA = null)
-    {
-        $this->reservationA = $reservationA;
 
-        return $this;
+        /**
+         * Set reservationA
+         *
+         * @param \Back\ProgrammeBundle\Entity\Reservation $reservationA
+         * @return ReservationPersonne
+         */
+        public function setReservationA(\Back\ProgrammeBundle\Entity\Reservation $reservationA = NULL)
+        {
+            $this->reservationA = $reservationA;
+            return $this;
+        }
+
+        /**
+         * Get reservationA
+         *
+         * @return \Back\ProgrammeBundle\Entity\Reservation
+         */
+        public function getReservationA()
+        {
+            return $this->reservationA;
+        }
+
+        /**
+         * Set reservationE
+         *
+         * @param \Back\ProgrammeBundle\Entity\Reservation $reservationE
+         * @return ReservationPersonne
+         */
+        public function setReservationE(\Back\ProgrammeBundle\Entity\Reservation $reservationE = NULL)
+        {
+            $this->reservationE = $reservationE;
+            return $this;
+        }
+
+        /**
+         * Get reservationE
+         *
+         * @return \Back\ProgrammeBundle\Entity\Reservation
+         */
+        public function getReservationE()
+        {
+            return $this->reservationE;
+        }
     }
-
-    /**
-     * Get reservationA
-     *
-     * @return \Back\ProgrammeBundle\Entity\Reservation 
-     */
-    public function getReservationA()
-    {
-        return $this->reservationA;
-    }
-
-    /**
-     * Set reservationE
-     *
-     * @param \Back\ProgrammeBundle\Entity\Reservation $reservationE
-     * @return ReservationPersonne
-     */
-    public function setReservationE(\Back\ProgrammeBundle\Entity\Reservation $reservationE = null)
-    {
-        $this->reservationE = $reservationE;
-
-        return $this;
-    }
-
-    /**
-     * Get reservationE
-     *
-     * @return \Back\ProgrammeBundle\Entity\Reservation 
-     */
-    public function getReservationE()
-    {
-        return $this->reservationE;
-    }
-}
