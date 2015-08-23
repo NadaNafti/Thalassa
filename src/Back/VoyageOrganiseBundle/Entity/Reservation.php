@@ -52,7 +52,7 @@
          */
         private $commentaire;
         /**
-         * @ORM\ManyToOne(targetEntity="VoyageOrganise", inversedBy="reservationsVo")
+         * @ORM\ManyToOne(targetEntity="VoyageOrganise")
          * @Assert\NotBlank()
          */
         private $voyage;

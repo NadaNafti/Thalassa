@@ -1,0 +1,157 @@
+<?php
+    namespace Back\ProgrammeBundle\Entity;
+
+    use Doctrine\ORM\Mapping as ORM;
+    use Gedmo\Mapping\Annotation as Gedmo;
+    use Symfony\Component\Validator\Constraints as Assert;
+
+    /**
+     * Reservation
+     *
+     * @ORM\Table(name="ost_pr_reservations")
+     * @ORM\Entity()
+     */
+    class Reservation
+    {
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="id", type="integer")
+         * @ORM\Id
+         * @ORM\GeneratedValue(strategy="AUTO")
+         */
+        private $id;
+
+        /**
+         * @var string
+         * @ORM\Column(name="code", type="string",nullable=true)
+         */
+        private $code;
+
+        /**
+         * @var integer
+         *
+         * 1:Enregistrée
+         * 2:Validée
+         * 9:Annulée
+         * @ORM\Column(name="etat", type="integer")
+         */
+        private $etat;
+
+        /**
+         * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\User")
+         */
+        protected $responsable;
+
+        /**
+         * @var boolean
+         *
+         * @ORM\Column(name="frontOffice", type="boolean", nullable=true)
+         */
+        private $frontOffice;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="commentaire", type="text",nullable=true)
+         */
+        private $commentaire;
+
+        /**
+         * @ORM\ManyToOne(targetEntity="Programme")
+         * @Assert\NotBlank()
+         */
+        private $programme;
+
+        /**
+         * @ORM\ManyToOne(targetEntity="Periode")
+         */
+        private $periode;
+
+        /**
+         * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client")
+         * @Assert\NotBlank()
+         */
+        protected $client;
+
+        /**
+         * @var \DateTime
+         *
+         * @ORM\Column(name="validated", type="datetime" ,nullable=true)
+         */
+        private $validated;
+
+        /**
+         * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationPR")
+         */
+        protected $reglements;
+
+        /**
+         * @ORM\OneToMany(targetEntity="ReservationPersonne", mappedBy="reservation")
+         */
+        protected $occupants;
+
+        /**
+         * @var array
+         *
+         * @ORM\Column(name="supplements", type="array")
+         */
+        private $supplements;
+
+        /**
+         * @Gedmo\Timestampable(on="create")
+         * @ORM\Column( type="datetime")
+         */
+        private $created;
+
+        /**
+         * @Gedmo\Timestampable(on="update")
+         * @ORM\Column( type="datetime")
+         */
+        private $updated;
+
+        /**
+         * @var array
+         *
+         * @ORM\Column(name="coordonnees", type="array")
+         */
+        private $coordonnees;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="timbre", type="decimal", precision=2, scale=1,nullable=true)
+         */
+        private $timbre;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="remise", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $remise;
+
+        /**
+         * Constructor
+         */
+        public function __construct()
+        {
+            $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->frontOffice = FALSE;
+            $this->remise = 0;
+            $this->timbre = 0;
+            $this->etat = 1;
+            $this->coordonnees = array();
+            $this->supplements = array();
+        }
+
+        /**
+         * Get id
+         *
+         * @return integer
+         */
+        public function getId()
+        {
+            return $this->id;
+        }
+    }

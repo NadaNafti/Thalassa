@@ -1,4 +1,16 @@
 services:
-#    back_programme.example:
-#        class: Back\ProgrammeBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    namesPR:
+        class: Back\ProgrammeBundle\Twig\Extension\NamesExtension
+        tags:
+            - { name: twig.extension }
+        arguments:
+            em: "@doctrine.orm.entity_manager"
+            
+    reservationPR:
+        class: Back\ProgrammeBundle\Services\ReservationService
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @session
+            - @service_container
+            - @mailer
+            - @templating

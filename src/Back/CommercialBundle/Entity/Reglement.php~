@@ -38,6 +38,11 @@ class Reglement
     protected $reservationVO;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Back\ProgrammeBundle\Entity\Reservation", inversedBy="reglements")
+     */
+    protected $reservationPR;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="date")
@@ -153,4 +158,27 @@ class Reglement
 	return $this->reservation;
     }
 
+
+    /**
+     * Set reservationVO
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Reservation $reservationVO
+     * @return Reglement
+     */
+    public function setReservationVO(\Back\VoyageOrganiseBundle\Entity\Reservation $reservationVO = null)
+    {
+        $this->reservationVO = $reservationVO;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationVO
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\Reservation 
+     */
+    public function getReservationVO()
+    {
+        return $this->reservationVO;
+    }
 }
