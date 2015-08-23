@@ -6,7 +6,8 @@ services:
           - @session
           - @doctrine.orm.entity_manager
       tags:
-        - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }     
+        - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
     reservationlistnerVO:
       class: Front\GeneralBundle\Listener\ReservationListnerVO
       arguments:
@@ -14,4 +15,13 @@ services:
           - @session
           - @doctrine.orm.entity_manager
       tags:
-        - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }     
+        - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    reservationlistnerPR:
+      class: Front\GeneralBundle\Listener\ReservationListnerPR
+      arguments:
+          - @service_container
+          - @session
+          - @doctrine.orm.entity_manager
+      tags:
+        - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

@@ -3,15 +3,10 @@
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Back\UserBundle\Form\ClientType;
-    use Back\VoyageOrganiseBundle\Form\ReservationType;
-    use Back\VoyageOrganiseBundle\Entity\Periode;
-    use Back\VoyageOrganiseBundle\Entity\Pack;
+    use Back\ProgrammeBundle\Entity\Periode;
     use Doctrine\ORM\EntityRepository;
     use Symfony\Component\HttpFoundation\JsonResponse;
-    use Back\VoyageOrganiseBundle\Entity\Reservation;
-    use Back\VoyageOrganiseBundle\Entity\ReservationChambre;
-    use Back\VoyageOrganiseBundle\Entity\ReservationLigne;
-    use Back\VoyageOrganiseBundle\Entity\ReservationPersonne;
+    use Back\ProgrammeBundle\Entity\Reservation;
 
     class ProgrammeController extends Controller
     {
@@ -71,5 +66,38 @@
             return $this->render('FrontGeneralBundle:programme/details:details.html.twig',array(
                 'programme' => $programme,
             ));
+        }
+
+        public function reservationAction($slug,Periode $periode)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $session = $this->getRequest()->getSession();
+            $request = $this->getRequest();
+            $user = $this->get('security.context')->getToken()->getUser();
+            if($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') && !is_null($user->getClient()))
+                $client = $user->getClient();
+            else
+                $client = $this->container->get('users')->getPassager();
+            $form = $this->createFormBuilder()
+                ->add("client",new ClientType(),array('data' => $client))
+                ->getForm();
+            if($request->isMethod('POST')){
+                $form->submit($request);
+                $data = $request->request->all();
+                return $this->redirect($this->generateUrl('front_programme_thankyou',array(
+                    'slug'        => $slug,
+                    'reservation' => $this->container->get('reservationPR')->saveReservation($periode,$client,$data,'frontoffice'),
+                )));
+            }
+            return $this->render('FrontGeneralBundle:programme:reservation.html.twig',array(
+                'form'       => $form->createView(),
+                'csrf_token' => $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate'),
+                'periode'    => $periode,
+            ));
+        }
+
+        public function successAction(Reservation $reservation)
+        {
+            return $this->render('FrontGeneralBundle:programme:success.html.twig',array('reservation' => $reservation));
         }
     }

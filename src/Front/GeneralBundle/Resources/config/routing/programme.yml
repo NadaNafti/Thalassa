@@ -11,15 +11,16 @@ front_programme_liste:
 front_programme_details:
     path:     /{slug}
     defaults: { _controller: FrontGeneralBundle:Programme:details }
-    
-#front_programme_thankyou:
-#    path:     /{slug}/success/{reservation}
-#    defaults: { _controller: FrontGeneralBundle:Programme:success }
-#    requirements:
-#        reservation:  \d+
-#
-#front_programme_reservation:
-#    path:     /{slug}/{pack}
-#    defaults: { _controller: FrontGeneralBundle:Programme:reservation }
-#    requirements:
-#        periode:  \d+
+
+front_programme_reservation:
+    path:     /{slug}/reservation/{periode}
+    defaults: { _controller: FrontGeneralBundle:Programme:reservation }
+    requirements:
+        periode:  \d+
+
+front_programme_thankyou:
+    path:     /{slug}/success/{reservation}
+    defaults: { _controller: FrontGeneralBundle:Programme:success }
+    requirements:
+        reservation:  \d+
+

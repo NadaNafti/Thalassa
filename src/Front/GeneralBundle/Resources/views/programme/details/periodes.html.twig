@@ -19,7 +19,7 @@
                     </ul>
                 </div>
                 <div class="detail-meta">
-                    <a href="" class="btn">Réservation</a>
+                    <a href="{{ path('front_programme_reservation',{'slug':programme.slug,'periode':periode.id}) }}" class="btn">Réservation</a>
                 </div>
             </li>
         {% endfor %}

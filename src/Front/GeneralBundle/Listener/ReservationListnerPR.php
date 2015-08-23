@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
-class ReservationListnerVO
+class ReservationListnerPR
 {
 
     public $session;
@@ -27,17 +27,11 @@ class ReservationListnerVO
     {
         $route = $event->getRequest()->attributes->get('_route');
         $request = $event->getRequest();
-        if ($route == 'front_voyageorganise_details' )
+        if ($route == 'front_programme_details' )
         {
-            $voyage = $this->em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->findOneBy(array('slug' => $request->get('slug')));
-            if (!$voyage)
-                $event->setResponse(new RedirectResponse($this->router->generate('front_voyageorganise_liste')));
-        }
-        if ($route == 'front_voyageorganise_reservation')
-        {
-            $pack = $this->em->getRepository('BackVoyageOrganiseBundle:Pack')->find($request->get('pack'));
-            if (!$pack || !$pack->getPeriode()->isValide())
-                $event->setResponse(new RedirectResponse($this->router->generate('front_voyageorganise_details', array('slug' => $request->get('slug')))));
+            $programme = $this->em->getRepository('BackProgrammeBundle:Programme')->findOneBy(array('slug' => $request->get('slug')));
+            if (!$programme)
+                $event->setResponse(new RedirectResponse($this->router->generate('front_programme_liste')));
         }
     }
 
