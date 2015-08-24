@@ -10,6 +10,7 @@
         </div>
         <div class="navbar-tools">
             <ul class="nav navbar-right">
+		{{ render(controller('BackProgrammeBundle:Reservation:notification')) }}
 		{{ render(controller('BackVoyageOrganiseBundle:Reservation:notification')) }}
 		{{ render(controller('BackHotelTunisieBundle:Reservation:notification')) }}
 		<li class="dropdown current-user">
