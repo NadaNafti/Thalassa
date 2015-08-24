@@ -1,0 +1,371 @@
+{% extends "BackHotelTunisieBundle:Reservation:liste.html.twig" %}
+{% block title %}Consulter la réservation{% endblock %}
+{% block description %}{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">Consultation</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        {% if reservation.responsable is not null and app.user.id == reservation.responsable.id %}
+            <div class="col-md-12 center">
+                {% if  reservation.etat  == 1 %}
+                    <a href="#remise" data-toggle="modal" class="btn btn-light-grey center"> Editer la Remise </a>
+                {% endif %}
+                {% if reservation.etat in [1,9] %}
+                    <a href="{{ path('back_programmes_reservation_validation',{'id':reservation.id}) }}" class="btn btn-success center"> Valider </a>
+                {% endif %}
+                {% if reservation.etat in [1,2] %}
+                    <a href="#annuler" data-toggle="modal" class="btn btn-warning center"> Annuler </a>
+                {% endif %}
+                {% if reservation.etat in [1] %}
+                    <a href="{{ path('back_programmes_reservation_supprimer',{'id':reservation.id}) }}"
+                       class="btn btn-danger center"
+                       onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette reservation ?'))"> Supprimer </a>
+                {% endif %}
+                <hr>
+            </div>
+        {% else %}
+            <div class="col-md-12 center">
+                <a href="{{ path('back_programmes_reservation_priseencharge',{'id':reservation.id}) }}"
+                   class="btn btn-success center"
+                   onclick="javascript:return(confirm('Etes-vous certain de vouloir prendre en charge cette reservation ?'))"> Prendre en charge cette réservation </a>
+            </div>
+        {% endif %}
+        <div class="col-md-3">
+            <h4 class="center">Réservation</h4>
+            <hr>
+            <p><strong>Programme : </strong> {{ reservation.programme }}</p>
+            <p>
+                <strong>La période : </strong> Du {{ reservation.periode.depart|date('d/m/Y') }} au {{ reservation.periode.retour|date('d/m/Y') }}
+            </p>
+        </div>
+        <div class="col-md-6">
+            <h5 class="center">N° : {{ reservation.id }}</h5>
+
+            <h3 class="center">{{ reservation.programme }}</h3>
+            <h4 class="center">Etat : {{ reservation.showEtat }}</h4>
+            <h5 class="center">{% if reservation.responsable is not null %} Prise en charge par : {{ reservation.responsable }} {% endif %}</h5>
+        </div>
+        <div class="col-md-3">
+            <h4 class="center">Client</h4>
+            <hr>
+            <p><strong> Nom & prénom : </strong> {{ reservation.coordonnees.0 }}</p>
+            <p>- {{ reservation.coordonnees.1 }}</p>
+            <p>- {{ reservation.coordonnees.2 }}</p>
+            {% if reservation.coordonnees.3 is defined %}
+                <p>- {{ reservation.coordonnees.3 }}</p>
+            {% endif %}
+            <h4 class="center">Adultes </h4>
+            <hr>
+            {% for adulte in reservation.adultes %}
+                <p> - {{ adulte }}</p>
+            {% endfor %}
+            {% if reservation.enfants|length>0 %}
+                <h4 class="center">Enfants </h4>
+                <hr>
+                {% for enfant in reservation.enfants %}
+                    <p> - {{ enfant }} ({{ enfant.age }} ans)</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        {% if reservation.commentaire is not null and reservation.commentaire is not empty %}
+            <div class="col-md-12">
+                <hr>
+                <p><h4>Commentaire :</h4> {{ reservation.commentaire }}</p>
+            </div>
+        {% endif %}
+        {% if reservation.reglements|length>0 %}
+            <div class="col-md-12">
+                <hr>
+                <h2 class="center">Piéces de réglement</h2>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Piece</th>
+                                <th>Mode Reglement</th>
+                                <th>Date du réglement</th>
+                                <th style="text-align: right">Montant piéce</th>
+                                <th style="text-align: right">Montant payé</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for reglement in reservation.reglements %}
+                                <tr>
+                                    <td>{{ reglement.piece.numero }}</td>
+                                    <td>
+                                        {{ reglement.piece.showModeReglement }}
+                                        {% if reglement.piece.modeReglement == 'C' %}
+                                            / Echéance {{ reglement.piece.dateEcheance|date('d/m/Y') }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ reglement.dateCreation|date('d/m/Y') }}</td>
+                                    <td style="text-align: right">{{ reglement.piece.montantOrigine }} DT</td>
+                                    <td style="color:red;text-align: right">{{ reglement.montant }} DT</td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="4" style="text-align: right">Montant régle</td>
+                                <td style="color:red;text-align: right">{{ reservation.montantRegle }} DT</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="col-md-12">
+            <hr>
+            <h2>Lignes : </h2>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table">
+                        <tbody>
+                        {% for personne in reservation.adultes %}
+                            <tr style="background-color: cornsilk;">
+                                <td></td>
+                                <td class="center">Adulte {{ loop.index }}</td>
+                                <td class="center">{{ personne.nomPrenom }}</td>
+                                <td class="center">{{ personne.passport }}</td>
+                                <td class="center"></td>
+                                <td colspan="3"></td>
+                                <td>
+                                    {% if reservation.etat in [1] and reservation.responsable is not null and app.user.id == reservation.responsable.id %}
+                                        <a href="#addNewLine" data-toggle="modal" class="addNewLine" data-id="{{ personne.id }}"><span class="clip-plus-circle"></span></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% for ligne in personne.lignes %}
+                                <tr>
+                                    <td colspan="5"></td>
+                                    <td class="center">{{ ligne.libelle }}</td>
+                                    <td style="text-align: right;">{{ ligne.achat }}</td>
+                                    <td style="text-align: right;">{{ ligne.vente }}</td>
+                                    <td>
+                                        {% if reservation.etat in [1] and reservation.responsable is not null and app.user.id == reservation.responsable.id %}
+                                            <a href="#editLine" data-toggle="modal" class="editLine" data-id="{{ ligne.id }}" data-achat="{{ ligne.achat }}" data-libelle="{{ ligne.libelle }}" data-vente="{{ ligne.vente }}"><span class="clip-pencil-3"></span></a>
+                                            <a href="{{ path('back_programmes_reservation_ligne_supprimer',{'id':ligne.id}) }}" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette ligne ?'))"><span class="clip-remove"></span></a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for personne in reservation.enfants %}
+                            <tr style="background-color: cornsilk;">
+                                <td></td>
+                                <td class="center">Enfant {{ loop.index }}</td>
+                                <td class="center">{{ personne.nomPrenom }}</td>
+                                <td class="center">{{ personne.passport }}</td>
+                                <td class="center">{{ personne.age }} ans</td>
+                                <td colspan="3"></td>
+                                <td>
+                                    {% if reservation.etat in [1] and reservation.responsable is not null and app.user.id == reservation.responsable.id %}
+                                        <a href="#addNewLine" data-toggle="modal" class="addNewLine" data-id="{{ personne.id }}"><span class="clip-plus-circle"></span></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% for ligne in personne.lignes %}
+                                <tr>
+                                    <td colspan="5"></td>
+                                    <td class="center">{{ ligne.libelle }}</td>
+                                    <td style="text-align: right;">{{ ligne.achat }}</td>
+                                    <td style="text-align: right;">{{ ligne.vente }}</td>
+                                    <td>
+                                        {% if reservation.etat in [1] and reservation.responsable is not null and app.user.id == reservation.responsable.id %}
+                                            <a href="#editLine" data-toggle="modal" class="editLine" data-id="{{ ligne.id }}" data-achat="{{ ligne.achat }}" data-libelle="{{ ligne.libelle }}" data-vente="{{ ligne.vente }}"><span class="clip-pencil-3"></span></a>
+                                            <a href="{{ path('back_programmes_reservation_ligne_supprimer',{'id':ligne.id}) }}" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette ligne ?'))"><span class="clip-remove"></span></a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                        <tr style="background-color: azure;">
+                            <td colspan="5"></td>
+                            <td style="text-align: right;">Somme</td>
+                            <td style="text-align: right;">{{ reservation.totalAchat }}</td>
+                            <td style="text-align: right;">{{ reservation.totalVente }}</td>
+                            <td></td>
+                        </tr>
+                        {% if reservation.remise!=0 %}
+                            <tr style="background-color: azure;">
+                                <td colspan="6"></td>
+                                <td style="text-align: right;">Remise</td>
+                                <td style="text-align: right;">{{ reservation.remise }}</td>
+                                <td></td>
+                            </tr>
+                        {% endif %}
+                        {% if reservation.timbre!=0 %}
+                            <tr style="background-color: azure;">
+                                <td colspan="6"></td>
+                                <td style="text-align: right;">Timbre</td>
+                                <td style="text-align: right;">{{ reservation.timbre }}</td>
+                                <td></td>
+                            </tr>
+                        {% endif %}
+                        <tr style="background-color: azure;">
+                            <td colspan="6"></td>
+                            <td style="text-align: right;">Total</td>
+                            <td style="text-align: right;">{{ reservation.total }}</td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="annuler" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Annuler la réservation</h4>
+        </div>
+        <form action="{{ path('back_programmes_reservation_annuler',{'id':reservation.id}) }}" method="post">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Commentaire</h4>
+
+                        <p>
+                            <textarea name="commentaire" class="form-control"></textarea>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-light-grey">
+                    Fermer
+                </button>
+                <button type="submit" class="btn btn-blue">
+                    Valider l'annulation
+                </button>
+            </div>
+        </form>
+    </div>
+    <div id="addNewLine" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Ajouter une nouvelle ligne</h4>
+        </div>
+        {{ form_start(form) }}
+        <div class="modal-body">
+            <div class="row">
+                {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
+                {{ formulaire.input("col-md-4","Achat",form.achat,true) }}
+                {{ formulaire.input("col-md-4","Vente",form.vente,true) }}
+            </div>
+        </div>
+        <div class="no-display">
+            {{ formulaire.input("col-md-4","code",form.code,true) }}
+            {{ formulaire.input("col-md-4","personne",form.personne,true) }}
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-light-grey">
+                Fermer
+            </button>
+            <button type="submit" class="btn btn-blue">
+                Valider l'ajout
+            </button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    <div id="editLine" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Modifier une ligne</h4>
+        </div>
+        <form action="{{ path('back_programmes_reservation_ligne_edit',{'id':reservation.id}) }}" method="post">
+            <input type="hidden" name="editLineId" id="editLineId" required>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Libellé<span class="symbol required"></span></label>
+                            <input type="text" id="editLineLibelle" required name="editLineLibelle" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Achat<span class="symbol required"></span></label>
+                            <input type="number" id="editLineAchat" required name="editLineAchat" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Vente<span class="symbol required"></span></label>
+                            <input type="number" id="editLineVente" required name="editLineVente" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-light-grey">
+                    Fermer
+                </button>
+                <button type="submit" class="btn btn-blue">
+                    Valider la modification
+                </button>
+            </div>
+        </form>
+    </div>
+    <div id="remise" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Editer la Remise</h4>
+        </div>
+        <form action="{{ path('back_programmes_reservation_remise',{'id':reservation.id}) }}" method="post">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Remise :
+                            <input type="text" class="form-control" name="remise" value="{{ reservation.remise }}"/>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-light-grey">Fermer</button>
+                <button type="submit" class="btn btn-blue">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("back-assets/plugins/bootstrap-modal/js/bootstrap-modal.js") }}"></script>
+    <script src="{{ asset("back-assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js") }}"></script>
+    <script src="{{ asset("back-assets/js/ui-modals.js") }}"></script>
+    <script>
+        jQuery(document).ready(function () {
+            UIModals.init();
+        });
+        $(document).ready(function () {
+            $('.addNewLine').on('click', function () {
+                var id = $(this).data('id');
+                $('#back_programmebundle_reservationligne_personne').val(id);
+            })
+            $('.editLine').on('click', function () {
+                var id = $(this).data('id');
+                var achat = $(this).data('achat');
+                var vente = $(this).data('vente');
+                var libelle = $(this).data('libelle');
+                $('#editLineId').val(id);
+                $('#editLineAchat').val(achat);
+                $('#editLineVente').val(vente);
+                $('#editLineLibelle').val(libelle);
+            })
+        })
+    </script>
+{% endblock %}

@@ -1,4 +1,4 @@
-{% extends "BackVoyageOrganiseBundle:voyageOrganise:liste.html.twig" %}
+{% extends "BackProgrammeBundle:programme:liste.html.twig" %}
 {% block title %}Gestion des Périodes{% endblock %}
 {% block topbody %}
     {{ parent() }}
@@ -75,8 +75,8 @@
                                 <td>{{ periode.nombreInscriptionInitiale }}</td>
                                 <td>{{ periode.nombreInscription }}</td>
                                 <td>{{ periode.prixAdulteAchat }}</td>
-                                <td>{{ periode.prixEnfantAchat }}</td>
                                 <td>{{ periode.prixAdulteVente }}</td>
+                                <td>{{ periode.prixEnfantAchat }}</td>
                                 <td>{{ periode.prixEnfantVente }}</td>
                                 <td>{{ periode.depart|date('d/m/Y') }} - {{ periode.retour|date('d/m/Y') }}</td>
                                 <td>{{ periode.min }} - {{ periode.max }}</td>

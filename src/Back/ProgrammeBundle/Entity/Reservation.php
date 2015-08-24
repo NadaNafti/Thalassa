@@ -9,7 +9,7 @@
      * Reservation
      *
      * @ORM\Table(name="ost_pr_reservations")
-     * @ORM\Entity()
+     * @ORM\Entity(repositoryClass="Back\ProgrammeBundle\Entity\Repository\ReservationRepository")
      */
     class Reservation
     {
@@ -524,95 +524,120 @@
             return $this->reglements;
         }
 
-
         public function totalAchat()
         {
-            $total=0;
+            $total = 0;
             foreach($this->adultes as $adulte)
-                $total+=$adulte->getTotalLigneAchat();
+                $total += $adulte->getTotalLigneAchat();
             foreach($this->enfants as $enfant)
-                $total+=$enfant->getTotalLigneAchat();
+                $total += $enfant->getTotalLigneAchat();
             return $total;
         }
 
         public function totalVente()
         {
-            $total=0;
+            $total = 0;
             foreach($this->adultes as $adulte)
-                $total+=$adulte->getTotalLigneVente();
+                $total += $adulte->getTotalLigneVente();
             foreach($this->enfants as $enfant)
-                $total+=$enfant->getTotalLigneVente();
+                $total += $enfant->getTotalLigneVente();
             return $total;
         }
 
-        public function total()
+        public function getTotal()
         {
             return number_format($this->totalVente() + $this->timbre - $this->remise,3,'.','');
         }
-    
-    /**
-     * Add adultes
-     *
-     * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $adultes
-     * @return Reservation
-     */
-    public function addAdulte(\Back\ProgrammeBundle\Entity\ReservationPersonne $adultes)
-    {
-        $this->adultes[] = $adultes;
 
-        return $this;
+        /**
+         * Add adultes
+         *
+         * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $adultes
+         * @return Reservation
+         */
+        public function addAdulte(\Back\ProgrammeBundle\Entity\ReservationPersonne $adultes)
+        {
+            $this->adultes[] = $adultes;
+            return $this;
+        }
+
+        /**
+         * Remove adultes
+         *
+         * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $adultes
+         */
+        public function removeAdulte(\Back\ProgrammeBundle\Entity\ReservationPersonne $adultes)
+        {
+            $this->adultes->removeElement($adultes);
+        }
+
+        /**
+         * Get adultes
+         *
+         * @return \Doctrine\Common\Collections\Collection
+         */
+        public function getAdultes()
+        {
+            return $this->adultes;
+        }
+
+        /**
+         * Add enfants
+         *
+         * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $enfants
+         * @return Reservation
+         */
+        public function addEnfant(\Back\ProgrammeBundle\Entity\ReservationPersonne $enfants)
+        {
+            $this->enfants[] = $enfants;
+            return $this;
+        }
+
+        /**
+         * Remove enfants
+         *
+         * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $enfants
+         */
+        public function removeEnfant(\Back\ProgrammeBundle\Entity\ReservationPersonne $enfants)
+        {
+            $this->enfants->removeElement($enfants);
+        }
+
+        /**
+         * Get enfants
+         *
+         * @return \Doctrine\Common\Collections\Collection
+         */
+        public function getEnfants()
+        {
+            return $this->enfants;
+        }
+
+        public function showEtat()
+        {
+            if($this->etat == 1)
+                return 'Enregistrée';
+            if($this->etat == 2)
+                return 'Validée';
+            if($this->etat == 9)
+                return 'Annulée';
+        }
+
+        public function getMontantRegle()
+        {
+            $montant = 0;
+            foreach($this->reglements as $reglement)
+                $montant += $reglement->getMontant();
+            return number_format($montant,3,'.','');
+        }
+
+        public function getMontantRestant()
+        {
+            return number_format($this->getTotal() - $this->getMontantRegle(),3,'.','');
+        }
+
+        public function getNombreOccupants()
+        {
+            return count($this->adultes) + count($this->enfants);
+        }
     }
-
-    /**
-     * Remove adultes
-     *
-     * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $adultes
-     */
-    public function removeAdulte(\Back\ProgrammeBundle\Entity\ReservationPersonne $adultes)
-    {
-        $this->adultes->removeElement($adultes);
-    }
-
-    /**
-     * Get adultes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAdultes()
-    {
-        return $this->adultes;
-    }
-
-    /**
-     * Add enfants
-     *
-     * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $enfants
-     * @return Reservation
-     */
-    public function addEnfant(\Back\ProgrammeBundle\Entity\ReservationPersonne $enfants)
-    {
-        $this->enfants[] = $enfants;
-
-        return $this;
-    }
-
-    /**
-     * Remove enfants
-     *
-     * @param \Back\ProgrammeBundle\Entity\ReservationPersonne $enfants
-     */
-    public function removeEnfant(\Back\ProgrammeBundle\Entity\ReservationPersonne $enfants)
-    {
-        $this->enfants->removeElement($enfants);
-    }
-
-    /**
-     * Get enfants
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEnfants()
-    {
-        return $this->enfants;
-    }
-}

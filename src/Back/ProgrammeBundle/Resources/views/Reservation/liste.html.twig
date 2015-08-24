@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel-body tab-content">
-                <form action="{{ path('back_voyages_organises_reservation') }}" method="post" role="form" id="form">
+                <form action="{{ path('back_programmes_reservation') }}" method="post" role="form" id="form">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -59,14 +59,18 @@
                     <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
                         <thead>
                         <tr>
-                            <th class="center {% if reservations.isSorted('r.id') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, '#', 'r.id') }}</th>
-                            <th class="center {% if reservations.isSorted('r.created') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Date', 'r.created') }}</th>
-                            <th class="center {% if reservations.isSorted('v.libelle') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Voyage organisé', 'v.libelle') }}</th>
-                            <th class="center {% if reservations.isSorted('c.nomPrenom') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Client', 'c.nomPrenom') }}</th>
-                            <th class="center {% if reservations.isSorted('r.etat') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Etat', 'r.etat') }}</th>
-                            <th class="center">Chambres</th>
-                            <th class="center">Total</th>
-                            <th class="center">Action</th>
+                            <th rowspan="2" class="center {% if reservations.isSorted('r.id') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, '#', 'r.id') }}</th>
+                            <th rowspan="2" class="center {% if reservations.isSorted('r.created') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Date', 'r.created') }}</th>
+                            <th rowspan="2" class="center {% if reservations.isSorted('v.libelle') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Programme', 'p.libelle') }}</th>
+                            <th rowspan="2" class="center {% if reservations.isSorted('c.nomPrenom') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Client', 'c.nomPrenom') }}</th>
+                            <th rowspan="2" class="center {% if reservations.isSorted('r.etat') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Etat', 'r.etat') }}</th>
+                            <th colspan="2" class="center">Occupants</th>
+                            <th rowspan="2" class="center">Total</th>
+                            <th rowspan="2" class="center">Action</th>
+                        </tr>
+                        <tr>
+                            <td class="center" >Adultes</td>
+                            <td class="center" >Enfants</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -84,9 +88,8 @@
                                         </span>
                                 </td>
                                 <td>
-                                    {{ reservation.voyage|title }}<br>
-                                    Du <span style="color:red">{{ reservation.pack.periode.depart|date('d/m/Y') }}</span> au <span style="color:red">{{ reservation.pack.periode.retour|date('d/m/Y') }}</span>
-                                    ({{ reservation.pack }})
+                                    {{ reservation.programme|title }}<br>
+                                    Du <span style="color:red">{{ reservation.periode.depart|date('d/m/Y') }}</span> au <span style="color:red">{{ reservation.periode.retour|date('d/m/Y') }}</span>
                                 </td>
                                 <td>
                                     {{ reservation.coordonnees.0 }}
@@ -98,17 +101,14 @@
                                     {{ reservation.showEtat }}<br>
                                     <span style="color:red">{{ reservation.responsable }}</span>
                                 </td>
-                                <td>
-                                    {% for chambre in reservation.chambres %}
-                                        - Chambre {{ chambre }}<br>
-                                    {% endfor %}
-                                </td>
+                                <td>{{ reservation.adultes|length }}</td>
+                                <td>{{ reservation.enfants|length }}</td>
                                 <td>{{ reservation.total }} DT</td>
                                 <td class="TableAction">
                                     {% if reservation.responsable is null %}
-                                        {{ macros.boutton(path('back_voyages_organises_reservation_priseencharge',{'id':reservation.id}),'fa-user','btn-dark-grey','Prendre en charge cette reservation') }}
+                                        {{ macros.boutton(path('back_programmes_reservation_priseencharge',{'id':reservation.id}),'fa-user','btn-dark-grey','Prendre en charge cette reservation') }}
                                     {% else %}
-                                        {{ macros.boutton(path('back_voyages_organises_reservation_consulter',{'id':reservation.id}),'fa-eye','btn-dark-grey','Consulter la réservation') }}
+                                        {{ macros.boutton(path('back_programmes_reservation_consulter',{'id':reservation.id}),'fa-eye','btn-dark-grey','Consulter la réservation') }}
                                     {% endif %}
                                 </td>
                             </tr>
