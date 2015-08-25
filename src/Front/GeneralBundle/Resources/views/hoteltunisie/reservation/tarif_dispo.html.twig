@@ -2,253 +2,265 @@
 {% block title %}Tarif & dispo{% endblock %}
 {% block body %}
     <div id="page_title">
-	<div class="container clearfix">
-	    <div class="page-name">{{ block('title') }}</div>
-	    <div class="breadcrumb clearfix">
-		<a href="{{ path('accueil') }}">Accueil</a>
-		<a href="{{ path('front_hoteltunisie_accueil') }}">Hôtels en Tunisie</a>
-		<a href="{{ path('front_hoteltunisie_list') }}">Liste</a>
-		<span class="current-page">{{ block('title') }}</span>
-	    </div>
-	</div>
+        <div class="container clearfix">
+            <div class="page-name">{{ block('title') }}</div>
+            <div class="breadcrumb clearfix">
+                <a href="{{ path('accueil') }}">Accueil</a>
+                <a href="{{ path('front_hoteltunisie_accueil') }}">Hôtels en Tunisie</a>
+                <a href="{{ path('front_hoteltunisie_list') }}">Liste</a>
+                <span class="current-page">{{ block('title') }}</span>
+            </div>
+        </div>
     </div><!-- end slider_wrapper -->
 
     <div id="content_wrapper">
         <div class="container">
             <div class="row clearfix pv-50">
                 <div class="col-xs-12 col-sm-8 col-md-8 xs-mb">
-		    <div class="white-bg payment-wrapper">
-			{% include ':Front:alert.html.twig' %}
-			<div class="person-information" >
-			    <h3 class="section-title">Information Personnelle <span class="step active">1</span></h3>
-			    {% if false %}
-				<div class="bb2 mb-30"></div>
-				<ul class="tabs">
-				    <li><a href="#payment-tab1" class="active">Passager</a></li>
-				    <li><a href="#payment-tab2">Authentification</a></li>
-				</ul>
-				<ul id="payment-tab" class="tabs-content xss-mb" style="padding: 20px 0">
-				    <li id="payment-tab1"  class="active">
-					<form class="form-horizontal" role="form">
-					    <div class="clear"></div>
-					    <div class="form-group">
-						<label for="inputEmail3" class="col-xs-12 col-sm-4 col-md-4 control-label">Card Identification Number: <span class="text-danger">*</span></label>
-						<div class="col-xs-12 col-sm-6 col-md-5">
-						    <input type="email" class="form-control" id="inputEmail3" placeholder="Card Identification Number">
-						</div>
-						<div class="col-xs-12 col-sm-2 col-md-3">
-						    <span class="font12">What's this?</span>
-						</div>
-					    </div>
-					    <div class="form-group">
-						<label for="inputEmail3" class="col-xs-12 col-sm-4 col-md-4 control-label">Billing ZIP Code:: <span class="text-danger">*</span></label>
-						<div class="col-xs-12 col-sm-6 col-md-5">
-						    <input type="email" class="form-control" id="inputEmail3" placeholder="Billing ZIP Code">
-						</div>
-					    </div>
-					    <div class="form-group">
-						<label for="inputEmail3" class="col-xs-12 col-sm-4 col-md-4 control-label">Cardholder Name: <span class="text-danger">*</span></label>
-						<div class="col-xs-12 col-sm-6 col-md-5">
-						    <input type="email" class="form-control" id="inputEmail3" placeholder="Card Identification Number">
-						</div>
-						<div class="col-xs-12 col-sm-2 col-md-3">
-						    <span class="font12">(as it appears on the card)</span>
-						</div>
-					    </div>
-					    <div class="form-group">
-						<label for="inputEmail3" class="col-xs-12 col-sm-4 col-md-4 control-label">Coupon code: <span class="font12">(optional)</span></label>
-						<div class="col-xs-12 col-sm-6 col-md-5">
-						    <input type="email" class="form-control" id="inputEmail3" placeholder="If Your Have">
-						</div>
-					    </div>
-					</form>
-				    </li>
-				    <li id="payment-tab2">
-					<div class="notification-box notification-box-warning mt-10 mb-20">
-					    <p><strong>Important: </strong> You will be redirected to PayPal's website to securely complete your payment. </p>
-					    <a href="#" class="notification-close notification-close-warning"><i class="fa-times"></i></a>
-					</div>
-					<a href="#" class="btn btn-primary btn-large">Proceed To Paypal</a>
-				    </li>
-				</ul>
-				<div class="clear"></div>
-			    {% endif %}
-			    <hr>
-			    {{ form_start(form) }}
-			    <h4>Client :</h4>
-			    <div style="display: none">
-				{{ formulaire.input("col-md-2","",form.observation,false) }}
-				{{ formulaire.input("col-md-2","",form.client.responsable,false) }}
-			    </div>
-			    <div class="row">
-				{{ formulaire.input("col-md-4","Nom & prénom ",form.client.nomPrenom,true) }}
-				{{ formulaire.input("col-md-4","Tel 1",form.client.tel1,true) }}
-				{{ formulaire.input("col-md-4","Tel 2",form.client.tel2,true) }}
-			    </div>
-			    <div class="row">
-				{{ formulaire.input("col-md-12","Adresse",form.client.adresse,true) }}
-			    </div>
-			    <div style="display: none">
-				{{ formulaire.input("col-md-4","Matricule Fiscale",form.client.matriculeFiscale,true) }}
-				{{ formulaire.input("col-md-4","Registre Commercie",form.client.registreCommercie,true) }}
-				{{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,true) }}
-			    </div>
-			    <h3 class="section-title">Occupationts des chambres <span class="step active">2</span></h3>
-			    <hr>
-			    {% for chambre in chambres  %}
-				<h4>Chambre {{ loop.index }} <small>{{ getNameChambre(chambre.chambre) }}</small> :</h4>
-				<div class="row">
-				    {% for adulte in chambre.adultes %}
-					{{ formulaire.input("col-md-3","Adulte "~loop.index,form[adulte],true) }}
-				    {% endfor %}
-				    {% for enfant in chambre.enfants %}
-					{{ formulaire.input("col-md-3","Enfant "~loop.index,form[enfant],true) }}
-				    {% endfor %}
-				</div>
-			    {% endfor %}
-			    {% if hotel.options|length >0 %}
-				<h3 class="section-title">Options <span class="step active">3</span></h3><hr>
-				<div class="row">
-				    {% for option in hotel.options  %}
-					{{ formulaire.input("col-md-12",null,form['option_'~option.id],false) }}
-				    {% endfor %}
-				</div>
-			    {% endif %}
-			    <h3 class="section-title mt-40">Revoir et réserver votre séjour<span class="step active">4</span></h3>
-			    <div class="bb2 mb-20"></div>
-			    <div class="styled-checkbox mt-10">
-				<label>
-				    <input type="checkbox" name="optionsCheckbox" id="optionsCheckbox1" required value="option1">
-				    En choisissant de compléter cette réservation Je reconnais que je l'ai lu et accepté les  <a href="#" class="clblue">règles & restrictions</a> <a href="#" class="clblue">termes et conditions</a> , and <a href="#" class="clblue">politique de confidentialité</a>.
-				</label>
-			    </div>
-			    <hr>
-			    <div class="row">
-				<div class="col-md-8"></div>
-				<div class="col-md-4">
-				    <button class="btn btn-primary btn-block" type="submit">
-					Validation <i class="fa fa-arrow-circle-right"></i>
-				    </button>
-				</div>
-			    </div>
-			    {{ form_end(form) }}
-			</div>
-		    </div>
+                    <div class="white-bg payment-wrapper">
+                        {% include ':Front:alert.html.twig' %}
+                        <div class="person-information">
+                            <h3 class="section-title">Information Personnelle <span class="step active">1</span></h3>
+                            {% if false %}
+                                <div class="bb2 mb-30"></div>
+                                <ul class="tabs">
+                                    <li><a href="#payment-tab1" class="active">Passager</a></li>
+                                    <li><a href="#payment-tab2">Authentification</a></li>
+                                </ul>
+                                <ul id="payment-tab" class="tabs-content xss-mb" style="padding: 20px 0">
+                                    <li id="payment-tab1" class="active">
+                                        <form class="form-horizontal" role="form">
+                                            <div class="clear"></div>
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-xs-12 col-sm-4 col-md-4 control-label">Card Identification Number:
+                                                    <span class="text-danger">*</span></label>
+                                                <div class="col-xs-12 col-sm-6 col-md-5">
+                                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Card Identification Number">
+                                                </div>
+                                                <div class="col-xs-12 col-sm-2 col-md-3">
+                                                    <span class="font12">What's this?</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-xs-12 col-sm-4 col-md-4 control-label">Billing ZIP Code::
+                                                    <span class="text-danger">*</span></label>
+                                                <div class="col-xs-12 col-sm-6 col-md-5">
+                                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Billing ZIP Code">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-xs-12 col-sm-4 col-md-4 control-label">Cardholder Name:
+                                                    <span class="text-danger">*</span></label>
+                                                <div class="col-xs-12 col-sm-6 col-md-5">
+                                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Card Identification Number">
+                                                </div>
+                                                <div class="col-xs-12 col-sm-2 col-md-3">
+                                                    <span class="font12">(as it appears on the card)</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-xs-12 col-sm-4 col-md-4 control-label">Coupon code:
+                                                    <span class="font12">(optional)</span></label>
+                                                <div class="col-xs-12 col-sm-6 col-md-5">
+                                                    <input type="email" class="form-control" id="inputEmail3" placeholder="If Your Have">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </li>
+                                    <li id="payment-tab2">
+                                        <div class="notification-box notification-box-warning mt-10 mb-20">
+                                            <p>
+                                                <strong>Important: </strong> You will be redirected to PayPal's website to securely complete your payment.
+                                            </p>
+                                            <a href="#" class="notification-close notification-close-warning"><i class="fa-times"></i></a>
+                                        </div>
+                                        <a href="#" class="btn btn-primary btn-large">Proceed To Paypal</a>
+                                    </li>
+                                </ul>
+                                <div class="clear"></div>
+                            {% endif %}
+                            <hr>
+                            {{ form_start(form) }}
+                            <h4>Client :</h4>
+                            <div style="display: none">
+                                {{ formulaire.input("col-md-2","",form.observation,false) }}
+                                {{ formulaire.input("col-md-2","",form.client.responsable,false) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-4","Nom & prénom ",form.client.nomPrenom,true) }}
+                                {{ formulaire.input("col-md-4","Tel 1",form.client.tel1,true) }}
+                                {{ formulaire.input("col-md-4","Tel 2",form.client.tel2,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-12","Adresse",form.client.adresse,true) }}
+                            </div>
+                            <div style="display: none">
+                                {{ formulaire.input("col-md-4","Matricule Fiscale",form.client.matriculeFiscale,true) }}
+                                {{ formulaire.input("col-md-4","Registre Commercie",form.client.registreCommercie,true) }}
+                                {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,true) }}
+                            </div>
+                            <h3 class="section-title">Occupationts des chambres <span class="step active">2</span></h3>
+                            <hr>
+                            {% for chambre in chambres %}
+                                <h4>Chambre {{ loop.index }}
+                                    <small>{{ getNameChambre(chambre.chambre) }}</small>
+                                    :
+                                </h4>
+                                <div class="row">
+                                    {% for adulte in chambre.adultes %}
+                                        {{ formulaire.input("col-md-3","Adulte "~loop.index,form[adulte],true) }}
+                                    {% endfor %}
+                                    {% for enfant in chambre.enfants %}
+                                        {{ formulaire.input("col-md-3","Enfant "~loop.index,form[enfant],true) }}
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                            {% if hotel.options|length >0 %}
+                                <h3 class="section-title">Options <span class="step active">3</span></h3>
+                                <hr>
+                                <div class="row">
+                                    {% for option in hotel.options %}
+                                        {{ formulaire.input("col-md-12",null,form['option_'~option.id],false) }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <h3 class="section-title mt-40">Revoir et réserver votre séjour<span class="step active">4</span>
+                            </h3>
+                            <div class="bb2 mb-20"></div>
+                            <div class="styled-checkbox mt-10">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckbox" id="optionsCheckbox1" required value="option1"> En choisissant de compléter cette réservation Je reconnais que je l'ai lu et accepté les
+                                    <a href="#" class="clblue">règles & restrictions</a>
+                                    <a href="#" class="clblue">termes et conditions</a> , and
+                                    <a href="#" class="clblue">politique de confidentialité</a>. </label>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-8"></div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary btn-block" type="submit">
+                                        Validation <i class="fa fa-arrow-circle-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-4" >
-		    <div class="sidebar hotel-sidebar">
-			{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-			    <div class="sidebar-item mb-20">
-				<div class="lp-box">
-				    <i class="text-info fa-lock"></i>
-				    <h4>Authentification</h4>
-				    <form action="{{ path("fos_user_security_check") }}" method="post">
-					<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-					<input type="hidden" name="_target_path" value="{{ app.request.uri() }}" />
-					<div class="row">
-					    <div class="col-md-10">
-						<div class="form-group">
-						    <label for="first-name">Identifiant ou Email</label>
-						    <input type="text" id="username" name="_username"  required="required" class="form-control" />
-						</div>
-					    </div>
-					</div>
-					<div class="row">
-					    <div class="col-md-10">
-						<div class="form-group">
-						    <label for="first-name">Mots de passe</label>
-						    <input type="password" id="password" name="_password"  required="required" class="form-control" />
-						</div>
-					    </div>
-					</div>
-					<div class="row">
-					    <button type="submit" class="btn btn-primary" id="_submit" name="_submit"  style="float: right;">S'authentifier</button>
-					</div>
-				    </form>
-				</div>
-			    </div>
-			{% endif %}
-			<div class="sidebar-item mb-20">
-			    <div class="summary-payment">
-				<div class="summary-header mb-30">
-				    {% if hotel.photoPrincipal is not null %}
-					<img src="{{ asset(hotel.photoPrincipal.assetPath) }}" alt="" style="width: 75px;height: 65px" />
-				    {% else %}
-					<img src="https://placeholdit.imgix.net/~text?txtsize=10&txt=No%20image%20available&w=75&h=65" alt="" style="width: 75px;height: 65px" />
-				    {% endif %}
-				    <h3 class="no-mb">{{ hotel|title }}</h3>
-				    <span>{{ hotel.ville }}</span>
-				    {% if hotel.categorie.nombreEtoiles != 1 %}
-					<span class="rating-static rating-{{ hotel.categorie.nombreEtoiles*10 }}"></span>
-				    {% endif %}
-				</div>
-				<div class="bb2 mb-30"></div>
-				<table class="table table-bordered table-striped mb-30">
-				    <tr>
-					<td colspan=2><span class="text-bold">{{ nuitees }} Nuitées</span>: {{ dateDebut|date('d/m/Y') }} - {{ dateFin|date_modify("+1 day")|date('d/m/Y') }}</td>
-				    </tr>
-				    {% set total=0 %}
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="sidebar hotel-sidebar">
+                        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <div class="sidebar-item mb-20">
+                                <div class="lp-box">
+                                    <i class="text-info fa-lock"></i>
+                                    <h4>Authentification</h4>
+                                    <form action="{{ path("fos_user_security_check") }}" method="post">
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                                        <input type="hidden" name="_target_path" value="{{ app.request.uri() }}"/>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="form-group">
+                                                    <label for="first-name">Identifiant ou Email</label>
+                                                    <input type="text" id="username" name="_username" required="required" class="form-control"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="form-group">
+                                                    <label for="first-name">Mots de passe</label>
+                                                    <input type="password" id="password" name="_password" required="required" class="form-control"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <button type="submit" class="btn btn-primary" id="_submit" name="_submit" style="float: right;">S'authentifier</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="sidebar-item mb-20">
+                            <div class="summary-payment">
+                                <div class="summary-header mb-30">
+                                    {% if hotel.photoPrincipal is not null %}
+                                        <img src="{{ asset(hotel.photoPrincipal.assetPath) }}" alt="" style="width: 75px;height: 65px"/>
+                                    {% else %}
+                                        <img src="https://placeholdit.imgix.net/~text?txtsize=10&txt=No%20image%20available&w=75&h=65" alt="" style="width: 75px;height: 65px"/>
+                                    {% endif %}
+                                    <h3 class="no-mb">{{ hotel|title }}</h3>
+                                    <span>{{ hotel.ville }}</span>
+                                    {% if hotel.categorie.nombreEtoiles != 1 %}
+                                        <span class="rating-static rating-{{ hotel.categorie.nombreEtoiles*10 }}"></span>
+                                    {% endif %}
+                                </div>
+                                <div class="bb2 mb-30"></div>
+                                <table class="table table-bordered table-striped mb-30">
+                                    <tr>
+                                        <td colspan=2>
+                                            <span class="text-bold">{{ nuitees }} Nuitées</span>: {{ dateDebut|date('d/m/Y') }} - {{ dateFin|date_modify("+1 day")|date('d/m/Y') }}
+                                        </td>
+                                    </tr>
+                                    {% set total=0 %}
                                     {% for chambre in resultat.chambres %}
                                         {% set total=total + chambre.total %}
-					<tr>
-					    <td>
-						<span class="text-bold">{{ loop.index }} - {{ getNameChambre(chambre.details.chambre) }}</span>: en {{ getCodeArrangement(chambre.details.arrangement) }}<br/>
-						Nombre d'occupants
-						<button type="button" class="summary-collapse collapsed mt-5" data-toggle="collapse" data-target="#collapse1{{ loop.index }}"></button>
-						<div id="collapse1{{ loop.index }}" class="collapse">
-						    <div class="left font12 text-info">
-							Adulte
-							<br/>
-							Enfant
-						    </div>
-						    <div class="right font12 text-info">
-							{{ chambre.adultes|length }}
-							<br/>
-							{{ chambre.enfants|length }}
-						    </div><div class="clearfix"></div>	
-						</div>
-						<div class="clearfix"></div>	
+                                        <tr>
+                                            <td>
+                                                <span class="text-bold">{{ loop.index }} - {{ getNameChambre(chambre.details.chambre) }}</span>: en {{ getCodeArrangement(chambre.details.arrangement) }}
+                                                <br/> Nombre d'occupants
+                                                <button type="button" class="summary-collapse collapsed mt-5" data-toggle="collapse" data-target="#collapse1{{ loop.index }}"></button>
+                                                <div id="collapse1{{ loop.index }}" class="collapse">
+                                                    <div class="left font12 text-info">
+                                                        Adulte <br/> Enfant
+                                                    </div>
+                                                    <div class="right font12 text-info">
+                                                        {{ chambre.adultes|length }}
+                                                        <br/>
+                                                        {{ chambre.enfants|length }}
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="clearfix"></div>
 
-						{% if chambre.details.supp|length+chambre.details.vue|length >0 %}
-						    Suppléments
-						    <button type="button" class="summary-collapse collapsed mt-5" data-toggle="collapse" data-target="#collapse2{{ loop.index }}"></button>
-						    <div id="collapse2{{ loop.index }}" class="collapse">
-							<div class="left font12 text-warning">
-							    {% for supp in chambre.details.supp %}
-								- {{ getNameSupp(supp) }}<br>
-							    {% endfor %}
-							    {% for vue in chambre.details.vue %}
-								- {{ getNameVue(vue) }}<br>
-							    {% endfor %}
-							</div>
-							<div class="clearfix"></div>	
-						    </div>
-						    <div class="clearfix"></div>	
-						{% endif %}
-					    </td>
-					    <td class="center">
-						{% if resultat.surDemande %}
+                                                {% if chambre.details.supp|length+chambre.details.vue|length >0 %}
+                                                    Suppléments
+                                                    <button type="button" class="summary-collapse collapsed mt-5" data-toggle="collapse" data-target="#collapse2{{ loop.index }}"></button>
+                                                    <div id="collapse2{{ loop.index }}" class="collapse">
+                                                        <div class="left font12 text-warning">
+                                                            {% for supp in chambre.details.supp %}
+                                                                - {{ getNameSupp(supp) }}<br>
+                                                            {% endfor %}
+                                                            {% for vue in chambre.details.vue %}
+                                                                - {{ getNameVue(vue) }}<br>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                {% endif %}
+                                            </td>
+                                            <td class="center">
+                                                {% if resultat.surDemande %}
                                                     Sur demande
                                                 {% else %}
                                                     {{ chambre.total|number_format(3,'.','') }}  DT
                                                 {% endif %}
-					    </td>
-					</tr>
-				    {% endfor %}
-				</table>
-				<div class="bb2 mb-20"></div>
-				<span class="left">Total :</span>
-				<span class="right text-success text-bold font24">
-				    {% if resultat.surDemande %}
-					Sur demande
-				    {% else %}
-					{{ total|number_format(3,'.','') }} DT
-				    {% endif %}
-				</span>
-				<div class="clear mb-10"></div>
-			    </div>
-			</div>
-		    </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                                <div class="bb2 mb-20"></div>
+                                <span class="left">Total :</span> <span class="right text-success text-bold font24">
+                                    {% if resultat.surDemande %}
+                                        Sur demande
+                                    {% else %}
+                                        {{ total|number_format(3,'.','') }} DT
+                                    {% endif %}
+                                </span>
+                                <div class="clear mb-10"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -36,7 +36,7 @@
             ));
         }
 
-        public function filtreAction($page,$categorie,$chaine,$ville,$tag,$name)
+        public function filtreAction($page,$categorie,$chaine,$ville,$tag,$promotion,$name)
         {
             $em = $this->getDoctrine()->getManager();
             $session = $this->getRequest()->getSession();
@@ -84,6 +84,10 @@
                     $arrays['chaine'] = 'all';
                 else
                     $arrays['chaine'] = implode(',',$chaineArray);
+                if($request->get('promotionSearch'))
+                    $arrays['promotion'] = 'true';
+                else
+                    $arrays['promotion'] = 'false';
                 $arrays['name'] = urlencode($request->get('motclesSearch'));
                 $session->set('nuitees',$request->get('nuiteesSearch'));
                 $session->set('dateDebut',$request->get('dateDebutSearch'));
@@ -91,7 +95,7 @@
             }
         }
 
-        public function listeAction($page,$categorie,$chaine,$ville,$tag,$name)
+        public function listeAction($page,$categorie,$chaine,$ville,$tag,$promotion,$name)
         {
             $em = $this->getDoctrine()->getManager();
             $session = $this->getRequest()->getSession();
@@ -102,7 +106,7 @@
             $chaines = $em->getRepository('BackHotelTunisieBundle:Chaine')->findBy(array(),array('libelle' => 'asc'));
             $categories = $em->getRepository('BackHotelTunisieBundle:Categorie')->findBy(array(),array('libelle' => 'asc'));
             $hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->filtreFrontOfficePlus($categorie,$chaine,$ville,$tag,$name);
-            $hotels = $this->removeInvalideHotel($hotels);
+            $hotels = $this->removeInvalideHotel($hotels,$promotion);
             $paginator = $this->get('knp_paginator');
             $hotels = $paginator->paginate($hotels,$page,20);
             return $this->render('FrontGeneralBundle:hoteltunisie/liste:liste.html.twig',array(
@@ -130,10 +134,10 @@
 
         public function removeInvalideHotel($hotels,$topPromo = FALSE)
         {
-
+            $newHotels=array();
             foreach($hotels as $hotel){
                 if(!is_null($hotel->getSaisonBase()) && $hotel->getSaisonBase()->isValidSaisonBase() && !$hotel->isInStopSales() && $hotel->getEtat() == 1){
-                    if(!$topPromo || ( (!in_array($this->get('kernel')->getEnvironment(), array('test', 'dev'))) && $hotel->getSaisonPromotionByDate(date('Y-m-d'))->getType() == 2))
+                    if(!$topPromo || ( $this->get('kernel')->getEnvironment()=='prod' && $hotel->getSaisonPromotionByDate(date('Y-m-d'))->getType() == 2))
                         $newHotels[] = $hotel;
                 }
             }
