@@ -103,6 +103,7 @@
                                 <th class="center {% if hotels.isSorted('c.nombreEtoiles') %}sorting_{{ hotels.direction }}{% endif %}">{{ knp_pagination_sortable(hotels, 'Catégorie', 'c.nombreEtoiles') }}</th>
                                 <th class="center {% if hotels.isSorted('v.libelle') %}sorting_{{ hotels.direction }}{% endif %}">{{ knp_pagination_sortable(hotels, 'Ville', 'v.libelle') }}</th>
                                 <th class="center {% if hotels.isSorted('f.libelle') %}sorting_{{ hotels.direction }}{% endif %}">{{ knp_pagination_sortable(hotels, 'Fournisseur', 'f.libelle') }}</th>
+                                <th class="center">Photos</th>
                                 <th class="center">Saison</th>
                                 <th class="center">Remarques</th>
                                 <th class="center" >Action</th>
@@ -116,6 +117,7 @@
                                     <td>{{ getStars(hotel.getStars)|raw }}</td>
                                     <td>{{ hotel.ville }}</td>
                                     <td>{{ hotel.fournisseur }}</td>
+                                    <td>{{ hotel.images|length }}</td>
                                     <td>
                                         {% set saison=hotel.getSaisonPromotionByDate('now'|date('Y-m-d')) %}
                                         {% if saison is not null %}
