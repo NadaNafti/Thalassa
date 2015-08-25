@@ -25,14 +25,14 @@
                             <form action="{{ path('AutreChambreSaison',{'id':saison.id}) }}" method="post" role="form" id="formDisable">
                                 {{ form_widget(form._token) }}
                                 <div class="row">
-                                    <div class="col-md-2"></div>
+                                    <div class="col-md-3"></div>
                                     <div class="col-md-3">Valeur</div>
                                     <div class="col-md-2">Marge</div>
                                 </div>
                                 <hr>
                                 {% for formC in form.suppChambres %}
                                     <div class="row">
-                                        <div class="col-md-2" style="height: 68px;">
+                                        <div class="col-md-3" style="height: 68px;">
                                             {{ formulaire.input("col-md-1", "",formC.etat,false) }}
                                             <label style="margin-top: 20px;">{{ formC.chambre.vars.data.libelle }}</label>
                                             {{ form_widget(formC.chambre, {'attr': {'style': 'display:none'}}) }}
