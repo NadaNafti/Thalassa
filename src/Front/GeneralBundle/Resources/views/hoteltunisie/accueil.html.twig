@@ -5,8 +5,7 @@
         <div class="container clearfix">
             <div class="page-name">{{ block('title') }}</div>
             <div class="breadcrumb clearfix">
-                <a href="{{ path('accueil') }}">Accueil</a>
-                <span class="current-page">{{ block('title') }}</span>
+                <a href="{{ path('accueil') }}">Accueil</a> <span class="current-page">{{ block('title') }}</span>
             </div>
         </div>
     </div>
@@ -36,8 +35,10 @@
             <div class="travel-search">
                 <div class="travel-search-inner">
                     <ul class="tabs searchTab">
-                        <li><a href="#hotelsSearch" class="active"><span class="hotel mi"></span>Hôtels en tunisie</a></li>
-                    </ul><!-- tabs -->
+                        <li><a href="#hotelsSearch" class="active"><span class="hotel mi"></span>Hôtels en tunisie</a>
+                        </li>
+                    </ul>
+                    <!-- tabs -->
                     <ul class="tabs-content">
                         <li id="hotelsSearch" class="active">
                             <form role="form" class="row" method="post" action="{{ path('front_hoteltunisie_accueil') }}">
@@ -91,7 +92,7 @@
                     </ul>
                 </div>
             </div>
-            {{ render(controller('FrontConfigBundle:HotelTunisie:showTopPromo')) }}
+                {{ render(controller('FrontConfigBundle:HotelTunisie:showTopPromo')) }}
         </div>
         <footer>
             <div class="primary-footer">

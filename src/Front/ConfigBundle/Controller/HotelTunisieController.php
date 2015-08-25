@@ -51,7 +51,7 @@
         {
             $em = $this->getDoctrine()->getManager();
             $hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->filtreFrontOfficePlus();
-            $hotels = $this->removeInvalideHotel($hotels,FALSE);
+            $hotels = $this->removeInvalideHotel($hotels,TRUE);
             return $this->render('FrontConfigBundle:HotelTunisie:showTopPromo.html.twig',array(
                 'hotels' => $hotels,
             ));
@@ -62,7 +62,7 @@
             $newHotels = array();
             foreach($hotels as $hotel){
                 if(!is_null($hotel->getSaisonBase()) && $hotel->getSaisonBase()->isValidSaisonBase() && !$hotel->isInStopSales() && $hotel->getEtat() == 1){
-                    if(!$topPromo || $hotel->getSaisonPromotionByDate(date('Y-m-d'))->getType() == 2)
+                    if(!$topPromo || ($this->get('kernel')->getEnvironment()=='prod' &&  $hotel->getSaisonPromotionByDate(date('Y-m-d'))->getType() == 2))
                         $newHotels[] = $hotel;
                 }
             }
