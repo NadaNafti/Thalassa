@@ -131,7 +131,7 @@
                                 <td></td>
                                 <td class="center">Adulte {{ loop.index }}</td>
                                 <td class="center">{{ personne.nomPrenom }}</td>
-                                <td class="center">{{ personne.passport }}</td>
+                                <td class="center"></td>
                                 <td class="center"></td>
                                 <td colspan="3"></td>
                                 <td>
@@ -160,7 +160,7 @@
                                 <td></td>
                                 <td class="center">Enfant {{ loop.index }}</td>
                                 <td class="center">{{ personne.nomPrenom }}</td>
-                                <td class="center">{{ personne.passport }}</td>
+                                <td class="center"></td>
                                 <td class="center">{{ personne.age }} ans</td>
                                 <td colspan="3"></td>
                                 <td>
@@ -187,15 +187,15 @@
                         <tr style="background-color: azure;">
                             <td colspan="5"></td>
                             <td style="text-align: right;">Somme</td>
-                            <td style="text-align: right;">{{ reservation.totalAchat }}</td>
-                            <td style="text-align: right;">{{ reservation.totalVente }}</td>
+                            <td style="text-align: right;">{{ reservation.totalAchat|number_format(3,'.','') }}</td>
+                            <td style="text-align: right;">{{ reservation.totalVente|number_format(3,'.','')  }}</td>
                             <td></td>
                         </tr>
                         {% if reservation.remise!=0 %}
                             <tr style="background-color: azure;">
                                 <td colspan="6"></td>
                                 <td style="text-align: right;">Remise</td>
-                                <td style="text-align: right;">{{ reservation.remise }}</td>
+                                <td style="text-align: right;">{{ reservation.remise|number_format(3,'.','')  }}</td>
                                 <td></td>
                             </tr>
                         {% endif %}
@@ -203,14 +203,14 @@
                             <tr style="background-color: azure;">
                                 <td colspan="6"></td>
                                 <td style="text-align: right;">Timbre</td>
-                                <td style="text-align: right;">{{ reservation.timbre }}</td>
+                                <td style="text-align: right;">{{ reservation.timbre|number_format(3,'.','')  }}</td>
                                 <td></td>
                             </tr>
                         {% endif %}
                         <tr style="background-color: azure;">
                             <td colspan="6"></td>
                             <td style="text-align: right;">Total</td>
-                            <td style="text-align: right;">{{ reservation.total }}</td>
+                            <td style="text-align: right;">{{ reservation.total|number_format(3,'.','')  }}</td>
                             <td></td>
                         </tr>
                         </tbody>

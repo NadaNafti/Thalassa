@@ -35,13 +35,6 @@
         private $age;
 
         /**
-         * @var string
-         *
-         * @ORM\Column(name="passport", type="string", length=100)
-         */
-        private $passport;
-
-        /**
          * @ORM\ManyToOne(targetEntity="Reservation", inversedBy="adultes",cascade={"persist"})
          * @ORM\JoinColumn(onDelete="CASCADE")
          */
@@ -121,28 +114,6 @@
         public function setDateNaissance($dateNaissance)
         {
             $this->dateNaissance = $dateNaissance;
-            return $this;
-        }
-
-        /**
-         * Get passport
-         *
-         * @return string
-         */
-        public function getPassport()
-        {
-            return $this->passport;
-        }
-
-        /**
-         * Set passport
-         *
-         * @param string $passport
-         * @return ReservationPersonne
-         */
-        public function setPassport($passport)
-        {
-            $this->passport = $passport;
             return $this;
         }
 
