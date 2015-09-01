@@ -53,8 +53,7 @@
             for($i = 1;$i <= $nbrAdulte;$i++){
                 $reservationPersonne = new ReservationPersonne();
                 $reservationPersonne->setReservationA($reservation)
-                    ->setNomPrenom($data['Anom_' . $i])
-                    ->setPassport($data['Apassport_' . $i]);
+                    ->setNomPrenom($data['Anom_' . $i]);
                 $this->em->persist($reservationPersonne);
                 $reservationLigne = new ReservationLigne();
                 $reservationLigne->setPersonne($reservationPersonne)
@@ -81,7 +80,6 @@
                 $reservationPersonne = new ReservationPersonne();
                 $reservationPersonne->setReservationE($reservation)
                     ->setNomPrenom($data['Enom_' . $i])
-                    ->setPassport($data['Epassport_' . $i])
                     ->setAge($data['Eage_' . $i]);
                 $this->em->persist($reservationPersonne);
                 $reservationLigne = new ReservationLigne();
