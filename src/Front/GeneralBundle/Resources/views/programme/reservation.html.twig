@@ -216,7 +216,7 @@
                 if (exist < adultes) {
                     for (var i = 1; i <= adultes; i++) {
                         if (i > exist)
-                            block.append('<div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Adulte ' + i + ' </p></div><div class="col-md-5"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="Anom_' + i + '" required class="form-control" /></div></div><div class="col-md-4"><div class="form-group"><label>Passport</label><input type="text" name="Apassport_' + i + '" required class="form-control" /></div></div></div>');
+                            block.append('<div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Adulte ' + i + ' </p></div><div class="col-md-5"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="Anom_' + i + '" required class="form-control" /></div></div></div>');
                     }
                 }
                 else {
@@ -233,7 +233,7 @@
                 if (exist < enfants) {
                     for (var i = 1; i <= enfants; i++) {
                         if (i > exist)
-                            block.append('<div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Enfant ' + i + ' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="Enom_' + i + '" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="Epassport_' + i + '" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="Eage_' + i + '" required class="form-control"><option value=""></option>{% for i in 1..12 %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div></div></div></div>');
+                            block.append('<div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Enfant ' + i + ' </p></div><div class="col-md-5"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="Enom_' + i + '" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="Eage_' + i + '" required class="form-control"><option value=""></option>{% for i in 1..12 %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div></div></div></div>');
                     }
                 }
                 else {

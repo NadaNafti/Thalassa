@@ -33,12 +33,11 @@
                         </table>
                         <hr>
                         <h2>Adultes : </h2>
-                        <table class="table table-bordered">
+                        <table class="table">
                             <thead>
                             <tr>
                                 <th class="center">#</th>
-                                <th class="center">Nom</th>
-                                <th class="center">Passport</th>
+                                <th class="center">Nom & Prénom</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -46,7 +45,6 @@
                                 <tr>
                                     <td class="center">{{ loop.index }}</td>
                                     <td class="center">{{ personne.nomPrenom }}</td>
-                                    <td class="center">{{ personne.passport }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -54,12 +52,11 @@
                         {% if reservation.enfants|length>0 %}
                             <hr>
                             <h2>Enfants : </h2>
-                            <table class="table table-bordered">
+                            <table class="table">
                                 <thead>
                                 <tr>
                                     <th class="center">#</th>
-                                    <th class="center">Nom</th>
-                                    <th class="center">Passport</th>
+                                    <th class="center">Nom & Prénom</th>
                                     <th class="center">Age</th>
                                 </tr>
                                 </thead>
@@ -68,7 +65,6 @@
                                     <tr>
                                         <td class="center">{{ loop.index }}</td>
                                         <td class="center">{{ personne.nomPrenom }}</td>
-                                        <td class="center">{{ personne.passport }}</td>
                                         <td class="center">
                                             {{ personne.age }} ans
                                         </td>
