@@ -29,22 +29,30 @@
                             </h4>
                             {{ form_start(form) }}
                             <div class="row">
+                                <div class="col-md-6"></div>
+                                <div class="col-md-2">1<sup>er</sup> enf.</div>
+                                <div class="col-md-2">2<sup>eme</sup> enf. et plus</div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-2"></div>
-                                <div class="col-md-2">Valeur</div>
-                                <div class="col-md-4">Marge</div>
-                                <div class="col-md-2">Tarif . 1<sup>er</sup> enf.</div>
-                                <div class="col-md-2">Tarif . 2<sup>eme</sup> enf. et plus</div>
-                                <div class="col-md-2"></div>
+                                <div class="col-md-1">Valeur</div>
+                                <div class="col-md-3">Marge</div>
+                                <div class="col-md-1">Tarif</div>
+                                <div class="col-md-1">Reduc Arr(%)</div>
+                                <div class="col-md-1">Tarif</div>
+                                <div class="col-md-1">Reduc Arr(%)</div>
                             </div>
                             <hr>
                             {% for i in 1..10 %}
                                 <div class="row {% if i >maxAdultes %}no-display{% endif %}">
                                     <div class="col-md-2">Tarif {{ i }} adulte{% if i!=1 %}s{% else %}<small>(sans supp. single)</small>{% endif %}</div>
-                                    {{ formulaire.input("col-md-2",null,form['valeur'~i~'Adulte'],false) }}
-                                    {{ formulaire.input("col-md-2",null,form['marge'~i~'Adulte'],false) }}
+                                    {{ formulaire.input("col-md-1",null,form['valeur'~i~'Adulte'],false) }}
+                                    {{ formulaire.input("col-md-1",null,form['marge'~i~'Adulte'],false) }}
                                     {{ formulaire.input("col-md-2",null,form['margePourc'~i~'Adulte'],false) }}
-                                    {{ formulaire.input("col-md-2",null,form['reduction1Enf'~i~'Adulte'],false) }}
-                                    {{ formulaire.input("col-md-2",null,form['reduction2Enf'~i~'Adulte'],false) }}
+                                    {{ formulaire.input("col-md-1",null,form['reduction1Enf'~i~'Adulte'],false) }}
+                                    {{ formulaire.input("col-md-1",null,form['reductionArr1Enf'~i~'Adulte'],false) }}
+                                    {{ formulaire.input("col-md-1",null,form['reduction2Enf'~i~'Adulte'],false) }}
+                                    {{ formulaire.input("col-md-1",null,form['reductionArr2Enf'~i~'Adulte'],false) }}
                                 </div>
                             {% endfor %}
                             <hr>

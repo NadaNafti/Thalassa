@@ -437,6 +437,10 @@
                                     $tab['enfants'][$i]['jours'][$j]['lignes'][$l]['achat'] = 0;
                                     $tab['enfants'][$i]['jours'][$j]['lignes'][$l]['vente'] = 0;
                                 }
+                                if($tab['enfants'][$i]['jours'][$j]['lignes'][$l]['code'] =='ARRANGEMENT'){
+                                    $tab['enfants'][$i]['jours'][$j]['lignes'][$l]['achat'] = $tab['enfants'][$i]['jours'][$j]['lignes'][$l]['achat']/100*$fraisChambre->getReducArr($nbrAdultes,$i + 1);
+                                    $tab['enfants'][$i]['jours'][$j]['lignes'][$l]['vente'] = $tab['enfants'][$i]['jours'][$j]['lignes'][$l]['vente']/100*$fraisChambre->getReducArr($nbrAdultes,$i + 1);
+                                }
                             }
                         }
                     }

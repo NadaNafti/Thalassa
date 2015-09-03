@@ -122,16 +122,16 @@
                 nbrKids = obj['maxEnfant' + chambre];
             if (nbrKids < obj['minEnfant' + chambre])
                 nbrKids = obj['minEnfant' + chambre];
-            $(this).parent().parent().find('.EnfantChambre').val(nbrKids);
             Block = $(this).parent().parent().find('.ages .row');
             var exist = Block.children().length;
             if (exist < nbrKids) {
-                for (var i = 1; i <= nbrKids; i++) {
-                    if (i > exist)
-                        Block.append('<div class="col-md-1"><label>Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
-                }
+                {#for (var i = 1; i <= nbrKids; i++) {#}
+                {#if (i > exist)#}
+                {#Block.append('<div class="col-md-1"><label>Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');#}
+                {#}#}
             }
             else {
+                $(this).parent().parent().find('.EnfantChambre').val(nbrKids);
                 var toRemove = (exist - nbrKids);
                 var nmbr = Block.children().length;
                 for (var i = nmbr; i >= (nmbr - toRemove); i--)
@@ -197,9 +197,9 @@
                 nbrAdulte = obj['maxAdulte' + chambre];
             if (nbrAdulte < obj['nbrAdulte' + chambre])
                 nbrAdulte = obj['minEnfant' + chambre];
-            $(this).parent().parent().find('.AdulteChambre').val(nbrAdulte);
             Block = $(this).parent().parent().find('.ages .row');
             var exist = Block.children().length;
+            $(this).parent().parent().find('.AdulteChambre').val(nbrAdulte);
             if (exist < nbrKids) {
                 for (var i = 1; i <= nbrKids; i++) {
                     if (i > exist)

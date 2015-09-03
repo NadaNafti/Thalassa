@@ -70,6 +70,20 @@
         /**
          * @var string
          *
+         * @ORM\Column(name="reductionArr1Enf1Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf1Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf1Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf1Adulte;
+
+        /**
+         * @var string
+         *
          * @ORM\Column(name="valeur2Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $valeur2Adulte;
@@ -101,6 +115,20 @@
          * @ORM\Column(name="reduction2Enf2Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $reduction2Enf2Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr1Enf2Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf2Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf2Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf2Adulte;
 
         /**
          * @var string
@@ -140,6 +168,20 @@
         /**
          * @var string
          *
+         * @ORM\Column(name="reductionArr1Enf3Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf3Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf3Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf3Adulte;
+
+        /**
+         * @var string
+         *
          * @ORM\Column(name="valeur4Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $valeur4Adulte;
@@ -171,6 +213,20 @@
          * @ORM\Column(name="reduction2Enf4Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $reduction2Enf4Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr1Enf4Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf4Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf4Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf4Adulte;
 
         /**
          * @var string
@@ -210,6 +266,20 @@
         /**
          * @var string
          *
+         * @ORM\Column(name="reductionArr1Enf5Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf5Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf5Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf5Adulte;
+
+        /**
+         * @var string
+         *
          * @ORM\Column(name="valeur6Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $valeur6Adulte;
@@ -241,6 +311,20 @@
          * @ORM\Column(name="reduction2Enf6Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $reduction2Enf6Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr1Enf6Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf6Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf6Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf6Adulte;
 
         /**
          * @var string
@@ -280,6 +364,20 @@
         /**
          * @var string
          *
+         * @ORM\Column(name="reductionArr1Enf7Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf7Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf7Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf7Adulte;
+
+        /**
+         * @var string
+         *
          * @ORM\Column(name="valeur8Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $valeur8Adulte;
@@ -311,6 +409,20 @@
          * @ORM\Column(name="reduction2Enf8Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $reduction2Enf8Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr1Enf8Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf8Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf8Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf8Adulte;
 
         /**
          * @var string
@@ -350,6 +462,20 @@
         /**
          * @var string
          *
+         * @ORM\Column(name="reductionArr1Enf9Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf9Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf9Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf9Adulte;
+
+        /**
+         * @var string
+         *
          * @ORM\Column(name="valeur10Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $valeur10Adulte;
@@ -381,6 +507,20 @@
          * @ORM\Column(name="reduction2Enf10Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $reduction2Enf10Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr1Enf10Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf10Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf10Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf10Adulte;
 
         /**
          * @var string
@@ -475,6 +615,8 @@
             $this->reduction1Enf10Adulte = 0;
             $this->reduction2Enf10Adulte = 0;
             $this->suppSingle = 0;
+            $this->margeSuppSingle = 0;
+            $this->margePourcSuppSingle = 0;
             $this->suppSingle1Enf = 1;
             $this->suppSingle2Enf = 1;
         }
@@ -1702,7 +1844,7 @@
         public function getAchatAdultes($nbrAdulte)
         {
             $valeurFunction = 'getValeur' . $nbrAdulte . 'Adulte';
-            return $valeurFunction();
+            return $this->$valeurFunction();
         }
 
         public function getVenteAdultes($nbrAdulte)
@@ -1710,10 +1852,10 @@
             $valeurFunction = 'getValeur' . $nbrAdulte . 'Adulte';
             $margeFunction = 'getMarge' . $nbrAdulte . 'Adulte';
             $margePourFunction = 'getMargePourc' . $nbrAdulte . 'Adulte';
-            if($margePourFunction())
-                return $valeurFunction() / 100 * $margeFunction() + $valeurFunction();
+            if($this->$margePourFunction())
+                return $this->$valeurFunction() / 100 * $this->$margeFunction() + $this->$valeurFunction();
             else
-                return $valeurFunction() + $margeFunction();
+                return $this->$valeurFunction() + $this->$margeFunction();
         }
 
         public function getVenteEnfant($nbrAdulte,$ordre)
@@ -1721,19 +1863,78 @@
             $reduc1Enfant = 'getReduction1Enf' . $nbrAdulte . 'Adulte';
             $reduc2Enfant = 'getReduction2Enf' . $nbrAdulte . 'Adulte';
             if($ordre == 1)
-                return $reduc1Enfant();
+                return $this->$reduc1Enfant();
             else
-                return $reduc2Enfant();
+                return $this->$reduc2Enfant();
         }
 
         public function hasSuppSingle($nbrAdultes,$nbrEnfants)
         {
             if($nbrAdultes == 1){
+                if($nbrEnfants == 0)
+                    return TRUE;
                 if($nbrEnfants == 1 && $this->suppSingle1Enf == 1)
                     return TRUE;
                 if($nbrEnfants > 1 && $this->suppSingle2Enf == 1)
                     return TRUE;
             }
             return FALSE;
+        }
+
+        public function getAchatSuppSingle()
+        {
+            return $this->suppSingle;
+        }
+
+        public function getVenteSuppSingle()
+        {
+            if($this->margePourcSuppSingle == 1)
+                return $this->suppSingle / 100 * $this->margeSuppSingle + $this->suppSingle;
+            else
+                return $this->suppSingle + $this->margeSuppSingle;
+        }
+
+        /**
+         * Set margeSuppSingle
+         *
+         * @param string $margeSuppSingle
+         * @return SaisonFraisChambre
+         */
+        public function setMargeSuppSingle($margeSuppSingle)
+        {
+            $this->margeSuppSingle = $margeSuppSingle;
+            return $this;
+        }
+
+        /**
+         * Get margeSuppSingle
+         *
+         * @return string
+         */
+        public function getMargeSuppSingle()
+        {
+            return $this->margeSuppSingle;
+        }
+
+        /**
+         * Set margePourcSuppSingle
+         *
+         * @param boolean $margePourcSuppSingle
+         * @return SaisonFraisChambre
+         */
+        public function setMargePourcSuppSingle($margePourcSuppSingle)
+        {
+            $this->margePourcSuppSingle = $margePourcSuppSingle;
+            return $this;
+        }
+
+        /**
+         * Get margePourcSuppSingle
+         *
+         * @return boolean
+         */
+        public function getMargePourcSuppSingle()
+        {
+            return $this->margePourcSuppSingle;
         }
     }
