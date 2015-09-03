@@ -544,9 +544,9 @@
             $session = $this->getRequest()->getSession();
             $fraisChambre = $em->getRepository('BackHotelTunisieBundle:SaisonFraisChambre')->findOneBy(array('saison' => $saison,'chambre' => $chambre));
             if($fraisChambre)
-                $session->getFlashBag()->add('info',"le frais de la chambre " . $chambre->getLibelle() . " existe déjà.");
+                $session->getFlashBag()->add('info',"les frais de la chambre " . $chambre->getLibelle() . " existe déjà.");
             else{
-                $session->getFlashBag()->add('success',"le frais de la chambre " . $chambre->getLibelle() . " a été ajoutée avec succées.");
+                $session->getFlashBag()->add('success',"les frais de la chambre " . $chambre->getLibelle() . " a été ajoutée avec succées.");
                 $fraisChambre = new SaisonFraisChambre();
                 $em->persist($fraisChambre->setSaison($saison)->setChambre($chambre));
                 $em->flush();

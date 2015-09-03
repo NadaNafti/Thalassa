@@ -23,7 +23,7 @@
                         {% include 'BackHotelTunisieBundle:Saisons:menu.html.twig' %}
                         <div class="panel-body tab-content">
                             <h4>
-                                Tarif de chambre {{ chambre.chambre }}
+                                Tarif : <strong> {{ chambre.chambre }}</strong>
                                 <a href="{{ path('saison_delete_frais_autre_chambre',{'id':chambre.id}) }}" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette frais chambre ?'))" class="btn btn-green" type="submit"> Supprimer
                                     <i class="fa fa-times"></i> </a>
                             </h4>
@@ -32,14 +32,14 @@
                                 <div class="col-md-2"></div>
                                 <div class="col-md-2">Valeur</div>
                                 <div class="col-md-4">Marge</div>
-                                <div class="col-md-2">Réduc. 1<sup>er</sup> enf.</div>
-                                <div class="col-md-2">Réduc. 2<sup>eme</sup> enf.</div>
+                                <div class="col-md-2">Tarif . 1<sup>er</sup> enf.</div>
+                                <div class="col-md-2">Tarif . 2<sup>eme</sup> enf. et plus</div>
                                 <div class="col-md-2"></div>
                             </div>
                             <hr>
                             {% for i in 1..10 %}
                                 <div class="row {% if i >maxAdultes %}no-display{% endif %}">
-                                    <div class="col-md-2">Tarif {{ i }} adulte{% if i!=1 %}s{% endif %}</div>
+                                    <div class="col-md-2">Tarif {{ i }} adulte{% if i!=1 %}s{% else %}<small>(sans supp. single)</small>{% endif %}</div>
                                     {{ formulaire.input("col-md-2",null,form['valeur'~i~'Adulte'],false) }}
                                     {{ formulaire.input("col-md-2",null,form['marge'~i~'Adulte'],false) }}
                                     {{ formulaire.input("col-md-2",null,form['margePourc'~i~'Adulte'],false) }}
