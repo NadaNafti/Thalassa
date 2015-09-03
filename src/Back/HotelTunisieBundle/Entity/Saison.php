@@ -119,6 +119,12 @@ class Saison
     protected $chambres;
 
     /**
+     * @ORM\OneToMany(targetEntity="SaisonFraisChambre", mappedBy="saison")
+     * @ORM\OrderBy({"chambre" = "ASC"})
+     */
+    protected $fraisChambres;
+
+    /**
      * @ORM\OneToMany(targetEntity="SaisonSuppChambre", mappedBy="saison")
      */
     protected $suppChambres;
@@ -1097,4 +1103,37 @@ class Saison
         return $this->libelle;
     }
 
+
+    /**
+     * Add fraisChambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonFraisChambre $fraisChambres
+     * @return Saison
+     */
+    public function addFraisChambre(\Back\HotelTunisieBundle\Entity\SaisonFraisChambre $fraisChambres)
+    {
+        $this->fraisChambres[] = $fraisChambres;
+
+        return $this;
+    }
+
+    /**
+     * Remove fraisChambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonFraisChambre $fraisChambres
+     */
+    public function removeFraisChambre(\Back\HotelTunisieBundle\Entity\SaisonFraisChambre $fraisChambres)
+    {
+        $this->fraisChambres->removeElement($fraisChambres);
+    }
+
+    /**
+     * Get fraisChambres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFraisChambres()
+    {
+        return $this->fraisChambres;
+    }
 }

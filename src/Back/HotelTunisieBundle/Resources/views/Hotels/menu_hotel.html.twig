@@ -35,7 +35,7 @@
         </a>
     </li>
     {% if hotel.saisonBase is not null and hotel.saisonBase.isValidSaisonBase %}
-        <li {% if app.request.get('_route') in ['liste_saison','PeriodeSaison','GeneralSaison','OccChambreSaison','ArrangementSaison','ReductionSaison','SupplementSaison','AutreChambreSaison','VuesSaison','WeekendSaison','AutreSuppSaison','AutreReducSaison','PrixSaison'] %}class="active"{% endif %}>
+        <li {% if app.request.get('_route') in ['liste_saison','saison_frais_autre_chambre','PeriodeSaison','GeneralSaison','OccChambreSaison','ArrangementSaison','ReductionSaison','SupplementSaison','AutreChambreSaison','VuesSaison','WeekendSaison','AutreSuppSaison','AutreReducSaison','PrixSaison'] %}class="active"{% endif %}>
             <a href="{{ path('liste_saison',{'id':hotel.id}) }}">
                 Saisons ({{ hotel.saisons|length }})
             </a>

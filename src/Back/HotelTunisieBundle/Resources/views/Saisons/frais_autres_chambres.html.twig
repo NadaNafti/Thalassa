@@ -1,0 +1,71 @@
+{% extends "BackHotelTunisieBundle:Hotels:liste.html.twig" %}
+{% block title %}{{ hotel.libelle }}{% endblock %}
+{% block description %}{{ saison }}{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}">{{ hotel.libelle }}</a>
+    </li>
+    <li>
+        <a href="{{ path('PeriodeSaison',{'id':hotel.id}) }}">Liste des saisons</a>
+    </li>
+    <li>
+        <a href="javascript:void(0)">{{ saison }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="tabbable">
+                        {% include 'BackHotelTunisieBundle:Saisons:menu.html.twig' %}
+                        <div class="panel-body tab-content">
+                            <h4>
+                                Tarif de chambre {{ chambre.chambre }}
+                                <a href="{{ path('saison_delete_frais_autre_chambre',{'id':chambre.id}) }}" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette frais chambre ?'))" class="btn btn-green" type="submit"> Supprimer
+                                    <i class="fa fa-times"></i> </a>
+                            </h4>
+                            {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-2">Valeur</div>
+                                <div class="col-md-4">Marge</div>
+                                <div class="col-md-2">Réduc. 1<sup>er</sup> enf.</div>
+                                <div class="col-md-2">Réduc. 2<sup>eme</sup> enf.</div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <hr>
+                            {% for i in 1..10 %}
+                                <div class="row {% if i >maxAdultes %}no-display{% endif %}">
+                                    <div class="col-md-2">Tarif {{ i }} adulte{% if i!=1 %}s{% endif %}</div>
+                                    {{ formulaire.input("col-md-2",null,form['valeur'~i~'Adulte'],false) }}
+                                    {{ formulaire.input("col-md-2",null,form['marge'~i~'Adulte'],false) }}
+                                    {{ formulaire.input("col-md-2",null,form['margePourc'~i~'Adulte'],false) }}
+                                    {{ formulaire.input("col-md-2",null,form['reduction1Enf'~i~'Adulte'],false) }}
+                                    {{ formulaire.input("col-md-2",null,form['reduction2Enf'~i~'Adulte'],false) }}
+                                </div>
+                            {% endfor %}
+                            <hr>
+                            <div class="row">
+                                {{ formulaire.input("col-md-2","Supplément Single",form.suppSingle,false) }}
+                                {{ formulaire.input("col-md-2","Marge",form.margeSuppSingle,false) }}
+                                {{ formulaire.input("col-md-2","",form.margePourcSuppSingle,false) }}
+                                {{ formulaire.input("col-md-12",null,form.suppSingle1Enf,false) }}
+                                {{ formulaire.input("col-md-12",null,form.suppSingle2Enf,false) }}
+                            </div>
+                            {{ formulaire.submit("Modifier") }}
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        label {
+            white-space: nowrap !important;
+        }
+    </style>
+{% endblock %}

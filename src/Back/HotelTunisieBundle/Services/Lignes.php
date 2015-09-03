@@ -1,6 +1,7 @@
 <?php
     namespace Back\HotelTunisieBundle\Services;
 
+    use Back\HotelTunisieBundle\Entity\SaisonFraisChambre;
     use Doctrine\ORM\EntityManager;
     use Symfony\Component\HttpFoundation\Session\Session;
     use Symfony\Component\DependencyInjection\Container;
@@ -385,5 +386,83 @@
                         );
                 }
             }
+        }
+
+        public function ligneFraisChambres(Saison $saison,$ch,&$tab,$nuitees)
+        {
+            $codes = array('PRIX-BASE','SUPP-SINGLE','REDUC-3LIT','REDUC-4LIT','SUPP-AUTRE-CHAMBRE','REDUC-1ENF-1ADULTE-AGE-1','REDUC-1ENF-1ADULTE-AGE-2','REDUC-1ENF-2ADULTES-AGE-1','REDUC-1ENF-2ADULTES-AGE-2','REDUC-1ENF-SEPARER-AGE-1','REDUC-2ENF-1ADULTE-AGE-1','REDUC-2ENF-1ADULTE-AGE-2','REDUC-2ENF-2ADULTES-AGE-1','REDUC-2ENF-2ADULTES-AGE-2','REDUC-1ENF-SEPARER-AGE-1','REDUC-2ENF-SEPARER-AGE-2');
+            $nbrJours = $nuitees;
+            $nbrAdultes = count($tab['adultes']);
+            $nbrEnfants = count($tab['enfants']);
+            foreach($saison->getFraisChambres() as $fraisChambre){
+                if($fraisChambre->getChambre()->getId() == $ch){
+                    $tab['supplements'][] = array(
+                        'code'  => 'FRAIS-CHAMBRE-ADULTES',
+                        'name'  => 'Frais ' . $fraisChambre->getChambre()->getLibelle() . ' pour  ' . $nbrAdultes . ' adultes (x ' . $nuitees . ' nuitées)',
+                        'achat' => number_format($fraisChambre->getAchatAdultes($nbrAdultes) * $nuitees,3,'.',''),
+                        'vente' => number_format($fraisChambre->getVenteAdultes($nbrAdultes) * $nuitees,3,'.',''),
+                    );
+                    for($i = 0;$i < $nbrAdultes;$i++){
+                        if($fraisChambre->hasSuppSingle($nbrAdultes,$nbrEnfants)){
+                            for($j = 0;$j < $nbrJours;$j++)
+                                $tab['adultes'][$i]['jours'][$j]['lignes'][] = array(
+                                    'code'  => 'SUPP-SINGLE-FRAIS-CHAMBRE',
+                                    'name'  => 'Frais ' . 'Supp Single ' . $fraisChambre->getChambre()->getLibelle() . ' pour  ' . $nbrAdultes . ' adultes',
+                                    'achat' => number_format($fraisChambre->getAchatSuppSingle(),3,'.',''),
+                                    'vente' => number_format($fraisChambre->getVenteSuppSingle(),3,'.',''),
+                                );
+                        }
+                        for($j = 0;$j < $nbrJours;$j++){
+                            $nbrLigne = count($tab['adultes'][$i]['jours'][$j]['lignes']);
+                            for($l = 0;$l < $nbrLigne;$l++){
+                                if(in_array($tab['adultes'][$i]['jours'][$j]['lignes'][$l]['code'],$codes)){
+                                    $tab['adultes'][$i]['jours'][$j]['lignes'][$l]['achat'] = 0;
+                                    $tab['adultes'][$i]['jours'][$j]['lignes'][$l]['vente'] = 0;
+                                }
+                            }
+                        }
+                    }
+                    for($i = 0;$i < $nbrEnfants;$i++){
+                        for($j = 0;$j < $nbrJours;$j++)
+                            $tab['enfants'][$i]['jours'][$j]['lignes'][] = array(
+                                'code'  => 'ENF-FRAIS-CHAMBRE',
+                                'name'  => 'Frais ' . 'FRAIS Enfant  ' . $fraisChambre->getChambre()->getLibelle(),
+                                'achat' => number_format($fraisChambre->getVenteEnfant($nbrAdultes,$i + 1),3,'.',''),
+                                'vente' => number_format($fraisChambre->getVenteEnfant($nbrAdultes,$i + 1),3,'.',''),
+                            );
+                        for($j = 0;$j < $nbrJours;$j++){
+                            $nbrLigne = count($tab['enfants'][$i]['jours'][$j]['lignes']);
+                            for($l = 0;$l < $nbrLigne;$l++){
+                                if(in_array($tab['enfants'][$i]['jours'][$j]['lignes'][$l]['code'],$codes)){
+                                    $tab['enfants'][$i]['jours'][$j]['lignes'][$l]['achat'] = 0;
+                                    $tab['enfants'][$i]['jours'][$j]['lignes'][$l]['vente'] = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public function getTotal($tabChambre)
+        {
+            $total = 0;
+            foreach($tabChambre['adultes'] as $personne){
+                foreach($personne['jours'] as $jour){
+                    foreach($jour['lignes'] as $ligne)
+                        $total += $ligne['vente'];
+                }
+            }
+            foreach($tabChambre['enfants'] as $personne){
+                foreach($personne['jours'] as $jour){
+                    foreach($jour['lignes'] as $ligne)
+                        $total += $ligne['vente'];
+                }
+            }
+            foreach($tabChambre['reductions'] as $ligne)
+                $total += $ligne['vente'];
+            foreach($tabChambre['supplements'] as $ligne)
+                $total += $ligne['vente'];
+            return $total;
         }
     }

@@ -60,7 +60,6 @@ class ReservationService
         $saisonFist = $this->em->getRepository('BackHotelTunisieBundle:Saison')->find($reservation['saison']);
         foreach ($reservation['chambres'] as $chambre) {
             $tabChambre = array();
-            $total = 0;
             $tabChambre['details'] = $chambre;
             $tabChambre['adultes'] = array();
             $tabChambre['enfants'] = array();
@@ -70,7 +69,7 @@ class ReservationService
             $tabOccupants = explode(',', $chambre['occupants']);
             $nbrAdulte = $tabOccupants[0];
             $nbrEnfant = count($tabOccupants) - 1;
-            for ($i = 1; $i <= $tabOccupants[0]; $i++) {
+            for ($i = 1; $i <= $nbrAdulte; $i++) {
                 $tabAdult = array();
                 $tabAdult['ordre'] = $i;
                 $tabAdult['jours'] = array();
@@ -103,12 +102,10 @@ class ReservationService
                         $tabLigne[] = $this->container->get('lignes')->ligneAutresReductionParNuitees($saisonFist, $arr, 'adulte', $idReduc, \DateTime::createFromFormat('Y-m-d', $date), $ordre);
                     $tabjour['lignes'] = $tabLigne;
                     $tabAdult['jours'][] = $tabjour;
-                    foreach ($tabLigne as $ligne)
-                        $total += $ligne['vente'];
                 }
                 $tabChambre['adultes'][] = $tabAdult;
             }
-            for ($i = 1; $i <= count($tabOccupants) - 1; $i++) {
+            for ($i = 1; $i <= $nbrEnfant; $i++) {
                 $tabEnfant = array();
                 $tabEnfant['ordre'] = $i;
                 $tabEnfant['age'] = $tabOccupants[$i];
@@ -148,8 +145,6 @@ class ReservationService
                         $tabLigne[] = $this->container->get('lignes')->ligneAutresReductionParNuitees($saisonFist, $arr, 'enfant', $idReduc, \DateTime::createFromFormat('Y-m-d', $date), $ordre);
                     $tabjour['lignes'] = $tabLigne;
                     $tabEnfant['jours'][] = $tabjour;
-                    foreach ($tabLigne as $ligne)
-                        $total += $ligne['vente'];
                 }
                 $tabChambre['enfants'][] = $tabEnfant;
             }
@@ -157,11 +152,8 @@ class ReservationService
                 $tabChambre['supplements'][] = $this->container->get('lignes')->ligneAutresSupplement($saisonFist, $arr, $idSupp, $results['dateDebut'], $results['dateFin']);
             foreach ($chambre['reduc'] as $idReduc)
                 $tabChambre['reductions'][] = $this->container->get('lignes')->ligneAutresReduction($saisonFist, $arr, $idReduc, $results['dateDebut'], $results['dateFin']);
-            foreach ($tabChambre['reductions'] as $ligne)
-                $total += $ligne['vente'];
-            foreach ($tabChambre['supplements'] as $ligne)
-                $total += $ligne['vente'];
-            $tabChambre['total'] = $total;
+            $this->container->get('lignes')->ligneFraisChambres($saisonFist, $chambre['chambre'], $tabChambre,$results['nuitees']);
+            $tabChambre['total'] = $this->container->get('lignes')->getTotal($tabChambre);
             $results['chambres'][] = $tabChambre;
         }
         return $results;
