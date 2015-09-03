@@ -65,7 +65,7 @@
                                                         <tr style="  background-color: honeydew;" >
                                                             <th colspan="4">{{ jour.jour }} [{{ jour.saison.name }}]</th>
                                                         </tr>
-                                                        {% for ligne in jour.lignes if ligne is not null %}
+                                                        {% for ligne in jour.lignes if ligne is not null and ligne.vente!=0 %}
                                                             <tr style="  background-color: ghostwhite;">
                                                                 <td></td>
                                                                 <td colspan="1">{{ ligne.name }}</td>
@@ -87,7 +87,7 @@
                                                         <tr style="  background-color: honeydew;" >
                                                             <th colspan="4">{{ jour.jour }} [{{ jour.saison.name }}]</th>
                                                         </tr>
-                                                        {% for ligne in jour.lignes if ligne is not null %}
+                                                        {% for ligne in jour.lignes if ligne is not null and ligne.vente!=0 %}
                                                             <tr style="  background-color: ghostwhite;">
                                                                 <td></td>
                                                                 <td colspan="1">{{ ligne.name }}</td>
@@ -99,20 +99,18 @@
                                                         {% endfor %}
                                                     {% endfor %}
                                                 {% endfor %}
-                                                {% for ligne in chambre.supplements if ligne is not null %}
-                                                    <tr style="  background-color: dimgray;color: white;">
-                                                        <td></td>
-                                                        <td colspan="1">{{ ligne.name }}</td>
+                                                {% for ligne in chambre.supplements if ligne is not null and ligne.vente!=0 %}
+                                                    <tr style="  background-color: black;color: white;">
+                                                        <td colspan="2">{{ ligne.name }}</td>
                                                         <td style="  text-align: right;" >{{ ligne.achat }}</td>
                                                         <td style="text-align: right;">{{ ligne.vente }}</td>
                                                     </tr>
                                                     {% set totalVente=totalVente+ligne.vente  %}
                                                     {% set totalAchat=totalAchat+ligne.achat  %}
                                                 {% endfor %}
-                                                {% for ligne in chambre.reductions if ligne is not null %}
-                                                    <tr style="  background-color: dimgray;color: white;">
-                                                        <td></td>
-                                                        <td colspan="1">{{ ligne.name }}</td>
+                                                {% for ligne in chambre.reductions if ligne is not null and ligne.vente!=0 %}
+                                                    <tr style="  background-color: black;color: white;">
+                                                        <td colspan="2">{{ ligne.name }}</td>
                                                         <td style="  text-align: right;" >{{ ligne.achat }}</td>
                                                         <td style="text-align: right;">{{ ligne.vente }}</td>
                                                     </tr>

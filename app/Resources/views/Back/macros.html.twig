@@ -1,43 +1,44 @@
 {% macro boutton(path,icon,color,texte) %}
     <a href="{{ path }}" class="btn btn-xs {{ color }} tooltips" data-placement="top" data-original-title="{{ texte }}">
-        <i class="fa {{icon}}"></i>
-    </a>
+        <i class="fa {{ icon }}"></i> </a>
 {% endmacro %}
 {% macro bouttonBlank(path,icon,color,texte) %}
     <a href="{{ path }}" target="_blank" class="btn btn-xs {{ color }} tooltips" data-placement="top" data-original-title="{{ texte }}">
-        <i class="fa {{icon}}"></i>
-    </a>
+        <i class="fa {{ icon }}"></i> </a>
 {% endmacro %}
 {% macro tablePassword(path) %}
     <a href="{{ path }}" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Modifier mot de passe"><i class="fa fa-lock"></i></a>
-    {% endmacro %}
+{% endmacro %}
 
 {% macro tableReload(path) %}
     <a href="{{ path }}" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Reload" onclick="javascript:return(confirm('Etes-vous certain de vouloir reactiver cet hôtel ?'))"><i class="fa fa-mail-reply-all fa fa-white"></i></a>
-    {% endmacro %}
+{% endmacro %}
 
 {% macro tableStopSales(path) %}
     <a href="{{ path }}" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Stop Sales"><i class="fa fa-clock-o fa fa-white"></i></a>
-    {% endmacro %}
+{% endmacro %}
 
 {% macro tableDelete(path) %}
     <a href="{{ path }}" class="btn btn-xs btn-bricky tooltips" data-placement="top" data-original-title="Supprimer" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette ligne ?'))"><i class="fa fa-times fa fa-white"></i></a>
-    {% endmacro %}
+{% endmacro %}
+
+{% macro generate(path) %}
+    <a href="{{ path }}" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Générer un frais chambre" onclick="javascript:return(confirm('Etes-vous certain de vouloir faire cette action ?'))"><i class="fa fa-share"></i></a>
+{% endmacro %}
 
 {% macro tableEdit(path) %}
     <a href="{{ path }}" class="btn btn-xs btn-green tooltips" data-placement="top" data-original-title="Modifier"><i class="fa fa-edit"></i></a>
-    {% endmacro %}
+{% endmacro %}
 
 {% macro tablePhoto(path) %}
     <a href="{{ path }}" class="btn btn-xs btn-teal tooltips" data-placement="top" data-original-title="Photos"><i class="fa fa-camera"></i></a>
-    {% endmacro %}
+{% endmacro %}
 
 {% macro albumPhoto(image) %}
     <div class="col-md-2 col-sm-4 gallery-img">
         <div class="wrap-image">
             <a class="group1 cboxElement" href="javascript:void(0)">
-                <img src="{{ asset(asset(image.getAssetPath)) }}" class="img-responsive">
-            </a>
+                <img src="{{ asset(asset(image.getAssetPath)) }}" class="img-responsive"> </a>
             <div class="tools tools-bottom">
                 <a href="{{ path('deletephoto',{'id':image.id}) }}" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette photo ?'))">
                     <i class="clip-close-2"></i>

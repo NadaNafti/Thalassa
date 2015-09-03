@@ -60,4 +60,16 @@ deleteAutreReduc:
     
 PrixSaison:
     path:     /saison/SaisonPrix/{id}
-    defaults: { _controller: BackHotelTunisieBundle:Saisons:prix }    
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:prix }
+
+generate_frais_autre_chambre:
+    path:     /saison/generate_frais_autre_chambre/{saison}/{chambre}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:generateFraisChambre }
+
+saison_frais_autre_chambre:
+    path:     /saison/frais_autre_chambre/{id}/{chambre}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:fraisChambre }
+
+saison_delete_frais_autre_chambre:
+    path:     /saison_delete_frais_autre_chambre/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:deleteFraisChambre }

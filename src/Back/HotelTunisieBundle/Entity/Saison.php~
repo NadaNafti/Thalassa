@@ -119,6 +119,12 @@ class Saison
     protected $chambres;
 
     /**
+     * @ORM\OneToMany(targetEntity="SaisonFraisChambre", mappedBy="saison")
+     * @ORM\OrderBy({"chambre" = "ASC"})
+     */
+    protected $fraisChambres;
+
+    /**
      * @ORM\OneToMany(targetEntity="SaisonSuppChambre", mappedBy="saison")
      */
     protected $suppChambres;
