@@ -70,6 +70,20 @@
         /**
          * @var string
          *
+         * @ORM\Column(name="reductionArr1Enf1Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf1Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf1Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf1Adulte;
+
+        /**
+         * @var string
+         *
          * @ORM\Column(name="valeur2Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $valeur2Adulte;
@@ -101,6 +115,20 @@
          * @ORM\Column(name="reduction2Enf2Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $reduction2Enf2Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr1Enf2Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf2Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf2Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf2Adulte;
 
         /**
          * @var string
@@ -140,6 +168,20 @@
         /**
          * @var string
          *
+         * @ORM\Column(name="reductionArr1Enf3Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf3Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf3Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf3Adulte;
+
+        /**
+         * @var string
+         *
          * @ORM\Column(name="valeur4Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $valeur4Adulte;
@@ -171,6 +213,20 @@
          * @ORM\Column(name="reduction2Enf4Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $reduction2Enf4Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr1Enf4Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf4Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf4Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf4Adulte;
 
         /**
          * @var string
@@ -210,6 +266,20 @@
         /**
          * @var string
          *
+         * @ORM\Column(name="reductionArr1Enf5Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf5Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf5Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf5Adulte;
+
+        /**
+         * @var string
+         *
          * @ORM\Column(name="valeur6Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $valeur6Adulte;
@@ -241,6 +311,20 @@
          * @ORM\Column(name="reduction2Enf6Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $reduction2Enf6Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr1Enf6Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf6Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf6Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf6Adulte;
 
         /**
          * @var string
@@ -280,6 +364,20 @@
         /**
          * @var string
          *
+         * @ORM\Column(name="reductionArr1Enf7Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf7Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf7Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf7Adulte;
+
+        /**
+         * @var string
+         *
          * @ORM\Column(name="valeur8Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $valeur8Adulte;
@@ -311,6 +409,20 @@
          * @ORM\Column(name="reduction2Enf8Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $reduction2Enf8Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr1Enf8Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf8Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf8Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf8Adulte;
 
         /**
          * @var string
@@ -350,6 +462,20 @@
         /**
          * @var string
          *
+         * @ORM\Column(name="reductionArr1Enf9Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf9Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf9Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf9Adulte;
+
+        /**
+         * @var string
+         *
          * @ORM\Column(name="valeur10Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $valeur10Adulte;
@@ -381,6 +507,20 @@
          * @ORM\Column(name="reduction2Enf10Adulte", type="decimal", precision=11, scale=3,nullable=true)
          */
         private $reduction2Enf10Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr1Enf10Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr1Enf10Adulte;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="reductionArr2Enf10Adulte", type="decimal", precision=11, scale=3,nullable=true)
+         */
+        private $reductionArr2Enf10Adulte;
 
         /**
          * @var string
@@ -479,6 +619,36 @@
             $this->margePourcSuppSingle = 0;
             $this->suppSingle1Enf = 1;
             $this->suppSingle2Enf = 1;
+
+            $this->reductionArr1Enf1Adulte=0;
+            $this->reductionArr2Enf1Adulte=0;
+
+            $this->reductionArr1Enf2Adulte=0;
+            $this->reductionArr2Enf2Adulte=0;
+
+            $this->reductionArr1Enf3Adulte=0;
+            $this->reductionArr2Enf3Adulte=0;
+
+            $this->reductionArr1Enf4Adulte=0;
+            $this->reductionArr2Enf4Adulte=0;
+
+            $this->reductionArr1Enf5Adulte=0;
+            $this->reductionArr2Enf5Adulte=0;
+
+            $this->reductionArr1Enf6Adulte=0;
+            $this->reductionArr2Enf6Adulte=0;
+
+            $this->reductionArr1Enf7Adulte=0;
+            $this->reductionArr2Enf7Adulte=0;
+
+            $this->reductionArr1Enf8Adulte=0;
+            $this->reductionArr2Enf8Adulte=0;
+
+            $this->reductionArr1Enf9Adulte=0;
+            $this->reductionArr2Enf9Adulte=0;
+
+            $this->reductionArr1Enf10Adulte=0;
+            $this->reductionArr2Enf10Adulte=0;
         }
 
         /**
@@ -1728,6 +1898,18 @@
                 return $this->$reduc2Enfant();
         }
 
+
+
+        public function getReducArr($nbrAdulte,$ordre)
+        {
+            $reduc1Enfant = 'getReductionArr1Enf' . $nbrAdulte . 'Adulte';
+            $reduc2Enfant = 'getReductionArr2Enf' . $nbrAdulte . 'Adulte';
+            if($ordre == 1)
+                return $this->$reduc1Enfant();
+            else
+                return $this->$reduc2Enfant();
+        }
+
         public function hasSuppSingle($nbrAdultes,$nbrEnfants)
         {
             if($nbrAdultes == 1){
@@ -1797,4 +1979,464 @@
         {
             return $this->margePourcSuppSingle;
         }
+    
+    /**
+     * Set reductionArr1Enf1Adulte
+     *
+     * @param string $reductionArr1Enf1Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr1Enf1Adulte($reductionArr1Enf1Adulte)
+    {
+        $this->reductionArr1Enf1Adulte = $reductionArr1Enf1Adulte;
+
+        return $this;
     }
+
+    /**
+     * Get reductionArr1Enf1Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr1Enf1Adulte()
+    {
+        return $this->reductionArr1Enf1Adulte;
+    }
+
+    /**
+     * Set reductionArr2Enf1Adulte
+     *
+     * @param string $reductionArr2Enf1Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr2Enf1Adulte($reductionArr2Enf1Adulte)
+    {
+        $this->reductionArr2Enf1Adulte = $reductionArr2Enf1Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr2Enf1Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr2Enf1Adulte()
+    {
+        return $this->reductionArr2Enf1Adulte;
+    }
+
+    /**
+     * Set reductionArr1Enf2Adulte
+     *
+     * @param string $reductionArr1Enf2Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr1Enf2Adulte($reductionArr1Enf2Adulte)
+    {
+        $this->reductionArr1Enf2Adulte = $reductionArr1Enf2Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr1Enf2Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr1Enf2Adulte()
+    {
+        return $this->reductionArr1Enf2Adulte;
+    }
+
+    /**
+     * Set reductionArr2Enf2Adulte
+     *
+     * @param string $reductionArr2Enf2Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr2Enf2Adulte($reductionArr2Enf2Adulte)
+    {
+        $this->reductionArr2Enf2Adulte = $reductionArr2Enf2Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr2Enf2Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr2Enf2Adulte()
+    {
+        return $this->reductionArr2Enf2Adulte;
+    }
+
+    /**
+     * Set reductionArr1Enf3Adulte
+     *
+     * @param string $reductionArr1Enf3Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr1Enf3Adulte($reductionArr1Enf3Adulte)
+    {
+        $this->reductionArr1Enf3Adulte = $reductionArr1Enf3Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr1Enf3Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr1Enf3Adulte()
+    {
+        return $this->reductionArr1Enf3Adulte;
+    }
+
+    /**
+     * Set reductionArr2Enf3Adulte
+     *
+     * @param string $reductionArr2Enf3Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr2Enf3Adulte($reductionArr2Enf3Adulte)
+    {
+        $this->reductionArr2Enf3Adulte = $reductionArr2Enf3Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr2Enf3Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr2Enf3Adulte()
+    {
+        return $this->reductionArr2Enf3Adulte;
+    }
+
+    /**
+     * Set reductionArr1Enf4Adulte
+     *
+     * @param string $reductionArr1Enf4Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr1Enf4Adulte($reductionArr1Enf4Adulte)
+    {
+        $this->reductionArr1Enf4Adulte = $reductionArr1Enf4Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr1Enf4Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr1Enf4Adulte()
+    {
+        return $this->reductionArr1Enf4Adulte;
+    }
+
+    /**
+     * Set reductionArr2Enf4Adulte
+     *
+     * @param string $reductionArr2Enf4Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr2Enf4Adulte($reductionArr2Enf4Adulte)
+    {
+        $this->reductionArr2Enf4Adulte = $reductionArr2Enf4Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr2Enf4Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr2Enf4Adulte()
+    {
+        return $this->reductionArr2Enf4Adulte;
+    }
+
+    /**
+     * Set reductionArr1Enf5Adulte
+     *
+     * @param string $reductionArr1Enf5Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr1Enf5Adulte($reductionArr1Enf5Adulte)
+    {
+        $this->reductionArr1Enf5Adulte = $reductionArr1Enf5Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr1Enf5Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr1Enf5Adulte()
+    {
+        return $this->reductionArr1Enf5Adulte;
+    }
+
+    /**
+     * Set reductionArr2Enf5Adulte
+     *
+     * @param string $reductionArr2Enf5Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr2Enf5Adulte($reductionArr2Enf5Adulte)
+    {
+        $this->reductionArr2Enf5Adulte = $reductionArr2Enf5Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr2Enf5Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr2Enf5Adulte()
+    {
+        return $this->reductionArr2Enf5Adulte;
+    }
+
+    /**
+     * Set reductionArr1Enf6Adulte
+     *
+     * @param string $reductionArr1Enf6Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr1Enf6Adulte($reductionArr1Enf6Adulte)
+    {
+        $this->reductionArr1Enf6Adulte = $reductionArr1Enf6Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr1Enf6Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr1Enf6Adulte()
+    {
+        return $this->reductionArr1Enf6Adulte;
+    }
+
+    /**
+     * Set reductionArr2Enf6Adulte
+     *
+     * @param string $reductionArr2Enf6Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr2Enf6Adulte($reductionArr2Enf6Adulte)
+    {
+        $this->reductionArr2Enf6Adulte = $reductionArr2Enf6Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr2Enf6Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr2Enf6Adulte()
+    {
+        return $this->reductionArr2Enf6Adulte;
+    }
+
+    /**
+     * Set reductionArr1Enf7Adulte
+     *
+     * @param string $reductionArr1Enf7Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr1Enf7Adulte($reductionArr1Enf7Adulte)
+    {
+        $this->reductionArr1Enf7Adulte = $reductionArr1Enf7Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr1Enf7Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr1Enf7Adulte()
+    {
+        return $this->reductionArr1Enf7Adulte;
+    }
+
+    /**
+     * Set reductionArr2Enf7Adulte
+     *
+     * @param string $reductionArr2Enf7Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr2Enf7Adulte($reductionArr2Enf7Adulte)
+    {
+        $this->reductionArr2Enf7Adulte = $reductionArr2Enf7Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr2Enf7Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr2Enf7Adulte()
+    {
+        return $this->reductionArr2Enf7Adulte;
+    }
+
+    /**
+     * Set reductionArr1Enf8Adulte
+     *
+     * @param string $reductionArr1Enf8Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr1Enf8Adulte($reductionArr1Enf8Adulte)
+    {
+        $this->reductionArr1Enf8Adulte = $reductionArr1Enf8Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr1Enf8Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr1Enf8Adulte()
+    {
+        return $this->reductionArr1Enf8Adulte;
+    }
+
+    /**
+     * Set reductionArr2Enf8Adulte
+     *
+     * @param string $reductionArr2Enf8Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr2Enf8Adulte($reductionArr2Enf8Adulte)
+    {
+        $this->reductionArr2Enf8Adulte = $reductionArr2Enf8Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr2Enf8Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr2Enf8Adulte()
+    {
+        return $this->reductionArr2Enf8Adulte;
+    }
+
+    /**
+     * Set reductionArr1Enf9Adulte
+     *
+     * @param string $reductionArr1Enf9Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr1Enf9Adulte($reductionArr1Enf9Adulte)
+    {
+        $this->reductionArr1Enf9Adulte = $reductionArr1Enf9Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr1Enf9Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr1Enf9Adulte()
+    {
+        return $this->reductionArr1Enf9Adulte;
+    }
+
+    /**
+     * Set reductionArr2Enf9Adulte
+     *
+     * @param string $reductionArr2Enf9Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr2Enf9Adulte($reductionArr2Enf9Adulte)
+    {
+        $this->reductionArr2Enf9Adulte = $reductionArr2Enf9Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr2Enf9Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr2Enf9Adulte()
+    {
+        return $this->reductionArr2Enf9Adulte;
+    }
+
+    /**
+     * Set reductionArr1Enf10Adulte
+     *
+     * @param string $reductionArr1Enf10Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr1Enf10Adulte($reductionArr1Enf10Adulte)
+    {
+        $this->reductionArr1Enf10Adulte = $reductionArr1Enf10Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr1Enf10Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr1Enf10Adulte()
+    {
+        return $this->reductionArr1Enf10Adulte;
+    }
+
+    /**
+     * Set reductionArr2Enf10Adulte
+     *
+     * @param string $reductionArr2Enf10Adulte
+     * @return SaisonFraisChambre
+     */
+    public function setReductionArr2Enf10Adulte($reductionArr2Enf10Adulte)
+    {
+        $this->reductionArr2Enf10Adulte = $reductionArr2Enf10Adulte;
+
+        return $this;
+    }
+
+    /**
+     * Get reductionArr2Enf10Adulte
+     *
+     * @return string 
+     */
+    public function getReductionArr2Enf10Adulte()
+    {
+        return $this->reductionArr2Enf10Adulte;
+    }
+}

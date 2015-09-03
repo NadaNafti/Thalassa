@@ -22,6 +22,8 @@
                 ))
                 ->add('reduction1Enf1Adulte')
                 ->add('reduction2Enf1Adulte')
+                ->add('reductionArr1Enf1Adulte')
+                ->add('reductionArr2Enf1Adulte')
                 ->add('valeur2Adulte')
                 ->add('marge2Adulte')
                 ->add('margePourc2Adulte','checkbox',array(
@@ -107,7 +109,27 @@
                 ->add('suppSingle2Enf','checkbox',array(
                     'label'    => 'Appliquer supplémenet single pour un adulte avec 2 enfants ou plus',
                     'required' => FALSE,
-                ));
+                ))
+                ->add('reductionArr1Enf1Adulte')
+                ->add('reductionArr2Enf1Adulte')
+                ->add('reductionArr1Enf2Adulte')
+                ->add('reductionArr2Enf2Adulte')
+                ->add('reductionArr1Enf3Adulte')
+                ->add('reductionArr2Enf3Adulte')
+                ->add('reductionArr1Enf4Adulte')
+                ->add('reductionArr2Enf4Adulte')
+                ->add('reductionArr1Enf5Adulte')
+                ->add('reductionArr2Enf5Adulte')
+                ->add('reductionArr1Enf6Adulte')
+                ->add('reductionArr2Enf6Adulte')
+                ->add('reductionArr1Enf7Adulte')
+                ->add('reductionArr2Enf7Adulte')
+                ->add('reductionArr1Enf8Adulte')
+                ->add('reductionArr2Enf8Adulte')
+                ->add('reductionArr1Enf9Adulte')
+                ->add('reductionArr2Enf9Adulte')
+                ->add('reductionArr1Enf10Adulte')
+                ->add('reductionArr2Enf10Adulte');
             //->add('saison')
             //->add('chambre');
         }
