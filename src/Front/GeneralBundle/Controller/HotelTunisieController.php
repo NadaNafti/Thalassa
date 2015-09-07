@@ -135,7 +135,6 @@
         public function removeInvalideHotel($hotels,$topPromo = 'no')
         {
             $newHotels=array();
-            dump($topPromo);
             foreach($hotels as $hotel){
                 if(!is_null($hotel->getSaisonBase()) && $hotel->getSaisonBase()->isValidSaisonBase() && !$hotel->isInStopSales() && $hotel->getEtat() == 1){
                     if($topPromo =='no' || ( $this->get('kernel')->getEnvironment()=='prod' && $hotel->getSaisonPromotionByDate(date('Y-m-d'))->getType() == 2))
