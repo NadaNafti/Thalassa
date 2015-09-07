@@ -1,0 +1,69 @@
+{% extends 'EspaceClientBundle:base:base.html.twig' %}
+{% block body %}
+
+    <div id="dashboard" class="tab-content">
+        <div class="tab-pane fade in active">
+            <h1 class="no-margin skin-color">Salut {{ app.user.client.nomPrenom }}, Bienvenue à {{ getAgence() }}!</h1>
+            <p>Tous vos voyages réservé avec nous apparaissent ici et vous serez en mesure de tout gérer !!!</p>
+            <br/>
+            <div class="row block">
+                <div class="col-sm-6 col-md-4">
+                    <a href="{{ path('espace_client_reservationSHT') }}">
+                        <div class="fact blue">
+                            <div class="numbers counters-box">
+                                <dl>
+                                    <dt class="display-counter" data-value="{{ app.user.client.reservationsSHT|length }}">0</dt>
+                                    <dd>Hotels en tunisie</dd>
+                                </dl>
+                                <i class="icon soap-icon-hotel"></i>
+                            </div>
+                            <div class="description">
+                                <i class="icon soap-icon-longarrow-right"></i> <span>Voir toutes la liste</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <a href="{{ path('espace_client_reservationVO') }}">
+                        <div class="fact yellow">
+                            <div class="numbers counters-box">
+                                <dl>
+                                    <dt class="display-counter" data-value="{{ app.user.client.reservationsVO|length }}">0</dt>
+                                    <dd>Voyages Organisées</dd>
+                                </dl>
+                                <i class="icon soap-icon-flight-hotel"></i>
+                            </div>
+                            <div class="description">
+                                <i class="icon soap-icon-longarrow-right"></i> <span>Voir toutes la liste</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <a href="{{ path('espace_client_reservationPR') }}">
+                        <div class="fact red">
+                            <div class="numbers counters-box">
+                                <dl>
+                                    <dt class="display-counter" data-value="{{ app.user.client.reservationsPR|length }}">0</dt>
+                                    <dd>Programmes & activitées</dd>
+                                </dl>
+                                <i class="icon soap-icon-carryon"></i>
+                            </div>
+                            <div class="description">
+                                <i class="icon soap-icon-longarrow-right"></i> <span>Voir toutes la liste</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <div class="info-box block">
+                    <span class="close"></span>
+                    <p>
+                        Ceci est votre tableau de bord, le lieu de vérifier votre profil, répondre aux demandes de réservation, de visualiser les informations de voyage à venir, et bien plus encore.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

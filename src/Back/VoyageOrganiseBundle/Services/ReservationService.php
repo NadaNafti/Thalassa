@@ -55,7 +55,8 @@
             $this->em->persist($reservation);
             $x = 0;
             foreach($chambres as $ch){
-                for($i = 1;$i <= $data['chambre' . $ch[0]];$i++){
+                for($i = 1;$i <= $data['chambre' . $ch[0]];$i++)
+                {
                     $reservationChambre = new ReservationChambre();
                     $reservationChambre->setReservation($reservation)
                         ->setType($ch[1]);

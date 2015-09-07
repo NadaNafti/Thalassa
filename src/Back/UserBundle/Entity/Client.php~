@@ -118,7 +118,17 @@ class Client
     /**
      * @ORM\OneToMany(targetEntity="Back\HotelTunisieBundle\Entity\Reservation", mappedBy="client")
      */
-    protected $reservations;
+    protected $reservationsSHT;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Back\VoyageOrganiseBundle\Entity\Reservation", mappedBy="client")
+     */
+    protected $reservationsVO;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Back\VoyageOrganiseBundle\Entity\Reservation", mappedBy="client")
+     */
+    protected $reservationsPR;
 
     /**
      * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Piece", mappedBy="client")
@@ -456,6 +466,7 @@ class Client
     public function __construct()
     {
 	$this->passager=FALSE;
+	$this->responsable=FALSE;
         $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -523,5 +534,28 @@ class Client
     public function getPieces()
     {
         return $this->pieces;
+    }
+
+    /**
+     * Set passager
+     *
+     * @param boolean $passager
+     * @return Client
+     */
+    public function setPassager($passager)
+    {
+        $this->passager = $passager;
+
+        return $this;
+    }
+
+    /**
+     * Get passager
+     *
+     * @return boolean 
+     */
+    public function getPassager()
+    {
+        return $this->passager;
     }
 }

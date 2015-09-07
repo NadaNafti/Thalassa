@@ -8,6 +8,9 @@ services:
       class: Back\GeneralBundle\Twig\Extension\InterfacesExtension
       tags:
         - { name: twig.extension }
+      arguments:
+          em: "@doctrine.orm.entity_manager"
+          container: "@service_container"
     
     form.ckeditor:
         class: Back\GeneralBundle\Form\Type\CkeditorType

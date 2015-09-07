@@ -181,4 +181,27 @@ class Reglement
     {
         return $this->reservationVO;
     }
+
+    /**
+     * Set reservationPR
+     *
+     * @param \Back\ProgrammeBundle\Entity\Reservation $reservationPR
+     * @return Reglement
+     */
+    public function setReservationPR(\Back\ProgrammeBundle\Entity\Reservation $reservationPR = null)
+    {
+        $this->reservationPR = $reservationPR;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationPR
+     *
+     * @return \Back\ProgrammeBundle\Entity\Reservation 
+     */
+    public function getReservationPR()
+    {
+        return $this->reservationPR;
+    }
 }

@@ -21,11 +21,13 @@
          * @ORM\GeneratedValue(strategy="AUTO")
          */
         private $id;
+
         /**
          * @var string
          * @ORM\Column(name="code", type="string",nullable=true)
          */
         private $code;
+
         /**
          * @var integer
          *
@@ -35,90 +37,107 @@
          * @ORM\Column(name="etat", type="integer")
          */
         private $etat;
+
         /**
          * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\User")
          */
         protected $responsable;
+
         /**
          * @var boolean
          *
          * @ORM\Column(name="frontOffice", type="boolean", nullable=true)
          */
         private $frontOffice;
+
         /**
          * @var string
          *
          * @ORM\Column(name="commentaire", type="text",nullable=true)
          */
         private $commentaire;
+
         /**
-         * @ORM\ManyToOne(targetEntity="VoyageOrganise", inversedBy="reservationsVo")
+         * @ORM\ManyToOne(targetEntity="VoyageOrganise")
          * @Assert\NotBlank()
          */
         private $voyage;
+
         /**
          * @ORM\ManyToOne(targetEntity="Pack")
          */
         private $pack;
+
         /**
-         * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client")
-         * @Assert\NotBlank()
+         * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservationsVO")
+         * @ORM\JoinColumn(onDelete="CASCADE")
          */
         protected $client;
+
         /**
          * @var \DateTime
          *
          * @ORM\Column(name="validated", type="datetime" ,nullable=true)
          */
         private $validated;
+
         /**
          * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationVO")
          */
         protected $reglements;
+
         /**
          * @ORM\OneToMany(targetEntity="ReservationChambre", mappedBy="reservation")
          */
         protected $chambres;
+
         /**
          * @var array
          *
          * @ORM\Column(name="supplements", type="array")
          */
         private $supplements;
+
         /**
          * @var array
          *
          * @ORM\Column(name="circuits", type="array")
          */
         private $circuits;
+
         /**
          * @var array
          *
          * @ORM\Column(name="frais", type="array")
          */
         private $frais;
+
         /**
          * @Gedmo\Timestampable(on="create")
          * @ORM\Column( type="datetime")
          */
         private $created;
+
         /**
          * @Gedmo\Timestampable(on="update")
          * @ORM\Column( type="datetime")
          */
         private $updated;
+
         /**
          * @var array
          *
          * @ORM\Column(name="coordonnees", type="array")
          */
         private $coordonnees;
+
         /**
          * @var string
          *
          * @ORM\Column(name="timbre", type="decimal", precision=2, scale=1,nullable=true)
          */
         private $timbre;
+
         /**
          * @var string
          *

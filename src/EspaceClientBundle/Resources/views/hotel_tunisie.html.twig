@@ -1,0 +1,59 @@
+{% extends 'EspaceClientBundle:base:base.html.twig' %}
+{% block title %}Hôtels en tunisie{% endblock %}
+{% block body %}
+    <div class="tab-content">
+        <div id="booking" class="tab-pane fade active in">
+            <h2>{{ block('title') }}</h2>
+            {% if false %}
+                <div class="filter-section gray-area clearfix">
+                    <form>
+                        <label class="radio radio-inline">
+                            <input type="radio" name="filter" checked="checked"/> All Types </label>
+                        <label class="radio radio-inline"> <input type="radio" name="filter"/> Hotels </label>
+                        <label class="radio radio-inline"> <input type="radio" name="filter"/> Flights </label>
+                        <label class="radio radio-inline"> <input type="radio" name="filter"/> Cars </label>
+                        <label class="radio radio-inline"> <input type="radio" name="filter"/> Cruises </label>
+                        <div class="pull-right col-md-6 action">
+                            <h5 class="pull-left no-margin col-md-4">Sort results by:</h5>
+                            <button class="btn-small white gray-color">UPCOMING</button>
+                            <button class="btn-small white gray-color">CANCELLED</button>
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
+            <div class="booking-history">
+                {% for reservation in reservations %}
+                    <div class="booking-info clearfix {% if reservation.etat==9 %}cancelled{% endif %}">
+                        <div class="date">
+                            <label class="month">{{ reservation.dateDebut|date('M') }}</label>
+                            <label class="date">{{ reservation.dateDebut|date('d') }}</label>
+                            <label class="day">{{ reservation.dateDebut|date('l') }}</label>
+                        </div>
+                        <h4 class="box-title">
+                            <i class="icon soap-icon-hotel  ref-color circle"></i>{{ reservation.hotel }}
+                            <small>{{ reservation.showEtat }}</small>
+                            <small>
+                                {% if reservation.responsable is not null %}
+                                    Prise en charge par {{ reservation.responsable }}
+                                {% endif %}
+                            </small>
+                        </h4>
+                        <dl class="info">
+                            <dt>Total</dt>
+                            <dd>
+                                {% if reservation.surDemande %}
+                                    Sur Demande
+                                {% else %}
+                                    {{ reservation.total }} DT
+                                {% endif %}
+                            </dd>
+                            <dt>Réservé sur</dt>
+                            <dd>{{ reservation.created|date('l, M d, Y') }}</dd>
+                        </dl>
+                        <a href="{{ path('espace_client_reservationSHT_details',{'id':reservation.id}) }}" class="btn status">Détails</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -35,13 +35,6 @@
         private $age;
 
         /**
-         * @var string
-         *
-         * @ORM\Column(name="passport", type="string", length=100)
-         */
-        private $passport;
-
-        /**
          * @ORM\ManyToOne(targetEntity="Reservation", inversedBy="adultes",cascade={"persist"})
          * @ORM\JoinColumn(onDelete="CASCADE")
          */
@@ -125,36 +118,12 @@
         }
 
         /**
-         * Get passport
-         *
-         * @return string
-         */
-        public function getPassport()
-        {
-            return $this->passport;
-        }
-
-        /**
-         * Set passport
-         *
-         * @param string $passport
-         * @return ReservationPersonne
-         */
-        public function setPassport($passport)
-        {
-            $this->passport = $passport;
-            return $this;
-        }
-
-        /**
          * Constructor
          */
         public function __construct()
         {
             $this->lignes = new \Doctrine\Common\Collections\ArrayCollection();
         }
-
-
 
         /**
          * Get lignes
@@ -217,5 +186,49 @@
         public function removeLigne(\Back\ProgrammeBundle\Entity\ReservationLigne $lignes)
         {
             $this->lignes->removeElement($lignes);
+        }
+
+        /**
+         * Set reservationA
+         *
+         * @param \Back\ProgrammeBundle\Entity\Reservation $reservationA
+         * @return ReservationPersonne
+         */
+        public function setReservationA(\Back\ProgrammeBundle\Entity\Reservation $reservationA = NULL)
+        {
+            $this->reservationA = $reservationA;
+            return $this;
+        }
+
+        /**
+         * Get reservationA
+         *
+         * @return \Back\ProgrammeBundle\Entity\Reservation
+         */
+        public function getReservationA()
+        {
+            return $this->reservationA;
+        }
+
+        /**
+         * Set reservationE
+         *
+         * @param \Back\ProgrammeBundle\Entity\Reservation $reservationE
+         * @return ReservationPersonne
+         */
+        public function setReservationE(\Back\ProgrammeBundle\Entity\Reservation $reservationE = NULL)
+        {
+            $this->reservationE = $reservationE;
+            return $this;
+        }
+
+        /**
+         * Get reservationE
+         *
+         * @return \Back\ProgrammeBundle\Entity\Reservation
+         */
+        public function getReservationE()
+        {
+            return $this->reservationE;
         }
     }
