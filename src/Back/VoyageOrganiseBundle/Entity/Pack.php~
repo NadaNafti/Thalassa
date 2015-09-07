@@ -577,4 +577,83 @@
             $this->single = $single;
             return $this;
         }
+    
+    /**
+     * Get single
+     *
+     * @return boolean 
+     */
+    public function getSingle()
+    {
+        return $this->single;
     }
+
+    /**
+     * Set double
+     *
+     * @param boolean $double
+     * @return Pack
+     */
+    public function setDouble($double)
+    {
+        $this->double = $double;
+
+        return $this;
+    }
+
+    /**
+     * Get double
+     *
+     * @return boolean 
+     */
+    public function getDouble()
+    {
+        return $this->double;
+    }
+
+    /**
+     * Set triple
+     *
+     * @param boolean $triple
+     * @return Pack
+     */
+    public function setTriple($triple)
+    {
+        $this->triple = $triple;
+
+        return $this;
+    }
+
+    /**
+     * Get triple
+     *
+     * @return boolean 
+     */
+    public function getTriple()
+    {
+        return $this->triple;
+    }
+
+    /**
+     * Set quadruple
+     *
+     * @param boolean $quadruple
+     * @return Pack
+     */
+    public function setQuadruple($quadruple)
+    {
+        $this->quadruple = $quadruple;
+
+        return $this;
+    }
+
+    /**
+     * Get quadruple
+     *
+     * @return boolean 
+     */
+    public function getQuadruple()
+    {
+        return $this->quadruple;
+    }
+}

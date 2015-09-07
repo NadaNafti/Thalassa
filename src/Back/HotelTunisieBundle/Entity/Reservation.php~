@@ -72,7 +72,7 @@ class Reservation
     protected $hotel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservations")
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservationsSHT")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $client;

@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new Front\GeneralBundle\FrontGeneralBundle(),
             new Front\ConfigBundle\FrontConfigBundle(),
             new Back\ProgrammeBundle\BackProgrammeBundle(),
+            new EspaceClientBundle\EspaceClientBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

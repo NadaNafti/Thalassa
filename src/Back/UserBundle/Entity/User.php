@@ -84,5 +84,4 @@ class User extends BaseUser
         else
             return $this->client->getNomPrenom();
     }
-
 }

@@ -164,7 +164,23 @@ class VoyageOrganiseController extends Controller
         {
             $form->submit($request);
             $data = $request->request->all();
-            $nbrPassagers = $data['chambresingle'] + $data['chambredouble'] * 2 + $data['chambretriple'] * 3 + $data['chambrequadruple'] * 4;
+            $nbrPassagers=0;
+            if(isset($data['chambresingle']))
+                $nbrPassagers+=$data['chambresingle'];
+            else
+                $data['chambresingle']=0;
+            if(isset($data['chambredouble']))
+                $nbrPassagers+=$data['chambredouble']*2;
+            else
+                $data['chambredouble']=0;
+            if(isset($data['chambretriple']))
+                $nbrPassagers+=$data['chambretriple']*3;
+            else
+                $data['chambretriple']=0;
+            if(isset($data['chambrequadruple']))
+                $nbrPassagers+=$data['chambrequadruple']*4;
+            else
+                $data['chambrequadruple']=0;
             if ($nbrPassagers == 0)
             {
                 $session->getFlashBag()->add('Erreur', "Vous devrez choisir au moin une chambre.");

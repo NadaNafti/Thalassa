@@ -69,8 +69,8 @@
         private $periode;
 
         /**
-         * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client")
-         * @Assert\NotBlank()
+         * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservationsPR")
+         * @ORM\JoinColumn(onDelete="CASCADE")
          */
         protected $client;
 

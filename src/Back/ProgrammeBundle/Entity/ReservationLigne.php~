@@ -173,4 +173,9 @@
         {
             return $this->personne;
         }
+
+        public function __toString()
+        {
+            return $this->libelle;
+        }
     }

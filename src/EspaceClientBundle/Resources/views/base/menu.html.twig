@@ -1,0 +1,14 @@
+<ul class="tabs">
+    <li {% if app.request.get('_route')=='espace_client_homepage' %}class="active"{% endif %}>
+        <a href="{{ path('espace_client_homepage') }}"><i class="soap-icon-anchor circle"></i>Espace Client</a>
+    </li>
+    <li {% if app.request.get('_route')in ['espace_client_reservationSHT_details','espace_client_reservationSHT'] %}class="active"{% endif %}>
+        <a href="{{ path('espace_client_reservationSHT') }}"><i class="soap-icon-hotel circle"></i>Hôtels en tunisie</a>
+    </li>
+    <li {% if app.request.get('_route')in ['espace_client_reservationVO_details','espace_client_reservationVO']  %}class="active"{% endif %}>
+        <a href="{{ path('espace_client_reservationVO') }}"><i class="soap-icon-flight-hotel circle"></i>Voyages Organisées</a>
+    </li>
+    <li {% if app.request.get('_route')in ['espace_client_reservationPR_details','espace_client_reservationPR']  %}class="active"{% endif %}>
+        <a href="{{ path('espace_client_reservationPR') }}"><i class="soap-icon-carryon circle"></i>Programmes</a>
+    </li>
+</ul>

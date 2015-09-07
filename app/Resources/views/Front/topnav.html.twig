@@ -1,39 +1,26 @@
 <div class="top-header">
     <div class="clearfix">
         <div class="top-header-inner clearfix">
-            {#<div class="header-currency mr-20">
-                <a href="#"><span><i></i>Dinars (DT)</span></a>
-                <div class="currency-show">
-                    <ul>
-                        <li><a href="#"><span><i></i>Pound (UK) </span></a></li>
-                        <li><a href="#"><span><i></i>Euro (EU) </span></a></li>
-                    </ul>
-                </div>
-            </div>#}
-	    {#            <div class="header-phone"><i class="icon icon-phone-support"></i>(+216) 52 557 390</div>#}
-	    {#            <button class="login-modal" data-toggle="modal" style="border-right: none">
-			    <i class="icon icon-phone-support"></i>Contact
-			</button>#}
-	    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-		<a href="{{ path('fos_user_registration_register') }}" class="login-modal" style="border-right: none">
-		    <i class="icon icon icon-user-add mi"></i>S'inscrire
-		</a>
-		<a href="{{ path('fos_user_security_login') }}" class="login-modal">
-		    <i class="fa-sign-in mi"></i>Se connecter
-		</a>
-	    {% else %}
-		<a href="{{ path('fos_user_security_logout') }}" class="login-modal" style="border-right: none">
-		    <i class="fa-sign-in mi"></i>Se déconnecter
-		</a>
-		{% if is_granted('ROLE_ADMIN') %}
-		    <a href="{{ path('tableaubord') }}" target="_blank" class="login-modal">
-			<i class="fa-lock mi"></i>Back Office
-		    </a>
-		{% endif %}
-		<p class="login-modal" style="  cursor: inherit;">
-		    <strong>Bienvenue</strong> {{ app.user }}
-		</p>
-	    {% endif %}
+            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                <a href="{{ path('fos_user_registration_register') }}" class="login-modal" style="border-right: none">
+                    <i class="icon icon icon-user-add mi"></i>S'inscrire </a>
+                <a href="{{ path('fos_user_security_login') }}" class="login-modal">
+                    <i class="fa-sign-in mi"></i>Se connecter </a>
+            {% else %}
+                <a href="{{ path('fos_user_security_logout') }}" class="login-modal" style="border-right: none">
+                    <i class="fa-sign-in mi"></i>Se déconnecter </a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('tableaubord') }}" target="_blank" class="login-modal">
+                        <i class="fa-lock mi"></i>Back Office </a>
+                {% endif %}
+                {% if app.user.client is not null %}
+                    <a href="{{ path('espace_client_homepage') }}" target="_blank" class="login-modal">
+                        <i class="fa-lock mi"></i>Espace client </a>
+                {% endif %}
+                <p class="login-modal" style="  cursor: inherit;">
+                    <strong>Bienvenue</strong> {{ app.user }}
+                </p>
+            {% endif %}
             <div class="clear xss-mb-10"></div>
         </div>
     </div>

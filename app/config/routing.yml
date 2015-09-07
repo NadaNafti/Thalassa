@@ -5,6 +5,11 @@ front_config:
 front_general:
     resource: "@FrontGeneralBundle/Resources/config/routing.yml"
     prefix:   /
+
+espace_client:
+    resource: "@EspaceClientBundle/Resources/config/routing.yml"
+    prefix:   /espace_client
+
 back_programme:
     resource: "@BackProgrammeBundle/Resources/config/routing.yml"
     prefix:   /admin/programme
