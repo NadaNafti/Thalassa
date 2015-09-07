@@ -4,13 +4,13 @@ front_hoteltunisie_accueil:
     
 front_hoteltunisie_list:
     path:     /liste/{page}/{categorie}/{chaine}/{ville}/{tag}/{promotion}/{name}
-    defaults: { _controller: FrontGeneralBundle:HotelTunisie:liste,page:1,categorie:all,tag:all,promotion:false,chaine:all,ville:all,name:null }
+    defaults: { _controller: FrontGeneralBundle:HotelTunisie:liste,page:1,categorie:all,tag:all,promotion:no,chaine:all,ville:all,name:null }
     requirements:
         page:  \d+
     
 front_hoteltunisie_filtre:
     path:     /filtre/{page}/{categorie}/{chaine}/{ville}/{tag}/{promotion}/{name}
-    defaults: { _controller: FrontGeneralBundle:HotelTunisie:filtre,page:1,categorie:all,tag:all,chaine:all,promotion:false,ville:all,name:null }
+    defaults: { _controller: FrontGeneralBundle:HotelTunisie:filtre,page:1,categorie:all,tag:all,chaine:all,promotion:no,ville:all,name:null }
     requirements:
         page:  \d+
     

@@ -85,9 +85,9 @@
                 else
                     $arrays['chaine'] = implode(',',$chaineArray);
                 if($request->get('promotionSearch'))
-                    $arrays['promotion'] = 'true';
+                    $arrays['promotion'] = 'yes';
                 else
-                    $arrays['promotion'] = 'false';
+                    $arrays['promotion'] = 'no';
                 $arrays['name'] = urlencode($request->get('motclesSearch'));
                 $session->set('nuitees',$request->get('nuiteesSearch'));
                 $session->set('dateDebut',$request->get('dateDebutSearch'));
@@ -132,12 +132,13 @@
             ));
         }
 
-        public function removeInvalideHotel($hotels,$topPromo = FALSE)
+        public function removeInvalideHotel($hotels,$topPromo = 'no')
         {
             $newHotels=array();
+            dump($topPromo);
             foreach($hotels as $hotel){
                 if(!is_null($hotel->getSaisonBase()) && $hotel->getSaisonBase()->isValidSaisonBase() && !$hotel->isInStopSales() && $hotel->getEtat() == 1){
-                    if(!$topPromo || ( $this->get('kernel')->getEnvironment()=='prod' && $hotel->getSaisonPromotionByDate(date('Y-m-d'))->getType() == 2))
+                    if($topPromo =='no' || ( $this->get('kernel')->getEnvironment()=='prod' && $hotel->getSaisonPromotionByDate(date('Y-m-d'))->getType() == 2))
                         $newHotels[] = $hotel;
                 }
             }
