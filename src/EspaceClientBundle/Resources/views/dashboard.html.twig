@@ -56,14 +56,32 @@
                     </a>
                 </div>
             </div>
-            <div>
-                <div class="info-box block">
-                    <span class="close"></span>
-                    <p>
-                        Ceci est votre tableau de bord, le lieu de vérifier votre profil, répondre aux demandes de réservation, de visualiser les informations de voyage à venir, et bien plus encore.
-                    </p>
+            <h2>Mon profil</h2>
+            {{ form_start(form) }}
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label>Nom & Prénom</label>
+                    {{ form_widget(form.nomPrenom) }}
+                </div>
+                <div class="col-md-4">
+                    <label>Tel 1</label>
+                    {{ form_widget(form.tel1) }}
+                </div>
+                <div class="col-md-4">
+                    <label>Tel 2</label>
+                    {{ form_widget(form.tel2) }}
                 </div>
             </div>
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <label>Adresse</label>
+                    {{ form_widget(form.adresse) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn-medium">Modifier</button>
+            </div>
+            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}

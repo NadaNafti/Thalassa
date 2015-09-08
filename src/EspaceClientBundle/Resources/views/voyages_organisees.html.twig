@@ -46,7 +46,9 @@
                             <dt>Réservé sur</dt>
                             <dd>{{ reservation.created|date('l, M d, Y') }}</dd>
                         </dl>
-                        <button class="btn-mini status">UPCOMMING</button>
+                        <a href="{{ path('espace_client_reservationVO_details',{'id':reservation.id}) }}">
+                            <button class="btn-mini status">Détails</button>
+                        </a>
                     </div>
                 {% endfor %}
                 <div class="navigation">
