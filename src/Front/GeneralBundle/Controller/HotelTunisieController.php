@@ -128,8 +128,8 @@
             $hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->findBy(array('ville' => $hotel->getVille()),array(),5);
             $hotels = $this->removeInvalideHotel($hotels);
             return $this->render('FrontGeneralBundle:hoteltunisie/details:details.html.twig',array(
-                'dateDebut' => $session->get('dateDebut'),
-                'dateFin'   => $ddd->modify('+'.$session->get('nuitees').' day')->format('Y-m-d'),
+                'dateDebut' => $ddd,
+                'dateFin'   => $ddd->modify('+'.$session->get('nuitees').' day'),
                 'hotel'     => $hotel,
                 'hotels'    => $hotels,
             ));
