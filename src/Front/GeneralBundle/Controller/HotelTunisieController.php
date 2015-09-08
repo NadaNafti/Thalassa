@@ -123,21 +123,24 @@
         {
             $em = $this->getDoctrine()->getManager();
             $session = $this->getRequest()->getSession();
+            $ddd=\DateTime::createFromFormat('Y-m-d', $session->get('dateDebut'));
             $hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->findOneBy(array('slug' => $slug));
             $hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->findBy(array('ville' => $hotel->getVille()),array(),5);
             $hotels = $this->removeInvalideHotel($hotels);
             return $this->render('FrontGeneralBundle:hoteltunisie/details:details.html.twig',array(
-                'hotel'  => $hotel,
-                'hotels' => $hotels,
+                'dateDebut' => $session->get('dateDebut'),
+                'dateFin'   => $ddd->modify('+'.$session->get('nuitees').' day')->format('Y-m-d'),
+                'hotel'     => $hotel,
+                'hotels'    => $hotels,
             ));
         }
 
         public function removeInvalideHotel($hotels,$topPromo = 'no')
         {
-            $newHotels=array();
+            $newHotels = array();
             foreach($hotels as $hotel){
                 if(!is_null($hotel->getSaisonBase()) && $hotel->getSaisonBase()->isValidSaisonBase() && !$hotel->isInStopSales() && $hotel->getEtat() == 1){
-                    if($topPromo =='no' || ( $this->get('kernel')->getEnvironment()=='prod' && $hotel->getSaisonPromotionByDate(date('Y-m-d'))->getType() == 2))
+                    if($topPromo == 'no' || ($this->get('kernel')->getEnvironment() == 'prod' && $hotel->getSaisonPromotionByDate(date('Y-m-d'))->getType() == 2))
                         $newHotels[] = $hotel;
                 }
             }
