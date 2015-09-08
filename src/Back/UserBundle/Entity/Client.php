@@ -115,16 +115,19 @@
 
         /**
          * @ORM\OneToMany(targetEntity="Back\HotelTunisieBundle\Entity\Reservation", mappedBy="client")
+         * @ORM\OrderBy({"id" = "DESC"})
          */
         protected $reservationsSHT;
 
         /**
          * @ORM\OneToMany(targetEntity="Back\VoyageOrganiseBundle\Entity\Reservation", mappedBy="client")
+         * @ORM\OrderBy({"id" = "DESC"})
          */
         protected $reservationsVO;
 
         /**
          * @ORM\OneToMany(targetEntity="Back\ProgrammeBundle\Entity\Reservation", mappedBy="client")
+         * @ORM\OrderBy({"id" = "DESC"})
          */
         protected $reservationsPR;
 
