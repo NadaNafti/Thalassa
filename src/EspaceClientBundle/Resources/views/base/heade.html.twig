@@ -1,5 +1,5 @@
 <header id="header" class="navbar-static-top ">
-    <div class="container">
+    <div class="container" style="padding: 20px 0">
             <a href="{{ path('espace_client_homepage') }}" title="Espace client">
                 <img src="{{ asset(getAgence().assetPath) }}" alt="Logo" style="height: inherit;max-height: 100px;"/>
             </a>
@@ -26,3 +26,8 @@
         </ul>
     </div>
 </header>
+<style>
+    #header .ribbon:hover > ul.menu {
+        top: 15px !important;
+    }
+</style>
