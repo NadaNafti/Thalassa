@@ -12,11 +12,19 @@ espace_client_reservationSHT:
     requirements:
         page:  \d+
 
+espace_client_reservationVO_details:
+    path:     /voyages_organisees/details/{id}
+    defaults: { _controller: EspaceClientBundle:Default:voyagesDetails }
+
 espace_client_reservationVO:
     path:     /voyages_organisees/{page}
     defaults: { _controller: EspaceClientBundle:Default:voyages,page:1}
     requirements:
         page:  \d+
+
+espace_client_reservationPR_details:
+    path:     /programmes/details/{id}
+    defaults: { _controller: EspaceClientBundle:Default:programmesDetails }
 
 espace_client_reservationPR:
     path:     /programmes/{page}
