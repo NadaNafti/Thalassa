@@ -1,32 +1,28 @@
-<div class="">
-    <header id="header" class="navbar-static-top ">
-        <div class="container">
-            <h1 class="logo navbar-brand">
-                <a href="{{ path('espace_client_homepage') }}" title="Espace client">
-                    <img src="{{ asset(getAgence().assetPath) }}" alt="Logo" style="height: inherit;max-height: 100px;"/>
-                </a>
-            </h1>
-            <ul class="quick-menu pull-right hidden-mobile">
-                <li class="ribbon">
-                    <a href="#" style="    color: black;">{{ app.user }}</a>
-                    <ul class="menu mini uppercase">
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <li>
-                                <a href="{{ path('tableaubord') }}" target="_blank" class="location-reload">Administration</a>
-                            </li>
-                        {% endif %}
+<header id="header" class="navbar-static-top ">
+    <div class="container">
+            <a href="{{ path('espace_client_homepage') }}" title="Espace client">
+                <img src="{{ asset(getAgence().assetPath) }}" alt="Logo" style="height: inherit;max-height: 100px;"/>
+            </a>
+        <ul class="quick-menu pull-right hidden-mobile">
+            <li class="ribbon">
+                <a href="#" style="    color: black;">{{ app.user }}</a>
+                <ul class="menu mini uppercase">
+                    {% if is_granted('ROLE_ADMIN') %}
                         <li>
-                            <a href="{{ path('fos_user_change_password') }}" class="location-reload">Modifier Mot de passe</a>
+                            <a href="{{ path('tableaubord') }}" target="_blank" class="location-reload">Administration</a>
                         </li>
-                        <li>
-                            <a href="{{ path('fos_user_profile_edit') }}" class="location-reload">Modifier mon profile</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </header>
-</div>
+                    {% endif %}
+                    <li>
+                        <a href="{{ path('fos_user_change_password') }}" class="location-reload">Modifier Mot de passe</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('fos_user_profile_edit') }}" class="location-reload">Modifier mon profile</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</header>
