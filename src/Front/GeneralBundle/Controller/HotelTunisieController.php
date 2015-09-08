@@ -172,6 +172,8 @@
         {
             $em = $this->getDoctrine()->getManager();
             $session = $this->getRequest()->getSession();
+            $dateDebut=\DateTime::createFromFormat('Y-m-d', $session->get('dateDebut'));
+            $dateFin=$dateDebut->modify('+'.$session->get('nuitees').' day');
             $request = $this->getRequest();
             $user = $this->get('security.context')->getToken()->getUser();
             if($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') && !is_null($user->getClient()))
@@ -179,8 +181,6 @@
             else
                 $client = $this->container->get('users')->getPassager();
             $hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->findOneBy(array('slug' => $slug));
-//	if (!$session->has('reservation'))
-//	{
             $reservation = array();
             $reservation['hotel'] = $hotel->getId();
             $reservation['client'] = $client->getId();
@@ -189,9 +189,6 @@
             $reservation['nuitees'] = $session->get('nuitees');
             $reservation['dateFin'] = date('Y-m-d',strtotime($reservation['dateDebut'] . ' + ' . ($reservation['nuitees'] - 1) . ' day'));
             $session->set('reservation',$reservation);
-//	}
-//	else
-//	    $reservation = $session->get('reservation');
             $saison = $this->container->get('saisons')->getSaisonByClient($hotel,$client,$reservation['dateDebut']);
             $reservation['saison'] = $saison->getId();
             $reservation['chambres'] = array();
