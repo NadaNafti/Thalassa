@@ -524,6 +524,7 @@ class Saison
      * 1:Saison
      * 2:Promotion
      * 3:Amicales
+     * 4:Contingent
      * @param integer $type
      * @return Saison
      */
@@ -540,6 +541,7 @@ class Saison
      * 1:Saison
      * 2:Promotion
      * 3:Amicales
+     * 4:Contingent
      * @return integer 
      */
     public function getType()
@@ -557,6 +559,8 @@ class Saison
             return "Promotion";
         if ($this->type == 3)
             return "Amicales";
+        if ($this->type == 4)
+            return "Contingent";
     }
 
     /**
@@ -566,6 +570,10 @@ class Saison
     {
         $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
         $this->arrangements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->delaiAnnulation=0;
+        $this->delaiRetrocession=0;
+        $this->nombrePlace=0;
+        $this->aCompte=0;
     }
 
     /**

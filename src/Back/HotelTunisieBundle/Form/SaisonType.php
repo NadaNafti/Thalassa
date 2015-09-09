@@ -21,6 +21,7 @@ class SaisonType extends AbstractType
                     'choices' => array(
                         '1' => 'Saison',
                         '2' => 'Promotion',
+                        '4' => 'Contingent',
                         '3' => 'Amicales',
                     ),
                     'expanded'  => true,

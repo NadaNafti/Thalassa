@@ -188,10 +188,12 @@
                     Block.children().eq(i).remove();
             }
         })
+
         $(document).on('change', '.EnfantChambre', function () {
             var chambre = $(this).data('chambre');
             var ordre = $(this).data('ordre');
             var nbrKids = $(this).val();
+            var nbrAd = $(this).parent().parent().find('.AdulteChambre').val();
             var nbrAdulte = obj['maxAdulte' + chambre] - nbrKids;
             if (nbrAdulte > obj['maxAdulte' + chambre])
                 nbrAdulte = obj['maxAdulte' + chambre];
@@ -199,7 +201,8 @@
                 nbrAdulte = obj['minEnfant' + chambre];
             Block = $(this).parent().parent().find('.ages .row');
             var exist = Block.children().length;
-            $(this).parent().parent().find('.AdulteChambre').val(nbrAdulte);
+            if ((parseInt(nbrAd )+parseInt(nbrKids)) > (obj['minEnfant' + chambre] + obj['maxAdulte' + chambre]))
+                $(this).parent().parent().find('.AdulteChambre').val(nbrAdulte);
             if (exist < nbrKids) {
                 for (var i = 1; i <= nbrKids; i++) {
                     if (i > exist)

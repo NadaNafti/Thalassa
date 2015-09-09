@@ -4,13 +4,13 @@
 {% block topbody %}
     {{ parent() }}
     <li>
-        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}" >{{ hotel.libelle }}</a>
+        <a href="{{ path('modif_hotel',{'id':hotel.id}) }}">{{ hotel.libelle }}</a>
     </li>
     <li>
-        <a href="{{ path('PeriodeSaison',{'id':hotel.id}) }}" >Liste des saisons</a>
+        <a href="{{ path('PeriodeSaison',{'id':hotel.id}) }}">Liste des saisons</a>
     </li>
     <li>
-        <a href="javascript:void(0)" >{{ saison }}</a>
+        <a href="javascript:void(0)">{{ saison }}</a>
     </li>
 {% endblock %}
 {% block body %}
@@ -27,14 +27,14 @@
                                 <div class="row">
                                     {{ formulaire.input("col-md-1","Type",form.type,false) }}
                                     {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
-                                    {{ formulaire.input("col-md-2","Délai d'annulation",form.delaiAnnulation,true) }}
-                                    {{ formulaire.input("col-md-2","Délai retrocession",form.delaiRetrocession,true) }}
-                                    {{ formulaire.input("col-md-2","Nombre de place",form.nombrePlace,true) }}
-                                </div>
-                                <div class="row">
-                                    {{ formulaire.input("col-md-4","Acompte",form.aCompte,true) }}
-                                    {{ formulaire.input("col-md-4","Nbr min de nuitées",form.minStay,true) }}
-                                    {{ formulaire.input("col-md-4","Total contingent",form.totalContingent,true) }}
+                                    {#{{ formulaire.input("col-md-2","Délai d'annulation",form.delaiAnnulation,true) }}#}
+                                    {#{{ formulaire.input("col-md-2","Délai retrocession",form.delaiRetrocession,true) }}#}
+                                    {#{{ formulaire.input("col-md-2","Nombre de place",form.nombrePlace,true) }}#}
+                                    {#{{ formulaire.input("col-md-4","Acompte",form.aCompte,true) }}#}
+                                    {{ formulaire.input("col-md-2","Nbr min de nuitées",form.minStay,true) }}
+                                    {% if saison.type==4 %}
+                                        {{ formulaire.input("col-md-2","Total contingent",form.totalContingent,true) }}
+                                    {% endif %}
                                 </div>
                                 <div class="row">
                                     {{ formulaire.select2("col-md-3","Arrangement de base",form.ArrBase,true) }}

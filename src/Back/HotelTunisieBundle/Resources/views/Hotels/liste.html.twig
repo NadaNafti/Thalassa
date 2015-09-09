@@ -119,7 +119,7 @@
                                     <td>{{ hotel.fournisseur }}</td>
                                     <td>{{ hotel.images|length }}</td>
                                     <td>
-                                        {% set saison=hotel.getSaisonPromotionByDate('now'|date('Y-m-d')) %}
+                                        {% set saison=hotel.getSaisonPromotionByDate('now'|date('Y-m-d'),true) %}
                                         {% if saison is not null %}
                                             <a href="{% if saison.type is null %}{{ path('saison_base',{'id':hotel.id}) }}{% else %}{{ path('GeneralSaison',{'id':saison.id}) }}{% endif %}" class="tooltips" title="{% if saison.type in [1,2] %}{% for periode in saison.periodes %}{{ periode.getCurrentPeriode }}{% endfor %}{% else %}Saison de base{% endif %}">
                                                 <span class="label label-sm {% if saison.type == 1 %}label-inverse{% elseif saison.type==2 %}label-teal{% else %}label-warning{% endif %}  ">
