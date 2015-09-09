@@ -43,6 +43,8 @@
                                                 <span class="label label-sm label-info">Promotion</span>
                                             {% elseif saison.type==3 %}
                                                 <span class="label label-sm label-teal">Amicales</span>
+                                            {% elseif saison.type==4 %}
+                                                <span class="label label-sm label-inverse">Contingents ({{ saison.totalContingent }})</span>
                                             {% endif %}
                                             {% if not saison.isValid %}
                                                 <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span>

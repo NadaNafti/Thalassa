@@ -33,7 +33,6 @@
                                 {% for formC in form.suppChambres %}
                                     <div class="row">
                                         <div class="col-md-4" style="height: 68px;">
-                                            {{ formulaire.input("col-md-1", "",formC.etat,false) }}
                                             <label style="margin-top: 20px;    position: absolute;">{{ formC.chambre.vars.data.libelle }}</label>
                                             {{ form_widget(formC.chambre, {'attr': {'style': 'display:none'}}) }}
                                         </div>

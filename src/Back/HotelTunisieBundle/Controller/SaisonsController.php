@@ -51,7 +51,7 @@
             $form = $this->createFormBuilder()
                 ->add('libelle','text')
                 ->add('type','choice',array(
-                    'choices'     => array('1' => 'Saison','2' => 'Promotion','3' => 'Amicales'),
+                    'choices'     => array('1' => 'Saison','2' => 'Promotion','4' => 'Contingent','3' => 'Amicales'),
                     'required'    => TRUE,
                     'empty_value' => 'Type de saison',
                     'empty_data'  => NULL,

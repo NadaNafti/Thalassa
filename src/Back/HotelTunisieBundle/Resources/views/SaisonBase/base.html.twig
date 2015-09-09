@@ -22,14 +22,7 @@
                             <form action="{{ path('saison_base',{'id':hotel.id}) }}" method="post" role="form" id="form">
                                 {{ form_widget(form._token) }}
                                 <div class="row">
-                                    {{ formulaire.input("col-md-4","Délai d'annulation",form.delaiAnnulation,true) }}
-                                    {{ formulaire.input("col-md-4","Délai retrocession",form.delaiRetrocession,true) }}
-                                    {{ formulaire.input("col-md-4","Nombre de place",form.nombrePlace,true) }}
-                                </div>
-                                <div class="row">
-                                    {{ formulaire.input("col-md-4","Acompte",form.aCompte,true) }}
-                                    {{ formulaire.input("col-md-4","Nbr min de nuitées",form.minStay,true) }}
-                                    {{ formulaire.input("col-md-4","Total contingent",form.totalContingent,true) }}
+                                    {{ formulaire.input("col-md-2","Nbr min de nuitées",form.minStay,true) }}
                                 </div>
                                 <div class="row">
                                     {{ formulaire.select2("col-md-3","Arrangement de base",form.ArrBase,true) }}
@@ -45,5 +38,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
