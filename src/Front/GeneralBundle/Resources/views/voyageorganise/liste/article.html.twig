@@ -19,19 +19,18 @@
         <div class="list-item-label">
             <h4 class="list-item-title" style="white-space: nowrap">
                 <a href="{{ path('front_voyageorganise_details',{'slug':voyage.slug}) }}" class="inverse">
-                    {% if  voyage|length >30 %}
-                        {{ voyage|slice(0, 30)|raw }} ...
+                    {% if  voyage.libelle|length >35 %}
+                        {{ voyage.libelle|slice(0, 35)|raw }} ...
                     {% else %}
-                        {{ voyage|raw }}
+                        {{ voyage.libelle|raw }}
                     {% endif %}
-                    {{ voyage }}
                 </a>
             </h4>
             <span class="list-item-location">
-                {% if  voyage.destination|length >40 %}
-                    {{ voyage.destination|slice(0, 40)|raw }} ...
+                {% if  voyage.destination.libelle|length >35 %}
+                    {{ voyage.destination.libelle|slice(0, 35)|raw }} ...
                 {% else %}
-                    {{ voyage.destination|raw }}
+                    {{ voyage.destination.libelle|raw }}
                 {% endif %}
             </span>
             <div class="list-item-meta">
