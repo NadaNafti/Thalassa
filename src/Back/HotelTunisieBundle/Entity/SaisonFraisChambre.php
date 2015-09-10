@@ -2411,8 +2411,8 @@
         public function aPartirDe()
         {
             if($this->margePourc1Adulte)
-                return $this->valeur1Adulte + $this->valeur1Adulte / 100 * $this->marge1Adulte;
+                return $this->valeur2Adulte + $this->valeur2Adulte / 100 * $this->marge2Adulte;
             else
-                return $this->valeur1Adulte + $this->marge1Adulte;
+                return $this->valeur2Adulte + $this->marge2Adulte;
         }
     }

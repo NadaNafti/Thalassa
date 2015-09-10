@@ -73,7 +73,7 @@
                                                         <div class="row" style="  padding: 10px;  background-color: #eee;  margin-bottom: 5px;">
                                                             <div class="col-md-2">
                                                                 <label>{{ chambre.chambre }}</label>
-                                                                <select name="chambre_{{ chambre.chambre.id }}" data-id="{{ chambre.id }}" class="form-control chambresSelect">
+                                                                <select id="chambre-{{ chambre.chambre.id }}" name="chambre_{{ chambre.chambre.id }}" data-frais="{{ isFraisChambre(saison.id,chambre.chambre.id ) }}" data-id="{{ chambre.id }}" class="form-control chambresSelect">
                                                                     {% for i in 0..100 %}
                                                                         <option value="{{ i }}">{{ i }}</option>
                                                                     {% endfor %}
@@ -100,7 +100,6 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 {% block jquery %}
     <script>
@@ -115,8 +114,10 @@
         };
         $(document).on('change', '.AdulteChambre', function () {
             var chambre = $(this).data('chambre');
+            var frais = $('#chambre-' + chambre).data('frais');
             var ordre = $(this).data('ordre');
             var val = $(this).val();
+            var nbrENF = $(this).parent().parent().find('.EnfantChambre').val();
             var nbrKids = obj['maxAdulte' + chambre] - val;
             if (nbrKids > obj['maxEnfant' + chambre])
                 nbrKids = obj['maxEnfant' + chambre];
@@ -124,19 +125,36 @@
                 nbrKids = obj['minEnfant' + chambre];
             Block = $(this).parent().parent().find('.ages .row');
             var exist = Block.children().length;
-            if (exist < nbrKids) {
-                {#for (var i = 1; i <= nbrKids; i++) {#}
-                {#if (i > exist)#}
-                {#Block.append('<div class="col-md-1"><label>Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');#}
-                {#}#}
+            if (frais) {
+                if (parseInt(nbrENF) + parseInt(val) == 0) {
+                    var i = 1
+                    $(this).parent().parent().find('.EnfantChambre').val(1);
+                    Block.append('<div class="col-md-1"><label>Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
+                }
+                if (exist >= nbrKids) {
+                    $(this).parent().parent().find('.EnfantChambre').val(nbrKids);
+                    var toRemove = (exist - nbrKids);
+                    var nmbr = Block.children().length;
+                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                        Block.children().eq(i).remove();
+                }
             }
             else {
                 $(this).parent().parent().find('.EnfantChambre').val(nbrKids);
-                var toRemove = (exist - nbrKids);
-                var nmbr = Block.children().length;
-                for (var i = nmbr; i >= (nmbr - toRemove); i--)
-                    Block.children().eq(i).remove();
+                if (exist < nbrKids) {
+                    for (var i = 1; i <= nbrKids; i++) {
+                        if (i > exist)
+                            Block.append('<div class="col-md-1"><label>Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
+                    }
+                }
+                else {
+                    var toRemove = (exist - nbrKids);
+                    var nmbr = Block.children().length;
+                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                        Block.children().eq(i).remove();
+                }
             }
+
         })
 
         $('#calendar').fullCalendar({
@@ -191,6 +209,7 @@
 
         $(document).on('change', '.EnfantChambre', function () {
             var chambre = $(this).data('chambre');
+            var frais = $('#chambre-' + chambre).data('frais');
             var ordre = $(this).data('ordre');
             var nbrKids = $(this).val();
             var nbrAd = $(this).parent().parent().find('.AdulteChambre').val();
@@ -201,19 +220,38 @@
                 nbrAdulte = obj['minEnfant' + chambre];
             Block = $(this).parent().parent().find('.ages .row');
             var exist = Block.children().length;
-            if ((parseInt(nbrAd )+parseInt(nbrKids)) > (obj['minEnfant' + chambre] + obj['maxAdulte' + chambre]))
-                $(this).parent().parent().find('.AdulteChambre').val(nbrAdulte);
-            if (exist < nbrKids) {
-                for (var i = 1; i <= nbrKids; i++) {
-                    if (i > exist)
-                        Block.append('<div class="col-md-1"><label style="white-space:nowrap;">Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
+            if (frais) {
+                if ((parseInt(nbrAd) + parseInt(nbrKids)) > (obj['minEnfant' + chambre] + obj['maxAdulte' + chambre]))
+                    $(this).parent().parent().find('.AdulteChambre').val(nbrAdulte);
+                if (exist < nbrKids) {
+                    for (var i = 1; i <= nbrKids; i++) {
+                        if (i > exist)
+                            Block.append('<div class="col-md-1"><label style="white-space:nowrap;">Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
+                    }
+                }
+                else {
+                    var toRemove = (exist - nbrKids);
+                    var nmbr = Block.children().length;
+                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                        Block.children().eq(i).remove();
+                    if(parseInt(nbrKids)+parseInt(nbrAd)==0)
+                        $(this).parent().parent().find('.AdulteChambre').val(1);
                 }
             }
             else {
-                var toRemove = (exist - nbrKids);
-                var nmbr = Block.children().length;
-                for (var i = nmbr; i >= (nmbr - toRemove); i--)
-                    Block.children().eq(i).remove();
+                $(this).parent().parent().find('.AdulteChambre').val(nbrAdulte);
+                if (exist < nbrKids) {
+                    for (var i = 1; i <= nbrKids; i++) {
+                        if (i > exist)
+                            Block.append('<div class="col-md-1"><label style="white-space:nowrap;">Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
+                    }
+                }
+                else {
+                    var toRemove = (exist - nbrKids);
+                    var nmbr = Block.children().length;
+                    for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                        Block.children().eq(i).remove();
+                }
             }
 
         })
