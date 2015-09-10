@@ -25,7 +25,7 @@
                 <div class="row" style="  padding: 10px;  background-color: linen;">
                     <div class="col-md-4">
                         <label>{{ chambre.chambre }}</label>
-                        <select name="chambre_{{ chambre.chambre.id }}" data-id="{{ chambre.id }}" class="form-control chambresSelect">
+                        <select name="chambre_{{ chambre.chambre.id }}" data-id="{{ chambre.id }}" id="chambre-{{ chambre.chambre.id }}" data-frais="{{ isFraisChambre(saison.id,chambre.chambre.id ) }}" class="form-control chambresSelect">
                             {% for i in 0..20 %}
                                 <option value="{{ i }}">{{ i }}</option>
                             {% endfor %}
