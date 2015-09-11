@@ -69,3 +69,7 @@ save_reservation:
 renotifier_hotel:
     path:     /renotifier_hotel/{id}
     defaults: { _controller: BackHotelTunisieBundle:Reservation:notifier }
+
+reservation_add_new_client:
+    path:     /add_new_client
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:addNewClient }
