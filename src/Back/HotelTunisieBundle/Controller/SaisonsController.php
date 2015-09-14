@@ -451,12 +451,15 @@ class SaisonsController extends Controller
             for ($nbrAdulte = $saison->getOccMinAdulte($chambre->getId()); $nbrAdulte <= $saison->getOccMaxAdulte($chambre->getId()); $nbrAdulte++) {
                 $nbrEnfant = $saison->getOccMaxAdulte($chambre->getId()) + $saison->getOccMinEnfant($chambre->getId()) - $nbrAdulte;
                 for ($i = 0; $i <= $nbrEnfant; $i++) {
-                    $ligne = new SaisonFraisChambreLigne();
-                    $em->persist($ligne->setEntete($fraisChambre)->setNombreAdulte($nbrAdulte)->setNombreEnfant($i)->setArrangement($saison->getArrBase()));
-                    foreach ($saison->getArrangements() as $arr) {
-                        if($arr->getEtat() == 1) {
-                            $ligne = new SaisonFraisChambreLigne();
-                            $em->persist($ligne->setEntete($fraisChambre)->setNombreAdulte($nbrAdulte)->setNombreEnfant($i)->setArrangement($arr->getArrangement()));
+                    if(($i+$nbrAdulte)>0)
+                    {
+                        $ligne = new SaisonFraisChambreLigne();
+                        $em->persist($ligne->setEntete($fraisChambre)->setNombreAdulte($nbrAdulte)->setNombreEnfant($i)->setArrangement($saison->getArrBase()));
+                        foreach ($saison->getArrangements() as $arr) {
+                            if($arr->getEtat() == 1) {
+                                $ligne = new SaisonFraisChambreLigne();
+                                $em->persist($ligne->setEntete($fraisChambre)->setNombreAdulte($nbrAdulte)->setNombreEnfant($i)->setArrangement($arr->getArrangement()));
+                            }
                         }
                     }
                 }

@@ -19,6 +19,7 @@
         public function getFunctions()
         {
             return array(
+                'getRang'               => new \Twig_Function_Method($this,'getRang'),
                 'getStars'               => new \Twig_Function_Method($this,'getStars'),
                 'differenceBetweenDates' => new \Twig_Function_Method($this,'differenceBetweenDates'),
                 'functionTeste2'         => new \Twig_Function_Method($this,'getTeste2'),
@@ -29,6 +30,14 @@
         public function getAgence()
         {
             return $this->em->find('BackAdministrationBundle:Agence',1);
+        }
+
+        public function getRang($r)
+        {
+            if($r==1)
+                return $r."<sup>er</sup>";
+            else
+                return $r."<sup>eme</sup>";
         }
 
         public function getStars($num)
@@ -51,7 +60,7 @@
             if($since_start->y != 0)
                 return $since_start->y . ' Années';
             if($since_start->m == 1)
-                return $since_start->m . ' Moi';
+                return $since_start->m . ' Mois';
             if($since_start->m != 0)
                 return $since_start->m . ' Mois';
             if($since_start->d == 1)

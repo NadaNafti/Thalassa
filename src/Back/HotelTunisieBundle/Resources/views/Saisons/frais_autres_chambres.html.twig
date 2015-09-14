@@ -15,6 +15,8 @@
 {% endblock %}
 {% block body %}
     {% set nbrArr=1+saison.arrangements|length %}
+    {% set nbrAd=0 %}
+    {% set nbrEn= 0%}
     <div class="row">
         <div class="col-md-12">
             <div class="tabbable">
@@ -27,49 +29,58 @@
                                 Tarif : <strong> {{ chambre.chambre }}</strong>
                                 <a href="{{ path('saison_delete_frais_autre_chambre',{'id':chambre.id}) }}"
                                    onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette frais chambre ?'))"
-                                   class="btn btn-green" type="submit"> Supprimer
-                                    <i class="fa fa-times"></i> </a>
+                                   class="btn btn-xs btn-bricky" type="submit"><i class="fa fa-trash-o"></i> Supprimer </a>
                             </h2>
                             {{ form_start(form) }}
                             <div class="panel-group accordion-custom accordion-teal" id="accordion">
                                 {% for ligne in form.lignes %}
-                                    {% if loop.index % nbrArr !=0 and loop.index != 1 %}<hr>{% endif %}
-                                    {% if (loop.index-1) % nbrArr ==0 %}<h4>[Adulte : {{ ligne.vars.data.nombreAdulte }}, Enfant : {{ ligne.vars.data.nombreEnfant }}]</h4>{% endif %}
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a class="accordion-toggle" data-toggle="collapse"
-                                                   data-parent="#accordion"
-                                                   href="#collapse{{ loop.index }}">
-                                                    <i class="icon-arrow"></i>
-                                                    [{{ ligne.vars.data.arrangement.libelle }}]
-                                                </a></h4>
-                                        </div>
-                                        <div id="collapse{{ loop.index }}" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <div class="row">
-                                                    {% if ligne.vars.data.nombreAdulte >0 %}
-                                                        {% for i in 1..ligne.vars.data.nombreAdulte %}
-                                                            {{ formulaire.input("col-md-1",'Adulte '~i,ligne['adulte'~i],false) }}
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                    {% if ligne.vars.data.nombreEnfant >0 %}
-                                                        {% for i in 1..ligne.vars.data.nombreEnfant %}
-                                                            {{ formulaire.input("col-md-1",'Enfant '~i,ligne['enfant'~i],false) }}
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                </div>
-                                                <div class="row">
-                                                    {{ formulaire.input("col-md-1",'Valeur Marge adulte',ligne['margeAdulte'],false) }}
-                                                    {{ formulaire.input("col-md-1",'Valeur Marge enfant',ligne['margeEnfant'],false) }}
-                                                </div>
-                                                <div class="row no-display">
-                                                    {{ form_widget(ligne) }}
-                                                </div>
-                                            </div>
+                                {% if (ligne.vars.data.nombreAdulte!= nbrAd or ligne.vars.data.nombreEnfant!= nbrEn) and loop.index != 1 %}
                                         </div>
                                     </div>
+                                </div>
+                                {% endif %}
+                    {% if ligne.vars.data.nombreAdulte!= nbrAd or ligne.vars.data.nombreEnfant!= nbrEn  %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse"
+                                   data-parent="#accordion"
+                                   href="#collapse{{ loop.index }}">
+                                    <i class="icon-arrow"></i>
+                                    Adulte : {{ ligne.vars.data.nombreAdulte }},
+                                    Enfant: {{ ligne.vars.data.nombreEnfant }}
+                                </a></h4>
+                        </div>
+                        <div id="collapse{{ loop.index }}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                {% set nbrAd=ligne.vars.data.nombreAdulte %}
+                                {% set nbrEn= ligne.vars.data.nombreEnfant %}
+                                {% endif %}
+                                <div class="row">
+                                    <div class="col-md-2"
+                                         style="padding-top: 30px">{{ ligne.vars.data.arrangement.libelle }}</div>
+                                    {% if ligne.vars.data.nombreAdulte >0 %}
+                                        {% for i in 1..ligne.vars.data.nombreAdulte %}
+                                            {{ formulaire.input("col-md-1",'Tarif '~getRang(i)~' adulte',ligne['adulte'~i],false) }}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if ligne.vars.data.nombreEnfant >0 %}
+                                        {% for i in 1..ligne.vars.data.nombreEnfant %}
+                                            {{ formulaire.input("col-md-1",'Tarif '~getRang(i)~' enfant',ligne['enfant'~i],false) }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    {{ formulaire.input("col-md-2",'Tarif Marge adulte',ligne['margeAdulte'],false) }}
+                                    {{ formulaire.input("col-md-2",'Tarif Marge enfant',ligne['margeEnfant'],false) }}
+                                </div>
+                                <div class="row no-display">
+                                    {{ form_widget(ligne) }}
+                                </div>
+                                <hr>
                                 {% endfor %}
+                                </div><div></div>
                             </div>
                             {{ formulaire.submit("Modifier") }}
                             {{ form_end(form) }}
