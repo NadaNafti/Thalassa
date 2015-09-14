@@ -1151,4 +1151,20 @@ class Saison
                 return $chambre->getMaxAdulte();
         }
     }
+
+    public function getOccMinEnfant($ch)
+    {
+        foreach ($this->chambres as $chambre) {
+            if ($chambre->getChambre()->getId() == $ch)
+                return $chambre->getMinEnfant();
+        }
+    }
+
+    public function getOccMaxEnfant($ch)
+    {
+        foreach ($this->chambres as $chambre) {
+            if ($chambre->getChambre()->getId() == $ch)
+                return $chambre->getMaxEnfant();
+        }
+    }
 }
