@@ -34,7 +34,7 @@
                             <div class="panel-group accordion-custom accordion-teal" id="accordion">
                                 {% for ligne in form.lignes %}
                                     {% if loop.index % nbrArr !=0 and loop.index != 1 %}<hr>{% endif %}
-                                    {% if loop.index % nbrArr !=0 %}<h4>[Adulte : {{ ligne.vars.data.nombreAdulte }}, Enfant : {{ ligne.vars.data.nombreEnfant }}]</h4>{% endif %}
+                                    {% if (loop.index-1) % nbrArr ==0 %}<h4>[Adulte : {{ ligne.vars.data.nombreAdulte }}, Enfant : {{ ligne.vars.data.nombreEnfant }}]</h4>{% endif %}
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
