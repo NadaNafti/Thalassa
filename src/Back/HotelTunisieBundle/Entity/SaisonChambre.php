@@ -60,7 +60,7 @@
         /**
          * @var integer
          *
-         * @ORM\Column(name="contingent", type="integer")
+         * @ORM\Column(name="contingent", type="integer",nullable=true)
          */
         private $contingent;
 

@@ -33,6 +33,11 @@
         protected $chambre;
 
         /**
+         * @ORM\OneToMany(targetEntity="SaisonFraisChambreLigne", mappedBy="entete")
+         */
+        protected $lignes;
+
+        /**
          * @var string
          *
          * @ORM\Column(name="valeur1Adulte", type="decimal", precision=11, scale=3,nullable=true)
@@ -2415,4 +2420,37 @@
             else
                 return $this->valeur2Adulte + $this->marge2Adulte;
         }
+    
+    /**
+     * Add lignes
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonFraisChambreLigne $lignes
+     * @return SaisonFraisChambre
+     */
+    public function addLigne(\Back\HotelTunisieBundle\Entity\SaisonFraisChambreLigne $lignes)
+    {
+        $this->lignes[] = $lignes;
+
+        return $this;
     }
+
+    /**
+     * Remove lignes
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonFraisChambreLigne $lignes
+     */
+    public function removeLigne(\Back\HotelTunisieBundle\Entity\SaisonFraisChambreLigne $lignes)
+    {
+        $this->lignes->removeElement($lignes);
+    }
+
+    /**
+     * Get lignes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLignes()
+    {
+        return $this->lignes;
+    }
+}

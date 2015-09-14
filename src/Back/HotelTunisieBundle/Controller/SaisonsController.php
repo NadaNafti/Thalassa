@@ -549,6 +549,8 @@
                 $session->getFlashBag()->add('success',"les frais de la chambre " . $chambre->getLibelle() . " a été ajoutée avec succées.");
                 $fraisChambre = new SaisonFraisChambre();
                 $em->persist($fraisChambre->setSaison($saison)->setChambre($chambre));
+//                for($i=$saison->getOccMinAdulte($chambre->getId());)
+
                 $em->flush();
             }
             return $this->redirect($this->generateUrl('saison_frais_autre_chambre',array(
