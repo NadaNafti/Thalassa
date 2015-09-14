@@ -167,6 +167,6 @@ class SaisonFraisChambre
 
     public function aPartirDe()
     {
-        return 10;
+        return $this->lignes->first()->getAdulte1()+ $this->lignes->first()->getMargeAdulte();
     }
 }
