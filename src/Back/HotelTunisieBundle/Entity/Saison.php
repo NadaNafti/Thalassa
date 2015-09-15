@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Saison
  *
  * @ORM\Table(name="ost_sht_saison")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Back\HotelTunisieBundle\Entity\Repository\SaisonRepository")
  */
 class Saison
 {

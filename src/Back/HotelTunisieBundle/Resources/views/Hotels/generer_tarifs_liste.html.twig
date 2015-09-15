@@ -1,0 +1,83 @@
+{% extends "BackHotelTunisieBundle:Hotels:generer_tarifs.html.twig" %}
+{% block title %}Générer tarif hôtels{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">Liste</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="sample-table-1">
+                            <thead>
+                            <tr>
+                                <th class="center" rowspan="2">Hôtels</th>
+                                <th class="center" rowspan="2">Catégorie</th>
+                                <th class="center" rowspan="2">Ville</th>
+                                <th class="center" rowspan="2">Saison</th>
+                                <th class="center">Périodes</th>
+                                <th class="center">Arrangement</th>
+                                <th class="center">Prix Base</th>
+                                <th class="center">Supp Single</th>
+                                <th class="center">3<sup>eme</sup> lit</th>
+                                <th class="center">4<sup>eme</sup> lit</th>
+                                <th class="center">Supp. Chambres</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for saison in saisons %}
+                                <tr>
+                                    <td class="center" rowspan="{{ saison.arrangements|length+1 }}">{{ saison.hotel }}</td>
+                                    <td class="center" rowspan="{{ saison.arrangements|length+1 }}">{{ saison.hotel.categorie }}</td>
+                                    <td class="center"  rowspan="{{ saison.arrangements|length+1 }}">{{ saison.hotel.ville }}</td>
+                                    <td class="center" rowspan="{{ saison.arrangements|length+1 }}">
+                                        <span class="label label-sm {% if saison.type == 1 %}label-inverse{% elseif saison.type==2 %}label-teal{% else %}label-warning{% endif %}  ">
+                                            {{ saison }}
+                                        </span>
+                                    </td>
+                                    <td style="white-space: nowrap;" rowspan="{{ saison.arrangements|length+1 }}">
+                                        {% for periode in saison.periodes if periode.dateFin|date('Y-m-d')>= 'now'|date('d/m/Y') %}
+                                            Du {{ periode.dateDebut|date('d/m/Y') }} au {{ periode.dateFin|date('d/m/Y') }}
+                                            <br>
+                                        {% endfor %}
+                                    </td>
+                                    <td class="center"><u style="color: red">{{ saison.arrBase.code }}</u></td>
+                                    <td class="center">{{ saison.prixBaseVente }}</td>
+                                    <td class="center">{{ testeZero(saison.saisonSupp.getSuppSingleVente) }}</td>
+                                    <td class="center">{{ testeZero(saison.saisonReduc.getReduc3LitVente) }}</td>
+                                    <td class="center">{{ testeZero(saison.saisonReduc.getReduc4LitVente) }}</td>
+                                    <td>
+                                        {% for ch in saison.suppChambres if  not ch.isFrais and ch.getSuppVente not in [null,0] %}
+                                            {{ ch.chambre }} :{{ ch.getSuppVente }} <br>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                                {% for arr in saison.arrangements %}
+                                    {% set id=arr.arrangement.id %}
+                                    <tr>
+                                        <td class="center">{{ arr.arrangement.code }}</td>
+                                        <td class="center">{{ saison.prixBaseVente(id) }}</td>
+                                        <td class="center">{{ testeZero(saison.saisonSupp.getSuppSingleVente(id)) }}</td>
+                                        <td class="center">{{ testeZero(saison.saisonReduc.getReduc3LitVente(id)) }}</td>
+                                        <td class="center">{{ testeZero(saison.saisonReduc.getReduc4LitVente(id)) }}</td>
+                                        <td>
+                                            {% for ch in saison.suppChambres if  not ch.isFrais and ch.getSuppVente(id) not in [null,0] %}
+                                                {{ ch.chambre }} :{{ ch.getSuppVente(id) }} <br>
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

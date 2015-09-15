@@ -10,7 +10,7 @@
      *
      * @ORM\Table(name="ost_sht_hotels")
      * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
-     * @ORM\Entity(repositoryClass="Back\HotelTunisieBundle\Entity\HotelRepository")
+     * @ORM\Entity(repositoryClass="Back\HotelTunisieBundle\Entity\Repository\HotelRepository")
      */
     class Hotel
     {

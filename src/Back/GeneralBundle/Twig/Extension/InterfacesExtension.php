@@ -24,6 +24,7 @@
                 'differenceBetweenDates' => new \Twig_Function_Method($this,'differenceBetweenDates'),
                 'functionTeste2'         => new \Twig_Function_Method($this,'getTeste2'),
                 'getAgence'              => new \Twig_Function_Method($this,'getAgence'),
+                'testeZero'              => new \Twig_Function_Method($this,'testeZero'),
             );
         }
 
@@ -38,6 +39,15 @@
                 return $r."<sup>er</sup>";
             else
                 return $r."<sup>eme</sup>";
+        }
+
+
+
+        public function testeZero($r)
+        {
+            if($r!=0 && !is_null($r))
+                return $r;
+            return '';
         }
 
         public function getStars($num)
