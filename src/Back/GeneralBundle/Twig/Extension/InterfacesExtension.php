@@ -25,6 +25,7 @@
                 'functionTeste2'         => new \Twig_Function_Method($this,'getTeste2'),
                 'getAgence'              => new \Twig_Function_Method($this,'getAgence'),
                 'testeZero'              => new \Twig_Function_Method($this,'testeZero'),
+                'isZero'              => new \Twig_Function_Method($this,'isZero'),
             );
         }
 
@@ -40,6 +41,17 @@
             else
                 return $r."<sup>eme</sup>";
         }
+
+
+
+
+        public function isZero($r)
+        {
+            if($r!=0 && !is_null($r))
+                return false;
+            return true;
+        }
+
 
 
 
