@@ -14,47 +14,45 @@ class NewReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('villes', 'entity', array('class' => 'BackHotelTunisieBundle:Ville',
-                    'query_builder' => function(EntityRepository $er)
-                    {
-                        return $er->createQueryBuilder('u')
-                                ->join('u.pays', 'p')
-                                ->where('p.code= :code')->setParameter(':code', 'tn')
-                                ->orderBy('u.libelle', 'ASC');
-                    },
-                    'required' => false,
-                    'empty_value' => 'Villes en tunisie',
-                    'empty_data' => null
-                ))
-                ->add('client', 'entity', array('class' => 'BackUserBundle:Client',
-                    'query_builder' => function(EntityRepository $er)
-                    {
-                        return $er->createQueryBuilder('u')
-                                ->orderBy('u.nomPrenom', 'ASC');
-                    },
-                    'required' => true,
-                    'empty_value' => 'Liste des clients',
-                    'empty_data' => null
-                ))
-                ->add('hotels', 'entity', array('class' => 'BackHotelTunisieBundle:Hotel',
-                    'query_builder' => function(EntityRepository $er)
-                    {
-                        return $er->createQueryBuilder('h')
-                                ->orderBy('h.libelle', 'ASC');
-                    },
-                    'required' => true,
-                    'empty_value' => 'Liste des hôtels',
-                    'empty_data' => null
-                ))
-                ->add('dateDebut', 'date', array(
-                    'required' => true,
-                    'widget' => 'single_text',
-                    'format' => 'yyyy-MM-dd',
-                ))
-                ->add('nuitees', 'integer', array(
-                    'constraints' => new Range(array('min' => 1, 'max' => 20))
-                ))
-        ;
+            ->add('villes', 'entity', array('class'         => 'BackHotelTunisieBundle:Ville',
+                                            'query_builder' => function (EntityRepository $er) {
+                                                return $er->createQueryBuilder('u')
+                                                    ->join('u.pays', 'p')
+                                                    ->where('p.code= :code')->setParameter(':code', 'tn')
+                                                    ->orderBy('u.libelle', 'ASC');
+                                            },
+                                            'required'      => false,
+                                            'empty_value'   => 'Villes en tunisie',
+                                            'empty_data'    => null
+            ))
+            ->add('client', 'entity', array('class'         => 'BackUserBundle:Client',
+                                            'query_builder' => function (EntityRepository $er) {
+                                                return $er->createQueryBuilder('u')
+                                                    ->orderBy('u.nomPrenom', 'ASC');
+                                            },
+                                            'required'      => true,
+                                            'empty_value'   => 'Liste des clients',
+                                            'empty_data'    => null
+            ))
+            ->add('hotels', 'entity', array('class'         => 'BackHotelTunisieBundle:Hotel',
+                                            'query_builder' => function (EntityRepository $er) {
+                                                return $er->createQueryBuilder('h')
+                                                    ->where('h.etat = 1')
+                                                    ->andWhere('h.saisonBase is not null')
+                                                    ->orderBy('h.libelle', 'ASC');
+                                            },
+                                            'required'      => true,
+                                            'empty_value'   => 'Liste des hôtels',
+                                            'empty_data'    => null
+            ))
+            ->add('dateDebut', 'date', array(
+                'required' => true,
+                'widget'   => 'single_text',
+                'format'   => 'yyyy-MM-dd',
+            ))
+            ->add('nuitees', 'integer', array(
+                'constraints' => new Range(array('min' => 1, 'max' => 20))
+            ));
     }
 
     public function getName()

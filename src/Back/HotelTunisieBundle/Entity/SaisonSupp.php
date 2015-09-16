@@ -313,6 +313,17 @@ class SaisonSupp
         return $this->getSuppSingleVente($arrangement);
     }
 
+
+
+
+    public function afficheSuppSingle()
+    {
+        if ($this->suppSinglePour)
+            return $this->suppSingle . " %";
+        else
+            return $this->getSuppSingleVente() . " DT";
+    }
+
     public function __clone()
     {
         if ($this->id)

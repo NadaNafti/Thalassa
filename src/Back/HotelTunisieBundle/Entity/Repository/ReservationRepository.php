@@ -1,6 +1,6 @@
 <?php
 
-namespace Back\HotelTunisieBundle\Entity;
+namespace Back\HotelTunisieBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

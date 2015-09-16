@@ -6,6 +6,14 @@ filtre_hotels:
     path:     /Filtrehotel
     defaults: { _controller: BackHotelTunisieBundle:Hotels:filtre }
 
+generer_tarif_hotels:
+    path:     /tarif_hotels
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:genereTarifs }
+
+generer_tarif_hotels_liste:
+    path:     /tarif_hotels/liste/{debut}/{fin}/{amicale}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:genereTarifsListe,amicale:null }
+
 modif_hotel:
     path:     /modif/{id}
     defaults: { _controller: BackHotelTunisieBundle:Hotels:modif}
