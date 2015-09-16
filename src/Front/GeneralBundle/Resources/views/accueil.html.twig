@@ -1,7 +1,21 @@
 {% extends ":Front:base.html.twig" %}
 {% block title %}Olé voyage{% endblock %}
 {% block body %}
-    {% include ':Front:slider.html.twig' %}
+    <div id="slider_wrapper">
+        <div class="big-slider flexslider big_flex">
+            <ul class="slides">
+                {% for slider in sliders %}
+                <li>
+                    <img src="{{ asset(slider.assetPath) }}" alt="#">
+                    <p class="flex-price">{{ slider.titre1 }}</p>
+                    <h3><a href="{{ slider.url }}">{{ slider.titre2 }}</a></h3>
+                    <p>{{ slider.titre3 }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
     <div id="content_wrapper">
         <div class="container">
             <div class="travel-search">
@@ -12,7 +26,6 @@
                         <li><a href="#voyageSearch"><span class="flight mi"></span>Voyages organisés</a></li>
                         <li><a href="#programmeSearch"><span class="vacation mi"></span>Programmes & Activités</a></li>
                     </ul>
-
                     <ul class="tabs-content">
                         <li id="hotelsSearch" class="active">
                             <form role="form" class="row" method="post" action="{{ path('front_hoteltunisie_accueil') }}">

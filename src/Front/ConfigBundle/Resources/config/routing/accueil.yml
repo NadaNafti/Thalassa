@@ -1,0 +1,7 @@
+config_front_accueil_slider:
+    path:     /slider/{id}
+    defaults: { _controller: FrontConfigBundle:Accueil:slider,id:null }
+
+config_front_accueil_slider_delete:
+    path:     /sliderDelete/{id}
+    defaults: { _controller: FrontConfigBundle:Accueil:deleteSlider }
