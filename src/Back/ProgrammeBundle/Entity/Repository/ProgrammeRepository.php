@@ -5,7 +5,7 @@
 
     class ProgrammeRepository extends EntityRepository
     {
-        public function filtre($themes = 'all',$name = NULL)
+        public function filtre($themes = 'all',$name = NULL, $sort='p.libelle', $direction='asc')
         {
             $query = $this->createQueryBuilder('p');
             $query->where($query->expr()->isNotNull('p.id'));
@@ -26,7 +26,7 @@
                 }
                 $query->andWhere($orX);
             }
-            $query->orderBy("p.libelle",'asc');
+            $query->orderBy($sort,$direction);
             return $query->getQuery()->getResult();
         }
     }
