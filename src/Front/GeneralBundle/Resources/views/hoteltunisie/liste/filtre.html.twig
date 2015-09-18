@@ -11,7 +11,7 @@
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <label for="hotelLocation">Mot clès</label>
-                                <input type="text" class="form-control" id="hotelLocation" name="motclesSearch" value="{{ motcle }}">
+                                <input type="text" class="form-control" id="hotelLocation" name="motclesSearch" value="{% if motcle!='all' %}{{ motcle }}{% endif %}">
                             </div>
                         </div>
                         <div class="clear"></div>
