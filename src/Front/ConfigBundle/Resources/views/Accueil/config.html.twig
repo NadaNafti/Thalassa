@@ -1,0 +1,49 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Config Accueil{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('config_front_accueil') }}">{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    {% for i in 1..3 %}
+                        <div class="row">
+                            {{ formulaire.input("col-md-2","Titre "~i,form['titre'~i],true) }}
+                            {{ formulaire.input("col-md-2","Lien "~i,form['lien'~i],true) }}
+                            {{ formulaire.input("col-md-4","Texte "~i,form['texte'~i],true) }}
+                            {{ formulaire.input("col-md-2","Photo (370 x 160)",form['photo'~i].file,true) }}
+                            {% if accueil.photo(i).assetPath is defined %}
+                                <div class="col-md-2">
+                                    <img src="{{ asset(accueil.photo(i).assetPath) }}" style="width: 50px;height: 50px">
+                                </div>
+                            {% endif %}
+                        </div>
+                        <hr>
+                    {% endfor %}
+                    <div class="row">
+                        {{ formulaire.input("col-md-4","Pseudo Skype",form.skype,true) }}
+                        {{ formulaire.input("col-md-4","Facebook",form.facebook,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-4","Google plus",form.googlePlus,true) }}
+                        {{ formulaire.input("col-md-4","Youtube",form.youtube,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-4","Déscription Footer",form.description,true) }}
+                    </div>
+                    <div class="no-display">
+                        {{ form_widget(form) }}
+                    </div>
+                    {{ formulaire.submit("Enregistrer") }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

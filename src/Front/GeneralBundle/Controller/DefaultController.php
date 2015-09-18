@@ -8,6 +8,7 @@ class DefaultController extends Controller
     public function accueilAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $accueil=$em->find('FrontConfigBundle:Accueil',1);
         $sliders = $em->getRepository('FrontConfigBundle:Slider')->findBy(array(), array('ordre' => 'asc'));
         $tun = $em->getRepository('BackHotelTunisieBundle:Pays')->findOneBy(array('code' => 'tn'));
         $pays = $em->getRepository('BackHotelTunisieBundle:Pays')->findBy(array(), array('libelle' => 'asc'));
@@ -18,6 +19,7 @@ class DefaultController extends Controller
         $themes = $em->getRepository('BackVoyageOrganiseBundle:Theme')->findBy(array(), array('libelle' => 'asc'));
         $themesP = $em->getRepository('BackProgrammeBundle:Theme')->findBy(array(), array('libelle' => 'asc'));
         return $this->render('FrontGeneralBundle::accueil.html.twig', array(
+            'accueil'      => $accueil,
             'sliders'      => $sliders,
             'villes'       => $villes,
             'chaines'      => $chaines,
