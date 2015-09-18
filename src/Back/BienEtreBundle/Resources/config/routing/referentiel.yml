@@ -1,0 +1,42 @@
+back_bienetre_ref_centre:
+    path:     /centre/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:centre,id:null }
+    requirements:
+        id:  \d+
+        
+delete_back_bienetre_centre:
+    path:     /delete_back_bienetre_centre/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:deleteCentre }
+    
+    
+back_bienetre_ref_soin:
+    path:     /soin/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:soin,id:null }
+    requirements:
+        id:  \d+
+        
+delete_back_bienetre_soin:
+    path:     /delete_back_bienetre_soin/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:deleteSoin }
+    
+
+back_bienetre_ref_cure:
+    path:     /cure/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:cure,id:null }
+    requirements:
+        id:  \d+
+        
+delete_back_bienetre_cure:
+    path:     /delete_back_bienetre_cure/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:deleteCure }
+    
+   
+back_bienetre_ref_pack:
+    path:     /pack/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:pack,id:null }
+    requirements:
+        id:  \d+
+        
+delete_back_bienetre_pack:
+    path:     /delete_back_bienetre_pack/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:deletePack }
