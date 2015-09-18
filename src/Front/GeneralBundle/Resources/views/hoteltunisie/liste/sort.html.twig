@@ -9,7 +9,7 @@
         <div class="sort-option mr-15 xs-mb sm-mb">
             <input type="hidden" name="sort" value="h.libelle">
             <select class="form-control mySelectBoxClass " name="direction" onchange="submit()">
-                <option selected>Nom</option>
+                <option value="" selected>Nom</option>
                 <option value="asc" {% if sort=='h.libelle' and dir=='asc' %}selected {% endif %}>De A à Z</option>
                 <option value="desc" {% if sort=='h.libelle' and dir=='desc' %}selected {% endif %}>De Z à A</option>
             </select>
@@ -19,7 +19,7 @@
         <input type="hidden" name="sort" value="h.categorie">
         <div class="sort-option mr-15 xs-mb sm-mb">
             <select class="form-control mySelectBoxClass " name="direction" onchange="submit()">
-                <option selected>Catégorie</option>
+                <option value="" selected>Catégorie</option>
                 <option value="asc" {% if sort=='h.categorie' and dir=='asc' %}selected {% endif %}>Croissant</option>
                 <option value="desc" {% if sort=='h.categorie' and dir=='desc' %}selected {% endif %}>Descendant</option>
             </select>
@@ -29,7 +29,7 @@
         <input type="hidden" name="sort" value="v.libelle">
         <div class="sort-option mr-15 xs-mb sm-mb">
             <select class="form-control mySelectBoxClass " name="direction" onchange="submit()">
-                <option selected>Ville</option>
+                <option value="" selected>Ville</option>
                 <option value="asc" {% if sort=='v.libelle' and dir=='asc' %}selected {% endif %}>Ascendant</option>
                 <option value="desc" {% if sort=='v.libelle' and dir=='desc' %}selected {% endif %}>Descendant</option>
             </select>

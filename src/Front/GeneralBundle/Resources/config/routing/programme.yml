@@ -3,10 +3,14 @@ front_programme_accueil:
     defaults: { _controller: FrontGeneralBundle:Programme:accueil }
     
 front_programme_liste:
-    path:     /liste/{page}/{themes}/{name}
-    defaults: { _controller: FrontGeneralBundle:Programme:liste,page:1,themes:all,name:null }
+    path:     /liste/{page}/{themes}/{sort}/{direction}/{name}
+    defaults: { _controller: FrontGeneralBundle:Programme:liste,page:1,themes:all,name:null,sort:p.libelle,direction:asc }
     requirements:
         page:  \d+
+
+front_programme_sort:
+    path:     /sort/{themes}/{name}
+    defaults: { _controller: FrontGeneralBundle:Programme:sort,themes:all,name:null }
         
 front_programme_details:
     path:     /{slug}

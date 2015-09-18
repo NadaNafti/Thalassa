@@ -22,8 +22,8 @@
                 </a>
             </h4>
             <span class="list-item-location">
-                {% if  voyage.destination.libelle|length >35 %}
-                    {{ voyage.destination.libelle|slice(0, 35)|raw }} ...
+                {% if  voyage.destination.libelle|length >30 %}
+                    {{ voyage.destination.libelle|slice(0, 30)|raw }} ...
                 {% else %}
                     {{ voyage.destination.libelle|raw }}
                 {% endif %}

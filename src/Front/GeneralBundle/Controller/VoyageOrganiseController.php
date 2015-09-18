@@ -43,7 +43,7 @@ class VoyageOrganiseController extends Controller
         ));
     }
 
-    public function listeAction($page, $themes, $destinations, $pays, $name)
+    public function listeAction($page, $themes, $destinations, $pays,$sort,$direction, $name)
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
@@ -87,7 +87,7 @@ class VoyageOrganiseController extends Controller
             $arrays['name'] = urlencode($request->get('motclesSearch'));
             return $this->redirect($this->generateUrl('front_voyageorganise_liste', $arrays));
         }
-        $voyages = $em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->filtre($themes, $destinations, $pays, $name);
+        $voyages = $em->getRepository('BackVoyageOrganiseBundle:VoyageOrganise')->filtre($themes, $destinations, $pays, $name,$sort,$direction);
         $paginator = $this->get('knp_paginator');
         $voyages = $paginator->paginate($voyages, $page, 9);
         return $this->render('FrontGeneralBundle:voyageorganise/liste:liste.html.twig', array(
@@ -97,6 +97,24 @@ class VoyageOrganiseController extends Controller
                     'pays' => $listePays,
                     'motcle' => urldecode($name)
         ));
+    }
+
+    public function sortAction( $themes, $destinations, $pays, $name)
+    {
+        $request = $this->getRequest();
+        if ($request->isMethod('POST')) {
+            $arrays = array();
+            $arrays['themes'] = $themes;
+            $arrays['destinations'] = $destinations;
+            $arrays['pays'] = $pays;
+            $arrays['name'] = $name;
+            if($request->get('direction')!='')
+            {
+                $arrays['direction'] = $request->get('direction');
+                $arrays['sort'] = $request->get('sort');
+            }
+            return $this->redirect($this->generateUrl('front_voyageorganise_liste', $arrays));
+        }
     }
 
     public function detailsAction($slug)

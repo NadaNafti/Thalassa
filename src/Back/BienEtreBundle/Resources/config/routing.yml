@@ -1,0 +1,3 @@
+Bien_Etre_Referentiel:
+    resource: "@BackBienEtreBundle/Resources/config/routing/referentiel.yml"
+    prefix:   /ref
