@@ -1,0 +1,693 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.resabooking.com/auto_hot_xft_test.php" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="resabooking" targetNamespace="http://www.resabooking.com/auto_hot_xft_test.php">
+    <types>
+        <xsd:schema targetNamespace="http://www.resabooking.com/auto_hot_xft_test.php">
+            <xsd:complexType name="ArrayOfroom">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:room[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfTraveller">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Traveller[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="Traveller">
+                <xsd:all>
+                    <xsd:element name="typ" type="xsd:string"/>
+                    <xsd:element name="age" type="xsd:string"/>
+                    <xsd:element name="BirthDate" type="xsd:string"/>
+                    <xsd:element name="ID" type="xsd:string" nillable="true"/>
+                    <xsd:element name="FirstName" type="xsd:string" nillable="true"/>
+                    <xsd:element name="LastName" type="xsd:string" nillable="true"/>
+                    <xsd:element name="civiliti" type="xsd:string" nillable="true"/>
+                    <xsd:element name="adresse" type="xsd:string" nillable="true"/>
+                    <xsd:element name="cp" type="xsd:string" nillable="true"/>
+                    <xsd:element name="pays" type="xsd:string" nillable="true"/>
+                    <xsd:element name="ville" type="xsd:string" nillable="true"/>
+                    <xsd:element name="mail" type="xsd:string" nillable="true"/>
+                    <xsd:element name="tel" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="room">
+                <xsd:all>
+                    <xsd:element name="Traveller" type="tns:ArrayOfTraveller" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="rooms">
+                <xsd:all>
+                    <xsd:element name="room" type="tns:ArrayOfroom" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="reponse">
+                <xsd:all>
+                    <xsd:element name="statut" type="xsd:string" nillable="true"/>
+                    <xsd:element name="code" type="xsd:string" nillable="true"/>
+                    <xsd:element name="detail_erreur" type="xsd:string" nillable="true"/>
+                    <xsd:element name="detail_erreur_en" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfhot">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:hot[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfchambres">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:chambres[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfchambre">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:chambre[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfliste_suplement_obligatoire">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:liste_suplement_obligatoire[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="liste_suplement_obligatoire">
+                <xsd:all>
+                    <xsd:element name="libelle" type="xsd:string" nillable="true"/>
+                    <xsd:element name="Type" type="xsd:string" nillable="true"/>
+                    <xsd:element name="Applique" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nombre_nuit" type="xsd:string" nillable="true"/>
+                    <xsd:element name="prix" type="xsd:string" nillable="true"/>
+                    <xsd:element name="prix_ad" type="xsd:string" nillable="true"/>
+                    <xsd:element name="prix_ef" type="xsd:string" nillable="true"/>
+                    <xsd:element name="prix_bb" type="xsd:string" nillable="true"/>
+                    <xsd:element name="type_room" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfchamb">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:chamb[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfpromotion">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:promotion[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="promotion">
+                <xsd:all>
+                    <xsd:element name="libelle_promotion" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="chamb">
+                <xsd:all>
+                    <xsd:element name="code" type="xsd:string" nillable="true"/>
+                    <xsd:element name="libelle_chambre" type="xsd:string" nillable="true"/>
+                    <xsd:element name="libelle_chambre_en" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nombre_adult" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nombre_enfant" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nombre_bebe" type="xsd:string" nillable="true"/>
+                    <xsd:element name="promotions" type="tns:ArrayOfpromotion" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="chambre">
+                <xsd:all>
+                    <xsd:element name="pension" type="xsd:string" nillable="true"/>
+                    <xsd:element name="libelle_pension" type="xsd:string" nillable="true"/>
+                    <xsd:element name="libelle_pension_en" type="xsd:string" nillable="true"/>
+                    <xsd:element name="price" type="xsd:string" nillable="true"/>
+                    <xsd:element name="price_ad" type="xsd:string" nillable="true"/>
+                    <xsd:element name="price_ef" type="xsd:string" nillable="true"/>
+                    <xsd:element name="commission" type="xsd:string" nillable="true"/>
+                    <xsd:element name="price_TB" type="xsd:string" nillable="true"/>
+                    <xsd:element name="price_net" type="xsd:string" nillable="true"/>
+                    <xsd:element name="reduction_iphone" type="xsd:string" nillable="true"/>
+                    <xsd:element name="price_sup_obligatire" type="xsd:string" nillable="true"/>
+                    <xsd:element name="liste_suplement_obligatoire" type="tns:ArrayOfliste_suplement_obligatoire" nillable="true"/>
+                    <xsd:element name="chamb" type="tns:ArrayOfchamb" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="chambres">
+                <xsd:all>
+                    <xsd:element name="chambre" type="tns:ArrayOfchambre" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfpolicy">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:policy[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOftype_arrangement">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:type_arrangement[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="type_arrangement">
+                <xsd:all>
+                    <xsd:element name="code_arrangement" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="policy">
+                <xsd:all>
+                    <xsd:element name="type_penalite" type="xsd:string" nillable="true"/>
+                    <xsd:element name="daysbefore" type="xsd:string" nillable="true"/>
+                    <xsd:element name="penalite" type="xsd:string" nillable="true"/>
+                    <xsd:element name="type" type="xsd:string" nillable="true"/>
+                    <xsd:element name="arrangement" type="tns:ArrayOftype_arrangement" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="hot">
+                <xsd:all>
+                    <xsd:element name="etoile" type="xsd:string" nillable="true"/>
+                    <xsd:element name="accroche" type="xsd:string" nillable="true"/>
+                    <xsd:element name="info_supplementaire" type="xsd:string" nillable="true"/>
+                    <xsd:element name="min_age_bebe" type="xsd:string" nillable="true"/>
+                    <xsd:element name="max_age_bebe" type="xsd:string" nillable="true"/>
+                    <xsd:element name="min_age_enfant" type="xsd:string" nillable="true"/>
+                    <xsd:element name="max_age_enfant" type="xsd:string" nillable="true"/>
+                    <xsd:element name="id" type="xsd:string" nillable="true"/>
+                    <xsd:element name="libelle" type="xsd:string" nillable="true"/>
+                    <xsd:element name="image" type="xsd:string" nillable="true"/>
+                    <xsd:element name="chambres" type="tns:ArrayOfchambres" nillable="true"/>
+                    <xsd:element name="policy" type="tns:ArrayOfpolicy" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="hotelliste">
+                <xsd:all>
+                    <xsd:element name="rep" type="tns:reponse" nillable="true"/>
+                    <xsd:element name="hots" type="tns:ArrayOfhot" nillable="true"/>
+                    <xsd:element name="session" type="xsd:string" nillable="true"/>
+                    <xsd:element name="ville" type="xsd:string" nillable="true"/>
+                    <xsd:element name="date_debut" type="xsd:string" nillable="true"/>
+                    <xsd:element name="date_retour" type="xsd:string" nillable="true"/>
+                    <xsd:element name="monnaie" type="xsd:string" nillable="true"/>
+                    <xsd:element name="red_agence" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfequipement">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:equipement[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="equipement">
+                <xsd:all>
+                    <xsd:element name="nom" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ficheproduit">
+                <xsd:all>
+                    <xsd:element name="rep" type="tns:reponse" nillable="true"/>
+                    <xsd:element name="session" type="xsd:string" nillable="true"/>
+                    <xsd:element name="hotel" type="xsd:string" nillable="true"/>
+                    <xsd:element name="id_hotel" type="xsd:string" nillable="true"/>
+                    <xsd:element name="etoile" type="xsd:string" nillable="true"/>
+                    <xsd:element name="image" type="xsd:string" nillable="true"/>
+                    <xsd:element name="image1" type="xsd:string" nillable="true"/>
+                    <xsd:element name="image2" type="xsd:string" nillable="true"/>
+                    <xsd:element name="image3" type="xsd:string" nillable="true"/>
+                    <xsd:element name="image4" type="xsd:string" nillable="true"/>
+                    <xsd:element name="image5" type="xsd:string" nillable="true"/>
+                    <xsd:element name="image6" type="xsd:string" nillable="true"/>
+                    <xsd:element name="accroche" type="xsd:string" nillable="true"/>
+                    <xsd:element name="descriptif" type="xsd:string" nillable="true"/>
+                    <xsd:element name="adresse" type="xsd:string" nillable="true"/>
+                    <xsd:element name="checkin" type="xsd:string" nillable="true"/>
+                    <xsd:element name="checkout" type="xsd:string" nillable="true"/>
+                    <xsd:element name="equipement" type="tns:ArrayOfequipement" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="chambs">
+                <xsd:all>
+                    <xsd:element name="chs" type="tns:ArrayOfchamb" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfoption">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:option[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="option">
+                <xsd:all>
+                    <xsd:element name="nom" type="xsd:string" nillable="true"/>
+                    <xsd:element name="enfant" type="xsd:string" nillable="true"/>
+                    <xsd:element name="prix" type="xsd:string" nillable="true"/>
+                    <xsd:element name="typ" type="xsd:string" nillable="true"/>
+                    <xsd:element name="type_option" type="xsd:string" nillable="true"/>
+                    <xsd:element name="pourcentage" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="options">
+                <xsd:all>
+                    <xsd:element name="opt" type="tns:ArrayOfoption" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="booking">
+                <xsd:all>
+                    <xsd:element name="rep" type="tns:reponse" nillable="true"/>
+                    <xsd:element name="price" type="xsd:string" nillable="true"/>
+                    <xsd:element name="price_TB" type="xsd:string" nillable="true"/>
+                    <xsd:element name="commission" type="xsd:string" nillable="true"/>
+                    <xsd:element name="price_sej" type="xsd:string" nillable="true"/>
+                    <xsd:element name="price_sej_TB" type="xsd:string" nillable="true"/>
+                    <xsd:element name="price_vm" type="xsd:string" nillable="true"/>
+                    <xsd:element name="price_trsf" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nbtraveler" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nbadult" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nbenfant" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nbbebe" type="xsd:string" nillable="true"/>
+                    <xsd:element name="hotel" type="xsd:string" nillable="true"/>
+                    <xsd:element name="id_hotel" type="xsd:string" nillable="true"/>
+                    <xsd:element name="session" type="xsd:string" nillable="true"/>
+                    <xsd:element name="pension" type="xsd:string" nillable="true"/>
+                    <xsd:element name="choix" type="tns:ArrayOfchamb" nillable="true"/>
+                    <xsd:element name="policy" type="tns:ArrayOfpolicy" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="Travellers">
+                <xsd:all>
+                    <xsd:element name="Traveller" type="tns:ArrayOfTraveller" nillable="true"/>
+                    <xsd:element name="organisateur" type="tns:Traveller" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="vol">
+                <xsd:all>
+                    <xsd:element name="numvolaller" type="xsd:string" nillable="true"/>
+                    <xsd:element name="numvolretour" type="xsd:string" nillable="true"/>
+                    <xsd:element name="datealler" type="xsd:string" nillable="true"/>
+                    <xsd:element name="dateretour" type="xsd:string" nillable="true"/>
+                    <xsd:element name="heuraller" type="xsd:string" nillable="true"/>
+                    <xsd:element name="heurretour" type="xsd:string" nillable="true"/>
+                    <xsd:element name="aeroport" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="info_agence">
+                <xsd:all>
+                    <xsd:element name="type_reglement" type="xsd:string" nillable="true"/>
+                    <xsd:element name="payer_par" type="xsd:string" nillable="true"/>
+                    <xsd:element name="marge" type="xsd:string" nillable="true"/>
+                    <xsd:element name="etat_paiement" type="xsd:string" nillable="true"/>
+                    <xsd:element name="email_client" type="xsd:string" nillable="true"/>
+                    <xsd:element name="tel_client" type="xsd:string" nillable="true"/>
+                    <xsd:element name="agence" type="xsd:string" nillable="true"/>
+                    <xsd:element name="adresse_livraison" type="xsd:string" nillable="true"/>
+                    <xsd:element name="modalite_payment" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="book">
+                <xsd:all>
+                    <xsd:element name="rep" type="tns:reponse" nillable="true"/>
+                    <xsd:element name="ref" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="destock">
+                <xsd:all>
+                    <xsd:element name="rep" type="tns:reponse" nillable="true"/>
+                    <xsd:element name="info" type="xsd:string" nillable="true"/>
+                    <xsd:element name="typ_reglement" type="xsd:string" nillable="true"/>
+                    <xsd:element name="etat_p" type="xsd:string" nillable="true"/>
+                    <xsd:element name="prix_total" type="xsd:string" nillable="true"/>
+                    <xsd:element name="avance" type="xsd:string" nillable="true"/>
+                    <xsd:element name="prix_restant" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="bookingcancel">
+                <xsd:all>
+                    <xsd:element name="rep" type="tns:reponse" nillable="true"/>
+                    <xsd:element name="session" type="xsd:string" nillable="true"/>
+                    <xsd:element name="type_penalite" type="xsd:string" nillable="true"/>
+                    <xsd:element name="frais_annulation" type="xsd:string" nillable="true"/>
+                    <xsd:element name="monnaie" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="comfirmbookingcancel">
+                <xsd:all>
+                    <xsd:element name="rep" type="tns:reponse" nillable="true"/>
+                    <xsd:element name="etat_commande" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfdetail_chambres">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:detail_chambres[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfenfant_age">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:enfant_age[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="enfant_age">
+                <xsd:all>
+                    <xsd:element name="age" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="detail_chambres">
+                <xsd:all>
+                    <xsd:element name="libelle_chambre" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nombre_adult" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nombre_enfant" type="xsd:string" nillable="true"/>
+                    <xsd:element name="age_enfant" type="tns:ArrayOfenfant_age" nillable="true"/>
+                    <xsd:element name="nombre_bebe" type="xsd:string" nillable="true"/>
+                    <xsd:element name="age_bebe" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfinfo_pass">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:info_pass[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="info_pass">
+                <xsd:all>
+                    <xsd:element name="civilite" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nom" type="xsd:string" nillable="true"/>
+                    <xsd:element name="prenom" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="detailreservation">
+                <xsd:all>
+                    <xsd:element name="rep" type="tns:reponse" nillable="true"/>
+                    <xsd:element name="session" type="xsd:string" nillable="true"/>
+                    <xsd:element name="reference" type="xsd:string" nillable="true"/>
+                    <xsd:element name="id_hotel" type="xsd:string" nillable="true"/>
+                    <xsd:element name="libelle_hotel" type="xsd:string" nillable="true"/>
+                    <xsd:element name="star" type="xsd:string" nillable="true"/>
+                    <xsd:element name="ville" type="xsd:string" nillable="true"/>
+                    <xsd:element name="date_arrive" type="xsd:string" nillable="true"/>
+                    <xsd:element name="date_retour" type="xsd:string" nillable="true"/>
+                    <xsd:element name="prices" type="xsd:string" nillable="true"/>
+                    <xsd:element name="monnaie" type="xsd:string" nillable="true"/>
+                    <xsd:element name="arrangement" type="xsd:string" nillable="true"/>
+                    <xsd:element name="info_supplementaire" type="xsd:string" nillable="true"/>
+                    <xsd:element name="etat_commande" type="xsd:string" nillable="true"/>
+                    <xsd:element name="liste_chambre" type="tns:ArrayOfdetail_chambres" nillable="true"/>
+                    <xsd:element name="liste_passager" type="tns:ArrayOfinfo_pass" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfdetailresa">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:detailresa[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="detailresa">
+                <xsd:all>
+                    <xsd:element name="reference" type="xsd:string" nillable="true"/>
+                    <xsd:element name="dateChekIn" type="xsd:string" nillable="true"/>
+                    <xsd:element name="dateChekOut" type="xsd:string" nillable="true"/>
+                    <xsd:element name="dateCreation" type="xsd:string" nillable="true"/>
+                    <xsd:element name="etat_commande" type="xsd:string" nillable="true"/>
+                    <xsd:element name="liste_passager" type="tns:ArrayOfinfo_pass" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="resbooking">
+                <xsd:all>
+                    <xsd:element name="rep" type="tns:reponse" nillable="true"/>
+                    <xsd:element name="numResult" type="xsd:string" nillable="true"/>
+                    <xsd:element name="inforesa" type="tns:ArrayOfdetailresa" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="reglement_commande">
+                <xsd:all>
+                    <xsd:element name="rep" type="tns:reponse" nillable="true"/>
+                    <xsd:element name="info" type="xsd:string" nillable="true"/>
+                    <xsd:element name="type_reglement" type="xsd:string" nillable="true"/>
+                    <xsd:element name="etat_paiement" type="xsd:string" nillable="true"/>
+                    <xsd:element name="montant" type="xsd:string" nillable="true"/>
+                    <xsd:element name="devise" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <portType name="resabookingPort">
+        <operation name="availabilityhotel">
+            <documentation>Return availabilityhotel hotelshotel</documentation>
+            <input message="tns:availabilityhotelIn"/><output message="tns:availabilityhotelOut"/>
+        </operation>
+        <operation name="detailhotel">
+            <documentation>Return detailhotel detailhotel</documentation>
+            <input message="tns:detailhotelIn"/><output message="tns:detailhotelOut"/>
+        </operation>
+        <operation name="devis">
+            <documentation>Return devis devishotel</documentation>
+            <input message="tns:devisIn"/><output message="tns:devisOut"/>
+        </operation>
+        <operation name="createbooking">
+            <documentation>Return createbooking booking</documentation>
+            <input message="tns:createbookingIn"/><output message="tns:createbookingOut"/>
+        </operation>
+        <operation name="destockage">
+            <documentation>Return destockage destockagehotel</documentation>
+            <input message="tns:destockageIn"/><output message="tns:destockageOut"/>
+        </operation>
+        <operation name="demandeannulation"><input message="tns:demandeannulationIn"/><output message="tns:demandeannulationOut"/></operation>
+        <operation name="confirmannulation"><input message="tns:confirmannulationIn"/><output message="tns:confirmannulationOut"/></operation>
+        <operation name="getreservation"><input message="tns:getreservationIn"/><output message="tns:getreservationOut"/></operation>
+        <operation name="findreservation"><input message="tns:findreservationIn"/><output message="tns:findreservationOut"/></operation>
+        <operation name="reglement_commande">
+            <documentation>Return reglement_commande</documentation>
+            <input message="tns:reglement_commandeIn"/><output message="tns:reglement_commandeOut"/>
+        </operation>
+    </portType>
+    <binding name="resabookingBinding" type="tns:resabookingPort">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="availabilityhotel">
+            <soap:operation soapAction="http://www.resabooking.com/auto_hot_xft_test.php#availabilityhotel"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </output>
+        </operation>
+        <operation name="detailhotel">
+            <soap:operation soapAction="http://www.resabooking.com/auto_hot_xft_test.php#detailhotel"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </output>
+        </operation>
+        <operation name="devis">
+            <soap:operation soapAction="http://www.resabooking.com/auto_hot_xft_test.php#devis"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </output>
+        </operation>
+        <operation name="createbooking">
+            <soap:operation soapAction="http://www.resabooking.com/auto_hot_xft_test.php#createbooking"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </output>
+        </operation>
+        <operation name="destockage">
+            <soap:operation soapAction="http://www.resabooking.com/auto_hot_xft_test.php#destockage"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </output>
+        </operation>
+        <operation name="demandeannulation">
+            <soap:operation soapAction="http://www.resabooking.com/auto_hot_xft_test.php#demandeannulation"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </output>
+        </operation>
+        <operation name="confirmannulation">
+            <soap:operation soapAction="http://www.resabooking.com/auto_hot_xft_test.php#confirmannulation"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </output>
+        </operation>
+        <operation name="getreservation">
+            <soap:operation soapAction="http://www.resabooking.com/auto_hot_xft_test.php#getreservation"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </output>
+        </operation>
+        <operation name="findreservation">
+            <soap:operation soapAction="http://www.resabooking.com/auto_hot_xft_test.php#findreservation"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </output>
+        </operation>
+        <operation name="reglement_commande">
+            <soap:operation soapAction="http://www.resabooking.com/auto_hot_xft_test.php#reglement_commande"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.resabooking.com/auto_hot_xft_test.php"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="resabookingService">
+        <port name="resabookingPort" binding="tns:resabookingBinding">
+            <soap:address location="http://www.resabooking.com/auto_hot_xft_test.php"/>
+        </port>
+    </service>
+    <message name="availabilityhotelIn">
+        <part name="ipfrom" type="xsd:string"/>
+        <part name="ville" type="xsd:string"/>
+        <part name="idhotel" type="xsd:string"/>
+        <part name="debut" type="xsd:string"/>
+        <part name="fin" type="xsd:string"/>
+        <part name="rooms" type="tns:rooms"/>
+        <part name="login" type="xsd:string"/>
+        <part name="pw" type="xsd:string"/>
+        <part name="langue" type="xsd:string"/>
+        <part name="marche" type="xsd:string"/>
+        <part name="monnaie" type="xsd:string"/>
+        <part name="redagence" type="xsd:string"/>
+        <part name="resafrom" type="xsd:string"/>
+        <part name="iduser" type="xsd:string"/>
+    </message>
+    <message name="availabilityhotelOut">
+        <part name="return" type="tns:hotelliste"/>
+    </message>
+    <message name="detailhotelIn">
+        <part name="login" type="xsd:string"/>
+        <part name="pw" type="xsd:string"/>
+        <part name="session" type="xsd:string"/>
+        <part name="id_hotel" type="xsd:string"/>
+        <part name="langue" type="xsd:string"/>
+    </message>
+    <message name="detailhotelOut">
+        <part name="return" type="tns:ficheproduit"/>
+    </message>
+    <message name="devisIn">
+        <part name="login" type="xsd:string"/>
+        <part name="pw" type="xsd:string"/>
+        <part name="session" type="xsd:string"/>
+        <part name="id_hotel" type="xsd:string"/>
+        <part name="pension" type="xsd:string"/>
+        <part name="chambs" type="tns:chambs"/>
+        <part name="options" type="tns:options"/>
+    </message>
+    <message name="devisOut">
+        <part name="return" type="tns:booking"/>
+    </message>
+    <message name="createbookingIn">
+        <part name="session" type="xsd:string"/>
+        <part name="travels" type="tns:Travellers"/>
+        <part name="organisateur" type="tns:Traveller"/>
+        <part name="login" type="xsd:string"/>
+        <part name="pw" type="xsd:string"/>
+        <part name="vol" type="tns:vol"/>
+        <part name="info_agence" type="tns:info_agence"/>
+        <part name="note_supplementaire" type="xsd:string"/>
+        <part name="frais_supplementaire" type="xsd:string"/>
+    </message>
+    <message name="createbookingOut">
+        <part name="return" type="tns:book"/>
+    </message>
+    <message name="destockageIn">
+        <part name="reference" type="xsd:string"/>
+        <part name="etat_paiement" type="xsd:string"/>
+        <part name="type_reglement" type="xsd:string"/>
+        <part name="login" type="xsd:string"/>
+        <part name="pw" type="xsd:string"/>
+    </message>
+    <message name="destockageOut">
+        <part name="return" type="tns:destock"/>
+    </message>
+    <message name="demandeannulationIn">
+        <part name="login" type="xsd:string"/>
+        <part name="pw" type="xsd:string"/>
+        <part name="reference" type="xsd:anyType"/>
+        <part name="type_penalite" type="xsd:anyType"/>
+    </message>
+    <message name="demandeannulationOut">
+        <part name="return" type="tns:bookingcancel"/>
+    </message>
+    <message name="confirmannulationIn">
+        <part name="login" type="xsd:string"/>
+        <part name="pw" type="xsd:anyType"/>
+        <part name="session" type="xsd:anyType"/>
+    </message>
+    <message name="confirmannulationOut">
+        <part name="return" type="tns:comfirmbookingcancel"/>
+    </message>
+    <message name="getreservationIn">
+        <part name="login" type="xsd:string"/>
+        <part name="pw" type="xsd:string"/>
+        <part name="reference" type="xsd:string"/>
+    </message>
+    <message name="getreservationOut">
+        <part name="return" type="tns:detailreservation"/>
+    </message>
+    <message name="findreservationIn">
+        <part name="login" type="xsd:string"/>
+        <part name="pw" type="xsd:string"/>
+        <part name="debut" type="xsd:string"/>
+        <part name="fin" type="xsd:string"/>
+    </message>
+    <message name="findreservationOut">
+        <part name="return" type="tns:resbooking"/>
+    </message>
+    <message name="reglement_commandeIn">
+        <part name="reference" type="xsd:string"/>
+        <part name="etat_paiement" type="xsd:string"/>
+        <part name="type_reglement" type="xsd:string"/>
+        <part name="choix_paiement" type="xsd:string"/>
+        <part name="montant_reglement" type="xsd:string"/>
+        <part name="agent" type="xsd:string"/>
+        <part name="devise" type="xsd:string"/>
+        <part name="reference_paiement" type="xsd:string"/>
+        <part name="banque" type="xsd:string"/>
+        <part name="prorietaire" type="xsd:string"/>
+        <part name="date_vers" type="xsd:string"/>
+        <part name="libelle_agence" type="xsd:string"/>
+        <part name="login" type="xsd:string"/>
+        <part name="pw" type="xsd:string"/>
+    </message>
+    <message name="reglement_commandeOut">
+        <part name="return" type="tns:reglement_commande"/>
+    </message>
+</definitions>

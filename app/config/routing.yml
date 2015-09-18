@@ -10,6 +10,15 @@ espace_client:
     resource: "@EspaceClientBundle/Resources/config/routing.yml"
     prefix:   /espace_client
 
+back_resa_booking:
+    resource: "@BackResaBookingBundle/Resources/config/routing.yml"
+    prefix:   /admin/hotel_tunisie
+
+#front_resa_booking:
+#    resource: "@BackResaBookingBundle/Resources/config/routing.yml"
+#    prefix:   /booking
+
+
 back_programme:
     resource: "@BackProgrammeBundle/Resources/config/routing.yml"
     prefix:   /admin/programme
@@ -35,7 +44,7 @@ back_hotel_tunisie:
 back_user:
     resource: "@BackUserBundle/Resources/config/routing.yml"
     prefix:   /
-    
+
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 

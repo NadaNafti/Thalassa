@@ -1,0 +1,39 @@
+{% extends "BackResaBookingBundle:Back:liste.html.twig" %}
+{% block title %}{{ hotel.libelleResa }}{% endblock %}
+{% block description %}Modification{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ hotel.libelleResa }} </a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {#{% include 'BackHotelTunisieBundle:Hotels:menu_hotel.html.twig' %}#}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form action="{{ path('modif_resa_hotel',{'id':hotel.id}) }}" method="post" role="form" id="form">
+                            {{ form_widget(form._token) }}
+                            <div class="row">
+                                {{ formulaire.input("col-md-9","Libellé",form.libelleResa,false) }}
+                                {{ formulaire.input("col-md-3","Catégorie (étoiles)",form.categorie,false) }}
+                                {{ formulaire.input("col-md-6","Region",form.region,false) }}
+                                {{ formulaire.select2("col-md-6","Liste des Hôtel à Rattacher",form.hotel,true) }}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ hotel.info | raw }}
+                                </div>
+
+                            </div>
+                            {{ formulaire.submit("Modifier") }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

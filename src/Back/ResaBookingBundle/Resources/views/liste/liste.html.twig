@@ -1,0 +1,165 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Liste hôtels en Tunisie{% endblock %}
+{% block body %}
+    <div id="page_title">
+	<div class="container clearfix">
+	    <div class="page-name">{{ block('title') }}</div>
+	    <div class="breadcrumb clearfix">
+		<a href="{{ path('accueil') }}">Accueil</a>
+		<a href="{{ path('front_hoteltunisie_accueil') }}">Réservation immédiate</a>
+		<span class="current-page">{{ block('title') }}</span>
+	    </div>
+	</div>
+    </div>
+    <div class="banner-intern">
+	<img src="{{ asset('front-assets/images/banner-2.png') }}" style="width:100%">
+    </div>
+    <div id="content_wrapper">
+	<div class="container">
+	    <div class="row clearfix pv-30 mt-20">
+		{% include 'BackResaBookingBundle:liste:filtre.html.twig' %}
+		<div class="col-xs-12 col-sm-8 col-md-8">
+		    {% include 'BackResaBookingBundle:liste:sort.html.twig' %}
+		    <div class="row items-container list-style">
+			{% for hotel in hotels %}
+			    {% include 'BackResaBookingBundle:liste:article.html.twig' %}
+			{% endfor %}
+		    </div>
+		    <div class="clear"></div>
+		    <nav class="paging pull-right">
+			{#{{ knp_pagination_render(hotels) }}#}
+		    </nav>
+		</div>
+		<div class="clear"></div>
+	    </div>
+	</div>
+    </div>
+{% endblock %}
+{% block jquery %}
+    <script>
+	$(document).ready(function () {
+	    $('.showChambre').on('click', function () {
+		var table = $(this).parent().parent().parent().find('.table');
+		table.toggle();
+	    })
+	})
+	</script>
+	<script>
+
+		$(document).ready(function () {
+			var obj = {
+			{% for chambre in 1..5 %}
+					{{ 'minAdulte'~chambre~':'~0 }},
+					{{ 'maxAdulte'~chambre~':'~4 }},
+					{{ 'minEnfant'~chambre~':'~0 }},
+					{{ 'maxEnfant'~chambre~':'~3 }},
+			{% endfor %}
+		};
+		$(document).on('change', '.AdulteChambre', function () {
+			var chambre = $(this).data('chambre');
+			var frais = $('#chambre-' + chambre).data('frais');
+			var ordre = $(this).data('ordre');
+			var val = $(this).val();
+			var nbrENF = $(this).parent().parent().find('.EnfantChambre').val();
+			var nbrKids = obj['maxAdulte' + chambre] - val;
+			if (nbrKids > obj['maxEnfant' + chambre])
+				nbrKids = obj['maxEnfant' + chambre];
+			if (nbrKids < obj['minEnfant' + chambre])
+				nbrKids = obj['minEnfant' + chambre];
+			Block = $(this).parent().parent().find('.ages .row');
+			var exist = Block.children().length;
+
+			{#$(this).parent().parent().find('.EnfantChambre').val(nbrKids);
+				if (exist < nbrKids) {
+					for (var i = 1; i <= nbrKids; i++) {
+						if (i > exist)
+							Block.append('<div class="col-md-3"><label>Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in 0..12 %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
+					}
+				}
+				else {
+					var toRemove = (exist - nbrKids);
+					var nmbr = Block.children().length;
+					for (var i = nmbr; i >= (nmbr - toRemove); i--)
+						Block.children().eq(i).remove();
+				}  #}
+
+
+		})
+		$('.chambresSelect').change(function () {
+			var nbrRooms = $(this).val();
+			//var id = $(this).data('id');
+			Block = $(this).parent().parent().parent().find('.details');
+			var exist = Block.children().length;
+			if (exist < nbrRooms) {
+				for (var i = 1; i <= nbrRooms; i++) {
+					if (i > exist) {
+						BlockChambre = window['getChambre' + nbrRooms]('');
+						Block.append(BlockChambre);
+					}
+				}
+			}
+			else {
+				var toRemove = (exist - nbrRooms);
+				var nmbr = Block.children().length;
+				for (var i = nmbr; i >= (nmbr - toRemove); i--)
+					Block.children().eq(i).remove();
+			}
+		})
+		$(document).on('change', '.EnfantChambre', function () {
+			var chambre = $(this).data('chambre');
+			var frais = $('#chambre-' + chambre).data('frais');
+			var ordre = $(this).data('ordre');
+			var nbrKids = $(this).val();
+			var nbrAd = $(this).parent().parent().find('.AdulteChambre').val();
+			var nbrAdulte = obj['maxAdulte' + chambre] - nbrKids;
+			if (nbrAdulte > obj['maxAdulte' + chambre])
+				nbrAdulte = obj['maxAdulte' + chambre];
+			if (nbrAdulte < obj['nbrAdulte' + chambre])
+				nbrAdulte = obj['minEnfant' + chambre];
+			Block = $(this).parent().parent().find('.ages .row');
+			var exist = Block.children().length;
+			if (frais) {
+				if ((parseInt(nbrAd) + parseInt(nbrKids)) > (obj['minEnfant' + chambre] + obj['maxAdulte' + chambre]))
+					$(this).parent().parent().find('.AdulteChambre').val(nbrAdulte);
+				if (exist < nbrKids) {
+					for (var i = 1; i <= nbrKids; i++) {
+						if (i > exist)
+							Block.append('<div class="col-md-3"><label style="white-space:nowrap;">Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in 0..12 %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
+					}
+				}
+				else {
+					var toRemove = (exist - nbrKids);
+					var nmbr = Block.children().length;
+					for (var i = nmbr; i >= (nmbr - toRemove); i--)
+						Block.children().eq(i).remove();
+					if(parseInt(nbrKids)+parseInt(nbrAd)==0)
+						$(this).parent().parent().find('.AdulteChambre').val(1);
+				}
+			}
+			else {
+				{#$(this).parent().parent().find('.AdulteChambre').val(nbrAdulte)#};
+				if (exist < nbrKids) {
+					for (var i = 1; i <= nbrKids; i++) {
+						if (i > exist)
+							Block.append('<div class="col-md-3"><label style="white-space:nowrap;">Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in 0..12 %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
+					}
+				}
+				else {
+					var toRemove = (exist - nbrKids);
+					var nmbr = Block.children().length;
+					for (var i = nmbr; i >= (nmbr - toRemove); i--)
+						Block.children().eq(i).remove();
+				}
+			}
+
+		})
+		})
+		;
+		{% for ch in 1..5 %}
+		function getChambre{{ loop.index }}(i) {
+			return '<div class="row" style="  border: 1px solid #eee;  padding: 10px 0px;  margin: 15px 10px;"><div class="col-md-4" style="padding-top: 25px;">    Chambre ' + i + ' </div> <div class="col-md-4"> <label>Adulte</label> <select name="adulte_{{ loop.index }}_' + i + '" data-ordre="' + i + '" data-chambre="{{ loop.index }}"  class="form-control AdulteChambre">{% for i in 0..4 %}            <option value="{{ i }}" >{{ i }}</option>        {% endfor %} </select> </div> <div class="col-md-4"> <label>Enfant</label> <select name="enfant_{{ loop.index }}_' + i + '" class="form-control  EnfantChambre" data-ordre="' + i + '" data-chambre="{{ loop.index }}">{% for i in 0..3 %}            <option value="{{ i }}" >{{ i }}</option>        {% endfor %} </select> </div> <div class="clearfix"></div> <div class="col-md-2"></div> <div class="col-md-10 ages" style="margin-top: 10px;" > <div class="row"> </div> </div> </div>';
+		}
+
+		{% endfor %}
+	</script>
+{% endblock %}

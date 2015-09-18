@@ -1,0 +1,11 @@
+liste_hotels:
+    path:     /liste/{page}
+    defaults: { _controller: BackResaBookingBundle:Booking:liste,region:all,page:1,categorie:all,etat:all,libelle:all,sort:h.id,direction:desc }
+
+generate_hotels:
+    path:    /generate
+    defaults: { _controller: BackResaBookingBundle:Booking:generate }
+
+modif_resa_hotel:
+    path:    /modif/{id}
+    defaults: { _controller: BackResaBookingBundle:Booking:edit}

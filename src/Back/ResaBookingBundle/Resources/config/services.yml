@@ -1,0 +1,15 @@
+parameters:
+    resa_booking:
+        login: "olevoyage"
+        password: "olevoyage2015"
+        #authentication: "80"
+        #connection_timeout: "60"
+        #features: "1"
+
+    wsdl: "http://www.resabooking.com/auto_hot_xft_test.php?wsdl"
+
+
+services:
+    resa_booking:
+        class: Back\ResaBookingBundle\Soap\ResabookingService
+        arguments: ["%resa_booking%","%wsdl%"]
