@@ -72,4 +72,13 @@ class AccueilController extends Controller
         ));
     }
 
+    public function footerAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $accueil = $em->find('FrontConfigBundle:Accueil', 1);
+        return $this->render('FrontConfigBundle:Accueil:footer.html.twig', array(
+            'accueil' => $accueil
+        ));
+    }
+
 }

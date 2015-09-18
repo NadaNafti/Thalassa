@@ -3,20 +3,10 @@
         <div class="container">
             <div class="row pt-50 pb-30">
                 <div class="col-xs-12 col-sm-3 col-md-3 rs-mb">
-                    {#<h4 class="widget-title mb-30">A propos de nous</h4>#}
                     <div class="logo-footer mt-20 mb-10">
                         <img src="{{ asset('front-assets/images/logo-footer.png') }}" alt="logo" />
                     </div>
-                    <p>
-                        Nous mettons régulièrement à jour les connexions directes
-                        avec nos  fournisseurs afin que vous ayez accès à toutes les disponibilités pour vos  vacances.
-                    </p>
-                    <div class="social with_color">
-                        <a href="skype:olevoyages?call" class="bottomtip" title="Skype"><i class="fa-skype"></i></a>
-                        <a target="_blank" href="https://www.facebook.com/olevoyage?ref=br_rs" class="bottomtip" title="Facebook"><i class="fa-facebook"></i></a>
-                        <a target="_blank" href="https://plus.google.com/u/0/107523031158921695669/about" class="bottomtip" title="Googole plus"><i class="fa-google-plus"></i></a>
-                        <a target="_blank" href="https://www.youtube.com/channel/UC9LdhvP0aXgApIihBWtZ6xg" class="bottomtip" title="Youtube"><i class="fa-youtube"></i></a>
-                    </div><!-- end social -->
+                    {{ render(controller('FrontConfigBundle:Accueil:footer')) }}
                     <div class="clear"></div>
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3 xs-mb">
