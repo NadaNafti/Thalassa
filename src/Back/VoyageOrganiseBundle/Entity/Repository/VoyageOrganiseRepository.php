@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityRepository;
 class VoyageOrganiseRepository extends EntityRepository
 {
 
-    public function filtre($themes='all',$destination='all',$pays='all',$name='all',$orderBy='v.libelle',$direction='asc')
+    public function filtre($themes='all',$destination='all',$pays='all',$name='all',$sort='v.libelle',$direction='asc')
     {
 	$query = $this->createQueryBuilder('v');
 	$query->where($query->expr()->isNotNull('v.id'));
@@ -48,7 +48,7 @@ class VoyageOrganiseRepository extends EntityRepository
 	    }
 	    $query->andWhere($orX);
 	}
-	$query->orderBy($orderBy, $direction);
+	$query->orderBy($sort, $direction);
 	return $query->getQuery()->getResult();
     }
 
