@@ -1,73 +1,25 @@
 <nav>
     <ul class="sf-menu">
-        <li {% if app.request.get('_route')=='accueil' %}class="current"{% endif %}>
-            <a href="{{ path('accueil') }}">Accueil</a>
-        </li>
         <li {% if app.request.getPathInfo|split('/HotelTunisie')|length > 1 %}class="current"{% endif %}>
-            <a href="javascript:void(0)">Hôtels</a>
-            <ul class="col4 mega">
-                <li class="col2">
-                    <ol>
-                        <li class="title">Hôtels en tunisie</a></li>
-                        <li><a href="{{ path('front_hoteltunisie_accueil') }}">Olé Sélection</a></li>
-                        <li><a href="{{ path('front_hoteltunisie_accueil') }}">Top Promo</a></li>
-                        <li><a href="{{ path('front_hoteltunisie_accueil') }}">Les plus recommandés</a></li>
-                    </ol>
-                </li>
-                <li class="col2">
-                    <ol>
-                        <li class="title">Hôtels dans le monde</li>
-                        <li><a href="#">Olé Sélection</a></li>
-                        <li><a href="#">Top Promo</a></li>
-                        <li><a href="#">Les plus recommandés</a></li>
-                    </ol>
-                </li>
-            </ul>
+            <a href="{{ path('front_hoteltunisie_accueil') }}">Hôtels en tunisie</a>
+        </li>
+        <li {% if app.request.get('_route')=='ole_booking_hotels' %}class="current"{% endif %}>
+            <a href="{{ path('ole_booking_hotels') }}">Hôtels dans le monde</a>
         </li>
         <li {% if app.request.getPathInfo|split('/VoyageOrganise')|length > 1 %}class="current"{% endif %}>
-            <a href="#">Voyages à l'étranger</a>
-            <ul class="col4 mega">
-                <li class="col2">
-                    <ol>
-                        <li class="title">Voyages organisés</li>
-                        <li><a href="{{ path('front_voyageorganise_accueil') }}">Olé Sélection</a></li>
-                        <li><a href="{{ path('front_voyageorganise_accueil') }}">Top destinations</a></li>
-                        <li><a href="{{ path('front_voyageorganise_accueil') }}">Les plus recommandés</a></li>
-                    </ol>
-                </li>
-                <li class="col2">
-                    <ol>
-                        <li class="title">Voyages à la carte</li>
-                        <li><a href="#">Olé Sélection</a></li>
-                        <li><a href="#">Top Destinations</a></li>
-                        <li><a href="#">Les plus recommandés</a></li>
-                    </ol>
-                </li>
-            </ul>
+            <a href="{{ path('front_voyageorganise_accueil') }}">Voyages organisés</a>
         </li>
-        <li>
-            <a href="#">Programmes et activités</a>
-            <ul class="col2 mega">
-                <li class="col2">
-                    <ol>
-                        <li><a href="{{ path('front_programme_accueil') }}">Transfert</a></li>
-                        <li><a href="{{ path('front_programme_accueil') }}">Circuits</a></li>
-                        <li><a href="{{ path('front_programme_accueil') }}">Excursion</a></li>
-                        <li><a href="{{ path('front_programme_accueil') }}">Soirées & festivités</a></li>
-                        <li><a href="{{ path('front_programme_accueil') }}">Evènements sportif</a></li>
-                        <li><a href="{{ path('front_programme_accueil') }}">Omra</a></li>
-                    </ol>
-                </li>
-            </ul>
+        <li {% if app.request.getPathInfo|split('/Programme')|length > 1 %}class="current"{% endif %}>
+            <a href="{{ path('front_programme_accueil') }}">Programmes et activités</a>
         </li>
         <li>
             <a href="#">Billetterie</a>
             <ul class="col1 mega">
                 <li class="col1">
                     <ol>
-                        <li><a href="#">Avion</a></li>
-                        <li><a href="#">Maritime</a></li>
-                        <li><a href="#">Train</a></li>
+                        <li><a href="{{ path('under_construction') }}">Avion</a></li>
+                        <li><a href="{{ path('under_construction') }}">Maritime</a></li>
+                        <li><a href="{{ path('under_construction') }}">Train</a></li>
                     </ol>
                 </li>
             </ul>
@@ -77,16 +29,14 @@
             <ul class="col1 mega">
                 <li class="col1">
                     <ol>
-                        <li><a href="#">Thalasso</a></li>
-                        <li><a href="#">Santé</a></li>
+                        <li><a href="{{ path('under_construction') }}">Thalasso</a></li>
+                        <li><a href="{{ path('under_construction') }}">Santé</a></li>
                     </ol>
                 </li>
             </ul>
         </li>
-
-        <li><a href="#">Croisières</a></li>
-        <li><a href="#">Location de voiture</a></li>
-        <li><a href="#">évènements</a></li>
+        <li {% if app.request.get('_route')=='ole_locaton_cars' %}class="current"{% endif %}>
+            <a href="{{ path("ole_locaton_cars") }}">Location de voiture</a>
+        </li>
     </ul>
-    <!-- end menu -->
 </nav><!-- end nav -->

@@ -43,7 +43,7 @@
         <div class="form-group">
             {% if label is not null %}
                 <label class="control-label">
-                    {{label}} {% if required==true %}<span class="symbol required"></span>{% endif %}
+                    {{label|raw}} {% if required==true %}<span class="symbol required"></span>{% endif %}
                 </label>
             {% endif %}
             {{ form_widget(from) | raw  }}

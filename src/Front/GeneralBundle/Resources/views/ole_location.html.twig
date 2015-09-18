@@ -1,0 +1,23 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Location de voiture{% endblock %}
+{% block body %}
+    <div id="page_title">
+        <div class="container clearfix">
+            <div class="page-name">{{ block('title') }}</div>
+            <div class="breadcrumb clearfix">
+                <a href="{{ path('accueil') }}">Accueil</a>
+                <span class="current-page">{{ block('title') }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="content_wrapper">
+        <div class="container">
+            <div class="row clearfix pv-50">
+                <div class="col-md-12">
+                    <iframe style="overflow:hidden;height:5000px;width:100%" height="100%" width="100%" src="http://www.rentalcars.com/" frameborder="0" scrolling="no" title=""></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

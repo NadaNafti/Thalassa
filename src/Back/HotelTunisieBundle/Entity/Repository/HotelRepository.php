@@ -1,6 +1,6 @@
 <?php
 
-namespace Back\HotelTunisieBundle\Entity;
+namespace Back\HotelTunisieBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -73,7 +73,7 @@ class HotelRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
 
-    public function filtreFrontOfficePlus($categorie = 'all', $chaine = 'all', $ville = 'all', $tag = 'all', $name = null)
+    public function filtreFrontOfficePlus($categorie = 'all', $chaine = 'all', $ville = 'all', $tag = 'all', $name = null, $sort='h.libelle', $direction='asc')
     {
         $query = $this->createQueryBuilder('h');
         $query->join('h.ville', "v");
@@ -124,7 +124,7 @@ class HotelRepository extends EntityRepository
             }
             $query->andWhere($orX);
         }
-        $query->orderBy("h.libelle", 'asc');
+        $query->orderBy($sort, $direction);
         return $query->getQuery()->getResult();
     }
 

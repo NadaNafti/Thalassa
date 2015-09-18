@@ -2,6 +2,18 @@ accueil:
     path:     /
     defaults: { _controller: FrontGeneralBundle:Default:accueil }
 
+ole_booking_hotels:
+    path:     /hotels_dans_le_monde
+    defaults: { _controller: FrontGeneralBundle:Default:oleBooking }
+
+ole_locaton_cars:
+    path:     /location_voitures
+    defaults: { _controller: FrontGeneralBundle:Default:oleLocation }
+
+under_construction:
+    path:     /under_construction
+    defaults: { _controller: FrontGeneralBundle:Default:underConstruction }
+
 front_hoteltunisie:
     resource: "@FrontGeneralBundle/Resources/config/routing/hoteltunisie.yml"
     prefix:   /HotelTunisie

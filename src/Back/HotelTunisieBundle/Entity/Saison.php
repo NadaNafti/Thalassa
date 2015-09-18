@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Saison
  *
  * @ORM\Table(name="ost_sht_saison")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Back\HotelTunisieBundle\Entity\Repository\SaisonRepository")
  */
 class Saison
 {
@@ -212,7 +212,7 @@ class Saison
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -235,7 +235,7 @@ class Saison
     /**
      * Get libelle
      *
-     * @return string 
+     * @return string
      */
     public function getLibelle()
     {
@@ -258,7 +258,7 @@ class Saison
     /**
      * Get delaiAnnulation
      *
-     * @return integer 
+     * @return integer
      */
     public function getDelaiAnnulation()
     {
@@ -281,7 +281,7 @@ class Saison
     /**
      * Get delaiRetrocession
      *
-     * @return integer 
+     * @return integer
      */
     public function getDelaiRetrocession()
     {
@@ -304,7 +304,7 @@ class Saison
     /**
      * Get nombrePlace
      *
-     * @return integer 
+     * @return integer
      */
     public function getNombrePlace()
     {
@@ -327,7 +327,7 @@ class Saison
     /**
      * Get aCompte
      *
-     * @return integer 
+     * @return integer
      */
     public function getACompte()
     {
@@ -350,7 +350,7 @@ class Saison
     /**
      * Get minStay
      *
-     * @return integer 
+     * @return integer
      */
     public function getMinStay()
     {
@@ -373,7 +373,7 @@ class Saison
     /**
      * Get totalContingent
      *
-     * @return integer 
+     * @return integer
      */
     public function getTotalContingent()
     {
@@ -396,7 +396,7 @@ class Saison
     /**
      * Get prixConvention
      *
-     * @return string 
+     * @return string
      */
     public function getPrixConvention()
     {
@@ -419,7 +419,7 @@ class Saison
     /**
      * Get margeVente
      *
-     * @return string 
+     * @return string
      */
     public function getMargeVente()
     {
@@ -442,7 +442,7 @@ class Saison
     /**
      * Get pourcentage
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPourcentage()
     {
@@ -465,7 +465,7 @@ class Saison
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -488,7 +488,7 @@ class Saison
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -511,7 +511,7 @@ class Saison
     /**
      * Get ArrBase
      *
-     * @return \Back\HotelTunisieBundle\Entity\Arrangement 
+     * @return \Back\HotelTunisieBundle\Entity\Arrangement
      */
     public function getArrBase()
     {
@@ -542,7 +542,7 @@ class Saison
      * 2:Promotion
      * 3:Amicales
      * 4:Contingent
-     * @return integer 
+     * @return integer
      */
     public function getType()
     {
@@ -570,10 +570,10 @@ class Saison
     {
         $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
         $this->arrangements = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->delaiAnnulation=0;
-        $this->delaiRetrocession=0;
-        $this->nombrePlace=0;
-        $this->aCompte=0;
+        $this->delaiAnnulation = 0;
+        $this->delaiRetrocession = 0;
+        $this->nombrePlace = 0;
+        $this->aCompte = 0;
     }
 
     /**
@@ -602,7 +602,7 @@ class Saison
     /**
      * Get chambres
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getChambres()
     {
@@ -625,7 +625,7 @@ class Saison
     /**
      * Get saisonReduc
      *
-     * @return \Back\HotelTunisieBundle\Entity\SaisonReduc 
+     * @return \Back\HotelTunisieBundle\Entity\SaisonReduc
      */
     public function getSaisonReduc()
     {
@@ -658,7 +658,7 @@ class Saison
     /**
      * Get arrangements
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getArrangements()
     {
@@ -668,7 +668,7 @@ class Saison
     /**
      * Get arrangements
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPrixDeBase()
     {
@@ -704,7 +704,7 @@ class Saison
     /**
      * Get suppChambres
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSuppChambres()
     {
@@ -737,7 +737,7 @@ class Saison
     /**
      * Get vues
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getVues()
     {
@@ -760,7 +760,7 @@ class Saison
     /**
      * Get saisonSupp
      *
-     * @return \Back\HotelTunisieBundle\Entity\SaisonSupp 
+     * @return \Back\HotelTunisieBundle\Entity\SaisonSupp
      */
     public function getSaisonSupp()
     {
@@ -783,7 +783,7 @@ class Saison
     /**
      * Get saisonWeekend
      *
-     * @return \Back\HotelTunisieBundle\Entity\SaisonWeekend 
+     * @return \Back\HotelTunisieBundle\Entity\SaisonWeekend
      */
     public function getSaisonWeekend()
     {
@@ -816,7 +816,7 @@ class Saison
     /**
      * Get autresSupplements
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAutresSupplements()
     {
@@ -849,7 +849,7 @@ class Saison
     /**
      * Get autresReductions
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAutresReductions()
     {
@@ -872,7 +872,7 @@ class Saison
     /**
      * Get hotelBase
      *
-     * @return \Back\HotelTunisieBundle\Entity\Hotel 
+     * @return \Back\HotelTunisieBundle\Entity\Hotel
      */
     public function getHotelBase()
     {
@@ -883,8 +883,7 @@ class Saison
     {
         if (is_null($this->ArrBase))
             return false;
-        foreach ($this->getHotel()->getArrangements() as $arr)
-        {
+        foreach ($this->getHotel()->getArrangements() as $arr) {
             if ($arr->getId() == $this->ArrBase->getId())
                 return true;
         }
@@ -925,10 +924,8 @@ class Saison
     {
         if (is_null($arrangement) || $arrangement == $this->ArrBase->getId())
             return number_format($this->prixConvention, 3, '.', '');
-        else
-        {
-            foreach ($this->arrangements as $arr)
-            {
+        else {
+            foreach ($this->arrangements as $arr) {
                 if ($arr->getArrangement()->getId() == $arrangement)
                     return number_format($this->prixConvention + $arr->getReducSuppAchat(), 3, '.', '');
             }
@@ -940,19 +937,14 @@ class Saison
      */
     public function prixBaseVente($arrangement = null)
     {
-        if (is_null($arrangement) || $arrangement == $this->ArrBase->getId())
-        {
+        if (is_null($arrangement) || $arrangement == $this->ArrBase->getId()) {
             if ($this->pourcentage)
                 return number_format($this->prixConvention + ($this->prixConvention * $this->margeVente / 100), 3, '.', '');
             else
                 return number_format($this->prixConvention + $this->margeVente, 3, '.', '');
-        }
-        else
-        {
-            foreach ($this->arrangements as $arr)
-            {
-                if ($arr->getArrangement()->getId() == $arrangement)
-                {
+        } else {
+            foreach ($this->arrangements as $arr) {
+                if ($arr->getArrangement()->getId() == $arrangement) {
                     if ($this->pourcentage)
                         return number_format($arr->getReducSuppVente() + $this->prixConvention + ($this->prixConvention * $this->margeVente / 100), 3, '.', '');
                     else
@@ -983,7 +975,7 @@ class Saison
     /**
      * Get hotel
      *
-     * @return \Back\HotelTunisieBundle\Entity\Hotel 
+     * @return \Back\HotelTunisieBundle\Entity\Hotel
      */
     public function getHotel()
     {
@@ -1001,8 +993,7 @@ class Saison
 
     public function __clone()
     {
-        if ($this->id)
-        {
+        if ($this->id) {
             $this->id = null;
             if ($this->saisonReduc != null)
                 $this->saisonReduc = clone $this->saisonReduc;
@@ -1041,7 +1032,7 @@ class Saison
     /**
      * Get periodes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPeriodes()
     {
@@ -1074,7 +1065,7 @@ class Saison
     /**
      * Get amicales
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAmicales()
     {
@@ -1097,7 +1088,7 @@ class Saison
     /**
      * Get contrat
      *
-     * @return \Back\HotelTunisieBundle\Entity\Contrat 
+     * @return \Back\HotelTunisieBundle\Entity\Contrat
      */
     public function getContrat()
     {
@@ -1138,10 +1129,42 @@ class Saison
     /**
      * Get fraisChambres
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFraisChambres()
     {
         return $this->fraisChambres;
+    }
+
+    public function getOccMinAdulte($ch)
+    {
+        foreach ($this->chambres as $chambre) {
+            if ($chambre->getChambre()->getId() == $ch)
+                return $chambre->getMinAdulte();
+        }
+    }
+
+    public function getOccMaxAdulte($ch)
+    {
+        foreach ($this->chambres as $chambre) {
+            if ($chambre->getChambre()->getId() == $ch)
+                return $chambre->getMaxAdulte();
+        }
+    }
+
+    public function getOccMinEnfant($ch)
+    {
+        foreach ($this->chambres as $chambre) {
+            if ($chambre->getChambre()->getId() == $ch)
+                return $chambre->getMinEnfant();
+        }
+    }
+
+    public function getOccMaxEnfant($ch)
+    {
+        foreach ($this->chambres as $chambre) {
+            if ($chambre->getChambre()->getId() == $ch)
+                return $chambre->getMaxEnfant();
+        }
     }
 }

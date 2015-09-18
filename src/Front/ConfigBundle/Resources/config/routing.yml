@@ -9,3 +9,7 @@ config_front_hoteltunisie:
 config_front_programme:
     resource: "@FrontConfigBundle/Resources/config/routing/programme.yml"
     prefix:   /Programme
+
+config_front_accueil:
+    resource: "@FrontConfigBundle/Resources/config/routing/accueil.yml"
+    prefix:   /acuueil

@@ -2,6 +2,8 @@
 
 namespace Back\HotelTunisieBundle\Controller;
 
+use Back\AdministrationBundle\Entity\Amicale;
+use Back\HotelTunisieBundle\Form\GenererTarifsHotelsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\ORM\EntityRepository;
@@ -19,6 +21,7 @@ use Back\HotelTunisieBundle\Entity\HotelChambre;
 use Back\HotelTunisieBundle\Form\HotelChambresType;
 use Back\HotelTunisieBundle\Entity\Contrat;
 use Back\HotelTunisieBundle\Form\ContratType;
+use Symfony\Component\Form\FormError;
 
 class HotelsController extends Controller
 {
@@ -40,11 +43,9 @@ class HotelsController extends Controller
         $session = $this->getRequest()->getSession();
         $hotel = new Hotel;
         $form = $this->createForm(new HotelType(), $hotel);
-        if ($request->isMethod("POST"))
-        {
+        if ($request->isMethod("POST")) {
             $form->bind($request);
-            if ($form->isValid())
-            {
+            if ($form->isValid()) {
                 $hotel = $form->getData();
                 $em->persist($hotel->setEtat(1));
                 $em->flush();
@@ -53,7 +54,7 @@ class HotelsController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:Hotels:ajout.html.twig', array(
-                    'form' => $form->createView()
+            'form' => $form->createView()
         ));
     }
 
@@ -65,11 +66,11 @@ class HotelsController extends Controller
         else
             $libelle = "all";
         return $this->redirect($this->generateUrl('list_hotels', array(
-                            'ville' => $request->get('ville'),
-                            'etat' => $request->get('etat'),
-                            'chaine' => $request->get('chaine'),
-                            'categorie' => $request->get('categorie'),
-                            'libelle' => $libelle,
+            'ville'     => $request->get('ville'),
+            'etat'      => $request->get('etat'),
+            'chaine'    => $request->get('chaine'),
+            'categorie' => $request->get('categorie'),
+            'libelle'   => $libelle,
         )));
     }
 
@@ -84,10 +85,10 @@ class HotelsController extends Controller
         $paginator = $this->get('knp_paginator');
         $hotels = $paginator->paginate($hotels, $page, 20);
         return $this->render('BackHotelTunisieBundle:Hotels:liste.html.twig', array(
-                    'hotels' => $hotels,
-                    'villes' => $villes,
-                    'chaines' => $chaines,
-                    'categories' => $categories,
+            'hotels'     => $hotels,
+            'villes'     => $villes,
+            'chaines'    => $chaines,
+            'categories' => $categories,
         ));
     }
 
@@ -101,7 +102,7 @@ class HotelsController extends Controller
         $paginator = $this->get('knp_paginator');
         $hotels = $paginator->paginate($hotels, $request->query->get('page', 1), 10);
         return $this->render('BackHotelTunisieBundle:Hotels:listeDeleted.html.twig', array(
-                    'hotels' => $hotels,
+            'hotels' => $hotels,
         ));
     }
 
@@ -128,11 +129,9 @@ class HotelsController extends Controller
         if (!$hotel)
             throw $this->createNotFoundException('L\' hôtel n\'existe pas');
         $form = $this->createForm(new HotelType(), $hotel);
-        if ($request->isMethod("POST"))
-        {
+        if ($request->isMethod("POST")) {
             $form->bind($request);
-            if ($form->isValid())
-            {
+            if ($form->isValid()) {
                 $hotel = $form->getData();
                 $em->persist($hotel);
                 $em->flush();
@@ -141,8 +140,8 @@ class HotelsController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:Hotels:modif.html.twig', array(
-                    'form' => $form->createView(),
-                    'hotel' => $hotel
+            'form'  => $form->createView(),
+            'hotel' => $hotel
         ));
     }
 
@@ -167,11 +166,9 @@ class HotelsController extends Controller
         $media->setHotel($hotel);
         $form = $this->createForm(new MediaType(), $media);
         $request = $this->getRequest();
-        if ($request->isMethod("POST"))
-        {
+        if ($request->isMethod("POST")) {
             $form->bind($request);
-            if ($form->isValid())
-            {
+            if ($form->isValid()) {
                 $media = $form->getData();
                 $em->persist($media);
                 $em->flush();
@@ -180,9 +177,9 @@ class HotelsController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:Hotels:photo.html.twig', array(
-                    'hotel' => $hotel,
-                    'form' => $form->createView(),
-                    'images' => $hotel->getImages(),
+            'hotel'  => $hotel,
+            'form'   => $form->createView(),
+            'images' => $hotel->getImages(),
         ));
     }
 
@@ -194,16 +191,13 @@ class HotelsController extends Controller
         $stopSale->setHotel($hotel);
         $form = $this->createForm(new StopSalesType(), $stopSale);
         $request = $this->getRequest();
-        if ($request->isMethod("POST"))
-        {
+        if ($request->isMethod("POST")) {
             $form->bind($request);
-            if ($form->isValid())
-            {
+            if ($form->isValid()) {
                 $stopSale = $form->getData();
                 if ($stopSale->getDateDebut() > $stopSale->getDateFin())
                     $session->getFlashBag()->add('danger', "Date fin doit ètre supérieur a la date debut");
-                else
-                {
+                else {
                     $em->persist($stopSale);
                     $em->flush();
                     $session->getFlashBag()->add('success', " Votre durée a été ajoutée avec succées ");
@@ -212,8 +206,8 @@ class HotelsController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:Hotels:stopsales.html.twig', array(
-                    'hotel' => $hotel,
-                    'form' => $form->createView(),
+            'hotel' => $hotel,
+            'form'  => $form->createView(),
         ));
     }
 
@@ -237,28 +231,24 @@ class HotelsController extends Controller
             $ficheTechnique = new FicheTechnique ();
         $form = $this->createForm(new FicheTechniqueType(), $ficheTechnique);
         $request = $this->getRequest();
-        if ($request->isMethod("POST"))
-        {
+        if ($request->isMethod("POST")) {
             $form->bind($request);
-            if ($form->isValid())
-            {
+            if ($form->isValid()) {
                 $ficheTechnique = $form->getData();
-                if ($ficheTechnique->getMax1AgeEnfant() > $ficheTechnique->getMin1AgeEnfant() && $ficheTechnique->getMin1AgeEnfant() >= 0 && (($ficheTechnique->getMin2AgeEnfant() == $ficheTechnique->getMax1AgeEnfant() + 1 && $ficheTechnique->getMax2AgeEnfant() > $ficheTechnique->getMin2AgeEnfant()) || ($ficheTechnique->getMin2AgeEnfant() == 0 && $ficheTechnique->getMax2AgeEnfant() == 0) ))
-                {
+                if ($ficheTechnique->getMax1AgeEnfant() > $ficheTechnique->getMin1AgeEnfant() && $ficheTechnique->getMin1AgeEnfant() >= 0 && (($ficheTechnique->getMin2AgeEnfant() == $ficheTechnique->getMax1AgeEnfant() + 1 && $ficheTechnique->getMax2AgeEnfant() > $ficheTechnique->getMin2AgeEnfant()) || ($ficheTechnique->getMin2AgeEnfant() == 0 && $ficheTechnique->getMax2AgeEnfant() == 0))) {
                     $hotel->setFicheTechnique($ficheTechnique);
                     $em->persist($ficheTechnique);
                     $em->persist($hotel);
                     $em->flush();
                     $session->getFlashBag()->add('success', " Votre fiche technique a été modifié avec succées ");
                     return $this->redirect($this->generateUrl("fiche_technique", array('id' => $hotel->getId())));
-                }
-                else
+                } else
                     $session->getFlashBag()->add('danger', "les deux intervalles sont erronées");
             }
         }
         return $this->render('BackHotelTunisieBundle:Hotels:fiche_technique.html.twig', array(
-                    'hotel' => $hotel,
-                    'form' => $form->createView()
+            'hotel' => $hotel,
+            'form'  => $form->createView()
         ));
     }
 
@@ -267,25 +257,20 @@ class HotelsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
 
-        foreach ($hotel->getChambres() as $ch)
-        {
+        foreach ($hotel->getChambres() as $ch) {
             $verif = $em->getRepository("BackHotelTunisieBundle:HotelChambre")->findBy(array('hotel' => $hotel, 'chambre' => $ch));
-            if (count($verif) == 0)
-            {
+            if (count($verif) == 0) {
                 $hotelChambre = new HotelChambre();
                 $hotelChambre->setChambre($ch);
                 $hotel->addHotelChambre($hotelChambre);
             }
         }
         $form = $this->createForm(new HotelChambresType(), $hotel);
-        if ($this->getRequest()->isMethod("POST"))
-        {
+        if ($this->getRequest()->isMethod("POST")) {
             $form->submit($this->getRequest());
-            if ($form->isValid())
-            {
+            if ($form->isValid()) {
                 $hotel = $form->getData();
-                foreach ($hotel->getHotelChambres() as $hotelChambre)
-                {
+                foreach ($hotel->getHotelChambres() as $hotelChambre) {
                     $em->persist($hotelChambre->setHotel($hotel));
                 }
                 $em->persist($hotel);
@@ -295,8 +280,8 @@ class HotelsController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:Hotels:chambres.html.twig', array(
-                    'hotel' => $hotel,
-                    'form' => $form->createView()
+            'hotel' => $hotel,
+            'form'  => $form->createView()
         ));
     }
 
@@ -310,11 +295,9 @@ class HotelsController extends Controller
             $contrat = $em->getRepository('BackHotelTunisieBundle:Contrat')->find($id2);
         $form = $this->createForm(new ContratType(), $contrat->setHotel($hotel));
         $request = $this->getRequest();
-        if ($request->isMethod('POST'))
-        {
+        if ($request->isMethod('POST')) {
             $form->submit($request);
-            if ($form->isValid())
-            {
+            if ($form->isValid()) {
                 $contrat = $form->getData();
                 $em->persist($contrat);
                 $em->flush();
@@ -323,8 +306,8 @@ class HotelsController extends Controller
             }
         }
         return $this->render('BackHotelTunisieBundle:Hotels:contrat.html.twig', array(
-                    'hotel' => $hotel,
-                    'form' => $form->createView()
+            'hotel' => $hotel,
+            'form'  => $form->createView()
         ));
     }
 
@@ -332,16 +315,46 @@ class HotelsController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
-        try
-        {
+        try {
             $em->remove($contrat);
             $em->flush();
             $session->getFlashBag()->add('success', " Votre Contrat a été supprimé avec succées ");
-        } catch (\Exception $ex)
-        {
+        } catch (\Exception $ex) {
             $session->getFlashBag()->add('danger', 'Votre Contrat est utilisé dans une autre table');
         }
         return $this->redirect($this->generateUrl("article_hotel", array('id' => $contrat->getHotel()->getId())));
+    }
+
+    public function genereTarifsAction()
+    {
+        $form = $this->createForm(new GenererTarifsHotelsType());
+        $request = $this->getRequest();
+        if ($request->isMethod('post')) {
+            $form->submit($request);
+            $data = $form->getData();
+            if ($data['debut']->format('Y-m-d') > $data['fin']->format('Y-m-d'))
+                $form->get('fin')->addError(new FormError("La date fin doit étre supperieur à la date debut"));
+            else
+                return $this->redirect($this->generateUrl('generer_tarif_hotels_liste', array(
+                    'debut'   => $data['debut']->format('Y-m-d'),
+                    'fin'     => $data['fin']->format('Y-m-d'),
+                    'amicale' => (is_null($data['amicale'])) ? null : $data['amicale']->getId(),
+                )));
+        }
+        return $this->render('BackHotelTunisieBundle:Hotels:generer_tarifs.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    public function genereTarifsListeAction($debut, $fin, $amicale)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arrangements = $em->getRepository("BackHotelTunisieBundle:Arrangement")->findAll();
+        $saisons = $em->getRepository('BackHotelTunisieBundle:Saison')->genererListe($debut, $fin, $amicale);
+        return $this->render('BackHotelTunisieBundle:Hotels:generer_tarifs_liste.html.twig', array(
+            'saisons'      => $saisons,
+            'arrangements' => $arrangements
+        ));
     }
 
 }

@@ -3,42 +3,25 @@
         <div class="container">
             <div class="row pt-50 pb-30">
                 <div class="col-xs-12 col-sm-3 col-md-3 rs-mb">
-                    <h4 class="widget-title mb-30">A propos de nous</h4>
                     <div class="logo-footer mt-20 mb-10">
                         <img src="{{ asset('front-assets/images/logo-footer.png') }}" alt="logo" />
                     </div>
-                    <p>Left till here away at to whom past. Feelings laughing at no... <a href="#" style="font-weight: 300; font-style: italic">view more</a></p>
-                    <div class="social with_color">
-                        <a href="#" class="bottomtip" title="Twitter"><i class="fa-twitter"></i></a>
-                        <a href="#" class="bottomtip" title="Facebook"><i class="fa-facebook"></i></a>
-                        <a href="#" class="bottomtip" title="Dribbble"><i class="fa-dribbble"></i></a>
-                        <a href="#" class="bottomtip" title="Youtube"><i class="fa-youtube"></i></a>
-                        <a href="#" class="bottomtip" title="RSS"><i class="fa-rss"></i></a>
-                    </div><!-- end social -->
+                    {{ render(controller('FrontConfigBundle:Accueil:footer')) }}
                     <div class="clear"></div>
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3 xs-mb">
-                    <h4 class="widget-title mb-20">Travel Specialists</h4>
-                    <ul class="link-list">
-                        <li><a href="#" title="Travel Specialists">Honeymoon</a></li>
-                        <li><a href="#" title="Travel Specialists">Winter Sun Holidays</a></li>
-                        <li><a href="#" title="Travel Specialists">Safari Season</a></li>
-                        <li><a href="#" title="Travel Specialists">Luxury Cities</a></li>
-                        <li><a href="#" title="Travel Specialists">Family Holidays</a></li>
-                        <li><a href="#" title="Travel Specialists">Culture Trips</a></li>
-                        <li><a href="#" title="Travel Specialists">Tropical Adventure</a></li>
-                    </ul>
+                    <div class="fb-page" data-href="https://www.facebook.com/olevoyage?ref=br_rs" data-width="300px" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/olevoyage?ref=br_rs"><a href="https://www.facebook.com/olevoyage?ref=br_rs">Olé voyages</a></blockquote></div></div>
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3 xs-mb">
-                    <h4 class="widget-title mb-20">Quick Links</h4>
+                    <h4 class="widget-title mb-20">Nos Produits</h4>
                     <ul class="link-list">
-                        <li><a href="#" title="Quick Links">Make reservation</a></li>
-                        <li><a href="#" title="Quick Links">FAQ</a></li>
-                        <li><a href="#" title="Quick Links">Payment Options</a></li>
-                        <li><a href="#" title="Quick Links">Booking Tips</a></li>
-                        <li><a href="#" title="Quick Links">Information</a></li>
-                        <li><a href="#" title="Quick Links">Hotel Awards</a></li>
-                        <li><a href="#" title="Quick Links">Press Room</a></li>
+                        <li><a href="{{ path('front_hoteltunisie_accueil') }}">Hôtels en tunisie</a></li>
+                        <li><a href="{{ path('ole_booking_hotels') }}">Hôtels dans le monde</a></li>
+                        <li><a href="{{ path('front_voyageorganise_accueil') }}">Voyages Organisés</a></li>
+                        <li><a href="{{ path('front_programme_accueil') }}">Programmes & acivités</a></li>
+                        <li><a href="{{ path('ole_locaton_cars') }}">Location de voitures</a></li>
+                        <li><a href="{{ path('under_construction') }}">Billetterie</a></li>
+                        <li><a href="{{ path('under_construction') }}">Bien-être</a></li>
                     </ul>
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3">
@@ -50,9 +33,12 @@
                         </form>
                     </div><!-- End newsletter -->
                     <div class="clear mb-30"></div>
-                    <h4 class="widget-title">Customer Support</h4>
-                    <p class="phone-number text-info"><i class="icon icon-phone-support mr-10"></i>(+216) 52 557 390</p>
-                    <a href="mailto:contact@ole-voyages.com" class="font16 font300">contact@ole-voyages.com</a>
+                    <h4 class="widget-title">Service Client</h4>
+                    <p class="phone-number text-info"><i class="icon icon-phone-support mr-10"></i>{{ getAgence().tel1 }}</p>
+                    <ul class="footer-address mb-30">
+                        <li><i class="icon icon-location-marker"></i>{{ getAgence().adresse }}</li>
+                        <li><i class="icon icon-mail"></i>{{ getAgence().contactEmail }}</li>
+                    </ul>
                 </div>
             </div>
 
@@ -60,8 +46,9 @@
     </div>
     <div class="bottom-footer">
         <div class="container pv-15 bt">
-            <p class="copy-right text-center">&copy; 2015 <a href="index.html">Olé Voyages</a>. tous droits réservés</p>
-            <div id="toTop" class="toptip" title="Back to Top"><i class="icon icon-up-open-big"></i></div><!-- Back to top -->
+            <p class="copy-right text-center">&copy; 2015 <a href="{{ path('accueil') }}">Olé Voyages</a>. tous droits réservés</p>,
+            <p class="copy-right text-center">Développé par  <a href="http://octasoft.com.tn/" target="_blank"><strong>Octasoft</strong></a></p>
+            <div id="toTop" class="toptip" title="Back to Top"><i class="icon icon-up-open-big"></i></div>
         </div>
     </div>
 </footer>
