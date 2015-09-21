@@ -12,7 +12,7 @@
                 <span class="current-page">{{ block('title') }}</span>
             </div>
         </div>
-    </div><!-- end slider_wrapper -->
+    </div>
     <div id="content_wrapper">
         <div class="container">
             <div class="row clearfix pv-50">
@@ -20,8 +20,7 @@
                     <div class="detail-header clearfix">
                         <div class="detail-header-name">
                             <h3 class="hotel-name no-mb">{{ hotel }}</h3>
-                            <span class="hotel-location"><i class="fa-map-marker mi text-warning"></i>{{ hotel.ville }}
-                            </span>
+                            <span class="hotel-location"><i class="fa-map-marker mi text-warning"></i>{{ hotel.ville }}</span>
                         </div>
                         <div class="detail-header-price">
                             {% if saison.type is null %}
@@ -32,8 +31,8 @@
                             <span>Par pers & nuit en {{ saison.arrBase }}</span>
                         </div>
                         <div class="detail-header-review">
+                            {{ hotel.shortTripAdvisor|raw }}
                             {{ getStars(hotel.getStars)|raw }}
-                            <p>{{ hotel.tel1 }}</p>
                         </div>
                     </div>
                     {% if hotel.photosAlbum|length > 0 %}
@@ -65,6 +64,7 @@
                         <li><a href="#details-tab1">Déscription</a></li>
                         <li><a href="#details-tab2" class="active">Réservation</a></li>
                         <li><a href="#details-tab3">Aménagements</a></li>
+                        <li><a href="#details-tab4">Conditions restrictives</a></li>
                         {% if hotel.longitude is not null %}
                             <li onclick="loadScript()"><a href="#details-tab5">Map</a></li>
                         {% endif %}
@@ -80,6 +80,9 @@
                         </li>
                         <li id="details-tab3">
                             {% include 'FrontGeneralBundle:hoteltunisie/details:amenagement.html.twig' %}
+                        </li>
+                        <li id="details-tab4">
+                            {% include 'FrontGeneralBundle:hoteltunisie/details:condition.html.twig' %}
                         </li>
                         <li id="details-tab5">
                             <div id="map-canvas"></div>
@@ -111,7 +114,7 @@
                             <div class="sidebar-item mb-20">
                                 <div class="lp-box">
                                     <i class="text-info fa-heart"></i>
-                                    <h4>Similaires dans {{ hotel.ville }}</h4>
+                                    <h4>{{ hotel.ville|title }}</h4>
                                 </div>
                                 <ul class="small-list-item">
                                     {% for hot in hotels if hotel.id!=hot.id %}

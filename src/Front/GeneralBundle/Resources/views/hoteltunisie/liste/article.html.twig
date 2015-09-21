@@ -35,9 +35,11 @@
                     {% endif %}
                     <ul class="hotelpreferences">
                         {% for amenagement in hotel.amenagements if amenagement.path is not null %}
-                            <li class="icohp-internet toptip" original-title="{{ amenagement }}" style="    background: url('{{ asset(amenagement.assetPath) }}') #FFF no-repeat;">
-                                {#<img src="{{ asset(amenagement.assetPath) }}" style="width: 28px;height: 28px">#}
-                            </li>
+                            {% if loop.index <= 10 %}
+                                <li class="icohp-internet toptip" original-title="{{ amenagement }}" style="    background: url('{{ asset(amenagement.assetPath) }}') #FFF no-repeat;">
+                                    {#<img src="{{ asset(amenagement.assetPath) }}" style="width: 28px;height: 28px">#}
+                                </li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                 </div>
