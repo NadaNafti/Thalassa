@@ -106,6 +106,13 @@
         private $tripAdvisor;
 
         /**
+         * @var string
+         *
+         * @ORM\Column(name="shortTripAdvisor", type="text",nullable=true)
+         */
+        private $shortTripAdvisor;
+
+        /**
          * @ORM\ManyToOne(targetEntity="Chaine", fetch="EAGER", inversedBy="hotels")
          * @ORM\JoinColumn(name="chaine_id", referencedColumnName="id")
          * @ORM\OrderBy({"libelle" = "ASC"})
