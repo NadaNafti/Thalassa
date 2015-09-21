@@ -310,7 +310,7 @@ class SaisonReduc
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -333,7 +333,7 @@ class SaisonReduc
     /**
      * Get val1Enfant1Adulte1
      *
-     * @return string 
+     * @return string
      */
     public function getVal1Enfant1Adulte1()
     {
@@ -356,7 +356,7 @@ class SaisonReduc
     /**
      * Get val1Enfant1Adulte2
      *
-     * @return string 
+     * @return string
      */
     public function getVal1Enfant1Adulte2()
     {
@@ -379,7 +379,7 @@ class SaisonReduc
     /**
      * Get pour1Enfant1Adulte
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPour1Enfant1Adulte()
     {
@@ -402,7 +402,7 @@ class SaisonReduc
     /**
      * Get val1Enfant2Adulte1
      *
-     * @return string 
+     * @return string
      */
     public function getVal1Enfant2Adulte1()
     {
@@ -425,7 +425,7 @@ class SaisonReduc
     /**
      * Get val1Enfant2Adulte2
      *
-     * @return string 
+     * @return string
      */
     public function getVal1Enfant2Adulte2()
     {
@@ -448,7 +448,7 @@ class SaisonReduc
     /**
      * Get pour1Enfant2Adulte
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPour1Enfant2Adulte()
     {
@@ -471,7 +471,7 @@ class SaisonReduc
     /**
      * Get val1EnfantSepare1
      *
-     * @return string 
+     * @return string
      */
     public function getVal1EnfantSepare1()
     {
@@ -494,7 +494,7 @@ class SaisonReduc
     /**
      * Get val1EnfantSepare2
      *
-     * @return string 
+     * @return string
      */
     public function getVal1EnfantSepare2()
     {
@@ -517,7 +517,7 @@ class SaisonReduc
     /**
      * Get pour1EnfantSepare
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPour1EnfantSepare()
     {
@@ -540,7 +540,7 @@ class SaisonReduc
     /**
      * Get val2Enfant1Adulte1
      *
-     * @return string 
+     * @return string
      */
     public function getVal2Enfant1Adulte1()
     {
@@ -563,7 +563,7 @@ class SaisonReduc
     /**
      * Get val2Enfant1Adulte2
      *
-     * @return string 
+     * @return string
      */
     public function getVal2Enfant1Adulte2()
     {
@@ -586,7 +586,7 @@ class SaisonReduc
     /**
      * Get pour2Enfant1Adulte
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPour2Enfant1Adulte()
     {
@@ -609,7 +609,7 @@ class SaisonReduc
     /**
      * Get val2Enfant2Adulte1
      *
-     * @return string 
+     * @return string
      */
     public function getVal2Enfant2Adulte1()
     {
@@ -632,7 +632,7 @@ class SaisonReduc
     /**
      * Get val2Enfant2Adulte2
      *
-     * @return string 
+     * @return string
      */
     public function getVal2Enfant2Adulte2()
     {
@@ -655,7 +655,7 @@ class SaisonReduc
     /**
      * Get pour2Enfant2Adulte
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPour2Enfant2Adulte()
     {
@@ -678,7 +678,7 @@ class SaisonReduc
     /**
      * Get val2EnfantOuPlusSepare1
      *
-     * @return string 
+     * @return string
      */
     public function getVal2EnfantOuPlusSepare1()
     {
@@ -701,7 +701,7 @@ class SaisonReduc
     /**
      * Get val2EnfantOuPlusSepare2
      *
-     * @return string 
+     * @return string
      */
     public function getVal2EnfantOuPlusSepare2()
     {
@@ -724,7 +724,7 @@ class SaisonReduc
     /**
      * Get pour2EnfantOuPlusSepare
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPour2EnfantOuPlusSepare()
     {
@@ -747,7 +747,7 @@ class SaisonReduc
     /**
      * Get reduc3Lit
      *
-     * @return string 
+     * @return string
      */
     public function getReduc3Lit()
     {
@@ -770,7 +770,7 @@ class SaisonReduc
     /**
      * Get reduc3LitPour
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getReduc3LitPour()
     {
@@ -793,7 +793,7 @@ class SaisonReduc
     /**
      * Get reduc4Lit
      *
-     * @return decimal 
+     * @return decimal
      */
     public function getReduc4Lit()
     {
@@ -816,7 +816,7 @@ class SaisonReduc
     /**
      * Get reduc4LitPour
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getReduc4LitPour()
     {
@@ -839,7 +839,7 @@ class SaisonReduc
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -862,7 +862,7 @@ class SaisonReduc
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -885,7 +885,7 @@ class SaisonReduc
     /**
      * Get marge1Enfant1Adulte
      *
-     * @return string 
+     * @return string
      */
     public function getMarge1Enfant1Adulte()
     {
@@ -908,7 +908,7 @@ class SaisonReduc
     /**
      * Get margepour1Enfant1Adulte
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getMargepour1Enfant1Adulte()
     {
@@ -931,7 +931,7 @@ class SaisonReduc
     /**
      * Get marge1Enfant2Adulte
      *
-     * @return string 
+     * @return string
      */
     public function getMarge1Enfant2Adulte()
     {
@@ -954,7 +954,7 @@ class SaisonReduc
     /**
      * Get margepour1Enfant2Adulte
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getMargepour1Enfant2Adulte()
     {
@@ -977,7 +977,7 @@ class SaisonReduc
     /**
      * Get marge1EnfantSepare
      *
-     * @return string 
+     * @return string
      */
     public function getMarge1EnfantSepare()
     {
@@ -1000,7 +1000,7 @@ class SaisonReduc
     /**
      * Get margepour1EnfantSepare
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getMargepour1EnfantSepare()
     {
@@ -1023,7 +1023,7 @@ class SaisonReduc
     /**
      * Get marge2Enfant1Adulte
      *
-     * @return string 
+     * @return string
      */
     public function getMarge2Enfant1Adulte()
     {
@@ -1046,7 +1046,7 @@ class SaisonReduc
     /**
      * Get margepour2Enfant1Adulte
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getMargepour2Enfant1Adulte()
     {
@@ -1069,7 +1069,7 @@ class SaisonReduc
     /**
      * Get marge2Enfant2Adulte
      *
-     * @return string 
+     * @return string
      */
     public function getMarge2Enfant2Adulte()
     {
@@ -1092,7 +1092,7 @@ class SaisonReduc
     /**
      * Get margepour2Enfant2Adulte
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getMargepour2Enfant2Adulte()
     {
@@ -1115,7 +1115,7 @@ class SaisonReduc
     /**
      * Get marge2EnfantOuPlusSepare
      *
-     * @return string 
+     * @return string
      */
     public function getMarge2EnfantOuPlusSepare()
     {
@@ -1138,7 +1138,7 @@ class SaisonReduc
     /**
      * Get margepour2EnfantOuPlusSepare
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getMargepour2EnfantOuPlusSepare()
     {
@@ -1161,7 +1161,7 @@ class SaisonReduc
     /**
      * Get reduc3LitMarge
      *
-     * @return string 
+     * @return string
      */
     public function getReduc3LitMarge()
     {
@@ -1184,7 +1184,7 @@ class SaisonReduc
     /**
      * Get reduc3LitMargePour
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getReduc3LitMargePour()
     {
@@ -1207,7 +1207,7 @@ class SaisonReduc
     /**
      * Get reduc4LitMarge
      *
-     * @return string 
+     * @return string
      */
     public function getReduc4LitMarge()
     {
@@ -1230,7 +1230,7 @@ class SaisonReduc
     /**
      * Get reduc4LitMargePour
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getReduc4LitMargePour()
     {
@@ -1253,7 +1253,7 @@ class SaisonReduc
     /**
      * Get saison
      *
-     * @return \Back\HotelTunisieBundle\Entity\Saison 
+     * @return \Back\HotelTunisieBundle\Entity\Saison
      */
     public function getSaison()
     {
@@ -1601,8 +1601,7 @@ class SaisonReduc
 
     public function __clone()
     {
-        if ($this->id)
-        {
+        if ($this->id) {
             $this->id = null;
         }
     }
@@ -1621,91 +1620,76 @@ class SaisonReduc
         $minAge2 = $this->saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant();
         $maxAge1 = $this->saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant();
         $maxAge2 = $this->saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant();
-        if ($age >= $minAge1 && $age <= $maxAge1)
-        {
-            if ($ordre == 1 && $nbrAdulte == 1)
-            {
+        if ($age >= $minAge1 && $age <= $maxAge1) {
+            if ($ordre == 1 && $nbrAdulte == 1) {
                 if ($this->pour1Enfant1Adulte)
                     $reduc = ($montant * $this->val1Enfant1Adulte1 / 100) * -1;
                 else
                     $reduc = $this->val1Enfant1Adulte1 * -1;
             }
-            if ($ordre == 1 && $nbrAdulte == 2)
-            {
+            if ($ordre == 1 && $nbrAdulte == 2) {
                 if ($this->pour1Enfant2Adulte)
                     $reduc = ($montant * $this->val1Enfant2Adulte1 / 100) * -1;
                 else
                     $reduc = $this->val1Enfant2Adulte1 * -1;
             }
-            if ($ordre == 1 && $nbrAdulte == 0)
-            {
+            if ($ordre == 1 && $nbrAdulte == 0) {
                 if ($this->pour1EnfantSepare)
                     $reduc = ($montant * $this->val1EnfantSepare1 / 100) * -1;
                 else
                     $reduc = $this->val1EnfantSepare1 * -1;
             }
-            if ($ordre > 1 && $nbrAdulte == 1)
-            {
+            if ($ordre > 1 && $nbrAdulte == 1) {
                 if ($this->pour2Enfant1Adulte)
                     $reduc = ($montant * $this->val2Enfant1Adulte1 / 100) * -1;
                 else
                     $reduc = $this->val2Enfant1Adulte1 * -1;
             }
-            if ($ordre > 1 && $nbrAdulte == 2)
-            {
+            if ($ordre > 1 && $nbrAdulte == 2) {
                 if ($this->pour2Enfant2Adulte)
                     $reduc = ($montant * $this->val2Enfant2Adulte1 / 100) * -1;
                 else
                     $reduc = $this->val2Enfant2Adulte1 * -1;
             }
-            if ($ordre > 1 && $nbrAdulte == 0)
-            {
+            if ($ordre > 1 && $nbrAdulte == 0) {
                 if ($this->pour2EnfantOuPlusSepare)
                     $reduc = ($montant * $this->val2EnfantOuPlusSepare1 / 100) * -1;
                 else
                     $reduc = $this->val2EnfantOuPlusSepare1 * -1;
             }
             return number_format($reduc, 3, '.', '');
-        }
-        elseif ($age >= $minAge2 && $age <= $maxAge2)
-        {
-            if ($ordre == 1 && $nbrAdulte == 1)
-            {
+        } elseif ($age >= $minAge2 && $age <= $maxAge2) {
+            if ($ordre == 1 && $nbrAdulte == 1) {
                 if ($this->pour1Enfant1Adulte)
                     $reduc = ($montant * $this->val1Enfant1Adulte2 / 100) * -1;
                 else
                     $reduc = $this->val1Enfant1Adulte2 * -1;
             }
-            if ($ordre == 1 && $nbrAdulte == 2)
-            {
+            if ($ordre == 1 && $nbrAdulte == 2) {
                 if ($this->pour1Enfant2Adulte)
                     $reduc = ($montant * $this->val1Enfant2Adulte2 / 100) * -1;
                 else
                     $reduc = $this->val1Enfant2Adulte2 * -1;
             }
-            if ($ordre == 1 && $nbrAdulte == 0)
-            {
+            if ($ordre == 1 && $nbrAdulte == 0) {
                 if ($this->pour1EnfantSepare)
                     $reduc = ($montant * $this->val1EnfantSepare2 / 100) * -1;
                 else
                     $reduc = $this->val1EnfantSepare2 * -1;
             }
-            if ($ordre > 1 && $nbrAdulte == 1)
-            {
+            if ($ordre > 1 && $nbrAdulte == 1) {
                 if ($this->pour2Enfant1Adulte)
                     $reduc = ($montant * $this->val2Enfant1Adulte2 / 100) * -1;
                 else
                     $reduc = $this->val2Enfant1Adulte2 * -1;
             }
-            if ($ordre > 1 && $nbrAdulte == 2)
-            {
+            if ($ordre > 1 && $nbrAdulte == 2) {
                 if ($this->pour2Enfant2Adulte)
                     $reduc = ($montant * $this->val2Enfant2Adulte2 / 100) * -1;
                 else
                     $reduc = $this->val2Enfant2Adulte2 * -1;
             }
-            if ($ordre > 1 && $nbrAdulte == 0)
-            {
+            if ($ordre > 1 && $nbrAdulte == 0) {
                 if ($this->pour2EnfantOuPlusSepare)
                     $reduc = ($montant * $this->val2EnfantOuPlusSepare2 / 100) * -1;
                 else
@@ -1730,10 +1714,8 @@ class SaisonReduc
         $minAge2 = $this->saison->getHotel()->getFicheTechnique()->getMin2AgeEnfant();
         $maxAge1 = $this->saison->getHotel()->getFicheTechnique()->getMax1AgeEnfant();
         $maxAge2 = $this->saison->getHotel()->getFicheTechnique()->getMax2AgeEnfant();
-        if ($age >= $minAge1 && $age <= $maxAge1)
-        {
-            if ($ordre == 1 && $nbrAdulte == 1)
-            {
+        if ($age >= $minAge1 && $age <= $maxAge1) {
+            if ($ordre == 1 && $nbrAdulte == 1) {
                 if ($this->pour1Enfant1Adulte)
                     $reduc = ($montant * $this->val1Enfant1Adulte1 / 100) * -1;
                 else
@@ -1743,8 +1725,7 @@ class SaisonReduc
                 else
                     $marge = $this->marge1Enfant1Adulte;
             }
-            if ($ordre == 1 && $nbrAdulte == 2)
-            {
+            if ($ordre == 1 && $nbrAdulte == 2) {
                 if ($this->pour1Enfant2Adulte)
                     $reduc = ($montant * $this->val1Enfant2Adulte1 / 100) * -1;
                 else
@@ -1754,8 +1735,7 @@ class SaisonReduc
                 else
                     $marge = $this->marge1Enfant2Adulte;
             }
-            if ($ordre == 1 && $nbrAdulte == 0)
-            {
+            if ($ordre == 1 && $nbrAdulte == 0) {
                 if ($this->pour1EnfantSepare)
                     $reduc = ($montant * $this->val1EnfantSepare1 / 100) * -1;
                 else
@@ -1765,8 +1745,7 @@ class SaisonReduc
                 else
                     $marge = $this->marge1EnfantSepare;
             }
-            if ($ordre > 1 && $nbrAdulte == 1)
-            {
+            if ($ordre > 1 && $nbrAdulte == 1) {
                 if ($this->pour2Enfant1Adulte)
                     $reduc = ($montant * $this->val2Enfant1Adulte1 / 100) * -1;
                 else
@@ -1776,8 +1755,7 @@ class SaisonReduc
                 else
                     $marge = $this->marge2Enfant1Adulte;
             }
-            if ($ordre > 1 && $nbrAdulte == 2)
-            {
+            if ($ordre > 1 && $nbrAdulte == 2) {
                 if ($this->pour2Enfant2Adulte)
                     $reduc = ($montant * $this->val2Enfant2Adulte1 / 100) * -1;
                 else
@@ -1787,8 +1765,7 @@ class SaisonReduc
                 else
                     $marge = $this->marge2Enfant2Adulte;
             }
-            if ($ordre > 1 && $nbrAdulte == 0)
-            {
+            if ($ordre > 1 && $nbrAdulte == 0) {
                 if ($this->pour2EnfantOuPlusSepare)
                     $reduc = ($montant * $this->val2EnfantOuPlusSepare1 / 100) * -1;
                 else
@@ -1799,11 +1776,8 @@ class SaisonReduc
                     $marge = $this->marge2EnfantOuPlusSepare;
             }
             return number_format($reduc + $marge, 3, '.', '');
-        }
-        elseif ($age >= $minAge2 && $age <= $maxAge2)
-        {
-            if ($ordre == 1 && $nbrAdulte == 1)
-            {
+        } elseif ($age >= $minAge2 && $age <= $maxAge2) {
+            if ($ordre == 1 && $nbrAdulte == 1) {
                 if ($this->pour1Enfant1Adulte)
                     $reduc = ($montant * $this->val1Enfant1Adulte2 / 100) * -1;
                 else
@@ -1813,8 +1787,7 @@ class SaisonReduc
                 else
                     $marge = $this->marge1Enfant1Adulte;
             }
-            if ($ordre == 1 && $nbrAdulte == 2)
-            {
+            if ($ordre == 1 && $nbrAdulte == 2) {
                 if ($this->pour1Enfant2Adulte)
                     $reduc = ($montant * $this->val1Enfant2Adulte2 / 100) * -1;
                 else
@@ -1824,8 +1797,7 @@ class SaisonReduc
                 else
                     $marge = $this->marge1Enfant2Adulte;
             }
-            if ($ordre == 1 && $nbrAdulte == 0)
-            {
+            if ($ordre == 1 && $nbrAdulte == 0) {
                 if ($this->pour1EnfantSepare)
                     $reduc = ($montant * $this->val1EnfantSepare2 / 100) * -1;
                 else
@@ -1835,8 +1807,7 @@ class SaisonReduc
                 else
                     $marge = $this->marge1EnfantSepare;
             }
-            if ($ordre > 1 && $nbrAdulte == 1)
-            {
+            if ($ordre > 1 && $nbrAdulte == 1) {
                 if ($this->pour2Enfant1Adulte)
                     $reduc = ($montant * $this->val2Enfant1Adulte2 / 100) * -1;
                 else
@@ -1846,8 +1817,7 @@ class SaisonReduc
                 else
                     $marge = $this->marge2Enfant1Adulte;
             }
-            if ($ordre > 1 && $nbrAdulte == 2)
-            {
+            if ($ordre > 1 && $nbrAdulte == 2) {
                 if ($this->pour2Enfant2Adulte)
                     $reduc = ($montant * $this->val2Enfant2Adulte2 / 100) * -1;
                 else
@@ -1857,8 +1827,7 @@ class SaisonReduc
                 else
                     $marge = $this->marge2Enfant2Adulte;
             }
-            if ($ordre > 1 && $nbrAdulte == 0)
-            {
+            if ($ordre > 1 && $nbrAdulte == 0) {
                 if ($this->pour2EnfantOuPlusSepare)
                     $reduc = ($montant * $this->val2EnfantOuPlusSepare2 / 100) * -1;
                 else
@@ -1873,4 +1842,77 @@ class SaisonReduc
         return 0;
     }
 
+    public function affiche1enf1adulte($age)
+    {
+        $func = 'val1Enfant1Adulte' . $age;
+        if ($this->pour1Enfant1Adulte)
+            return $this->$func . " %";
+        else
+            return $this->$func . " DT";
+    }
+
+    public function affiche1enf2adulte($age)
+    {
+        $func = 'val1Enfant2Adulte' . $age;
+        if ($this->pour1Enfant2Adulte)
+            return $this->$func . " %";
+        else
+            return $this->$func . " DT";
+    }
+
+    public function affiche2enf1adulte($age)
+    {
+        $func = 'val2Enfant1Adulte' . $age;
+        if ($this->pour2Enfant1Adulte)
+            return $this->$func . " %";
+        else
+            return $this->$func . " DT";
+    }
+
+    public function affiche2enf2adulte($age)
+    {
+        $func = 'val2Enfant2Adulte' . $age;
+        if ($this->pour2Enfant2Adulte)
+            return $this->$func . " %";
+        else
+            return $this->$func . " DT";
+    }
+
+
+    public function affiche1separer($age)
+    {
+        $func = 'val1EnfantSepare' . $age;
+        if ($this->pour1EnfantSepare)
+            return $this->$func . " %";
+        else
+            return $this->$func . " DT";
+    }
+
+
+    public function affiche2separer($age)
+    {
+        $func = 'val2EnfantOuPlusSepare' . $age;
+        if ($this->pour2EnfantOuPlusSepare)
+            return $this->$func . " %";
+        else
+            return $this->$func . " DT";
+    }
+
+
+    public function afficheReduc3Lit()
+    {
+        if ($this->reduc3LitPour)
+            return $this->reduc3Lit . " %";
+        else
+            return $this->reduc3Lit . " DT";
+    }
+
+
+    public function afficheReduc4Lit()
+    {
+        if ($this->reduc4LitPour)
+            return $this->reduc4Lit . " %";
+        else
+            return $this->reduc4Lit . " DT";
+    }
 }

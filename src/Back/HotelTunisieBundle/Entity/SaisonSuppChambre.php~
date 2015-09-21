@@ -75,7 +75,7 @@ class SaisonSuppChambre
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -98,7 +98,7 @@ class SaisonSuppChambre
     /**
      * Get valeur
      *
-     * @return string 
+     * @return string
      */
     public function getValeur()
     {
@@ -121,7 +121,7 @@ class SaisonSuppChambre
     /**
      * Get valeurPour
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getValeurPour()
     {
@@ -144,7 +144,7 @@ class SaisonSuppChambre
     /**
      * Get marge
      *
-     * @return string 
+     * @return string
      */
     public function getMarge()
     {
@@ -167,7 +167,7 @@ class SaisonSuppChambre
     /**
      * Get margePour
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getMargePour()
     {
@@ -190,7 +190,7 @@ class SaisonSuppChambre
     /**
      * Get etat
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEtat()
     {
@@ -213,7 +213,7 @@ class SaisonSuppChambre
     /**
      * Get chambre
      *
-     * @return \Back\HotelTunisieBundle\Entity\Chambre 
+     * @return \Back\HotelTunisieBundle\Entity\Chambre
      */
     public function getChambre()
     {
@@ -236,7 +236,7 @@ class SaisonSuppChambre
     /**
      * Get saison
      *
-     * @return \Back\HotelTunisieBundle\Entity\Saison 
+     * @return \Back\HotelTunisieBundle\Entity\Saison
      */
     public function getSaison()
     {
@@ -246,7 +246,7 @@ class SaisonSuppChambre
     public function getSuppAchat($arrangement = null)
     {
         if ($this->valeurPour)
-            $supp = $this->getSaison()->prixBaseAchat($arrangement) * $this->valeur / 100;
+            $supp = $this->saison->prixBaseAchat($arrangement) * $this->valeur / 100;
         else
             $supp = $this->valeur;
         return number_format($supp, 3, '.', '');
@@ -255,7 +255,7 @@ class SaisonSuppChambre
     public function getSuppVente($arrangement = null)
     {
         if ($this->valeurPour)
-            $supp = $this->getSaison()->prixBaseVente($arrangement) * $this->valeur / 100;
+            $supp = $this->saison->prixBaseVente($arrangement) * $this->valeur / 100;
         else
             $supp = $this->valeur;
 
@@ -266,10 +266,18 @@ class SaisonSuppChambre
         return number_format($supp + $marge, 3, '.', '');
     }
 
+    public function isFrais()
+    {
+        foreach ($this->saison->getFraisChambres() as $frais) {
+            if ($this->chambre->getId() == $frais->getChambre()->getId())
+                return true;
+        }
+        return false;
+    }
+
     public function __clone()
     {
-        if ($this->id)
-        {
+        if ($this->id) {
             $this->id = null;
         }
     }
