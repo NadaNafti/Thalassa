@@ -34,26 +34,27 @@
                             {{ formulaire.input("col-md-3","Email réservation 2",form.email2,true) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.select2("col-md-6","Tags",form.tags,true) }}
-                            {{ formulaire.select2("col-md-6","Chambres",form.chambres,true) }}
+                            {{ formulaire.select2("col-md-12","Tags",form.tags,true) }}
+                            {{ formulaire.select2("col-md-12","Chambres",form.chambres,true) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.select2("col-md-6","Options",form.options,true) }}
-                            {{ formulaire.select2("col-md-6","Localisations",form.localisations,true) }}
+                            {{ formulaire.select2("col-md-12","Options",form.options,true) }}
+                            {{ formulaire.select2("col-md-12","Localisations",form.localisations,true) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.select2("col-md-6","Themes",form.themes,true) }}
-                            {{ formulaire.select2("col-md-6","Arrangements",form.arrangements,true) }}
+                            {{ formulaire.select2("col-md-12","Themes",form.themes,true) }}
+                            {{ formulaire.select2("col-md-12","Arrangements",form.arrangements,true) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.select2("col-md-6","Amenagements",form.amenagements,true) }}
-                            {{ formulaire.select2("col-md-6","Vues",form.vues,true) }}
+                            {{ formulaire.select2("col-md-12","Amenagements",form.amenagements,true) }}
+                            {{ formulaire.select2("col-md-12","Vues",form.vues,true) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.input("col-md-6","Description courte",form.descriptionCourte,true) }}
+                            {{ formulaire.input("col-md-6","Short widget Trip Adviso",form.shortTripAdvisor,true) }}
                             {{ formulaire.input("col-md-6","Widget Trip Advisor",form.tripAdvisor,true) }}
                         </div>
                         <div class="row">
+                            {{ formulaire.input("col-md-12","Description courte",form.descriptionCourte,true) }}
                             {{ formulaire.input("col-md-12","Description longue",form.descriptionLongue,true) }}
                         </div>
                         {{ formulaire.submit("Ajouter") }}

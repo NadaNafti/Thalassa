@@ -13,14 +13,15 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form action="{{ path('modif_amenagement',{'id':amenagement.id}) }}" method="post" role="form" id="form">
+                    {{ form_start(form) }}
                         {{ form_widget(form._token) }}
                         <div class="row">
                             {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
                             {{ formulaire.select2("col-md-3","Type aménagement",form.typeAmenagement,true) }}
+                            {{ formulaire.input("col-md-4","Icone",form.file,true) }}
                         </div>
                         {{ formulaire.submit("Modifier") }}
-                    </form>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
