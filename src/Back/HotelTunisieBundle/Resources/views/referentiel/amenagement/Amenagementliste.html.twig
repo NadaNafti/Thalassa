@@ -33,9 +33,9 @@
                             <tr>
                                 <td>{{ amenegament.id }}</td>
                                 <td class="center">
-                                    {#{% if amenegament.path is not null %}#}
+                                    {% if amenegament.path is not null %}
                                         <img src="{{ asset(amenegament.assetPath) }}" width="35px" height="35px">
-                                    {#{% endif %}#}
+                                    {% endif %}
                                 </td>
                                 <td>{{ amenegament.libelle }}</td>
                                 <td>{{ amenegament.typeAmenagement }}</td>

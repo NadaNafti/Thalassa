@@ -17,6 +17,8 @@ class HotelType extends AbstractType
     {
         $builder
             ->add('libelle')
+            ->add('checkIn')
+            ->add('checkOut')
             ->add('email1')
             ->add('email2')
             ->add('tel1')
