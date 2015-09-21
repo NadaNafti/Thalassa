@@ -50,8 +50,11 @@ class Chaine
      * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
      */
     private $deletedAt;
-    
 
+    /**
+     * @ORM\OneToMany(targetEntity="Hotel", mappedBy="chaine")
+     */
+    protected $hotels;
 
     /**
      * Get id
@@ -180,5 +183,54 @@ class Chaine
     public function __toString()
     {
         return $this->libelle;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->hotels = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add hotels
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
+     * @return Chaine
+     */
+    public function addHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
+    {
+        $this->hotels[] = $hotels;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotels
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
+     */
+    public function removeHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
+    {
+        $this->hotels->removeElement($hotels);
+    }
+
+    /**
+     * Get hotels
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHotels()
+    {
+        return $this->hotels;
+    }
+
+    public function hasHotelsValide()
+    {
+        foreach ($this->hotels as $hotel) {
+            if ($hotel->getEtat())
+                return true;
+        }
+        return false;
     }
 }

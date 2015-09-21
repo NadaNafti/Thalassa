@@ -106,7 +106,7 @@
         private $tripAdvisor;
 
         /**
-         * @ORM\ManyToOne(targetEntity="Chaine", fetch="EAGER")
+         * @ORM\ManyToOne(targetEntity="Chaine", fetch="EAGER", inversedBy="hotels")
          * @ORM\JoinColumn(name="chaine_id", referencedColumnName="id")
          * @ORM\OrderBy({"libelle" = "ASC"})
          */
@@ -120,7 +120,7 @@
         protected $fournisseur;
 
         /**
-         * @ORM\ManyToOne(targetEntity="Ville", fetch="EAGER")
+         * @ORM\ManyToOne(targetEntity="Ville", fetch="EAGER", inversedBy="hotels")
          * @ORM\JoinColumn(name="ville_id", referencedColumnName="id")
          * @ORM\OrderBy({"libelle" = "ASC"})
          */
@@ -134,7 +134,7 @@
         protected $categorie;
 
         /**
-         * @ORM\ManyToMany(targetEntity="Tag")
+         * @ORM\ManyToMany(targetEntity="Tag", inversedBy="hotels")
          * @ORM\JoinTable(name="ost_sht_hotels_tags",
          *      joinColumns={@ORM\JoinColumn(name="id_hotel", referencedColumnName="id")},
          *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
