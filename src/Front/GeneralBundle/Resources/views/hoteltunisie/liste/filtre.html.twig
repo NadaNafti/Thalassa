@@ -11,21 +11,24 @@
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <label for="hotelLocation">Mot clès</label>
-                                <input type="text" class="form-control" id="hotelLocation" name="motclesSearch" value="{% if motcle!='all' %}{{ motcle }}{% endif %}">
+                                <input type="text" class="form-control" id="hotelLocation" name="motclesSearch"
+                                       value="{% if motcle!='all' %}{{ motcle }}{% endif %}">
                             </div>
                         </div>
                         <div class="clear"></div>
                         <div class="col-xs-7 col-sm-7 col-md-7">
                             <div class="form-group datepicker-wrapper">
                                 <label for="hotel-check-in">Date d'entrée</label>
-                                <input type="text" class="form-control date" name="dateDebutSearch" id="hotel-check-in" value="{{ app.request.session.get('dateDebut') }}">
+                                <input type="text" class="form-control date" name="dateDebutSearch" id="hotel-check-in"
+                                       value="{{ app.request.session.get('dateDebut') }}">
                                 <i class="fa fa-calendar"></i>
                             </div>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-5">
                             <div class="form-group datepicker-wrapper">
                                 <label for="hotel-check-out">Nbr Nuitées</label>
-                                <input type="number" min="1" class="form-control" name="nuiteesSearch" value="{{ app.request.session.get('nuitees') }}" id="hotel-check-out">
+                                <input type="number" min="1" class="form-control" name="nuiteesSearch"
+                                       value="{{ app.request.session.get('nuitees') }}" id="hotel-check-out">
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -34,7 +37,9 @@
                                 <div class="form-group">
                                     <div class="styled-checkbox mt-10">
                                         <label>
-                                            <input type="checkbox" name="promotionSearch" {% if app.request.get('promotion')=='yes' %}checked{% endif %} id="optionsCheckbox1"  >
+                                            <input type="checkbox" name="promotionSearch"
+                                                   {% if app.request.get('promotion')=='yes' %}checked{% endif %}
+                                                   id="optionsCheckbox1">
                                             Hôtels en promotion
                                         </label>
                                     </div>
@@ -43,7 +48,8 @@
                         </div>
                         <div class="clear mb-20"></div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
-                            <a style="margin-top: 5px;" href="{{ path('front_hoteltunisie_list') }}" class="btn btn-danger  btn-xs">Réinitialiser</a>
+                            <a style="margin-top: 5px;" href="{{ path('front_hoteltunisie_list') }}"
+                               class="btn btn-danger  btn-xs">Réinitialiser</a>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <button type="submit" class="btn btn-primary">Recherche</button>
@@ -53,7 +59,8 @@
             </div>
             <div class="clear" style="height: 5px;"></div>
             <div class="another-toggle">
-                <h5 {% if app.request.get('categorie') != 'all' %}class="active"{% endif %} >Catégories</h5>
+                <h5 {% if app.request.get('categorie') != 'all' or true %}class="active"{% endif %} >Catégories</h5>
+
                 <div class="another-toggle-inner">
                     <div class="clear mb-10"></div>
                     <fieldset>
@@ -61,16 +68,17 @@
                         {% for categorie in categories %}
                             <div class="styled-checkbox">
                                 <label>
-                                    <input type="checkbox" name="categorie_{{ categorie.id }}" {% if categorie.id in categoriesSplit %}checked{% endif %} value="{{ categorie.id }}">
+                                    <input type="checkbox" name="categorie_{{ categorie.id }}"
+                                           {% if categorie.id in categoriesSplit %}checked{% endif %}
+                                           value="{{ categorie.id }}">
                                     {% if categorie.nombreEtoiles >1 %}
-                                        <span class="rating-static rating-{{ categorie.nombreEtoiles*10 }}"></span>{% endif %}
+                                    <span class="rating-static rating-{{ categorie.nombreEtoiles*10 }}"></span>{% endif %}
                                     <span class="counting">{{ categorie|title }}</span> </label>
                             </div>
                         {% endfor %}
                         <div class="clear"></div>
                         <div class="clear mb-20"></div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6"></div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <button type="submit" class="btn btn-primary">Recherche</button>
                         </div>
@@ -79,7 +87,8 @@
             </div>
             <div class="clear" style="height: 5px;"></div>
             <div class="another-toggle">
-                <h5 {% if app.request.get('chaine') != 'all' %}class="active"{% endif %} >Chaines</h5>
+                <h5 {% if app.request.get('chaine') != 'all' or true %}class="active"{% endif %} >Chaines</h5>
+
                 <div class="another-toggle-inner">
                     <div class="clear mb-10"></div>
                     <fieldset>
@@ -87,15 +96,15 @@
                         {% for chaine in chaines %}
                             <div class="styled-checkbox">
                                 <label>
-                                    <input type="checkbox" name="chaine_{{ chaine.id }}" {% if chaine.id in chainesSplit %}checked{% endif %} value="{{ chaine.id }}">
+                                    <input type="checkbox" name="chaine_{{ chaine.id }}"
+                                           {% if chaine.id in chainesSplit %}checked{% endif %} value="{{ chaine.id }}">
                                     {{ chaine|title }}
                                 </label>
                             </div>
                         {% endfor %}
                         <div class="clear"></div>
                         <div class="clear mb-20"></div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6"></div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <button type="submit" class="btn btn-primary">Recherche</button>
                         </div>
@@ -104,7 +113,8 @@
             </div>
             <div class="clear" style="height: 5px;"></div>
             <div class="another-toggle">
-                <h5 {% if app.request.get('ville') != 'all' %}class="active"{% endif %} >Villes</h5>
+                <h5 {% if app.request.get('ville') != 'all' or true %}class="active"{% endif %} >Villes</h5>
+
                 <div class="another-toggle-inner">
                     <div class="clear mb-10"></div>
                     <fieldset>
@@ -112,15 +122,15 @@
                         {% for ville in villes %}
                             <div class="styled-checkbox">
                                 <label>
-                                    <input type="checkbox" name="ville_{{ ville.id }}" {% if ville.id in villesSplit %}checked{% endif %} value="{{ ville.id }}">
+                                    <input type="checkbox" name="ville_{{ ville.id }}"
+                                           {% if ville.id in villesSplit %}checked{% endif %} value="{{ ville.id }}">
                                     {{ ville|title }}
                                 </label>
                             </div>
                         {% endfor %}
                         <div class="clear"></div>
                         <div class="clear mb-20"></div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6"></div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <button type="submit" class="btn btn-primary">Recherche</button>
                         </div>
@@ -129,7 +139,8 @@
             </div>
             <div class="clear" style="height: 5px;"></div>
             <div class="another-toggle">
-                <h5 {% if app.request.get('tag') != 'all' %}class="active"{% endif %} >Themes</h5>
+                <h5 {% if app.request.get('tag') != 'all' or true %}class="active"{% endif %} >Themes</h5>
+
                 <div class="another-toggle-inner">
                     <div class="clear mb-10"></div>
                     <fieldset>
@@ -137,15 +148,15 @@
                         {% for tag in tags %}
                             <div class="styled-checkbox">
                                 <label>
-                                    <input type="checkbox" name="tag_{{ tag.id }}" {% if tag.id in tagsSplit %}checked{% endif %} value="{{ tag.id }}">
+                                    <input type="checkbox" name="tag_{{ tag.id }}"
+                                           {% if tag.id in tagsSplit %}checked{% endif %} value="{{ tag.id }}">
                                     {{ tag|title }}
                                 </label>
                             </div>
                         {% endfor %}
                         <div class="clear"></div>
                         <div class="clear mb-20"></div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6"></div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <button type="submit" class="btn btn-primary">Recherche</button>
                         </div>

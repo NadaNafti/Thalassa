@@ -12,9 +12,7 @@
 	    <meta name="author" content="">
 	    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 	{% endblock %}
-
 	<link rel="shortcut icon" href="{{ asset('front-assets/images/ico/favico.ico') }}">
-
 	{% block stylesheets %}
 	    <!-- Styles -->
 	    <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/bootstrap/css/bootstrap.css') }}" media="screen" />
@@ -33,6 +31,13 @@
 			#details-slider-images li, #details-slider-images img {
 				width: 143px ;
 				height: 80px ;
+			}
+			.page-name {
+				float: right!important;
+				display: none;
+			}
+			.breadcrumb {
+				float: left!important;
 			}
 		</style>
 	{% endblock %}
