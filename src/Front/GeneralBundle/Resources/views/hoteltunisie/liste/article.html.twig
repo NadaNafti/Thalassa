@@ -1,69 +1,82 @@
 {% set saison = hotel.getSaisonPromotionByDate(app.request.session.get('dateDebut')) %}
 <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="list-item">
-	<div class="list-item-image">
-	    <div class="image-inner">
-		{% if saison.type==2 %}
-		    <div class="list-item-price" style="z-index:9;  font-size: 15px;  left: 0px;  top: 20px;  background: red;  color: #FFF;  padding: 3px;  width: 90%;  text-align: center;">
-			{{ saison }}
-		    </div>
-		{% endif %}
-		<a class="link-image" href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}">
-		    {% if hotel.photoPrincipal is not null %}
-			<img src="{{ asset(hotel.photoPrincipal.assetPath) }}" alt="" style="width: 270px;height: 195px" />
-		    {% else %}
-			<img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=270&h=195" alt="" />
-		    {% endif %}
-		</a>
-	    </div>
-	</div>
-	<div class="list-item-label">
-	    <div class="left">
-		<h4 class="list-item-title"><a href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}" class="inverse">{{ hotel|title  }}</a> - {{ getStars(hotel.getStars)|raw }}</h4>
-		<span class="list-item-location"><strong style="color: black">{{ hotel.ville|title }}</strong>, Min stay : {{ saison.minStay }} nuitée(s)</span>
-		<div class="list-item-details">
-		    <div class="clear mt-10"></div>
-		    {% if  hotel.descriptionCourte|length >200 %}
-			{{ hotel.descriptionCourte|slice(0, 200)|raw }} ...
-		    {% else %}
-			{{ hotel.descriptionCourte|raw }}
-		    {% endif %}
-		</div>
-		<a href="javascript:void(0)" class="showChambre" style="float: right;">Liste des chambres</a>
-	    </div>
-	    <div class="right">
-		<div class="list-item-meta">
-		    <span class="list-item-review" style="top: inherit;text-align: center;  left: -12px;{#right: 20px;#}">
-			{#Par pers & nuit  en  #}{{ saison.arrBase }}
-		    </span>
-		</div>
-		<div class="list-item-price" style="font-size: 15px;text-align: center;white-space: nowrap;">
-		    {% if saison.type is null %}
-			Sur Demande
-		    {% else %}
-			{{ saison.prixDeBase|number_format(0) }} DT
-		    {% endif %}
-		</div>
-		<a href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}" class="btn">Détails</a>
-	    </div>
-	</div>
-	<table class="table table-striped" style="display: none;  border: 1px solid #EBE8E6;">
-	    <tbody>
-		{% for chambre in saison.chambres %}
-		    <tr>
-			<td style="  width: 270px;">{{ chambre.chambre|title }}</td>
-			<td>{{ saison.arrBase|title }}</td>
-			<td class="center red bold">Sur demande</td>
-			<td class="green bold" style="text-align: right;">
-			    {% if saison.type is null %}
-				<span style="color: red">Sur Demande</span>
-			    {% else %}
-				{{ chambre.prixChambre|number_format(0) }} DT
-			    {% endif %}
-			</td>
-		    </tr>
-		{% endfor %}
-	    </tbody>
-	</table>
+        <div class="list-item-image">
+            <div class="image-inner">
+                {% if saison.type==2 %}
+                    <div class="list-item-price" style="z-index:9;  font-size: 15px;  left: 0px;  top: 20px;  background: red;  color: #FFF;  padding: 3px;  width: 90%;  text-align: center;">
+                        {{ saison }}
+                    </div>
+                {% endif %}
+                <a class="link-image" href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}">
+                    {% if hotel.photoPrincipal is not null %}
+                        <img src="{{ asset(hotel.photoPrincipal.assetPath) }}" alt="" style="width: 270px;height: 195px"/>
+                    {% else %}
+                        <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=270&h=195"  alt=""/>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+        <div class="list-item-label">
+            <div class="left">
+                <h4 class="list-item-title">
+                    <a href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}"  class="inverse">{{ hotel|title }}</a>
+                    - {{ getStars(hotel.getStars)|raw }}
+                </h4>
+                <span class="list-item-location"><strong style="color: black">{{ hotel.ville|title }}</strong>, Min stay : {{ saison.minStay }}
+                    nuitée(s)</span>
+
+                <div class="list-item-details">
+                    <div class="clear mt-10"></div>
+                    {% if  hotel.descriptionCourte|length >200 %}
+                        {{ hotel.descriptionCourte|slice(0, 200)|raw }} ...
+                    {% else %}
+                        {{ hotel.descriptionCourte|raw }}
+                    {% endif %}
+                    <ul class="hotelpreferences">
+                        {% for amenagement in hotel.amenagements if amenagement.path is not null %}
+                            <li class="icohp-internet toptip" original-title="{{ amenagement }}" style="    background: url('{{ asset(amenagement.assetPath) }}') #FFF no-repeat;">
+                                {#<img src="{{ asset(amenagement.assetPath) }}" style="width: 28px;height: 28px">#}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <a href="javascript:void(0)" class="showChambre" style="float: right;">Liste des chambres</a>
+            </div>
+            <div class="right">
+                <div class="list-item-meta">
+                    {{ hotel.shortTripAdvisor|raw }}
+                    <span class="list-item-review" style="top: inherit;text-align: center;  left: -12px;{#right: 20px;#}">
+                    {#Par pers & nuit  en  #}{{ saison.arrBase }}
+                    </span>
+                </div>
+                <div class="list-item-price" style="font-size: 15px;text-align: center;white-space: nowrap;margin-top: 20px;">
+                    {% if saison.type is null %}
+                        Sur Demande
+                    {% else %}
+                        {{ saison.prixDeBase|number_format(0) }} DT
+                    {% endif %}
+                </div>
+                <a href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}" class="btn">Détails</a>
+            </div>
+        </div>
+        <table class="table table-striped" style="display: none;  border: 1px solid #EBE8E6;">
+            <tbody>
+            {% for chambre in saison.chambres %}
+                <tr>
+                    <td style="  width: 270px;">{{ chambre.chambre|title }}</td>
+                    <td>{{ saison.arrBase|title }}</td>
+                    <td class="center red bold">Sur demande</td>
+                    <td class="green bold" style="text-align: right;">
+                        {% if saison.type is null %}
+                            <span style="color: red">Sur Demande</span>
+                        {% else %}
+                            {{ chambre.prixChambre|number_format(0) }} DT
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>

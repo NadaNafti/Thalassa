@@ -65,7 +65,7 @@
                     <div class="clear mb-10"></div>
                     <fieldset>
                         {% set categoriesSplit = app.request.get('categorie')|split(',') %}
-                        {% for categorie in categories %}
+                        {% for categorie in categories if categorie.hasHotelsValide %}
                             <div class="styled-checkbox">
                                 <label>
                                     <input type="checkbox" name="categorie_{{ categorie.id }}"
@@ -93,7 +93,7 @@
                     <div class="clear mb-10"></div>
                     <fieldset>
                         {% set chainesSplit = app.request.get('chaine')|split(',') %}
-                        {% for chaine in chaines %}
+                        {% for chaine in chaines if chaine.hasHotelsValide %}
                             <div class="styled-checkbox">
                                 <label>
                                     <input type="checkbox" name="chaine_{{ chaine.id }}"
@@ -113,13 +113,23 @@
             </div>
             <div class="clear" style="height: 5px;"></div>
             <div class="another-toggle">
+                <h5 class="active">Budget</h5>
+                <div class="another-toggle-inner">
+                    <div class="price-range">
+                        <div class="noUiSlider"></div>
+                        <input type="text" id="start-val"/>
+                        <input type="text" id="end-val"/>
+                    </div>
+                </div>
+            </div>
+            <div class="clear" style="height: 5px;"></div>
+            <div class="another-toggle">
                 <h5 {% if app.request.get('ville') != 'all' or true %}class="active"{% endif %} >Villes</h5>
-
                 <div class="another-toggle-inner">
                     <div class="clear mb-10"></div>
                     <fieldset>
                         {% set villesSplit = app.request.get('ville')|split(',') %}
-                        {% for ville in villes %}
+                        {% for ville in villes if ville.hasHotelsValide %}
                             <div class="styled-checkbox">
                                 <label>
                                     <input type="checkbox" name="ville_{{ ville.id }}"
@@ -145,7 +155,7 @@
                     <div class="clear mb-10"></div>
                     <fieldset>
                         {% set tagsSplit = app.request.get('tag')|split(',') %}
-                        {% for tag in tags %}
+                        {% for tag in tags if tag.hasHotelsValide  %}
                             <div class="styled-checkbox">
                                 <label>
                                     <input type="checkbox" name="tag_{{ tag.id }}"

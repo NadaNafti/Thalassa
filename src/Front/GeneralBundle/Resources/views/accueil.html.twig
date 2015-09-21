@@ -38,7 +38,7 @@
                                         <label for="hotelLocation">Ville de destination</label>
                                         <select class="form-control" name="ville" id="">
                                             <option value="all">Tous les villes</option>
-                                            {% for ville in villes %}
+                                            {% for ville in villes if ville.hasHotelsValide %}
                                                 <option value="{{ ville.id }}">{{ ville }}</option>
                                             {% endfor %}
                                         </select>
@@ -49,7 +49,7 @@
                                         <label for="hotelLocation">Catégorie</label>
                                         <select class="form-control" name="categorie" id="">
                                             <option value="all">Tous les carégories</option>
-                                            {% for categorie in categories %}
+                                            {% for categorie in categories if categorie.hasHotelsValide %}
                                                 <option value="{{ categorie.id }}">{{ categorie }}</option>
                                             {% endfor %}
                                         </select>
