@@ -15,12 +15,22 @@ class BilletterieReservationLigneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type')
+            ->add('type', 'choice', array(
+                'choices' => array(
+                    1 => "Adulte (+23 ans)",
+                    2 => "Jeune (19-23 ans)",
+                    3 => "Enfant (2-11 ans)",
+                    4 => "Bébé (0-23 mois)",
+                )
+            ))
             ->add('nomPrenom')
-            ->add('naissance')
+            ->add('naissance', 'date', array(
+                'required' => FALSE,
+                'widget'   => 'single_text',
+                'format'   => 'yyyy-MM-dd',
+            ))
             ->add('passport')
-            ->add('reservation')
-        ;
+            ->add('reservation');
     }
 
     /**
