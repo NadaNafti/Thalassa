@@ -663,4 +663,27 @@ class BilletterieReservation
     {
         return $this->lignes;
     }
+
+    /**
+     * Set nomPrenom
+     *
+     * @param string $nomPrenom
+     * @return BilletterieReservation
+     */
+    public function setNomPrenom($nomPrenom)
+    {
+        $this->nomPrenom = $nomPrenom;
+
+        return $this;
+    }
+
+    /**
+     * Get nomPrenom
+     *
+     * @return string 
+     */
+    public function getNomPrenom()
+    {
+        return $this->nomPrenom;
+    }
 }
