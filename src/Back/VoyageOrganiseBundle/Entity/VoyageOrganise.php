@@ -9,6 +9,7 @@
      * ost_vo_voyages
      *
      * @ORM\Table(name="ost_vo_voyages")
+     * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
      * @ORM\Entity(repositoryClass="Back\VoyageOrganiseBundle\Entity\Repository\VoyageOrganiseRepository")
      */
     class VoyageOrganise
@@ -108,6 +109,11 @@
          * @ORM\Column( type="datetime")
          */
         private $updated;
+
+        /**
+         * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
+         */
+        private $deletedAt;
 
         /**
          * Constructor
