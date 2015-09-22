@@ -17,8 +17,7 @@ class BilletterieReservationType extends AbstractType
         $builder
             ->add('commentaire')
             ->add('typeVol')
-            ->add('nom')
-            ->add('prenom')
+            ->add('nomPrenom')
             ->add('email')
             ->add('cin')
             ->add('tel')
