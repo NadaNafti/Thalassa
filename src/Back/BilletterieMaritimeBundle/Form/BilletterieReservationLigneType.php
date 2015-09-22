@@ -20,7 +20,7 @@ class BilletterieReservationLigneType extends AbstractType
                     1 => "Adulte (+23 ans)",
                     2 => "Jeune (19-23 ans)",
                     3 => "Enfant (2-11 ans)",
-                    4 => "Bébé (0-23 mois)",
+                    4 => "BÃ©bÃ© (0-23 mois)",
                 )
             ))
             ->add('nomPrenom')
@@ -30,7 +30,7 @@ class BilletterieReservationLigneType extends AbstractType
                 'format'   => 'yyyy-MM-dd',
             ))
             ->add('passport')
-            ->add('reservation');
+            ;
     }
 
     /**
