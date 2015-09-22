@@ -59,6 +59,24 @@
             </div>
             <div class="clear" style="height: 5px;"></div>
             <div class="another-toggle">
+                <h5 class="active">Budget <small>Par pers & par nuitées</small></h5>
+                <div class="another-toggle-inner">
+                    <div class="price-range">
+                        <div class="noUiSlider"></div>
+                        <input type="text" id="start-val" value="100" name="minSearch"/>
+                        <input type="text" id="end-val" value="200" name="maxSearch"/>
+
+                        <div class="clear"></div>
+                        <div class="clear mb-20"></div>
+                        <div class="col-xs-6 col-sm-6 col-md-6"></div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <button type="submit" class="btn btn-primary">Recherche</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear" style="height: 5px;"></div>
+            <div class="another-toggle">
                 <h5 {% if app.request.get('categorie') != 'all' or true %}class="active"{% endif %} >Catégories</h5>
 
                 <div class="another-toggle-inner">
@@ -109,17 +127,6 @@
                             <button type="submit" class="btn btn-primary">Recherche</button>
                         </div>
                     </fieldset>
-                </div>
-            </div>
-            <div class="clear" style="height: 5px;"></div>
-            <div class="another-toggle">
-                <h5 class="active">Budget</h5>
-                <div class="another-toggle-inner">
-                    <div class="price-range">
-                        <div class="noUiSlider"></div>
-                        <input type="text" id="start-val"/>
-                        <input type="text" id="end-val"/>
-                    </div>
                 </div>
             </div>
             <div class="clear" style="height: 5px;"></div>

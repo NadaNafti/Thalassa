@@ -554,33 +554,7 @@ function removeroom3(){
 }
 
 // Price range code
-$(document).ready(function($) {
 
-	try {
-
-		for( var i = 100; i <= 10000; i++ ){
-			$('#start-val').append(
-				'<option value="' + i + '">' + i + '</option>'
-			);
-		}
-		// Initialise noUiSlider
-		$('.noUiSlider').noUiSlider({
-			range: [0,2200],
-			start: [30,1000],
-			handles: 2,
-			connect: true,
-			step: 1,
-			serialization: {
-				to: [ $('#start-val'),
-					$('#end-val') ],
-				resolution: 1
-			}
-		});
-	} catch(err) {
-
-	}
-
-});
 
 
 // Details Slider Images

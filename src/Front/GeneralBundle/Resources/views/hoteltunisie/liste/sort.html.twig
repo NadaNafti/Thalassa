@@ -1,6 +1,6 @@
 {% set sort=app.request.get('sort') %}
 {% set dir=app.request.get('direction') %}
-{% set action=path('front_hoteltunisie_sort',{'categorie':app.request.get('categorie'),'chaine':app.request.get('chaine'),'ville':app.request.get('ville'),'tag':app.request.get('tag'),'promotion':app.request.get('promotion'),'name':app.request.get('name'),}) %}
+{% set action=path('front_hoteltunisie_sort',{'min':app.request.get('min'),'max':app.request.get('max'),'categorie':app.request.get('categorie'),'chaine':app.request.get('chaine'),'ville':app.request.get('ville'),'tag':app.request.get('tag'),'promotion':app.request.get('promotion'),'name':app.request.get('name'),}) %}
 <div class="sort-by-wrapper">
     <div class="sort-by-text mr-15 xs-mb sm-mb" style="white-space: nowrap;">
         Trier par:

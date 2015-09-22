@@ -43,9 +43,9 @@
                             <form role="form" class="row" method="post" action="{{ path('front_voyageorganise_accueil') }}">
                                 <div class="col-xs-12 col-sm-3 col-md-2">
                                     <div class="form-group">
-                                        <label for="hotelLocation">Themes</label>
+                                        <label for="hotelLocation">Thèmes</label>
                                         <select class="form-control mySelectBoxClass" name="themes" id="Villetheme">
-                                            <option value="all">Tous les themes</option>
+                                            <option value="all">Tous les Thèmes</option>
                                             {% for theme in themes %}
                                                 <option value="{{ theme.id }}">{{ theme }}</option>
                                             {% endfor %}
