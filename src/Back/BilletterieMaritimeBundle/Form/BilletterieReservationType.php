@@ -34,7 +34,7 @@ class BilletterieReservationType extends AbstractType
             ->add('lignes','collection',new BilletterieReservationLigneType())
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

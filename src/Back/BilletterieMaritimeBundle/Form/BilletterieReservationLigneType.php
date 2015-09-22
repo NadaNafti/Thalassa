@@ -22,7 +22,7 @@ class BilletterieReservationLigneType extends AbstractType
             ->add('reservation')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
