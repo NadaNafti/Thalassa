@@ -137,7 +137,7 @@
                                     <div class="form-group">
                                         <label for="hotelLocation">Thèmes </label>
                                         <select class="form-control" name="ville" id="Theme">
-                                            <option value="all">Tous les thèmes </option>
+                                            <option value="all">Tous les thèmes</option>
                                             {% for theme in themesP %}
                                                 <option value="{{ theme.id }}">{{ theme }}</option>
                                             {% endfor %}
@@ -160,17 +160,7 @@
                     </ul>
                 </div>
             </div>
-            {{ render(controller('FrontConfigBundle:HotelTunisie:showTopPromo')) }}
-            {{ render(controller('FrontConfigBundle:Programme:showTopTheme')) }}
-            {{ render(controller('FrontConfigBundle:VoyageOrganise:showTopDestination')) }}
         </div>
-        <footer id="footer">
-            <div class="primary-footer">
-                <div class="container">
-                    {{ render(controller('FrontConfigBundle:VoyageOrganise:showBlockMetro')) }}
-                </div>
-            </div>
-        </footer>
         {% if accueil %}
             <div class="container">
                 <div class="gr-style"></div>
@@ -198,5 +188,19 @@
                 </div>
             </div>
         {% endif %}
+        <div class="container">
+            {{ render(controller('FrontConfigBundle:HotelTunisie:showTopPromo')) }}
+            {{ render(controller('FrontConfigBundle:VoyageOrganise:showTopDestination')) }}
+        </div>
+        <footer id="footer">
+            <div class="primary-footer">
+                <div class="container">
+                    {{ render(controller('FrontConfigBundle:VoyageOrganise:showBlockMetro')) }}
+                </div>
+            </div>
+        </footer>
+        <div class="container">
+            {{ render(controller('FrontConfigBundle:Programme:showTopTheme')) }}
+        </div>
     </div>
 {% endblock %}
