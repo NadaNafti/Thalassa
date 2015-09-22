@@ -30,6 +30,7 @@ class AppKernel extends Kernel
             new Back\ProgrammeBundle\BackProgrammeBundle(),
             new EspaceClientBundle\EspaceClientBundle(),
             new Back\BienEtreBundle\BackBienEtreBundle(),
+            new Back\BilletterieMaritimeBundle\BackBilletterieMaritimeBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

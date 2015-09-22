@@ -1,3 +1,7 @@
+back_bien_etre:
+    resource: "@BackBienEtreBundle/Resources/config/routing.yml"
+    prefix:   /admin/bien_etre
+
 front_config:
     resource: "@FrontConfigBundle/Resources/config/routing.yml"
     prefix:   /admin/FrontOffice
@@ -6,9 +10,9 @@ front_general:
     resource: "@FrontGeneralBundle/Resources/config/routing.yml"
     prefix:   /
 
-back_bien_etre:
-    resource: "@BackBienEtreBundle/Resources/config/routing.yml"
-    prefix:   /admin/bien_etre
+back_billetterie_maritime:
+    resource: "@BackBilletterieMaritimeBundle/Resources/config/routing.yml"
+    prefix:   /admin
 
 espace_client:
     resource: "@EspaceClientBundle/Resources/config/routing.yml"

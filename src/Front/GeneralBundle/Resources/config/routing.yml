@@ -25,3 +25,7 @@ front_voyageorganise:
 front_programme:
     resource: "@FrontGeneralBundle/Resources/config/routing/programme.yml"
     prefix:   /Programme
+
+front_programme:
+    resource: "@FrontGeneralBundle/Resources/config/routing/billetterie.yml"
+    prefix:   /Billetterie
