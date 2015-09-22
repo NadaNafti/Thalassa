@@ -38,7 +38,7 @@ class BilletterieReservationLigne
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="naissance", type="datetime")
+     * @ORM\Column(name="naissance", type="date")
      */
     private $naissance;
 
