@@ -1,0 +1,507 @@
+<?php
+
+namespace Back\BilletterieMaritimeBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Billetterie
+ *
+ * @ORM\Table(name="ost_billetterie_reservation")
+ * @ORM\Entity()
+ */
+class BilletterieReservation
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * 1:Enregistrée
+     * 2:Validée
+     * 9:Annulée
+     * @ORM\Column(name="etat", type="integer")
+     */
+    private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\User")
+     */
+    protected $responsable;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="frontOffice", type="boolean", nullable=true)
+     */
+    private $frontOffice;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire", type="text",nullable=true)
+     */
+    private $commentaire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservationsVO")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $client;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="validated", type="datetime" ,nullable=true)
+     */
+    private $validated;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationVO")
+     */
+    protected $reglements;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="typeVol", type="integer")
+     */
+    private $typeVol;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cin", type="string", length=255)
+     */
+    private $cin;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tel", type="string", length=255)
+     */
+    private $tel;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codePostal", type="string", length=255)
+     */
+    private $codePostal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string", length=255)
+     */
+    private $ville;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="company", type="string", length=255)
+     */
+    private $company;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="classe", type="integer")
+     */
+    private $classe;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lieuDepart", type="string", length=255)
+     */
+    private $lieuDepart;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lieuArriver", type="string", length=255)
+     */
+    private $lieuArriver;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateDepart", type="date")
+     */
+    private $dateDepart;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="deteArriver", type="date")
+     */
+    private $deteArriver;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BilletterieReservationLigne", mappedBy="reservation")
+     */
+    protected $lignes;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set typeVol
+     *
+     * @param integer $typeVol
+     * @return Billetterie
+     */
+    public function setTypeVol($typeVol)
+    {
+        $this->typeVol = $typeVol;
+
+        return $this;
+    }
+
+    /**
+     * Get typeVol
+     *
+     * @return integer 
+     */
+    public function getTypeVol()
+    {
+        return $this->typeVol;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return Billetterie
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     * @return Billetterie
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get prenom
+     *
+     * @return string 
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Billetterie
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set cin
+     *
+     * @param string $cin
+     * @return Billetterie
+     */
+    public function setCin($cin)
+    {
+        $this->cin = $cin;
+
+        return $this;
+    }
+
+    /**
+     * Get cin
+     *
+     * @return string 
+     */
+    public function getCin()
+    {
+        return $this->cin;
+    }
+
+    /**
+     * Set tel
+     *
+     * @param string $tel
+     * @return Billetterie
+     */
+    public function setTel($tel)
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    /**
+     * Get tel
+     *
+     * @return string 
+     */
+    public function getTel()
+    {
+        return $this->tel;
+    }
+
+    /**
+     * Set codePostal
+     *
+     * @param string $codePostal
+     * @return Billetterie
+     */
+    public function setCodePostal($codePostal)
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    /**
+     * Get codePostal
+     *
+     * @return string 
+     */
+    public function getCodePostal()
+    {
+        return $this->codePostal;
+    }
+
+    /**
+     * Set ville
+     *
+     * @param string $ville
+     * @return Billetterie
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return string 
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set company
+     *
+     * @param string $company
+     * @return Billetterie
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return string 
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set classe
+     *
+     * @param integer $classe
+     * @return Billetterie
+     */
+    public function setClasse($classe)
+    {
+        $this->classe = $classe;
+
+        return $this;
+    }
+
+    /**
+     * Get classe
+     *
+     * @return integer 
+     */
+    public function getClasse()
+    {
+        return $this->classe;
+    }
+
+    /**
+     * Set lieuDepart
+     *
+     * @param string $lieuDepart
+     * @return Billetterie
+     */
+    public function setLieuDepart($lieuDepart)
+    {
+        $this->lieuDepart = $lieuDepart;
+
+        return $this;
+    }
+
+    /**
+     * Get lieuDepart
+     *
+     * @return string 
+     */
+    public function getLieuDepart()
+    {
+        return $this->lieuDepart;
+    }
+
+    /**
+     * Set lieuArriver
+     *
+     * @param string $lieuArriver
+     * @return Billetterie
+     */
+    public function setLieuArriver($lieuArriver)
+    {
+        $this->lieuArriver = $lieuArriver;
+
+        return $this;
+    }
+
+    /**
+     * Get lieuArriver
+     *
+     * @return string 
+     */
+    public function getLieuArriver()
+    {
+        return $this->lieuArriver;
+    }
+
+    /**
+     * Set dateDepart
+     *
+     * @param \DateTime $dateDepart
+     * @return Billetterie
+     */
+    public function setDateDepart($dateDepart)
+    {
+        $this->dateDepart = $dateDepart;
+
+        return $this;
+    }
+
+    /**
+     * Get dateDepart
+     *
+     * @return \DateTime 
+     */
+    public function getDateDepart()
+    {
+        return $this->dateDepart;
+    }
+
+    /**
+     * Set deteArriver
+     *
+     * @param \DateTime $deteArriver
+     * @return Billetterie
+     */
+    public function setDeteArriver($deteArriver)
+    {
+        $this->deteArriver = $deteArriver;
+
+        return $this;
+    }
+
+    /**
+     * Get deteArriver
+     *
+     * @return \DateTime 
+     */
+    public function getDeteArriver()
+    {
+        return $this->deteArriver;
+    }
+}

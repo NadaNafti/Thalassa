@@ -1,0 +1,4 @@
+services:
+#    back_billetterie_maritime.example:
+#        class: Back\BilletterieMaritimeBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
