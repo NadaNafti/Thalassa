@@ -80,16 +80,9 @@ class BilletterieReservation
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="nomPrenom", type="string", length=255)
      */
-    private $nom;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prenom", type="string", length=255)
-     */
-    private $prenom;
+    private $nomPrenom;
 
     /**
      * @var string
@@ -204,52 +197,6 @@ class BilletterieReservation
     public function getTypeVol()
     {
         return $this->typeVol;
-    }
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Billetterie
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string 
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * Set prenom
-     *
-     * @param string $prenom
-     * @return Billetterie
-     */
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    /**
-     * Get prenom
-     *
-     * @return string 
-     */
-    public function getPrenom()
-    {
-        return $this->prenom;
     }
 
     /**
