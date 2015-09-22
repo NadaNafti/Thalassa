@@ -45,7 +45,7 @@ class BilletterieReservationType extends AbstractType
                 'widget'   => 'single_text',
                 'format'   => 'yyyy-MM-dd',
             ))
-            ->add('deteArriver', 'date', array(
+            ->add('dateArriver', 'date', array(
                 'required' => FALSE,
                 'widget'   => 'single_text',
                 'format'   => 'yyyy-MM-dd',

@@ -24,7 +24,7 @@ class BilletterieReservationLigneType extends AbstractType
                 )
             ))
             ->add('nomPrenom')
-            ->add('naissance', 'date', array(
+            ->add('naissance', 'birthday', array(
                 'required' => FALSE,
                 'widget'   => 'single_text',
                 'format'   => 'yyyy-MM-dd',

@@ -157,9 +157,9 @@ class BilletterieReservation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="deteArriver", type="date")
+     * @ORM\Column(name="dateArriver", type="date")
      */
-    private $deteArriver;
+    private $dateArriver;
 
     /**
      * @ORM\OneToMany(targetEntity="BilletterieReservationLigne", mappedBy="reservation")
@@ -430,26 +430,26 @@ class BilletterieReservation
     }
 
     /**
-     * Set deteArriver
+     * Set dateArriver
      *
-     * @param \DateTime $deteArriver
+     * @param \DateTime $dateArriver
      * @return Billetterie
      */
-    public function setDeteArriver($deteArriver)
+    public function setDateArriver($dateArriver)
     {
-        $this->deteArriver = $deteArriver;
+        $this->dateArriver = $dateArriver;
 
         return $this;
     }
 
     /**
-     * Get deteArriver
+     * Get dateArriver
      *
      * @return \DateTime 
      */
-    public function getDeteArriver()
+    public function getDateArriver()
     {
-        return $this->deteArriver;
+        return $this->dateArriver;
     }
     /**
      * Constructor
