@@ -14,20 +14,43 @@
     <div id="content_wrapper">
         <div class="container">
             <div class="row clearfix pv-50">
-                <div class="col-xs-12 col-sm-8 col-md-8 xs-mb">
+                <div class="col-xs-12 {% if not is_granted('IS_AUTHENTICATED_FULLY') %}col-sm-8 col-md-8{% else %}col-sm-12 col-md-12{% endif %} xs-mb">
                     <div class="white-bg payment-wrapper">
                         {% include ':Front:alert.html.twig' %}
                         <div class="person-information">
+                            {{ form_start(form) }}
                             <h3 class="section-title">Information Personnelle <span class="step active">1</span></h3>
                             <hr>
-                            {{ form_start(form) }}
+                            <div class="row">
+                                {{ formulaire.input("col-md-3","Nom & prénom ",form.nomPrenom,true) }}
+                                {{ formulaire.input("col-md-3","Email",form.email,true) }}
+                                {{ formulaire.input("col-md-3","Cin",form.cin,true) }}
+                                {{ formulaire.input("col-md-3","Tel",form.tel,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-3","Code postal ",form.codePostal,true) }}
+                                {{ formulaire.input("col-md-3","Ville",form.ville,true) }}
+                            </div>
+                            <h3 class="section-title">Déstination <span class="step active">2</span></h3>
+                            <hr>
+                            <div class="row">
+                                {{ formulaire.input("col-md-4","Type de vole ",form.typeVol,true) }}
+                                {{ formulaire.input("col-md-4","Classe",form.classe,true) }}
+                                {{ formulaire.input("col-md-4","Company préférée",form.company,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-3","Lieu départ ",form.lieuDepart,true) }}
+                                {{ formulaire.input("col-md-3","Lieu arrivée ",form.lieuArriver,true) }}
+                                {{ formulaire.input("col-md-3","Date départ ",form.dateDepart,true) }}
+                                {{ formulaire.input("col-md-3","Date arrivée ",form.dateArriver,true) }}
+                            </div>
                             {{ form_end(form) }}
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <div class="sidebar hotel-sidebar">
-                        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="sidebar hotel-sidebar">
                             <div class="sidebar-item mb-20">
                                 <div class="lp-box">
                                     <i class="text-info fa-lock"></i>
@@ -39,7 +62,8 @@
                                             <div class="col-md-10">
                                                 <div class="form-group">
                                                     <label for="first-name">Identifiant ou Email</label>
-                                                    <input type="text" id="username" name="_username" required="required" class="form-control"/>
+                                                    <input type="text" id="username" name="_username"
+                                                           required="required" class="form-control"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -47,19 +71,22 @@
                                             <div class="col-md-10">
                                                 <div class="form-group">
                                                     <label for="first-name">Mots de passe</label>
-                                                    <input type="password" id="password" name="_password" required="required" class="form-control"/>
+                                                    <input type="password" id="password" name="_password"
+                                                           required="required" class="form-control"/>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <button type="submit" class="btn btn-primary" id="_submit" name="_submit" style="float: right;">S'authentifier</button>
+                                            <button type="submit" class="btn btn-primary" id="_submit" name="_submit"
+                                                    style="float: right;">S'authentifier
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                        {% endif %}
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
         </div>
     </div>

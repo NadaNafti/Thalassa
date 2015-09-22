@@ -21,9 +21,12 @@ class BilletterieController extends Controller
         $reservation->setClient($client)
             ->setNomPrenom($client->getNomPrenom())
             ->setTel($client->getTel1());
-        if(!is_null($client->getUser()))
+        if (!is_null($client->getUser()))
             $reservation->setEmail($client->getUser()->getEmail());
         $form = $this->createForm(new BilletterieReservationType(), $reservation);
-        return $this->render('FrontGeneralBundle:billetterie:reservation.html.twig', array('form' => $form->createView()));
+        return $this->render('FrontGeneralBundle:billetterie:reservation.html.twig', array(
+                'csrf_token' => $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate'),
+                'form'       => $form->createView())
+        );
     }
 }
