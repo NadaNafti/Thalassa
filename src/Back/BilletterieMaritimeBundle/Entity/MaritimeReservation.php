@@ -3,12 +3,14 @@
 namespace Back\BilletterieMaritimeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * MaritimeReservation
  *
  * @ORM\Table(name="ost_maritime_reservation")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Back\BilletterieMaritimeBundle\Entity\Repository\MaritimeReservationRepository")
  */
 class MaritimeReservation
 {
@@ -151,6 +153,18 @@ class MaritimeReservation
      * @ORM\Column(name="dateDepart", type="date")
      */
     private $dateDepart;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated;
 
 
     /**
@@ -648,5 +662,61 @@ class MaritimeReservation
             return "Cabinet-Interieur";
         if ($this->cabine == 1)
             return "Suite";
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return MaritimeReservation
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return MaritimeReservation
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    public function showEtat()
+    {
+        if($this->etat == 1)
+            return 'Enregistrée';
+        if($this->etat == 2)
+            return 'Validée';
+        if($this->etat == 9)
+            return 'Annulée';
     }
 }

@@ -1,3 +1,4 @@
+#Gestion des centres
 back_bienetre_ref_centre:
     path:     /centre/{id}
     defaults: { _controller: BackBienEtreBundle:Referentiel:centre,id:null }
@@ -8,7 +9,7 @@ delete_back_bienetre_centre:
     path:     /delete_back_bienetre_centre/{id}
     defaults: { _controller: BackBienEtreBundle:Referentiel:deleteCentre }
     
-    
+#Gestion des soins    
 back_bienetre_ref_soin:
     path:     /soin/{id}
     defaults: { _controller: BackBienEtreBundle:Referentiel:soin,id:null }
@@ -19,7 +20,17 @@ delete_back_bienetre_soin:
     path:     /delete_back_bienetre_soin/{id}
     defaults: { _controller: BackBienEtreBundle:Referentiel:deleteSoin }
     
+back_bienetre_ref_soin_tarif:
+    path:     /soin/{id}/tarifSoin/{id2}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:soinTarif,id2:null }
+    requirements:
+        id:  \d+
+ 
+delete_tarif_soin:
+    path:     /delete_tarif_soin/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:deleteTarifSoin }
 
+#Gestion des cures
 back_bienetre_ref_cure:
     path:     /cure/{id}
     defaults: { _controller: BackBienEtreBundle:Referentiel:cure,id:null }
@@ -30,7 +41,17 @@ delete_back_bienetre_cure:
     path:     /delete_back_bienetre_cure/{id}
     defaults: { _controller: BackBienEtreBundle:Referentiel:deleteCure }
     
-   
+back_bienetre_ref_cure_tarif:
+    path:     /cure/{id}/tarifCure/{id2}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:cureTarif,id2:null }
+    requirements:
+        id:  \d+
+ 
+delete_tarif_cure:
+    path:     /delete_tarif_cure/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:deleteTarifCure }
+    
+#Gestion des packs   
 back_bienetre_ref_pack:
     path:     /pack/{id}
     defaults: { _controller: BackBienEtreBundle:Referentiel:pack,id:null }
@@ -38,5 +59,15 @@ back_bienetre_ref_pack:
         id:  \d+
         
 delete_back_bienetre_pack:
-    path:     /delete_back_bienetre_pack/{id}
+    path:     /delete_back_bienetre_pack
     defaults: { _controller: BackBienEtreBundle:Referentiel:deletePack }
+    
+back_bienetre_ref_pack_tarif:
+    path:     /pack/{id}/tarifPack/{id2}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:packTarif,id2:null }
+    requirements:
+        id:  \d+
+ 
+delete_tarif_pack:
+    path:     /delete_tarif_pack/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:deleteTarifPack }

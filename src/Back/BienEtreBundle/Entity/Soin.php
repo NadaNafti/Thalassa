@@ -30,13 +30,6 @@ class Soin
     private $libelle;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="prix", type="integer")
-     */
-    private $prix;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="description", type="text")
@@ -50,9 +43,15 @@ class Soin
     private $centre;
     
     /**
+     * @ORM\OneToMany(targetEntity="Tarif", mappedBy="soin")
+     */
+    protected $tarifs;
+    
+    /**
      * @Gedmo\Slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
+    
     private $slug;
 
     /**
@@ -67,6 +66,13 @@ class Soin
      */
     private $updated;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tarif = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -99,29 +105,6 @@ class Soin
     public function getLibelle()
     {
         return $this->libelle;
-    }
-
-    /**
-     * Set prix
-     *
-     * @param integer $prix
-     * @return Soin
-     */
-    public function setPrix($prix)
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
-    /**
-     * Get prix
-     *
-     * @return integer 
-     */
-    public function getPrix()
-    {
-        return $this->prix;
     }
 
     /**
@@ -238,9 +221,42 @@ class Soin
     {
         return $this->centre;
     }
+
+    /**
+     * Add tarif
+     *
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarif
+     * @return Soin
+     */
+    public function addTarif(\Back\BienEtreBundle\Entity\Tarif $tarif)
+    {
+        $this->tarif[] = $tarif;
+
+        return $this;
+    }
+
+    /**
+     * Remove tarif
+     *
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarif
+     */
+    public function removeTarif(\Back\BienEtreBundle\Entity\Tarif $tarif)
+    {
+        $this->tarif->removeElement($tarif);
+    }
     
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * Get tarifs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTarifs()
+    {
+        return $this->tarifs;
     }
 }

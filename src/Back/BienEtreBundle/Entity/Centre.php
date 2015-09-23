@@ -39,14 +39,12 @@ class Centre {
     private $description;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Hotel")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $hotel;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Ville")
      */
     private $ville;

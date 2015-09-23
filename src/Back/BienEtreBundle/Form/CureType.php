@@ -16,7 +16,6 @@ class CureType extends AbstractType
     {
         $builder
             ->add('libelle')
-            ->add('prix')
             ->add('description')
             ->add('centre')
         ;

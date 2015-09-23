@@ -3,6 +3,8 @@
 namespace Back\BilletterieMaritimeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * MaritimeReservation
@@ -152,11 +154,23 @@ class MaritimeReservation
      */
     private $dateDepart;
 
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated;
+
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -179,7 +193,7 @@ class MaritimeReservation
     /**
      * Get typeVoyage
      *
-     * @return integer 
+     * @return integer
      */
     public function getTypeVoyage()
     {
@@ -202,7 +216,7 @@ class MaritimeReservation
     /**
      * Get nomPrenom
      *
-     * @return string 
+     * @return string
      */
     public function getNomPrenom()
     {
@@ -225,7 +239,7 @@ class MaritimeReservation
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -248,7 +262,7 @@ class MaritimeReservation
     /**
      * Get cin
      *
-     * @return string 
+     * @return string
      */
     public function getCin()
     {
@@ -271,7 +285,7 @@ class MaritimeReservation
     /**
      * Get tel
      *
-     * @return string 
+     * @return string
      */
     public function getTel()
     {
@@ -294,7 +308,7 @@ class MaritimeReservation
     /**
      * Get marque
      *
-     * @return string 
+     * @return string
      */
     public function getMarque()
     {
@@ -317,7 +331,7 @@ class MaritimeReservation
     /**
      * Get matriculation
      *
-     * @return string 
+     * @return string
      */
     public function getMatriculation()
     {
@@ -340,7 +354,7 @@ class MaritimeReservation
     /**
      * Get passagers
      *
-     * @return integer 
+     * @return integer
      */
     public function getPassagers()
     {
@@ -363,7 +377,7 @@ class MaritimeReservation
     /**
      * Get cabine
      *
-     * @return integer 
+     * @return integer
      */
     public function getCabine()
     {
@@ -386,7 +400,7 @@ class MaritimeReservation
     /**
      * Get lieuDepart
      *
-     * @return string 
+     * @return string
      */
     public function getLieuDepart()
     {
@@ -409,7 +423,7 @@ class MaritimeReservation
     /**
      * Get lieuArrivee
      *
-     * @return string 
+     * @return string
      */
     public function getLieuArrivee()
     {
@@ -432,10 +446,221 @@ class MaritimeReservation
     /**
      * Get dateDepart
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateDepart()
     {
         return $this->dateDepart;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set etat
+     *
+     * @param integer $etat
+     * @return MaritimeReservation
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return integer
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * Set frontOffice
+     *
+     * @param boolean $frontOffice
+     * @return MaritimeReservation
+     */
+    public function setFrontOffice($frontOffice)
+    {
+        $this->frontOffice = $frontOffice;
+
+        return $this;
+    }
+
+    /**
+     * Get frontOffice
+     *
+     * @return boolean
+     */
+    public function getFrontOffice()
+    {
+        return $this->frontOffice;
+    }
+
+    /**
+     * Set commentaire
+     *
+     * @param string $commentaire
+     * @return MaritimeReservation
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * Get commentaire
+     *
+     * @return string
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
+    }
+
+    /**
+     * Set validated
+     *
+     * @param \DateTime $validated
+     * @return MaritimeReservation
+     */
+    public function setValidated($validated)
+    {
+        $this->validated = $validated;
+
+        return $this;
+    }
+
+    /**
+     * Get validated
+     *
+     * @return \DateTime
+     */
+    public function getValidated()
+    {
+        return $this->validated;
+    }
+
+    /**
+     * Set responsable
+     *
+     * @param \Back\UserBundle\Entity\User $responsable
+     * @return MaritimeReservation
+     */
+    public function setResponsable(\Back\UserBundle\Entity\User $responsable = null)
+    {
+        $this->responsable = $responsable;
+
+        return $this;
+    }
+
+    /**
+     * Get responsable
+     *
+     * @return \Back\UserBundle\Entity\User
+     */
+    public function getResponsable()
+    {
+        return $this->responsable;
+    }
+
+    /**
+     * Set client
+     *
+     * @param \Back\UserBundle\Entity\Client $client
+     * @return MaritimeReservation
+     */
+    public function setClient(\Back\UserBundle\Entity\Client $client = null)
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return \Back\UserBundle\Entity\Client
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Add reglements
+     *
+     * @param \Back\CommercialBundle\Entity\Reglement $reglements
+     * @return MaritimeReservation
+     */
+    public function addReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
+    {
+        $this->reglements[] = $reglements;
+
+        return $this;
+    }
+
+    /**
+     * Remove reglements
+     *
+     * @param \Back\CommercialBundle\Entity\Reglement $reglements
+     */
+    public function removeReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
+    {
+        $this->reglements->removeElement($reglements);
+    }
+
+    /**
+     * Get reglements
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReglements()
+    {
+        return $this->reglements;
+    }
+
+    public function showTypeVoyage()
+    {
+        if ($this->typeVoyage == 1)
+            return "Aller-Retour";
+        if ($this->typeVoyage == 2)
+            return "Aller-Simple";
+    }
+
+    public function showPassagers()
+    {
+        if ($this->passagers == 1)
+            return "Résident";
+        if ($this->passagers == 2)
+            return "Non-Résident";
+        if ($this->passagers == 3)
+            return "Diplomat";
+        if ($this->passagers == 4)
+            return "Etudiant";
+    }
+
+    public function showCabine()
+    {
+        if ($this->cabine == 1)
+            return "Fauteuille";
+        if ($this->cabine == 1)
+            return "Cabinet-Exterieur";
+        if ($this->cabine == 1)
+            return "Cabinet-Interieur";
+        if ($this->cabine == 1)
+            return "Suite";
     }
 }

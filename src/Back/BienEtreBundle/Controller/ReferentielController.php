@@ -11,9 +11,12 @@ use Back\BienEtreBundle\Entity\Cure;
 use Back\BienEtreBundle\Form\CureType;
 use Back\BienEtreBundle\Entity\Pack;
 use Back\BienEtreBundle\Form\PackType;
+use Back\BienEtreBundle\Entity\Tarif;
+use Back\BienEtreBundle\Form\TarifType;
 
 class ReferentielController extends Controller {
 
+    //Gestion des centres
     public function centreAction($id) {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
@@ -47,11 +50,12 @@ class ReferentielController extends Controller {
             $em->flush();
             $session->getFlashBag()->add('success', " Le centre a été supprimé avec succées ");
         } catch (\Exception $ex) {
-            $session->getFlashBag()->add('danger','Problème de supression '. $ex->getMessage());
+            $session->getFlashBag()->add('danger', 'Problème de supression ' . $ex->getMessage());
         }
         return $this->redirect($this->generateUrl('back_bienetre_ref_centre'));
     }
 
+    //Gestion des soins
     public function soinAction($id) {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
@@ -71,10 +75,11 @@ class ReferentielController extends Controller {
                 return $this->redirect($this->generateUrl('back_bienetre_ref_soin'));
             }
         }
-        return $this->render('BackBienEtreBundle:Ref:soin.html.twig', array(
+        return $this->render('BackBienEtreBundle:Ref\soin:soin.html.twig', [
                     'form' => $form->createView(),
                     'soins' => $soins,
-        ));
+                    'soin' => $soin
+        ]);
     }
 
     public function deleteSoinAction(Soin $soin) {
@@ -90,6 +95,46 @@ class ReferentielController extends Controller {
         return $this->redirect($this->generateUrl('back_bienetre_ref_soin'));
     }
 
+    public function soinTarifAction($id, $id2) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        $soin = $em->find('BackBienEtreBundle:Soin', $id);
+        if (is_null($id2))
+            $tarif = new Tarif();
+        else
+            $tarif = $em->find('BackBienEtreBundle:Tarif', $id2);
+        $form = $this->createForm(new TarifType, $tarif);
+        if ($request->isMethod('POST')) {
+            $form->submit($request);
+            if ($form->isValid()) {
+                $tarif = $form->getData();
+                $em->persist($tarif->setSoin($soin));
+                $em->flush();
+                $session->getFlashBag()->add('success', "");
+                return $this->redirect($this->generateUrl('back_bienetre_ref_soin_tarif', array('id' => $soin->getId())));
+            }
+        }
+        return $this->render('BackBienEtreBundle:Ref\soin:tarifSoin.html.twig', [
+                    'form' => $form->createView(),
+                    'soin' => $soin
+        ]);
+    }
+
+    public function deleteTarifSoinAction(Tarif $tarif) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        try {
+            $em->remove($tarif);
+            $em->flush();
+        } catch (\Exception $ex) {
+            $session->getFlashBag()->add('Problème de supression', $ex->getMessage());
+        }
+        $session->getFlashBag()->add('success', " Le tarif a été supprimé avec succées ");
+        return $this->redirect($this->generateUrl('back_bienetre_ref_soin_tarif', array('id' => $tarif->getSoin()->getId())));
+    }
+
+    //Gestion des cures
     public function cureAction($id) {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
@@ -109,9 +154,10 @@ class ReferentielController extends Controller {
                 return $this->redirect($this->generateUrl('back_bienetre_ref_cure'));
             }
         }
-        return $this->render('BackBienEtreBundle:Ref:cure.html.twig', array(
+        return $this->render('BackBienEtreBundle:Ref/Cure:cure.html.twig', array(
                     'form' => $form->createView(),
                     'cures' => $cures,
+                    'cure' => $cure,
         ));
     }
 
@@ -128,6 +174,46 @@ class ReferentielController extends Controller {
         return $this->redirect($this->generateUrl('back_bienetre_ref_cure'));
     }
 
+    public function cureTarifAction($id, $id2) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        $cure = $em->find('BackBienEtreBundle:Cure', $id);
+        if (is_null($id2))
+            $tarif = new Tarif();
+        else
+            $tarif = $em->find('BackBienEtreBundle:Tarif', $id2);
+        $form = $this->createForm(new TarifType, $tarif);
+        if ($request->isMethod('POST')) {
+            $form->submit($request);
+            if ($form->isValid()) {
+                $tarif = $form->getData();
+                $em->persist($tarif->setCure($cure));
+                $em->flush();
+                $session->getFlashBag()->add('success', "");
+                return $this->redirect($this->generateUrl('back_bienetre_ref_cure_tarif', array('id' => $cure->getId())));
+            }
+        }
+        return $this->render('BackBienEtreBundle:Ref\cure:tarifCure.html.twig', [
+                    'form' => $form->createView(),
+                    'cure' => $cure
+        ]);
+    }
+
+    public function deleteTarifCureAction(Tarif $tarif) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        try {
+            $em->remove($tarif);
+            $em->flush();
+        } catch (\Exception $ex) {
+            $session->getFlashBag()->add('Problème de supression', $ex->getMessage());
+        }
+        $session->getFlashBag()->add('success', " Le tarif a été supprimé avec succées ");
+        return $this->redirect($this->generateUrl('back_bienetre_ref_cure_tarif', array('id' => $tarif->getCure()->getId())));
+    }
+
+    //Gestion des packs
     public function packAction($id) {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
@@ -147,8 +233,9 @@ class ReferentielController extends Controller {
                 return $this->redirect($this->generateUrl('back_bienetre_ref_pack'));
             }
         }
-        return $this->render('BackBienEtreBundle:Ref:pack.html.twig', array(
+        return $this->render('BackBienEtreBundle:Ref/pack:pack.html.twig', array(
                     'form' => $form->createView(),
+                    'pack' => $pack,
                     'packs' => $packs,
         ));
     }
@@ -164,6 +251,45 @@ class ReferentielController extends Controller {
         }
         $session->getFlashBag()->add('success', " Le pack a été supprimé avec succées ");
         return $this->redirect($this->generateUrl('back_bienetre_ref_pack'));
+    }
+
+    public function packTarifAction($id, $id2) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        $pack = $em->find('BackBienEtreBundle:Pack', $id);
+        if (is_null($id2))
+            $tarif = new Tarif();
+        else
+            $tarif = $em->find('BackBienEtreBundle:Tarif', $id2);
+        $form = $this->createForm(new TarifType, $tarif);
+        if ($request->isMethod('POST')) {
+            $form->submit($request);
+            if ($form->isValid()) {
+                $tarif = $form->getData();
+                $em->persist($tarif->setPack($pack));
+                $em->flush();
+                $session->getFlashBag()->add('success', "");
+                return $this->redirect($this->generateUrl('back_bienetre_ref_pack_tarif', array('id' => $pack->getId())));
+            }
+        }
+        return $this->render('BackBienEtreBundle:Ref\pack:tarifPack.html.twig', [
+                    'form' => $form->createView(),
+                    'pack' => $pack
+        ]);
+    }
+
+    public function deleteTarifPackAction(Tarif $tarif) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        try {
+            $em->remove($tarif);
+            $em->flush();
+        } catch (\Exception $ex) {
+            $session->getFlashBag()->add('Problème de supression', $ex->getMessage());
+        }
+        $session->getFlashBag()->add('success', " Le tarif a été supprimé avec succées ");
+        return $this->redirect($this->generateUrl('back_bienetre_ref_pack_tarif', array('id' => $tarif->getPack()->getId())));
     }
 
 }

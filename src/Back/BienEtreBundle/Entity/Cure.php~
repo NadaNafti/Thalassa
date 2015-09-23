@@ -30,13 +30,6 @@ class Cure
     private $libelle;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="prix", type="integer")
-     */
-    private $prix;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="description", type="text")
@@ -48,6 +41,11 @@ class Cure
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $centre;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Tarif", mappedBy="cure")
+     */
+    protected $tarifs;
     
     /**
      * @Gedmo\Slug(fields={"libelle"})
@@ -68,82 +66,4 @@ class Cure
     private $updated;
 
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set libelle
-     *
-     * @param string $libelle
-     * @return Cure
-     */
-    public function setLibelle($libelle)
-    {
-        $this->libelle = $libelle;
-
-        return $this;
-    }
-
-    /**
-     * Get libelle
-     *
-     * @return string 
-     */
-    public function getLibelle()
-    {
-        return $this->libelle;
-    }
-
-    /**
-     * Set prix
-     *
-     * @param integer $prix
-     * @return Cure
-     */
-    public function setPrix($prix)
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
-    /**
-     * Get prix
-     *
-     * @return integer 
-     */
-    public function getPrix()
-    {
-        return $this->prix;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Cure
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
 }

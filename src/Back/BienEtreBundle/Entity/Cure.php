@@ -30,13 +30,6 @@ class Cure
     private $libelle;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="prix", type="integer")
-     */
-    private $prix;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="description", type="text")
@@ -48,6 +41,11 @@ class Cure
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $centre;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Tarif", mappedBy="cure")
+     */
+    protected $tarifs;
     
     /**
      * @Gedmo\Slug(fields={"libelle"})
@@ -67,6 +65,14 @@ class Cure
      */
     private $updated;
 
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tarifs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -99,29 +105,6 @@ class Cure
     public function getLibelle()
     {
         return $this->libelle;
-    }
-
-    /**
-     * Set prix
-     *
-     * @param integer $prix
-     * @return Cure
-     */
-    public function setPrix($prix)
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
-    /**
-     * Get prix
-     *
-     * @return integer 
-     */
-    public function getPrix()
-    {
-        return $this->prix;
     }
 
     /**
@@ -237,6 +220,39 @@ class Cure
     public function getCentre()
     {
         return $this->centre;
+    }
+
+    /**
+     * Add tarifs
+     *
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
+     * @return Cure
+     */
+    public function addTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
+    {
+        $this->tarifs[] = $tarifs;
+
+        return $this;
+    }
+
+    /**
+     * Remove tarifs
+     *
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
+     */
+    public function removeTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
+    {
+        $this->tarifs->removeElement($tarifs);
+    }
+
+    /**
+     * Get tarifs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTarifs()
+    {
+        return $this->tarifs;
     }
     
     public function __toString()

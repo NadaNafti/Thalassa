@@ -3,29 +3,31 @@
 {% block topbody %}   
     {{ parent() }}
     <li>
-        <a href="javascript:void(0)" >{{ block('title') }}</a>
+        <a href="javascript:void(0)" >Packs</a>
     </li>
 {% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    {{ form_start(form) }}
-                    <div class="row">
-                        {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
-                        {{ formulaire.input("col-md-4","Prix",form.prix,true) }}
-                        {{ formulaire.select2("col-md-4","Centre",form.centre,true) }}
+            <div class="tabbable">
+                {% include 'BackBienEtreBundle:Ref/pack:menu.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
+                            {{ formulaire.select2("col-md-4","Centre",form.centre,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.select2("col-md-4","Soins",form.soins,true) }}
+                            {{ formulaire.select2("col-md-4","Cures",form.cures,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-8","Description",form.description,true) }}
+                        </div>
+                        {{ formulaire.submit("Enregistrer") }}
+                        {{ form_end(form) }}
                     </div>
-                    <div class="row">
-                        {{ formulaire.select2("col-md-6","Soins",form.soins,true) }}
-                        {{ formulaire.select2("col-md-6","Cures",form.cures,true) }}
-                    </div>
-                    <div class="row">
-                        {{ formulaire.input("col-md-12","Description",form.description,true) }}
-                    </div>
-                    {{ formulaire.submit("Enregistrer") }}
-                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
@@ -40,9 +42,9 @@
                                 <th>#</th>
                                 <th>Libellé</th>
                                 <th>Centre</th>
-                                <th>Soin</th>
-                                <th>Cure</th>
-                                <th>Prix</th>
+                                <th>Soins</th>
+                                <th>Cures</th>
+                                <th>Tarifs</th>
                                 <th class="pack" >Action</th>
                             </tr>
                         </thead>
@@ -53,16 +55,16 @@
                                     <td>{{ pack.libelle }}</td>
                                     <td>{{ pack.centre }}</td>
                                     <td>
-                                    {% for soin in pack.soins %}
-                                        - {{ soin.libelle }} <br>
-                                    {% endfor %}
+                                        {% for soin in pack.soins %}
+                                            - {{ soin.libelle }} <br>
+                                        {% endfor %}
                                     </td>
                                     <td>
-                                    {% for cure in pack.cures %}
-                                        - {{ cure.libelle }} <br>
-                                    {% endfor %}
+                                        {% for cure in pack.cures %}
+                                            - {{ cure.libelle }} <br>
+                                        {% endfor %}
                                     </td>
-                                    <td>{{ pack.prix }}</td>
+                                    <td><a href="{{ path('back_bienetre_ref_pack_tarif',{'id':pack.id}) }}"> {{ pack.tarifs|length }} tarifs</a></td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             {{ macros.tableEdit(path('back_bienetre_ref_pack',{'id':pack.id})) }}
