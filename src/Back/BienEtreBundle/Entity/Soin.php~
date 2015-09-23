@@ -4,7 +4,6 @@ namespace Back\BienEtreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Soin
@@ -31,13 +30,6 @@ class Soin
     private $libelle;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="prix", type="integer")
-     */
-    private $prix;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="description", type="text")
@@ -51,9 +43,15 @@ class Soin
     private $centre;
     
     /**
+     * @ORM\OneToMany(targetEntity="Tarif", mappedBy="soin")
+     */
+    protected $tarifs;
+    
+    /**
      * @Gedmo\Slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
+    
     private $slug;
 
     /**
@@ -68,6 +66,13 @@ class Soin
      */
     private $updated;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tarif = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -103,29 +108,6 @@ class Soin
     }
 
     /**
-     * Set prix
-     *
-     * @param integer $prix
-     * @return Soin
-     */
-    public function setPrix($prix)
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
-    /**
-     * Get prix
-     *
-     * @return integer 
-     */
-    public function getPrix()
-    {
-        return $this->prix;
-    }
-
-    /**
      * Set description
      *
      * @param string $description
@@ -146,5 +128,135 @@ class Soin
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Soin
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Soin
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Soin
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set centre
+     *
+     * @param \Back\BienEtreBundle\Entity\Centre $centre
+     * @return Soin
+     */
+    public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre = null)
+    {
+        $this->centre = $centre;
+
+        return $this;
+    }
+
+    /**
+     * Get centre
+     *
+     * @return \Back\BienEtreBundle\Entity\Centre 
+     */
+    public function getCentre()
+    {
+        return $this->centre;
+    }
+
+    /**
+     * Add tarif
+     *
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarif
+     * @return Soin
+     */
+    public function addTarif(\Back\BienEtreBundle\Entity\Tarif $tarif)
+    {
+        $this->tarif[] = $tarif;
+
+        return $this;
+    }
+
+    /**
+     * Remove tarif
+     *
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarif
+     */
+    public function removeTarif(\Back\BienEtreBundle\Entity\Tarif $tarif)
+    {
+        $this->tarif->removeElement($tarif);
+    }
+
+    /**
+     * Get tarif
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTarif()
+    {
+        return $this->tarif;
+    }
+    
+    public function __toString()
+    {
+        return $this->libelle;
     }
 }

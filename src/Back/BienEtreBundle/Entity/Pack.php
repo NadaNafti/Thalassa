@@ -30,13 +30,6 @@ class Pack {
     private $libelle;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="prix", type="integer")
-     */
-    private $prix;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="description", type="text")
@@ -67,6 +60,11 @@ class Pack {
      * )
      */
     protected $cures;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Tarif", mappedBy="pack")
+     */
+    protected $tarifs;
 
     /**
      * @Gedmo\Slug(fields={"libelle"})
@@ -86,12 +84,25 @@ class Pack {
      */
     private $updated;
 
+    
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->soins = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cures = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tarifs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -101,7 +112,8 @@ class Pack {
      * @param string $libelle
      * @return Pack
      */
-    public function setLibelle($libelle) {
+    public function setLibelle($libelle)
+    {
         $this->libelle = $libelle;
 
         return $this;
@@ -112,29 +124,9 @@ class Pack {
      *
      * @return string 
      */
-    public function getLibelle() {
+    public function getLibelle()
+    {
         return $this->libelle;
-    }
-
-    /**
-     * Set prix
-     *
-     * @param integer $prix
-     * @return Pack
-     */
-    public function setPrix($prix) {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
-    /**
-     * Get prix
-     *
-     * @return integer 
-     */
-    public function getPrix() {
-        return $this->prix;
     }
 
     /**
@@ -143,7 +135,8 @@ class Pack {
      * @param string $description
      * @return Pack
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
 
         return $this;
@@ -154,7 +147,8 @@ class Pack {
      *
      * @return string 
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
@@ -164,7 +158,8 @@ class Pack {
      * @param string $slug
      * @return Pack
      */
-    public function setSlug($slug) {
+    public function setSlug($slug)
+    {
         $this->slug = $slug;
 
         return $this;
@@ -175,7 +170,8 @@ class Pack {
      *
      * @return string 
      */
-    public function getSlug() {
+    public function getSlug()
+    {
         return $this->slug;
     }
 
@@ -185,7 +181,8 @@ class Pack {
      * @param \DateTime $created
      * @return Pack
      */
-    public function setCreated($created) {
+    public function setCreated($created)
+    {
         $this->created = $created;
 
         return $this;
@@ -196,7 +193,8 @@ class Pack {
      *
      * @return \DateTime 
      */
-    public function getCreated() {
+    public function getCreated()
+    {
         return $this->created;
     }
 
@@ -206,7 +204,8 @@ class Pack {
      * @param \DateTime $updated
      * @return Pack
      */
-    public function setUpdated($updated) {
+    public function setUpdated($updated)
+    {
         $this->updated = $updated;
 
         return $this;
@@ -217,7 +216,8 @@ class Pack {
      *
      * @return \DateTime 
      */
-    public function getUpdated() {
+    public function getUpdated()
+    {
         return $this->updated;
     }
 
@@ -227,7 +227,8 @@ class Pack {
      * @param \Back\BienEtreBundle\Entity\Centre $centre
      * @return Pack
      */
-    public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre = null) {
+    public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre = null)
+    {
         $this->centre = $centre;
 
         return $this;
@@ -238,15 +239,9 @@ class Pack {
      *
      * @return \Back\BienEtreBundle\Entity\Centre 
      */
-    public function getCentre() {
+    public function getCentre()
+    {
         return $this->centre;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct() {
-        $this->soins = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -255,7 +250,8 @@ class Pack {
      * @param \Back\BienEtreBundle\Entity\Soin $soins
      * @return Pack
      */
-    public function addSoin(\Back\BienEtreBundle\Entity\Soin $soins) {
+    public function addSoin(\Back\BienEtreBundle\Entity\Soin $soins)
+    {
         $this->soins[] = $soins;
 
         return $this;
@@ -266,7 +262,8 @@ class Pack {
      *
      * @param \Back\BienEtreBundle\Entity\Soin $soins
      */
-    public function removeSoin(\Back\BienEtreBundle\Entity\Soin $soins) {
+    public function removeSoin(\Back\BienEtreBundle\Entity\Soin $soins)
+    {
         $this->soins->removeElement($soins);
     }
 
@@ -275,7 +272,8 @@ class Pack {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getSoins() {
+    public function getSoins()
+    {
         return $this->soins;
     }
 
@@ -285,7 +283,8 @@ class Pack {
      * @param \Back\BienEtreBundle\Entity\Cure $cures
      * @return Pack
      */
-    public function addCure(\Back\BienEtreBundle\Entity\Cure $cures) {
+    public function addCure(\Back\BienEtreBundle\Entity\Cure $cures)
+    {
         $this->cures[] = $cures;
 
         return $this;
@@ -296,7 +295,8 @@ class Pack {
      *
      * @param \Back\BienEtreBundle\Entity\Cure $cures
      */
-    public function removeCure(\Back\BienEtreBundle\Entity\Cure $cures) {
+    public function removeCure(\Back\BienEtreBundle\Entity\Cure $cures)
+    {
         $this->cures->removeElement($cures);
     }
 
@@ -305,8 +305,46 @@ class Pack {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getCures() {
+    public function getCures()
+    {
         return $this->cures;
     }
 
+    /**
+     * Add tarifs
+     *
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
+     * @return Pack
+     */
+    public function addTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
+    {
+        $this->tarifs[] = $tarifs;
+
+        return $this;
+    }
+
+    /**
+     * Remove tarifs
+     *
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
+     */
+    public function removeTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
+    {
+        $this->tarifs->removeElement($tarifs);
+    }
+
+    /**
+     * Get tarifs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTarifs()
+    {
+        return $this->tarifs;
+    }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 }

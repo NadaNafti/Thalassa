@@ -1,0 +1,17 @@
+{% if soin.id is not null %}
+    <ul id="myTab" class="nav nav-tabs tab-bricky">
+        
+        <li {% if app.request.get('_route')=='back_bienetre_ref_soin' %}class="active"{% endif %}>
+            <a href="{{ path("back_bienetre_ref_soin",{'id':soin.id}) }}"> <i class="green fa fa-home"></i> {{ soin|title }}
+            </a>
+        </li>
+        
+        <li {% if app.request.get('_route')=='back_bienetre_ref_soin_tarif' %}class="active"{% endif %}>
+            <a href="{{ path("back_bienetre_ref_soin_tarif",{'id':soin.id}) }}"> 
+                Tarifs ({{ soin.tarifs|length }})
+            </a>
+        </li>
+
+        
+    </ul>
+{% endif %}
