@@ -16,7 +16,6 @@ class PackType extends AbstractType
     {
         $builder
             ->add('libelle')
-            ->add('prix')
             ->add('description')
             ->add('centre')
             ->add('soins')
