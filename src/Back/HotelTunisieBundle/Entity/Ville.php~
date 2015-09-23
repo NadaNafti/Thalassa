@@ -61,6 +61,11 @@ class Ville
     private $images;
 
     /**
+     * @ORM\OneToMany(targetEntity="Hotel", mappedBy="ville")
+     */
+    protected $hotels;
+
+    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column( type="datetime")
      */

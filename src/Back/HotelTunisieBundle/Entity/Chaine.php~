@@ -50,8 +50,11 @@ class Chaine
      * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
      */
     private $deletedAt;
-    
 
+    /**
+     * @ORM\OneToMany(targetEntity="Hotel", mappedBy="chaine")
+     */
+    protected $hotels;
 
     /**
      * Get id

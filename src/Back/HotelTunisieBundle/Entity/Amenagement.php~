@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="ost_sht_amenagement")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class Amenagement
 {
@@ -63,9 +64,90 @@ class Amenagement
     private $deletedAt;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\COlumn(name="updated_at",type="datetime", nullable=true)
+     */
+    private $updateAt;
+
+    /**
+     * @ORM\Column(type="string",length=255, nullable=true)
+     */
+    public $path;
+
+    public $file;
+
+    public function getUploadRootDir()
+    {
+        return __dir__ . '/../../../../web/uploads/Ammenagement';
+    }
+
+    public function getAbsolutePath()
+    {
+        return NULL === $this->path ? NULL : $this->getUploadRootDir() . '/' . $this->path;
+    }
+
+    public function getAssetPath()
+    {
+        return 'uploads/Ammenagement/' . $this->path;
+    }
+
+    /**
+     * @ORM\PostLoad()
+     */
+    public function postLoad()
+    {
+        $this->updateAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        $this->tempFile = $this->getAbsolutePath();
+        $this->oldFile = $this->path;
+        $this->updateAt = new \DateTime();
+        if (NULL !== $this->file)
+            $this->path = sha1(uniqid(mt_rand(), TRUE)) . '.' . $this->file->guessExtension();
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (NULL !== $this->file) {
+            $this->file->move($this->getUploadRootDir(), $this->path);
+            unset($this->file);
+            if ($this->oldFile != NULL && file_exists($this->tempFile))
+                unlink($this->tempFile);
+        }
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function preRemoveUpload()
+    {
+        $this->tempFile = $this->getAbsolutePath();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (file_exists($this->tempFile))
+            unlink($this->tempFile);
+    }
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -88,7 +170,7 @@ class Amenagement
     /**
      * Get libelle
      *
-     * @return string 
+     * @return string
      */
     public function getLibelle()
     {
@@ -111,7 +193,7 @@ class Amenagement
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -134,7 +216,7 @@ class Amenagement
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -157,7 +239,7 @@ class Amenagement
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -179,7 +261,7 @@ class Amenagement
     /**
      * Get typeAmenagement
      *
-     * @return \Back\HotelTunisieBundle\Entity\TypeAmenagement 
+     * @return \Back\HotelTunisieBundle\Entity\TypeAmenagement
      */
     public function getTypeAmenagement()
     {
@@ -203,15 +285,61 @@ class Amenagement
     /**
      * Get deletedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDeletedAt()
     {
         return $this->deletedAt;
     }
-    
+
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * Set updateAt
+     *
+     * @param \DateTime $updateAt
+     * @return Amenagement
+     */
+    public function setUpdateAt($updateAt)
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updateAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdateAt()
+    {
+        return $this->updateAt;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Amenagement
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 }

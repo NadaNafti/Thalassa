@@ -17,6 +17,8 @@ class HotelType extends AbstractType
     {
         $builder
             ->add('libelle')
+            ->add('checkIn')
+            ->add('checkOut')
             ->add('email1')
             ->add('email2')
             ->add('tel1')
@@ -26,6 +28,7 @@ class HotelType extends AbstractType
             ->add('adresse','text')
             ->add('descriptionCourte')
             ->add('tripAdvisor')
+            ->add('shortTripAdvisor')
             ->add('descriptionLongue','ckeditor')
             ->add('chaine')
             ->add('fournisseur')

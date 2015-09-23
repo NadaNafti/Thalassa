@@ -17,6 +17,7 @@ class AmenagementType extends AbstractType
         $builder
             ->add('libelle')
             ->add('typeAmenagement')
+            ->add('file', 'file', array('required' => false))
         ;
     }
     

@@ -1,3 +1,7 @@
+back_billetterie_maritime:
+    resource: "@BackBilletterieMaritimeBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
 back_bien_etre:
     resource: "@BackBienEtreBundle/Resources/config/routing.yml"
     prefix:   /admin/bien_etre

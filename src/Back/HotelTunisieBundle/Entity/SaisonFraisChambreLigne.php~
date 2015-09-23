@@ -22,7 +22,7 @@ class SaisonFraisChambreLigne
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SaisonFraisChambreLigne", inversedBy="lignes")
+     * @ORM\ManyToOne(targetEntity="SaisonFraisChambre", inversedBy="lignes")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $entete;
@@ -816,5 +816,28 @@ class SaisonFraisChambreLigne
     public function getArrangement()
     {
         return $this->arrangement;
+    }
+
+    /**
+     * Set entete
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonFraisChambre $entete
+     * @return SaisonFraisChambreLigne
+     */
+    public function setEntete(\Back\HotelTunisieBundle\Entity\SaisonFraisChambre $entete = null)
+    {
+        $this->entete = $entete;
+
+        return $this;
+    }
+
+    /**
+     * Get entete
+     *
+     * @return \Back\HotelTunisieBundle\Entity\SaisonFraisChambre
+     */
+    public function getEntete()
+    {
+        return $this->entete;
     }
 }
