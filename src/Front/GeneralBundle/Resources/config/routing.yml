@@ -29,3 +29,7 @@ front_programme:
 front_billetterie:
     resource: "@FrontGeneralBundle/Resources/config/routing/billetterie.yml"
     prefix:   /Billetterie
+
+front_maritime:
+    resource: "@FrontGeneralBundle/Resources/config/routing/maritime.yml"
+    prefix:   /Maritime

@@ -30,7 +30,7 @@
                                 {{ formulaire.input("col-md-4","Code postal ",form.codePostal,true) }}
                                 {{ formulaire.input("col-md-4","Ville",form.ville,true) }}
                             </div>
-                            <h3 class="section-title">Déstination</h3>
+                            <h3 class="section-title">Vole & Déstination</h3>
                             <hr>
                             <div class="row">
                                 {{ formulaire.input("col-md-4","Type de vole ",form.typeVol,true) }}
@@ -53,6 +53,7 @@
                                     <a href="javascipt:void(0)" id="removeLigne"><i class="fa-trash-o"></i></a>
                                 </span>
                             </h3>
+
                             <div id="passagers">
                                 {% for ligne in form.lignes %}
                                     <div class="row">
@@ -129,11 +130,11 @@
                 $("#addLigne").on('click', function () {
                     $('#submitButton').show();
                     var nbrLigne = $("#passagers").children().length;
-                    $("#passagers").append("<div class='row'> <div class='col-md-3'><label class='control-label'>Age<span class='symbol required'></span></label><select id='back_billetteriemaritimebundle_billetteriereservation_lignes_"+nbrLigne+"_type' name='back_billetteriemaritimebundle_billetteriereservation[lignes]["+nbrLigne+"][type]' class='form-control'><option value='1'>Adulte (+23 ans)</option><option value='2'>Jeune (19-23 ans)</option><option value='3'>Enfant (2-11 ans)</option><option value='4'>Bébé (0-23 mois)</option></select></div> <div class='col-md-3'><label class='control-label'>Nom &amp; Prénom<span class='symbol required'></span></label><input type='text' id='back_billetteriemaritimebundle_billetteriereservation_lignes_"+nbrLigne+"_nomPrenom' name='back_billetteriemaritimebundle_billetteriereservation[lignes]["+nbrLigne+"][nomPrenom]' required='required' maxlength='255' class='form-control'></div> <div class='col-md-3'><label class='control-label'>Date de naissance<span class='symbol required'></span></label><input type='date' id='back_billetteriemaritimebundle_billetteriereservation_lignes_"+nbrLigne+"_naissance' name='back_billetteriemaritimebundle_billetteriereservation[lignes]["+nbrLigne+"][naissance]' class='form-control'></div> <div class='col-md-3'><label class='control-label'>Passport<span class='symbol required'></span></label><input type='text' id='back_billetteriemaritimebundle_billetteriereservation_lignes_"+nbrLigne+"_passport' name='back_billetteriemaritimebundle_billetteriereservation[lignes]["+nbrLigne+"][passport]' required='required' maxlength='255' class='form-control'></div></div>");
+                    $("#passagers").append("<div class='row'> <div class='col-md-3'><label class='control-label'>Age<span class='symbol required'></span></label><select id='back_billetteriemaritimebundle_billetteriereservation_lignes_" + nbrLigne + "_type' name='back_billetteriemaritimebundle_billetteriereservation[lignes][" + nbrLigne + "][type]' class='form-control'><option value='1'>Adulte (+23 ans)</option><option value='2'>Jeune (19-23 ans)</option><option value='3'>Enfant (2-11 ans)</option><option value='4'>Bébé (0-23 mois)</option></select></div> <div class='col-md-3'><label class='control-label'>Nom &amp; Prénom<span class='symbol required'></span></label><input type='text' id='back_billetteriemaritimebundle_billetteriereservation_lignes_" + nbrLigne + "_nomPrenom' name='back_billetteriemaritimebundle_billetteriereservation[lignes][" + nbrLigne + "][nomPrenom]' required='required' maxlength='255' class='form-control'></div> <div class='col-md-3'><label class='control-label'>Date de naissance<span class='symbol required'></span></label><input type='date' id='back_billetteriemaritimebundle_billetteriereservation_lignes_" + nbrLigne + "_naissance' name='back_billetteriemaritimebundle_billetteriereservation[lignes][" + nbrLigne + "][naissance]' class='form-control'></div> <div class='col-md-3'><label class='control-label'>Passport<span class='symbol required'></span></label><input type='text' id='back_billetteriemaritimebundle_billetteriereservation_lignes_" + nbrLigne + "_passport' name='back_billetteriemaritimebundle_billetteriereservation[lignes][" + nbrLigne + "][passport]' required='required' maxlength='255' class='form-control'></div></div>");
                 })
                 $("#removeLigne").on('click', function () {
                     var nbrLigne = $("#passagers").children().length;
-                    $("#passagers").children().eq(nbrLigne-1).remove();
+                    $("#passagers").children().eq(nbrLigne - 1).remove();
                 })
             })
         </script>
