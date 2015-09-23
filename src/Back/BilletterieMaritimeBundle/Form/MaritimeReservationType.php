@@ -21,6 +21,7 @@ class MaritimeReservationType extends AbstractType
                     2 => "Aller-Simple",
                 )
             ))
+            ->add('commentaire')
             ->add('nomPrenom')
             ->add('email')
             ->add('cin')
