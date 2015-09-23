@@ -156,7 +156,7 @@ class MaritimeReservation
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -179,7 +179,7 @@ class MaritimeReservation
     /**
      * Get typeVoyage
      *
-     * @return integer 
+     * @return integer
      */
     public function getTypeVoyage()
     {
@@ -202,7 +202,7 @@ class MaritimeReservation
     /**
      * Get nomPrenom
      *
-     * @return string 
+     * @return string
      */
     public function getNomPrenom()
     {
@@ -225,7 +225,7 @@ class MaritimeReservation
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -248,7 +248,7 @@ class MaritimeReservation
     /**
      * Get cin
      *
-     * @return string 
+     * @return string
      */
     public function getCin()
     {
@@ -271,7 +271,7 @@ class MaritimeReservation
     /**
      * Get tel
      *
-     * @return string 
+     * @return string
      */
     public function getTel()
     {
@@ -294,7 +294,7 @@ class MaritimeReservation
     /**
      * Get marque
      *
-     * @return string 
+     * @return string
      */
     public function getMarque()
     {
@@ -317,7 +317,7 @@ class MaritimeReservation
     /**
      * Get matriculation
      *
-     * @return string 
+     * @return string
      */
     public function getMatriculation()
     {
@@ -340,7 +340,7 @@ class MaritimeReservation
     /**
      * Get passagers
      *
-     * @return integer 
+     * @return integer
      */
     public function getPassagers()
     {
@@ -363,7 +363,7 @@ class MaritimeReservation
     /**
      * Get cabine
      *
-     * @return integer 
+     * @return integer
      */
     public function getCabine()
     {
@@ -386,7 +386,7 @@ class MaritimeReservation
     /**
      * Get lieuDepart
      *
-     * @return string 
+     * @return string
      */
     public function getLieuDepart()
     {
@@ -409,7 +409,7 @@ class MaritimeReservation
     /**
      * Get lieuArrivee
      *
-     * @return string 
+     * @return string
      */
     public function getLieuArrivee()
     {
@@ -432,12 +432,13 @@ class MaritimeReservation
     /**
      * Get dateDepart
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateDepart()
     {
         return $this->dateDepart;
     }
+
     /**
      * Constructor
      */
@@ -462,7 +463,7 @@ class MaritimeReservation
     /**
      * Get etat
      *
-     * @return integer 
+     * @return integer
      */
     public function getEtat()
     {
@@ -485,7 +486,7 @@ class MaritimeReservation
     /**
      * Get frontOffice
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getFrontOffice()
     {
@@ -508,7 +509,7 @@ class MaritimeReservation
     /**
      * Get commentaire
      *
-     * @return string 
+     * @return string
      */
     public function getCommentaire()
     {
@@ -531,7 +532,7 @@ class MaritimeReservation
     /**
      * Get validated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getValidated()
     {
@@ -554,7 +555,7 @@ class MaritimeReservation
     /**
      * Get responsable
      *
-     * @return \Back\UserBundle\Entity\User 
+     * @return \Back\UserBundle\Entity\User
      */
     public function getResponsable()
     {
@@ -577,7 +578,7 @@ class MaritimeReservation
     /**
      * Get client
      *
-     * @return \Back\UserBundle\Entity\Client 
+     * @return \Back\UserBundle\Entity\Client
      */
     public function getClient()
     {
@@ -610,10 +611,42 @@ class MaritimeReservation
     /**
      * Get reglements
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getReglements()
     {
         return $this->reglements;
+    }
+
+    public function showTypeVoyage()
+    {
+        if ($this->typeVoyage == 1)
+            return "Aller-Retour";
+        if ($this->typeVoyage == 2)
+            return "Aller-Simple";
+    }
+
+    public function showPassagers()
+    {
+        if ($this->passagers == 1)
+            return "Résident";
+        if ($this->passagers == 2)
+            return "Non-Résident";
+        if ($this->passagers == 3)
+            return "Diplomat";
+        if ($this->passagers == 4)
+            return "Etudiant";
+    }
+
+    public function showCabine()
+    {
+        if ($this->cabine == 1)
+            return "Fauteuille";
+        if ($this->cabine == 1)
+            return "Cabinet-Exterieur";
+        if ($this->cabine == 1)
+            return "Cabinet-Interieur";
+        if ($this->cabine == 1)
+            return "Suite";
     }
 }
