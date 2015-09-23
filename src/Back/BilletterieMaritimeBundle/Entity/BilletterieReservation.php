@@ -26,9 +26,9 @@ class BilletterieReservation
     /**
      * @var integer
      *
-     * 1:Enregistrée
-     * 2:Validée
-     * 9:Annulée
+     * 1:Enregistrï¿½e
+     * 2:Validï¿½e
+     * 9:Annulï¿½e
      * @ORM\Column(name="etat", type="integer")
      */
     private $etat;
@@ -169,7 +169,7 @@ class BilletterieReservation
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -192,7 +192,7 @@ class BilletterieReservation
     /**
      * Get typeVol
      *
-     * @return integer 
+     * @return integer
      */
     public function getTypeVol()
     {
@@ -215,7 +215,7 @@ class BilletterieReservation
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -238,7 +238,7 @@ class BilletterieReservation
     /**
      * Get cin
      *
-     * @return string 
+     * @return string
      */
     public function getCin()
     {
@@ -261,7 +261,7 @@ class BilletterieReservation
     /**
      * Get tel
      *
-     * @return string 
+     * @return string
      */
     public function getTel()
     {
@@ -284,7 +284,7 @@ class BilletterieReservation
     /**
      * Get codePostal
      *
-     * @return string 
+     * @return string
      */
     public function getCodePostal()
     {
@@ -307,7 +307,7 @@ class BilletterieReservation
     /**
      * Get ville
      *
-     * @return string 
+     * @return string
      */
     public function getVille()
     {
@@ -330,7 +330,7 @@ class BilletterieReservation
     /**
      * Get company
      *
-     * @return string 
+     * @return string
      */
     public function getCompany()
     {
@@ -353,7 +353,7 @@ class BilletterieReservation
     /**
      * Get classe
      *
-     * @return integer 
+     * @return integer
      */
     public function getClasse()
     {
@@ -376,7 +376,7 @@ class BilletterieReservation
     /**
      * Get lieuDepart
      *
-     * @return string 
+     * @return string
      */
     public function getLieuDepart()
     {
@@ -399,7 +399,7 @@ class BilletterieReservation
     /**
      * Get lieuArriver
      *
-     * @return string 
+     * @return string
      */
     public function getLieuArriver()
     {
@@ -422,7 +422,7 @@ class BilletterieReservation
     /**
      * Get dateDepart
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateDepart()
     {
@@ -445,12 +445,13 @@ class BilletterieReservation
     /**
      * Get dateArriver
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateArriver()
     {
         return $this->dateArriver;
     }
+
     /**
      * Constructor
      */
@@ -476,7 +477,7 @@ class BilletterieReservation
     /**
      * Get etat
      *
-     * @return integer 
+     * @return integer
      */
     public function getEtat()
     {
@@ -499,7 +500,7 @@ class BilletterieReservation
     /**
      * Get frontOffice
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getFrontOffice()
     {
@@ -522,7 +523,7 @@ class BilletterieReservation
     /**
      * Get commentaire
      *
-     * @return string 
+     * @return string
      */
     public function getCommentaire()
     {
@@ -545,7 +546,7 @@ class BilletterieReservation
     /**
      * Get validated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getValidated()
     {
@@ -568,7 +569,7 @@ class BilletterieReservation
     /**
      * Get responsable
      *
-     * @return \Back\UserBundle\Entity\User 
+     * @return \Back\UserBundle\Entity\User
      */
     public function getResponsable()
     {
@@ -591,7 +592,7 @@ class BilletterieReservation
     /**
      * Get client
      *
-     * @return \Back\UserBundle\Entity\Client 
+     * @return \Back\UserBundle\Entity\Client
      */
     public function getClient()
     {
@@ -624,7 +625,7 @@ class BilletterieReservation
     /**
      * Get reglements
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getReglements()
     {
@@ -657,7 +658,7 @@ class BilletterieReservation
     /**
      * Get lignes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getLignes()
     {
@@ -680,10 +681,30 @@ class BilletterieReservation
     /**
      * Get nomPrenom
      *
-     * @return string 
+     * @return string
      */
     public function getNomPrenom()
     {
         return $this->nomPrenom;
+    }
+
+    public function showTypeVole()
+    {
+        if ($this->getTypeVol() == 1)
+            return "Aller-Retour";
+        if ($this->getTypeVol() == 2)
+            return "Aller-Simple";
+        if ($this->getTypeVol() == 3)
+            return "Multi-Segments";
+    }
+
+    public function showClasse()
+    {
+        if ($this->classe == 1)
+            return "Economy";
+        if ($this->classe == 2)
+            return "Business";
+        if ($this->classe == 3)
+            return "First";
     }
 }

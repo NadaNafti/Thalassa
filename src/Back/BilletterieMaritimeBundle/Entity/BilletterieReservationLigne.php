@@ -180,4 +180,16 @@ class BilletterieReservationLigne
     {
         return $this->reservation;
     }
+
+    public function showType()
+    {
+        if($this->type==1)
+            return 'Adulte (+23 ans)';
+        if($this->type==2)
+            return 'Jeune (19-23 ans)';
+        if($this->type==3)
+            return 'Enfant (2-11 ans)';
+        if($this->type==4)
+            return 'Bébé (0-23 mois)';
+    }
 }
