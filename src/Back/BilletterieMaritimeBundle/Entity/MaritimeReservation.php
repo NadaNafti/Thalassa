@@ -3,16 +3,14 @@
 namespace Back\BilletterieMaritimeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Billetterie
+ * MaritimeReservation
  *
- * @ORM\Table(name="ost_billetterie_reservation")
- * @ORM\Entity()
+ * @ORM\Table(name="ost_maritime_reservation")
+ * @ORM\Entity
  */
-class BilletterieReservation
+class MaritimeReservation
 {
     /**
      * @var integer
@@ -53,7 +51,7 @@ class BilletterieReservation
     private $commentaire;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservationsBilletterie")
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservationsVO")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $client;
@@ -66,16 +64,16 @@ class BilletterieReservation
     private $validated;
 
     /**
-     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationVO")
+     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationMaritime")
      */
     protected $reglements;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="typeVol", type="integer")
+     * @ORM\Column(name="typeVoyage", type="integer")
      */
-    private $typeVol;
+    private $typeVoyage;
 
     /**
      * @var string
@@ -108,30 +106,30 @@ class BilletterieReservation
     /**
      * @var string
      *
-     * @ORM\Column(name="codePostal", type="string", length=255)
+     * @ORM\Column(name="marque", type="string", length=255)
      */
-    private $codePostal;
+    private $marque;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ville", type="string", length=255)
+     * @ORM\Column(name="matriculation", type="string", length=255)
      */
-    private $ville;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="company", type="string", length=255)
-     */
-    private $company;
+    private $matriculation;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="classe", type="integer")
+     * @ORM\Column(name="passagers", type="integer")
      */
-    private $classe;
+    private $passagers;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="cabine", type="integer")
+     */
+    private $cabine;
 
     /**
      * @var string
@@ -143,9 +141,9 @@ class BilletterieReservation
     /**
      * @var string
      *
-     * @ORM\Column(name="lieuArriver", type="string", length=255)
+     * @ORM\Column(name="lieuArrivee", type="string", length=255)
      */
-    private $lieuArriver;
+    private $lieuArrivee;
 
     /**
      * @var \DateTime
@@ -154,22 +152,11 @@ class BilletterieReservation
      */
     private $dateDepart;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateArriver", type="date")
-     */
-    private $dateArriver;
-
-    /**
-     * @ORM\OneToMany(targetEntity="BilletterieReservationLigne", mappedBy="reservation")
-     */
-    protected $lignes;
 
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -177,33 +164,56 @@ class BilletterieReservation
     }
 
     /**
-     * Set typeVol
+     * Set typeVoyage
      *
-     * @param integer $typeVol
-     * @return Billetterie
+     * @param integer $typeVoyage
+     * @return MaritimeReservation
      */
-    public function setTypeVol($typeVol)
+    public function setTypeVoyage($typeVoyage)
     {
-        $this->typeVol = $typeVol;
+        $this->typeVoyage = $typeVoyage;
 
         return $this;
     }
 
     /**
-     * Get typeVol
+     * Get typeVoyage
      *
-     * @return integer
+     * @return integer 
      */
-    public function getTypeVol()
+    public function getTypeVoyage()
     {
-        return $this->typeVol;
+        return $this->typeVoyage;
+    }
+
+    /**
+     * Set nomPrenom
+     *
+     * @param string $nomPrenom
+     * @return MaritimeReservation
+     */
+    public function setNomPrenom($nomPrenom)
+    {
+        $this->nomPrenom = $nomPrenom;
+
+        return $this;
+    }
+
+    /**
+     * Get nomPrenom
+     *
+     * @return string 
+     */
+    public function getNomPrenom()
+    {
+        return $this->nomPrenom;
     }
 
     /**
      * Set email
      *
      * @param string $email
-     * @return Billetterie
+     * @return MaritimeReservation
      */
     public function setEmail($email)
     {
@@ -215,7 +225,7 @@ class BilletterieReservation
     /**
      * Get email
      *
-     * @return string
+     * @return string 
      */
     public function getEmail()
     {
@@ -226,7 +236,7 @@ class BilletterieReservation
      * Set cin
      *
      * @param string $cin
-     * @return Billetterie
+     * @return MaritimeReservation
      */
     public function setCin($cin)
     {
@@ -238,7 +248,7 @@ class BilletterieReservation
     /**
      * Get cin
      *
-     * @return string
+     * @return string 
      */
     public function getCin()
     {
@@ -249,7 +259,7 @@ class BilletterieReservation
      * Set tel
      *
      * @param string $tel
-     * @return Billetterie
+     * @return MaritimeReservation
      */
     public function setTel($tel)
     {
@@ -261,7 +271,7 @@ class BilletterieReservation
     /**
      * Get tel
      *
-     * @return string
+     * @return string 
      */
     public function getTel()
     {
@@ -269,102 +279,102 @@ class BilletterieReservation
     }
 
     /**
-     * Set codePostal
+     * Set marque
      *
-     * @param string $codePostal
-     * @return Billetterie
+     * @param string $marque
+     * @return MaritimeReservation
      */
-    public function setCodePostal($codePostal)
+    public function setMarque($marque)
     {
-        $this->codePostal = $codePostal;
+        $this->marque = $marque;
 
         return $this;
     }
 
     /**
-     * Get codePostal
+     * Get marque
      *
-     * @return string
+     * @return string 
      */
-    public function getCodePostal()
+    public function getMarque()
     {
-        return $this->codePostal;
+        return $this->marque;
     }
 
     /**
-     * Set ville
+     * Set matriculation
      *
-     * @param string $ville
-     * @return Billetterie
+     * @param string $matriculation
+     * @return MaritimeReservation
      */
-    public function setVille($ville)
+    public function setMatriculation($matriculation)
     {
-        $this->ville = $ville;
+        $this->matriculation = $matriculation;
 
         return $this;
     }
 
     /**
-     * Get ville
+     * Get matriculation
      *
-     * @return string
+     * @return string 
      */
-    public function getVille()
+    public function getMatriculation()
     {
-        return $this->ville;
+        return $this->matriculation;
     }
 
     /**
-     * Set company
+     * Set passagers
      *
-     * @param string $company
-     * @return Billetterie
+     * @param integer $passagers
+     * @return MaritimeReservation
      */
-    public function setCompany($company)
+    public function setPassagers($passagers)
     {
-        $this->company = $company;
+        $this->passagers = $passagers;
 
         return $this;
     }
 
     /**
-     * Get company
+     * Get passagers
      *
-     * @return string
+     * @return integer 
      */
-    public function getCompany()
+    public function getPassagers()
     {
-        return $this->company;
+        return $this->passagers;
     }
 
     /**
-     * Set classe
+     * Set cabine
      *
-     * @param integer $classe
-     * @return Billetterie
+     * @param integer $cabine
+     * @return MaritimeReservation
      */
-    public function setClasse($classe)
+    public function setCabine($cabine)
     {
-        $this->classe = $classe;
+        $this->cabine = $cabine;
 
         return $this;
     }
 
     /**
-     * Get classe
+     * Get cabine
      *
-     * @return integer
+     * @return integer 
      */
-    public function getClasse()
+    public function getCabine()
     {
-        return $this->classe;
+        return $this->cabine;
     }
 
     /**
      * Set lieuDepart
      *
      * @param string $lieuDepart
-     * @return Billetterie
+     * @return MaritimeReservation
      */
     public function setLieuDepart($lieuDepart)
     {
@@ -376,7 +386,7 @@ class BilletterieReservation
     /**
      * Get lieuDepart
      *
-     * @return string
+     * @return string 
      */
     public function getLieuDepart()
     {
@@ -384,33 +394,33 @@ class BilletterieReservation
     }
 
     /**
-     * Set lieuArriver
+     * Set lieuArrivee
      *
-     * @param string $lieuArriver
-     * @return Billetterie
+     * @param string $lieuArrivee
+     * @return MaritimeReservation
      */
-    public function setLieuArriver($lieuArriver)
+    public function setLieuArrivee($lieuArrivee)
     {
-        $this->lieuArriver = $lieuArriver;
+        $this->lieuArrivee = $lieuArrivee;
 
         return $this;
     }
 
     /**
-     * Get lieuArriver
+     * Get lieuArrivee
      *
-     * @return string
+     * @return string 
      */
-    public function getLieuArriver()
+    public function getLieuArrivee()
     {
-        return $this->lieuArriver;
+        return $this->lieuArrivee;
     }
 
     /**
      * Set dateDepart
      *
      * @param \DateTime $dateDepart
-     * @return Billetterie
+     * @return MaritimeReservation
      */
     public function setDateDepart($dateDepart)
     {
@@ -422,50 +432,25 @@ class BilletterieReservation
     /**
      * Get dateDepart
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getDateDepart()
     {
         return $this->dateDepart;
     }
-
-    /**
-     * Set dateArriver
-     *
-     * @param \DateTime $dateArriver
-     * @return Billetterie
-     */
-    public function setDateArriver($dateArriver)
-    {
-        $this->dateArriver = $dateArriver;
-
-        return $this;
-    }
-
-    /**
-     * Get dateArriver
-     *
-     * @return \DateTime
-     */
-    public function getDateArriver()
-    {
-        return $this->dateArriver;
-    }
-
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->lignes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Set etat
      *
      * @param integer $etat
-     * @return BilletterieReservation
+     * @return MaritimeReservation
      */
     public function setEtat($etat)
     {
@@ -477,7 +462,7 @@ class BilletterieReservation
     /**
      * Get etat
      *
-     * @return integer
+     * @return integer 
      */
     public function getEtat()
     {
@@ -488,7 +473,7 @@ class BilletterieReservation
      * Set frontOffice
      *
      * @param boolean $frontOffice
-     * @return BilletterieReservation
+     * @return MaritimeReservation
      */
     public function setFrontOffice($frontOffice)
     {
@@ -500,7 +485,7 @@ class BilletterieReservation
     /**
      * Get frontOffice
      *
-     * @return boolean
+     * @return boolean 
      */
     public function getFrontOffice()
     {
@@ -511,7 +496,7 @@ class BilletterieReservation
      * Set commentaire
      *
      * @param string $commentaire
-     * @return BilletterieReservation
+     * @return MaritimeReservation
      */
     public function setCommentaire($commentaire)
     {
@@ -523,7 +508,7 @@ class BilletterieReservation
     /**
      * Get commentaire
      *
-     * @return string
+     * @return string 
      */
     public function getCommentaire()
     {
@@ -534,7 +519,7 @@ class BilletterieReservation
      * Set validated
      *
      * @param \DateTime $validated
-     * @return BilletterieReservation
+     * @return MaritimeReservation
      */
     public function setValidated($validated)
     {
@@ -546,7 +531,7 @@ class BilletterieReservation
     /**
      * Get validated
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getValidated()
     {
@@ -557,7 +542,7 @@ class BilletterieReservation
      * Set responsable
      *
      * @param \Back\UserBundle\Entity\User $responsable
-     * @return BilletterieReservation
+     * @return MaritimeReservation
      */
     public function setResponsable(\Back\UserBundle\Entity\User $responsable = null)
     {
@@ -569,7 +554,7 @@ class BilletterieReservation
     /**
      * Get responsable
      *
-     * @return \Back\UserBundle\Entity\User
+     * @return \Back\UserBundle\Entity\User 
      */
     public function getResponsable()
     {
@@ -580,7 +565,7 @@ class BilletterieReservation
      * Set client
      *
      * @param \Back\UserBundle\Entity\Client $client
-     * @return BilletterieReservation
+     * @return MaritimeReservation
      */
     public function setClient(\Back\UserBundle\Entity\Client $client = null)
     {
@@ -592,7 +577,7 @@ class BilletterieReservation
     /**
      * Get client
      *
-     * @return \Back\UserBundle\Entity\Client
+     * @return \Back\UserBundle\Entity\Client 
      */
     public function getClient()
     {
@@ -603,7 +588,7 @@ class BilletterieReservation
      * Add reglements
      *
      * @param \Back\CommercialBundle\Entity\Reglement $reglements
-     * @return BilletterieReservation
+     * @return MaritimeReservation
      */
     public function addReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
     {
@@ -625,86 +610,10 @@ class BilletterieReservation
     /**
      * Get reglements
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getReglements()
     {
         return $this->reglements;
-    }
-
-    /**
-     * Add lignes
-     *
-     * @param \Back\BilletterieMaritimeBundle\Entity\BilletterieReservationLigne $lignes
-     * @return BilletterieReservation
-     */
-    public function addLigne(\Back\BilletterieMaritimeBundle\Entity\BilletterieReservationLigne $lignes)
-    {
-        $this->lignes[] = $lignes;
-
-        return $this;
-    }
-
-    /**
-     * Remove lignes
-     *
-     * @param \Back\BilletterieMaritimeBundle\Entity\BilletterieReservationLigne $lignes
-     */
-    public function removeLigne(\Back\BilletterieMaritimeBundle\Entity\BilletterieReservationLigne $lignes)
-    {
-        $this->lignes->removeElement($lignes);
-    }
-
-    /**
-     * Get lignes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getLignes()
-    {
-        return $this->lignes;
-    }
-
-    /**
-     * Set nomPrenom
-     *
-     * @param string $nomPrenom
-     * @return BilletterieReservation
-     */
-    public function setNomPrenom($nomPrenom)
-    {
-        $this->nomPrenom = $nomPrenom;
-
-        return $this;
-    }
-
-    /**
-     * Get nomPrenom
-     *
-     * @return string
-     */
-    public function getNomPrenom()
-    {
-        return $this->nomPrenom;
-    }
-
-    public function showTypeVole()
-    {
-        if ($this->getTypeVol() == 1)
-            return "Aller-Retour";
-        if ($this->getTypeVol() == 2)
-            return "Aller-Simple";
-        if ($this->getTypeVol() == 3)
-            return "Multi-Segments";
-    }
-
-    public function showClasse()
-    {
-        if ($this->classe == 1)
-            return "Economy";
-        if ($this->classe == 2)
-            return "Business";
-        if ($this->classe == 3)
-            return "First";
     }
 }
