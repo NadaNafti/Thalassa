@@ -50,8 +50,12 @@ class BilletterieReservationType extends AbstractType
                 'widget'   => 'single_text',
                 'format'   => 'yyyy-MM-dd',
             ))
-            ->add('lignes', 'collection', array('type' => new BilletterieReservationLigneType()));
-    }
+
+            ->add('lignes', 'collection', array(
+                'type' => new BilletterieReservationLigneType(),
+                'allow_add' => true,
+                'by_reference' => true,
+            ));    }
 
     /**
      * @param OptionsResolverInterface $resolver
