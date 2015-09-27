@@ -15,18 +15,23 @@
                     </div>
                     <ul class="minimal-label pd-img">
                         {% for programme in topProgramme.theme.programmes %}
-                            <li>
-                                {% if programme.photoPrincipal is not null %}
-                                    <img src="{{ asset(programme.photoPrincipal.assetPath) }}" style="width: 70px;height: 70px" alt=""/>
-                                {% else %}
-                                    <img src="https://placeholdit.imgix.net/~text?txtsize=10&txt=Not%20image%20available&w=70&h=70" style="width: 70px;height: 70px" alt=""/>
-                                {% endif %}
-                                <a href="{{ path('front_programme_details',{'slug':programme.slug}) }}">{{ programme }}</a>
-                                <div class="minimal-price" style="top: 35px;right: 10px;text-align: center;">
-                                    <span>A partir de</span>
-                                    <strong>{{ programme.prix }} DT</strong>
-                                </div>
-                            </li>
+                            {% if loop.index <=3 %}
+                                <li>
+                                    {% if programme.photoPrincipal is not null %}
+                                        <img src="{{ asset(programme.photoPrincipal.assetPath) }}"
+                                             style="width: 70px;height: 70px" alt=""/>
+                                    {% else %}
+                                        <img src="https://placeholdit.imgix.net/~text?txtsize=10&txt=Not%20image%20available&w=70&h=70"
+                                             style="width: 70px;height: 70px" alt=""/>
+                                    {% endif %}
+                                    <a href="{{ path('front_programme_details',{'slug':programme.slug}) }}">{{ programme }}</a>
+
+                                    <div class="minimal-price" style="top: 35px;right: 10px;text-align: center;">
+                                        <span>A partir de</span>
+                                        <strong>{{ programme.prix }} DT</strong>
+                                    </div>
+                                </li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                 </div>
