@@ -30,6 +30,13 @@ class Pack {
     private $libelle;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="type", type="integer")
+     */
+    private $type;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="description", type="text")
@@ -91,7 +98,16 @@ class Pack {
     private $updated;
 
     
-    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->soins = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cures = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tarifs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     
 
     /**
@@ -344,5 +360,38 @@ class Pack {
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * Add photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     * @return Pack
+     */
+    public function addPhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     */
+    public function removePhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 }

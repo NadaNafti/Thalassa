@@ -6,13 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Soin
+ * Pack
  *
- * @ORM\Table(name="ost_be_soin")
+ * @ORM\Table(name="ost_be_produit")
  * @ORM\Entity
  */
-class Soin
-{
+class Produit {
+
     /**
      * @var integer
      *
@@ -30,12 +30,27 @@ class Soin
     private $libelle;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="type", type="integer")
+     */
+    private $type;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="descriptionCourte", type="text")
      */
-    private $description;
+    private $descriptionCourte;
     
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descriptionLongue", type="text")
+     */
+    private $descriptionLongue;
+
+
     /**
      * @ORM\ManyToOne(targetEntity="Back\BienEtreBundle\Entity\Centre")
      * @ORM\JoinColumn(onDelete="CASCADE")
@@ -43,20 +58,19 @@ class Soin
     private $centre;
     
     /**
-     * @ORM\OneToMany(targetEntity="Tarif", mappedBy="soin")
+     * @ORM\OneToMany(targetEntity="Tarif", mappedBy="produit")
      */
     protected $tarifs;
-    
-    /**
-    * @ORM\OneToMany(targetEntity="Photo", mappedBy="soin", cascade={"remove"})
-    */
-    private $photos;
-        
-    
+
     /**
      * @Gedmo\Slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Photo", mappedBy="produit", cascade={"remove"})
+    */
+    private $photos;
     
     private $slug;
 
@@ -73,6 +87,16 @@ class Soin
     private $updated;
 
     
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tarifs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Get id
      *
@@ -87,7 +111,7 @@ class Soin
      * Set libelle
      *
      * @param string $libelle
-     * @return Soin
+     * @return Produit
      */
     public function setLibelle($libelle)
     {
@@ -107,56 +131,79 @@ class Soin
     }
 
     /**
-     * Set description
+     * Set type
      *
-     * @param string $description
-     * @return Soin
+     * @param integer $type
+     * @return Produit
      */
-    public function setDescription($description)
+    public function setType($type)
     {
-        $this->description = $description;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Get description
+     * Get type
      *
-     * @return string 
+     * @return integer 
      */
-    public function getDescription()
+    public function getType()
     {
-        return $this->description;
+        return $this->type;
     }
 
     /**
-     * Set slug
+     * Set descriptionCourte
      *
-     * @param string $slug
-     * @return Soin
+     * @param string $descriptionCourte
+     * @return Produit
      */
-    public function setSlug($slug)
+    public function setDescriptionCourte($descriptionCourte)
     {
-        $this->slug = $slug;
+        $this->descriptionCourte = $descriptionCourte;
 
         return $this;
     }
 
     /**
-     * Get slug
+     * Get descriptionCourte
      *
      * @return string 
      */
-    public function getSlug()
+    public function getDescriptionCourte()
     {
-        return $this->slug;
+        return $this->descriptionCourte;
+    }
+
+    /**
+     * Set descriptionLongue
+     *
+     * @param string $descriptionLongue
+     * @return Produit
+     */
+    public function setDescriptionLongue($descriptionLongue)
+    {
+        $this->descriptionLongue = $descriptionLongue;
+
+        return $this;
+    }
+
+    /**
+     * Get descriptionLongue
+     *
+     * @return string 
+     */
+    public function getDescriptionLongue()
+    {
+        return $this->descriptionLongue;
     }
 
     /**
      * Set created
      *
      * @param \DateTime $created
-     * @return Soin
+     * @return Produit
      */
     public function setCreated($created)
     {
@@ -179,7 +226,7 @@ class Soin
      * Set updated
      *
      * @param \DateTime $updated
-     * @return Soin
+     * @return Produit
      */
     public function setUpdated($updated)
     {
@@ -202,7 +249,7 @@ class Soin
      * Set centre
      *
      * @param \Back\BienEtreBundle\Entity\Centre $centre
-     * @return Soin
+     * @return Produit
      */
     public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre = null)
     {
@@ -222,31 +269,26 @@ class Soin
     }
 
     /**
-     * Add tarif
+     * Add tarifs
      *
-     * @param \Back\BienEtreBundle\Entity\Tarif $tarif
-     * @return Soin
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
+     * @return Produit
      */
-    public function addTarif(\Back\BienEtreBundle\Entity\Tarif $tarif)
+    public function addTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
     {
-        $this->tarif[] = $tarif;
+        $this->tarifs[] = $tarifs;
 
         return $this;
     }
 
     /**
-     * Remove tarif
+     * Remove tarifs
      *
-     * @param \Back\BienEtreBundle\Entity\Tarif $tarif
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
      */
-    public function removeTarif(\Back\BienEtreBundle\Entity\Tarif $tarif)
+    public function removeTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
     {
-        $this->tarif->removeElement($tarif);
-    }
-    
-    public function __toString()
-    {
-        return $this->libelle;
+        $this->tarifs->removeElement($tarifs);
     }
 
     /**
@@ -263,7 +305,7 @@ class Soin
      * Add photos
      *
      * @param \Back\BienEtreBundle\Entity\Photo $photos
-     * @return Soin
+     * @return Produit
      */
     public function addPhoto(\Back\BienEtreBundle\Entity\Photo $photos)
     {
@@ -291,13 +333,9 @@ class Soin
     {
         return $this->photos;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
+    
+    public function __toString()
     {
-        $this->tarifs = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->libelle;
     }
-
 }

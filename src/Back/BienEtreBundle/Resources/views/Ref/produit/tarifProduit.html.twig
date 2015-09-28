@@ -1,4 +1,4 @@
-{% extends "BackBienEtreBundle:Ref/pack:pack.html.twig" %}
+{% extends "BackBienEtreBundle:Ref/produit:produit.html.twig" %}
 {% block title %}Gestion des tarifs{% endblock %}
 {% block topbody %}   
     {{ parent() }}
@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="tabbable">
-                {% include 'BackBienEtreBundle:Ref/pack:menu.html.twig' %}
+                {% include 'BackBienEtreBundle:Ref/produit:menu.html.twig' %}
                 <div class="panel panel-default">
                     <div class="panel-body">
                         {{ form_start(form) }}
@@ -41,7 +41,6 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Libellé</th>
                                 <th>Date</th>
                                 <th>Prix d'achat</th>
                                 <th>Prix de vente</th>
@@ -50,7 +49,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for tarif in pack.tarifs %}
+                            {% for tarif in produit.tarifs %}
                                 <tr>
                                     <td>{{ tarif.id }}</td>
                                     <td>{{ tarif.libelle }}</td>
@@ -63,8 +62,8 @@
                                         </td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            {{ macros.tableEdit(path('back_bienetre_ref_pack_tarif',{'id':pack.id,'id2':tarif.id})) }}
-                                            {{ macros.tableDelete(path('delete_tarif_pack',{'id':tarif.id})) }}
+                                            {{ macros.tableEdit(path('back_bienetre_ref_produit_tarif',{'id':produit.id,'id2':tarif.id})) }}
+                                            {{ macros.tableDelete(path('delete_tarif_produit',{'id':tarif.id})) }}
                                         </div>
                                     </td>
                                 </tr>

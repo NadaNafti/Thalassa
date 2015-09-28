@@ -1,0 +1,91 @@
+<?php
+
+namespace Back\BienEtreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ * Pack
+ *
+ * @ORM\Table(name="ost_be_produit")
+ * @ORM\Entity
+ */
+class Produit {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="libelle", type="string", length=255)
+     */
+    private $libelle;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="type", type="integer")
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descriptionCourte", type="text")
+     */
+    private $descriptionCourte;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descriptionLongue", type="text")
+     */
+    private $descriptionLongue;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\BienEtreBundle\Entity\Centre")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    private $centre;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Tarif", mappedBy="produit")
+     */
+    protected $tarifs;
+
+    /**
+     * @Gedmo\Slug(fields={"libelle"})
+     * @ORM\Column(name="slug", length=128, unique=true)
+     */
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Photo", mappedBy="produit", cascade={"remove"})
+    */
+    private $photos;
+    
+    private $slug;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated;
+
+    
+    
+}

@@ -1,29 +1,29 @@
 {% extends ":Back:base.html.twig" %}
-{% block title %}Gestion des packs{% endblock %}
+{% block title %}Gestion des produits{% endblock %}
 {% block topbody %}   
     {{ parent() }}
     <li>
-        <a href="javascript:void(0)" >Packs</a>
+        <a href="javascript:void(0)" >Produits</a>
     </li>
 {% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-md-12">
             <div class="tabbable">
-                {% include 'BackBienEtreBundle:Ref/pack:menu.html.twig' %}
+                {% include 'BackBienEtreBundle:Ref/produit:menu.html.twig' %}
                 <div class="panel panel-default">
                     <div class="panel-body">
                         {{ form_start(form) }}
                         <div class="row">
+                            {{ formulaire.input("col-md-2","Type",form.type,true) }}
                             {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
                             {{ formulaire.select2("col-md-4","Centre",form.centre,true) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.select2("col-md-4","Soins",form.soins,true) }}
-                            {{ formulaire.select2("col-md-4","Cures",form.cures,true) }}
+                            {{ formulaire.input("col-md-12","Description courte",form.descriptionCourte,true) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.input("col-md-8","Description",form.description,true) }}
+                            {{ formulaire.input("col-md-12","Description longue",form.descriptionLongue,true) }}
                         </div>
                         {{ formulaire.submit("Enregistrer") }}
                         {{ form_end(form) }}
@@ -42,35 +42,25 @@
                                 <th>#</th>
                                 <th>Libellé</th>
                                 <th>Centre</th>
-                                <th>Soins</th>
-                                <th>Cures</th>
+                                <th>Type</th>
                                 <th>Tarifs</th>
                                 <th>Images</th>
-                                <th class="pack" >Action</th>
+                                <th class="produit" >Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for pack in packs %}
+                            {% for produit in produits %}
                                 <tr>
-                                    <td>{{ pack.id }}</td>
-                                    <td>{{ pack.libelle }}</td>
-                                    <td>{{ pack.centre }}</td>
-                                    <td>
-                                        {% for soin in pack.soins %}
-                                            - {{ soin.libelle }} <br>
-                                        {% endfor %}
-                                    </td>
-                                    <td>
-                                        {% for cure in pack.cures %}
-                                            - {{ cure.libelle }} <br>
-                                        {% endfor %}
-                                    </td>
-                                    <td><a href="{{ path('back_bienetre_ref_pack_tarif',{'id':pack.id}) }}"> {{ pack.tarifs|length }} tarif(s)</a></td>
-                                    <td><a href="{{ path('back_bienetre_ref_pack_photo',{'id':pack.id}) }}"> {{ pack.photos|length }} image(s)</a></td>
+                                    <td>{{ produit.id }}</td>
+                                    <td>{{ produit.libelle }}</td>
+                                    <td>{{ produit.centre }}</td>
+                                    <td>{{ produit.type }}</td>
+                                    <td><a href="{{ path('back_bienetre_ref_produit_tarif',{'id':produit.id}) }}"> {{ produit.tarifs|length }} tarif(s)</a></td>
+                                    <td><a href="{{ path('back_bienetre_ref_produit_photo',{'id':produit.id}) }}"> {{ produit.photos|length }} image(s)</a></td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            {{ macros.tableEdit(path('back_bienetre_ref_pack',{'id':pack.id})) }}
-                                            {{ macros.tableDelete(path('delete_back_bienetre_pack',{'id':pack.id})) }}
+                                            {{ macros.tableEdit(path('back_bienetre_ref_produit',{'id':produit.id})) }}
+                                            {{ macros.tableDelete(path('delete_back_bienetre_produit',{'id':produit.id})) }}
                                         </div>
                                     </td>
                                 </tr>
