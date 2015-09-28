@@ -404,6 +404,12 @@
             return $this->nomPrenom . $amicale;
         }
 
+        public function getLongName()
+        {
+            $amical= !is_null($this->getAmicale())? ' - '.$this->getAmicale()->getLibelle():'';
+            return $this->nomPrenom.$amical.' - '.$this->tel1;
+        }
+
         /**
          * Set responsable
          *

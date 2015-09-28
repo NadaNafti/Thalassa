@@ -14,11 +14,14 @@
                 <div class="panel-body">
                     {{ form_start(form) }}
                     <div class="row">
+                        {{ formulaire.select2("col-md-2","Filtrer par catégorie",form.categories,false) }}
                         {{ formulaire.select2("col-md-2","Filtrer par ville",form.villes,false) }}
                         {{ formulaire.select2("col-md-3","Hôtel",form.hotels,true) }}
                         {{ formulaire.input("col-md-2","Date",form.dateDebut,true) }}
                         {{ formulaire.input("col-md-2","Nbr de nuitées",form.nuitees,true) }}
-                        {{ formulaire.select2("col-md-3","Client",form.client,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.select2("col-md-6","Client",form.client,true) }}
                     </div>
                     {#{{ formulaire.submit("Suivant") }}#}
                     <div class="row">
@@ -86,15 +89,16 @@
             $('#buttonNewClient').on('click', function () {
                 $('#formAddNewClient').removeClass('no-display');
             })
-            $('#NewReservationType_villes').on('change', function () {
+            $('#NewReservationType_villes , #NewReservationType_categories').on('change', function () {
                 var hotel = $('#NewReservationType_hotels');
                 hotel.empty();
                 hotel.append('<option value="">Loading ...</option>');
                 hotel.select2();
-                var id = $(this).val();
+                var categorie = $('#NewReservationType_categories').val();
+                var ville = $('#NewReservationType_villes').val();
                 $.ajax({
                     url: '{{ path('ajax_ville_to_hotel') }}',
-                    data: {'id': id},
+                    data: {'ville': ville, 'categorie':categorie},
                     type: 'POST',
                     dataType: 'json',
                     success: function (json) {

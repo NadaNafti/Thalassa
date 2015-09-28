@@ -1,0 +1,23 @@
+{% if produit.id is not null %}
+    <ul id="myTab" class="nav nav-tabs tab-bricky">
+        
+        <li {% if app.request.get('_route')=='back_bienetre_ref_produit' %}class="active"{% endif %}>
+            <a href="{{ path("back_bienetre_ref_produit",{'id':produit.id}) }}"> <i class="green fa fa-home"></i> {{ produit|title }}
+            </a>
+        </li>
+        
+        <li {% if app.request.get('_route')=='back_bienetre_ref_produit_tarif' %}class="active"{% endif %}>
+            <a href="{{ path("back_bienetre_ref_produit_tarif",{'id':produit.id}) }}"> 
+                Tarifs ({{ produit.tarifs|length }})
+            </a>
+        </li>
+        
+        <li {% if app.request.get('_route')=='back_bienetre_ref_produit_photo' %}class="active"{% endif %}>
+            <a href="{{ path("back_bienetre_ref_produit_photo",{'id':produit.id}) }}"> 
+                Images ({{ produit.photos|length }})
+            </a>
+        </li>
+
+        
+    </ul>
+{% endif %}

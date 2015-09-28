@@ -8,12 +8,11 @@ use Symfony\Component\validator\Constraints as Assert;
 /**
  * Photo
  *
- * @ORM\Table(name="ost_be_photos")
+ * @ORM\Table(name="ost_be_photo")
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
  */
-class Photo
-{
+class Photo {
 
     /**
      * @var integer
@@ -23,7 +22,7 @@ class Photo
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Centre", inversedBy="photos")
      * @ORM\JoinColumn(name="id_centre", referencedColumnName="id",onDelete="CASCADE")
@@ -31,22 +30,10 @@ class Photo
     private $centre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Soin", inversedBy="photos")
-     * @ORM\JoinColumn(name="id_soin", referencedColumnName="id",onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Produit", inversedBy="photos")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private $soin;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Cure", inversedBy="photos")
-     * @ORM\JoinColumn(name="id_cure", referencedColumnName="id",onDelete="CASCADE")
-     */
-    private $cure;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Pack", inversedBy="photos")
-     * @ORM\JoinColumn(name="id_pack", referencedColumnName="id",onDelete="CASCADE")
-     */
-    private $pack;
+    private $produit;
 
     /**
      * @var string
@@ -75,81 +62,70 @@ class Photo
      * @ORM\Column(name="visible", type="boolean")
      */
     private $visible;
-    
     public $file;
 
-    public function getUploadRootDir()
-    {
-	return __dir__ . '/../../../../web/' . $this->getDirectory();
+    public function getUploadRootDir() {
+        return __dir__ . '/../../../../web/' . $this->getDirectory();
     }
 
-    public function getDirectory()
-    {
-	return 'uploads/Bien-Etre';
+    public function getDirectory() {
+        return 'uploads/Bien-Etre';
     }
 
-    public function getAssetPath()
-    {
-	return $this->getDirectory() . '/' . $this->url;
+    public function getAssetPath() {
+        return $this->getDirectory() . '/' . $this->url;
     }
 
-    public function getAbsolutePath()
-    {
-	return null === $this->url ? null : $this->getUploadRootDir() . '/' . $this->url;
+    public function getAbsolutePath() {
+        return null === $this->url ? null : $this->getUploadRootDir() . '/' . $this->url;
     }
 
-    public function showType()
-    {
-	if ($this->type == 1)
-	    return 'Principale';
-	if ($this->type == 2)
-	    return 'Album';
+    public function showType() {
+        if ($this->type == 1)
+            return 'Principale';
+        if ($this->type == 2)
+            return 'Album';
     }
 
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function preUpload()
-    {
-	$this->tempFile = $this->getAbsolutePath();
-	$this->oldFile = $this->getUrl();
-	$this->updateAt = new \DateTime();
+    public function preUpload() {
+        $this->tempFile = $this->getAbsolutePath();
+        $this->oldFile = $this->getUrl();
+        $this->updateAt = new \DateTime();
 
-	if (null !== $this->file)
-	    $this->url = sha1(uniqid(mt_rand(), true)) . '.' . $this->file->guessExtension();
+        if (null !== $this->file)
+            $this->url = sha1(uniqid(mt_rand(), true)) . '.' . $this->file->guessExtension();
     }
 
     /**
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
      */
-    public function upload()
-    {
-	if (null !== $this->file)
-	{
-	    $this->file->move($this->getUploadRootDir(), $this->url);
-	    unset($this->file);
-	    if ($this->oldFile != null && file_exists($this->tempFile))
-		unlink($this->tempFile);
-	}
+    public function upload() {
+        if (null !== $this->file) {
+            $this->file->move($this->getUploadRootDir(), $this->url);
+            unset($this->file);
+            if ($this->oldFile != null && file_exists($this->tempFile))
+                unlink($this->tempFile);
+        }
     }
 
     /**
      * @ORM\PreRemove()
      */
-    public function preRemoveUpload()
-    {
-	$this->tempFile = $this->getAbsolutePath();
+    public function preRemoveUpload() {
+        $this->tempFile = $this->getAbsolutePath();
     }
 
     /**
      * @ORM\PostRemove()
      */
-    public function removeUpload()
-    {
-	if (file_exists($this->tempFile))
-	    unlink($this->tempFile);
+    public function removeUpload() {
+        if (file_exists($this->tempFile))
+            unlink($this->tempFile);
     }
 
     /**
@@ -157,9 +133,8 @@ class Photo
      *
      * @return integer
      */
-    public function getId()
-    {
-	return $this->id;
+    public function getId() {
+        return $this->id;
     }
 
     /**
@@ -168,11 +143,10 @@ class Photo
      * @param string $url
      * @return Photo
      */
-    public function setUrl($url)
-    {
-	$this->url = $url;
+    public function setUrl($url) {
+        $this->url = $url;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -180,9 +154,8 @@ class Photo
      *
      * @return string
      */
-    public function getUrl()
-    {
-	return $this->url;
+    public function getUrl() {
+        return $this->url;
     }
 
     /**
@@ -191,11 +164,10 @@ class Photo
      * @param integer $type
      * @return Photo
      */
-    public function setType($type)
-    {
-	$this->type = $type;
+    public function setType($type) {
+        $this->type = $type;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -203,9 +175,8 @@ class Photo
      *
      * @return integer
      */
-    public function getType()
-    {
-	return $this->type;
+    public function getType() {
+        return $this->type;
     }
 
     /**
@@ -214,11 +185,10 @@ class Photo
      * @param integer $ordre
      * @return Photo
      */
-    public function setOrdre($ordre)
-    {
-	$this->ordre = $ordre;
+    public function setOrdre($ordre) {
+        $this->ordre = $ordre;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -226,9 +196,8 @@ class Photo
      *
      * @return integer
      */
-    public function getOrdre()
-    {
-	return $this->ordre;
+    public function getOrdre() {
+        return $this->ordre;
     }
 
     /**
@@ -237,11 +206,10 @@ class Photo
      * @param boolean $visible
      * @return Photo
      */
-    public function setVisible($visible)
-    {
-	$this->visible = $visible;
+    public function setVisible($visible) {
+        $this->visible = $visible;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -249,33 +217,10 @@ class Photo
      *
      * @return boolean
      */
-    public function getVisible()
-    {
-	return $this->visible;
+    public function getVisible() {
+        return $this->visible;
     }
 
-    /**
-     * Set soin
-     *
-     * @param \Back\BienEtreBundle\Entity\Soin $soin
-     * @return Photo
-     */
-    public function setSoin(\Back\BienEtreBundle\Entity\Soin $soin)
-    {
-        $this->soin = $soin;
-
-        return $this;
-    }
-
-    /**
-     * Get soin
-     *
-     * @return \Back\BienEtreBundle\Entity\Soin 
-     */
-    public function getSoin()
-    {
-        return $this->soin;
-    }
 
     /**
      * Set centre
@@ -283,7 +228,7 @@ class Photo
      * @param \Back\BienEtreBundle\Entity\Centre $centre
      * @return Photo
      */
-    public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre)
+    public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre = null)
     {
         $this->centre = $centre;
 
@@ -301,48 +246,30 @@ class Photo
     }
 
     /**
-     * Set cure
+     * Set produit
      *
-     * @param \Back\BienEtreBundle\Entity\Cure $cure
+     * @param \Back\BienEtreBundle\Entity\Produit $produit
      * @return Photo
      */
-    public function setCure(\Back\BienEtreBundle\Entity\Cure $cure)
+    public function setProduit(\Back\BienEtreBundle\Entity\Produit $produit = null)
     {
-        $this->cure = $cure;
+        $this->produit = $produit;
 
         return $this;
     }
 
     /**
-     * Get cure
+     * Get produit
      *
-     * @return \Back\BienEtreBundle\Entity\Cure 
+     * @return \Back\BienEtreBundle\Entity\Produit 
      */
-    public function getCure()
+    public function getProduit()
     {
-        return $this->cure;
+        return $this->produit;
     }
-
-    /**
-     * Set pack
-     *
-     * @param \Back\BienEtreBundle\Entity\Pack $pack
-     * @return Photo
-     */
-    public function setPack(\Back\BienEtreBundle\Entity\Pack $pack)
+    
+    public function __toString()
     {
-        $this->pack = $pack;
-
-        return $this;
-    }
-
-    /**
-     * Get pack
-     *
-     * @return \Back\BienEtreBundle\Entity\Pack 
-     */
-    public function getPack()
-    {
-        return $this->pack;
+        return $this->libelle;
     }
 }

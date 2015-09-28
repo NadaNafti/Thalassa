@@ -64,24 +64,12 @@ class Tarif
     private $promotion;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Soin" , inversedBy="tarifs")
+     * @ORM\ManyToOne(targetEntity="Produit",inversedBy="tarifs")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private $soin;
+    private $produit;
+
     
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Back\BienEtreBundle\Entity\Cure",inversedBy="tarifs")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    private $cure;
-    
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Back\BienEtreBundle\Entity\Pack",inversedBy="tarifs")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    private $pack;
 
     /**
      * Get id
@@ -232,71 +220,30 @@ class Tarif
     }
 
     /**
-     * Set soin
+     * Set produit
      *
-     * @param \Back\BienEtreBundle\Entity\Soin $soin
+     * @param \Back\BienEtreBundle\Entity\Produit $produit
      * @return Tarif
      */
-    public function setSoin(\Back\BienEtreBundle\Entity\Soin $soin = null)
+    public function setProduit(\Back\BienEtreBundle\Entity\Produit $produit = null)
     {
-        $this->soin = $soin;
+        $this->produit = $produit;
 
         return $this;
     }
 
     /**
-     * Get soin
+     * Get produit
      *
-     * @return \Back\BienEtreBundle\Entity\Soin 
+     * @return \Back\BienEtreBundle\Entity\Produit 
      */
-    public function getSoin()
+    public function getProduit()
     {
-        return $this->soin;
+        return $this->produit;
     }
-
-    /**
-     * Set cure
-     *
-     * @param \Back\BienEtreBundle\Entity\Cure $cure
-     * @return Tarif
-     */
-    public function setCure(\Back\BienEtreBundle\Entity\Cure $cure = null)
+    
+    public function __toString()
     {
-        $this->cure = $cure;
-
-        return $this;
-    }
-
-    /**
-     * Get cure
-     *
-     * @return \Back\BienEtreBundle\Entity\Cure 
-     */
-    public function getCure()
-    {
-        return $this->cure;
-    }
-
-    /**
-     * Set pack
-     *
-     * @param \Back\BienEtreBundle\Entity\Pack $pack
-     * @return Tarif
-     */
-    public function setPack(\Back\BienEtreBundle\Entity\Pack $pack = null)
-    {
-        $this->pack = $pack;
-
-        return $this;
-    }
-
-    /**
-     * Get pack
-     *
-     * @return \Back\BienEtreBundle\Entity\Pack 
-     */
-    public function getPack()
-    {
-        return $this->pack;
+        return $this->libelle;
     }
 }

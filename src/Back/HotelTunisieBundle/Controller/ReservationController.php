@@ -66,13 +66,10 @@ class ReservationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
-        $id = $request->get("id");
+        $categorie = $request->get("categorie")?$request->get("categorie"):'all';
+        $ville = $request->get("ville")?$request->get("ville"):'all';
         $response = new JsonResponse();
-        if ($id != '') {
-            $ville = $em->getRepository("BackHotelTunisieBundle:Ville")->find($id);
-            $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->findBy(array('ville' => $ville));
-        } else
-            $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->findAll();
+        $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->filtreBackOffice($ville, 'all', $categorie, 'all', 'all', 'h.libelle', 'asc');
         $tab = array();
         $hotels = $this->container->get('saisons')->getValideHotel($hotels);
         foreach ($hotels as $hotel)
@@ -440,10 +437,9 @@ class ReservationController extends Controller
                     $reservation->addReglement($reglement);
                 }
             }
-            if (($reservation->getSurDemande() || $reservation->getMontantRestant() > 0) && !is_null($data['piece']->getNumero())) {
+            if (($reservation->getSurDemande() || $reservation->getMontantRestant() > 0) &&  !is_null($data['piece']->getModeReglement()) && !is_null($data['piece']->getMontantOrigine())) {
                 if ($data['piece']->getMontantOrigine() > 0) {
                     $reglement = new Reglement();
-                    $piece = new Piece();
                     $piece = $data['piece'];
                     $piece->setClient($reservation->getClient())
                         ->setDateCreation(new \DateTime());
