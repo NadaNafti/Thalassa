@@ -14,9 +14,10 @@
                 <div class="panel-body">
                     {{ form_start(form) }}
                     <div class="row">
-                        {{ formulaire.input("col-md-3","Debut Voucher",form.debutVoucher,true) }}
+                        {{ formulaire.input("col-md-2","Debut Voucher",form.debutVoucher,true) }}
+                        {{ formulaire.input("col-md-2","Modèle voucher",form.model,true) }}
                         {{ formulaire.input("col-md-3","Type numerotation",form.typeNumerotation,true) }}
-                        {{ formulaire.input("col-md-3","Code Couleur",form.codeCouleur,true) }}
+                        {{ formulaire.input("col-md-2","Code Couleur",form.codeCouleur,true) }}
                         {{ formulaire.input("col-md-3","",form.gmaps,false) }}
                     </div>
                     <div class="row">

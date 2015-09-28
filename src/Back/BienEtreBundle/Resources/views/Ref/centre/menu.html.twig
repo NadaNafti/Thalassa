@@ -1,0 +1,17 @@
+{% if centre.id is not null %}
+    <ul id="myTab" class="nav nav-tabs tab-bricky">
+        
+        <li {% if app.request.get('_route')=='back_bienetre_ref_centre' %}class="active"{% endif %}>
+            <a href="{{ path("back_bienetre_ref_centre",{'id':centre.id}) }}"> <i class="green fa fa-home"></i> {{ centre|title }}
+            </a>
+        </li>
+        
+        <li {% if app.request.get('_route')=='back_bienetre_ref_centre_photo' %}class="active"{% endif %}>
+            <a href="{{ path("back_bienetre_ref_centre_photo",{'id':centre.id}) }}"> 
+                Images ({{ centre.photos|length }})
+            </a>
+        </li>
+
+        
+    </ul>
+{% endif %}

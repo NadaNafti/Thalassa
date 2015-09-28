@@ -70,6 +70,12 @@ class Pack {
      * @Gedmo\Slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Photo", mappedBy="pack", cascade={"remove"})
+    */
+    private $photos;
+    
     private $slug;
 
     /**
@@ -85,7 +91,6 @@ class Pack {
     private $updated;
 
     
-    
     /**
      * Constructor
      */
@@ -94,7 +99,9 @@ class Pack {
         $this->soins = new \Doctrine\Common\Collections\ArrayCollection();
         $this->cures = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tarifs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
 
     /**
      * Get id
@@ -346,5 +353,38 @@ class Pack {
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * Add photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     * @return Pack
+     */
+    public function addPhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     */
+    public function removePhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 }

@@ -16,20 +16,25 @@ class ConfigurationVoucherType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('debutVoucher')
-                ->add('gmaps', 'checkbox', array(
-                    'label'   =>'Activer google maps dans le voucher',
-                    'required'=>false
-                ))
-                ->add('codeCouleur')
-                ->add('texteVoucher','ckeditor')
-                ->add('typeNumerotation', 'choice', array(
-                    'choices' => array(
-                        1 => 'Année, num Piéce',
-                        2 => 'Num Piéce/Mois/Année',
-                    ),
-                ))
-        ;
+            ->add('debutVoucher')
+            ->add('gmaps', 'checkbox', array(
+                'label'    => 'Activer google maps dans le voucher',
+                'required' => false
+            ))
+            ->add('codeCouleur')
+            ->add('texteVoucher', 'ckeditor')
+            ->add('typeNumerotation', 'choice', array(
+                'choices' => array(
+                    1 => 'Année, num Piéce',
+                    2 => 'Num Piéce/Mois/Année',
+                ),
+            ))
+            ->add('model', 'choice', array(
+                'choices' => array(
+                    1 => 'Modèle 1',
+                    2 => 'Modèle 2',
+                ),
+            ));
     }
 
     /**

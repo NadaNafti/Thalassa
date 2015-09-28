@@ -9,19 +9,22 @@
 {% block body %}
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    {{ form_start(form) }}
-                    <div class="row">
-                        {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
-                        {{ formulaire.select2("col-md-3","Ville",form.ville,true) }}
-                        {{ formulaire.select2("col-md-3","Hôtel",form.hotel,false) }}
+            <div class="tabbable">
+                {% include 'BackBienEtreBundle:Ref/centre:menu.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
+                            {{ formulaire.select2("col-md-3","Ville",form.ville,true) }}
+                            {{ formulaire.select2("col-md-3","Hôtel",form.hotel,false) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-9","Description",form.description,true) }}
+                        </div>
+                        {{ formulaire.submit("Enregistrer") }}
+                        {{ form_end(form) }}
                     </div>
-                    <div class="row">
-                        {{ formulaire.input("col-md-9","Description",form.description,true) }}
-                    </div>
-                    {{ formulaire.submit("Enregistrer") }}
-                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
@@ -37,6 +40,7 @@
                                 <th>Libellé</th>
                                 <th>Ville</th>
                                 <th>Hôtel</th>
+                                <th>Images</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -47,6 +51,7 @@
                                     <td>{{ centre.libelle }}</td>
                                     <td>{{ centre.ville }}</td>
                                     <td>{{ centre.hotel }}</td>
+                                    <td><a href="{{ path('back_bienetre_ref_centre_photo',{'id':centre.id}) }}"> {{ centre.photos|length }} image(s)</a></td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             {{ macros.tableEdit(path('back_bienetre_ref_centre',{'id':centre.id})) }}

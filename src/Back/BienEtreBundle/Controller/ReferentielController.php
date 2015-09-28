@@ -13,6 +13,8 @@ use Back\BienEtreBundle\Entity\Pack;
 use Back\BienEtreBundle\Form\PackType;
 use Back\BienEtreBundle\Entity\Tarif;
 use Back\BienEtreBundle\Form\TarifType;
+use Back\BienEtreBundle\Entity\Photo;
+use Back\BienEtreBundle\Form\PhotoType;
 
 class ReferentielController extends Controller {
 
@@ -36,9 +38,10 @@ class ReferentielController extends Controller {
                 return $this->redirect($this->generateUrl('back_bienetre_ref_centre'));
             }
         }
-        return $this->render('BackBienEtreBundle:Ref:centre.html.twig', array(
+        return $this->render('BackBienEtreBundle:Ref\centre:centre.html.twig', array(
                     'form' => $form->createView(),
                     'centres' => $centres,
+                    'centre' => $centre
         ));
     }
 
@@ -53,6 +56,45 @@ class ReferentielController extends Controller {
             $session->getFlashBag()->add('danger', 'Problème de supression ' . $ex->getMessage());
         }
         return $this->redirect($this->generateUrl('back_bienetre_ref_centre'));
+    }
+
+    public function centrePhotoAction($id, $id2) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        $centre = $em->find('BackBienEtreBundle:Centre', $id);
+        if (is_null($id2))
+            $photo = new Photo();
+        else
+            $photo = $em->find('BackBienEtreBundle:Photo', $id2);
+        $form = $this->createForm(new PhotoType, $photo);
+        if ($request->isMethod('POST')) {
+            $form->submit($request);
+            if ($form->isValid()) {
+                $photo = $form->getData();
+                $em->persist($photo->setCentre($centre));
+                $em->flush();
+                $session->getFlashBag()->add('success', "");
+                return $this->redirect($this->generateUrl('back_bienetre_ref_centre_photo', array('id' => $centre->getId())));
+            }
+        }
+        return $this->render('BackBienEtreBundle:Ref\centre:photoCentre.html.twig', [
+                    'form' => $form->createView(),
+                    'centre' => $centre
+        ]);
+    }
+
+    public function deletePhotoCentreAction(Photo $photo) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        try {
+            $em->remove($photo);
+            $em->flush();
+        } catch (\Exception $ex) {
+            $session->getFlashBag()->add('Problème de supression', $ex->getMessage());
+        }
+        $session->getFlashBag()->add('success', " L'image a été supprimé avec succées ");
+        return $this->redirect($this->generateUrl('back_bienetre_ref_centre_photo', array('id' => $photo->getCentre()->getId())));
     }
 
     //Gestion des soins
@@ -134,6 +176,45 @@ class ReferentielController extends Controller {
         return $this->redirect($this->generateUrl('back_bienetre_ref_soin_tarif', array('id' => $tarif->getSoin()->getId())));
     }
 
+    public function soinPhotoAction($id, $id2) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        $soin = $em->find('BackBienEtreBundle:Soin', $id);
+        if (is_null($id2))
+            $photo = new Photo();
+        else
+            $photo = $em->find('BackBienEtreBundle:Photo', $id2);
+        $form = $this->createForm(new PhotoType, $photo);
+        if ($request->isMethod('POST')) {
+            $form->submit($request);
+            if ($form->isValid()) {
+                $photo = $form->getData();
+                $em->persist($photo->setSoin($soin));
+                $em->flush();
+                $session->getFlashBag()->add('success', "");
+                return $this->redirect($this->generateUrl('back_bienetre_ref_soin_photo', array('id' => $soin->getId())));
+            }
+        }
+        return $this->render('BackBienEtreBundle:Ref\soin:photoSoin.html.twig', [
+                    'form' => $form->createView(),
+                    'soin' => $soin
+        ]);
+    }
+
+    public function deletePhotoSoinAction(Photo $photo) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        try {
+            $em->remove($photo);
+            $em->flush();
+        } catch (\Exception $ex) {
+            $session->getFlashBag()->add('Problème de supression', $ex->getMessage());
+        }
+        $session->getFlashBag()->add('success', " L'image a été supprimé avec succées ");
+        return $this->redirect($this->generateUrl('back_bienetre_ref_soin_photo', array('id' => $photo->getSoin()->getId())));
+    }
+
     //Gestion des cures
     public function cureAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -213,6 +294,45 @@ class ReferentielController extends Controller {
         return $this->redirect($this->generateUrl('back_bienetre_ref_cure_tarif', array('id' => $tarif->getCure()->getId())));
     }
 
+    public function curePhotoAction($id, $id2) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        $cure = $em->find('BackBienEtreBundle:Cure', $id);
+        if (is_null($id2))
+            $photo = new Photo();
+        else
+            $photo = $em->find('BackBienEtreBundle:Photo', $id2);
+        $form = $this->createForm(new PhotoType, $photo);
+        if ($request->isMethod('POST')) {
+            $form->submit($request);
+            if ($form->isValid()) {
+                $photo = $form->getData();
+                $em->persist($photo->setCure($cure));
+                $em->flush();
+                $session->getFlashBag()->add('success', "");
+                return $this->redirect($this->generateUrl('back_bienetre_ref_cure_photo', array('id' => $cure->getId())));
+            }
+        }
+        return $this->render('BackBienEtreBundle:Ref\cure:photoCure.html.twig', [
+                    'form' => $form->createView(),
+                    'cure' => $cure
+        ]);
+    }
+
+    public function deletePhotoCureAction(Photo $photo) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        try {
+            $em->remove($photo);
+            $em->flush();
+        } catch (\Exception $ex) {
+            $session->getFlashBag()->add('Problème de supression', $ex->getMessage());
+        }
+        $session->getFlashBag()->add('success', " L'image a été supprimé avec succées ");
+        return $this->redirect($this->generateUrl('back_bienetre_ref_cure_photo', array('id' => $photo->getCure()->getId())));
+    }
+
     //Gestion des packs
     public function packAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -290,6 +410,45 @@ class ReferentielController extends Controller {
         }
         $session->getFlashBag()->add('success', " Le tarif a été supprimé avec succées ");
         return $this->redirect($this->generateUrl('back_bienetre_ref_pack_tarif', array('id' => $tarif->getPack()->getId())));
+    }
+
+    public function packPhotoAction($id, $id2) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        $pack = $em->find('BackBienEtreBundle:Pack', $id);
+        if (is_null($id2))
+            $photo = new Photo();
+        else
+            $photo = $em->find('BackBienEtreBundle:Photo', $id2);
+        $form = $this->createForm(new PhotoType, $photo);
+        if ($request->isMethod('POST')) {
+            $form->submit($request);
+            if ($form->isValid()) {
+                $photo = $form->getData();
+                $em->persist($photo->setPack($pack));
+                $em->flush();
+                $session->getFlashBag()->add('success', "");
+                return $this->redirect($this->generateUrl('back_bienetre_ref_pack_photo', array('id' => $pack->getId())));
+            }
+        }
+        return $this->render('BackBienEtreBundle:Ref\pack:photoPack.html.twig', [
+                    'form' => $form->createView(),
+                    'pack' => $pack
+        ]);
+    }
+
+    public function deletePhotoPackAction(Photo $photo) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        try {
+            $em->remove($photo);
+            $em->flush();
+        } catch (\Exception $ex) {
+            $session->getFlashBag()->add('Problème de supression', $ex->getMessage());
+        }
+        $session->getFlashBag()->add('success', " L'image a été supprimé avec succées ");
+        return $this->redirect($this->generateUrl('back_bienetre_ref_pack_photo', array('id' => $photo->getPack()->getId())));
     }
 
 }

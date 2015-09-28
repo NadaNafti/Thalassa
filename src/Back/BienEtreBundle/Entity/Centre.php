@@ -53,6 +53,12 @@ class Centre {
      * @Gedmo\Slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Photo", mappedBy="centre", cascade={"remove"})
+    */
+    private $photos;
+    
     private $slug;
 
     /**
@@ -67,6 +73,14 @@ class Centre {
      */
     private $updated;
 
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -122,29 +136,6 @@ class Centre {
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Centre
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 
     /**
@@ -237,6 +228,39 @@ class Centre {
     public function getVille()
     {
         return $this->ville;
+    }
+
+    /**
+     * Add photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     * @return Centre
+     */
+    public function addPhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     */
+    public function removePhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
     
     public function __toString()
