@@ -11,6 +11,12 @@
                 Tarifs ({{ soin.tarifs|length }})
             </a>
         </li>
+        
+        <li {% if app.request.get('_route')=='back_bienetre_ref_soin_photo' %}class="active"{% endif %}>
+            <a href="{{ path("back_bienetre_ref_soin_photo",{'id':soin.id}) }}"> 
+                Images ({{ soin.photos|length }})
+            </a>
+        </li>
 
         
     </ul>

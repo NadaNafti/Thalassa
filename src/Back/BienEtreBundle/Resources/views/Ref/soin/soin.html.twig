@@ -39,6 +39,7 @@
                                 <th>Libellé</th>
                                 <th>Centre</th>
                                 <th>Tarifs</th>
+                                <th>Images</th>
                                 <th class="soin" >Action</th>
                             </tr>
                         </thead>
@@ -48,7 +49,8 @@
                                     <td>{{ soin.id }}</td>
                                     <td>{{ soin.libelle }}</td>
                                     <td>{{ soin.centre }}</td>
-                                    <td><a href="{{ path('back_bienetre_ref_soin_tarif',{'id':soin.id}) }}"> {{ soin.tarifs|length }} tarifs</a></td>
+                                    <td><a href="{{ path('back_bienetre_ref_soin_tarif',{'id':soin.id}) }}"> {{ soin.tarifs|length }} tarif(s)</a></td>
+                                    <td><a href="{{ path('back_bienetre_ref_soin_photo',{'id':soin.id}) }}"> {{ soin.photos|length }} image(s)</a></td>
                                 <td class="TableAction">
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
                                         {{ macros.tableEdit(path('back_bienetre_ref_soin',{'id':soin.id})) }}

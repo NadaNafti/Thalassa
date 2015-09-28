@@ -45,6 +45,7 @@
                                 <th>Soins</th>
                                 <th>Cures</th>
                                 <th>Tarifs</th>
+                                <th>Images</th>
                                 <th class="pack" >Action</th>
                             </tr>
                         </thead>
@@ -64,7 +65,8 @@
                                             - {{ cure.libelle }} <br>
                                         {% endfor %}
                                     </td>
-                                    <td><a href="{{ path('back_bienetre_ref_pack_tarif',{'id':pack.id}) }}"> {{ pack.tarifs|length }} tarifs</a></td>
+                                    <td><a href="{{ path('back_bienetre_ref_pack_tarif',{'id':pack.id}) }}"> {{ pack.tarifs|length }} tarif(s)</a></td>
+                                    <td><a href="{{ path('back_bienetre_ref_pack_photo',{'id':pack.id}) }}"> {{ pack.photos|length }} image(s)</a></td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             {{ macros.tableEdit(path('back_bienetre_ref_pack',{'id':pack.id})) }}

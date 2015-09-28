@@ -48,6 +48,12 @@ class Soin
     protected $tarifs;
     
     /**
+    * @ORM\OneToMany(targetEntity="Photo", mappedBy="soin", cascade={"remove"})
+    */
+    private $photos;
+        
+    
+    /**
      * @Gedmo\Slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
@@ -66,14 +72,7 @@ class Soin
      */
     private $updated;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->tarif = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
+    
     /**
      * Get id
      *
@@ -259,4 +258,46 @@ class Soin
     {
         return $this->tarifs;
     }
+
+    /**
+     * Add photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     * @return Soin
+     */
+    public function addPhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     */
+    public function removePhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tarifs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

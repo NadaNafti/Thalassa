@@ -11,6 +11,12 @@
                 Tarifs ({{ pack.tarifs|length }})
             </a>
         </li>
+        
+        <li {% if app.request.get('_route')=='back_bienetre_ref_pack_photo' %}class="active"{% endif %}>
+            <a href="{{ path("back_bienetre_ref_pack_photo",{'id':pack.id}) }}"> 
+                Images ({{ pack.photos|length }})
+            </a>
+        </li>
 
         
     </ul>

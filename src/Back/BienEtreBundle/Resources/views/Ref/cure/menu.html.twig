@@ -11,6 +11,12 @@
                 Tarifs ({{ cure.tarifs|length }})
             </a>
         </li>
+        
+        <li {% if app.request.get('_route')=='back_bienetre_ref_cure_photo' %}class="active"{% endif %}>
+            <a href="{{ path("back_bienetre_ref_cure_photo",{'id':cure.id}) }}"> 
+                Images ({{ cure.photos|length }})
+            </a>
+        </li>
 
         
     </ul>

@@ -1,0 +1,52 @@
+{% extends "BackBienEtreBundle:Ref/soin:soin.html.twig" %}
+{% block title %}Gestion des images{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackBienEtreBundle:Ref/soin:menu.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            {{ formulaire.file("col-md-3","Fichier",form.file,true) }}
+                            {{ formulaire.input("col-md-3","Type",form.type,true) }}
+                            {{ formulaire.input("col-md-3","Ordre",form.ordre,true) }}
+                            {{ formulaire.input("col-md-3","",form.visible,true) }}
+                        </div>
+                        {{ formulaire.submit("Enregistrer") }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+                            {% for photo in soin.photos %}
+                                <div class="col-md-2 col-sm-4 gallery-img">
+                                    <div class="wrap-image">
+                                        <a class="group1 cboxElement" href="javascript:void(0)">
+                                            <img src="{{ asset(asset(photo.getAssetPath)) }}" class="img-responsive">
+                                        </a>
+                                        <div class="tools tools-bottom">
+                                            <a href="{{ path('delete_photo_soin',{'id':photo.id}) }}" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cet image ?'))">
+                                                <i class="clip-close-2"></i>
+                                                {{ photo.showType }}, Ordre : {{ photo.ordre }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
