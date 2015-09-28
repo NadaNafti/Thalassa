@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Billetterie
  *
  * @ORM\Table(name="ost_billetterie_reservation")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Back\BilletterieMaritimeBundle\Entity\Repository\BilletterieReservationRepository")
  */
 class BilletterieReservation
 {
@@ -165,6 +165,18 @@ class BilletterieReservation
      * @ORM\OneToMany(targetEntity="BilletterieReservationLigne", mappedBy="reservation")
      */
     protected $lignes;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated;
 
     /**
      * Get id
@@ -706,5 +718,61 @@ class BilletterieReservation
             return "Business";
         if ($this->classe == 3)
             return "First";
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return BilletterieReservation
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return BilletterieReservation
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    public function showEtat()
+    {
+        if($this->etat == 1)
+            return 'Enregistrée';
+        if($this->etat == 2)
+            return 'Validée';
+        if($this->etat == 9)
+            return 'Annulée';
     }
 }

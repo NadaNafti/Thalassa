@@ -1,0 +1,3 @@
+back_billetterie_reservation_liste:
+    path:      /liste/{page}/{etat}/{sort}/{direction}
+    defaults: { _controller: BackBilletterieMaritimeBundle:Billetterie:liste,page:1,etat:1,sort:r.id,direction:desc }
