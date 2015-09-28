@@ -144,7 +144,7 @@
                         $reservation->addReglement($reglement);
                     }
                 }
-                if($reservation->getMontantRestant() > 0 && !is_null($data['piece']->getNumero())){
+                if($reservation->getMontantRestant() > 0 &&  !is_null($data['piece']->getModeReglement()) && !is_null($data['piece']->getMontantOrigine())) {
                     if($data['piece']->getMontantOrigine() > 0){
                         $reglement = new Reglement();
                         $piece = new Piece();
