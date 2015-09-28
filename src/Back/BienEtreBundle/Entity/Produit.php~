@@ -66,13 +66,12 @@ class Produit {
      * @Gedmo\Slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
+    private $slug;
     
     /**
     * @ORM\OneToMany(targetEntity="Photo", mappedBy="produit", cascade={"remove"})
     */
     private $photos;
-    
-    private $slug;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -88,4 +87,254 @@ class Produit {
 
     
     
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tarifs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set libelle
+     *
+     * @param string $libelle
+     * @return Produit
+     */
+    public function setLibelle($libelle)
+    {
+        $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    /**
+     * Get libelle
+     *
+     * @return string 
+     */
+    public function getLibelle()
+    {
+        return $this->libelle;
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     * @return Produit
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set descriptionCourte
+     *
+     * @param string $descriptionCourte
+     * @return Produit
+     */
+    public function setDescriptionCourte($descriptionCourte)
+    {
+        $this->descriptionCourte = $descriptionCourte;
+
+        return $this;
+    }
+
+    /**
+     * Get descriptionCourte
+     *
+     * @return string 
+     */
+    public function getDescriptionCourte()
+    {
+        return $this->descriptionCourte;
+    }
+
+    /**
+     * Set descriptionLongue
+     *
+     * @param string $descriptionLongue
+     * @return Produit
+     */
+    public function setDescriptionLongue($descriptionLongue)
+    {
+        $this->descriptionLongue = $descriptionLongue;
+
+        return $this;
+    }
+
+    /**
+     * Get descriptionLongue
+     *
+     * @return string 
+     */
+    public function getDescriptionLongue()
+    {
+        return $this->descriptionLongue;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Produit
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Produit
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set centre
+     *
+     * @param \Back\BienEtreBundle\Entity\Centre $centre
+     * @return Produit
+     */
+    public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre = null)
+    {
+        $this->centre = $centre;
+
+        return $this;
+    }
+
+    /**
+     * Get centre
+     *
+     * @return \Back\BienEtreBundle\Entity\Centre 
+     */
+    public function getCentre()
+    {
+        return $this->centre;
+    }
+
+    /**
+     * Add tarifs
+     *
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
+     * @return Produit
+     */
+    public function addTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
+    {
+        $this->tarifs[] = $tarifs;
+
+        return $this;
+    }
+
+    /**
+     * Remove tarifs
+     *
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
+     */
+    public function removeTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
+    {
+        $this->tarifs->removeElement($tarifs);
+    }
+
+    /**
+     * Get tarifs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTarifs()
+    {
+        return $this->tarifs;
+    }
+
+    /**
+     * Add photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     * @return Produit
+     */
+    public function addPhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     */
+    public function removePhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 }

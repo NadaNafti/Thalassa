@@ -66,13 +66,12 @@ class Produit {
      * @Gedmo\Slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
+    private $slug;
     
     /**
     * @ORM\OneToMany(targetEntity="Photo", mappedBy="produit", cascade={"remove"})
     */
     private $photos;
-    
-    private $slug;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -337,5 +336,28 @@ class Produit {
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Produit
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
