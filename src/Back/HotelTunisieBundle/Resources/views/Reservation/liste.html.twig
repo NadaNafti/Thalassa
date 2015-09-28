@@ -13,7 +13,7 @@
             <div class="panel-body tab-content">
                 <form action="{{ path('filtre_reservations') }}" method="post" role="form" id="form">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label>Etat</label>
                                 <select name="etat"  class="form-control ">
@@ -24,18 +24,55 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label>Amicales</label>
                                 <select name="amicale"  class="form-control ">
                                     <option value="all">Tous le amicales</option>
-                                    {% for amicale in amicales %}
+                                    {% for amicale in amicales if amicale.hasProduit('SHT') %}
                                         <option value="{{ amicale.id }}"  {% if app.request.get('amicale')==amicale.id %}selected{% endif %}>{{ amicale }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Check In</label>
+                                <input type="date" class="form-control " name="checkIn" value="{% if app.request.get('checkIn')!='all' %}{{ app.request.get('checkIn') }}{% endif %}">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Check Out</label>
+                                <input type="date" class="form-control " name="checkOut" value="{% if app.request.get('checkOut')!='all' %}{{ app.request.get('checkOut') }}{% endif %}">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Hôtels</label>
+                                <select name="hotel"  class="form-control ">
+                                    <option value="all">Tous le hôtels</option>
+                                    {% for hotel in hotels %}
+                                        <option value="{{ hotel.id }}"  {% if app.request.get('hotel')==hotel.id %}selected{% endif %}>{{ hotel }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Pris en charge par</label>
+                                <select name="user"  class="form-control ">
+                                    <option value="all">Tous le Utilisateurs</option>
+                                    {% for user in users %}
+                                        <option value="{{ user.id }}"  {% if app.request.get('user')==user.id %}selected{% endif %}>{{ user }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-2"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8"></div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <button class="btn btn-green btn-block" type="submit" style="margin-top: 24px;">
@@ -67,7 +104,7 @@
                             <tr>
                                 <th class="center {% if reservations.isSorted('r.id') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, '#', 'r.id') }}</th>
                                 <th class="center {% if reservations.isSorted('r.created') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Date', 'r.created') }}</th>
-                                <th class="center {% if reservations.isSorted('r.dateDebut') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Date Réservation', 'r.dateDebut') }}</th>
+                                <th class="center {% if reservations.isSorted('r.dateDebut') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'CheckIn & CheckOut', 'r.dateDebut') }}</th>
                                 <th class="center {% if reservations.isSorted('h.libelle') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Hôtel', 'h.libelle') }}</th>
                                 <th class="center {% if reservations.isSorted('c.nomPrenom') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Client', 'c.nomPrenom') }}</th>
                                 <th class="center {% if reservations.isSorted('r.etat') %}sorting_{{ reservations.direction }}{% endif %}">{{ knp_pagination_sortable(reservations, 'Etat', 'r.etat') }}</th>
@@ -90,7 +127,8 @@
                                         </span>
                                     </td>
                                     <td>
-                                        {{ reservation.dateDebut|date('d/m/Y') }}<br>
+                                        Du {{ reservation.dateDebut|date('d/m/Y') }}
+                                        au {{ reservation.dateFin|date_modify('+ 1 day')|date('d/m/Y') }}<br>
                                         <span style="color:red">{{ reservation.nuitees }} Nuitées</span>
                                     </td>
                                     <td>
@@ -142,6 +180,4 @@
             </div>
         </div>
     </div>
-
-
 {% endblock %}

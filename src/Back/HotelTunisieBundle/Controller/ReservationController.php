@@ -250,18 +250,20 @@ class ReservationController extends Controller
         ));
     }
 
-    public function listeAction($page, $etat, $amicale, $sort, $direction)
+    public function listeAction($page, $etat, $amicale, $checkIn, $checkOut, $hotel, $user, $sort, $direction)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
-        $request = $this->getRequest();
         $amicales = $em->getRepository('BackAdministrationBundle:Amicale')->findBy(array(), array('libelle' => 'asc'));
-        $query = $em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice($etat, $amicale, $sort, $direction);
+        $hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->findBy(array(), array('libelle' => 'asc'));
+        $query = $em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice($etat, $amicale, $checkIn, $checkOut, $hotel, $user, $sort, $direction);
+        $users = $em->getRepository('BackUserBundle:User')->findByRole('ROLE_ADMIN');
         $paginator = $this->get('knp_paginator');
-        $reservations = $paginator->paginate($query, $request->query->get('page', 1), 20);
+        $reservations = $paginator->paginate($query, $page, 20);
         return $this->render('BackHotelTunisieBundle:Reservation:liste.html.twig', array(
             'reservations' => $reservations,
             'amicales'     => $amicales,
+            'hotels'       => $hotels,
+            'users'        => $users
         ));
     }
 
@@ -269,8 +271,12 @@ class ReservationController extends Controller
     {
         $request = $this->getRequest();
         return $this->redirect($this->generateUrl('liste_reservations', array(
-            'etat'    => $request->get('etat'),
-            'amicale' => $request->get('amicale'),
+            'etat'     => $request->get('etat'),
+            'amicale'  => $request->get('amicale'),
+            'checkIn'  => $request->get('checkIn') == '' ? 'all' : $request->get('checkIn'),
+            'checkOut' => $request->get('checkOut') == '' ? 'all' : $request->get('checkOut'),
+            'user'     => $request->get('user'),
+            'hotel'    => $request->get('hotel'),
         )));
     }
 
@@ -297,10 +303,11 @@ class ReservationController extends Controller
         if ($reservation->getEtat() != 2)
             return $this->redirect($this->generateUrl("liste_reservations"));
         $em = $this->getDoctrine()->getManager();
-        return $this->render('BackHotelTunisieBundle:Reservation:voucher.html.twig', array(
-            'reservation' => $reservation,
-            'agence'      => $em->getRepository('BackAdministrationBundle:Agence')->find(1),
-        ));
+        $confVoucher = $em->find("BackHotelTunisieBundle:ConfigurationVoucher", 1);
+        if ($confVoucher && $confVoucher->getModel() == 2)
+            return $this->render('BackHotelTunisieBundle:Reservation:voucher2.html.twig', array('reservation' => $reservation));
+        else
+            return $this->render('BackHotelTunisieBundle:Reservation:voucher1.html.twig', array('reservation' => $reservation));
     }
 
     public function voucherPrixAction(Reservation $reservation)
@@ -377,7 +384,7 @@ class ReservationController extends Controller
     public function countEnregistrerAction()
     {
         $em = $this->getDoctrine()->getManager();
-        return new Response(count($em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice(1, 'all', 'r.id', 'desc')));
+        return new Response(count($em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice(1)));
     }
 
     public function remiseAction(Reservation $reservation)
@@ -488,7 +495,7 @@ class ReservationController extends Controller
     public function notificationAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $reservations = $em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice(1, 'all', "r.id", "desc");
+        $reservations = $em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice(1);
         return $this->render('BackHotelTunisieBundle:Reservation:notification.html.twig', array(
             'reservations' => $reservations,
         ));

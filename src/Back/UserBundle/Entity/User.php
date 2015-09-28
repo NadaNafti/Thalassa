@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\GroupableInterface;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Back\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="ost_user")
  */
 class User extends BaseUser

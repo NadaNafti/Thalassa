@@ -21,15 +21,15 @@
 <body>
 <header class="clearfix">
     <div id="logo">
-        <img src="{{ asset(agence.assetPath) }}">
+        <img src="{{ asset(getAgence().assetPath) }}">
     </div>
     <div id="company">
-        <h2 class="name">{{ agence.nom }}</h2>
+        <h2 class="name">{{ getAgence().nom }}</h2>
 
-        <div>{{ agence.adresse }}</div>
-        <div>{{ agence.tel1 }}</div>
-        <div>{{ agence.tel2 }}</div>
-        <div><a>{{ agence.contactEmail }}</a></div>
+        <div>{{ getAgence().adresse }}</div>
+        <div>{{ getAgence().tel1 }}</div>
+        <div>{{ getAgence().tel2 }}</div>
+        <div><a>{{ getAgence().contactEmail }}</a></div>
     </div>
 </header>
 <main>
@@ -116,8 +116,8 @@
     {% endif %}
 </main>
 <footer>
-    {{ agence.adresse }} - Tél : {{ agence.tel1 }} - {{ agence.tel2 }} - Fax : {{ agence.fax }}
-    <br/> E-mail : {{ agence.contactEmail }} - Site Web : {{ agence.site }}
+    {{ getAgence().adresse }} - Tél : {{ getAgence().tel1 }} - {{ getAgence().tel2 }} - Fax : {{ getAgence().fax }}
+    <br/> E-mail : {{ getAgence().contactEmail }} - Site Web : {{ getAgence().site }}
 </footer>
 </body>
 </html>

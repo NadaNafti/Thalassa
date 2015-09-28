@@ -11,6 +11,10 @@
     <div class="row">
         {% if reservation.responsable is not null and app.user.id == reservation.responsable.id %}
             <div class="col-md-12 center">
+                {% if reservation.etat == 2 %}
+                    <a target="_blank" href="{{ path('voucher_reservation',{'id':reservation.id}) }}"  class="btn btn-light-grey center"> Voucher </a>
+                    <a target="_blank" href="{{ path('recus_reservation',{'id':reservation.id}) }}"  class="btn btn-light-grey center"> réçus </a>
+                {% endif %}
                 {% if not reservation.surDemande and reservation.etat  == 1 %}
                     <a href="#remise" data-toggle="modal" class="btn btn-light-grey center"> Editer la Remise </a>
                 {% endif %}

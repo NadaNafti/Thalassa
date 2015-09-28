@@ -1,0 +1,117 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Voucher</title>
+    <link rel="stylesheet" href="{{ asset('recus-assets/style.css') }}">
+    <script src="{{ asset('recus-assets/script.js') }}"></script>
+</head>
+<html>
+<aside style="margin-top: 105px;">
+    <span style="position: absolute;margin-top: -122px;"><img alt="" src="{{ asset(getAgence().assetPath) }}"></span>
+
+    <h1>
+        <span style="letter-spacing: 2px;margin-right: 125px;">Voucher # {{ NumVoucher(reservation.id) }}</span>
+    </h1>
+    <table class="meta" style="margin-top: -75px;">
+        <tr>
+            <th><span>Num</span></th>
+            <td><span>{{ NumVoucher(reservation.id) }}</span></td>
+        </tr>
+        <tr>
+            <th><span>Validé le</span></th>
+            <td>{{ reservation.validated|date('d/m/Y  h:i') }} </td>
+        </tr>
+    </table>
+</aside>
+<body>
+
+<aside style="margin-bottom: 15px;">
+    <div>
+        <p>Séjour hôtel en Tunisie</p>
+
+        <p>{{ reservation.hotel }}
+            <small>({{ reservation.hotel.adresse }})</small>
+        </p>
+        <p>{{ reservation.nuitees }} nuitée(s), Du {{ reservation.dateDebut|date('d/m/Y') }}
+            au {{ reservation.dateFin|date_modify("+1 day")|date('d/m/Y') }}</p>
+    </div>
+</aside>
+<article style="margin: 0px;">
+
+    <table class="inventory" style="margin-bottom: 10px;">
+        <thead>
+        <tr>
+            <th style="width: 100px;"><span>#</span></th>
+            <th><span>Description</span></th>
+            <th style="width: 100px;"><span>Enfant(s)</span></th>
+            <th style="width: 100px;"><span>Adulte(s)</span></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for chambre in reservation.chambres %}
+            <tr>
+                <td style="text-align: center">{{ loop.index }}</td>
+                <td>
+                    <h3>{{ chambre.chambre }} en {{ chambre.arrangement }}</h3>
+                    {% for adulte in chambre.adultes %}
+                        <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">{{ adulte.nom }} </p>
+                    {% endfor %}
+                    {% for enfant in chambre.enfants %}
+                        <p style="margin-left: 10px;margin-top: 0px;margin-bottom: 0px;">{{ enfant.nom }}
+                            ({{ enfant.age }} ans)</p>
+                    {% endfor %}
+                    {% for supp in chambre.supplements %}
+                        <p style="margin-left: 15px;margin-top: 0px;margin-bottom: 0px;"> - {{ getNameSupp(supp) }}</p>
+                    {% endfor %}
+                    {% for vue in chambre.vues %}
+                        <p style="margin-left: 15px;margin-top: 0px;margin-bottom: 0px;"> - {{ getNameVue(vue) }}</p>
+                    {% endfor %}
+                </td>
+                <td style="text-align: center">{{ chambre.adultes|length }} </td>
+                <td style="text-align: center">{{ chambre.enfants|length }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        {% if reservation.options|length >0 %}
+            <tr>
+                <td colspan="4" style="text-align: left;color: #555555;">
+                    <h3>Options :</h3>
+                    {% for option in reservation.options %}
+                        <p style="margin: 0 0 0 30px;"> - {{ getNameOption(option) }}</p>
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endif %}
+        {% if reservation.observation is not null %}
+            <tr>
+                <td colspan="4" style="text-align: left;color: #555555;">
+                    <p>{{ reservation.observation }}</p>
+                </td>
+            </tr>
+        {% endif %}
+        </tfoot>
+    </table>
+    <div style="text-align: justify;font-size: 11px;">{{ getTexteVoucher()|raw }}</div>
+    {% if isGoogleMaps() and reservation.hotel.longitude is not null and reservation.hotel.latitude is not null %}
+        <div style="text-align: center;margin-top: 20px;border-bottom: 1px solid black;border-top: 1px solid black;">
+            <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=11&size=1000x100&markers=color:blue%7Clabel:H%7C{{ reservation.hotel.longitude }},{{ reservation.hotel.latitude }}"/>
+        </div>
+    {% endif %}
+</article>
+<aside>
+    <h1><span></span></h1>
+
+    <div>
+        <p style="font-size: 10px;text-align: center;line-height: 15px;">
+            {{ getAgence().adresse }} -
+            Tél : {{ getAgence().tel1 }} - {{ getAgence().tel2 }} -
+            Fax : {{ getAgence().fax }}
+            <br/>
+            E-mail : {{ getAgence().contactEmail }} - Site Web : {{ getAgence().site }}
+        </p>
+    </div>
+</aside>
+</body>
+</html>
