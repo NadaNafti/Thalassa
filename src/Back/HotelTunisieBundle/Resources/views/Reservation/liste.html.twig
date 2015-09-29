@@ -171,7 +171,7 @@
                                             <small>({{ reservation.sousEtats.last }})</small>
                                         </a>
                                     {% endif %}
-                                    {{ macros.bouttonModal(reservation.id,"#responsive",'fa-plus','btn-trello addEtat','Ajouter une nouvelle sous Etat') }}
+                                    {{ macros.bouttonModal(reservation.id,"#responsive",'fa-plus','btn-trello addEtat','Ajouter un sous-état') }}
                                     <br>
                                     {% if reservation.responsable is not null %}P.E.C <span style="color:red"> {{ reservation.responsable }}</span>{% endif %}
                                 </td>
@@ -205,12 +205,12 @@
             </div>
         </div>
     </div>
-    <div id="liste" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+    <div id="liste" class="modal fade" tabindex="-1" data-width="960" style="display: none;">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                 &times;
             </button>
-            <h4 class="modal-title">liste</h4>
+            <h4 class="modal-title">liste des sous-états</h4>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -220,7 +220,7 @@
                         <tr>
                             <th class="center">Date</th>
                             <th class="center">User</th>
-                            <th class="center">Sous Etat</th>
+                            <th class="center">sous-étatt</th>
                             <th class="center">Commentaire</th>
                         </tr>
                         </thead>
@@ -236,7 +236,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                 &times;
             </button>
-            <h4 class="modal-title">Ajouter un sous état</h4>
+            <h4 class="modal-title">Ajouter un sous-état</h4>
         </div>
         {{ form_start(form) }}
         <div class="modal-body">
