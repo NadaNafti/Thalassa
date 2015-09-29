@@ -44,6 +44,11 @@ class Produit
     private $emails;
 
     /**
+     * @ORM\OneToMany(targetEntity="Etat", mappedBy="produit")
+     */
+    protected $etats ;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -143,5 +148,38 @@ class Produit
     public function getEmails()
     {
         return $this->emails;
+    }
+
+    /**
+     * Add etats
+     *
+     * @param \Back\AdministrationBundle\Entity\Etat $etats
+     * @return Produit
+     */
+    public function addEtat(\Back\AdministrationBundle\Entity\Etat $etats)
+    {
+        $this->etats[] = $etats;
+
+        return $this;
+    }
+
+    /**
+     * Remove etats
+     *
+     * @param \Back\AdministrationBundle\Entity\Etat $etats
+     */
+    public function removeEtat(\Back\AdministrationBundle\Entity\Etat $etats)
+    {
+        $this->etats->removeElement($etats);
+    }
+
+    /**
+     * Get etats
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEtats()
+    {
+        return $this->etats;
     }
 }
