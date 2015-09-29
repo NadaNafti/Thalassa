@@ -221,5 +221,55 @@ class Photo {
         return $this->visible;
     }
 
-}
 
+    /**
+     * Set centre
+     *
+     * @param \Back\BienEtreBundle\Entity\Centre $centre
+     * @return Photo
+     */
+    public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre = null)
+    {
+        $this->centre = $centre;
+
+        return $this;
+    }
+
+    /**
+     * Get centre
+     *
+     * @return \Back\BienEtreBundle\Entity\Centre 
+     */
+    public function getCentre()
+    {
+        return $this->centre;
+    }
+
+    /**
+     * Set produit
+     *
+     * @param \Back\BienEtreBundle\Entity\Produit $produit
+     * @return Photo
+     */
+    public function setProduit(\Back\BienEtreBundle\Entity\Produit $produit = null)
+    {
+        $this->produit = $produit;
+
+        return $this;
+    }
+
+    /**
+     * Get produit
+     *
+     * @return \Back\BienEtreBundle\Entity\Produit 
+     */
+    public function getProduit()
+    {
+        return $this->produit;
+    }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
+}

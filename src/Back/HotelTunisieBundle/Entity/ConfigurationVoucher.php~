@@ -181,4 +181,27 @@
     {
         return $this->gmaps;
     }
+
+    /**
+     * Set model
+     *
+     * @param integer $model
+     * @return ConfigurationVoucher
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return integer 
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
 }

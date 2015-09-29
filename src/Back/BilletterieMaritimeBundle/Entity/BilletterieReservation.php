@@ -167,6 +167,11 @@ class BilletterieReservation
     protected $lignes;
 
     /**
+     * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationB")
+     */
+    protected $sousEtats;
+
+    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column( type="datetime")
      */
@@ -774,5 +779,43 @@ class BilletterieReservation
             return 'Validée';
         if($this->etat == 9)
             return 'Annulée';
+    }
+
+    /**
+     * Add sousEtats
+     *
+     * @param \Back\AdministrationBundle\Entity\SousEtat $sousEtats
+     * @return BilletterieReservation
+     */
+    public function addSousEtat(\Back\AdministrationBundle\Entity\SousEtat $sousEtats)
+    {
+        $this->sousEtats[] = $sousEtats;
+
+        return $this;
+    }
+
+    /**
+     * Remove sousEtats
+     *
+     * @param \Back\AdministrationBundle\Entity\SousEtat $sousEtats
+     */
+    public function removeSousEtat(\Back\AdministrationBundle\Entity\SousEtat $sousEtats)
+    {
+        $this->sousEtats->removeElement($sousEtats);
+    }
+
+    /**
+     * Get sousEtats
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSousEtats()
+    {
+        return $this->sousEtats;
+    }
+
+    public function __toString()
+    {
+        return "Reservation : ".$this->getId();
     }
 }

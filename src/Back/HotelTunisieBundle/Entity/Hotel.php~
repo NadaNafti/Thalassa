@@ -1379,4 +1379,50 @@ class Hotel
     {
         return $this->shortTripAdvisor;
     }
+
+    /**
+     * Set checkIn
+     *
+     * @param string $checkIn
+     * @return Hotel
+     */
+    public function setCheckIn($checkIn)
+    {
+        $this->checkIn = $checkIn;
+
+        return $this;
+    }
+
+    /**
+     * Get checkIn
+     *
+     * @return string 
+     */
+    public function getCheckIn()
+    {
+        return $this->checkIn;
+    }
+
+    /**
+     * Set checkOut
+     *
+     * @param string $checkOut
+     * @return Hotel
+     */
+    public function setCheckOut($checkOut)
+    {
+        $this->checkOut = $checkOut;
+
+        return $this;
+    }
+
+    /**
+     * Get checkOut
+     *
+     * @return string 
+     */
+    public function getCheckOut()
+    {
+        return $this->checkOut;
+    }
 }

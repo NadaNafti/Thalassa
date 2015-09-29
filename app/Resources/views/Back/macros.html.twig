@@ -6,6 +6,10 @@
     <a href="{{ path }}" target="_blank" class="btn btn-xs {{ color }} tooltips" data-placement="top" data-original-title="{{ texte }}">
         <i class="fa {{ icon }}"></i> </a>
 {% endmacro %}
+{% macro bouttonModal(id,path,icon,color,texte) %}
+    <a href="{{ path }}" data-toggle="modal" data-id="{{ id }}" class="btn btn-xs {{ color }} tooltips" data-placement="top" data-original-title="{{ texte }}">
+        <i class="fa {{ icon }}"></i> </a>
+{% endmacro %}
 {% macro tablePassword(path) %}
     <a href="{{ path }}" class="btn btn-xs btn-blue tooltips" data-placement="top" data-original-title="Modifier mot de passe"><i class="fa fa-lock"></i></a>
 {% endmacro %}

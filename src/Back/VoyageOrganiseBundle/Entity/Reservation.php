@@ -1,678 +1,721 @@
 <?php
-    namespace Back\VoyageOrganiseBundle\Entity;
+namespace Back\VoyageOrganiseBundle\Entity;
 
-    use Doctrine\ORM\Mapping as ORM;
-    use Gedmo\Mapping\Annotation as Gedmo;
-    use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Reservation
+ *
+ * @ORM\Table(name="ost_vo_reservations")
+ * @ORM\Entity(repositoryClass="Back\VoyageOrganiseBundle\Entity\Repository\ReservationRepository")
+ */
+class Reservation
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
     /**
-     * Reservation
-     *
-     * @ORM\Table(name="ost_vo_reservations")
-     * @ORM\Entity(repositoryClass="Back\VoyageOrganiseBundle\Entity\Repository\ReservationRepository")
+     * @var string
+     * @ORM\Column(name="code", type="string",nullable=true)
      */
-    class Reservation
+    private $code;
+
+    /**
+     * @var integer
+     *
+     * 1:Enregistrée
+     * 2:Validée
+     * 9:Annulée
+     * @ORM\Column(name="etat", type="integer")
+     */
+    private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\User")
+     */
+    protected $responsable;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="frontOffice", type="boolean", nullable=true)
+     */
+    private $frontOffice;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire", type="text",nullable=true)
+     */
+    private $commentaire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="VoyageOrganise")
+     * @Assert\NotBlank()
+     */
+    private $voyage;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Pack")
+     */
+    private $pack;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservationsVO")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $client;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="validated", type="datetime" ,nullable=true)
+     */
+    private $validated;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationVO")
+     */
+    protected $reglements;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ReservationChambre", mappedBy="reservation")
+     */
+    protected $chambres;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="supplements", type="array")
+     */
+    private $supplements;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="circuits", type="array")
+     */
+    private $circuits;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="frais", type="array")
+     */
+    private $frais;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="coordonnees", type="array")
+     */
+    private $coordonnees;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="timbre", type="decimal", precision=2, scale=1,nullable=true)
+     */
+    private $timbre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="remise", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $remise;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationVO")
+     */
+    protected $sousEtats;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
     {
-        /**
-         * @var integer
-         *
-         * @ORM\Column(name="id", type="integer")
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="AUTO")
-         */
-        private $id;
-
-        /**
-         * @var string
-         * @ORM\Column(name="code", type="string",nullable=true)
-         */
-        private $code;
-
-        /**
-         * @var integer
-         *
-         * 1:Enregistrée
-         * 2:Validée
-         * 9:Annulée
-         * @ORM\Column(name="etat", type="integer")
-         */
-        private $etat;
-
-        /**
-         * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\User")
-         */
-        protected $responsable;
-
-        /**
-         * @var boolean
-         *
-         * @ORM\Column(name="frontOffice", type="boolean", nullable=true)
-         */
-        private $frontOffice;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="commentaire", type="text",nullable=true)
-         */
-        private $commentaire;
-
-        /**
-         * @ORM\ManyToOne(targetEntity="VoyageOrganise")
-         * @Assert\NotBlank()
-         */
-        private $voyage;
-
-        /**
-         * @ORM\ManyToOne(targetEntity="Pack")
-         */
-        private $pack;
-
-        /**
-         * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservationsVO")
-         * @ORM\JoinColumn(onDelete="CASCADE")
-         */
-        protected $client;
-
-        /**
-         * @var \DateTime
-         *
-         * @ORM\Column(name="validated", type="datetime" ,nullable=true)
-         */
-        private $validated;
-
-        /**
-         * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationVO")
-         */
-        protected $reglements;
-
-        /**
-         * @ORM\OneToMany(targetEntity="ReservationChambre", mappedBy="reservation")
-         */
-        protected $chambres;
-
-        /**
-         * @var array
-         *
-         * @ORM\Column(name="supplements", type="array")
-         */
-        private $supplements;
-
-        /**
-         * @var array
-         *
-         * @ORM\Column(name="circuits", type="array")
-         */
-        private $circuits;
-
-        /**
-         * @var array
-         *
-         * @ORM\Column(name="frais", type="array")
-         */
-        private $frais;
-
-        /**
-         * @Gedmo\Timestampable(on="create")
-         * @ORM\Column( type="datetime")
-         */
-        private $created;
-
-        /**
-         * @Gedmo\Timestampable(on="update")
-         * @ORM\Column( type="datetime")
-         */
-        private $updated;
-
-        /**
-         * @var array
-         *
-         * @ORM\Column(name="coordonnees", type="array")
-         */
-        private $coordonnees;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="timbre", type="decimal", precision=2, scale=1,nullable=true)
-         */
-        private $timbre;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="remise", type="decimal", precision=11, scale=3,nullable=true)
-         */
-        private $remise;
-
-        /**
-         * Constructor
-         */
-        public function __construct()
-        {
-            $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->frontOffice = FALSE;
-            $this->remise = 0;
-            $this->timbre = 0;
-            $this->etat = 1;
-            $this->coordonnees = array();
-            $this->supplements = array();
-            $this->frais = array();
-            $this->circuits = array();
-        }
-
-        /**
-         * Get id
-         *
-         * @return integer
-         */
-        public function getId()
-        {
-            return $this->id;
-        }
-
-        /**
-         * Set commentaire
-         *
-         * @param string $commentaire
-         * @return Reservation
-         */
-        public function setCommentaire($commentaire)
-        {
-            $this->commentaire = $commentaire;
-            return $this;
-        }
-
-        /**
-         * Get commentaire
-         *
-         * @return string
-         */
-        public function getCommentaire()
-        {
-            return $this->commentaire;
-        }
-
-        /**
-         * Set voyage
-         *
-         * @param \Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyage
-         * @return Reservation
-         */
-        public function setVoyage(\Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyage = NULL)
-        {
-            $this->voyage = $voyage;
-            return $this;
-        }
-
-        /**
-         * Get voyage
-         *
-         * @return \Back\VoyageOrganiseBundle\Entity\VoyageOrganise
-         */
-        public function getVoyage()
-        {
-            return $this->voyage;
-        }
-
-        /**
-         * Set client
-         *
-         * @param \Back\UserBundle\Entity\Client $client
-         * @return Reservation
-         */
-        public function setClient(\Back\UserBundle\Entity\Client $client = NULL)
-        {
-            $this->client = $client;
-            return $this;
-        }
-
-        /**
-         * Get client
-         *
-         * @return \Back\UserBundle\Entity\Client
-         */
-        public function getClient()
-        {
-            return $this->client;
-        }
-
-        /**
-         * Set code
-         *
-         * @param string $code
-         * @return Reservation
-         */
-        public function setCode($code)
-        {
-            $this->code = $code;
-            return $this;
-        }
-
-        /**
-         * Get code
-         *
-         * @return string
-         */
-        public function getCode()
-        {
-            return $this->code;
-        }
-
-        /**
-         * Set etat
-         *
-         * @param integer $etat
-         * @return Reservation
-         */
-        public function setEtat($etat)
-        {
-            $this->etat = $etat;
-            return $this;
-        }
-
-        /**
-         * Get etat
-         *
-         * @return integer
-         */
-        public function getEtat()
-        {
-            return $this->etat;
-        }
-
-        /**
-         * Set frontOffice
-         *
-         * @param boolean $frontOffice
-         * @return Reservation
-         */
-        public function setFrontOffice($frontOffice)
-        {
-            $this->frontOffice = $frontOffice;
-            return $this;
-        }
-
-        /**
-         * Get frontOffice
-         *
-         * @return boolean
-         */
-        public function getFrontOffice()
-        {
-            return $this->frontOffice;
-        }
-
-        /**
-         * Set validated
-         *
-         * @param \DateTime $validated
-         * @return Reservation
-         */
-        public function setValidated($validated)
-        {
-            $this->validated = $validated;
-            return $this;
-        }
-
-        /**
-         * Get validated
-         *
-         * @return \DateTime
-         */
-        public function getValidated()
-        {
-            return $this->validated;
-        }
-
-        /**
-         * Set created
-         *
-         * @param \DateTime $created
-         * @return Reservation
-         */
-        public function setCreated($created)
-        {
-            $this->created = $created;
-            return $this;
-        }
-
-        /**
-         * Get created
-         *
-         * @return \DateTime
-         */
-        public function getCreated()
-        {
-            return $this->created;
-        }
-
-        /**
-         * Set updated
-         *
-         * @param \DateTime $updated
-         * @return Reservation
-         */
-        public function setUpdated($updated)
-        {
-            $this->updated = $updated;
-            return $this;
-        }
-
-        /**
-         * Get updated
-         *
-         * @return \DateTime
-         */
-        public function getUpdated()
-        {
-            return $this->updated;
-        }
-
-        /**
-         * Set responsable
-         *
-         * @param \Back\UserBundle\Entity\User $responsable
-         * @return Reservation
-         */
-        public function setResponsable(\Back\UserBundle\Entity\User $responsable = NULL)
-        {
-            $this->responsable = $responsable;
-            return $this;
-        }
-
-        /**
-         * Get responsable
-         *
-         * @return \Back\UserBundle\Entity\User
-         */
-        public function getResponsable()
-        {
-            return $this->responsable;
-        }
-
-        /**
-         * Add reglements
-         *
-         * @param \Back\CommercialBundle\Entity\Reglement $reglements
-         * @return Reservation
-         */
-        public function addReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
-        {
-            $this->reglements[] = $reglements;
-            return $this;
-        }
-
-        /**
-         * Remove reglements
-         *
-         * @param \Back\CommercialBundle\Entity\Reglement $reglements
-         */
-        public function removeReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
-        {
-            $this->reglements->removeElement($reglements);
-        }
-
-        /**
-         * Get reglements
-         *
-         * @return \Doctrine\Common\Collections\Collection
-         */
-        public function getReglements()
-        {
-            return $this->reglements;
-        }
-
-        public function showEtat()
-        {
-            if($this->etat == 1)
-                return 'Enregistrée';
-            if($this->etat == 2)
-                return 'Validée';
-            if($this->etat == 9)
-                return 'Annulée';
-        }
-
-        /**
-         * Get total Vente
-         *
-         * @return string
-         */
-        public function getTotalLigneVente()
-        {
-            $total = 0;
-            foreach($this->chambres as $chambre)
-                $total += $chambre->getTotalLigneVente();
-            return number_format($total,3,'.','');
-        }
-
-        /**
-         * Get total Achat
-         *
-         * @return string
-         */
-        public function getTotalLigneAchat()
-        {
-            $total = 0;
-            foreach($this->chambres as $chambre)
-                $total += $chambre->getTotalLigneAchat();
-            return number_format($total,3,'.','');
-        }
-
-        public function getMontantRegle()
-        {
-            $montant = 0;
-            foreach($this->reglements as $reglement)
-                $montant += $reglement->getMontant();
-            return number_format($montant,3,'.','');
-        }
-
-        public function getMontantRestant()
-        {
-            return number_format($this->getTotal() - $this->getMontantRegle(),3,'.','');
-        }
-
-        /**
-         * Set coordonnees
-         *
-         * @param array $coordonnees
-         * @return Reservation
-         */
-        public function setCoordonnees($coordonnees)
-        {
-            $this->coordonnees = $coordonnees;
-            return $this;
-        }
-
-        /**
-         * Get coordonnees
-         *
-         * @return array
-         */
-        public function getCoordonnees()
-        {
-            return $this->coordonnees;
-        }
-
-        /**
-         * Set supplements
-         *
-         * @param array $supplements
-         * @return Reservation
-         */
-        public function setSupplements($supplements)
-        {
-            $this->supplements = $supplements;
-            return $this;
-        }
-
-        /**
-         * Get supplements
-         *
-         * @return array
-         */
-        public function getSupplements()
-        {
-            return $this->supplements;
-        }
-
-        /**
-         * Set circuits
-         *
-         * @param array $circuits
-         * @return Reservation
-         */
-        public function setCircuits($circuits)
-        {
-            $this->circuits = $circuits;
-            return $this;
-        }
-
-        /**
-         * Get circuits
-         *
-         * @return array
-         */
-        public function getCircuits()
-        {
-            return $this->circuits;
-        }
-
-        /**
-         * Set frais
-         *
-         * @param array $frais
-         * @return Reservation
-         */
-        public function setFrais($frais)
-        {
-            $this->frais = $frais;
-            return $this;
-        }
-
-        /**
-         * Get frais
-         *
-         * @return array
-         */
-        public function getFrais()
-        {
-            return $this->frais;
-        }
-
-        /**
-         * Add chambres
-         *
-         * @param \Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres
-         * @return Reservation
-         */
-        public function addChambre(\Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres)
-        {
-            $this->chambres[] = $chambres;
-            return $this;
-        }
-
-        /**
-         * Remove chambres
-         *
-         * @param \Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres
-         */
-        public function removeChambre(\Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres)
-        {
-            $this->chambres->removeElement($chambres);
-        }
-
-        /**
-         * Get chambres
-         *
-         * @return \Doctrine\Common\Collections\Collection
-         */
-        public function getChambres()
-        {
-            return $this->chambres;
-        }
-
-        /**
-         * Set pack
-         *
-         * @param \Back\VoyageOrganiseBundle\Entity\Pack $pack
-         * @return Reservation
-         */
-        public function setPack(\Back\VoyageOrganiseBundle\Entity\Pack $pack = NULL)
-        {
-            $this->pack = $pack;
-            return $this;
-        }
-
-        /**
-         * Get pack
-         *
-         * @return \Back\VoyageOrganiseBundle\Entity\Pack
-         */
-        public function getPack()
-        {
-            return $this->pack;
-        }
-
-        /**
-         * Set timbre
-         *
-         * @param string $timbre
-         * @return Reservation
-         */
-        public function setTimbre($timbre)
-        {
-            $this->timbre = $timbre;
-            return $this;
-        }
-
-        /**
-         * Get timbre
-         *
-         * @return string
-         */
-        public function getTimbre()
-        {
-            return number_format($this->timbre,3,'.','');
-        }
-
-        /**
-         * Set remise
-         *
-         * @param string $remise
-         * @return Reservation
-         */
-        public function setRemise($remise)
-        {
-            $this->remise = $remise;
-            return $this;
-        }
-
-        /**
-         * Get remise
-         *
-         * @return string
-         */
-        public function getRemise()
-        {
-            return number_format($this->remise,3,'.','');
-        }
-
-        /**
-         * Calculer le total avec le timbre et le remise
-         * @return decimal
-         */
-        public function getTotal()
-        {
-            return number_format($this->getTotalLigneVente() + $this->timbre - $this->remise,3,'.','');
-        }
-
-        public function getNombreOccupants()
-        {
-            $nbrOccupant = 0;
-            foreach($this->chambres as $chambre)
-                $nbrOccupant += $chambre->getNombreOccupants();
-            return $nbrOccupant;
-        }
+        $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->frontOffice = FALSE;
+        $this->remise = 0;
+        $this->timbre = 0;
+        $this->etat = 1;
+        $this->coordonnees = array();
+        $this->supplements = array();
+        $this->frais = array();
+        $this->circuits = array();
     }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set commentaire
+     *
+     * @param string $commentaire
+     * @return Reservation
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
+        return $this;
+    }
+
+    /**
+     * Get commentaire
+     *
+     * @return string
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
+    }
+
+    /**
+     * Set voyage
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyage
+     * @return Reservation
+     */
+    public function setVoyage(\Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyage = NULL)
+    {
+        $this->voyage = $voyage;
+        return $this;
+    }
+
+    /**
+     * Get voyage
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\VoyageOrganise
+     */
+    public function getVoyage()
+    {
+        return $this->voyage;
+    }
+
+    /**
+     * Set client
+     *
+     * @param \Back\UserBundle\Entity\Client $client
+     * @return Reservation
+     */
+    public function setClient(\Back\UserBundle\Entity\Client $client = NULL)
+    {
+        $this->client = $client;
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return \Back\UserBundle\Entity\Client
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Reservation
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param integer $etat
+     * @return Reservation
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return integer
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * Set frontOffice
+     *
+     * @param boolean $frontOffice
+     * @return Reservation
+     */
+    public function setFrontOffice($frontOffice)
+    {
+        $this->frontOffice = $frontOffice;
+        return $this;
+    }
+
+    /**
+     * Get frontOffice
+     *
+     * @return boolean
+     */
+    public function getFrontOffice()
+    {
+        return $this->frontOffice;
+    }
+
+    /**
+     * Set validated
+     *
+     * @param \DateTime $validated
+     * @return Reservation
+     */
+    public function setValidated($validated)
+    {
+        $this->validated = $validated;
+        return $this;
+    }
+
+    /**
+     * Get validated
+     *
+     * @return \DateTime
+     */
+    public function getValidated()
+    {
+        return $this->validated;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Reservation
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Reservation
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set responsable
+     *
+     * @param \Back\UserBundle\Entity\User $responsable
+     * @return Reservation
+     */
+    public function setResponsable(\Back\UserBundle\Entity\User $responsable = NULL)
+    {
+        $this->responsable = $responsable;
+        return $this;
+    }
+
+    /**
+     * Get responsable
+     *
+     * @return \Back\UserBundle\Entity\User
+     */
+    public function getResponsable()
+    {
+        return $this->responsable;
+    }
+
+    /**
+     * Add reglements
+     *
+     * @param \Back\CommercialBundle\Entity\Reglement $reglements
+     * @return Reservation
+     */
+    public function addReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
+    {
+        $this->reglements[] = $reglements;
+        return $this;
+    }
+
+    /**
+     * Remove reglements
+     *
+     * @param \Back\CommercialBundle\Entity\Reglement $reglements
+     */
+    public function removeReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
+    {
+        $this->reglements->removeElement($reglements);
+    }
+
+    /**
+     * Get reglements
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReglements()
+    {
+        return $this->reglements;
+    }
+
+    public function showEtat()
+    {
+        if ($this->etat == 1)
+            return 'Enregistrée';
+        if ($this->etat == 2)
+            return 'Validée';
+        if ($this->etat == 9)
+            return 'Annulée';
+    }
+
+    /**
+     * Get total Vente
+     *
+     * @return string
+     */
+    public function getTotalLigneVente()
+    {
+        $total = 0;
+        foreach ($this->chambres as $chambre)
+            $total += $chambre->getTotalLigneVente();
+        return number_format($total, 3, '.', '');
+    }
+
+    /**
+     * Get total Achat
+     *
+     * @return string
+     */
+    public function getTotalLigneAchat()
+    {
+        $total = 0;
+        foreach ($this->chambres as $chambre)
+            $total += $chambre->getTotalLigneAchat();
+        return number_format($total, 3, '.', '');
+    }
+
+    public function getMontantRegle()
+    {
+        $montant = 0;
+        foreach ($this->reglements as $reglement)
+            $montant += $reglement->getMontant();
+        return number_format($montant, 3, '.', '');
+    }
+
+    public function getMontantRestant()
+    {
+        return number_format($this->getTotal() - $this->getMontantRegle(), 3, '.', '');
+    }
+
+    /**
+     * Set coordonnees
+     *
+     * @param array $coordonnees
+     * @return Reservation
+     */
+    public function setCoordonnees($coordonnees)
+    {
+        $this->coordonnees = $coordonnees;
+        return $this;
+    }
+
+    /**
+     * Get coordonnees
+     *
+     * @return array
+     */
+    public function getCoordonnees()
+    {
+        return $this->coordonnees;
+    }
+
+    /**
+     * Set supplements
+     *
+     * @param array $supplements
+     * @return Reservation
+     */
+    public function setSupplements($supplements)
+    {
+        $this->supplements = $supplements;
+        return $this;
+    }
+
+    /**
+     * Get supplements
+     *
+     * @return array
+     */
+    public function getSupplements()
+    {
+        return $this->supplements;
+    }
+
+    /**
+     * Set circuits
+     *
+     * @param array $circuits
+     * @return Reservation
+     */
+    public function setCircuits($circuits)
+    {
+        $this->circuits = $circuits;
+        return $this;
+    }
+
+    /**
+     * Get circuits
+     *
+     * @return array
+     */
+    public function getCircuits()
+    {
+        return $this->circuits;
+    }
+
+    /**
+     * Set frais
+     *
+     * @param array $frais
+     * @return Reservation
+     */
+    public function setFrais($frais)
+    {
+        $this->frais = $frais;
+        return $this;
+    }
+
+    /**
+     * Get frais
+     *
+     * @return array
+     */
+    public function getFrais()
+    {
+        return $this->frais;
+    }
+
+    /**
+     * Add chambres
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres
+     * @return Reservation
+     */
+    public function addChambre(\Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres)
+    {
+        $this->chambres[] = $chambres;
+        return $this;
+    }
+
+    /**
+     * Remove chambres
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres
+     */
+    public function removeChambre(\Back\VoyageOrganiseBundle\Entity\ReservationChambre $chambres)
+    {
+        $this->chambres->removeElement($chambres);
+    }
+
+    /**
+     * Get chambres
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChambres()
+    {
+        return $this->chambres;
+    }
+
+    /**
+     * Set pack
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Pack $pack
+     * @return Reservation
+     */
+    public function setPack(\Back\VoyageOrganiseBundle\Entity\Pack $pack = NULL)
+    {
+        $this->pack = $pack;
+        return $this;
+    }
+
+    /**
+     * Get pack
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\Pack
+     */
+    public function getPack()
+    {
+        return $this->pack;
+    }
+
+    /**
+     * Set timbre
+     *
+     * @param string $timbre
+     * @return Reservation
+     */
+    public function setTimbre($timbre)
+    {
+        $this->timbre = $timbre;
+        return $this;
+    }
+
+    /**
+     * Get timbre
+     *
+     * @return string
+     */
+    public function getTimbre()
+    {
+        return number_format($this->timbre, 3, '.', '');
+    }
+
+    /**
+     * Set remise
+     *
+     * @param string $remise
+     * @return Reservation
+     */
+    public function setRemise($remise)
+    {
+        $this->remise = $remise;
+        return $this;
+    }
+
+    /**
+     * Get remise
+     *
+     * @return string
+     */
+    public function getRemise()
+    {
+        return number_format($this->remise, 3, '.', '');
+    }
+
+    /**
+     * Calculer le total avec le timbre et le remise
+     * @return decimal
+     */
+    public function getTotal()
+    {
+        return number_format($this->getTotalLigneVente() + $this->timbre - $this->remise, 3, '.', '');
+    }
+
+    public function getNombreOccupants()
+    {
+        $nbrOccupant = 0;
+        foreach ($this->chambres as $chambre)
+            $nbrOccupant += $chambre->getNombreOccupants();
+        return $nbrOccupant;
+    }
+
+    /**
+     * Add sousEtats
+     *
+     * @param \Back\AdministrationBundle\Entity\SousEtat $sousEtats
+     * @return Reservation
+     */
+    public function addSousEtat(\Back\AdministrationBundle\Entity\SousEtat $sousEtats)
+    {
+        $this->sousEtats[] = $sousEtats;
+
+        return $this;
+    }
+
+    /**
+     * Remove sousEtats
+     *
+     * @param \Back\AdministrationBundle\Entity\SousEtat $sousEtats
+     */
+    public function removeSousEtat(\Back\AdministrationBundle\Entity\SousEtat $sousEtats)
+    {
+        $this->sousEtats->removeElement($sousEtats);
+    }
+
+    /**
+     * Get sousEtats
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSousEtats()
+    {
+        return $this->sousEtats;
+    }
+
+    public function __toString()
+    {
+        return "Reservation : ".$this->getId();
+    }
+}
