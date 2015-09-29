@@ -66,7 +66,7 @@ class BilletterieReservation
     private $validated;
 
     /**
-     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationVO")
+     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationsBilletterie")
      */
     protected $reglements;
 
@@ -182,6 +182,34 @@ class BilletterieReservation
      * @ORM\Column( type="datetime")
      */
     private $updated;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="timbre", type="decimal", precision=2, scale=1,nullable=true)
+     */
+    private $timbre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="remise", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $remise;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="total_achat", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $totalAchat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="total_vente", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $totalVente;
 
     /**
      * Get id
@@ -474,6 +502,10 @@ class BilletterieReservation
      */
     public function __construct()
     {
+        $this->remise=0;
+        $this->timbre=0;
+        $this->totalAchat=0;
+        $this->totalVente=0;
         $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
         $this->lignes = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -817,5 +849,115 @@ class BilletterieReservation
     public function __toString()
     {
         return "Reservation : ".$this->getId();
+    }
+
+    /**
+     * Set timbre
+     *
+     * @param string $timbre
+     * @return BilletterieReservation
+     */
+    public function setTimbre($timbre)
+    {
+        $this->timbre = $timbre;
+
+        return $this;
+    }
+
+    /**
+     * Get timbre
+     *
+     * @return string 
+     */
+    public function getTimbre()
+    {
+        return $this->timbre;
+    }
+
+    /**
+     * Set remise
+     *
+     * @param string $remise
+     * @return BilletterieReservation
+     */
+    public function setRemise($remise)
+    {
+        $this->remise = $remise;
+
+        return $this;
+    }
+
+    /**
+     * Get remise
+     *
+     * @return string 
+     */
+    public function getRemise()
+    {
+        return $this->remise;
+    }
+
+    public function getMontantRegle()
+    {
+        $montant = 0;
+        foreach ($this->reglements as $reglement)
+            $montant += $reglement->getMontant();
+        return number_format($montant, 3, '.', '');
+    }
+
+    public function getMontantRestant()
+    {
+        return number_format($this->getTotal() - $this->getMontantRegle(), 3, '.', '');
+    }
+
+    public function getTotal()
+    {
+        return number_format($this->totalVente+$this->timbre-$this->remise, 3, '.', '');
+    }
+
+    /**
+     * Set totalAchat
+     *
+     * @param string $totalAchat
+     * @return BilletterieReservation
+     */
+    public function setTotalAchat($totalAchat)
+    {
+        $this->totalAchat = $totalAchat;
+
+        return $this;
+    }
+
+    /**
+     * Get totalAchat
+     *
+     * @return string 
+     */
+    public function getTotalAchat()
+    {
+        return $this->totalAchat;
+    }
+
+    /**
+     * Set totalVente
+     *
+     * @param string $totalVente
+     * @return BilletterieReservation
+     */
+    public function setTotalVente($totalVente)
+    {
+        $this->totalVente = $totalVente;
+
+        return $this;
+    }
+
+    /**
+     * Get totalVente
+     *
+     * @return string 
+     */
+    public function getTotalVente()
+    {
+        return $this->totalVente;
     }
 }
