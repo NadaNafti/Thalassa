@@ -12,7 +12,7 @@
 		<ul>
 		    {% for reservation in reservations %}
 			<li>
-			    <a href="{{ path('consulter_reservation',{'id':reservation.id}) }}">
+			    <a href="{{ path('back_maritime_reservation_consultation',{'id':reservation.id}) }}">
 				<span class="label label-{% if reservation.frontOffice  %}danger{% else %}primary{% endif %}"><i class="fa fa-star"></i></span>
 				<span class="message">{{ reservation.nomPrenom }}</span>
 				<span class="time">{{ differenceBetweenDates(reservation.created) }}</span>

@@ -134,7 +134,7 @@
                             $em->persist($piece->setMontant($piece->getMontant() - $reservation->getMontantRestant()));
                         }
                         $reglement->setPiece($piece);
-                        $reglement->setReservationVO($reservation);
+                        $reglement->setReservationPR($reservation);
                         $reglement->setDateCreation(new \DateTime());
                         $em->persist($reglement);
                         $reservation->addReglement($reglement);

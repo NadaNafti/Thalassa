@@ -48,17 +48,17 @@ class Centre {
      * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Ville")
      */
     private $ville;
-
-    /**
-     * @Gedmo\Slug(fields={"libelle"})
-     * @ORM\Column(name="slug", length=128, unique=true)
-     */
     
     /**
     * @ORM\OneToMany(targetEntity="Photo", mappedBy="centre", cascade={"remove"})
     */
     private $photos;
-    
+
+
+    /**
+     * @Gedmo\Slug(fields={"libelle"})
+     * @ORM\Column(name="slug", length=128, unique=true)
+     */
     private $slug;
 
     /**

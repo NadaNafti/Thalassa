@@ -32,7 +32,7 @@ class Piece
     /**
      * @var string
      *
-     * @ORM\Column(name="numero", type="string", length=255)
+     * @ORM\Column(name="numero", type="string", length=255,nullable=true)
      */
     private $numero;
 
@@ -366,7 +366,7 @@ class Piece
 
     public function __toString()
     {
-        return $this->numero;
+        return $this->numero .' '.$this->montantOrigine.' DT';
     }
 
 }

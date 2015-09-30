@@ -192,4 +192,5 @@ class BilletterieReservationLigne
         if($this->type==4)
             return 'Bébé (0-23 mois)';
     }
+
 }

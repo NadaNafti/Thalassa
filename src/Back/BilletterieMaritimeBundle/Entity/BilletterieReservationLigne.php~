@@ -38,7 +38,7 @@ class BilletterieReservationLigne
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="naissance", type="datetime")
+     * @ORM\Column(name="naissance", type="date")
      */
     private $naissance;
 
@@ -156,5 +156,40 @@ class BilletterieReservationLigne
     public function getPassport()
     {
         return $this->passport;
+    }
+
+    /**
+     * Set reservation
+     *
+     * @param \Back\BilletterieMaritimeBundle\Entity\BilletterieReservation $reservation
+     * @return BilletterieReservationLigne
+     */
+    public function setReservation(\Back\BilletterieMaritimeBundle\Entity\BilletterieReservation $reservation = null)
+    {
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Get reservation
+     *
+     * @return \Back\BilletterieMaritimeBundle\Entity\BilletterieReservation 
+     */
+    public function getReservation()
+    {
+        return $this->reservation;
+    }
+
+    public function showType()
+    {
+        if($this->type==1)
+            return 'Adulte (+23 ans)';
+        if($this->type==2)
+            return 'Jeune (19-23 ans)';
+        if($this->type==3)
+            return 'Enfant (2-11 ans)';
+        if($this->type==4)
+            return 'Bébé (0-23 mois)';
     }
 }

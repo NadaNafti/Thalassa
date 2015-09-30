@@ -54,7 +54,7 @@ class Centre {
      * @ORM\Column(name="slug", length=128, unique=true)
      */
     private $slug;
-    
+
     /**
     * @ORM\OneToMany(targetEntity="Photo", mappedBy="centre", cascade={"remove"})
     */
@@ -288,5 +288,28 @@ class Centre {
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Centre
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
