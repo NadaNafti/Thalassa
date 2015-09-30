@@ -1,5 +1,5 @@
 <?php
-    namespace Back\ProgrammeBundle\Entity\Repository;
+    namespace Back\BienEtreBundle\Entity\Repository;
 
     use Doctrine\ORM\EntityRepository;
 
