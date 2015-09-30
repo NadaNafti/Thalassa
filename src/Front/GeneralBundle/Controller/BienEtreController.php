@@ -57,5 +57,35 @@ class BienEtreController extends Controller {
                 'produit' => $produit,
             ));
         }
+        
+        public function reservationAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $request=$this->getRequest();
+        $user = $this->get('security.context')->getToken()->getUser();
+        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') && !is_null($user->getClient()))
+            $client = $user->getClient();
+        else
+            $client = $this->container->get('users')->getPassager();
+        $reservation= new Reservation();
+        $reservation->setClient($client)
+            ->setNomPrenom($client->getNomPrenom())
+            ->setTel($client->getTel1());
+        if (!is_null($client->getUser()))
+            $reservation->setEmail($client->getUser()->getEmail());
+        $form=$this->createForm(new ReservationType(),$reservation);
+        if($request->isMethod('POST'))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $reservation=$form->getData();
+                $em->persist($reservation->setEtat(1)->setFrontOffice(1));
+                $em->flush();
+                return $this->redirect($this->generateUrl('front_bienetre_succees',array('id'=>$reservation->getId())));
+            }
+        }
+        return $this->render('FrontGeneralBundle:bienetre:reservation.html.twig',array('form'=>$form->createView()));
+    }
 
 }

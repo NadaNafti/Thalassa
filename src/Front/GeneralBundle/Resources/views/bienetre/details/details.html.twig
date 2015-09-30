@@ -5,6 +5,7 @@
         <div class="container clearfix">
             <div class="page-name">{{ block('title') }}</div>
             <div class="breadcrumb clearfix">
+                <a href="{{ path('accueil') }}">Accueil</a>
                 <a href="{{ path('front_bienetre_liste') }}">Bien-être Liste</a>
                 <span class="current-page">{{ block('title') }}</span>
             </div>
@@ -50,9 +51,11 @@
                     <div class="clear"></div>
                     <ul class="tabs mt-20">
                         <li><a href="#details-tab1" class="active">Description</a></li>
+                        <li><a href="#reservation">Réservation</a></li>
                     </ul>
                     <ul id="detail-tab" class="tabs-content xss-mb">
                         {% include 'FrontGeneralBundle:bienetre/details:description.html.twig' %}
+                        {% include 'FrontGeneralBundle:bienetre:reservation.html.twig' %}
                     </ul>
                     <div class="clear xss-mb"></div>
                 </div>
