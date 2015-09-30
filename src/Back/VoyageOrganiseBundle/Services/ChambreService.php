@@ -110,7 +110,5 @@ class ChambreService
                 }
             }
         }
-
-        $this->em->flush();
     }
 }
