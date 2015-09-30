@@ -54,7 +54,7 @@ class Centre {
      * @ORM\Column(name="slug", length=128, unique=true)
      */
     private $slug;
-    
+
     /**
     * @ORM\OneToMany(targetEntity="Photo", mappedBy="centre", cascade={"remove"})
     */
@@ -289,4 +289,5 @@ class Centre {
     {
         return $this->libelle;
     }
+
 }

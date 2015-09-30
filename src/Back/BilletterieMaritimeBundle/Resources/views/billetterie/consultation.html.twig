@@ -1,0 +1,254 @@
+{% extends "BackBilletterieMaritimeBundle:billetterie:liste.html.twig" %}
+{% block title %}Consulter la réservation{% endblock %}
+{% block description %}{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">Consultation</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        {% if reservation.responsable is not null and app.user.id == reservation.responsable.id %}
+            <div class="col-md-12 center">
+                {% if  reservation.etat  == 1 %}
+                    <a href="#remise" data-toggle="modal" class="btn btn-light-grey center"> Editer la Remise </a>
+                    <a href="#total" data-toggle="modal" class="btn btn-light-grey center"> Editer es totaux </a>
+                {% endif %}
+                {% if reservation.etat in [1,9] %}
+                    <a href="{{ path('back_billetterie_reservation_validation',{'id':reservation.id}) }}" class="btn btn-success center"> Valider </a>
+                {% endif %}
+                {% if reservation.etat in [1,2] %}
+                    <a href="#annuler" data-toggle="modal" class="btn btn-warning center"> Annuler </a>
+                {% endif %}
+                {% if reservation.etat in [1] %}
+                    <a href="{{ path('back_billetterie_reservation_delete',{'id':reservation.id}) }}"
+                       class="btn btn-danger center"
+                       onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette reservation ?'))"> Supprimer </a>
+                {% endif %}
+                <hr>
+            </div>
+        {% else %}
+            <div class="col-md-12 center">
+                <a href="{{ path('back_billetterie_reservation_prendrecharge',{'id':reservation.id}) }}"
+                   class="btn btn-success center"
+                   onclick="javascript:return(confirm('Etes-vous certain de vouloir prendre en charge cette reservation ?'))"> Prendre en charge cette réservation </a>
+            </div>
+        {% endif %}
+        <div class="col-md-3">
+            <h4 class="center">Réservation</h4>
+            <hr>
+            <p><strong>Type de vole : </strong> {{ reservation.showTypeVole }}</p>
+            <p><strong>Classe : </strong> {{ reservation.showClasse }}</p>
+            <p><strong>Company : </strong> {{ reservation.company }}</p>
+            <p><strong>Type de vole : </strong> {{ reservation.showTypeVole }}</p>
+            <p><strong>Lieu départ & arivée : </strong> {{ reservation.lieuDepart }} - {{ reservation.lieuArriver }}</p>
+            <p><strong>date départ & arivée : </strong> du {{ reservation.dateDepart|date('d/m/y') }} au {{ reservation.dateArriver|date('d/m/y') }}</p>
+        </div>
+        <div class="col-md-6">
+            <h5 class="center">N° : {{ reservation.id }}</h5>
+
+            <h3 class="center">Billetterie</h3>
+            <h4 class="center">Etat : {{ reservation.showEtat }}</h4>
+            <h5 class="center">{% if reservation.responsable is not null %} Prise en charge par : {{ reservation.responsable }} {% endif %}</h5>
+        </div>
+        <div class="col-md-3">
+            <h4 class="center">Client</h4>
+            <hr>
+            <p><strong> Nom & prénom : </strong> {{ reservation.nomPrenom }}</p>
+            <p><strong> CIN : </strong> {{ reservation.cin }}</p>
+            <p><strong> Tel : </strong> {{ reservation.tel }}</p>
+            <p><strong> Code postal : </strong> {{ reservation.codePostal }}</p>
+            <p><strong> Ville : </strong> {{ reservation.ville }}</p>
+        </div>
+        {% if reservation.commentaire is not null and reservation.commentaire is not empty %}
+            <div class="col-md-12">
+                <hr>
+                <p><h4>Commentaire :</h4> {{ reservation.commentaire }}</p>
+            </div>
+        {% endif %}
+        <div class="col-md-12">
+            <hr>
+            <h2 class="center">Totaux : </h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="center">Total Achat</th>
+                            <th class="center">Total Vente</th>
+                            <th class="center">Remise</th>
+                            <th class="center">Timbre</th>
+                            <th class="center">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="center">{{ reservation.totalAchat|number_format(3,'.','') }}</td>
+                                <td class="center">{{ reservation.totalVente|number_format(3,'.','') }}</td>
+                                <td class="center">{{ (reservation.remise*-1)|number_format(3,'.','') }}</td>
+                                <td class="center">{{ reservation.timbre|number_format(3,'.','') }}</td>
+                                <td class="center">{{ reservation.total|number_format(3,'.','') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% if reservation.reglements|length>0 %}
+            <div class="col-md-12">
+                <hr>
+                <h2 class="center">Piéces de réglement</h2>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Piece</th>
+                                <th>Mode Reglement</th>
+                                <th>Date du réglement</th>
+                                <th style="text-align: right">Montant piéce</th>
+                                <th style="text-align: right">Montant payé</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for reglement in reservation.reglements %}
+                                <tr>
+                                    <td>{{ reglement.piece.numero }}</td>
+                                    <td>
+                                        {{ reglement.piece.showModeReglement }}
+                                        {% if reglement.piece.modeReglement == 'C' %}
+                                            / Echéance {{ reglement.piece.dateEcheance|date('d/m/Y') }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ reglement.dateCreation|date('d/m/Y') }}</td>
+                                    <td style="text-align: right">{{ reglement.piece.montantOrigine }} DT</td>
+                                    <td style="color:red;text-align: right">{{ reglement.montant }} DT</td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="4" style="text-align: right">Montant régle</td>
+                                <td style="color:red;text-align: right">{{ reservation.montantRegle }} DT</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="col-md-12">
+            <hr>
+            <h2>Lignes : </h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="center">Age</th>
+                            <th class="center">Nom & Prénom</th>
+                            <th class="center">Date de naissance</th>
+                            <th class="center">Passport</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for ligne in reservation.lignes %}
+                            <tr>
+                                <td class="center">{{ ligne.showType }}</td>
+                                <td class="center">{{ ligne.nomPrenom }}</td>
+                                <td class="center">{{ ligne.naissance|date('d/m/Y') }}</td>
+                                <td class="center">{{ ligne.passport }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="annuler" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Annuler la réservation</h4>
+        </div>
+        <form action="{{ path('back_billetterie_reservation_annuler',{'id':reservation.id}) }}" method="post">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Commentaire</h4>
+
+                        <p>
+                            <textarea name="commentaire" class="form-control"></textarea>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-light-grey">
+                    Fermer
+                </button>
+                <button type="submit" class="btn btn-blue">
+                    Valider l'annulation
+                </button>
+            </div>
+        </form>
+    </div>
+    <div id="remise" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Editer la Remise</h4>
+        </div>
+        <form action="{{ path('back_billetterie_reservation_remise',{'id':reservation.id}) }}" method="post">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Remise :
+                            <input type="text" class="form-control" name="remise" value="{{ reservation.remise }}"/>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-light-grey">Fermer</button>
+                <button type="submit" class="btn btn-blue">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+    <div id="total" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Editer les totaux</h4>
+        </div>
+        <form action="{{ path('back_billetterie_reservation_total',{'id':reservation.id}) }}" method="post">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Total Achat :
+                            <input type="text" class="form-control" name="totalAchat" value="{{ reservation.totalAchat }}"/>
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Total Vente :
+                            <input type="text" class="form-control" name="totalVente" value="{{ reservation.totalVente }}"/>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-light-grey">Fermer</button>
+                <button type="submit" class="btn btn-blue">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("back-assets/plugins/bootstrap-modal/js/bootstrap-modal.js") }}"></script>
+    <script src="{{ asset("back-assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js") }}"></script>
+    <script src="{{ asset("back-assets/js/ui-modals.js") }}"></script>
+{% endblock %}

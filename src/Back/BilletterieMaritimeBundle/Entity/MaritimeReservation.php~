@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * MaritimeReservation
  *
  * @ORM\Table(name="ost_maritime_reservation")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Back\BilletterieMaritimeBundle\Entity\Repository\MaritimeReservationRepository")
  */
 class MaritimeReservation
 {
@@ -155,6 +155,11 @@ class MaritimeReservation
     private $dateDepart;
 
     /**
+     * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationM")
+     */
+    protected $sousEtats;
+
+    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column( type="datetime")
      */
@@ -165,6 +170,34 @@ class MaritimeReservation
      * @ORM\Column( type="datetime")
      */
     private $updated;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="timbre", type="decimal", precision=2, scale=1,nullable=true)
+     */
+    private $timbre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="remise", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $remise;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="total_achat", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $totalAchat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="total_vente", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $totalVente;
 
 
     /**
@@ -458,6 +491,10 @@ class MaritimeReservation
      */
     public function __construct()
     {
+        $this->remise=0;
+        $this->timbre=0;
+        $this->totalAchat=0;
+        $this->totalVente=0;
         $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -662,5 +699,165 @@ class MaritimeReservation
             return "Cabinet-Interieur";
         if ($this->cabine == 1)
             return "Suite";
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return MaritimeReservation
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return MaritimeReservation
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    public function showEtat()
+    {
+        if($this->etat == 1)
+            return 'Enregistrée';
+        if($this->etat == 2)
+            return 'Validée';
+        if($this->etat == 9)
+            return 'Annulée';
+    }
+
+    /**
+     * Add sousEtats
+     *
+     * @param \Back\AdministrationBundle\Entity\SousEtat $sousEtats
+     * @return MaritimeReservation
+     */
+    public function addSousEtat(\Back\AdministrationBundle\Entity\SousEtat $sousEtats)
+    {
+        $this->sousEtats[] = $sousEtats;
+
+        return $this;
+    }
+
+    /**
+     * Remove sousEtats
+     *
+     * @param \Back\AdministrationBundle\Entity\SousEtat $sousEtats
+     */
+    public function removeSousEtat(\Back\AdministrationBundle\Entity\SousEtat $sousEtats)
+    {
+        $this->sousEtats->removeElement($sousEtats);
+    }
+
+    /**
+     * Get sousEtats
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSousEtats()
+    {
+        return $this->sousEtats;
+    }
+
+    public function __toString()
+    {
+        return "Reservation : ".$this->getId();
+    }
+
+    /**
+     * Set timbre
+     *
+     * @param string $timbre
+     * @return MaritimeReservation
+     */
+    public function setTimbre($timbre)
+    {
+        $this->timbre = $timbre;
+
+        return $this;
+    }
+
+    /**
+     * Get timbre
+     *
+     * @return string 
+     */
+    public function getTimbre()
+    {
+        return $this->timbre;
+    }
+
+    /**
+     * Set remise
+     *
+     * @param string $remise
+     * @return MaritimeReservation
+     */
+    public function setRemise($remise)
+    {
+        $this->remise = $remise;
+
+        return $this;
+    }
+
+    /**
+     * Get remise
+     *
+     * @return string 
+     */
+    public function getRemise()
+    {
+        return $this->remise;
+    }
+
+
+
+    public function getMontantRegle()
+    {
+        $montant = 0;
+        foreach ($this->reglements as $reglement)
+            $montant += $reglement->getMontant();
+        return number_format($montant, 3, '.', '');
+    }
+
+    public function getMontantRestant()
+    {
+        return number_format($this->getTotal() - $this->getMontantRegle(), 3, '.', '');
+    }
+
+    public function getTotal()
+    {
+        return number_format($this->totalVente+$this->timbre-$this->remise, 3, '.', '');
     }
 }

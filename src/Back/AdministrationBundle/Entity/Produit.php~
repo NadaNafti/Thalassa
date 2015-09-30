@@ -44,6 +44,11 @@ class Produit
     private $emails;
 
     /**
+     * @ORM\OneToMany(targetEntity="Etat", mappedBy="produit")
+     */
+    protected $etats ;
+
+    /**
      * Get id
      *
      * @return integer 

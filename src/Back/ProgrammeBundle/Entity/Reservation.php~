@@ -137,6 +137,11 @@
         private $remise;
 
         /**
+         * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationPR")
+         */
+        protected $sousEtats;
+
+        /**
          * Constructor
          */
         public function __construct()
