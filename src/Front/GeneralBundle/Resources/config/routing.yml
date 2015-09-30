@@ -33,3 +33,7 @@ front_billetterie:
 front_maritime:
     resource: "@FrontGeneralBundle/Resources/config/routing/maritime.yml"
     prefix:   /Maritime
+
+front_bienetre:
+    resource: "@FrontGeneralBundle/Resources/config/routing/bienetre.yml"
+    prefix:   /BienEtre

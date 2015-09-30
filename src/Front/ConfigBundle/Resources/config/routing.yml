@@ -13,3 +13,7 @@ config_front_programme:
 config_front_accueil:
     resource: "@FrontConfigBundle/Resources/config/routing/accueil.yml"
     prefix:   /acuueil
+    
+config_front_bienetre:
+    resource: "@FrontConfigBundle/Resources/config/routing/bienetre.yml"
+    prefix:   /BienEtre

@@ -53,13 +53,12 @@ class Centre {
      * @Gedmo\Slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
+    private $slug;
     
     /**
     * @ORM\OneToMany(targetEntity="Photo", mappedBy="centre", cascade={"remove"})
     */
     private $photos;
-    
-    private $slug;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -261,6 +260,29 @@ class Centre {
     public function getPhotos()
     {
         return $this->photos;
+    }
+    
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Produit
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
     
     public function __toString()

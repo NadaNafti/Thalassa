@@ -23,16 +23,8 @@
                 </li>
             </ul>
         </li>
-        <li>
-            <a href="#">Bien-être</a>
-            <ul class="col1 mega">
-                <li class="col1">
-                    <ol>
-                        <li><a href="{{ path('under_construction') }}">Thalasso</a></li>
-                        <li><a href="{{ path('under_construction') }}">Santé</a></li>
-                    </ol>
-                </li>
-            </ul>
+        <li {% if app.request.getPathInfo|split('/BienEtre')|length > 1 %}class="current"{% endif %}>
+            <a href="{{ path('front_bienetre_liste') }}">Bien-être</a>
         </li>
         <li {% if app.request.get('_route')=='ole_locaton_cars' %}class="current"{% endif %}>
             <a href="{{ path("ole_locaton_cars") }}">Location de voiture</a>

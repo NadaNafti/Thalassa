@@ -1,0 +1,36 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Liste des packs, soins & cures{% endblock %}
+{% block body %}
+    <div id="page_title">
+        <div class="container clearfix">
+            <div class="page-name">{{ block('title') }}</div>
+            <div class="breadcrumb clearfix">
+                <a href="{{ path('accueil') }}">Accueil</a>
+                <span class="current-page">Bien-être Liste</span>
+            </div>
+        </div>
+    </div>
+    <div class="banner-intern">
+        <img src="{{ asset('front-assets/images/banner-3.png') }}" style="width:100%">
+    </div>
+    <div id="content_wrapper">
+        <div class="container">
+            <div class="row clearfix pv-30 mt-20">
+                {% include 'FrontGeneralBundle:bienetre/liste:filtre.html.twig' %}
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    {% include 'FrontGeneralBundle:bienetre/liste:sort.html.twig' %}
+                    <div class="row items-container">
+                        {% for produit in produits %}
+                            {% include 'FrontGeneralBundle:bienetre/liste:article.html.twig' %}
+                        {% endfor %}
+                    </div>
+                    <div class="clear"></div>
+                    <nav class="paging pull-right">
+                        {{ knp_pagination_render(produits) }}
+                    </nav>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
