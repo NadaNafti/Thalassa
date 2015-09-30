@@ -18,13 +18,13 @@
                 $query->andWhere($orX);
             }
             if($name != 'all' && !is_null($name)){
-                $andX = $query->expr()->andX();
+                $orX = $query->expr()->orX();
                 $name = explode('+',$name);
                 foreach($name as $mot){
                     if($mot != '')
-                        $andX->add($query->expr()->like("UPPER(p.libelle)","UPPER('%" . $mot . "%')"));
+                        $orX->add($query->expr()->like("UPPER(p.libelle)","UPPER('%" . $mot . "%')"));
                 }
-                $query->andWhere($andX);
+                $query->andWhere($orX);
             }
             $query->orderBy($sort,$direction);
             return $query->getQuery()->getResult();
