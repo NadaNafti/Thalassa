@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Pack
  *
  * @ORM\Table(name="ost_be_produit")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Back\BienEtreBundle\Entity\Repository\ProduitRepository")
  */
 class Produit {
 
