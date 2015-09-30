@@ -25,6 +25,15 @@ class NewReservationType extends AbstractType
                                             'empty_value'   => 'Villes en tunisie',
                                             'empty_data'    => null
             ))
+            ->add('categories', 'entity', array('class'         => 'BackHotelTunisieBundle:Categorie',
+                                            'query_builder' => function (EntityRepository $er) {
+                                                return $er->createQueryBuilder('c')
+                                                    ->orderBy('c.libelle', 'ASC');
+                                            },
+                                            'required'      => false,
+                                            'empty_value'   => 'Catégories',
+                                            'empty_data'    => null
+            ))
             ->add('client', 'entity', array('class'         => 'BackUserBundle:Client',
                                             'query_builder' => function (EntityRepository $er) {
                                                 return $er->createQueryBuilder('u')
@@ -32,7 +41,8 @@ class NewReservationType extends AbstractType
                                             },
                                             'required'      => true,
                                             'empty_value'   => 'Liste des clients',
-                                            'empty_data'    => null
+                                            'empty_data'    => null,
+                                            'property'      => 'getLongName'
             ))
             ->add('hotels', 'entity', array('class'         => 'BackHotelTunisieBundle:Hotel',
                                             'query_builder' => function (EntityRepository $er) {

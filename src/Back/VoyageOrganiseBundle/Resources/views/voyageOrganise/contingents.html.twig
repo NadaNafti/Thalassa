@@ -1,0 +1,36 @@
+{% extends "BackVoyageOrganiseBundle:voyageOrganise:liste.html.twig" %}
+{% block title %}Contingents{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackVoyageOrganiseBundle:voyageOrganise:menu.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        {% for ligne in  form.contingents %}
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="no-display">{{ form_widget(ligne.hotel) }}</div>
+                                    <label style="margin-top: 20px;">{{ ligne.hotel.vars.data.libelle }}</label>
+                                </div>
+                                {{ formulaire.input("col-md-2","Chambre single",ligne.chambreSingle,true) }}
+                                {{ formulaire.input("col-md-2","Chambre double",ligne.chambreDouble,true) }}
+                                {{ formulaire.input("col-md-2","Chambre triple",ligne.chambreTriple,true) }}
+                                {{ formulaire.input("col-md-2","Chambre quadruple",ligne.chambreQuadruple,true) }}
+                            </div>
+                        {% endfor %}
+                        {{ formulaire.submit("Enregistrer") }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

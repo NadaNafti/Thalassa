@@ -36,7 +36,7 @@ class HotelTunisieController extends Controller
         ));
     }
 
-    public function filtreAction($page, $categorie, $chaine, $ville, $tag, $promotion, $name)
+    public function filtreAction($page, $min, $max, $categorie, $chaine, $ville, $tag, $promotion, $name)
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
@@ -89,27 +89,30 @@ class HotelTunisieController extends Controller
             else
                 $arrays['promotion'] = 'no';
             $arrays['name'] = urlencode($request->get('motclesSearch'));
+            $arrays['min'] = $request->get('minSearch');
+            $arrays['max'] = $request->get('maxSearch');
             $session->set('nuitees', $request->get('nuiteesSearch'));
             $session->set('dateDebut', $request->get('dateDebutSearch'));
             return $this->redirect($this->generateUrl('front_hoteltunisie_list', $arrays));
         }
     }
 
-    public function sortAction($page, $categorie, $chaine, $ville, $tag, $promotion, $name)
+    public function sortAction($page, $min, $max, $categorie, $chaine, $ville, $tag, $promotion, $name)
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $request = $this->getRequest();
         if ($request->isMethod('POST')) {
             $arrays = array();
+            $arrays['min'] = $min;
+            $arrays['max'] = $max;
             $arrays['ville'] = $ville;
             $arrays['categorie'] = $categorie;
             $arrays['tag'] = $tag;
             $arrays['chaine'] = $chaine;
             $arrays['promotion'] = $promotion;
             $arrays['name'] = $name;
-            if($request->get('direction')!='')
-            {
+            if ($request->get('direction') != '') {
                 $arrays['direction'] = $request->get('direction');
                 $arrays['sort'] = $request->get('sort');
             }
@@ -117,7 +120,7 @@ class HotelTunisieController extends Controller
         }
     }
 
-    public function listeAction($page, $categorie, $chaine, $ville, $tag, $promotion, $sort, $direction, $name)
+    public function listeAction($page, $min, $max, $categorie, $chaine, $ville, $tag, $promotion, $sort, $direction, $name)
     {
         $em = $this->getDoctrine()->getManager();
         $pays = $em->getRepository('BackHotelTunisieBundle:Pays')->findOneBy(array('code' => 'tn'));
@@ -126,7 +129,7 @@ class HotelTunisieController extends Controller
         $chaines = $em->getRepository('BackHotelTunisieBundle:Chaine')->findBy(array(), array('libelle' => 'asc'));
         $categories = $em->getRepository('BackHotelTunisieBundle:Categorie')->findBy(array(), array('libelle' => 'asc'));
         $hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->filtreFrontOfficePlus($categorie, $chaine, $ville, $tag, $name, $sort, $direction);
-        $hotels = $this->removeInvalideHotel($hotels, $promotion);
+        $hotels = $this->removeInvalideHotel($hotels, $min, $max, $promotion);
         $paginator = $this->get('knp_paginator');
         $hotels = $paginator->paginate($hotels, $page, 20);
         return $this->render('FrontGeneralBundle:hoteltunisie/liste:liste.html.twig', array(
@@ -156,13 +159,16 @@ class HotelTunisieController extends Controller
         ));
     }
 
-    public function removeInvalideHotel($hotels, $topPromo = 'no')
+    public function removeInvalideHotel($hotels, $min=0, $max=1000, $topPromo = 'no')
     {
         $newHotels = array();
         foreach ($hotels as $hotel) {
+            $saison = $hotel->getSaisonPromotionByDate(date('Y-m-d'));
             if (!is_null($hotel->getSaisonBase()) && $hotel->getSaisonBase()->isValidSaisonBase() && !$hotel->isInStopSales() && $hotel->getEtat() == 1) {
-                if ($topPromo == 'no' || ($this->get('kernel')->getEnvironment() == 'prod' && $hotel->getSaisonPromotionByDate(date('Y-m-d'))->getType() == 2))
-                    $newHotels[] = $hotel;
+                if ($topPromo == 'no' || ($this->get('kernel')->getEnvironment() == 'prod' && $saison->getType() == 2)) {
+                    if ($saison->getPrixDeBase() <= $max && $saison->getPrixDeBase() >= $min)
+                        $newHotels[] = $hotel;
+                }
             }
         }
         return $newHotels;

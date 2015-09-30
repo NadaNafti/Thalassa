@@ -61,3 +61,7 @@ back_vo_frais:
 back_vo_frais_delete:
     path:     /back_vo_frais_delete/{id}
     defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:SupprimerFrais}
+
+back_vo_contingent:
+    path:     /ajouter/{voyage}/contingent
+    defaults: { _controller: BackVoyageOrganiseBundle:VoyageOrganise:contingent }

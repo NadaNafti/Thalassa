@@ -11,8 +11,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="ost_be_pack")
  * @ORM\Entity
  */
-class Pack
-{
+class Pack {
+
     /**
      * @var integer
      *
@@ -32,9 +32,9 @@ class Pack
     /**
      * @var integer
      *
-     * @ORM\Column(name="prix", type="integer")
+     * @ORM\Column(name="type", type="integer")
      */
-    private $prix;
+    private $type;
 
     /**
      * @var string
@@ -42,35 +42,47 @@ class Pack
      * @ORM\Column(name="description", type="text")
      */
     private $description;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Back\BienEtreBundle\Entity\Centre")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $centre;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Soin")
      * @ORM\JoinTable(name="ost_be_pack_soin",
-     *      joinColumns={@ORM\JoinColumn(name="id_pack", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_soin", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="id_pack", referencedColumnName="id",onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_soin", referencedColumnName="id",onDelete="CASCADE")}
      * )
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-        protected $soins;
-        
+    protected $soins;
+
     /**
      * @ORM\ManyToMany(targetEntity="Cure")
      * @ORM\JoinTable(name="ost_be_pack_cure",
-     *      joinColumns={@ORM\JoinColumn(name="id_pack", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_cure", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="id_pack", referencedColumnName="id",onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_cure", referencedColumnName="id",onDelete="CASCADE")}
      * )
      */
-        protected $cures;
+    protected $cures;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Tarif", mappedBy="pack")
+     */
+    protected $tarifs;
+
     /**
      * @Gedmo\Slug(fields={"libelle"})
      * @ORM\Column(name="slug", length=128, unique=true)
      */
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Photo", mappedBy="pack", cascade={"remove"})
+    */
+    private $photos;
+    
     private $slug;
 
     /**
@@ -85,6 +97,18 @@ class Pack
      */
     private $updated;
 
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->soins = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cures = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tarifs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
 
     /**
      * Get id
@@ -117,29 +141,6 @@ class Pack
     public function getLibelle()
     {
         return $this->libelle;
-    }
-
-    /**
-     * Set prix
-     *
-     * @param integer $prix
-     * @return Pack
-     */
-    public function setPrix($prix)
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
-    /**
-     * Get prix
-     *
-     * @return integer 
-     */
-    public function getPrix()
-    {
-        return $this->prix;
     }
 
     /**
@@ -256,13 +257,6 @@ class Pack
     {
         return $this->centre;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->soins = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add soins
@@ -296,7 +290,6 @@ class Pack
     {
         return $this->soins;
     }
-    
 
     /**
      * Add cures
@@ -329,5 +322,76 @@ class Pack
     public function getCures()
     {
         return $this->cures;
+    }
+
+    /**
+     * Add tarifs
+     *
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
+     * @return Pack
+     */
+    public function addTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
+    {
+        $this->tarifs[] = $tarifs;
+
+        return $this;
+    }
+
+    /**
+     * Remove tarifs
+     *
+     * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
+     */
+    public function removeTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
+    {
+        $this->tarifs->removeElement($tarifs);
+    }
+
+    /**
+     * Get tarifs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTarifs()
+    {
+        return $this->tarifs;
+    }
+    
+    public function __toString()
+    {
+        return $this->libelle;
+    }
+
+    /**
+     * Add photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     * @return Pack
+     */
+    public function addPhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     */
+    public function removePhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 }

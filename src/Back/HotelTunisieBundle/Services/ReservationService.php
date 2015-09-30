@@ -282,8 +282,8 @@ class ReservationService
                 }
             }
         }
-        if ($source == 'backoffice' && $this->sendMailHotel($reservation))
-            $reservation->setHotelNotifier(true);
+//        if ($source == 'backoffice' && $this->sendMailHotel($reservation))
+//            $reservation->setHotelNotifier(true);
         $this->em->flush();
         $this->container->get('users')->getPassager();
         return $reservation->getId();

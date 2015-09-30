@@ -1,6 +1,9 @@
 <?php
 namespace Back\HotelTunisieBundle\Controller;
 
+use Back\AdministrationBundle\Entity\SousEtat;
+use Back\AdministrationBundle\Form\SousEtatSHTType;
+use Back\AdministrationBundle\Form\SousEtatType;
 use Back\HotelTunisieBundle\Entity\Saison;
 use Back\UserBundle\Entity\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -66,13 +69,10 @@ class ReservationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
-        $id = $request->get("id");
+        $categorie = $request->get("categorie") ? $request->get("categorie") : 'all';
+        $ville = $request->get("ville") ? $request->get("ville") : 'all';
         $response = new JsonResponse();
-        if ($id != '') {
-            $ville = $em->getRepository("BackHotelTunisieBundle:Ville")->find($id);
-            $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->findBy(array('ville' => $ville));
-        } else
-            $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->findAll();
+        $hotels = $em->getRepository("BackHotelTunisieBundle:Hotel")->filtreBackOffice($ville, 'all', $categorie, 'all', 'all', 'h.libelle', 'asc');
         $tab = array();
         $hotels = $this->container->get('saisons')->getValideHotel($hotels);
         foreach ($hotels as $hotel)
@@ -250,18 +250,36 @@ class ReservationController extends Controller
         ));
     }
 
-    public function listeAction($page, $etat, $amicale, $sort, $direction)
+    public function listeAction($page, $etat, $amicale, $checkIn, $checkOut, $hotel, $user, $sort, $direction)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
-        $request = $this->getRequest();
+        $session=$this->getRequest()->getSession();
+        $currentUser = $this->get('security.context')->getToken()->getUser();
         $amicales = $em->getRepository('BackAdministrationBundle:Amicale')->findBy(array(), array('libelle' => 'asc'));
-        $query = $em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice($etat, $amicale, $sort, $direction);
+        $hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->findBy(array(), array('libelle' => 'asc'));
+        $query = $em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice($etat, $amicale, $checkIn, $checkOut, $hotel, $user, $sort, $direction);
+        $users = $em->getRepository('BackUserBundle:User')->findByRole('ROLE_ADMIN');
         $paginator = $this->get('knp_paginator');
-        $reservations = $paginator->paginate($query, $request->query->get('page', 1), 20);
+        $reservations = $paginator->paginate($query, $page, 20);
+        $form = $this->createForm(new SousEtatSHTType(), new SousEtat());
+        if($this->getRequest()->isMethod('POST'))
+        {
+            $form->submit($this->getRequest());
+            if($form->isValid())
+            {
+                $data=$form->getData();
+                $em->persist($form->getData()->setUser($currentUser));
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre sous etat a été ajouté avec succées ");
+                return $this->redirect($this->generateUrl('liste_reservations'));
+            }
+        }
         return $this->render('BackHotelTunisieBundle:Reservation:liste.html.twig', array(
             'reservations' => $reservations,
             'amicales'     => $amicales,
+            'hotels'       => $hotels,
+            'users'        => $users,
+            'form'         => $form->createView()
         ));
     }
 
@@ -269,8 +287,12 @@ class ReservationController extends Controller
     {
         $request = $this->getRequest();
         return $this->redirect($this->generateUrl('liste_reservations', array(
-            'etat'    => $request->get('etat'),
-            'amicale' => $request->get('amicale'),
+            'etat'     => $request->get('etat'),
+            'amicale'  => $request->get('amicale'),
+            'checkIn'  => $request->get('checkIn') == '' ? 'all' : $request->get('checkIn'),
+            'checkOut' => $request->get('checkOut') == '' ? 'all' : $request->get('checkOut'),
+            'user'     => $request->get('user'),
+            'hotel'    => $request->get('hotel'),
         )));
     }
 
@@ -297,10 +319,11 @@ class ReservationController extends Controller
         if ($reservation->getEtat() != 2)
             return $this->redirect($this->generateUrl("liste_reservations"));
         $em = $this->getDoctrine()->getManager();
-        return $this->render('BackHotelTunisieBundle:Reservation:voucher.html.twig', array(
-            'reservation' => $reservation,
-            'agence'      => $em->getRepository('BackAdministrationBundle:Agence')->find(1),
-        ));
+        $confVoucher = $em->find("BackHotelTunisieBundle:ConfigurationVoucher", 1);
+        if ($confVoucher && $confVoucher->getModel() == 2)
+            return $this->render('BackHotelTunisieBundle:Reservation:voucher2.html.twig', array('reservation' => $reservation));
+        else
+            return $this->render('BackHotelTunisieBundle:Reservation:voucher1.html.twig', array('reservation' => $reservation));
     }
 
     public function voucherPrixAction(Reservation $reservation)
@@ -377,7 +400,7 @@ class ReservationController extends Controller
     public function countEnregistrerAction()
     {
         $em = $this->getDoctrine()->getManager();
-        return new Response(count($em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice(1, 'all', 'r.id', 'desc')));
+        return new Response(count($em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice(1)));
     }
 
     public function remiseAction(Reservation $reservation)
@@ -433,10 +456,9 @@ class ReservationController extends Controller
                     $reservation->addReglement($reglement);
                 }
             }
-            if (($reservation->getSurDemande() || $reservation->getMontantRestant() > 0) && !is_null($data['piece']->getNumero())) {
+            if (($reservation->getSurDemande() || $reservation->getMontantRestant() > 0) && !is_null($data['piece']->getModeReglement()) && !is_null($data['piece']->getMontantOrigine())) {
                 if ($data['piece']->getMontantOrigine() > 0) {
                     $reglement = new Reglement();
-                    $piece = new Piece();
                     $piece = $data['piece'];
                     $piece->setClient($reservation->getClient())
                         ->setDateCreation(new \DateTime());
@@ -488,9 +510,31 @@ class ReservationController extends Controller
     public function notificationAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $reservations = $em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice(1, 'all', "r.id", "desc");
+        $reservations = $em->getRepository('BackHotelTunisieBundle:Reservation')->filtreBackOffice(1);
         return $this->render('BackHotelTunisieBundle:Reservation:notification.html.twig', array(
             'reservations' => $reservations,
         ));
+    }
+
+    public function ajaxSousEtatsAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $reservation=$em->find('BackHotelTunisieBundle:Reservation',$this->getRequest()->get('id'));
+        $array = array();
+        $tab = array();
+        $response = new JsonResponse();
+        if ($reservation)
+        {
+            foreach ($reservation->getSousEtats() as $etat)
+            {
+                $tab['etat'] = $etat->getEtat()->getLibelle();
+                $tab['user'] = $etat->getUser()->getUsername();
+                $tab['commentaire'] = $etat->getCommentaire();
+                $tab['date'] = $etat->getCreated()->format('d/m/Y h:i');
+                $array[] = $tab;
+            }
+        }
+        $response->setData($array);
+        return $response;
     }
 }

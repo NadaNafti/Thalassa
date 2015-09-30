@@ -1,0 +1,7 @@
+front_billetterie:
+    path:     /
+    defaults: { _controller: FrontGeneralBundle:Billetterie:reservation }
+
+front_billetterie_succees:
+    path:     /succees/{id}
+    defaults: { _controller: FrontGeneralBundle:Billetterie:success }

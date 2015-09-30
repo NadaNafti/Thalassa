@@ -14,3 +14,12 @@ services:
             - @service_container
             - @mailer
             - @templating
+
+    chambreVO:
+        class: Back\VoyageOrganiseBundle\Services\ChambreService
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @session
+            - @service_container
+            - @mailer
+            - @templating

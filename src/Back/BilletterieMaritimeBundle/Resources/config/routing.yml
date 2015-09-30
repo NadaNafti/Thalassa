@@ -1,0 +1,7 @@
+Hotel_Tunisie_Referentiel:
+    resource: "@BackBilletterieMaritimeBundle/Resources/config/routing/billetterie.yml"
+    prefix:   /billetterie
+
+Hotel_Tunisie_Configuration:
+    resource: "@BackBilletterieMaritimeBundle/Resources/config/routing/maritime.yml"
+    prefix:   /maritime

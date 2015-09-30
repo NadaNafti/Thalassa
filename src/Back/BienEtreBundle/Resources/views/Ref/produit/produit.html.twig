@@ -1,0 +1,77 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Gestion des produits{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >Produits</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackBienEtreBundle:Ref/produit:menu.html.twig' %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-2","Type",form.type,true) }}
+                            {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
+                            {{ formulaire.select2("col-md-4","Centre",form.centre,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-12","Description courte",form.descriptionCourte,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-12","Description longue",form.descriptionLongue,true) }}
+                        </div>
+                        {{ formulaire.submit("Enregistrer") }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover"  id="sample_1">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Libellé</th>
+                                <th>Centre</th>
+                                <th>Type</th>
+                                <th>Tarifs</th>
+                                <th>Images</th>
+                                <th class="produit" >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for produit in produits %}
+                                <tr>
+                                    <td>{{ produit.id }}</td>
+                                    <td>{{ produit.libelle }}</td>
+                                    <td>{{ produit.centre }}</td>
+                                    <td>{%if( produit.type == 1 )%} pack
+                                        {%elseif ( produit.type == 2 )%} soin
+                                            {%else%} cure
+                                                {% endif %}</td>
+                                                <td><a href="{{ path('back_bienetre_ref_produit_tarif',{'id':produit.id}) }}"> {{ produit.tarifs|length }} tarif(s)</a></td>
+                                                <td><a href="{{ path('back_bienetre_ref_produit_photo',{'id':produit.id}) }}"> {{ produit.photos|length }} image(s)</a></td>
+                                                <td class="TableAction">
+                                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                        {{ macros.tableEdit(path('back_bienetre_ref_produit',{'id':produit.id})) }}
+                                                        {{ macros.tableDelete(path('delete_back_bienetre_produit',{'id':produit.id})) }}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endblock %}

@@ -1,0 +1,7 @@
+front_maritime:
+    path:     /
+    defaults: { _controller: FrontGeneralBundle:Maritime:reservation }
+
+front_maritime_succees:
+    path:     /succees/{id}
+    defaults: { _controller: FrontGeneralBundle:Maritime:success }

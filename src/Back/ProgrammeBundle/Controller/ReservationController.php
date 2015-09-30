@@ -134,13 +134,13 @@
                             $em->persist($piece->setMontant($piece->getMontant() - $reservation->getMontantRestant()));
                         }
                         $reglement->setPiece($piece);
-                        $reglement->setReservationVO($reservation);
+                        $reglement->setReservationPR($reservation);
                         $reglement->setDateCreation(new \DateTime());
                         $em->persist($reglement);
                         $reservation->addReglement($reglement);
                     }
                 }
-                if($reservation->getMontantRestant() > 0 && !is_null($data['piece']->getNumero())){
+                if($reservation->getMontantRestant() > 0 &&  !is_null($data['piece']->getModeReglement()) && !is_null($data['piece']->getMontantOrigine())) {
                     if($data['piece']->getMontantOrigine() > 0){
                         $reglement = new Reglement();
                         $piece = new Piece();

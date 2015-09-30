@@ -1,0 +1,72 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}{{ produit }}{% endblock %}
+{% block body %}
+    <div id="page_title">
+        <div class="container clearfix">
+            <div class="page-name">{{ block('title') }}</div>
+            <div class="breadcrumb clearfix">
+                <a href="{{ path('front_bienetre_liste') }}">Bien-être Liste</a>
+                <span class="current-page">{{ block('title') }}</span>
+            </div>
+        </div>
+    </div>
+    <div id="content_wrapper">
+        <div class="container">
+            <div class="row clearfix pv-50">
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    <div class="detail-header clearfix">
+                        <div class="detail-header-name">
+                            <h3 class="hotel-name no-mb">{{ produit }}</h3>
+                        </div>
+                        <div class="detail-header-price">
+                            {% for tarif in produit.tarifs if tarif.isValide==true %}
+                                <span>à partir de</span>{{ tarif.prixVente }}
+                                {%else %} <span>à partir de</span>0.000
+                            {%endfor%}
+                        </div>
+                    </div>
+                    {% if produit.photosAlbum|length > 0 %}
+                        <div id="detail-slider">
+                            <div>
+                                <div id="exposure"></div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="panel">
+                                <div id="left"><a href="javascript:void(0);" class="left-arrow"></a></div>
+                                <ul id="details-slider-images">
+                                    {% for image in produit.photosAlbum %}
+                                        <li style="height: 80px">
+                                            <a href="{{ asset(image.assetPath) }}"><img src="{{ asset(image.assetPath) }}" alt="Detailts" title="Photo num ° {{ loop.index }}"/></a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                <div id="right"><a href="javascript:void(0);" class="right-arrow"></a></div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="clear"></div>
+                    {% include ':Front:alert.html.twig' %}
+                    <div class="clear"></div>
+                    <ul class="tabs mt-20">
+                        <li><a href="#details-tab1" class="active">Description</a></li>
+                    </ul>
+                    <ul id="detail-tab" class="tabs-content xss-mb">
+                        {% include 'FrontGeneralBundle:bienetre/details:description.html.twig' %}
+                    </ul>
+                    <div class="clear xss-mb"></div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="sidebar hotel-sidebar">
+                        <div class="sidebar-item mb-20">
+                            <div class="lp-box">
+                                <i class="text-info fa-quote-left"></i>
+                                <p class="no-mb">{{ produit.descriptionCourte }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

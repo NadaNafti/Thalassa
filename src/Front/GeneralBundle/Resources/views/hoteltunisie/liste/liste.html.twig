@@ -2,46 +2,73 @@
 {% block title %}Liste hôtels en Tunisie{% endblock %}
 {% block body %}
     <div id="page_title">
-	<div class="container clearfix">
-	    <div class="page-name">{{ block('title') }}</div>
-	    <div class="breadcrumb clearfix">
-		<a href="{{ path('accueil') }}">Accueil</a>
-		<a href="{{ path('front_hoteltunisie_accueil') }}">Hôtels en Tunisie</a>
-		<span class="current-page">{{ block('title') }}</span>
-	    </div>
-	</div>
+        <div class="container clearfix">
+            <div class="page-name">{{ block('title') }}</div>
+            <div class="breadcrumb clearfix">
+                <a href="{{ path('accueil') }}">Accueil</a>
+                <a href="{{ path('front_hoteltunisie_accueil') }}">Hôtels en Tunisie</a>
+                <span class="current-page">Liste</span>
+            </div>
+        </div>
     </div>
     <div class="banner-intern">
-	<img src="{{ asset('front-assets/images/banner-2.png') }}" style="width:100%">
+        <img src="{{ asset('front-assets/images/banner-2.png') }}" style="width:100%">
     </div>
     <div id="content_wrapper">
-	<div class="container">
-	    <div class="row clearfix pv-30 mt-20">
-		{% include 'FrontGeneralBundle:hoteltunisie/liste:filtre.html.twig' %}
-		<div class="col-xs-12 col-sm-8 col-md-9">
-		    {% include 'FrontGeneralBundle:hoteltunisie/liste:sort.html.twig' %}
-		    <div class="row items-container list-style">
-			{% for hotel in hotels %}
-			    {% include 'FrontGeneralBundle:hoteltunisie/liste:article.html.twig' %}
-			{% endfor %}
-		    </div>
-		    <div class="clear"></div>
-		    <nav class="paging pull-right">
-			{{ knp_pagination_render(hotels) }}
-		    </nav>
-		</div>
-		<div class="clear"></div>
-	    </div>
-	</div>
+        <div class="container">
+            <div class="row clearfix pv-30 mt-20">
+                {% include 'FrontGeneralBundle:hoteltunisie/liste:filtre.html.twig' %}
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    {% include 'FrontGeneralBundle:hoteltunisie/liste:sort.html.twig' %}
+                    <div class="row items-container list-style">
+                        {% for hotel in hotels %}
+                            {% include 'FrontGeneralBundle:hoteltunisie/liste:article.html.twig' %}
+                        {% endfor %}
+                    </div>
+                    <div class="clear"></div>
+                    <nav class="paging pull-right">
+                        {{ knp_pagination_render(hotels) }}
+                    </nav>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block jquery %}
     <script>
-	$(document).ready(function () {
-	    $('.showChambre').on('click', function () {
-		var table = $(this).parent().parent().parent().find('.table');
-		table.toggle();
-	    })
-	})
+        $(document).ready(function () {
+            $('.showChambre').on('click', function () {
+                var table = $(this).parent().parent().parent().find('.table');
+                table.toggle();
+            })
+        })
+        $(document).ready(function($) {
+
+            try {
+
+                for( var i = 100; i <= 10000; i++ ){
+                    $('#start-val').append(
+                            '<option value="' + i + '">' + i + '</option>'
+                    );
+                }
+                // Initialise noUiSlider
+                $('.noUiSlider').noUiSlider({
+                    range: [0,1000],
+                    start: [{{ app.request.get('min') }},{{ app.request.get('max') }}],
+                    handles: 2,
+                    connect: true,
+                    step: 1,
+                    serialization: {
+                        to: [ $('#start-val'),
+                            $('#end-val') ],
+                        resolution: 1
+                    }
+                });
+            } catch(err) {
+
+            }
+
+        });
     </script>
 {% endblock %}

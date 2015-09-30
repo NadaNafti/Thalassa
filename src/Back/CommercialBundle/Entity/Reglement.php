@@ -43,6 +43,21 @@ class Reglement
     protected $reservationPR;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Back\BilletterieMaritimeBundle\Entity\BilletterieReservation", inversedBy="reglements")
+     */
+    protected $reservationsBilletterie;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\BilletterieMaritimeBundle\Entity\MaritimeReservation", inversedBy="reglements")
+     */
+    protected $reservationMaritime;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\BienEtreBundle\Entity\Reservation", inversedBy="reglements")
+     */
+    protected $reservationBE;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="date")
@@ -203,5 +218,74 @@ class Reglement
     public function getReservationPR()
     {
         return $this->reservationPR;
+    }
+
+    /**
+     * Set reservationsBilletterie
+     *
+     * @param \Back\BilletterieMaritimeBundle\Entity\BilletterieReservation $reservationsBilletterie
+     * @return Reglement
+     */
+    public function setReservationsBilletterie(\Back\BilletterieMaritimeBundle\Entity\BilletterieReservation $reservationsBilletterie = null)
+    {
+        $this->reservationsBilletterie = $reservationsBilletterie;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationsBilletterie
+     *
+     * @return \Back\BilletterieMaritimeBundle\Entity\BilletterieReservation 
+     */
+    public function getReservationsBilletterie()
+    {
+        return $this->reservationsBilletterie;
+    }
+
+    /**
+     * Set reservationMaritime
+     *
+     * @param \Back\BilletterieMaritimeBundle\Entity\MaritimeReservation $reservationMaritime
+     * @return Reglement
+     */
+    public function setReservationMaritime(\Back\BilletterieMaritimeBundle\Entity\MaritimeReservation $reservationMaritime = null)
+    {
+        $this->reservationMaritime = $reservationMaritime;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationMaritime
+     *
+     * @return \Back\BilletterieMaritimeBundle\Entity\MaritimeReservation 
+     */
+    public function getReservationMaritime()
+    {
+        return $this->reservationMaritime;
+    }
+
+    /**
+     * Set reservationBE
+     *
+     * @param \Back\BienEtreBundle\Entity\Reservation $reservationBE
+     * @return Reglement
+     */
+    public function setReservationBE(\Back\BienEtreBundle\Entity\Reservation $reservationBE = null)
+    {
+        $this->reservationBE = $reservationBE;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationBE
+     *
+     * @return \Back\BienEtreBundle\Entity\Reservation 
+     */
+    public function getReservationBE()
+    {
+        return $this->reservationBE;
     }
 }

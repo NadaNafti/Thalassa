@@ -10,6 +10,10 @@ ole_locaton_cars:
     path:     /location_voitures
     defaults: { _controller: FrontGeneralBundle:Default:oleLocation }
 
+ole_locaton_cars_monde:
+    path:     /location_voitures_monde
+    defaults: { _controller: FrontGeneralBundle:Default:oleLocationMonde }
+
 under_construction:
     path:     /under_construction
     defaults: { _controller: FrontGeneralBundle:Default:underConstruction }
@@ -25,3 +29,15 @@ front_voyageorganise:
 front_programme:
     resource: "@FrontGeneralBundle/Resources/config/routing/programme.yml"
     prefix:   /Programme
+
+front_billetterie:
+    resource: "@FrontGeneralBundle/Resources/config/routing/billetterie.yml"
+    prefix:   /Billetterie
+
+front_maritime:
+    resource: "@FrontGeneralBundle/Resources/config/routing/maritime.yml"
+    prefix:   /Maritime
+
+front_bienetre:
+    resource: "@FrontGeneralBundle/Resources/config/routing/bienetre.yml"
+    prefix:   /BienEtre

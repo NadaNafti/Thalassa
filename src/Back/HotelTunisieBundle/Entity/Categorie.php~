@@ -265,4 +265,13 @@ class Categorie
     {
         return $this->hotels;
     }
+
+    public function hasHotelsValide()
+    {
+        foreach ($this->hotels as $hotel) {
+            if ($hotel->getEtat())
+                return true;
+        }
+        return false;
+    }
 }

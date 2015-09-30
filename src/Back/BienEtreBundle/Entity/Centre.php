@@ -39,14 +39,12 @@ class Centre {
     private $description;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Hotel")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $hotel;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Ville")
      */
     private $ville;
@@ -56,6 +54,11 @@ class Centre {
      * @ORM\Column(name="slug", length=128, unique=true)
      */
     private $slug;
+
+    /**
+    * @ORM\OneToMany(targetEntity="Photo", mappedBy="centre", cascade={"remove"})
+    */
+    private $photos;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -69,6 +72,14 @@ class Centre {
      */
     private $updated;
 
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -124,29 +135,6 @@ class Centre {
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Centre
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 
     /**
@@ -240,9 +228,66 @@ class Centre {
     {
         return $this->ville;
     }
+
+    /**
+     * Add photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     * @return Centre
+     */
+    public function addPhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Back\BienEtreBundle\Entity\Photo $photos
+     */
+    public function removePhoto(\Back\BienEtreBundle\Entity\Photo $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+    
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Produit
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
     
     public function __toString()
     {
         return $this->libelle;
     }
+
 }

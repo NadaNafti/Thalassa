@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Reservation
  *
  * @ORM\Table(name="ost_sht_reservation")
- * @ORM\Entity(repositoryClass="Back\HotelTunisieBundle\Entity\ReservationRepository")
+ * @ORM\Entity(repositoryClass="Back\HotelTunisieBundle\Entity\Repository\ReservationRepository")
  */
 class Reservation
 {
@@ -156,6 +156,11 @@ class Reservation
      * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservation")
      */
     protected $reglements;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationSHT")
+     */
+    protected $sousEtats;
 
     /**
      * @Gedmo\Timestampable(on="create")

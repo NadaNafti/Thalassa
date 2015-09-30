@@ -61,6 +61,11 @@ class Ville
     private $images;
 
     /**
+     * @ORM\OneToMany(targetEntity="Hotel", mappedBy="ville")
+     */
+    protected $hotels;
+
+    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column( type="datetime")
      */
@@ -252,6 +257,8 @@ class Ville
      */
     public function __construct()
     {
+
+        $this->hotels = new \Doctrine\Common\Collections\ArrayCollection();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -291,5 +298,47 @@ class Ville
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * Add hotels
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
+     * @return Ville
+     */
+    public function addHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
+    {
+        $this->hotels[] = $hotels;
+
+        return $this;
+    }
+
+    /**
+     * Remove hotels
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Hotel $hotels
+     */
+    public function removeHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotels)
+    {
+        $this->hotels->removeElement($hotels);
+    }
+
+    /**
+     * Get hotels
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHotels()
+    {
+        return $this->hotels;
+    }
+
+    public function hasHotelsValide()
+    {
+        foreach ($this->hotels as $hotel) {
+            if ($hotel->getEtat())
+                return true;
+        }
+        return false;
     }
 }

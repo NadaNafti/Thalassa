@@ -1,0 +1,31 @@
+back_billetterie_reservation_liste:
+    path:      /liste/{page}/{etat}/{sort}/{direction}
+    defaults: { _controller: BackBilletterieMaritimeBundle:Billetterie:liste,page:1,etat:1,sort:r.id,direction:desc }
+
+back_billetterie_reservation_consultation:
+    path:      /consulter/{id}
+    defaults: { _controller: BackBilletterieMaritimeBundle:Billetterie:consulter }
+
+back_billetterie_reservation_delete:
+    path:      /back_billetterie_reservation_delete/{id}
+    defaults: { _controller: BackBilletterieMaritimeBundle:Billetterie:delete }
+
+back_billetterie_reservation_prendrecharge:
+    path:      /encharge/{id}
+    defaults: { _controller: BackBilletterieMaritimeBundle:Billetterie:prendreEnCharge }
+
+back_billetterie_reservation_validation:
+    path:      /validation/{id}
+    defaults: { _controller: BackBilletterieMaritimeBundle:Billetterie:valider }
+
+back_billetterie_reservation_remise:
+    path:      /remise/{id}
+    defaults: { _controller: BackBilletterieMaritimeBundle:Billetterie:remise }
+
+back_billetterie_reservation_total:
+    path:      /total/{id}
+    defaults: { _controller: BackBilletterieMaritimeBundle:Billetterie:total }
+
+back_billetterie_reservation_annuler:
+    path:      /annuler/{id}
+    defaults: { _controller: BackBilletterieMaritimeBundle:Billetterie:annuler }

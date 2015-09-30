@@ -1,3 +1,4 @@
+#Gestion des centres
 back_bienetre_ref_centre:
     path:     /centre/{id}
     defaults: { _controller: BackBienEtreBundle:Referentiel:centre,id:null }
@@ -8,35 +9,44 @@ delete_back_bienetre_centre:
     path:     /delete_back_bienetre_centre/{id}
     defaults: { _controller: BackBienEtreBundle:Referentiel:deleteCentre }
     
+back_bienetre_ref_centre_photo:
+    path:     /centre/{id}/photoCentre/{id2}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:centrePhoto,id2:null }
+    requirements:
+        id:  \d+
+ 
+delete_photo_centre:
+    path:     /delete_photo_centre/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:deletePhotoCentre }
     
-back_bienetre_ref_soin:
-    path:     /soin/{id}
-    defaults: { _controller: BackBienEtreBundle:Referentiel:soin,id:null }
+    
+#Gestion des produits   
+back_bienetre_ref_produit:
+    path:     /produit/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:produit,id:null }
     requirements:
         id:  \d+
         
-delete_back_bienetre_soin:
-    path:     /delete_back_bienetre_soin/{id}
-    defaults: { _controller: BackBienEtreBundle:Referentiel:deleteSoin }
+delete_back_bienetre_produit:
+    path:     /delete_back_bienetre_produit/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:deleteProduit }
     
-
-back_bienetre_ref_cure:
-    path:     /cure/{id}
-    defaults: { _controller: BackBienEtreBundle:Referentiel:cure,id:null }
+back_bienetre_ref_produit_tarif:
+    path:     /produit/{id}/tarifProduit/{id2}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:produitTarif,id2:null }
     requirements:
         id:  \d+
-        
-delete_back_bienetre_cure:
-    path:     /delete_back_bienetre_cure/{id}
-    defaults: { _controller: BackBienEtreBundle:Referentiel:deleteCure }
+ 
+delete_tarif_produit:
+    path:     /delete_tarif_produit/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:deleteTarifProduit }
     
-   
-back_bienetre_ref_pack:
-    path:     /pack/{id}
-    defaults: { _controller: BackBienEtreBundle:Referentiel:pack,id:null }
+back_bienetre_ref_produit_photo:
+    path:     /produit/{id}/photoProduit/{id2}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:produitPhoto,id2:null }
     requirements:
         id:  \d+
-        
-delete_back_bienetre_pack:
-    path:     /delete_back_bienetre_pack/{id}
-    defaults: { _controller: BackBienEtreBundle:Referentiel:deletePack }
+ 
+delete_photo_produit:
+    path:     /delete_photo_produit/{id}
+    defaults: { _controller: BackBienEtreBundle:Referentiel:deletePhotoProduit }

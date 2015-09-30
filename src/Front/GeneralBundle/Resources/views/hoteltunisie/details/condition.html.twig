@@ -1,0 +1,58 @@
+<h4>Conditions restrictives</h4>
+<ul>
+    {% set saison = hotel.getSaisonPromotionByDate(app.request.session.get('dateDebut')) %}
+    {% set age1=' entre ['~hotel.ficheTechnique.getMin1AgeEnfant~','~hotel.ficheTechnique.getMax1AgeEnfant~']' %}
+    {% set age2=' entre ['~hotel.ficheTechnique.getMin2AgeEnfant~','~hotel.ficheTechnique.getMax2AgeEnfant~']' %}
+    <li>Age enfant entre {{ hotel.minAge }} ans et {{ hotel.maxAge }} ans</li>
+    {% if not isZero(saison.saisonReduc.affiche1enf1adulte(1)) %}
+        <li>1 <sup>er</sup> enfant {{ age1 }} avec un adulte dans une même chambre  : {{ saison.saisonReduc.affiche1enf1adulte(1) }}</li>
+    {% endif %}
+    {% if not isZero(saison.saisonReduc.affiche1enf1adulte(2)) %}
+        <li>1 <sup>er</sup> enfant {{ age2 }} avec un adulte dans une même chambre  : {{ saison.saisonReduc.affiche1enf1adulte(2) }}</li>
+    {% endif %}
+    {% if not isZero(saison.saisonReduc.affiche1enf2adulte(1)) %}
+        <li>1 <sup>er</sup> enfant {{ age1 }} avec deux adultes dans une même  chambre : {{ saison.saisonReduc.affiche1enf2adulte(1) }}</li>
+    {% endif %}
+    {% if not isZero(saison.saisonReduc.affiche1enf2adulte(2)) %}
+        <li>1 <sup>er</sup> enfant {{ age2 }} avec deux adultes dans une même     chambre : {{ saison.saisonReduc.affiche1enf2adulte(2) }}</li>
+    {% endif %}
+    {% if not isZero(saison.saisonReduc.affiche1separer(1)) %}
+        <li>1 <sup>er</sup> enfant {{ age1 }} dans une chambre séparée  : {{ saison.saisonReduc.affiche1separer(1) }}</li>
+    {% endif %}
+    {% if not isZero(saison.saisonReduc.affiche1separer(2)) %}
+        <li>1 <sup>er</sup> enfant {{ age2 }} dans une chambre séparée   : {{ saison.saisonReduc.affiche1separer(2) }}</li>
+    {% endif %}
+
+    {% if not isZero(saison.saisonReduc.affiche2enf1adulte(1)) %}
+        <li>2 <sup>eme</sup> enfant ou plus {{ age1 }} avec un adulte dans une même chambre : {{ saison.saisonReduc.affiche2enf1adulte(1) }}</li>
+    {% endif %}
+    {% if not isZero(saison.saisonReduc.affiche2enf1adulte(2)) %}
+        <li>2 <sup>eme</sup> enfant ou plus {{ age2 }} avec un adulte dans une même chambre : {{ saison.saisonReduc.affiche2enf1adulte(2) }}</li>
+    {% endif %}
+    {% if not isZero(saison.saisonReduc.affiche2enf2adulte(1)) %}
+        <li>2 <sup>eme</sup> enfant ou plus {{ age1 }} avec deux adultes dans une même chambre : {{ saison.saisonReduc.affiche2enf2adulte(1) }}</li>
+    {% endif %}
+    {% if not isZero(saison.saisonReduc.affiche2enf2adulte(2)) %}
+        <li>2 <sup>eme</sup> enfant ou plus {{ age2 }} avec deux adultes dans une même chambre : {{ saison.saisonReduc.affiche2enf2adulte(2) }}</li>
+    {% endif %}
+    {% if not isZero(saison.saisonReduc.affiche2separer(1)) %}
+        <li>2 <sup>eme</sup> enfant ou plus {{ age1 }} dans une chambre séparée : {{ saison.saisonReduc.affiche2separer(1) }}</li>
+    {% endif %}
+    {% if not isZero(saison.saisonReduc.affiche2separer(2)) %}
+        <li>2 <sup>eme</sup> enfant ou plus {{ age2 }} dans une chambre séparée : {{ saison.saisonReduc.affiche2separer(2) }}</li>
+    {% endif %}
+
+    {% if not isZero(saison.saisonReduc.afficheReduc3Lit) %}
+        <li>Réduction 3 <sup>eme</sup>
+            lit: {{ saison.saisonReduc.afficheReduc3Lit }}</li>
+    {% endif %}
+
+    {% if not isZero(saison.saisonReduc.afficheReduc4Lit) %}
+        <li>Réduction 4 <sup>eme</sup> lit: {{ saison.saisonReduc.afficheReduc4Lit }}</li>
+    {% endif %}
+
+    {% if not isZero(saison.saisonSupp.afficheSuppSingle) %}
+        <li>Supplément Single: {{ saison.saisonSupp.afficheSuppSingle }}</li>
+    {% endif %}
+</ul>
+<div class="clear"></div>

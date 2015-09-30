@@ -1,6 +1,6 @@
 liste_reservations:
-    path:     /liste/{page}/{etat}/{amicale}/{sort}/{direction}
-    defaults: { _controller: BackHotelTunisieBundle:Reservation:liste,page:1,etat:1,amicale:all,sort:r.id,direction:desc }
+    path:     /liste/{page}/{etat}/{amicale}/{checkIn}/{checkOut}/{hotel}/{user}/{sort}/{direction}
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:liste,page:1,etat:1,amicale:all,checkIn:all,checkOut:all,hotel:all,user:all,sort:r.id,direction:desc }
 
 consulter_reservation:
     path:     /consulter/{id}
@@ -9,6 +9,10 @@ consulter_reservation:
 valider_reservation:
     path:     /valider/{id}
     defaults: { _controller: BackHotelTunisieBundle:Reservation:valider }
+
+ajax_reservationSHT_to_SousEtats:
+    path:     /ajax_reservationSHT_to_SousEtats
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:ajaxSousEtats }
 
 remise_reservation:
     path:     /remise/{id}

@@ -1,0 +1,13 @@
+front_bienetre_liste:
+    path:     /liste/{page}/{produits}/{sort}/{direction}/{name}
+    defaults: { _controller: FrontGeneralBundle:BienEtre:liste,page:1,name:null,produits:all,sort:p.libelle,direction:asc}
+    requirements:
+        page:  \d+
+        
+front_bienetre_sort:
+    path:     /sort/{produits}/{name}
+    defaults: { _controller: FrontGeneralBundle:BienEtre:sort,produits:all,name:null }
+    
+front_produit_details:
+    path:     /{slug}
+    defaults: { _controller: FrontGeneralBundle:BienEtre:details }

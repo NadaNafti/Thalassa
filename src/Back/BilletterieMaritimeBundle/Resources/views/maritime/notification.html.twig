@@ -1,0 +1,31 @@
+<li class="dropdown">
+    <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:void(0)">
+	<i class="fa fa-anchor"></i>
+	<span class="badge"> {{ reservations|length }}</span>
+    </a>
+    <ul class="dropdown-menu notifications">
+	<li>
+	    <span class="dropdown-menu-title center">Maritime</span>
+	</li>
+	<li>
+	    <div class="drop-down-wrapper">
+		<ul>
+		    {% for reservation in reservations %}
+			<li>
+			    <a href="{{ path('back_maritime_reservation_consultation',{'id':reservation.id}) }}">
+				<span class="label label-{% if reservation.frontOffice  %}danger{% else %}primary{% endif %}"><i class="fa fa-star"></i></span>
+				<span class="message">{{ reservation.nomPrenom }}</span>
+				<span class="time">{{ differenceBetweenDates(reservation.created) }}</span>
+			    </a>
+			</li>
+		    {% endfor %}
+		</ul>
+	    </div>
+	</li>
+	<li class="view-all">
+	    <a href="{{ path('back_maritime_reservation_liste') }}">
+		Voir toutes les réservations <i class="fa fa-arrow-circle-o-right"></i>
+	    </a>
+	</li>
+    </ul>
+</li>

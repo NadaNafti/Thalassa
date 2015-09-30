@@ -50,10 +50,10 @@
                     {% endif %}
                     <h3>Ajouter une Piéce</h3>
                     <div class="row">
-                        {{ formulaire.input("col-md-3","Désignation",form.piece.numero,true) }}
                         {{ formulaire.input("col-md-3","Mode de Reglement",form.piece.modeReglement,true) }}
-                        {{ formulaire.input("col-md-3 no-display echeance ","Date Echeance",form.piece.dateEcheance,true) }}
-                        {{ formulaire.input("col-md-3","Montant",form.piece.montantOrigine,true) }}
+                        {{ formulaire.input("col-md-2 no-display echeance ","Date Echeance",form.piece.dateEcheance,true) }}
+                        {{ formulaire.input("col-md-2","Montant",form.piece.montantOrigine,true) }}
+                        {{ formulaire.input("col-md-5","Désignation & commentaire",form.piece.numero,true) }}
                     </div>
                     {{ formulaire.submit("Enregistrer") }}
                     {{ form_end(form) }}
@@ -119,8 +119,8 @@
     {% block jquery %}
         <script>
             $(document).ready(function () {
-                $('#form_piece_montantOrigine').prop('disabled', true);
-                $('#form_piece_modeReglement').prop('disabled', true);
+//                $('#form_piece_montantOrigine').prop('disabled', true);
+//                $('#form_piece_modeReglement').prop('disabled', true);
                 $('#form_piece_modeReglement').change(function () {
                     if ($(this).val() == 'C')
                     {
@@ -133,13 +133,13 @@
                         $('#form_piece_dateEcheance').prop('required', false);
                     }
                 })
-                $('#form_piece_numero').keypress(function () {
-                    $('#form_piece_montantOrigine').prop('disabled', false);
-                    $('#form_piece_modeReglement').prop('disabled', false);
-                    $('#form_piece_numero').prop('required', true);
-                    $('#form_piece_modeReglement').prop('required', true);
-                    $('#form_piece_montantOrigine').prop('required', true);
-                })
+//                $('#form_piece_numero').keypress(function () {
+//                    $('#form_piece_montantOrigine').prop('disabled', false);
+//                    $('#form_piece_modeReglement').prop('disabled', false);
+//                    $('#form_piece_numero').prop('required', true);
+//                    $('#form_piece_modeReglement').prop('required', true);
+//                    $('#form_piece_montantOrigine').prop('required', true);
+//                })
             })
         </script>
     {% endblock %}

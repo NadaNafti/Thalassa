@@ -47,6 +47,13 @@
         private $typeNumerotation;
 
         /**
+         * @var integer
+         *
+         * @ORM\Column(name="model", type="integer")
+         */
+        private $model;
+
+        /**
          * @var boolean
          *
          * @ORM\Column(name="gmaps", type="boolean",nullable=true)
@@ -173,5 +180,28 @@
     public function getGmaps()
     {
         return $this->gmaps;
+    }
+
+    /**
+     * Set model
+     *
+     * @param integer $model
+     * @return ConfigurationVoucher
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return integer 
+     */
+    public function getModel()
+    {
+        return $this->model;
     }
 }
