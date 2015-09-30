@@ -62,6 +62,12 @@ class ReservationPersonne
     protected $lignes;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Chambre", inversedBy="personnes")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    protected $chambreContingent;
+
+    /**
      * Get id
      *
      * @return integer
@@ -269,5 +275,28 @@ class ReservationPersonne
     public function __toString()
     {
         return $this->nomPrenom;
+    }
+
+    /**
+     * Set chambreContingent
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Chambre $chambreContingent
+     * @return ReservationPersonne
+     */
+    public function setChambreContingent(\Back\VoyageOrganiseBundle\Entity\Chambre $chambreContingent = null)
+    {
+        $this->chambreContingent = $chambreContingent;
+
+        return $this;
+    }
+
+    /**
+     * Get chambreContingent
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\Chambre 
+     */
+    public function getChambreContingent()
+    {
+        return $this->chambreContingent;
     }
 }
