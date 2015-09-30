@@ -290,26 +290,4 @@ class Centre {
         return $this->libelle;
     }
 
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Centre
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
 }

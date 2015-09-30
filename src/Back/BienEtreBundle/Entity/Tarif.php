@@ -246,4 +246,11 @@ class Tarif
     {
         return $this->libelle;
     }
+    
+    public function isValide()
+        {
+            if($this->dateDeb->format('Y-m-d') <= date('Y-m-d') && $this->dateFin->format('Y-m-d') >= date('Y-m-d'))
+                return TRUE;
+            return FALSE;
+        }
 }

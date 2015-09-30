@@ -64,7 +64,7 @@ class Produit {
 
     /**
      * @Gedmo\Slug(fields={"libelle"})
-     * @ORM\Column(name="slug", length=128, unique=true)
+     * @ORM\Column(name="slug", length=128,unique=true)
      */
     private $slug;
     
@@ -360,4 +360,25 @@ class Produit {
     {
         return $this->slug;
     }
+    
+    public function getPhotoPrincipal()
+        {
+            if(count($this->photos) == 0)
+                return NULL;
+            foreach($this->photos as $image){
+                if($image->getType() == 1)
+                    return $image;
+            }
+            return NULL;
+        }
+
+        public function getPhotosAlbum()
+        {
+            $album = array();
+            foreach($this->photos as $image){
+                if($image->getType() == 2)
+                    $album[] = $image;
+            }
+            return $album;
+        }
 }
