@@ -12,13 +12,12 @@ class BienEtreController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $request = $this->getRequest();
-        $produits = $em->getRepository('BackBienEtreBundle:Produit')->findBy(array(), array('libelle' => 'asc'));
         if ($request->isMethod('POST')) {
             $produitsArray = array();
             $arrays = array();
-            foreach ($produits as $pr) {
-                if ($request->get('produits_' . $pr->getId()))
-                    $produitsArray[] = $pr->getId();
+            for($i=1;$i<=3;$i++){
+                if ($request->get('produits_' .$i))
+                    $produitsArray[] =$i;
             }
             if (count($produitsArray) == 0)
                 $arrays['produits'] = 'all';
@@ -27,6 +26,7 @@ class BienEtreController extends Controller {
             $arrays['name'] = urlencode($request->get('motclesSearch'));
             return $this->redirect($this->generateUrl('front_bienetre_liste', $arrays));
         }
+        $produits = $em->getRepository('BackBienEtreBundle:Produit')->filtre($produits,$name, $sort, $direction);
         $paginator = $this->get('knp_paginator');
         $produits = $paginator->paginate($produits, $page, 9);
         return $this->render('FrontGeneralBundle:bienetre\liste:liste.html.twig', array(

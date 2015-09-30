@@ -30,20 +30,21 @@
                 <h5 {% if app.request.get('produits') != 'all' %}class="active"{% endif %} >Types produit </h5>
                 <div class="another-toggle-inner">
                     <div class="clear mb-10"></div>
+                    {% set ProduitsTab = app.request.get('produits')|split(',') %}
                     <fieldset>
                         <div class="styled-checkbox">
                             <label>
-                                <input type="checkbox" value="1">pack
+                                <input type="checkbox" {% if 1 in ProduitsTab %}checked{% endif %} name="produits_1">Pack
                             </label>
                         </div>
                         <div class="styled-checkbox">
                             <label>
-                                <input type="checkbox" value="2">soin
+                                <input type="checkbox" {% if 2 in ProduitsTab %}checked{% endif %} name="produits_2">Soin
                             </label>
                         </div>
                         <div class="styled-checkbox">
                             <label>
-                                <input type="checkbox" value="3">cure
+                                <input type="checkbox" {% if 3 in ProduitsTab %}checked{% endif %} name="produits_3">Cure
                             </label>
                         </div>
                         <div class="clear"></div>

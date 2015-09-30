@@ -1,5 +1,5 @@
 front_bienetre_liste:
-    path:     /liste/{page}
+    path:     /liste/{page}/{produits}/{sort}/{direction}/{name}
     defaults: { _controller: FrontGeneralBundle:BienEtre:liste,page:1,name:null,produits:all,sort:p.libelle,direction:asc}
     requirements:
         page:  \d+

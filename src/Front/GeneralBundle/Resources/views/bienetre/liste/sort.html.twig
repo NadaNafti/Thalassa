@@ -15,15 +15,5 @@
 			</select>
 		</div>
 	</form>
-	{#<form method="post" action="{{ action }}">
-		<input type="hidden" name="sort" value="p.prix">
-		<div class="sort-option mr-15 xs-mb sm-mb">
-			<select class="form-control mySelectBoxClass " name="direction" onchange="submit()">
-				<option value="" selected>Prix</option>
-				<option value="asc" {% if sort=='p.prix' and dir=='asc' %}selected {% endif %}>Ascendant</option>
-				<option value="desc" {% if sort=='p.prix' and dir=='desc' %}selected {% endif %}>Descendant</option>
-			</select>
-		</div>
-	</form>#}
 </div>
 <div class="clear mb-30"></div>
