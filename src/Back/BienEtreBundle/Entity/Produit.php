@@ -42,7 +42,7 @@ class Produit {
      * @ORM\Column(name="descriptionCourte", type="text")
      */
     private $descriptionCourte;
-    
+
     /**
      * @var string
      *
@@ -50,13 +50,12 @@ class Produit {
      */
     private $descriptionLongue;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Back\BienEtreBundle\Entity\Centre")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $centre;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Tarif", mappedBy="produit")
      */
@@ -67,10 +66,10 @@ class Produit {
      * @ORM\Column(name="slug", length=128,unique=true)
      */
     private $slug;
-    
+
     /**
-    * @ORM\OneToMany(targetEntity="Photo", mappedBy="produit", cascade={"remove"})
-    */
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="produit", cascade={"remove"})
+     */
     private $photos;
 
     /**
@@ -85,13 +84,10 @@ class Produit {
      */
     private $updated;
 
-    
-    
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->tarifs = new \Doctrine\Common\Collections\ArrayCollection();
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -101,8 +97,7 @@ class Produit {
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -112,8 +107,7 @@ class Produit {
      * @param string $libelle
      * @return Produit
      */
-    public function setLibelle($libelle)
-    {
+    public function setLibelle($libelle) {
         $this->libelle = $libelle;
 
         return $this;
@@ -124,8 +118,7 @@ class Produit {
      *
      * @return string 
      */
-    public function getLibelle()
-    {
+    public function getLibelle() {
         return $this->libelle;
     }
 
@@ -135,8 +128,7 @@ class Produit {
      * @param integer $type
      * @return Produit
      */
-    public function setType($type)
-    {
+    public function setType($type) {
         $this->type = $type;
 
         return $this;
@@ -147,8 +139,7 @@ class Produit {
      *
      * @return integer 
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
 
@@ -158,8 +149,7 @@ class Produit {
      * @param string $descriptionCourte
      * @return Produit
      */
-    public function setDescriptionCourte($descriptionCourte)
-    {
+    public function setDescriptionCourte($descriptionCourte) {
         $this->descriptionCourte = $descriptionCourte;
 
         return $this;
@@ -170,8 +160,7 @@ class Produit {
      *
      * @return string 
      */
-    public function getDescriptionCourte()
-    {
+    public function getDescriptionCourte() {
         return $this->descriptionCourte;
     }
 
@@ -181,8 +170,7 @@ class Produit {
      * @param string $descriptionLongue
      * @return Produit
      */
-    public function setDescriptionLongue($descriptionLongue)
-    {
+    public function setDescriptionLongue($descriptionLongue) {
         $this->descriptionLongue = $descriptionLongue;
 
         return $this;
@@ -193,8 +181,7 @@ class Produit {
      *
      * @return string 
      */
-    public function getDescriptionLongue()
-    {
+    public function getDescriptionLongue() {
         return $this->descriptionLongue;
     }
 
@@ -204,8 +191,7 @@ class Produit {
      * @param \DateTime $created
      * @return Produit
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
@@ -216,8 +202,7 @@ class Produit {
      *
      * @return \DateTime 
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
@@ -227,8 +212,7 @@ class Produit {
      * @param \DateTime $updated
      * @return Produit
      */
-    public function setUpdated($updated)
-    {
+    public function setUpdated($updated) {
         $this->updated = $updated;
 
         return $this;
@@ -239,8 +223,7 @@ class Produit {
      *
      * @return \DateTime 
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         return $this->updated;
     }
 
@@ -250,8 +233,7 @@ class Produit {
      * @param \Back\BienEtreBundle\Entity\Centre $centre
      * @return Produit
      */
-    public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre = null)
-    {
+    public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre = null) {
         $this->centre = $centre;
 
         return $this;
@@ -262,8 +244,7 @@ class Produit {
      *
      * @return \Back\BienEtreBundle\Entity\Centre 
      */
-    public function getCentre()
-    {
+    public function getCentre() {
         return $this->centre;
     }
 
@@ -273,8 +254,7 @@ class Produit {
      * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
      * @return Produit
      */
-    public function addTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
-    {
+    public function addTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs) {
         $this->tarifs[] = $tarifs;
 
         return $this;
@@ -285,8 +265,7 @@ class Produit {
      *
      * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
      */
-    public function removeTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
-    {
+    public function removeTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs) {
         $this->tarifs->removeElement($tarifs);
     }
 
@@ -295,8 +274,7 @@ class Produit {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getTarifs()
-    {
+    public function getTarifs() {
         return $this->tarifs;
     }
 
@@ -306,8 +284,7 @@ class Produit {
      * @param \Back\BienEtreBundle\Entity\Photo $photos
      * @return Produit
      */
-    public function addPhoto(\Back\BienEtreBundle\Entity\Photo $photos)
-    {
+    public function addPhoto(\Back\BienEtreBundle\Entity\Photo $photos) {
         $this->photos[] = $photos;
 
         return $this;
@@ -318,8 +295,7 @@ class Produit {
      *
      * @param \Back\BienEtreBundle\Entity\Photo $photos
      */
-    public function removePhoto(\Back\BienEtreBundle\Entity\Photo $photos)
-    {
+    public function removePhoto(\Back\BienEtreBundle\Entity\Photo $photos) {
         $this->photos->removeElement($photos);
     }
 
@@ -328,13 +304,11 @@ class Produit {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getPhotos()
-    {
+    public function getPhotos() {
         return $this->photos;
     }
-    
-    public function __toString()
-    {
+
+    public function __toString() {
         return $this->libelle;
     }
 
@@ -344,8 +318,7 @@ class Produit {
      * @param string $slug
      * @return Produit
      */
-    public function setSlug($slug)
-    {
+    public function setSlug($slug) {
         $this->slug = $slug;
 
         return $this;
@@ -356,29 +329,37 @@ class Produit {
      *
      * @return string 
      */
-    public function getSlug()
-    {
+    public function getSlug() {
         return $this->slug;
     }
-    
-    public function getPhotoPrincipal()
-        {
-            if(count($this->photos) == 0)
-                return NULL;
-            foreach($this->photos as $image){
-                if($image->getType() == 1)
-                    return $image;
-            }
-            return NULL;
-        }
 
-        public function getPhotosAlbum()
-        {
-            $album = array();
-            foreach($this->photos as $image){
-                if($image->getType() == 2)
-                    $album[] = $image;
-            }
-            return $album;
+    public function getPhotoPrincipal() {
+        if (count($this->photos) == 0)
+            return NULL;
+        foreach ($this->photos as $image) {
+            if ($image->getType() == 1)
+                return $image;
         }
+        return NULL;
+    }
+
+    public function getPhotosAlbum() {
+        $album = array();
+        foreach ($this->photos as $image) {
+            if ($image->getType() == 2)
+                $album[] = $image;
+        }
+        return $album;
+    }
+    
+    public function getTarifByDate($date)
+    {
+        foreach ($this->tarifs as $tarif)
+        {
+            if($tarif->isValideByDate($date))
+                return $tarif;
+        }
+        return null;
+    }
+
 }
