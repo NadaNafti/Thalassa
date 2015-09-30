@@ -1,27 +1,29 @@
-{#<div class="sort-by-wrapper">
-    <div class="sort-by-text mr-15 xs-mb sm-mb" style="white-space: nowrap;">								
-	Sort by:
-    </div>			
-    <div class="sort-option mr-15 xs-mb sm-mb">
-	<select class="form-control mySelectBoxClass ">
-	    <option selected>Nom</option>
-	    <option>De A à Z</option>
-	    <option>De Z à A</option>
-	</select>
-    </div>
-    <div class="sort-option mr-15 xs-mb sm-mb">
-	<select class="form-control mySelectBoxClass ">
-	    <option selected>Budget</option>
-	    <option>Ascendant</option>
-	    <option>Descendant</option>
-	</select>
-    </div>
-    <div class="sort-option mr-15 xs-mb sm-mb">
-	<select class="form-control mySelectBoxClass ">
-	    <option selected>Ville</option>
-	    <option>Ascendant</option>
-	    <option>Descendant</option>
-	</select>
-    </div>
+{% set sort=app.request.get('sort') %}
+{% set dir=app.request.get('direction') %}
+{% set action=path('front_programme_sort',{'themes':app.request.get('themes'),'name':app.request.get('name'),}) %}
+<div class="sort-by-wrapper">
+	<div class="sort-by-text mr-15 xs-mb sm-mb" style="white-space: nowrap;">
+		Trier par:
+	</div>
+	<form method="post" action="{{ action }}">
+		<div class="sort-option mr-15 xs-mb sm-mb">
+			<input type="hidden" name="sort" value="p.libelle">
+			<select class="form-control mySelectBoxClass " name="direction" onchange="submit()">
+				<option value="" selected>Nom</option>
+				<option value="asc" {% if sort=='p.libelle' and dir=='asc' %}selected {% endif %}>De A à Z</option>
+				<option value="desc" {% if sort=='p.libelle' and dir=='desc' %}selected {% endif %}>De Z à A</option>
+			</select>
+		</div>
+	</form>
+	<form method="post" action="{{ action }}">
+		<input type="hidden" name="sort" value="p.prix">
+		<div class="sort-option mr-15 xs-mb sm-mb">
+			<select class="form-control mySelectBoxClass " name="direction" onchange="submit()">
+				<option value="" selected>Prix</option>
+				<option value="asc" {% if sort=='p.prix' and dir=='asc' %}selected {% endif %}>Ascendant</option>
+				<option value="desc" {% if sort=='p.prix' and dir=='desc' %}selected {% endif %}>Descendant</option>
+			</select>
+		</div>
+	</form>
 </div>
-<div class="clear mb-30"></div>#}
+<div class="clear mb-30"></div>

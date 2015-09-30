@@ -128,4 +128,21 @@ class HotelRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }*/
 
+    public function linkHotels($hots) {
+
+        $cmp = count($hots);
+        $str= 'IN (';
+        foreach($hots as $h){
+            if($cmp > 1 )
+                $str .= $h.',' ;
+            else
+                $str .= $h ;
+            $cmp-- ;
+        }
+        $str .=')';
+
+        return $this->getEntityManager()
+            ->createQuery('SELECT h FROM BackResaBookingBundle:Hotel h WHERE h.idResa '.$str  )
+            ->getResult();
+    }
 }

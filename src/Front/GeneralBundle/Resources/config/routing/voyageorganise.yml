@@ -3,10 +3,14 @@ front_voyageorganise_accueil:
     defaults: { _controller: FrontGeneralBundle:VoyageOrganise:accueil }
     
 front_voyageorganise_liste:
-    path:     /liste/{page}/{themes}/{destinations}/{pays}/{name}
-    defaults: { _controller: FrontGeneralBundle:VoyageOrganise:liste,page:1,themes:all,destinations:all,pays:all,name:null }
+    path:     /liste/{page}/{themes}/{destinations}/{pays}/{sort}/{direction}/{name}
+    defaults: { _controller: FrontGeneralBundle:VoyageOrganise:liste,page:1,themes:all,destinations:all,pays:all,name:null ,sort:v.libelle,direction:asc }
     requirements:
         page:  \d+
+
+front_voyageorganise_sort:
+    path:     /sort/{themes}/{destinations}/{pays}/{name}
+    defaults: { _controller: FrontGeneralBundle:VoyageOrganise:sort,themes:all,destinations:all,pays:all,name:null }
         
 front_voyageorganise_hotel_ajax:
     path:     /front_voyageorganise_hotel_ajax

@@ -29,7 +29,7 @@
             ));
         }
 
-        public function listeAction($page,$themes,$name)
+        public function listeAction($page,$themes,$sort,$direction,$name)
         {
             $em = $this->getDoctrine()->getManager();
             $session = $this->getRequest()->getSession();
@@ -49,7 +49,7 @@
                 $arrays['name'] = urlencode($request->get('motclesSearch'));
                 return $this->redirect($this->generateUrl('front_programme_liste',$arrays));
             }
-            $programmes = $em->getRepository('BackProgrammeBundle:Programme')->filtre($themes,$name);
+            $programmes = $em->getRepository('BackProgrammeBundle:Programme')->filtre($themes,$name,$sort,$direction);
             $paginator = $this->get('knp_paginator');
             $programmes = $paginator->paginate($programmes,$page,9);
             return $this->render('FrontGeneralBundle:programme\liste:liste.html.twig',array(
@@ -57,6 +57,22 @@
                 'themes'     => $listeThemes,
                 'motcle'     => urldecode($name),
             ));
+        }
+
+        public function sortAction( $themes, $name)
+        {
+            $request = $this->getRequest();
+            if ($request->isMethod('POST')) {
+                $arrays = array();
+                $arrays['themes'] = $themes;
+                $arrays['name'] = $name;
+                if($request->get('direction')!='')
+                {
+                    $arrays['direction'] = $request->get('direction');
+                    $arrays['sort'] = $request->get('sort');
+                }
+                return $this->redirect($this->generateUrl('front_programme_liste', $arrays));
+            }
         }
 
         public function detailsAction($slug)

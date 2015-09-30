@@ -4,7 +4,7 @@ resa_booking:
 
 resa_booking_hotels:
     path:     /hotels
-    defaults: { _controller: BackResaBookingBundle:Booking:liste}
+    defaults: { _controller: BackResaBookingBundle:FrontBooking:liste}
 
 resa_booking_index:
     path:    /index

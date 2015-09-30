@@ -20,7 +20,7 @@
 	<div class="list-item-label">
 	    <div class="left">
 		<h4 class="list-item-title"><a href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}" class="inverse">{{ hotel|title  }}</a> - {{ getStars(hotel.getStars)|raw }}</h4>
-		<span class="list-item-location">{{ hotel.ville|title }}, Min stay : {{ saison.minStay }} nuitée(s)</span>
+		<span class="list-item-location"><strong style="color: black">{{ hotel.ville|title }}</strong>, Min stay : {{ saison.minStay }} nuitée(s)</span>
 		<div class="list-item-details">
 		    <div class="clear mt-10"></div>
 		    {% if  hotel.descriptionCourte|length >200 %}

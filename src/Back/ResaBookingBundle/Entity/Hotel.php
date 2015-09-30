@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Hotel
  *
  * @ORM\Table(name="ost_resa_hotels")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Back\ResaBookingBundle\Entity\HotelRepository")
  */
 class Hotel
 {
@@ -228,7 +228,7 @@ class Hotel
     /**
      * Get info
      *
-     * @return string 
+     * @return string
      */
     public function getInfo()
     {

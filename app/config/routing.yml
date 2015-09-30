@@ -6,6 +6,10 @@ front_general:
     resource: "@FrontGeneralBundle/Resources/config/routing.yml"
     prefix:   /
 
+back_bien_etre:
+    resource: "@BackBienEtreBundle/Resources/config/routing.yml"
+    prefix:   /admin/bien_etre
+
 espace_client:
     resource: "@EspaceClientBundle/Resources/config/routing.yml"
     prefix:   /espace_client
@@ -14,9 +18,9 @@ back_resa_booking:
     resource: "@BackResaBookingBundle/Resources/config/routing.yml"
     prefix:   /admin/hotel_tunisie
 
-#front_resa_booking:
-#    resource: "@BackResaBookingBundle/Resources/config/routing.yml"
-#    prefix:   /booking
+front_resa_booking:
+    resource: "@BackResaBookingBundle/Resources/config/routing.yml"
+    prefix:   /booking
 
 
 back_programme:

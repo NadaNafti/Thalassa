@@ -1,0 +1,4 @@
+services:
+#    back_bien_etre.example:
+#        class: Back\BienEtreBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
