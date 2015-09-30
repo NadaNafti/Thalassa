@@ -53,6 +53,11 @@ class Reglement
     protected $reservationMaritime;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Back\BienEtreBundle\Entity\Reservation", inversedBy="reglements")
+     */
+    protected $reservationBE;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="date")
@@ -259,5 +264,28 @@ class Reglement
     public function getReservationMaritime()
     {
         return $this->reservationMaritime;
+    }
+
+    /**
+     * Set reservationBE
+     *
+     * @param \Back\BienEtreBundle\Entity\Reservation $reservationBE
+     * @return Reglement
+     */
+    public function setReservationBE(\Back\BienEtreBundle\Entity\Reservation $reservationBE = null)
+    {
+        $this->reservationBE = $reservationBE;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationBE
+     *
+     * @return \Back\BienEtreBundle\Entity\Reservation 
+     */
+    public function getReservationBE()
+    {
+        return $this->reservationBE;
     }
 }
