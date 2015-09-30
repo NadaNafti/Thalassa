@@ -57,6 +57,11 @@
         private $themes;
 
         /**
+         * @ORM\OneToMany(targetEntity="Contingent", mappedBy="voyage", cascade={"remove"})
+         */
+        private $contingents;
+
+        /**
          * @var string
          *
          * @ORM\Column(name="prix", type="decimal", precision=11 ,scale=3 ,nullable=true)
@@ -557,4 +562,37 @@
                 return TRUE;
             return FALSE;
         }
+    
+    /**
+     * Add contingents
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Contingent $contingents
+     * @return VoyageOrganise
+     */
+    public function addContingent(\Back\VoyageOrganiseBundle\Entity\Contingent $contingents)
+    {
+        $this->contingents[] = $contingents;
+
+        return $this;
     }
+
+    /**
+     * Remove contingents
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Contingent $contingents
+     */
+    public function removeContingent(\Back\VoyageOrganiseBundle\Entity\Contingent $contingents)
+    {
+        $this->contingents->removeElement($contingents);
+    }
+
+    /**
+     * Get contingents
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getContingents()
+    {
+        return $this->contingents;
+    }
+}
