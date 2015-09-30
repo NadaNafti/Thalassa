@@ -10,6 +10,10 @@ ole_locaton_cars:
     path:     /location_voitures
     defaults: { _controller: FrontGeneralBundle:Default:oleLocation }
 
+ole_locaton_cars_monde:
+    path:     /location_voitures_monde
+    defaults: { _controller: FrontGeneralBundle:Default:oleLocationMonde }
+
 under_construction:
     path:     /under_construction
     defaults: { _controller: FrontGeneralBundle:Default:underConstruction }
