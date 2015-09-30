@@ -54,21 +54,24 @@
                                     <td>{{ produit.id }}</td>
                                     <td>{{ produit.libelle }}</td>
                                     <td>{{ produit.centre }}</td>
-                                    <td>{{ produit.type }}</td>
-                                    <td><a href="{{ path('back_bienetre_ref_produit_tarif',{'id':produit.id}) }}"> {{ produit.tarifs|length }} tarif(s)</a></td>
-                                    <td><a href="{{ path('back_bienetre_ref_produit_photo',{'id':produit.id}) }}"> {{ produit.photos|length }} image(s)</a></td>
-                                    <td class="TableAction">
-                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            {{ macros.tableEdit(path('back_bienetre_ref_produit',{'id':produit.id})) }}
-                                            {{ macros.tableDelete(path('delete_back_bienetre_produit',{'id':produit.id})) }}
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-{% endblock %}
+                                    <td>{%if( produit.type == 1 )%} pack
+                                        {%elseif ( produit.type == 2 )%} soin
+                                            {%else%} cure
+                                                {% endif %}</td>
+                                                <td><a href="{{ path('back_bienetre_ref_produit_tarif',{'id':produit.id}) }}"> {{ produit.tarifs|length }} tarif(s)</a></td>
+                                                <td><a href="{{ path('back_bienetre_ref_produit_photo',{'id':produit.id}) }}"> {{ produit.photos|length }} image(s)</a></td>
+                                                <td class="TableAction">
+                                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                        {{ macros.tableEdit(path('back_bienetre_ref_produit',{'id':produit.id})) }}
+                                                        {{ macros.tableDelete(path('delete_back_bienetre_produit',{'id':produit.id})) }}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endblock %}
