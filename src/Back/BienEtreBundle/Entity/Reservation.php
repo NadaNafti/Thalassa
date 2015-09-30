@@ -146,6 +146,13 @@ class Reservation
     private $tel;
 
     /**
+     * @var \Date
+     *
+     * @ORM\Column(name="date_debut", type="date")
+     */
+    private $dateDebut;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -649,5 +656,28 @@ class Reservation
     public function getTotal()
     {
         return number_format($this->getTotalVente()+$this->timbre-$this->remise,3,'.','');
+    }
+
+    /**
+     * Set dateDebut
+     *
+     * @param \DateTime $dateDebut
+     * @return Reservation
+     */
+    public function setDateDebut($dateDebut)
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    /**
+     * Get dateDebut
+     *
+     * @return \DateTime 
+     */
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
     }
 }
