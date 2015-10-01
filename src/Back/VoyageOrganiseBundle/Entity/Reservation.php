@@ -714,6 +714,20 @@ class Reservation
         return $this->sousEtats;
     }
 
+    public function getNombrePersonneNonContingent()
+    {
+        $nbr=0;
+        foreach($this->chambres as $ch)
+        {
+            foreach($ch->getOccupants() as $pers)
+            {
+                if(is_null($pers->getChambreContingent()))
+                    $nbr++;
+            }
+        }
+        return $nbr;
+    }
+
     public function __toString()
     {
         return "Reservation : ".$this->getId();

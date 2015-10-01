@@ -37,3 +37,11 @@ back_voyages_organises_reservation_ligne_edit:
 back_voyages_organises_reservation_remise:
     path:     /reservation_remise/{id}
     defaults: { _controller: BackVoyageOrganiseBundle:Reservation:remise }
+
+back_voyages_organises_reservation_contingent:
+    path:     /contingent/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:contingent }
+
+back_voyages_organises_reservation_ajax_contingent:
+    path:     /ajax_contingent
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:contingentAjax }

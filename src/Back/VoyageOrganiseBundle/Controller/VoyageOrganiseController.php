@@ -1,6 +1,8 @@
 <?php
     namespace Back\VoyageOrganiseBundle\Controller;
 
+    use Back\VoyageOrganiseBundle\Entity\Contingent;
+    use Back\VoyageOrganiseBundle\Form\VoyageOrganiseContingentType;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Session\Session;
     use Back\VoyageOrganiseBundle\Entity\VoyageOrganise;
@@ -369,5 +371,45 @@
             return $this->redirect($this->generateUrl('back_vo_photos',array(
                 'voyage' => $photo->getVoyage()->getId(),
             )));
+        }
+
+        public function contingentAction(VoyageOrganise $voyage)
+        {
+            $em=$this->getDoctrine()->getManager();
+            $session=$this->getRequest()->getSession();
+            foreach($voyage->getPeriodes() as $periode)
+            {
+                foreach($periode->getPacks() as $pack)
+                {
+                    if(count($pack->getHotels())>0)
+                    {
+                        $verif=$em->getRepository('BackVoyageOrganiseBundle:Contingent')->findOneBy(array('voyage'=>$voyage,'hotel'=>$pack->getHotels()->first()));
+                        if(!$verif)
+                        {
+                            $contingent = new Contingent();
+                            $voyage->addContingent($contingent->setHotel($pack->getHotels()->first())->setPack($pack));
+                        }
+                    }
+                }
+            }
+            $form = $this->createForm(new VoyageOrganiseContingentType(),$voyage);
+            $request = $this->getRequest();
+            if($request->isMethod('POST')){
+                $form->submit($request);
+                if($form->isValid()){
+                    $voyage = $form->getData();
+                    foreach($voyage->getContingents() as $contingent)
+                    {
+                        $em->persist($contingent->setVoyage($voyage));
+                        $this->container->get('chambreVO')->update($contingent);
+                    }
+                    $em->flush();
+                    return $this->redirect($this->generateUrl('back_vo_contingent',array('voyage'=>$voyage->getId())));
+                }
+            }
+            return $this->render('BackVoyageOrganiseBundle:voyageOrganise:contingents.html.twig',array(
+                'form'   => $form->createView(),
+                'voyage' => $voyage,
+            ));
         }
     }
