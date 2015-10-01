@@ -22,7 +22,7 @@
                         <div class="detail-header-price">
                             {% for tarif in produit.tarifs if tarif.isValide==true %}
                                 <span>à partir de</span>{{ tarif.prixVente }}
-                                {%else %} <span>à partir de</span>0.000
+                            {%else %} <span>à partir de</span>0.000
                             {%endfor%}
                         </div>
                     </div>
@@ -50,12 +50,16 @@
                     {% include ':Front:alert.html.twig' %}
                     <div class="clear"></div>
                     <ul class="tabs mt-20">
-                        <li><a href="#details-tab1" class="active">Description</a></li>
-                        <li><a href="#reservation">Réservation</a></li>
+                        <li><a href="#description" class="active">Description</a></li>
+                        <li><a href="#reservation" >Réservation</a></li>
                     </ul>
                     <ul id="detail-tab" class="tabs-content xss-mb">
-                        {% include 'FrontGeneralBundle:bienetre/details:description.html.twig' %}
-                        {% include 'FrontGeneralBundle:bienetre:reservation.html.twig' %}
+                        <li id="description" class="active">
+                            {% include 'FrontGeneralBundle:bienetre/details:description.html.twig' %}
+                        </li>
+                        <li id="reservation">
+                            {% include 'FrontGeneralBundle:bienetre/details:reservation.html.twig'%}
+                        </li>
                     </ul>
                     <div class="clear xss-mb"></div>
                 </div>
@@ -69,6 +73,47 @@
                         </div>
                     </div>
                 </div>
+                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <div class="sidebar hotel-sidebar">
+                            <div class="sidebar-item mb-20">
+                                <div class="lp-box">
+                                    <i class="text-info fa-lock"></i>
+                                    <h4>Authentification</h4>
+
+                                    <form action="{{ path("fos_user_security_check") }}" method="post">
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                                        <input type="hidden" name="_target_path" value="{{ app.request.uri() }}"/>
+
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="form-group">
+                                                    <label for="first-name">Identifiant ou Email</label>
+                                                    <input type="text" id="username" name="_username"
+                                                           required="required" class="form-control"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="form-group">
+                                                    <label for="first-name">Mots de passe</label>
+                                                    <input type="password" id="password" name="_password"
+                                                           required="required" class="form-control"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <button type="submit" class="btn btn-primary" id="_submit" name="_submit"
+                                                    style="float: right;">S'authentifier
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
