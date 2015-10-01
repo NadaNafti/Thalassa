@@ -135,4 +135,21 @@ class Chambre
     {
         return $this->personnes;
     }
+
+    public function showType()
+    {
+        switch($this->type)
+        {
+            case 1 : return "Chambre Single";
+            case 2 : return "Chambre Double";
+            case 3 : return "Chambre Triple";
+            case 4 : return "Chambre Quadruple";
+        }
+    }
+
+    public function __toString()
+    {
+        return $this->showType();
+    }
+
 }

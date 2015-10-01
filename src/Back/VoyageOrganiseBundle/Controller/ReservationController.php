@@ -11,6 +11,7 @@
     use Back\CommercialBundle\Form\PieceType;
     use Back\CommercialBundle\Entity\Reglement;
     use Back\VoyageOrganiseBundle\Entity\ReservationPersonne;
+    use Symfony\Component\HttpFoundation\Response;
 
     class ReservationController extends Controller
     {
@@ -239,5 +240,35 @@
                 $session->getFlashBag()->add('success',"Votre Remise a été modifié avec succés ");
             }
             return $this->redirect($this->generateUrl('back_voyages_organises_reservation_consulter',array('id' => $reservation->getId())));
+        }
+
+        public function contingentAction(Reservation $reservation)
+        {
+            return $this->render('BackVoyageOrganiseBundle:reservation:contingent.html.twig',array(
+                'reservation' => $reservation,
+            ));
+        }
+
+        public function contingentAjaxAction()
+        {
+            $em=$this->getDoctrine()->getManager();
+            $request=$this->getRequest();
+            $json=json_decode($request->get('json'));
+            if(count($json)>0)
+            {
+                $chambre=$em->find('BackVoyageOrganiseBundle:Chambre',$request->get('chambre'));
+                foreach($json as $id)
+                {
+                    $pers=$em->find('BackVoyageOrganiseBundle:ReservationPersonne',$id->id);
+                    if(is_null($pers->getChambreContingent()) || $pers->getChambreContingent()->getId()!=$chambre->getId())
+                    {
+                        $em->persist($pers->setChambreContingent($chambre));
+                        $this->container->get('chambrevo')->updatePersonne($pers,$chambre->getType());
+                        $em->flush();
+                        return new Response('true');
+                    }
+                }
+            }
+            return new Response($request->get('json'));
         }
     }

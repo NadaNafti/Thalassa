@@ -28,10 +28,14 @@ class Contingent
     protected $voyage;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Hotel",)
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Hotel")
      */
     protected $hotel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Pack")
+     */
+    protected $pack;
 
     /**
      * @var integer
@@ -255,5 +259,28 @@ class Contingent
     public function getChambres()
     {
         return $this->chambres;
+    }
+
+    /**
+     * Set pack
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\Pack $pack
+     * @return Contingent
+     */
+    public function setPack(\Back\VoyageOrganiseBundle\Entity\Pack $pack = null)
+    {
+        $this->pack = $pack;
+
+        return $this;
+    }
+
+    /**
+     * Get pack
+     *
+     * @return \Back\VoyageOrganiseBundle\Entity\Pack 
+     */
+    public function getPack()
+    {
+        return $this->pack;
     }
 }

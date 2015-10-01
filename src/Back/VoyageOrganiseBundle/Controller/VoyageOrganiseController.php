@@ -387,7 +387,7 @@
                         if(!$verif)
                         {
                             $contingent = new Contingent();
-                            $voyage->addContingent($contingent->setHotel($hotel));
+                            $voyage->addContingent($contingent->setHotel($hotel)->setPack($pack));
                         }
                     }
                 }

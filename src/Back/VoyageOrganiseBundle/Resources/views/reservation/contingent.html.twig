@@ -1,0 +1,108 @@
+{% extends "@BackVoyageOrganise/reservation/consulter.html.twig" %}
+{% block title %}Gestion de contingent{% endblock %}
+{% block description %}{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">Contingent</a>
+    </li>
+{% endblock %}
+{% block body %}
+    {% if false %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    You can drag and drop to rearrange the order. It even works well on touch-screens.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Serialised Output (per list)</h3>
+                <textarea id="nestable-output"></textarea>
+                <textarea id="nestable2-output"></textarea>
+
+                <div id="nestable-menu">
+                    <button type="button" data-action="expand-all" class="btn btn-blue">
+                        Expand All
+                    </button>
+                    <button type="button" data-action="collapse-all" class="btn btn-bricky">
+                        Collapse All
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Occupants</div>
+                <div class="panel-body">
+                    <div class="dd">
+                        <ol class="dd-list">
+                            {% for chambre in reservation.chambres %}
+                                {% for personne in chambre.occupants if personne.chambreContingent is null %}
+                                    <li class="dd-item" data-id="{{ personne.id }}">
+                                        <div class="dd-handle">
+                                            {{ personne }}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% for contingent in reservation.voyage.contingents if contingent.pack.id==reservation.pack.id %}
+            {% for chambre in contingent.chambres %}
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>{{ contingent.hotel }} : </strong>{{ chambre }}</div>
+                        <div class="panel-body">
+                            <div class="dd ddChambre" data-id="{{ chambre.id }}">
+                                {% if chambre.personnes|length>0 %}
+                                    <ol class="dd-list">
+                                        {% for personne in chambre.personnes %}
+                                            <li class="dd-item" data-id="{{ personne.id }}">
+                                                <div class="dd-handle">
+                                                    {{ personne }}
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ol>
+                                {% else %}
+                                    <div class="dd-empty"></div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('back-assets/plugins/nestable/jquery.nestable.js') }}"></script>
+    <script src="{{ asset('back-assets/js/ui-nestable.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.dd').nestable().on('change', function () {
+                idChambre = $(this).data('id');
+                json = $(this).nestable('serialize');
+                tmp = JSON.stringify(json);
+                $.ajax({
+                    url: '{{ path('back_voyages_organises_reservation_ajax_contingent') }}',
+                    data: {'json': tmp, 'chambre': idChambre},
+                    type: 'POST',
+                    dataType: 'html',
+                    success: function (data) {
+                        if (data == 'true')
+                            location.reload();
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

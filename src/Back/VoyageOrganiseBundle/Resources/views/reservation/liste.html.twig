@@ -4,7 +4,7 @@
 {% block topbody %}
     {{ parent() }}
     <li>
-        <a href="javascipt:void(0)">Liste des reservations</a>
+        <a href="{{ path('back_voyages_organises_reservation') }}">Liste des reservations</a>
     </li>
 {% endblock %}
 {% block body %}
