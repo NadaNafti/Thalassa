@@ -20,6 +20,7 @@ class ContingentType extends AbstractType
             ->add('chambreTriple')
             ->add('chambreQuadruple')
             ->add('hotel')
+            ->add('pack')
         ;
     }
     

@@ -381,13 +381,13 @@
             {
                 foreach($periode->getPacks() as $pack)
                 {
-                    foreach($pack->getHotels() as $hotel)
+                    if(count($pack->getHotels())>0)
                     {
-                        $verif=$em->getRepository('BackVoyageOrganiseBundle:Contingent')->findOneBy(array('voyage'=>$voyage,'hotel'=>$hotel));
+                        $verif=$em->getRepository('BackVoyageOrganiseBundle:Contingent')->findOneBy(array('voyage'=>$voyage,'hotel'=>$pack->getHotels()->first()));
                         if(!$verif)
                         {
                             $contingent = new Contingent();
-                            $voyage->addContingent($contingent->setHotel($hotel)->setPack($pack));
+                            $voyage->addContingent($contingent->setHotel($pack->getHotels()->first())->setPack($pack));
                         }
                     }
                 }
