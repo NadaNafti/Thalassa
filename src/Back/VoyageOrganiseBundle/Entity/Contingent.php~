@@ -28,10 +28,14 @@ class Contingent
     protected $voyage;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Hotel",)
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Hotel")
      */
     protected $hotel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Pack")
+     */
+    protected $pack;
 
     /**
      * @var integer
