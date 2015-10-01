@@ -8,37 +8,13 @@
     </li>
 {% endblock %}
 {% block body %}
-    {% if false %}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-info">
-                    You can drag and drop to rearrange the order. It even works well on touch-screens.
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Serialised Output (per list)</h3>
-                <textarea id="nestable-output"></textarea>
-                <textarea id="nestable2-output"></textarea>
-
-                <div id="nestable-menu">
-                    <button type="button" data-action="expand-all" class="btn btn-blue">
-                        Expand All
-                    </button>
-                    <button type="button" data-action="collapse-all" class="btn btn-bricky">
-                        Collapse All
-                    </button>
-                </div>
-            </div>
-        </div>
-    {% endif %}
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Occupants</div>
                 <div class="panel-body">
-                    <div class="dd">
+                    <div class="dd" id="nestable3" data-id="none">
+                        {% if reservation.nombrePersonneNonContingent >0 %}
                         <ol class="dd-list">
                             {% for chambre in reservation.chambres %}
                                 {% for personne in chambre.occupants if personne.chambreContingent is null %}
@@ -50,6 +26,9 @@
                                 {% endfor %}
                             {% endfor %}
                         </ol>
+                        {% else %}
+                            <div class="dd-empty"></div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
