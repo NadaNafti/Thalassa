@@ -282,6 +282,10 @@ class ReservationService
         }
         $this->em->flush();
         $this->container->get('users')->getPassager();
+        if($reservation->getFrontOffice())
+            $this->container->get('mailerservice')->creationFront($reservation,'SHT');
+        else
+            $this->container->get('mailerservice')->creationBack($reservation,'SHT');
         return $reservation->getId();
     }
 
