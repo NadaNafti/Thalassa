@@ -1,6 +1,7 @@
 <?php
 namespace Back\VoyageOrganiseBundle\Controller;
 
+use Back\AdministrationBundle\Form\SousEtatVOType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Back\VoyageOrganiseBundle\Entity\Reservation;
@@ -12,6 +13,8 @@ use Back\CommercialBundle\Form\PieceType;
 use Back\CommercialBundle\Entity\Reglement;
 use Back\VoyageOrganiseBundle\Entity\ReservationPersonne;
 use Symfony\Component\HttpFoundation\Response;
+use Back\AdministrationBundle\Entity\SousEtat;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ReservationController extends Controller
 {
@@ -24,9 +27,31 @@ class ReservationController extends Controller
         $reservations = $em->getRepository('BackVoyageOrganiseBundle:Reservation')->filtre($etat, $sort, $direction);
         $paginator = $this->get('knp_paginator');
         $reservations = $paginator->paginate($reservations, $page, 20);
+        $form = $this->createForm(new SousEtatVOType(), new SousEtat());
         return $this->render('BackVoyageOrganiseBundle:reservation:liste.html.twig', array(
             'reservations' => $reservations,
+            'form'=>$form->createView()
         ));
+    }
+
+    public function addSousEtatsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        $session=$this->getRequest()->getSession();
+        $currentUser = $this->get('security.context')->getToken()->getUser();
+        $form = $this->createForm(new SousEtatVOType(), new SousEtat());
+        if($request->isMethod('POST'))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $em->persist($form->getData()->setUser($currentUser));
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre sous etat a été ajouté avec succées ");
+                return $this->redirect($this->generateUrl('back_voyages_organises_reservation'));
+            }
+        }
     }
 
     public function priseEnChargeAction(Reservation $reservation)
@@ -277,5 +302,27 @@ class ReservationController extends Controller
             }
         }
         return new Response($request->get('json'));
+    }
+
+    public function ajaxSousEtatsAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $reservation=$em->find('BackVoyageOrganiseBundle:Reservation',$this->getRequest()->get('id'));
+        $array = array();
+        $tab = array();
+        $response = new JsonResponse();
+        if ($reservation)
+        {
+            foreach ($reservation->getSousEtats() as $etat)
+            {
+                $tab['etat'] = $etat->getEtat()->getLibelle();
+                $tab['user'] = $etat->getUser()->getUsername();
+                $tab['commentaire'] = $etat->getCommentaire();
+                $tab['date'] = $etat->getCreated()->format('d/m/Y h:i');
+                $array[] = $tab;
+            }
+        }
+        $response->setData($array);
+        return $response;
     }
 }

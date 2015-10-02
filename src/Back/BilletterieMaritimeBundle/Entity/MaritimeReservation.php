@@ -156,6 +156,7 @@ class MaritimeReservation
 
     /**
      * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationM")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $sousEtats;
 

@@ -147,6 +147,7 @@ class Reservation
 
     /**
      * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationVO")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $sousEtats;
 
@@ -155,6 +156,7 @@ class Reservation
      */
     public function __construct()
     {
+        $this->sousEtats = new \Doctrine\Common\Collections\ArrayCollection();
         $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
         $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
         $this->frontOffice = FALSE;
