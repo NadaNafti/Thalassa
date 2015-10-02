@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="white-bg payment-wrapper">
+            {% include ':Front:alert.html.twig' %}
+            <div class="person-information">
+                {{ form_start(form) }}
+                <h3 class="section-title">Informations Personnelles</h3>
+                <hr>
+                <div class="row">
+                    {{ formulaire.input("col-md-4","Nom & prénom ",form.nomPrenom,true) }}
+                    {{ formulaire.input("col-md-4","Email",form.email,true) }}
+                    {{ formulaire.input("col-md-4","Tel",form.tel,true) }}
+                </div>
+                <br>
+                <h3 class="section-title">Détails réservation</h3>
+                <hr>
+                <div class="row">
+                    {{ formulaire.input("col-md-6","Nombre de personnes",form.nombrePersonne,true) }}
+                    {{ formulaire.input("col-md-6","Date début",form.dateDebut,true) }}
+                </div>
+                <div class="row">
+                    {{ formulaire.input("col-md-12","Commentaire",form.commentaire,false) }}
+                </div>
+                <hr>
+                <div class="row" id="submitButton">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            Validation <i class="fa fa-arrow-circle-right"></i>
+                        </button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+

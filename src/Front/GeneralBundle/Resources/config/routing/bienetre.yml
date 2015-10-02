@@ -11,3 +11,7 @@ front_bienetre_sort:
 front_produit_details:
     path:     /{slug}
     defaults: { _controller: FrontGeneralBundle:BienEtre:details }
+
+front_bienetre_success:
+    path:     /success/{id}
+    defaults: { _controller: FrontGeneralBundle:BienEtre:success }
