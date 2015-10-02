@@ -132,6 +132,24 @@
         protected $reservationsPR;
 
         /**
+         * @ORM\OneToMany(targetEntity="Back\BienEtreBundle\Entity\Reservation", mappedBy="client")
+         * @ORM\OrderBy({"id" = "DESC"})
+         */
+        protected $reservationsBE;
+
+        /**
+         * @ORM\OneToMany(targetEntity="Back\BilletterieMaritimeBundle\Entity\BilletterieReservation", mappedBy="client")
+         * @ORM\OrderBy({"id" = "DESC"})
+         */
+        protected $reservationsB;
+
+        /**
+         * @ORM\OneToMany(targetEntity="Back\BilletterieMaritimeBundle\Entity\MaritimeReservation", mappedBy="client")
+         * @ORM\OrderBy({"id" = "DESC"})
+         */
+        protected $reservationsM;
+
+        /**
          * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Piece", mappedBy="client")
          */
         protected $pieces;
@@ -464,6 +482,9 @@
             $this->reservationsSHT = new \Doctrine\Common\Collections\ArrayCollection();
             $this->reservationsPR = new \Doctrine\Common\Collections\ArrayCollection();
             $this->reservationsVO = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->reservationsBE = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->reservationsB = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->reservationsM = new \Doctrine\Common\Collections\ArrayCollection();
         }
 
         /**

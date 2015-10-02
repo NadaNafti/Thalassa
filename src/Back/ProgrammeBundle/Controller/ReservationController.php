@@ -87,6 +87,7 @@
                     $em->persist($periode->setNombreInscription($periode->getNombreInscription() - $reservation->getNombreOccupants()));
                 $em->persist($reservation->setValidated(NULL)->setEtat(9)->setCommentaire($request->get('commentaire')));
                 $em->flush();
+                $this->container->get('mailerservice')->annulation($reservation,'PR');
                 $session->getFlashBag()->add('success',"Réservation a été annullée avec succès ");
             }
             return $this->redirect($this->generateUrl("back_programmes_reservation_consulter",array('id' => $reservation->getId())));
@@ -169,6 +170,7 @@
                     $em->persist($reservation->setEtat(2)->setValidated(new \DateTime()));
                     $em->flush();
                     $session->getFlashBag()->add('success'," Votre Réservation a été validée avec succès ");
+                    $this->container->get('mailerservice')->validation($reservation,'PR');
                     return $this->redirect($this->generateUrl("back_programmes_reservation_consulter",array('id' => $reservation->getId())));
                 } else
                     $session->getFlashBag()->add('info'," Votre Réservation n'a pas été encore validée, reste encore <strong>" . $reservation->getMontantRestant() . " DT </strong> a payé");

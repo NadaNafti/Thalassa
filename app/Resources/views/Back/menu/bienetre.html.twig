@@ -1,5 +1,5 @@
 <li  {% if app.request.getPathInfo|split('/admin/bien_etre')|length > 1 %} class="active open"{% endif %}>
-    <a href="javascript:void(0)"><i class="clip-paperplane"></i>
+    <a href="javascript:void(0)"><i class="clip-leaf"></i>
         <span class="title">Bien-être</span><i class="icon-arrow"></i>
         <span class="selected"></span>
     </a>
@@ -23,7 +23,17 @@
                 </li>
             </ul>
         </li>
+        <li {% if app.request.getPathInfo|split('/admin/bien_etre/reservation')|length > 1 %} class="active open"{% endif %} >
+            <a href="javascript:void(0)"><i class="clip-list"></i>
+                <span class="title">Réservation</span><i class="icon-arrow"></i>
+            </a>
+            <ul class="sub-menu">
+                <li {% if app.request.getPathInfo|split('/admin/bien_etre/reservation/liste')|length > 1 %} class="open"{% endif %}>
+                    <a href="{{ path('back_bienetre_reservation_liste') }}">
+                        <span class="title">Liste</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
-
-
 </li>
