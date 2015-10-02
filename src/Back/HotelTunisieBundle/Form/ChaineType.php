@@ -16,9 +16,6 @@ class ChaineType extends AbstractType
     {
         $builder
             ->add('libelle')
-            ->add('created')
-            ->add('updated')
-            ->add('deletedAt')
         ;
     }
     

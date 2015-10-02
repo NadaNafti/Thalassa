@@ -1,25 +1,26 @@
-<p>Cher partenaire <strong>{{ reservation.hotel }}</strong>,</p>   
-<p>Merci de nous confirmer la réservation suivante :</p>   
-<p>Du <strong>{{ reservation.dateDebut|date('d F Y') }}</strong> au <strong>{{ reservation.dateFin|date_modify("+1 day")|date("d F Y")  }}</strong>  <b>, <u> {{ reservation.nuitees}} nuitée(s) </u></b></p>   
-<p>En faveur : {{ reservation.client }}</p><br>
-{%  for chambre in reservation.chambres %}
+<p>Cher partenaire <strong>{{ reservation.hotel }}</strong>,</p><p>Merci de nous confirmer la réservation suivante au
+    profit de l'agence <strong>{{ getAgence().nom }}</strong> :</p><p>Du
+    <strong>{{ reservation.dateDebut|date('d F Y') }}</strong> au
+    <strong>{{ reservation.dateFin|date_modify("+1 day")|date("d F Y") }}</strong> <b>, <u> {{ reservation.nuitees }}
+            nuitée(s) </u></b></p><p>En faveur de :<u> Mr/M {{ reservation.client }}</u></p><br>
+{% for chambre in reservation.chambres %}
     <ul>
-        <li> <strong>{{ chambre.chambre }}</strong>, <strong>{{ chambre.arrangement }}</strong>
+        <li><strong>{{ chambre.chambre }}</strong>, <strong>{{ chambre.arrangement }}</strong>
             <ul>
                 <li><strong>{{ chambre.adultes|length }} adulte(s) </strong></li>
                 <li>
                     <strong>{{ chambre.enfants|length }} enfant(s) </strong>
                     <ul>
                         {% for enfant in chambre.enfants %}
-                            <li>{{ enfant.ordre }} ans </li>
-                            {% endfor %}
+                            <li>{{ enfant.age }} ans</li>
+                        {% endfor %}
                     </ul>
                 </li>
                 {% for supp in chambre.supplements %}
                     <li><strong> {{ getNameSupp(supp) }}</strong></li>
                 {% endfor %}
                 {% for vue in chambre.vues %}
-                    <li><strong> {{ getNameVue(vue) }}</strong></li>
+                <li><strong> {{ getNameVue(vue) }}</strong></li>
                 {% endfor %}<br>
             </ul>
         </li>
@@ -33,10 +34,6 @@
     {% endfor %}
     <br>
 {% endif %}
-<p>Cordialement,</p>
-<p>L'équipe de <strong>{{ getAgence().nom  }}</strong></p>
-<p><strong> Tel 1 : </strong>{{ getAgence().tel1 }}</p>
-<p><strong> Tel 2 : </strong>{{ getAgence().Tel2 }}</p>
-<p><strong> Fax : </strong>{{ getAgence().fax }}</p>
-<p><strong> Addresse : </strong>{{ getAgence().adresse }}</p>
-<p><strong> Site : </strong>{{ getAgence().site }}</p>
+<p>Cordialement,</p><p>L'équipe de <strong>{{ getAgence().nom }}</strong></p><p><strong> Tel 1
+        : </strong>{{ getAgence().tel1 }},{{ getAgence().Tel2 }}</p><p><strong> Fax : </strong>{{ getAgence().fax }}</p>
+<p><strong> Addresse : </strong>{{ getAgence().adresse }}</p><p><strong> Site : </strong>{{ getAgence().site }}</p>

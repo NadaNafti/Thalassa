@@ -8,7 +8,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Chaine
  *
  * @ORM\Table(name="ost_sht_chaine")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
 class Chaine
@@ -45,11 +44,6 @@ class Chaine
      * @ORM\Column( type="datetime")
      */
     private $updated;
-    
-    /**
-     * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
-     */
-    private $deletedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="Hotel", mappedBy="chaine")
@@ -132,29 +126,6 @@ class Chaine
     public function getUpdated()
     {
         return $this->updated;
-    }
-
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     * @return Chaine
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     /**
