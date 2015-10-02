@@ -16,10 +16,6 @@ class TypeAmenagementType extends AbstractType
     {
         $builder
             ->add('libelle')
-            ->add('slug')
-            ->add('created')
-            ->add('updated')
-            ->add('deletedAt')
         ;
     }
     

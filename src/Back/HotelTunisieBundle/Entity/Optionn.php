@@ -9,7 +9,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Optionn
  *
  * @ORM\Table(name="ost_sht_option")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
 class Optionn
@@ -40,11 +39,6 @@ class Optionn
      * @ORM\Column( type="datetime")
      */
     private $updated;
-    
-    /**
-     * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
-     */
-    private $deletedAt;
     
 
     /**
@@ -113,28 +107,6 @@ class Optionn
         return $this->updated;
     }
 
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     * @return Optionn
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
-    }
 
     /**
      * Set created

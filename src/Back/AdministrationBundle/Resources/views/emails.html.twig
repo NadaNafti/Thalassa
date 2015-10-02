@@ -21,6 +21,10 @@
                     {{ form_start(form) }}
                     <div class="row">
                         {{ formulaire.input("col-md-4","Email",form.email,true) }}
+                        {{ formulaire.input("col-md-2","",form.creationFront,false) }}
+                        {{ formulaire.input("col-md-2","",form.creationBack,false) }}
+                        {{ formulaire.input("col-md-2","",form.validation,false) }}
+                        {{ formulaire.input("col-md-2","",form.annulation,false) }}
                     </div>
                     <div class="row">
                         {{ formulaire.select2("col-md-12","Produits",form.produits,true) }}
@@ -48,6 +52,10 @@
                             <tr>
                                 <th class="center">#</th>
                                 <th class="center">Email</th>
+                                <th class="center">Creation Front</th>
+                                <th class="center">Creation Back</th>
+                                <th class="center">Validation</th>
+                                <th class="center">Annulation</th>
                                 <th class="center">Produits</th>
                                 <th class="center">Action</th>
                             </tr>
@@ -57,6 +65,10 @@
                                 <tr class="center">
                                     <td>{{ email.id }}</td>
                                     <td>{{ email.email}}</td>
+                                    <td>{% if email.creationFront %}Oui{% else %}Non{% endif %}</td>
+                                    <td>{% if email.creationBack %}Oui{% else %}Non{% endif %}</td>
+                                    <td>{% if email.validation %}Oui{% else %}Non{% endif %}</td>
+                                    <td>{% if email.annulation %}Oui{% else %}Non{% endif %}</td>
                                     <td>
                                         {% for produit in email.produits %}
                                             {{ produit }} {% if loop.index!=email.produits|length %}| {% endif %}

@@ -16,14 +16,29 @@ class EmailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('email')
-                ->add('produits', 'entity', array(
-                    'class'   =>'Back\AdministrationBundle\Entity\Produit',
-                    'required'=>true,
-                    'expanded'=>true,
-                    'multiple'=>true
-                ))
-        ;
+            ->add('email')
+            ->add('creationBack', 'checkbox', array(
+                'label'    => 'Creation Back',
+                'required' => false,
+            ))
+            ->add('creationFront', 'checkbox', array(
+                'label'    => 'Creation Front',
+                'required' => false,
+            ))
+            ->add('validation', 'checkbox', array(
+                'label'    => 'Validation',
+                'required' => false,
+            ))
+            ->add('annulation', 'checkbox', array(
+                'label'    => 'Annulation',
+                'required' => false,
+            ))
+            ->add('produits', 'entity', array(
+                'class'    => 'Back\AdministrationBundle\Entity\Produit',
+                'required' => true,
+                'expanded' => true,
+                'multiple' => true
+            ));
     }
 
     /**
@@ -32,7 +47,7 @@ class EmailType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'=>'Back\AdministrationBundle\Entity\Email'
+            'data_class' => 'Back\AdministrationBundle\Entity\Email'
         ));
     }
 
