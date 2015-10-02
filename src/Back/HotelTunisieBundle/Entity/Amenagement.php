@@ -10,7 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Amenagement
  *
  * @ORM\Table(name="ost_sht_amenagement")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
@@ -57,11 +56,6 @@ class Amenagement
      * @ORM\Column( type="datetime")
      */
     private $updated;
-
-    /**
-     * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
-     */
-    private $deletedAt;
 
     /**
      * @var \DateTime
@@ -266,30 +260,6 @@ class Amenagement
     public function getTypeAmenagement()
     {
         return $this->typeAmenagement;
-    }
-
-
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     * @return Amenagement
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     public function __toString()

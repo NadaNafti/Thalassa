@@ -9,7 +9,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Region
  *
  * @ORM\Table("ost_sht_region")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
 class Region
@@ -54,11 +53,6 @@ class Region
      * @ORM\Column( type="datetime")
      */
     private $updated;
-
-    /**
-     * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
-     */
-    private $deletedAt;
 
     /**
      * Get id
@@ -215,26 +209,4 @@ class Region
         return $this->updated;
     }
 
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     * @return Region
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
-    }
 }

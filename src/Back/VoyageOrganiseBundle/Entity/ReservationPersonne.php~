@@ -62,6 +62,12 @@ class ReservationPersonne
     protected $lignes;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Chambre", inversedBy="personnes")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    protected $chambreContingent;
+
+    /**
      * Get id
      *
      * @return integer

@@ -30,10 +30,15 @@
 		<i class="green fa fa-list"></i> Déscriptions ({{ voyage.descriptions|length }})
 	    </a>
 	</li>
-	<li {% if app.request.get('_route')=='back_vo_photos' %}class="active"{% endif %}>
-	    <a href="{{ path("back_vo_photos",{'voyage':voyage.id}) }}">
-		<i class="green fa fa-image"></i> Images ({{ voyage.photos|length }})
-	    </a>
-	</li>
+		<li {% if app.request.get('_route')=='back_vo_photos' %}class="active"{% endif %}>
+			<a href="{{ path("back_vo_photos",{'voyage':voyage.id}) }}">
+				<i class="green fa fa-image"></i> Images ({{ voyage.photos|length }})
+			</a>
+		</li>
+		<li {% if app.request.get('_route')=='back_vo_contingent' %}class="active"{% endif %}>
+			<a href="{{ path("back_vo_contingent",{'voyage':voyage.id}) }}">
+				<i class="green fa fa-list"></i> Contingents ({{ voyage.contingents|length }})
+			</a>
+		</li>
     </ul>
 {% endif %}

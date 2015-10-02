@@ -258,7 +258,6 @@ class ReservationService
             }
             $this->em->persist($reservationChambre->setNoms($noms));
             foreach ($chambre['supplements'] as $suppLigne) {
-                $reservationLigne = new ReservationLigne();
                 if (!is_null($suppLigne)) {
                     $reservationLigne = new ReservationLigne();
                     $reservationLigne->setSupplement($reservationChambre)
@@ -270,7 +269,6 @@ class ReservationService
                 }
             }
             foreach ($chambre['reductions'] as $reducLigne) {
-                $reservationLigne = new ReservationLigne();
                 if (!is_null($reducLigne)) {
                     $reservationLigne = new ReservationLigne();
                     $reservationLigne->setReduction($reservationChambre)
@@ -282,8 +280,6 @@ class ReservationService
                 }
             }
         }
-//        if ($source == 'backoffice' && $this->sendMailHotel($reservation))
-//            $reservation->setHotelNotifier(true);
         $this->em->flush();
         $this->container->get('users')->getPassager();
         return $reservation->getId();
@@ -303,40 +299,6 @@ class ReservationService
             $calendrier[] = array('dateDebut' => $date, 'dateFin' => $date, 'saison' => $saison);
         }
         return $calendrier;
-    }
-
-    public function sendMailHotel(Reservation $reservation)
-    {
-        $agence = $this->em->getRepository('BackAdministrationBundle:Agence')->find(1);
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        $sender = $user->getEmail();
-        $hotel = $reservation->getHotel();
-        if ($hotel->isValideEmail1() || $hotel->isValideEmail2() && false) {
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Nouvelle Réservation de la par ' . $agence->getNom())
-                ->setFrom($sender);
-            if ($hotel->isValideEmail1()) {
-                $message->setTo($hotel->getEmail1());
-                if ($hotel->isValideEmail2())
-                    $message->addCc($hotel->getEmail2());
-            } else
-                $message->setTo($hotel->getEmail2());
-            $produit = $this->em->getRepository('BackAdministrationBundle:Produit')->findOneBy(array('code' => 'SHT'));
-            if ($produit) {
-                $emails = $this->em->getRepository('BackAdministrationBundle:Email')->findByProduit($produit);
-                foreach ($emails as $email)
-                    $message->addCc($email->getEmail());
-            }
-            $message->setContentType("text/html");
-            $message->setCharset("utf-8");
-            $message->setBody($this->templating->render('BackHotelTunisieBundle:Reservation:email.html.twig', array(
-                'agence' => $agence,
-                'reservation' => $reservation,
-            )));
-            $this->mailer->send($message);
-            return true;
-        }
-        return false;
     }
 
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace Back\HotelTunisieBundle\Form;
+namespace Back\VoyageOrganiseBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TagType extends AbstractType
+class ContingentType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,7 +15,12 @@ class TagType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('libelle')
+            ->add('chambreSingle')
+            ->add('chambreDouble')
+            ->add('chambreTriple')
+            ->add('chambreQuadruple')
+            ->add('hotel')
+            ->add('pack')
         ;
     }
     
@@ -25,7 +30,7 @@ class TagType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Back\HotelTunisieBundle\Entity\Tag'
+            'data_class' => 'Back\VoyageOrganiseBundle\Entity\Contingent'
         ));
     }
 
@@ -34,6 +39,6 @@ class TagType extends AbstractType
      */
     public function getName()
     {
-        return 'back_hoteltunisiebundle_tag';
+        return 'back_voyageorganisebundle_contingent';
     }
 }
