@@ -113,7 +113,7 @@ class Reservation
     private $remise;
 
     /**
-     * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationPR")
+     * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationBE")
      * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $sousEtats;

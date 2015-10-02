@@ -75,6 +75,12 @@ class SousEtat
      */
     protected $reservationM;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\BienEtreBundle\Entity\Reservation", inversedBy="sousEtats", fetch="EAGER")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $reservationBE;
+
 
     /**
      * Get id

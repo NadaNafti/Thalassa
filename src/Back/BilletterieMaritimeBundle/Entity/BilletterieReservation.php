@@ -66,7 +66,7 @@ class BilletterieReservation
     private $validated;
 
     /**
-     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationsBilletterie")
+     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationsB")
      */
     protected $reglements;
 
