@@ -235,12 +235,12 @@ class Tarif {
         return FALSE;
     }
     
-    
-
     public function isValideByDate($date) {
         if ($this->dateDeb->format('Y-m-d') <= $date && $this->dateFin->format('Y-m-d') >= $date)
             return TRUE;
         return FALSE;
     }
+    
+    
 
 }

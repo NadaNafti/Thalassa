@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Reservation
  *
  * @ORM\Table(name="ost_be_reservations")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Back\BienEtreBundle\Entity\Repository\ReservationRepository")
  */
 class Reservation
 {
@@ -641,22 +641,22 @@ class Reservation
 
     public function getMontantRestant()
     {
-        return number_format($this->getTotal() - $this->getMontantRegle(), 3, '.', '');
+        return number_format($this->getTotal() - $this->getMontantRegle(), 3, '.','');
     }
     
-    public function getTotalAchat()
+    public function getPrixAchat()
     {
-        return number_format($this->nombrePersonne*$this->tarif->getPrixAchat(), '.', '');
+        return number_format($this->nombrePersonne*$this->tarif->getPrixAchat(), 3, '.','');
     }
     
-    public function getTotalVente()
+    public function getPrixVente()
     {
-        return number_format($this->nombrePersonne*$this->tarif->getPrixVente(), '.', '');
+        return number_format($this->nombrePersonne*$this->tarif->getPrixVente(), 3, '.','');
     }
     
     public function getTotal()
     {
-        return number_format($this->getTotalVente()+$this->timbre-$this->remise,3,'.','');
+        return number_format($this->getPrixVente()+$this->timbre-$this->remise,3,'.','');
     }
 
     /**
@@ -681,4 +681,23 @@ class Reservation
     {
         return $this->dateDebut;
     }
+    
+    public function __toString()
+    {
+        return "Reservation : ".$this->getId();
+    }
+    public function showEtat()
+    {
+        if($this->etat == 1)
+            return 'Enregistrée';
+        if($this->etat == 2)
+            return 'Validée';
+        if($this->etat == 9)
+            return 'Annulée';
+    }
+    public function showTypeProduit()
+    {
+        return $this->produit->showType();
+    }
+    
 }

@@ -10,14 +10,15 @@
 {% block body %}
     <div class="row">
         <div class="col-md-5">
-            <p><strong>N°: </strong> {{ reservation.id }}</p>
-            <p><strong>Nom produit: </strong> {{ reservation.produit.libelle }}</p>
+            <h5 class="center">N° : {{ reservation.id }}</h5>
+            <h4 class="center">Bien-être : {{ reservation.showTypeProduit }}</h4>
+            <h4 class="center">Produit : {{ reservation.produit }}</h4>
             <p><strong>Client : </strong> {{ reservation.client }}</p>
         </div>
         <div class="col-md-6">
-            <h4> Total Réservation : {{ reservation.total }} DT </h4>
-            <h4> Montant Réglé : {{ reservation.montantRegle }} DT </h4>
-            <h4> Montant a payé : <span>{{ reservation.montantRestant }} DT</span></h4>
+            <h4> Total réservation : {{ reservation.total }} DT </h4>
+            <h4> Montant règlé : {{ reservation.montantRegle }} DT </h4>
+            <h4> Montant à payer : <span>{{ reservation.montantRestant }} DT</span></h4>
         </div>
     </div>
     <div class="row">
@@ -26,13 +27,13 @@
                 <div class="panel-body">
                     {{ form_start(form) }}
                     {% if pieces|length > 0 %}
-                        <h3>Liste des Pieces disponible</h3>
+                        <h3>Liste des pièces disponibles</h3>
                         <div class="row">
-                            <div class="col-md-2"><strong>Désignation Piéce</strong></div>
-                            <div class="col-md-2"><strong>Date Piéce</strong></div>
-                            <div class="col-md-3"><strong>Mode de Réglement</strong></div>
+                            <div class="col-md-2"><strong>Désignation pièce</strong></div>
+                            <div class="col-md-2"><strong>Date pièce</strong></div>
+                            <div class="col-md-3"><strong>Mode règlement</strong></div>
                             <div class="col-md-2"><strong>Montant d'origine</strong></div>
-                            <div class="col-md-2"><strong>Montant Restant</strong></div>
+                            <div class="col-md-2"><strong>Montant restant</strong></div>
                         </div>
                         <div class="row">
                             {% for piece in pieces %}
@@ -47,10 +48,10 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    <h3>Ajouter une Piéce</h3>
+                    <h3>Ajouter Pièce</h3>
                     <div class="row">
-                        {{ formulaire.input("col-md-3","Mode de Reglement",form.piece.modeReglement,true) }}
-                        {{ formulaire.input("col-md-2 no-display echeance ","Date Echeance",form.piece.dateEcheance,true) }}
+                        {{ formulaire.input("col-md-3","Mode réglement",form.piece.modeReglement,true) }}
+                        {{ formulaire.input("col-md-2 no-display echeance ","Date écheance",form.piece.dateEcheance,true) }}
                         {{ formulaire.input("col-md-2","Montant",form.piece.montantOrigine,true) }}
                         {{ formulaire.input("col-md-5","Désignation & commentaire",form.piece.numero,true) }}
                     </div>
@@ -63,16 +64,16 @@
     {% if reservation.reglements|length>0 %}
         <div class="row">
             <div class="col-md-12">
-                <h2 class="center">Piéces de réglements</h2>
+                <h2 class="center">Pièces de règlement</h2>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>Piece</th>
+                                <th>Pièce</th>
                                 <th>Echéance</th>
-                                <th>Mode Reglement</th>
-                                <th>Date du réglement</th>
+                                <th>Mode règlement</th>
+                                <th>Date règlement</th>
                                 <th>Montant payé</th>
                             </tr>
                             </thead>
@@ -121,8 +122,6 @@
     {% block jquery %}
         <script>
             $(document).ready(function () {
-//                $('#form_piece_montantOrigine').prop('disabled', true);
-//                $('#form_piece_modeReglement').prop('disabled', true);
                 $('#form_piece_modeReglement').change(function () {
                     if ($(this).val() == 'C') {
                         $('.echeance').removeClass('no-display');
@@ -133,13 +132,6 @@
                         $('#form_piece_dateEcheance').prop('required', false);
                     }
                 })
-//                $('#form_piece_numero').keypress(function () {
-//                    $('#form_piece_montantOrigine').prop('disabled', false);
-//                    $('#form_piece_modeReglement').prop('disabled', false);
-//                    $('#form_piece_numero').prop('required', true);
-//                    $('#form_piece_modeReglement').prop('required', true);
-//                    $('#form_piece_montantOrigine').prop('required', true);
-//                })
             })
         </script>
     {% endblock %}

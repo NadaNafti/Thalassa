@@ -29,4 +29,5 @@
             $query->orderBy($sort,$direction);
             return $query->getQuery()->getResult();
         }
+        
     }

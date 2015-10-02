@@ -1,2 +1,27 @@
-## YAML Template.
----
+back_bienetre_reservation_liste:
+    path:      /liste/{page}/{etat}/{sort}/{direction}
+    defaults: { _controller: BackBienEtreBundle:Reservation:liste,page:1,etat:1,sort:r.id,direction:desc }
+    
+back_bienetre_reservation_prendreEnCharge:
+    path:      /encharge/{id}
+    defaults: { _controller: BackBienEtreBundle:Reservation:prendreEnCharge }
+
+back_bienetre_reservation_consultation:
+    path:      /consulter/{id}
+    defaults: { _controller: BackBienEtreBundle:Reservation:consulter }
+    
+back_bienetre_reservation_delete:
+    path:      /back_bienetre_reservation_delete/{id}
+    defaults: { _controller: BackBienEtreBundle:Reservation:delete }
+    
+back_bienetre_reservation_remise:
+    path:      /remise/{id}
+    defaults: { _controller: BackBienEtreBundle:Reservation:remise }
+    
+back_bienetre_reservation_annuler:
+    path:      /annuler/{id}
+    defaults: { _controller: BackBienEtreBundle:Reservation:annuler }
+    
+back_bienetre_reservation_validation:
+    path:      /valider/{id}
+    defaults: { _controller: BackBienEtreBundle:Reservation:valider }
