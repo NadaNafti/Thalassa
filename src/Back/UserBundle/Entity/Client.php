@@ -132,6 +132,24 @@
         protected $reservationsPR;
 
         /**
+         * @ORM\OneToMany(targetEntity="Back\BienEtreBundle\Entity\Reservation", mappedBy="client")
+         * @ORM\OrderBy({"id" = "DESC"})
+         */
+        protected $reservationsBE;
+
+        /**
+         * @ORM\OneToMany(targetEntity="Back\BilletterieMaritimeBundle\Entity\BilletterieReservation", mappedBy="client")
+         * @ORM\OrderBy({"id" = "DESC"})
+         */
+        protected $reservationsB;
+
+        /**
+         * @ORM\OneToMany(targetEntity="Back\BilletterieMaritimeBundle\Entity\MaritimeReservation", mappedBy="client")
+         * @ORM\OrderBy({"id" = "DESC"})
+         */
+        protected $reservationsM;
+
+        /**
          * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Piece", mappedBy="client")
          */
         protected $pieces;
@@ -464,6 +482,9 @@
             $this->reservationsSHT = new \Doctrine\Common\Collections\ArrayCollection();
             $this->reservationsPR = new \Doctrine\Common\Collections\ArrayCollection();
             $this->reservationsVO = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->reservationsBE = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->reservationsB = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->reservationsM = new \Doctrine\Common\Collections\ArrayCollection();
         }
 
         /**
@@ -647,4 +668,103 @@
         {
             return $this->reservationsPR;
         }
+    
+    /**
+     * Add reservationsBE
+     *
+     * @param \Back\BienEtreBundle\Entity\Reservation $reservationsBE
+     * @return Client
+     */
+    public function addReservationsBE(\Back\BienEtreBundle\Entity\Reservation $reservationsBE)
+    {
+        $this->reservationsBE[] = $reservationsBE;
+
+        return $this;
     }
+
+    /**
+     * Remove reservationsBE
+     *
+     * @param \Back\BienEtreBundle\Entity\Reservation $reservationsBE
+     */
+    public function removeReservationsBE(\Back\BienEtreBundle\Entity\Reservation $reservationsBE)
+    {
+        $this->reservationsBE->removeElement($reservationsBE);
+    }
+
+    /**
+     * Get reservationsBE
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReservationsBE()
+    {
+        return $this->reservationsBE;
+    }
+
+    /**
+     * Add reservationsB
+     *
+     * @param \Back\BilletterieMaritimeBundle\Entity\BilletterieReservation $reservationsB
+     * @return Client
+     */
+    public function addReservationsB(\Back\BilletterieMaritimeBundle\Entity\BilletterieReservation $reservationsB)
+    {
+        $this->reservationsB[] = $reservationsB;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservationsB
+     *
+     * @param \Back\BilletterieMaritimeBundle\Entity\BilletterieReservation $reservationsB
+     */
+    public function removeReservationsB(\Back\BilletterieMaritimeBundle\Entity\BilletterieReservation $reservationsB)
+    {
+        $this->reservationsB->removeElement($reservationsB);
+    }
+
+    /**
+     * Get reservationsB
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReservationsB()
+    {
+        return $this->reservationsB;
+    }
+
+    /**
+     * Add reservationsM
+     *
+     * @param \Back\BilletterieMaritimeBundle\Entity\MaritimeReservation $reservationsM
+     * @return Client
+     */
+    public function addReservationsM(\Back\BilletterieMaritimeBundle\Entity\MaritimeReservation $reservationsM)
+    {
+        $this->reservationsM[] = $reservationsM;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservationsM
+     *
+     * @param \Back\BilletterieMaritimeBundle\Entity\MaritimeReservation $reservationsM
+     */
+    public function removeReservationsM(\Back\BilletterieMaritimeBundle\Entity\MaritimeReservation $reservationsM)
+    {
+        $this->reservationsM->removeElement($reservationsM);
+    }
+
+    /**
+     * Get reservationsM
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReservationsM()
+    {
+        return $this->reservationsM;
+    }
+}
