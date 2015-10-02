@@ -115,11 +115,10 @@ class MailerService
     public function creationFront($reservation,$code)
     {
         $agence = $this->em->getRepository('BackAdministrationBundle:Agence')->find(1);
-        $user = $this->container->get('security.context')->getToken()->getUser();
         $message = \Swift_Message::newInstance()
             ->setSubject($agence->getNom()." : Nouvelle réservation FrontOffice  ".$code )
-            ->setFrom($user->getEmail())
-            ->setTo($user->getEmail());
+            ->setFrom($agence->getContactEmail())
+            ->setTo($agence->getContactEmail());
         $emails = $this->em->getRepository('BackAdministrationBundle:Email')->findByProduit($code,'creationFront');
         foreach ($emails as $email)
             $message->addCc($email->getEmail());

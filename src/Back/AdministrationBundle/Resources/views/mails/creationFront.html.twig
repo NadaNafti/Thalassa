@@ -1,4 +1,4 @@
-<p> Une nouvelle Réservation {{ code }} N°{{ reservation.code }} par le client {{ reservation.client }}</p>
+<p> Une nouvelle Réservation {{ getProduitByCode(code) }} <a href="{{ url(getRootByCode(code),{'id':reservation.id}) }}" target="_blank">N°{{ reservation.id }}</a> par le client {{ reservation.client }}</p>
 
 <p>Cordialement,</p><p>L'équipe de <strong>{{ getAgence().nom }}</strong></p><p><strong> Tel 1
         : </strong>{{ getAgence().tel1 }},{{ getAgence().Tel2 }}</p><p><strong> Fax : </strong>{{ getAgence().fax }}</p>
