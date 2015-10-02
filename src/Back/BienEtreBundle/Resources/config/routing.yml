@@ -1,3 +1,7 @@
 Bien_Etre_Referentiel:
     resource: "@BackBienEtreBundle/Resources/config/routing/referentiel.yml"
     prefix:   /ref
+    
+Bien_Etre_Reservation:
+    resource: "@BackBienEtreBundle/Resources/config/routing/reservation.yml"
+    prefix:   /reservation
