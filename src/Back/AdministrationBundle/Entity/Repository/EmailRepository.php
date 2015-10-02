@@ -7,19 +7,14 @@ use Doctrine\ORM\EntityRepository;
 class EmailRepository extends EntityRepository
 {
 
-    public function findByProduit($produit)
+    public function findByProduit($code, $option=null)
     {
-        $query=$this->createQueryBuilder('e')
-                ->select('e')
-                ->leftJoin('e.produits', 'p')
-                ->addSelect('p');
-
-        $query=$query->add('where', $query->expr()->in('p', ':p'))
-                ->setParameter('p', $produit)
-                ->getQuery()
-                ->getResult();
-
-        return $query;
+        $query = $this->createQueryBuilder('e')
+            ->join('e.produits', 'p')
+            ->where('p.code=UPPER(:code)')->setParameter('code', $code);
+        if (!is_null($option))
+            $query->andWhere('e.'.$option.'=:bool')->setParameter('bool', true);
+        return $query->getQuery()->getResult();
     }
 
 }

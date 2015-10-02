@@ -34,9 +34,9 @@
     <br>
 {% endif %}
 <p>Cordialement,</p>
-<p>L'équipe de <strong>{{ agence.nom }}</strong></p>
-<p><strong> Tel 1 : </strong>{{ agence.tel1 }}</p>
-<p><strong> Tel 2 : </strong>{{ agence.Tel2 }}</p>
-<p><strong> Fax : </strong>{{ agence.fax }}</p>
-<p><strong> Addresse : </strong>{{ agence.adresse }}</p>
-<p><strong> Site : </strong>{{ agence.site }}</p>
+<p>L'équipe de <strong>{{ getAgence().nom  }}</strong></p>
+<p><strong> Tel 1 : </strong>{{ getAgence().tel1 }}</p>
+<p><strong> Tel 2 : </strong>{{ getAgence().Tel2 }}</p>
+<p><strong> Fax : </strong>{{ getAgence().fax }}</p>
+<p><strong> Addresse : </strong>{{ getAgence().adresse }}</p>
+<p><strong> Site : </strong>{{ getAgence().site }}</p>

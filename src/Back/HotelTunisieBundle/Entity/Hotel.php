@@ -1425,4 +1425,13 @@ class Hotel
     {
         return $this->checkOut;
     }
+
+    public function getEmail()
+    {
+        if($this->isValideEmail1())
+            return $this->email1;
+        if($this->isValideEmail2())
+            return $this->email2;
+        return null;
+    }
 }
