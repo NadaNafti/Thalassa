@@ -267,7 +267,6 @@ class ReservationController extends Controller
             $form->submit($this->getRequest());
             if($form->isValid())
             {
-                $data=$form->getData();
                 $em->persist($form->getData()->setUser($currentUser));
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre sous etat a été ajouté avec succées ");
