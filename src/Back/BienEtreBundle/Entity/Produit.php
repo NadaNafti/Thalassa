@@ -374,4 +374,25 @@ class Produit {
             return 'Cure';
     }
     
+    public function getVille()
+    {
+        return $this->centre->getVille();
+    }
+    
+    public function getPrixAchat()
+    {
+        foreach ($this->tarifs as $tarif)
+        {
+                return $tarif->getPrixAchat;
+        }
+    }
+    
+    public function getPrixVente()
+    {
+        foreach ($this->tarifs as $tarif)
+        {
+                return $tarif->getPrixVente;
+        }
+    }
+    
 }
