@@ -71,7 +71,8 @@ class ReservationController extends Controller {
             }
             $em->persist($reservation->setValidated(NULL)->setEtat(9)->setCommentaire($request->get('commentaire')));
             $em->flush();
-            $session->getFlashBag()->add('success', "Réservation annullée avec succès ");
+            $this->container->get('mailerservice')->annulation($reservation,'BE');
+            $session->getFlashBag()->add('success',"Réservation annullée avec succès ");
         }
         return $this->redirect($this->generateUrl("back_bienetre_reservation_consultation", array('id' => $reservation->getId())));
     }
@@ -147,8 +148,9 @@ class ReservationController extends Controller {
             if ($reservation->getMontantRestant() == 0) {
                 $em->persist($reservation->setEtat(2)->setValidated(new \DateTime()));
                 $em->flush();
-                $session->getFlashBag()->add('success', "Réservation validée avec succès ");
-                return $this->redirect($this->generateUrl("back_bienetre_reservation_consultation", array('id' => $reservation->getId())));
+                $session->getFlashBag()->add('success',"Réservation validée avec succès ");
+                $this->container->get('mailerservice')->validation($reservation,'BE');
+                return $this->redirect($this->generateUrl("back_bienetre_reservation_consultation",array('id' => $reservation->getId())));
             } else
                 $session->getFlashBag()->add('info', "Réservation non encore validée, il reste encore <strong>" . $reservation->getMontantRestant() . " DT </strong> à payer");
             $em->flush();

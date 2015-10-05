@@ -111,6 +111,7 @@ class BilletterieController extends Controller
             }
             $em->persist($reservation->setValidated(NULL)->setEtat(9)->setCommentaire($request->get('commentaire')));
             $em->flush();
+            $this->container->get('mailerservice')->annulation($reservation,'B');
             $session->getFlashBag()->add('success',"Réservation a été annullée avec succès ");
         }
         return $this->redirect($this->generateUrl("back_billetterie_reservation_consultation",array('id' => $reservation->getId())));
@@ -176,6 +177,7 @@ class BilletterieController extends Controller
                 $em->persist($reservation->setEtat(2)->setValidated(new \DateTime()));
                 $em->flush();
                 $session->getFlashBag()->add('success'," Votre Réservation a été validée avec succès ");
+                $this->container->get('mailerservice')->validation($reservation,'B');
                 return $this->redirect($this->generateUrl("back_billetterie_reservation_consultation",array('id' => $reservation->getId())));
             } else
                 $session->getFlashBag()->add('info'," Votre Réservation n'a pas été encore validée, reste encore <strong>" . $reservation->getMontantRestant() . " DT </strong> a payé");
