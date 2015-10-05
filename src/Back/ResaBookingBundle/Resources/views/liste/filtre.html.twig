@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-sm-4 col-md-4">
+<div class="col-xs-12 col-sm-3 col-md-3">
     <div class="sidebar">
         <div class="counting-result">
             <span class="counthotel">{#{{ hotels.getTotalItemCount }}#}</span> Hôtel(s) trouvé(s)
@@ -11,163 +11,124 @@
                         <div class="col-xs-12 col-sm-12 col-md-12">
                                 <span>Regions</span>
                                 <select name ="region" class="form-control mySelectBoxClass">
-                                    <option value="Djerba">Djerba</option>
-                                    <option value="Hammamet">Hammamet</option>
-                                    <option value="Monastir">Monastir</option>
-                                    <option value="Sousse">Sousse</option>
-                                    <option value="Tunis">Tunis</option>
-                                    <option value="Mahdia">Mahdia</option>
-                                    <option value="Tozeur">Tozeur</option>
-                                    <option value="Douz">Douz</option>
-                                    <option value="Ain Draham">Ain Draham</option>
-                                    <option value="Zarzis">Zarzis</option>
-                                    <option value="Tabarka">Tabarka</option>
-                                    <option value="Gammarth">Gammarth</option>
-                                    <option value="Nabeul">Nabeul</option>
+                                    <option value="Djerba" {% if app.request.session.get('bookingRegion') | capitalize == 'Djerba'  %}selected {% endif %}>Djerba</option>
+                                    <option value="Hammamet"{% if app.request.session.get('bookingRegion') |capitalize == 'Hammamet'   %}selected {% endif %}>Hammamet</option>
+                                    <option value="Monastir"{% if  app.request.session.get('bookingRegion') | capitalize  == 'Monastir'  %}selected {% endif %}>Monastir</option>
+                                    <option value="Sousse"{% if  app.request.session.get('bookingRegion') | capitalize == 'Sousse'   %}selected {% endif %}>Sousse</option>
+                                    <option value="Tunis"{% if app.request.session.get('bookingRegion') | capitalize == 'Tunis'  %}selected {% endif %}>Tunis</option>
+                                    <option value="Mahdia"{% if  app.request.session.get('bookingRegion') | capitalize == 'Mahdia'   %}selected {% endif %}>Mahdia</option>
+                                    <option value="Tozeur"{% if  app.request.session.get('bookingRegion') | capitalize == 'Tozeur'   %}selected {% endif %}>Tozeur</option>
+                                    <option value="Douz"{% if app.request.session.get('bookingRegion') | capitalize == 'Douz'  %}selected {% endif %}>Douz</option>
+                                    <option value="Ain Draham"{% if  app.request.session.get('bookingRegion') | capitalize == 'Ain Draham'   %}selected {% endif %}>Ain Draham</option>
+                                    <option value="Zarzis"{% if  app.request.session.get('bookingRegion') | capitalize == 'Zarzis'  %}selected {% endif %}>Zarzis</option>
+                                    <option value="Tabarka"{% if  app.request.session.get('bookingRegion') | capitalize == 'Tabarka'   %}selected {% endif %}>Tabarka</option>
+                                    <option value="Gammarth"{% if  app.request.session.get('bookingRegion') | capitalize == 'Gammarth'  %}selected {% endif %}>Gammarth</option>
+                                    <option value="Nabeul"{% if  app.request.session.get('bookingRegion') | capitalize == 'Nabeul'   %}selected {% endif %}>Nabeul</option>
                                 </select>
                         </div>
                         <div class="clear"></div>
                         <div class="col-xs-7 col-sm-7 col-md-7">
                             <div class="form-group datepicker-wrapper">
                                 <label for="hotel-check-in">Date d'Arrivée</label>
-                                <input type="text" class="form-control date" name="dateArriveSearch" id="hotel-check-in" value="{{ app.request.session.get('dateDebut') }}">
+                                <input type="text" class="form-control date" name="dateArriveSearch" id="hotel-check-in" value="{{ app.request.session.get('dateArriveSearch') }}">
                                 <i class="fa fa-calendar"></i>
                             </div>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-5">
                             <div class="form-group datepicker-wrapper">
                                 <label for="hotel-check-out">Nbr Nuitées</label>
-                                <input type="number" min="1" class="form-control" name="nuiteesSearch" value="{{ app.request.session.get('nuitees') }}" id="hotel-check-out">
+                                <input type="number" min="1" class="form-control" name="nuiteesSearch" value="{{ app.request.session.get('nuiteesSearch')  }}" id="hotel-check-out">
                             </div>
                         </div>
                         <div class="clear"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            <span>Regions</span>
+                            <span>Chambres</span>
                             <select name="chambres" class="form-control  chambresSelect">
-                                <option value="0">Chambre</option>
-                                <option value="1">1 Chambre</option>
-                                <option value="2">2 Chambres</option>
-                                <option value="3">3 Chambres</option>
-                                <option value="4">4 Chambres</option>
-                                <option value="5">5 Chambres</option>
+                                <option value="0"{% if app.session.get('filterofrooms') | length == 0 %} selected {% endif %}>-- Votre Choix --</option>
+                                <option value="1"{% if app.session.get('filterofrooms') | length == 1 %} selected {% endif %}>1 Chambre</option>
+                                <option value="2"{% if app.session.get('filterofrooms') | length == 2 %} selected {% endif %}>2 Chambres</option>
+                                <option value="3"{% if app.session.get('filterofrooms') | length == 3 %} selected {% endif %}>3 Chambres</option>
+                                <option value="4"{% if app.session.get('filterofrooms') | length == 4 %} selected {% endif %}>4 Chambres</option>
+                                <option value="5"{% if app.session.get('filterofrooms') | length == 5 %} selected {% endif %}>5 Chambres</option>
                             </select>
                         </div>
 
                         <div class="row details"></div>
 
+                        {#{% if app.request.session.get('filterofrooms') is not null %}
+                        {% set arrayOfrooms = app.request.session.get('filterofrooms')  %}
+                        {{ dump(arrayOfrooms) }}
 
+                        {{  dump(attribute(arrayOfrooms,0)) }}
+                        {% endif %}#}
+
+                        {#<div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label for="hotelLocation">Where do you want to go?</label>
+                                <input type="text" class="form-control" id="hotelLocation" placeholder="Thailand">
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group datepicker-wrapper">
+                                <label for="hotel-check-in">Check-in</label>
+                                <input type="text" class="form-control date" id="hotel-check-in" placeholder="dd/dm/yy">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group datepicker-wrapper">
+                                <label for="hotel-check-out">Check-out</label>
+                                <input type="text" class="form-control date" id="hotel-check-out" placeholder="dd/dm/yy">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="rooms col-xs-12 col-sm-12 col-md-12">
+                            <div class="room1" >
+                                <div class="add-room">
+                                    <div class="two-fourth">
+                                        <span>Room 1</span><br/>
+                                        <div class="addroom1 block">
+                                            <a onclick="addroom2b()">+ Add room</a>
+                                        </div>
+                                    </div>
+                                    <div class="one-fourth mr">
+                                        <span>Adult</span>
+                                        <select class="form-control mySelectBoxClass">
+                                            <option>1</option>
+                                            <option selected>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    <div class="one-fourth">
+                                        <span>Child</span>
+                                        <select class="form-control mySelectBoxClass">
+                                            <option>0</option>
+                                            <option selected>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                </div><!-- add-room -->
+                            </div><!-- end room1 -->
+                        </div> #}
 
                         <div class="clear mb-20"></div>
                         {#<div class="col-xs-6 col-sm-6 col-md-6">
                             <a style="margin-top: 5px;" href="{{ path('front_hoteltunisie_list') }}" class="btn btn-danger  btn-xs">Réinitialiser</a>
                         </div>#}
+
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <button type="submit" class="btn btn-primary">Recherche</button>
                         </div>
                     </li>
                 </ul>
             </div>
-            {#<div class="clear" style="height: 5px;"></div>
-            <div class="another-toggle">
-                <h5 {% if app.request.get('categorie') != 'all' %}class="active"{% endif %} >Catégories</h5>
-                <div class="another-toggle-inner">
-                    <div class="clear mb-10"></div>
-                    <fieldset>
-                        {% set categoriesSplit = app.request.get('categorie')|split(',') %}
-                        {% for categorie in categories %}
-                            <div class="styled-checkbox">
-                                <label>
-                                    <input type="checkbox" name="categorie_{{ categorie.id }}" {% if categorie.id in categoriesSplit %}checked{% endif %} value="{{ categorie.id }}">
-                                    {% if categorie.nombreEtoiles >1 %}
-                                        <span class="rating-static rating-{{ categorie.nombreEtoiles*10 }}"></span>{% endif %}
-                                    <span class="counting">{{ categorie|title }}</span> </label>
-                            </div>
-                        {% endfor %}
-                        <div class="clear"></div>
-                        <div class="clear mb-20"></div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <button type="submit" class="btn btn-primary">Recherche</button>
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-            <div class="clear" style="height: 5px;"></div>
-            <div class="another-toggle">
-                <h5 {% if app.request.get('chaine') != 'all' %}class="active"{% endif %} >Chaines</h5>
-                <div class="another-toggle-inner">
-                    <div class="clear mb-10"></div>
-                    <fieldset>
-                        {% set chainesSplit = app.request.get('chaine')|split(',') %}
-                        {% for chaine in chaines %}
-                            <div class="styled-checkbox">
-                                <label>
-                                    <input type="checkbox" name="chaine_{{ chaine.id }}" {% if chaine.id in chainesSplit %}checked{% endif %} value="{{ chaine.id }}">
-                                    {{ chaine|title }}
-                                </label>
-                            </div>
-                        {% endfor %}
-                        <div class="clear"></div>
-                        <div class="clear mb-20"></div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <button type="submit" class="btn btn-primary">Recherche</button>
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-            <div class="clear" style="height: 5px;"></div>
-            <div class="another-toggle">
-                <h5 {% if app.request.get('ville') != 'all' %}class="active"{% endif %} >Villes</h5>
-                <div class="another-toggle-inner">
-                    <div class="clear mb-10"></div>
-                    <fieldset>
-                        {% set villesSplit = app.request.get('ville')|split(',') %}
-                        {% for ville in villes %}
-                            <div class="styled-checkbox">
-                                <label>
-                                    <input type="checkbox" name="ville_{{ ville.id }}" {% if ville.id in villesSplit %}checked{% endif %} value="{{ ville.id }}">
-                                    {{ ville|title }}
-                                </label>
-                            </div>
-                        {% endfor %}
-                        <div class="clear"></div>
-                        <div class="clear mb-20"></div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <button type="submit" class="btn btn-primary">Recherche</button>
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-            <div class="clear" style="height: 5px;"></div>
-            <div class="another-toggle">
-                <h5 {% if app.request.get('tag') != 'all' %}class="active"{% endif %} >Themes</h5>
-                <div class="another-toggle-inner">
-                    <div class="clear mb-10"></div>
-                    <fieldset>
-                        {% set tagsSplit = app.request.get('tag')|split(',') %}
-                        {% for tag in tags %}
-                            <div class="styled-checkbox">
-                                <label>
-                                    <input type="checkbox" name="tag_{{ tag.id }}" {% if tag.id in tagsSplit %}checked{% endif %} value="{{ tag.id }}">
-                                    {{ tag|title }}
-                                </label>
-                            </div>
-                        {% endfor %}
-                        <div class="clear"></div>
-                        <div class="clear mb-20"></div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <button type="submit" class="btn btn-primary">Recherche</button>
-                        </div>
-                    </fieldset>
-                </div>
-            </div> #}
         </form>
     </div>
 </div>

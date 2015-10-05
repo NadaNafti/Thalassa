@@ -56,7 +56,7 @@ jQuery(document).ready(function ($) {
 	// Search
 	$('.search-toggle').click(function(){
 		//get collapse content selector
-		var collapse_content_selector = $(this).attr('id');					
+		var collapse_content_selector = $(this).attr('id');
 
 		//make the collapse content to be shown or hide
 		var toggle_switch = $(this);
@@ -214,14 +214,14 @@ jQuery(document).ready(function ($) {
 			scrollTop: 0
 		}, 1000);
 	});
-	
+
 	// Notification
 	$(".notification-close").click(function () {
 		$(this).parent().slideUp("slow");
 		return false;
 	});
 
-	
+
 	// quicksand
 	if ($(".filter")[0]) {
 		var $portfolioClone = $(".portfolio").clone();
@@ -298,7 +298,7 @@ jQuery(document).ready(function ($) {
 	$('.lefttip').tipsy({fade: true,gravity: 'e'});
 	// T20 Custom
 	var isDesktop = (function() {
-		return !('ontouchstart' in window) // works on most browsers 
+		return !('ontouchstart' in window) // works on most browsers
 		|| !('onmsgesturechange' in window); // works on ie10
 	})();
 	window.isDesktop = isDesktop;
@@ -405,7 +405,7 @@ jQuery(document).ready(function ($) {
 			}
 		});
 	}
-	
+
 });
 
 /* ------------------------------------ DOCUMENT.READY ------------------------------- */
@@ -427,7 +427,7 @@ $(document).ready(function() {
 			$(this).next('.another-toggle-inner').slideDown();
 		}
 	});
-	
+
 }); // END___ document.ready
 
 
@@ -439,15 +439,15 @@ $(document).ready(function(){
 		radioClass: 'iradio',
 		increaseArea: '20%'
 	});
-	
+
 	/* jQuery UI - Datepicker */
 	$('input.date').datepicker({
 	    'dateFormat':'yy-mm-dd'
 	});
-	
+
 	// fitVids
 	$("body").fitVids();
-	
+
 	//Google Maps
 	var $map = $('#map');
 	if( $map.length ) {
@@ -499,28 +499,28 @@ jQuery(function(jQuery) {
 		onComplete: function(value) {
 			console.debug(this);
 		}
-	});			
+	});
 });
 
 // Animations for this page
 jQuery(document).ready(function(){
 	jQuery('.tip-arrow').css({'bottom':1+'px'});
-	jQuery('.tip-arrow').animate({'bottom':-9+'px'},{ duration: 700, queue: false });	
-	
+	jQuery('.tip-arrow').animate({'bottom':-9+'px'},{ duration: 700, queue: false });
+
 	jQuery('.bookfilters').css({'margin-top':-40+'px'});
-	jQuery('.bookfilters').animate({'margin-top':0+'px'},{ duration: 1000, queue: false });	
-	
+	jQuery('.bookfilters').animate({'margin-top':0+'px'},{ duration: 1000, queue: false });
+
 	jQuery('.search-tour').css({'margin-right':-540+'px'});
 	jQuery('.search-tour').animate({'margin-right':0+'px'},{ duration: 2000, queue: false });
-	
+
 	jQuery('.search-filter').css({'margin-top':-40+'px'});
 	jQuery('.search-filter').animate({'margin-top':0+'px'},{ duration: 1000, queue: false });
-	
+
 	jQuery('.topsortby').css({'opacity':0});
-	jQuery('.topsortby').animate({'opacity':1},{ duration: 1000, queue: false });	
+	jQuery('.topsortby').animate({'opacity':1},{ duration: 1000, queue: false });
 
 	jQuery('.itemscontainer').css({'opacity':0});
-	jQuery('.itemscontainer').animate({'opacity':1},{ duration: 1000, queue: false });			
+	jQuery('.itemscontainer').animate({'opacity':1},{ duration: 1000, queue: false });
 });
 
 // Add rooms
@@ -529,28 +529,66 @@ function addroom2(){
 	$('.room2').removeClass('none');
 	$('.addroom1').removeClass('block');
 	$('.addroom1').addClass('none');
-	
+
+}
+
+function addroom2b(){
+var room = '<div class="room2">'+
+	'<div class="clearfix"></div>'+
+		'<div class="line1"></div>'+
+		'<div class="add-room">'+
+		'<div class="two-fourth">'+
+		'<span>Room 2</span><br/>'+
+	'<div class="addroom2 block"><a onclick="addroom3()" class="inline">+ Add room</a> |'+
+	'<a onclick="removeroom2()" class="add-room-close"></a></div>'+
+	'</div>'+
+
+	'<div class="one-fourth mr">'+
+		'<span>Adult</span>'+
+		'<select class="form-control mySelectBoxClass">'+
+		'<option>1</option>'+
+		'<option selected>2</option>'+
+	'<option>3</option>'+
+	'<option>4</option>'+
+	'<option>5</option>'+
+	'</select>'+
+	'</div>'+
+	'<div class="one-fourth">'+
+		'<span>Child</span>'+
+		'<select class="form-control mySelectBoxClass">'+
+		'<option>0</option>'+
+		'<option selected>1</option>'+
+	'<option>2</option>'+
+	'<option>3</option>'+
+	'<option>4</option>'+
+	'<option>5</option>'+
+	'</select>'+
+	'</div>'+
+	'</div><!-- add-room -->'+
+	'</div><!-- end room2 -->';
+$('.rooms').append(room);
+	jQuery('.mySelectBoxClass').customSelect();
 }
 function removeroom2(){
 	$('.room2').addClass('none');
 	$('.room2').removeClass('block');
-	
+
 	$('.addroom1').removeClass('none');
 	$('.addroom1').addClass('block');
 }
 function addroom3(){
 	$('.room3').addClass('block');
 	$('.room3').removeClass('none');
-	
+
 	$('.addroom2').removeClass('block');
 	$('.addroom2').addClass('none');
 }
 function removeroom3(){
 	$('.room3').addClass('none');
 	$('.room3').removeClass('block');
-	
+
 	$('.addroom2').removeClass('none');
-	$('.addroom2').addClass('block');			
+	$('.addroom2').addClass('block');
 }
 
 // Price range code
@@ -574,19 +612,19 @@ function removeroom3(){
 				pageSize : parseInt( $('#details-slider-images').width()/145, 10),
 				slideshowControlsTarget : '#slideshow',
 				onThumb : function(thumb) {
-					var li = thumb.parents('li');				
+					var li = thumb.parents('li');
 					var fadeTo = li.hasClass($.exposure.activeThumbClass) ? 1 : 0.3;
-					
+
 					thumb.css({display : 'none', opacity : fadeTo}).stop().fadeIn(200);
-					
-					thumb.hover(function() { 
-						thumb.fadeTo('fast',1); 
-					}, function() { 
-						li.not('.' + $.exposure.activeThumbClass).children('img').fadeTo('fast', 0.5); 
+
+					thumb.hover(function() {
+						thumb.fadeTo('fast',1);
+					}, function() {
+						li.not('.' + $.exposure.activeThumbClass).children('img').fadeTo('fast', 0.5);
 					});
 				},
 				onImageHoverOver : function() {
-					if (gallery.imageHasData()) {						
+					if (gallery.imageHasData()) {
 						// Show image data as an overlay when image is hovered.
 						gallery.dataElement.stop().show().animate({bottom:0+'px'},{queue:false,duration:160});
 					}
@@ -598,15 +636,15 @@ function removeroom3(){
 				},
 				onImage : function(image, imageData, thumb) {
 					var w = gallery.wrapper;
-					
+
 					// Fade out the previous image.
 					image.siblings('.' + $.exposure.lastImageClass).stop().fadeOut(500, function() {
 						$(this).remove();
 					});
-					
+
 					// Fade in the current image.
 					image.hide().stop().fadeIn(1000);
-					
+
 					// Setup hovering for the image data container.
 					imageData.hover(function() {
 						// Trigger mouse enter event for wrapper element.
@@ -615,19 +653,19 @@ function removeroom3(){
 						// Trigger mouse leave event for wrapper element.
 						w.trigger('mouseleave');
 					});
-					
+
 					// Check if wrapper is hovered.
-					var hovered = w.hasClass($.exposure.imageHoverClass);						
+					var hovered = w.hasClass($.exposure.imageHoverClass);
 					if (hovered) {
 						if (gallery.imageHasData()) {
 							gallery.onImageHoverOver();
 						} else {
 							gallery.onImageHoverOut();
-						}	
+						}
 					}
 
 					if (gallery.showThumbs && thumb && thumb.length) {
-						thumb.parents('li').siblings().children('img.' + $.exposure.selectedImageClass).stop().fadeTo(200, 0.5, function() { $(this).removeClass($.exposure.selectedImageClass); });			
+						thumb.parents('li').siblings().children('img.' + $.exposure.selectedImageClass).stop().fadeTo(200, 0.5, function() { $(this).removeClass($.exposure.selectedImageClass); });
 						thumb.fadeTo('fast', 1).addClass($.exposure.selectedImageClass);
 					}
 				}
@@ -641,7 +679,7 @@ function removeroom3(){
 				gallery.prevImage();
 			});
 		} catch(e) {}
-		
+
 		/* Safari needs a little boost to display the dropdown controls differently. If user has no JS, the standard Safari controls will be shown. */
 		try
 		{

@@ -2,14 +2,22 @@ resa_booking:
     resource: "@BackResaBookingBundle/Resources/config/routing/resabooking.yml"
     prefix:   /TunisieDispo
 
-resa_booking_hotels:
-    path:     /hotels
-    defaults: { _controller: BackResaBookingBundle:FrontBooking:liste}
-
 resa_booking_index:
     path:    /index
     defaults: { _controller: BackResaBookingBundle:Booking:index }
 
+resa_booking_hotels:
+    path:     /hotels
+    defaults: { _controller: BackResaBookingBundle:FrontBooking:liste}
+
 resa_booking_filtre:
     path:    /filtre
-    defaults: { _controller: BackResaBookingBundle:Booking:filtre}
+    defaults: { _controller: BackResaBookingBundle:FrontBooking:filtre}
+
+resa_booking_hotels_details:
+    path:    /{slug}
+    defaults: { _controller: BackResaBookingBundle:FrontBooking:details}
+
+resa_booking_hotels_update:
+    path:    /update/{slug}
+    defaults: { _controller: BackResaBookingBundle:FrontBooking:updateRooms}

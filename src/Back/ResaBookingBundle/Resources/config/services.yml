@@ -13,3 +13,21 @@ services:
     resa_booking:
         class: Back\ResaBookingBundle\Soap\ResabookingService
         arguments: ["%resa_booking%","%wsdl%"]
+
+    resa_bookinglistner:
+      class: Back\ResaBookingBundle\Listener\ResaBookingListner
+      arguments:
+          - @service_container
+          - @session
+          - @doctrine.orm.entity_manager
+      tags:
+        - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+
+    ChambreExtension:
+      class: Back\ResaBookingBundle\Twig\Extension\ChambreExtension
+      tags:
+          - { name: twig.extension }
+      arguments:
+          em: "@doctrine.orm.entity_manager"
+          container: "@service_container"
