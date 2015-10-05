@@ -78,6 +78,23 @@ class Reservation
     protected $client;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Back\AdministrationBundle\Entity\Amicale")
+     */
+    protected $amicale;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="validated_amicale", type="datetime" ,nullable=true)
+     */
+    private $validatedAmicale;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client")
+     */
+    protected $responsableAmicale;
+
+    /**
      * @var array
      *
      * @ORM\Column(name="coordonnees", type="array")
@@ -486,12 +503,12 @@ class Reservation
 
     public function showEtat()
     {
-	if ($this->etat == 1)
-	    return 'Enregistrée';
-	if ($this->etat == 2)
-	    return 'Validée';
-	if ($this->etat == 9)
-	    return 'Annulée';
+        switch($this->etat)
+        {
+            case "1": return 'Enregistrée';
+            case "2": return 'Validée';
+            case "3": return 'Annulée';
+        }
     }
 
     /**
@@ -823,5 +840,74 @@ class Reservation
     public function __toString()
     {
         return "Reservation : ".$this->getId();
+    }
+
+    /**
+     * Set validatedAmicale
+     *
+     * @param \DateTime $validatedAmicale
+     * @return Reservation
+     */
+    public function setValidatedAmicale($validatedAmicale)
+    {
+        $this->validatedAmicale = $validatedAmicale;
+
+        return $this;
+    }
+
+    /**
+     * Get validatedAmicale
+     *
+     * @return \DateTime 
+     */
+    public function getValidatedAmicale()
+    {
+        return $this->validatedAmicale;
+    }
+
+    /**
+     * Set amicale
+     *
+     * @param \Back\AdministrationBundle\Entity\Amicale $amicale
+     * @return Reservation
+     */
+    public function setAmicale(\Back\AdministrationBundle\Entity\Amicale $amicale = null)
+    {
+        $this->amicale = $amicale;
+
+        return $this;
+    }
+
+    /**
+     * Get amicale
+     *
+     * @return \Back\AdministrationBundle\Entity\Amicale 
+     */
+    public function getAmicale()
+    {
+        return $this->amicale;
+    }
+
+    /**
+     * Set responsableAmicale
+     *
+     * @param \Back\UserBundle\Entity\Client $responsableAmicale
+     * @return Reservation
+     */
+    public function setResponsableAmicale(\Back\UserBundle\Entity\Client $responsableAmicale = null)
+    {
+        $this->responsableAmicale = $responsableAmicale;
+
+        return $this;
+    }
+
+    /**
+     * Get responsableAmicale
+     *
+     * @return \Back\UserBundle\Entity\Client 
+     */
+    public function getResponsableAmicale()
+    {
+        return $this->responsableAmicale;
     }
 }

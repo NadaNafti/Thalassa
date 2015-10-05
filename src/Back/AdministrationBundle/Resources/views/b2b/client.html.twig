@@ -21,15 +21,15 @@
                             {{ formulaire.input("col-md-2","",form.responsable,false) }}
                             {{ formulaire.input("col-md-2","Nom & Prénom",form.nomPrenom,true) }}
                             {{ formulaire.input("col-md-2","Tel 1",form.tel1,true) }}
-                            {{ formulaire.input("col-md-2","Tel 2",form.tel2,true) }}
+                            {{ formulaire.input("col-md-2","Tel 2",form.tel2,false) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.input("col-md-8","Adresse",form.adresse,true) }}
+                            {{ formulaire.input("col-md-8","Adresse",form.adresse,false) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.input("col-md-2","Matricule Fiscale",form.matriculeFiscale,true) }}
-                            {{ formulaire.input("col-md-2","Registre Commercie",form.registreCommercie,true) }}
-                            {{ formulaire.input("col-md-4","Commentaire",form.commentaire,true) }}
+                            {{ formulaire.input("col-md-2","Matricule Fiscale",form.matriculeFiscale,false) }}
+                            {{ formulaire.input("col-md-2","Registre Commercie",form.registreCommercie,false) }}
+                            {{ formulaire.input("col-md-4","Commentaire",form.commentaire,false) }}
                         </div>
                         {% if form.user is defined %}
                             <div class="row">

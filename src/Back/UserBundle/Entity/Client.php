@@ -53,7 +53,7 @@
         /**
          * @var string
          *
-         * @ORM\Column(name="adresse", type="text")
+         * @ORM\Column(name="adresse", type="text",nullable=true)
          */
         private $adresse;
 

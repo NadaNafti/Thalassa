@@ -28,6 +28,13 @@ class Amicale
     /**
      * @var string
      *
+     * @ORM\Column(name="type", type="string", length=255)
+     */
+    private $type ;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="libelle", type="string", length=255)
      */
     private $libelle ;
