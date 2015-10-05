@@ -25,4 +25,5 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/espace_client/, role: ROLE_USER }
+        - { path: ^/espace_amicale/, role: ROLE_USER }
         - { path: ^/admin/, role: ROLE_ADMIN }

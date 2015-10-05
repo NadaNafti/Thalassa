@@ -1,33 +1,7 @@
-espace_client_homepage:
-    path:     /
-    defaults: { _controller: EspaceClientBundle:Default:index }
+espace_client_routes:
+    resource: "@EspaceClientBundle/Resources/config/routing/espace_client.yml"
+    prefix:   /espace_client
 
-espace_client_reservationSHT_details:
-    path:     /hotels_en_tunisie/details/{id}
-    defaults: { _controller: EspaceClientBundle:Default:hotelTunisieDetails }
-
-espace_client_reservationSHT:
-    path:     /hotels_en_tunisie/{page}
-    defaults: { _controller: EspaceClientBundle:Default:hotelTunisie,page:1 }
-    requirements:
-        page:  \d+
-
-espace_client_reservationVO_details:
-    path:     /voyages_organisees/details/{id}
-    defaults: { _controller: EspaceClientBundle:Default:voyagesDetails }
-
-espace_client_reservationVO:
-    path:     /voyages_organisees/{page}
-    defaults: { _controller: EspaceClientBundle:Default:voyages,page:1}
-    requirements:
-        page:  \d+
-
-espace_client_reservationPR_details:
-    path:     /programmes/details/{id}
-    defaults: { _controller: EspaceClientBundle:Default:programmesDetails }
-
-espace_client_reservationPR:
-    path:     /programmes/{page}
-    defaults: { _controller: EspaceClientBundle:Default:programmes,page:1 }
-    requirements:
-        page:  \d+
+espace_amicales_routes:
+    resource: "@EspaceClientBundle/Resources/config/routing/espace_amicale.yml"
+    prefix:   /espace_amicale

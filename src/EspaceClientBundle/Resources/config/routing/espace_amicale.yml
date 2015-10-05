@@ -1,0 +1,20 @@
+espace_amicale_homepage:
+    path:     /
+    defaults: { _controller: EspaceClientBundle:EspaceAmicale:index }
+
+
+espace_amicale_personnelles:
+    path:     /personnelles
+    defaults: { _controller: EspaceClientBundle:EspaceAmicale:personnelle }
+
+espace_amicale_reservation_sht:
+    path:     /hotels_en_tunisie/{page}
+    defaults: { _controller: EspaceClientBundle:EspaceAmicale:reservationSHT,page:1 }
+
+espace_amicale_reservation_sht_details:
+    path:     /hotels_en_tunisie_details/{id}
+    defaults: { _controller: EspaceClientBundle:EspaceAmicale:reservationSHTDetails }
+
+espace_amicale_reservation_sht_valider:
+    path:     /hotels_en_tunisie_validation/{id}
+    defaults: { _controller: EspaceClientBundle:EspaceAmicale:reservationSHTValider }

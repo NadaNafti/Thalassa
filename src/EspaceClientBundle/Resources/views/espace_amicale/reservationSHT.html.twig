@@ -1,0 +1,64 @@
+{% extends 'EspaceClientBundle:base_amicale:base.html.twig' %}
+{% block title %}Hôtels en tunisie{% endblock %}
+{% block body %}
+    <div class="tab-content">
+        <div id="booking" class="tab-pane fade active in">
+            <h2>{{ block('title') }}</h2>
+
+            <div class="booking-history">
+                {% for reservation in reservations %}
+                    <div class="booking-info clearfix {% if reservation.etat==9 %}cancelled{% endif %}">
+                        <div class="date">
+                            <label class="month">{{ reservation.dateDebut|date('M') }}</label>
+                            <label class="date">{{ reservation.dateDebut|date('d') }}</label>
+                            <label class="day">{{ reservation.dateDebut|date('l') }}</label>
+                        </div>
+                        <h4 class="box-title">
+                            <i class="icon soap-icon-hotel  ref-color circle"></i>{{ reservation.hotel }}
+                            <small>{{ reservation.showEtat }}</small>
+                            <small>
+                                {% if reservation.responsableAmicale is not null %}
+                                    Validée par <span
+                                        style="color:firebrick">{{ reservation.responsableAmicale }}</span> le <span
+                                        style="color:firebrick">{{ reservation.validatedAmicale|date('d/m/Y h:i') }}</span>
+                                {% else %}
+                                    <span style="color:firebrick">En attente du validation par le Responsable amicale</span>
+                                {% endif %}
+                            </small>
+                            <small>
+                                {% if reservation.responsable is not null %}
+                                    Prise en charge par {{ reservation.responsable }}
+                                {% endif %}
+                            </small>
+                        </h4>
+                        <dl class="info">
+                            <dt>Total</dt>
+                            <dd>
+                                {% if reservation.surDemande %}
+                                    Sur Demande
+                                {% else %}
+                                    {{ reservation.total }} DT
+                                {% endif %}
+                            </dd>
+                            <dt>Réservé le</dt>
+                            <dd>{{ reservation.created|date('d/m/Y') }}</dd>
+                            <dt>Par</dt>
+                            <dd>{{ reservation.client }}</dd>
+                        </dl>
+                        {% if reservation.responsableAmicale is  null %}
+                            <a href="{{ path('espace_amicale_reservation_sht_valider',{'id':reservation.id}) }}" onclick="javascript:return(confirm('Etes-vous certain de vouloir valider cette reservation ?'))">
+                                <button class="btn-mini status">Valider la réservation</button>
+                            </a>
+                        {% endif %}
+                        <a href="{{ path('espace_amicale_reservation_sht_details',{'id':reservation.id}) }}">
+                            <button class="btn-mini status">Détails</button>
+                        </a>
+                    </div>
+                {% endfor %}
+                <div class="navigation">
+                    {{ knp_pagination_render(reservations) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -16,7 +16,7 @@ back_billetterie_maritime:
 
 espace_client:
     resource: "@EspaceClientBundle/Resources/config/routing.yml"
-    prefix:   /espace_client
+    prefix:   /
 
 back_programme:
     resource: "@BackProgrammeBundle/Resources/config/routing.yml"

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>
+<html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html> <!--<![endif]-->
+<head>
+    <!-- Page Title -->
+    <title>{% block title %}Espace {{ app.user.client.amicale }}{% endblock %}</title>
+
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="keywords" content="HTML5 Template"/>
+    <meta name="description" content="Travelo | Responsive HTML5 Travel Template">
+    <meta name="author" content="SoapTheme">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Theme Styles -->
+    <link rel="stylesheet" href="{{ asset('client-assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('client-assets/css/font-awesome.min.css') }}">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,500,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ asset('client-assets/css/animate.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('client-assets/components/flexslider/flexslider.css') }}" media="screen"/>
+
+    <!-- Main Style -->
+    <link id="main-style" rel="stylesheet" href="{{ asset('client-assets/css/style.css') }}">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{{ asset('client-assets/css/custom.css') }}">
+
+    <!-- Updated Styles -->
+    <link rel="stylesheet" href="{{ asset('client-assets/css/updates.css') }}">
+
+    <!-- Responsive Styles -->
+    <link rel="stylesheet" href="{{ asset('client-assets/css/responsive.css') }}">
+
+    <!-- CSS for IE --><!--[if lte IE 9]>
+    <link rel="stylesheet" type="text/css" href="{{ asset('client-assets/css/ie.css') }}"/><![endif]-->
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries --><!--[if lt IE 9]>
+    <script type='text/javascript' src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script><![endif]-->
+</head>
+<body>
+<div id="page-wrapper">
+    {% include 'EspaceClientBundle:base_amicale:heade.html.twig' %}
+    <section id="content" class="">
+        <div class="container">
+            <div class="tab-container full-width-style arrow-left dashboard">
+                {% include 'EspaceClientBundle:base_amicale:menu.html.twig' %}
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </section>
+    {% include 'EspaceClientBundle:base_amicale:footer.html.twig' %}
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript" src="{{ asset('client-assets/js/jquery-1.11.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('client-assets/js/jquery.noconflict.js') }}"></script>
+<script type="text/javascript" src="{{ asset('client-assets/js/modernizr.2.7.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('client-assets/js/jquery-migrate-1.2.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('client-assets/js/jquery.placeholder.js') }}"></script>
+<script type="text/javascript" src="{{ asset('client-assets/js/jquery-ui.1.10.4.min.js') }}"></script>
+
+<!-- Twitter Bootstrap -->
+<script type="text/javascript" src="{{ asset('client-assets/js/bootstrap.js') }}"></script>
+
+<!-- Flex Slider -->
+<script type="text/javascript" src="{{ asset('client-assets/components/flexslider/jquery.flexslider-min.js') }}"></script>
+
+<script type="text/javascript">
+    enableChaser = 0;
+</script>
+
+<!-- waypoint -->
+<script type="text/javascript" src="{{ asset('client-assets/js/waypoints.min.js') }}"></script>
+
+<!-- load page Javascript -->
+<script type="text/javascript" src="{{ asset('client-assets/js/theme-scripts.js') }}"></script>
+
+<script type="text/javascript">
+    tjq(document).ready(function () {
+        tjq("#profile .edit-profile-btn").click(function (e) {
+            e.preventDefault();
+            tjq(".view-profile").fadeOut();
+            tjq(".edit-profile").fadeIn();
+        });
+
+        setTimeout(function () {
+            tjq(".notification-area").append('<div class="info-box block"><span class="close"></span><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus ab quis a dolorem, placeat eos doloribus esse repellendus quasi libero illum dolore. Esse minima voluptas magni impedit, iusto, obcaecati dignissimos.</p></div>');
+        }, 10000);
+    });
+    tjq('a[href="#profile"]').on('shown.bs.tab', function (e) {
+        tjq(".view-profile").show();
+        tjq(".edit-profile").hide();
+    });
+</script>
+</body>
+</html>
+

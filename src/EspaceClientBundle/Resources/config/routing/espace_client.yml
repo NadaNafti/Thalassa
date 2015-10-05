@@ -1,0 +1,33 @@
+espace_client_homepage:
+    path:     /
+    defaults: { _controller: EspaceClientBundle:EspaceClient:index }
+
+espace_client_reservationSHT_details:
+    path:     /hotels_en_tunisie/details/{id}
+    defaults: { _controller: EspaceClientBundle:EspaceClient:hotelTunisieDetails }
+
+espace_client_reservationSHT:
+    path:     /hotels_en_tunisie/{page}
+    defaults: { _controller: EspaceClientBundle:EspaceClient:hotelTunisie,page:1 }
+    requirements:
+        page:  \d+
+
+espace_client_reservationVO_details:
+    path:     /voyages_organisees/details/{id}
+    defaults: { _controller: EspaceClientBundle:EspaceClient:voyagesDetails }
+
+espace_client_reservationVO:
+    path:     /voyages_organisees/{page}
+    defaults: { _controller: EspaceClientBundle:EspaceClient:voyages,page:1}
+    requirements:
+        page:  \d+
+
+espace_client_reservationPR_details:
+    path:     /programmes/details/{id}
+    defaults: { _controller: EspaceClientBundle:EspaceClient:programmesDetails }
+
+espace_client_reservationPR:
+    path:     /programmes/{page}
+    defaults: { _controller: EspaceClientBundle:EspaceClient:programmes,page:1 }
+    requirements:
+        page:  \d+
