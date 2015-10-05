@@ -91,9 +91,9 @@
                                 </td>
                                 <td class="TableAction">
                                     {% if reservation.responsable is null %}
-                                        {{ macros.boutton("#",'fa-user','btn-dark-grey','Prendre en charge cette reservation') }}
+                                        {{ macros.boutton(path('back_maritime_reservation_prendrecharge',{'id':reservation.id}),'fa-user','btn-dark-grey','Prendre en charge cette reservation') }}
                                     {% else %}
-                                        {{ macros.boutton("#",'fa-eye','btn-dark-grey','Consulter la réservation') }}
+                                        {{ macros.boutton(path('back_maritime_reservation_consultation',{'id':reservation.id}),'fa-eye','btn-dark-grey','Consulter la réservation') }}
                                     {% endif %}
                                 </td>
                             </tr>

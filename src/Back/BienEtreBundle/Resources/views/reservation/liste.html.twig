@@ -86,7 +86,14 @@
                                     <td>{{ reservation.showTypeProduit }}</td>
                                     <td>{{ reservation.produit }}</td>
                                     <td>
-                                        {{ reservation.showEtat }}<br>
+                                        {{ reservation.showEtat }}
+                                        {% if reservation.sousEtats|length!=0 %}
+                                        <a href="#liste" class="buttonEtats" data-toggle="modal" data-id="{{ reservation.id }}">
+                                            <small>({{ reservation.sousEtats.last }})</small>
+                                        </a>
+                                    {% endif %}
+                                    {{ macros.bouttonModal(reservation.id,"#responsive",'fa-plus','btn-trello addEtat','Ajouter un sous-état') }}
+                                    <br>
                                         <span style="color:red">{{ reservation.responsable }}</span>
                                     </td>
                                     <td class="TableAction">
@@ -107,4 +114,82 @@
             </div>
         </div>
     </div>
+    <div id="liste" class="modal fade" tabindex="-1" data-width="960" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">liste des sous-états</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
+                        <thead>
+                        <tr>
+                            <th class="center">Date</th>
+                            <th class="center">Utilisateur</th>
+                            <th class="center">Sous-états</th>
+                            <th class="center">Commentaire</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tBodyEtats">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="responsive" class="modal fade" tabindex="-1" data-width="960" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Ajouter un sous-état</h4>
+        </div>
+        {{ form_start(form, {'action': path('back_bienetre_reservation_add_sousetats'), 'method': 'POST'}) }}
+        <div class="modal-body">
+            <div class="row">
+                {{ formulaire.input("col-md-4","Etat",form.etat,true) }}
+                {{ formulaire.input("col-md-8","Commentaire",form.commentaire,true) }}
+            </div>
+            <div class="row no-display">
+                {{ form_widget(form) }}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-light-grey">
+                Fermer
+            </button>
+            <button type="submit" class="btn btn-blue">
+                Enregistrer
+            </button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+{% block jquery %}
+    <script>
+        $(document).ready(function () {
+            $(".addEtat").on('click', function () {
+                $("#back_administrationbundle_sousetat_be_reservationBE").val($(this).data('id'));
+            });
+            $(".buttonEtats").on('click', function () {
+                $('#tBodyEtats').html("<tr class='center'><td colspan='4'>Loading ...</td></tr>");
+                var res=$(this).data('id');
+                $.ajax({
+                    url: '{{ path('ajax_reservationBE_to_SousEtats') }}',
+                    data: { 'id' : res },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(json) {
+                        $('#tBodyEtats').empty();
+                        $.each(json, function (index, value) {
+                            $('#tBodyEtats').append("<tr class='center'><td>"+value['date']+"</td><td>"+value['user']+"</td><td>"+value['etat']+"</td><td>"+value['commentaire']+"</td></tr>");
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}

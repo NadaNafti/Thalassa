@@ -630,6 +630,16 @@ class Reservation
     {
         return $this->sousEtats;
     }
+    
+    public function getPrixAchat()
+    {
+        return number_format($this->tarif->getPrixAchat(), 3, '.','');
+    }
+    
+    public function getPrixVente()
+    {
+        return number_format($this->tarif->getPrixVente(), 3, '.','');
+    }
 
     public function getMontantRegle()
     {
@@ -644,19 +654,19 @@ class Reservation
         return number_format($this->getTotal() - $this->getMontantRegle(), 3, '.','');
     }
     
-    public function getPrixAchat()
+    public function getTotalAchat()
     {
         return number_format($this->nombrePersonne*$this->tarif->getPrixAchat(), 3, '.','');
     }
     
-    public function getPrixVente()
+    public function getTotalVente()
     {
         return number_format($this->nombrePersonne*$this->tarif->getPrixVente(), 3, '.','');
     }
     
     public function getTotal()
     {
-        return number_format($this->getPrixVente()+$this->timbre-$this->remise,3,'.','');
+        return number_format($this->getTotalVente()+$this->timbre-$this->remise,3,'.','');
     }
 
     /**
@@ -698,6 +708,16 @@ class Reservation
     public function showTypeProduit()
     {
         return $this->produit->showType();
+    }
+    
+    public function getCentre()
+    {
+        return $this->produit->getCentre();
+    }
+    
+    public function getVille()
+    {
+        return $this->produit->getVille();
     }
     
 }
