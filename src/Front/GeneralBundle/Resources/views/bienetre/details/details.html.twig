@@ -19,10 +19,13 @@
                         <div class="detail-header-name">
                             <h3 class="hotel-name no-mb">{{ produit }}</h3>
                         </div>
+                        <div class="detail-header-name">
+                                <h4 class="hotel-name no-mb">{{ produit.centre }}</h4><span></span>
+                        </div>
                         <div class="detail-header-price">
                             {% for tarif in produit.tarifs if tarif.isValide==true %}
-                                <span>à partir de</span>{{ tarif.prixVente }}
-                            {%else %} <span>à partir de</span>0.000
+                                <span>A partir de</span>{{ tarif.prixVente }}
+                            {%else %} <span>A partir de</span>0.000
                             {%endfor%}
                         </div>
                     </div>

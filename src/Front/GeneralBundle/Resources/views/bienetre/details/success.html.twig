@@ -1,5 +1,5 @@
 {% extends ":Front:base.html.twig" %}
-{% block title %}Succées{% endblock %}
+{% block title %}Succès{% endblock %}
 {% block body %}
     <div id="content_wrapper">
         <div class="container">
@@ -18,14 +18,18 @@
                         <div class="bb2 mb-30"></div>
                         <table class="table table-striped">
                             <tbody>
-                            <tr>
-                                <td>Nom Prénom:</td>
-                                <td>{{ reservation.nomPrenom }}</td>
-                            </tr>
-                            <tr>
-                                <td>Tel:</td>
-                                <td>{{ reservation.tel }}</td>
-                            </tr>
+                                <tr>
+                                    <td>Nom Prénom :</td>
+                                    <td>{{ reservation.nomPrenom }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Téléphone :</td>
+                                    <td>{{ reservation.tel }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email :</td>
+                                    <td>{{ reservation.email }}</td>
+                                </tr>
                             </tbody>
                         </table>
                         <hr>
@@ -34,21 +38,36 @@
                         <div class="bb2 mb-30"></div>
                         <table class="table table-striped">
                             <tbody>
-                            <tr>
-                                <td>Date début:</td>
-                                <td>{{ reservation.dateDebut|date('d/m/Y') }}</td>
-                            </tr>
-                            <tr>
-                                <td>Nombre de personnes:</td>
-                                <td>{{ reservation.nombrePersonne }}</td>
-                            </tr>
-                            {% if reservation.commentaire is not null %}
                                 <tr>
-                                    <td>Commentaire:</td>
-                                    <td>{{ reservation.commentaire }}</td>
+                                    <td>Bien-être : {{reservation.typeProduit}}:</td>
                                 </tr>
-                            {% endif %}
-                            
+                                <tr>
+                                    <td>Nom {{reservation.typeProduit}} :</td>
+                                    <td>{{ reservation.produit }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Centre :</td>
+                                    <td>{{ reservation.centre }} ( {{ reservation.ville }} )</td>
+                                </tr>
+                                <tr>
+                                    <td>Date d'arrivée :</td>
+                                    <td>{{ reservation.dateDebut|date('d/m/Y') }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nombre de personnes :</td>
+                                    <td>{{ reservation.nombrePersonne }}</td>
+                                </tr>
+                                {% if reservation.commentaire is not null %}
+                                    <tr>
+                                        <td>Commentaire :</td>
+                                        <td>{{ reservation.commentaire }}</td>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <td>Montant total :</td>
+                                    <td>{{ reservation.total }}</td>
+                                </tr>
+
                             </tbody>
                         </table>
                         <hr>
