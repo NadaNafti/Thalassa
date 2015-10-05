@@ -179,6 +179,12 @@ class ReservationService
             ->setNuitees($result['nuitees'])
             ->setSurDemande($result['surDemande'])
             ->setOptions($options);
+        if(!is_null($client->getAmicale()))
+        {
+            $reservation->setAmicale($client->getAmicale());
+            if($client->getResponsable())
+                $reservation->setValidatedAmicale(new \DateTime())->setResponsableAmicale($client);
+        }
         if (isset($data['observation']))
             $reservation->setObservation($data['observation']);
         if ($tarifCommercial && $tarifCommercial->getTimbre())

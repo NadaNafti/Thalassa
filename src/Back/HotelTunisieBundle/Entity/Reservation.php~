@@ -78,6 +78,23 @@ class Reservation
     protected $client;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Back\AdministrationBundle\Entity\Amicale")
+     */
+    protected $amicale;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="validated_amicale", type="datetime" ,nullable=true)
+     */
+    private $validatedAmicale;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client")
+     */
+    protected $responsableAmicale;
+
+    /**
      * @var array
      *
      * @ORM\Column(name="coordonnees", type="array")
@@ -159,6 +176,7 @@ class Reservation
 
     /**
      * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationSHT")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $sousEtats;
 
@@ -485,12 +503,12 @@ class Reservation
 
     public function showEtat()
     {
-	if ($this->etat == 1)
-	    return 'Enregistrée';
-	if ($this->etat == 2)
-	    return 'Validée';
-	if ($this->etat == 9)
-	    return 'Annulée';
+        switch($this->etat)
+        {
+            case "1": return 'Enregistrée';
+            case "2": return 'Validée';
+            case "3": return 'Annulée';
+        }
     }
 
     /**
@@ -785,4 +803,42 @@ class Reservation
 	return $this->remise;
     }
 
+
+    /**
+     * Add sousEtats
+     *
+     * @param \Back\AdministrationBundle\Entity\SousEtat $sousEtats
+     * @return Reservation
+     */
+    public function addSousEtat(\Back\AdministrationBundle\Entity\SousEtat $sousEtats)
+    {
+        $this->sousEtats[] = $sousEtats;
+
+        return $this;
+    }
+
+    /**
+     * Remove sousEtats
+     *
+     * @param \Back\AdministrationBundle\Entity\SousEtat $sousEtats
+     */
+    public function removeSousEtat(\Back\AdministrationBundle\Entity\SousEtat $sousEtats)
+    {
+        $this->sousEtats->removeElement($sousEtats);
+    }
+
+    /**
+     * Get sousEtats
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSousEtats()
+    {
+        return $this->sousEtats;
+    }
+
+    public function __toString()
+    {
+        return "Reservation : ".$this->getId();
+    }
 }
