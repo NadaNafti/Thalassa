@@ -1,10 +1,10 @@
-{% extends "BackHotelTunisieBundle:Reservation:liste.html.twig" %}
+{% extends "@BackVoyageOrganise/reservation/liste.html.twig" %}
 {% block title %}Consulter la réservation{% endblock %}
 {% block description %}{% endblock %}
 {% block topbody %}
     {{ parent() }}
     <li>
-        <a href="javascript:void(0)">Consultation</a>
+        <a href="{{ path('back_voyages_organises_reservation_consulter',{'id':reservation.id}) }}">Consultation</a>
     </li>
 {% endblock %}
 {% block body %}
@@ -13,6 +13,7 @@
             <div class="col-md-12 center">
                 {% if  reservation.etat  == 1 %}
                     <a href="#remise" data-toggle="modal" class="btn btn-light-grey center"> Editer la Remise </a>
+                    <a href="{{ path('back_voyages_organises_reservation_contingent',{'id':reservation.id}) }}"  class="btn btn-light-grey center"> Contingent </a>
                 {% endif %}
                 {% if reservation.etat in [1,9] %}
                     <a href="{{ path('back_voyages_organises_reservation_validation',{'id':reservation.id}) }}" class="btn btn-success center"> Valider </a>
@@ -120,21 +121,30 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="center">Type</th>
+                            <th class="center">Nom Prénom</th>
+                            <th class="center">Passport</th>
+                            <th class="center">Chambre Réservation</th>
+                            <th class="center">Chambre Contingent</th>
+                            <th></th>
+                            <th style="text-align: right">Achat</th>
+                            <th style="text-align: right">Vente</th>
+                            <th></th>
+                        </tr>
+                        </thead>
                         <tbody>
                         {% for chambre in reservation.chambres %}
-                            <tr style="background-color: azure;">
-                                <td class="center">Chambre {{ chambre }}</td>
-                                <td colspan="8"></td>
-                            </tr>
                             {% for personne in chambre.occupants %}
                                 <tr style="background-color: cornsilk;">
-                                    <td></td>
                                     <td class="center">
                                         {% if personne.enfant %}[Enfant]{% else %}[Adulte]{% endif %}
                                     </td>
-                                    <td class="center">{{ personne.nomPrenom }}</td>
+                                    <td class="center">{{ personne.nomPrenom }} {% if personne.enfant %}{{ personne.age }} ans{% endif %}</td>
                                     <td class="center">{{ personne.passport }}</td>
-                                    <td class="center">{% if personne.enfant %}{{ personne.age }} ans{% endif %}</td>
+                                    <td class="center">Chambre {{ chambre }}</td>
+                                    <td class="center" style="color: red;font-size: 23px;"> <strong>{{ personne.chambreContingent }}</strong></td>
                                     <td colspan="3"></td>
                                     <td>
                                         {% if reservation.etat in [1] and reservation.responsable is not null and app.user.id == reservation.responsable.id %}

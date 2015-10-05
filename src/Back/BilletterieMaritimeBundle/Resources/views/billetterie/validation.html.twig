@@ -1,5 +1,5 @@
 {% extends "BackHotelTunisieBundle:Reservation:liste.html.twig" %}
-{% block title %}Validation la réservation{% endblock %}
+{% block title %}Validation réservation{% endblock %}
 {% block description %}{% endblock %}
 {% block topbody %}
     {{ parent() }}
@@ -10,8 +10,8 @@
 {% block body %}
     <div class="row">
         <div class="col-md-5">
-            <p><strong>N° : </strong> {{ reservation.id }}</p>
-            <p><strong>Programmes : </strong> Billetterie</p>
+            <p><strong>N°: </strong> {{ reservation.id }}</p>
+            <p><strong>Nom produit: </strong> {{ reservation.produit.libelle }}</p>
             <p><strong>Client : </strong> {{ reservation.client }}</p>
         </div>
         <div class="col-md-6">

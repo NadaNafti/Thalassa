@@ -168,6 +168,7 @@ class BilletterieReservation
 
     /**
      * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationB")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $sousEtats;
 

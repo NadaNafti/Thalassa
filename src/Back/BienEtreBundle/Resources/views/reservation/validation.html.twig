@@ -1,0 +1,137 @@
+{% extends "BackHotelTunisieBundle:Reservation:liste.html.twig" %}
+{% block title %}Validation réservation{% endblock %}
+{% block description %}{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">Validation</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-5">
+            <h5 class="center">N° : {{ reservation.id }}</h5>
+            <h4 class="center">Bien-être : {{ reservation.showTypeProduit }}</h4>
+            <h4 class="center">Produit : {{ reservation.produit }}</h4>
+            <p><strong>Client : </strong> {{ reservation.client }}</p>
+        </div>
+        <div class="col-md-6">
+            <h4> Total réservation : {{ reservation.total }} DT </h4>
+            <h4> Montant règlé : {{ reservation.montantRegle }} DT </h4>
+            <h4> Montant à payer : <span>{{ reservation.montantRestant }} DT</span></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    {% if pieces|length > 0 %}
+                        <h3>Liste des pièces disponibles</h3>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Désignation pièce</strong></div>
+                            <div class="col-md-2"><strong>Date pièce</strong></div>
+                            <div class="col-md-3"><strong>Mode règlement</strong></div>
+                            <div class="col-md-2"><strong>Montant d'origine</strong></div>
+                            <div class="col-md-2"><strong>Montant restant</strong></div>
+                        </div>
+                        <div class="row">
+                            {% for piece in pieces %}
+                                <div class="col-md-12">
+                                    <hr>
+                                </div>
+                                {{ formulaire.input("col-md-2",null,form['piece'~piece.id],false) }}
+                                <div class="col-md-2">{{ piece.dateCreation|date('d/m/Y') }}</div>
+                                <div class="col-md-3">{{ piece.showModeReglement }}</div>
+                                <div class="col-md-2">{{ piece.montantOrigine }} dt</div>
+                                <div class="col-md-2"><span>{{ piece.montant }} dt</span></div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <h3>Ajouter Pièce</h3>
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Mode réglement",form.piece.modeReglement,true) }}
+                        {{ formulaire.input("col-md-2 no-display echeance ","Date écheance",form.piece.dateEcheance,true) }}
+                        {{ formulaire.input("col-md-2","Montant",form.piece.montantOrigine,true) }}
+                        {{ formulaire.input("col-md-5","Désignation & commentaire",form.piece.numero,true) }}
+                    </div>
+                    {{ formulaire.submit("Enregistrer") }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if reservation.reglements|length>0 %}
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="center">Pièces de règlement</h2>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Pièce</th>
+                                <th>Echéance</th>
+                                <th>Mode règlement</th>
+                                <th>Date règlement</th>
+                                <th>Montant payé</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for reglement in reservation.reglements %}
+                                <tr>
+                                    <td>{{ reglement.piece.numero }}</td>
+                                    <td>
+                                        {% if reglement.piece.modeReglement == 'C' %}
+                                            {{ reglement.piece.dateEcheance|date('d/m/Y') }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ reglement.piece.showModeReglement }}</td>
+                                    <td>{{ reglement.dateCreation|date('d/m/Y') }}</td>
+                                    <td style="color:red">{{ reglement.montant }} dt</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        h4 {
+            font-family: sans-serif !important;
+        }
+
+        h4 span, .col-md-2 span {
+            color: red;
+        }
+
+        .checkbox {
+            margin: 0px;
+        }
+
+        hr {
+            margin-top: 10px;
+            margin-bottom: 10px;
+    </style>
+{% endblock %}
+    {% block jquery %}
+        <script>
+            $(document).ready(function () {
+                $('#form_piece_modeReglement').change(function () {
+                    if ($(this).val() == 'C') {
+                        $('.echeance').removeClass('no-display');
+                        $('#form_piece_dateEcheance').prop('required', true);
+                    }
+                    else {
+                        $('.echeance').addClass('no-display');
+                        $('#form_piece_dateEcheance').prop('required', false);
+                    }
+                })
+            })
+        </script>
+    {% endblock %}

@@ -53,7 +53,7 @@ class MaritimeReservation
     private $commentaire;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservationsVO")
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservationsM")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $client;
@@ -156,6 +156,7 @@ class MaritimeReservation
 
     /**
      * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationM")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $sousEtats;
 

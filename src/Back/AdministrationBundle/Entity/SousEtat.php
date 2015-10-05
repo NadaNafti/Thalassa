@@ -75,6 +75,12 @@ class SousEtat
      */
     protected $reservationM;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\BienEtreBundle\Entity\Reservation", inversedBy="sousEtats", fetch="EAGER")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $reservationBE;
+
 
     /**
      * Get id
@@ -296,5 +302,28 @@ class SousEtat
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set reservationBE
+     *
+     * @param \Back\BienEtreBundle\Entity\Reservation $reservationBE
+     * @return SousEtat
+     */
+    public function setReservationBE(\Back\BienEtreBundle\Entity\Reservation $reservationBE = null)
+    {
+        $this->reservationBE = $reservationBE;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationBE
+     *
+     * @return \Back\BienEtreBundle\Entity\Reservation 
+     */
+    public function getReservationBE()
+    {
+        return $this->reservationBE;
     }
 }

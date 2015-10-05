@@ -21,6 +21,16 @@ class AmicaleType extends AbstractType
             ->add('tel')
             ->add('fax')
             ->add('plafond')
+            ->add('type','choice',array(
+                'required'=>true,
+                'choices'=>array(
+                    1=>"Association",
+                    2=>"Amicale",
+                    3=>"Eétablissement public",
+                    4=>"Fondation",
+                    5=>"Société",
+                )
+            ))
         ;
     }
     

@@ -9,7 +9,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Arrangement
  *
  * @ORM\Table(name="ost_sht_arrangement")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
 class Arrangement
@@ -67,11 +66,6 @@ class Arrangement
      * @ORM\Column( type="datetime")
      */
     private $updated;
-
-    /**
-     * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
-     */
-    private $deletedAt;
 
     /**
      * Get id
@@ -173,29 +167,6 @@ class Arrangement
     public function getUpdated()
     {
         return $this->updated;
-    }
-
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     * @return Arrangement
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt=$deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     /**

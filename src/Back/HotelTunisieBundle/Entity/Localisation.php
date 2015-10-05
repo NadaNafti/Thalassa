@@ -8,7 +8,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Localisation
  *
  * @ORM\Table(name="ost_sht_localistion")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
 class Localisation
@@ -45,13 +44,6 @@ class Localisation
      * @ORM\Column( type="datetime")
      */
     private $updated;
-    
-    /**
-     * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
-     */
-    private $deletedAt;
-    
-
 
     /**
      * Get id
@@ -129,29 +121,6 @@ class Localisation
     public function getUpdated()
     {
         return $this->updated;
-    }
-
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     * @return Localisation
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     /**

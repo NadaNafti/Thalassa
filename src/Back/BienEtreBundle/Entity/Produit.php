@@ -32,6 +32,9 @@ class Produit {
     /**
      * @var integer
      *
+     * 1:Pack
+     * 2:Cure
+     * 3:Soin
      * @ORM\Column(name="type", type="integer")
      */
     private $type;
@@ -361,5 +364,35 @@ class Produit {
         }
         return null;
     }
-
+    public function showType()
+    {
+        if($this->type == 1)
+            return 'Pack';
+        if($this->type == 2)
+            return 'Soin';
+        if($this->type == 3)
+            return 'Cure';
+    }
+    
+    public function getVille()
+    {
+        return $this->centre->getVille();
+    }
+    
+    public function getPrixAchat()
+    {
+        foreach ($this->tarifs as $tarif)
+        {
+                return $tarif->getPrixAchat;
+        }
+    }
+    
+    public function getPrixVente()
+    {
+        foreach ($this->tarifs as $tarif)
+        {
+                return $tarif->getPrixVente;
+        }
+    }
+    
 }

@@ -9,7 +9,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Vue
  *
  * @ORM\Table(name="ost_sht_vue")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
 class Vue
@@ -46,11 +45,6 @@ class Vue
      * @ORM\Column( type="datetime")
      */
     private $updated;
-    
-    /**
-     * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
-     */
-    private $deletedAt;
 
 
 
@@ -130,29 +124,6 @@ class Vue
     public function getUpdated()
     {
         return $this->updated;
-    }
-
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     * @return Vue
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     /**

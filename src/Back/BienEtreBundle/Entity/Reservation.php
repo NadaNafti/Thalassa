@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Reservation
  *
  * @ORM\Table(name="ost_be_reservations")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Back\BienEtreBundle\Entity\Repository\ReservationRepository")
  */
 class Reservation
 {
@@ -113,7 +113,8 @@ class Reservation
     private $remise;
 
     /**
-     * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationPR")
+     * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationBE")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $sousEtats;
 
@@ -629,6 +630,16 @@ class Reservation
     {
         return $this->sousEtats;
     }
+    
+    public function getPrixAchat()
+    {
+        return number_format($this->tarif->getPrixAchat(), 3, '.','');
+    }
+    
+    public function getPrixVente()
+    {
+        return number_format($this->tarif->getPrixVente(), 3, '.','');
+    }
 
     public function getMontantRegle()
     {
@@ -640,17 +651,17 @@ class Reservation
 
     public function getMontantRestant()
     {
-        return number_format($this->getTotal() - $this->getMontantRegle(), 3, '.', '');
+        return number_format($this->getTotal() - $this->getMontantRegle(), 3, '.','');
     }
     
     public function getTotalAchat()
     {
-        return number_format($this->nombrePersonne*$this->tarif->getPrixAchat(), '.', '');
+        return number_format($this->nombrePersonne*$this->tarif->getPrixAchat(), 3, '.','');
     }
     
     public function getTotalVente()
     {
-        return number_format($this->nombrePersonne*$this->tarif->getPrixVente(), '.', '');
+        return number_format($this->nombrePersonne*$this->tarif->getPrixVente(), 3, '.','');
     }
     
     public function getTotal()
@@ -680,4 +691,33 @@ class Reservation
     {
         return $this->dateDebut;
     }
+    
+    public function __toString()
+    {
+        return "Reservation : ".$this->getId();
+    }
+    public function showEtat()
+    {
+        if($this->etat == 1)
+            return 'Enregistrée';
+        if($this->etat == 2)
+            return 'Validée';
+        if($this->etat == 9)
+            return 'Annulée';
+    }
+    public function showTypeProduit()
+    {
+        return $this->produit->showType();
+    }
+    
+    public function getCentre()
+    {
+        return $this->produit->getCentre();
+    }
+    
+    public function getVille()
+    {
+        return $this->produit->getVille();
+    }
+    
 }

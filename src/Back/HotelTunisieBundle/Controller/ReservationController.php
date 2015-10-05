@@ -267,7 +267,6 @@ class ReservationController extends Controller
             $form->submit($this->getRequest());
             if($form->isValid())
             {
-                $data=$form->getData();
                 $em->persist($form->getData()->setUser($currentUser));
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre sous etat a été ajouté avec succées ");
@@ -375,6 +374,7 @@ class ReservationController extends Controller
             }
             $em->persist($reservation->setEtat(9)->setCode(NULL)->setValidated(NULL)->setCommentaire($request->get('commentaire')));
             $em->flush();
+            $this->container->get('mailerservice')->annulation($reservation,'SHT');
             $session->getFlashBag()->add('success', "Réservation a été annullée avec succès ");
         }
         return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
@@ -387,7 +387,7 @@ class ReservationController extends Controller
         if (!$reservation->getHotel()->isValideEmail1() && !$reservation->getHotel()->isValideEmail2())
             $session->getFlashBag()->add('info', $reservation->getHotel()->getLibelle() . " n' a pas un email valide <a target='_blank' href='" . $this->generateUrl('modif_hotel', array('id' => $reservation->getHotel()->getId())) . "' >Modifier cet hôtel</a>");
         else {
-            if ($this->container->get('reservation')->sendMailHotel($reservation)) {
+            if ($this->container->get('mailerservice')->sendMailHotel($reservation)) {
                 $reservation->setHotelNotifier(TRUE);
                 $em->persist($reservation);
                 $em->flush();
@@ -494,6 +494,7 @@ class ReservationController extends Controller
                 $em->persist($reservation->setEtat(2)->setValidated(new \DateTime())->setCode($this->container->get('reservation')->getCode()));
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre Réservation a été validée avec succès ");
+                $this->container->get('mailerservice')->validation($reservation,'SHT');
                 return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
             } else
                 $session->getFlashBag()->add('info', " Votre Réservation n'a pas été encore validée, reste encore <strong>" . $reservation->getMontantRestant() . " DT </strong> a payé");

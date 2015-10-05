@@ -40,6 +40,35 @@ class Email
     protected $produits;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="creation_back", type="boolean", nullable=true)
+     */
+    public $creationBack;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="creation_front", type="boolean", nullable=true)
+     */
+    public $creationFront;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="validation", type="boolean", nullable=true)
+     */
+    public $validation;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="annulation", type="boolean", nullable=true)
+     */
+    public $annulation;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -113,4 +142,96 @@ class Email
         return $this->produits;
     }
 
+
+    /**
+     * Set creationBack
+     *
+     * @param boolean $creationBack
+     * @return Email
+     */
+    public function setCreationBack($creationBack)
+    {
+        $this->creationBack = $creationBack;
+
+        return $this;
+    }
+
+    /**
+     * Get creationBack
+     *
+     * @return boolean 
+     */
+    public function getCreationBack()
+    {
+        return $this->creationBack;
+    }
+
+    /**
+     * Set creationFront
+     *
+     * @param boolean $creationFront
+     * @return Email
+     */
+    public function setCreationFront($creationFront)
+    {
+        $this->creationFront = $creationFront;
+
+        return $this;
+    }
+
+    /**
+     * Get creationFront
+     *
+     * @return boolean 
+     */
+    public function getCreationFront()
+    {
+        return $this->creationFront;
+    }
+
+    /**
+     * Set validation
+     *
+     * @param boolean $validation
+     * @return Email
+     */
+    public function setValidation($validation)
+    {
+        $this->validation = $validation;
+
+        return $this;
+    }
+
+    /**
+     * Get validation
+     *
+     * @return boolean 
+     */
+    public function getValidation()
+    {
+        return $this->validation;
+    }
+
+    /**
+     * Set annulation
+     *
+     * @param boolean $annulation
+     * @return Email
+     */
+    public function setAnnulation($annulation)
+    {
+        $this->annulation = $annulation;
+
+        return $this;
+    }
+
+    /**
+     * Get annulation
+     *
+     * @return boolean 
+     */
+    public function getAnnulation()
+    {
+        return $this->annulation;
+    }
 }

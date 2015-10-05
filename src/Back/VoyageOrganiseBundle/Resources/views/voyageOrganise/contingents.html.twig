@@ -17,8 +17,8 @@
                         {% for ligne in  form.contingents %}
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div class="no-display">{{ form_widget(ligne.hotel) }}</div>
-                                    <label style="margin-top: 20px;">{{ ligne.hotel.vars.data.libelle }}</label>
+                                    <div class="no-display">{{ form_widget(ligne.hotel) }}{{ form_widget(ligne.pack) }}</div>
+                                    <label style="margin-top: 20px;">{{ ligne.hotel.vars.data.libelle }} <small>({{ ligne.pack.vars.data.libelle }})</small></label>
                                 </div>
                                 {{ formulaire.input("col-md-2","Chambre single",ligne.chambreSingle,true) }}
                                 {{ formulaire.input("col-md-2","Chambre double",ligne.chambreDouble,true) }}

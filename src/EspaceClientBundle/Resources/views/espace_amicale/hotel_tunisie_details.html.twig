@@ -1,0 +1,86 @@
+{% extends 'EspaceClientBundle:base_amicale:base.html.twig' %}
+{% block title %}Réservaton hôtel en tunisie{% endblock %}
+{% block body %}
+    <div class="tab-content">
+        <div id="profile" class="tab-pane fade active in">
+            <div class="view-profile">
+                <article class="image-box style2 box innerstyle personal-details">
+                    <figure>
+                        <a>
+                            {% if reservation.hotel.photoPrincipal is not null %}
+                                <img src="{{ asset(reservation.hotel.photoPrincipal.assetPath) }}" alt="" style="width: 250px;height: 263px"/>
+                            {% else %}
+                                <img width="250" height="263" alt="" src="https://placeholdit.imgix.net/~text?txtsize=25&txt=Photo not avalaible&w=250&h=263">
+                            {% endif %}
+                        </a>
+                    </figure>
+                    <div class="details">
+                        <h2 class="box-title fullname">{{ reservation.hotel }}</h2>
+                        <dl class="term-description">
+                            <dt style="width: 49%;">Etat réservation:</dt>
+                            <dd>{{ reservation.showEtat }}</dd>
+                            {% if reservation.responsable is not null %}
+                                <dt style="width: 49%;">Prise en charge par:</dt>
+                                <dd>{{ reservation.responsable }}</dd>
+                            {% endif %}
+                            <dt style="width: 49%;">Catégorie:</dt>
+                            <dd>{{ reservation.hotel.categorie }}</dd>
+                            <dt style="width: 49%;">Ville:</dt>
+                            <dd>{{ reservation.hotel.ville }}</dd>
+                            <dt style="width: 49%;">Check IN:</dt>
+                            <dd>{{ reservation.dateDebut|date('d/m/Y') }}</dd>
+                            <dt style="width: 49%;">Check OUT:</dt>
+                            <dd>{{ reservation.dateFin|date_modify('+ 1 days')|date('d/m/Y') }}</dd>
+                        </dl>
+                    </div>
+                </article>
+            </div>
+            <div id="dashboard" class="row block">
+                <div class="col-md-12 notifications ">
+                    <h2>Chambres</h2>
+                    {% for chambre in reservation.chambres %}
+                        <a href="javascript:void(0)">
+                            <div class="icon-box style1 fourty-space">
+                                <i class="soap-icon-comfort blue-bg" style="height: 82px;"></i>
+                                <span class="time pull-right">{{ chambre.total }} DT</span>
+                                <div class="col-md-3"><p class="box-title">{{ chambre.chambre }}</p></div>
+                                <div class="col-md-3"><p class="box-title">{{ chambre.arrangement }}</p></div>
+                                <div class="col-md-3"><p class="box-title">Adulte(s) : {{ chambre.adultes|length }}</p>
+                                </div>
+                                <div class="col-md-3"><p class="box-title">Enfant(s) : {{ chambre.enfants|length }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                    <a href="#">
+                        <div class="icon-box style1 fourty-space">
+                            <i class="soap-icon-hotel blue-bg"></i>
+                            <span class="time pull-right" style="line-height: 19px;">{% if reservation.timbre !=0 %}+ Timbre {{ reservation.timbre }} DT<br>{% endif %}{% if reservation.remise !=0 %}- Remise {{ reservation.remise }} DT{% endif %}</span>
+                            <p class="box-title">Total réservation :
+                                <span class="price">{{ reservation.total }} DT</span></p>
+                        </div>
+                    </a>
+                </div>
+                {% if reservation.reglements|length >0 %}
+                    <div class="col-md-12 notifications ">
+                        <h2>Réglements</h2>
+                        {% for reglement in reservation.reglements %}
+                            <a href="#">
+                                <div class="icon-box style1 fourty-space">
+                                    <i class="soap-icon-longarrow-right red-bg"></i>
+                                    <p class="box-title">
+                                        {{ reglement.piece.showModeReglement }}
+                                        {% if reglement.piece.modeReglement == 'C' %}
+                                            / Echéance {{ reglement.piece.dateEcheance|date('d/m/Y') }}
+                                        {% endif %}
+                                        <span class="price">{{ reglement.montant }} DT</span>
+                                    </p>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

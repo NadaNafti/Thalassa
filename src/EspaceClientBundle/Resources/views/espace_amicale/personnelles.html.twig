@@ -1,0 +1,98 @@
+{% extends 'EspaceClientBundle:base_amicale:base.html.twig' %}
+{% block body %}
+    <div id="dashboard" class="tab-content">
+        <div class="tab-pane fade in active">
+            <h1 class="no-margin skin-color">Liste des personnelles</h1>
+            {{ form_start(form) }}
+            <div class="row form-group">
+                <div class="col-md-3">
+                    <label> &nbsp;</label>
+                    {{ form_widget(form.responsable) }}
+                </div>
+                <div class="col-md-3">
+                    <label>Nom & Prénom</label>
+                    {{ form_widget(form.nomPrenom) }}
+                </div>
+                <div class="col-md-3">
+                    <label>Tel 1</label>
+                    {{ form_widget(form.tel1) }}
+                </div>
+                <div class="col-md-3">
+                    <label>Tel 2</label>
+                    {{ form_widget(form.tel2) }}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <label>Adresse</label>
+                    {{ form_widget(form.adresse) }}
+                </div>
+            </div>
+            {% if form.user is defined %}
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        <label>Email</label>
+                        {{ form_widget(form.user.email) }}
+                        {{ form_errors(form.user.email) }}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Username</label>
+                        {{ form_widget(form.user.username) }}
+                        {{ form_errors(form.user.username) }}
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        {{ form_widget(form.user.plainPassword) }}
+                        {{ form_errors(form.user.plainPassword) }}
+                    </div>
+                </div>
+                <div class="no-display">
+                    {{ form_widget(form.user.groups) }}
+                    {{ form_widget(form.user.Enregistrer) }}
+                </div>
+            {% endif %}
+            <div class="form-group">
+                <button class="btn-medium">Enregistrer</button>
+            </div>
+            {{ form_end(form) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Liste
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered  table-full-width table-condensed ">
+                                <thead>
+                                <tr>
+                                    <th class="center">Profile</th>
+                                    <th class="center">Nom & Prénom</th>
+                                    <th class="center">Email</th>
+                                    <th class="center">Tel 1</th>
+                                    <th class="center">Tel 2</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for client in app.user.client.amicale.clients %}
+                                    <tr class="center">
+                                        <td>{{ client.showProfileAmicale }}</td>
+                                        <td>{{ client.nomPrenom }}</td>
+                                        <td>
+                                            {% if client.user.email is defined %}
+                                                {{ client.user.email }}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ client.tel1 }}</td>
+                                        <td>{{ client.tel2 }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

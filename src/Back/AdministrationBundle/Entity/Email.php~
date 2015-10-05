@@ -40,6 +40,35 @@ class Email
     protected $produits;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="creation_back", type="boolean", nullable=true)
+     */
+    public $creationBack;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="creation_front", type="boolean", nullable=true)
+     */
+    public $creationFront;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="validation", type="boolean", nullable=true)
+     */
+    public $validation;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="annulation", type="boolean", nullable=true)
+     */
+    public $annulation;
+
+    /**
      * Get id
      *
      * @return integer 

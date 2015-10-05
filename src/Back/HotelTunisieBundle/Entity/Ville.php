@@ -10,7 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Ville
  *
  * @ORM\Table("ost_sht_ville")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt",timeAware=false)
  * @ORM\Entity
  */
 class Ville
@@ -76,11 +75,6 @@ class Ville
      * @ORM\Column( type="datetime")
      */
     private $updated;
-
-    /**
-     * @ORM\Column( name="deletedAt",type="datetime",nullable=true)
-     */
-    private $deletedAt;
 
     /**
      * Get id
@@ -229,29 +223,7 @@ class Ville
     {
         return $this->updated;
     }
-
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     * @return Ville
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
-    }
+    
     /**
      * Constructor
      */

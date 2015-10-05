@@ -147,6 +147,7 @@ class Reservation
 
     /**
      * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationVO")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $sousEtats;
 
@@ -155,6 +156,7 @@ class Reservation
      */
     public function __construct()
     {
+        $this->sousEtats = new \Doctrine\Common\Collections\ArrayCollection();
         $this->reglements = new \Doctrine\Common\Collections\ArrayCollection();
         $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
         $this->frontOffice = FALSE;
@@ -712,6 +714,20 @@ class Reservation
     public function getSousEtats()
     {
         return $this->sousEtats;
+    }
+
+    public function getNombrePersonneNonContingent()
+    {
+        $nbr=0;
+        foreach($this->chambres as $ch)
+        {
+            foreach($ch->getOccupants() as $pers)
+            {
+                if(is_null($pers->getChambreContingent()))
+                    $nbr++;
+            }
+        }
+        return $nbr;
     }
 
     public function __toString()

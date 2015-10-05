@@ -1,0 +1,80 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Succès{% endblock %}
+{% block body %}
+    <div id="content_wrapper">
+        <div class="container">
+            <div class="row clearfix pv-50">
+
+                <div class="col-xs-12 col-sm-12 col-md-12 xs-mb">
+                    <div class="white-bg payment-wrapper">
+                        <h2 class="section-title center mb-10">
+                            <span class="text-success">Merci</span>, votre réservation est complète!</h2>
+
+                        <p class="center mb-40">Votre numéro de confirmation est
+                            <span class="text-success text-bold">{{ reservation.id }}<span></span></p>
+
+                        <h3>Informations Personnelles</h3>
+
+                        <div class="bb2 mb-30"></div>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Nom Prénom :</td>
+                                    <td>{{ reservation.nomPrenom }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Téléphone :</td>
+                                    <td>{{ reservation.tel }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email :</td>
+                                    <td>{{ reservation.email }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+                        <h3>Détails réservation</h3>
+
+                        <div class="bb2 mb-30"></div>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Bien-être : {{reservation.typeProduit}}:</td>
+                                </tr>
+                                <tr>
+                                    <td>Nom {{reservation.typeProduit}} :</td>
+                                    <td>{{ reservation.produit }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Centre :</td>
+                                    <td>{{ reservation.centre }} ( {{ reservation.ville }} )</td>
+                                </tr>
+                                <tr>
+                                    <td>Date d'arrivée :</td>
+                                    <td>{{ reservation.dateDebut|date('d/m/Y') }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nombre de personnes :</td>
+                                    <td>{{ reservation.nombrePersonne }}</td>
+                                </tr>
+                                {% if reservation.commentaire is not null %}
+                                    <tr>
+                                        <td>Commentaire :</td>
+                                        <td>{{ reservation.commentaire }}</td>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <td>Montant total :</td>
+                                    <td>{{ reservation.total }}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

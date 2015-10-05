@@ -15,7 +15,13 @@
                 {% endif %}
                 {% if app.user.client is not null %}
                     <a href="{{ path('espace_client_homepage') }}" target="_blank" class="login-modal">
-                        <i class="fa-lock mi"></i>Espace client </a>
+                        <i class="fa-lock mi"></i>Espace client
+                    </a>
+                    {% if app.user.client.amicale is not null and app.user.client.responsable %}
+                        <a href="{{ path('espace_amicale_homepage') }}" target="_blank" class="login-modal">
+                            <i class="fa-lock mi"></i>Espace {{ app.user.client.amicale }}
+                        </a>
+                    {% endif %}
                 {% endif %}
                 <p class="login-modal" style="  cursor: inherit;">
                     <strong>Bienvenue</strong> {{ app.user }}

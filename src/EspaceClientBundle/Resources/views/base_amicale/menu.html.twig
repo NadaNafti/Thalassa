@@ -1,0 +1,11 @@
+<ul class="tabs">
+    <li {% if app.request.get('_route')=='espace_amicale_homepage' %}class="active"{% endif %}>
+        <a href="{{ path('espace_amicale_homepage') }}"><i class="soap-icon-anchor circle"></i>{{ app.user.client.amicale }}</a>
+    </li>
+    <li {% if app.request.get('_route')in ['espace_amicale_personnelles'] %}class="active"{% endif %}>
+        <a href="{{ path('espace_amicale_personnelles') }}"><i class="soap-icon-user circle"></i>Les personnelles</a>
+    </li>
+    <li {% if app.request.get('_route')in ['espace_amicale_reservation_sht','espace_amicale_reservation_sht_details']  %}class="active"{% endif %}>
+        <a href="{{ path('espace_amicale_reservation_sht') }}"><i class="soap-icon-flight-hotel circle"></i>Hôtels en tunisie</a>
+    </li>
+</ul>

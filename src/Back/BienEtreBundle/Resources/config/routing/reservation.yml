@@ -1,2 +1,35 @@
-## YAML Template.
----
+back_bienetre_reservation_liste:
+    path:      /liste/{page}/{etat}/{sort}/{direction}
+    defaults: { _controller: BackBienEtreBundle:Reservation:liste,page:1,etat:1,sort:r.id,direction:desc }
+    
+back_bienetre_reservation_prendreEnCharge:
+    path:      /encharge/{id}
+    defaults: { _controller: BackBienEtreBundle:Reservation:prendreEnCharge }
+
+back_bienetre_reservation_consultation:
+    path:      /consulter/{id}
+    defaults: { _controller: BackBienEtreBundle:Reservation:consulter }
+    
+back_bienetre_reservation_delete:
+    path:      /back_bienetre_reservation_delete/{id}
+    defaults: { _controller: BackBienEtreBundle:Reservation:delete }
+    
+back_bienetre_reservation_remise:
+    path:      /remise/{id}
+    defaults: { _controller: BackBienEtreBundle:Reservation:remise }
+    
+back_bienetre_reservation_annuler:
+    path:      /annuler/{id}
+    defaults: { _controller: BackBienEtreBundle:Reservation:annuler }
+    
+back_bienetre_reservation_validation:
+    path:      /valider/{id}
+    defaults: { _controller: BackBienEtreBundle:Reservation:valider }
+    
+back_bienetre_reservation_add_sousetats:
+    path:     /add_sousetats
+    defaults: { _controller: BackBienEtreBundle:Reservation:addSousEtats }
+
+ajax_reservationBE_to_SousEtats:
+    path:     /ajax_reservationBE_to_SousEtats
+    defaults: { _controller: BackBienEtreBundle:Reservation:ajaxSousEtats }
