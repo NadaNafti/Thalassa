@@ -374,6 +374,7 @@ class ReservationController extends Controller
             }
             $em->persist($reservation->setEtat(9)->setCode(NULL)->setValidated(NULL)->setCommentaire($request->get('commentaire')));
             $em->flush();
+            $this->container->get('mailerservice')->annulation($reservation,'SHT');
             $session->getFlashBag()->add('success', "Réservation a été annullée avec succès ");
         }
         return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
@@ -493,6 +494,7 @@ class ReservationController extends Controller
                 $em->persist($reservation->setEtat(2)->setValidated(new \DateTime())->setCode($this->container->get('reservation')->getCode()));
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre Réservation a été validée avec succès ");
+                $this->container->get('mailerservice')->validation($reservation,'SHT');
                 return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
             } else
                 $session->getFlashBag()->add('info', " Votre Réservation n'a pas été encore validée, reste encore <strong>" . $reservation->getMontantRestant() . " DT </strong> a payé");
