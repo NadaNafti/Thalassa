@@ -79,7 +79,7 @@ class Saison
 
     /**
      * @var integer
-     * @ORM\Column(name="totalContingent", type="integer")
+     * @ORM\Column(name="totalContingent", type="integer",nullable=true)
      */
     private $totalContingent;
 
@@ -572,6 +572,7 @@ class Saison
         $this->arrangements = new \Doctrine\Common\Collections\ArrayCollection();
         $this->delaiAnnulation = 0;
         $this->delaiRetrocession = 0;
+        $this->totalContingent = 0;
         $this->nombrePlace = 0;
         $this->aCompte = 0;
     }
