@@ -136,4 +136,12 @@ class Periode
         if(date('Y-m-d')>= $this->dateDebut->format('Y-m-d') && date('Y-m-d')<= $this->dateFin->format('Y-m-d'))
             return $this->dateDebut->format('d/m/Y').' - '.$this->dateFin->format('d/m/Y');
     }
+
+    public function isBetweenDate($date)
+    {
+        if($this->getDateDebut()->format('Y-m-d') <= $date && $this->getDateFin()->format('Y-m-d') >= $date)
+            return true;
+        else
+            return false;
+    }
 }

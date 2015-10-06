@@ -29,6 +29,12 @@ class ReservationJour
     protected $saison;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Saison")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $saisonContingent;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="jour", type="date")
@@ -164,5 +170,28 @@ class ReservationJour
     public function getLignes()
     {
         return $this->lignes;
+    }
+
+    /**
+     * Set saisonContingent
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Saison $saisonContingent
+     * @return ReservationJour
+     */
+    public function setSaisonContingent(\Back\HotelTunisieBundle\Entity\Saison $saisonContingent = null)
+    {
+        $this->saisonContingent = $saisonContingent;
+
+        return $this;
+    }
+
+    /**
+     * Get saisonContingent
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Saison 
+     */
+    public function getSaisonContingent()
+    {
+        return $this->saisonContingent;
     }
 }

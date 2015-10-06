@@ -29,6 +29,12 @@ class ReservationJour
     protected $saison;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Saison")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $saisonContingent;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="jour", type="date")

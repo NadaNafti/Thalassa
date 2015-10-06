@@ -37,6 +37,7 @@ class Saison
      * 1:Saison
      * 2:Promotion
      * 3:Amicales
+     * 4: Contingent
      *
      * @ORM\Column(name="type", type="integer",nullable=true)
      */
