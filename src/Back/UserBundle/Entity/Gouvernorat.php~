@@ -1,0 +1,57 @@
+<?php
+
+namespace Back\UserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ * Gouvernorat
+ *
+ * @ORM\Table(name="ost_user_gouvernorat")
+ * @ORM\Entity
+ */
+class Gouvernorat
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="libelle", type="string", length=255)
+     */
+    private $libelle;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Pays", inversedBy="gouvernorats", fetch="EAGER")
+     * @ORM\JoinColumn(name="pays_id", referencedColumnName="id")
+     * @ORM\OrderBy({"libelle" = "ASC"}))
+     */
+    private $pays;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=255)
+     */
+    private $slug;
+    
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated;
+}

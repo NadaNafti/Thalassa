@@ -42,7 +42,7 @@ back_hotel_tunisie:
 #FosUserBundle
 back_user:
     resource: "@BackUserBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admin/crm
     
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

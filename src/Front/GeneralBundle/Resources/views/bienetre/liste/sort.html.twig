@@ -1,6 +1,6 @@
 {% set sort=app.request.get('sort') %}
 {% set dir=app.request.get('direction') %}
-{% set action=path('front_bienetre_sort',{'produits':app.request.get('produits'),'name':app.request.get('name'),}) %}
+{% set action=path('front_bienetre_sort',{'produits':app.request.get('produits'),'prixAchat':app.request.get('prixAchat'),}) %}
 <div class="sort-by-wrapper">
 	<div class="sort-by-text mr-15 xs-mb sm-mb" style="white-space: nowrap;">
 		Trier par:
@@ -14,6 +14,14 @@
 				<option value="desc" {% if sort=='p.libelle' and dir=='desc' %}selected {% endif %}>De Z à A</option>
 			</select>
 		</div>
+                {#<div class="sort-option mr-15 xs-mb sm-mb">
+			<input type="hidden" name="sort" value="p.prixAchat">
+			<select class="form-control mySelectBoxClass " name="direction" onchange="submit()">
+				<option value="" selected>Prix</option>
+				<option value="asc" {% if sort=='p.prixAchat' and dir=='asc' %}selected {% endif %}>Du moins cher</option>
+				<option value="desc" {% if sort=='p.prixAchat' and dir=='desc' %}selected {% endif %}>Du plus cher</option>
+			</select>
+		</div>#}
 	</form>
 </div>
 <div class="clear mb-30"></div>

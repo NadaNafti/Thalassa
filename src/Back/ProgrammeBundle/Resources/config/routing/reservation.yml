@@ -37,3 +37,11 @@ back_programmes_reservation_ligne_edit:
 back_programmes_reservation_remise:
     path:     /reservation_remise/{id}
     defaults: { _controller: BackProgrammeBundle:Reservation:remise }
+    
+back_programmes_reservation_add_sousetats:
+    path:     /add_sousetats
+    defaults: { _controller: BackProgrammeBundle:Reservation:addSousEtats }
+
+ajax_reservationPR_to_SousEtats:
+    path:     /ajax_reservationPR_to_SousEtats
+    defaults: { _controller: BackProgrammeBundle:Reservation:ajaxSousEtats }
