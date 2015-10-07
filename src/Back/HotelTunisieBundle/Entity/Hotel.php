@@ -136,7 +136,7 @@ class Hotel
     protected $chaine;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\CommercialBundle\Entity\Fournisseur", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Fournisseur", fetch="EAGER")
      * @ORM\JoinColumn(name="fournisseur_id", referencedColumnName="id")
      * @ORM\OrderBy({"libelle" = "ASC"})
      */
@@ -560,10 +560,10 @@ class Hotel
     /**
      * Set fournisseur
      *
-     * @param \Back\CommercialBundle\Entity\Fournisseur $fournisseur
+     * @param \Back\UserBundle\Entity\Fournisseur $fournisseur
      * @return Hotel
      */
-    public function setFournisseur(\Back\CommercialBundle\Entity\Fournisseur $fournisseur = NULL)
+    public function setFournisseur(\Back\UserBundle\Entity\Fournisseur $fournisseur = NULL)
     {
         $this->fournisseur = $fournisseur;
         return $this;
@@ -572,7 +572,7 @@ class Hotel
     /**
      * Get fournisseur
      *
-     * @return \Back\CommercialBundle\Entity\Fournisseur
+     * @return \Back\UserBundle\Entity\Fournisseur
      */
     public function getFournisseur()
     {

@@ -1,0 +1,67 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Ajouter/Editer fournisseur{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-2",null,form.type,false) }}
+                            {{ formulaire.input("col-md-3","Libellé",form.libelle,false) }}
+                            {{ formulaire.input("col-md-3 alternative no-display","Nom alternatif(commercial, marque...)",form.nomAlternatif,false) }}
+                            {{ formulaire.input("col-md-4","Adresse",form.adresse,false) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-3","Pays",form.pays,false) }}
+                            {{ formulaire.input("col-md-3","Gouvernorat",form.gouvernorat,false) }}
+                            {{ formulaire.input("col-md-3","Ville",form.ville,false) }}
+                            {{ formulaire.input("col-md-3","Code postal",form.codePostal,false) }}
+                        </div>
+                        <div class="row" id="telRow">
+                            {{ formulaire.input("col-md-2","Tel pro",form.tel1,false) }}
+                            {{ formulaire.input("col-md-2","Tel perso",form.tel2,false) }}
+                            {{ formulaire.input("col-md-2","Fax",form.fax,false) }}
+                            {{ formulaire.input("col-md-3","Email",form.email,false) }}
+                            {{ formulaire.input("col-md-3","Site web",form.siteWeb,false) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-3","Matricule fiscale",form.matriculeFiscale,false) }}
+                            {{ formulaire.input("col-md-3","Registre commercial",form.registreCommercie,false) }}
+                            {{ formulaire.input("col-md-3","Code douane",form.codeDouane,false) }}
+                            {{ formulaire.input("col-md-3","",form.tva,false) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-6","Forme juridique",form.formeJuridique,false) }}
+                            {{ formulaire.file("col-md-6","Logo",form.file,false) }}
+                        </div>
+                        {{ formulaire.submit("Enregistrer") }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block jquery %}
+    <script>
+        $(document).ready(function(){
+            $('#back_userbundle_fournisseur_type_0').on('change',function(){
+                if($('.alternative').hasClass("no-display"))
+                    $('.alternative').removeClass("no-display")
+            })
+            $('#back_userbundle_fournisseur_type_1').on('change',function(){
+                if(!$('.alternative').hasClass("no-display"))
+                    $('.alternative').addClass("no-display")
+            })
+        })
+    </script>
+{% endblock %}

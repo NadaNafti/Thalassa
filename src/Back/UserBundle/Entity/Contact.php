@@ -1,0 +1,456 @@
+<?php
+
+namespace Back\UserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Contact
+ *
+ * @ORM\Table(name="ost_user_contact")
+ * @ORM\Entity(repositoryClass="Back\UserBundle\Entity\Repository\ContactRepository")
+ */
+class Contact {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="titreCivilite", type="integer", length=255, nullable=true)
+     */
+    private $titreCivilite;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fonction", type="string", length=255, nullable=true)
+     */
+    private $fonction;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telPro", type="string", length=255, nullable=true)
+     */
+    private $telPro;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telPerso", type="string", length=255, nullable=true)
+     */
+    private $telPerso;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fax", type="string", length=255, nullable=true)
+     */
+    private $fax;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="text", nullable=true)
+     */
+    private $adresse;
+
+    /**
+     * @var integer
+     * 
+     * @ORM\Column(name="codePostal", type="integer", nullable=true)
+     */
+    private $codePostal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string", nullable=true)
+     */
+    private $ville;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gouvernorat", type="string", nullable=true)
+     */
+    private $gouvernorat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pays", type="string", nullable=true)
+     */
+    private $pays;
+
+    /**
+     * @var date
+     *
+     * @ORM\Column(name="dateNaissance", type="date", nullable=true)
+     */
+    private $dateNaissance;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Fournisseur", inversedBy="contacts")
+     * @ORM\JoinColumn(name="fournisseur_id", referencedColumnName="id", nullable=true)
+     */
+    protected $fournisseur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="contacts")
+     * @ORM\JoinColumn(name="client_id", referencedColumnName="id", nullable=true)
+     */
+    protected $client;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Contact
+     */
+    public function setEmail($email) {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail() {
+        return $this->email;
+    }
+
+    /**
+     * Set fax
+     *
+     * @param string $fax
+     * @return Contact
+     */
+    public function setFax($fax) {
+        $this->fax = $fax;
+
+        return $this;
+    }
+
+    /**
+     * Get fax
+     *
+     * @return string 
+     */
+    public function getFax() {
+        return $this->fax;
+    }
+
+    /**
+     * Set fonction
+     *
+     * @param string $fonction
+     * @return Contact
+     */
+    public function setFonction($fonction) {
+        $this->fonction = $fonction;
+
+        return $this;
+    }
+
+    /**
+     * Get fonction
+     *
+     * @return string 
+     */
+    public function getFonction() {
+        return $this->fonction;
+    }
+
+    /**
+     * Set fournisseur
+     *
+     * @param \Back\UserBundle\Entity\Fournisseur $fournisseur
+     * @return Contact
+     */
+    public function setFournisseur(\Back\UserBundle\Entity\Fournisseur $fournisseur = null) {
+        $this->fournisseur = $fournisseur;
+
+        return $this;
+    }
+
+    /**
+     * Get fournisseur
+     *
+     * @return \Back\UserBundle\Entity\Fournisseur 
+     */
+    public function getFournisseur() {
+        return $this->fournisseur;
+    }
+
+    public function showTitreCivilite() {
+        switch ($this->titreCivilite) {
+            case '1': return 'Madame';
+            case '2': return 'Monsieur';
+            case '3': return 'Mademoiselle';
+            case '4': return 'Maître';
+            case '5': return 'Docteur';
+        }
+    }
+
+
+    /**
+     * Set titreCivilite
+     *
+     * @param integer $titreCivilite
+     * @return Contact
+     */
+    public function setTitreCivilite($titreCivilite)
+    {
+        $this->titreCivilite = $titreCivilite;
+
+        return $this;
+    }
+
+    /**
+     * Get titreCivilite
+     *
+     * @return integer 
+     */
+    public function getTitreCivilite()
+    {
+        return $this->titreCivilite;
+    }
+
+    /**
+     * Set telPro
+     *
+     * @param string $telPro
+     * @return Contact
+     */
+    public function setTelPro($telPro)
+    {
+        $this->telPro = $telPro;
+
+        return $this;
+    }
+
+    /**
+     * Set adresse
+     *
+     * @param string $adresse
+     * @return Contact
+     */
+    public function setAdresse($adresse)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return string 
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
+    /**
+     * Set codePostal
+     *
+     * @param integer $codePostal
+     * @return Contact
+     */
+    public function setCodePostal($codePostal)
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    /**
+     * Get codePostal
+     *
+     * @return integer 
+     */
+    public function getCodePostal()
+    {
+        return $this->codePostal;
+    }
+
+    /**
+     * Set ville
+     *
+     * @param string $ville
+     * @return Contact
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return string 
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set dateNaissance
+     *
+     * @param \DateTime $dateNaissance
+     * @return Contact
+     */
+    public function setDateNaissance($dateNaissance)
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    /**
+     * Get dateNaissance
+     *
+     * @return \DateTime 
+     */
+    public function getDateNaissance()
+    {
+        return $this->dateNaissance;
+    }
+
+    /**
+     * Set client
+     *
+     * @param \Back\UserBundle\Entity\Client $client
+     * @return Contact
+     */
+    public function setClient(\Back\UserBundle\Entity\Client $client = null)
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return \Back\UserBundle\Entity\Client 
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Get telPro
+     *
+     * @return string 
+     */
+    public function getTelPro()
+    {
+        return $this->telPro;
+    }
+
+    /**
+     * Set telPerso
+     *
+     * @param string $telPerso
+     * @return Contact
+     */
+    public function setTelPerso($telPerso)
+    {
+        $this->telPerso = $telPerso;
+
+        return $this;
+    }
+
+    /**
+     * Get telPerso
+     *
+     * @return string 
+     */
+    public function getTelPerso()
+    {
+        return $this->telPerso;
+    }
+    
+
+    /**
+     * Set gouvernorat
+     *
+     * @param string $gouvernorat
+     * @return Contact
+     */
+    public function setGouvernorat($gouvernorat)
+    {
+        $this->gouvernorat = $gouvernorat;
+
+        return $this;
+    }
+
+    /**
+     * Get gouvernorat
+     *
+     * @return string 
+     */
+    public function getGouvernorat()
+    {
+        return $this->gouvernorat;
+    }
+
+    /**
+     * Set pays
+     *
+     * @param string $pays
+     * @return Contact
+     */
+    public function setPays($pays)
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * Get pays
+     *
+     * @return string 
+     */
+    public function getPays()
+    {
+        return $this->pays;
+    }
+}
