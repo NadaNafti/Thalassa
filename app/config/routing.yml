@@ -5,7 +5,7 @@ back_billetterie_maritime:
 back_bien_etre:
     resource: "@BackBienEtreBundle/Resources/config/routing.yml"
     prefix:   /admin/bien_etre
-
+    
 espace_client:
     resource: "@EspaceClientBundle/Resources/config/routing.yml"
     prefix:   /espace_client
@@ -34,7 +34,7 @@ back_hotel_tunisie:
 #FosUserBundle
 back_user:
     resource: "@BackUserBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admin/crm
     
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

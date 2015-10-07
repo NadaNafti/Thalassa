@@ -1,0 +1,23 @@
+back_crm_fournisseur_liste:
+    path:     /liste/{page}
+    defaults: { _controller: BackUserBundle:CRMFournisseur:liste,page:1 }
+
+back_crm_fournisseur_ajouter:
+    path:     /ajouter/{id}
+    defaults: { _controller: BackUserBundle:CRMFournisseur:ajouter,id:null }
+    
+back_crm_fournisseur_details:
+    path:      /details/{id}
+    defaults: { _controller: BackUserBundle:CRMFournisseur:details }
+    
+back_crm_fournisseur_delete:
+    path:     /supprimerClient/{id}
+    defaults: { _controller: BackUserBundle:CRMFournisseur:delete }
+
+back_crm_fournisseur_contacts:
+    path:     /contactsClient/{id}/{page}
+    defaults: { _controller: BackUserBundle:CRMFournisseur:contacts,id:null,page:1 }
+    
+back_crm_fournisseur_contact_delete:
+    path:     /supprimerContactFournisseur/{id}
+    defaults: { _controller: BackUserBundle:CRMFournisseur:deleteContact }

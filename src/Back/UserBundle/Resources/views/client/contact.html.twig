@@ -1,0 +1,100 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Liste des contacts clients{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            {{ formulaire.select2("col-md-3","Client",form.client,false) }}
+                            {{ formulaire.input("col-md-3","Titre de civilité",form.titreCivilite,false) }}
+                            {{ formulaire.input("col-md-3","Fonction",form.fonction,false) }}
+                            {{ formulaire.input("col-md-3","Date de naissance",form.dateNaissance,false) }}
+                        </div>
+                        <div class="row" id="telRow">
+                            {{ formulaire.input("col-md-3","Email",form.email,false) }}
+                            {{ formulaire.input("col-md-3","Tel pro",form.telPro,false) }}
+                            {{ formulaire.input("col-md-3","Tel perso",form.telPerso,false) }}
+                            {{ formulaire.input("col-md-3","Fax",form.fax,false) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-4","Adresse",form.adresse,false) }}
+                            {{ formulaire.input("col-md-2","Pays",form.pays,false) }}
+                            {{ formulaire.input("col-md-2","Gouvernorat",form.gouvernorat,false) }}
+                            {{ formulaire.input("col-md-2","Ville",form.ville,false) }}
+                            {{ formulaire.input("col-md-2","Code postal",form.codePostal,false) }}
+                        </div>
+                        {{ formulaire.submit("Enregistrer") }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Nombre de contacts clients : {{ contacts.getTotalItemCount }}
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
+                        <thead>
+                            <tr class="center">
+                                <th class="center">ID</th>
+                                <th class="center">Client</th>
+                                <th class="center">Fonction</th>
+                                <th class="center">Adresse</th>
+                                <th class="center">Code postal</th>
+                                <th class="center">Ville</th>
+                                <th class="center">Gouvernorat</th>
+                                <th class="center">Pays</th>
+                                <th class="center">Tel Pro</th>
+                                <th class="center">Tel Perso</th>
+                                <th class="center">Fax</th>
+                                <th class="center" >Email</th>
+                                <th class="center">Date de naissance</th>
+                                <th class="center" >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contact in contacts %}
+                                <tr class="center">
+                                    <td>{{ contact.id }}</td>
+                                    <td>{{ contact.showTitreCivilite }} {{ contact.client }}</td>
+                                    <td>{{ contact.fonction }}</td>
+                                    <td>{{ contact.adresse }}</td>
+                                    <td>{{ contact.codePostal }}</td>
+                                    <td>{{ contact.ville }}</td>
+                                    <td>{{ contact.gouvernorat }}</td>
+                                    <td>{{ contact.pays }}</td>
+                                    <td>{{ contact.telPro }}</td>
+                                    <td>{{ contact.telPerso }}</td>
+                                    <td>{{ contact.fax }}</td>
+                                    <td>{{ contact.email }}</td>
+                                    <td>{{ contact.dateNaissance|date('d-m-y') }}</td>
+                                    <td class="TableAction">
+                                        {{ macros.tableEdit(path('back_crm_client_contacts',{'id':contact.id})) }}
+                                        {{ macros.tableDelete(path('back_crm_client_contact_delete',{'id':contact.id})) }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="navigation">
+                        {{ knp_pagination_render(contacts) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

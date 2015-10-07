@@ -1,0 +1,23 @@
+back_crm_client_liste:
+    path:     /liste/{page}
+    defaults: { _controller: BackUserBundle:CRMClient:liste,page:1 }
+
+back_crm_client_ajouter:
+    path:     /ajouter/{id}
+    defaults: { _controller: BackUserBundle:CRMClient:ajouter,id:null }
+    
+back_crm_client_details:
+    path:      /details/{id}
+    defaults: { _controller: BackUserBundle:CRMClient:details }
+    
+back_crm_client_delete:
+    path:     /supprimerClient/{id}
+    defaults: { _controller: BackUserBundle:CRMClient:delete }
+    
+back_crm_client_contacts:
+    path:     /contactsClient/{id}/{page}
+    defaults: { _controller: BackUserBundle:CRMClient:contacts,id:null,page:1 }
+    
+back_crm_client_contact_delete:
+    path:     /supprimerContactClient/{id}
+    defaults: { _controller: BackUserBundle:CRMClient:deleteContact }

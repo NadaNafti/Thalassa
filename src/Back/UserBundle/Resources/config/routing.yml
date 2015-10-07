@@ -1,3 +1,7 @@
-back_user_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: BackUserBundle:Default:index }
+back_crm_client:
+    resource: "@BackUserBundle/Resources/config/routing/client.yml"
+    prefix:   /client
+    
+back_crm_fournisseur:
+    resource: "@BackUserBundle/Resources/config/routing/fournisseur.yml"
+    prefix:   /fournisseur
