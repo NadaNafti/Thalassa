@@ -162,7 +162,10 @@
                                     {% if reservation.client.passager %}
                                         <span style="color:firebrick">Passager</span>
                                     {% endif %}
-                                    <span style="color:red">{{ reservation.client.amicale }}</span>
+                                    <span style="color:red">{{ reservation.amicale }}</span>
+                                    {% if reservation.responsableAmicale is not null %}
+                                    <p> Validée par <span style="color:firebrick">{{ reservation.responsableAmicale }}</span> le <span style="color:firebrick">{{ reservation.validatedAmicale|date('d/m/Y h:i') }}</span></p>
+                                    {% endif %}
                                 </td>
                                 <td>
                                     {{ reservation.showEtat }}
@@ -172,8 +175,12 @@
                                         </a>
                                     {% endif %}
                                     {{ macros.bouttonModal(reservation.id,"#responsive",'fa-plus','btn-trello addEtat','Ajouter un sous-état') }}
-                                    <br>
-                                    {% if reservation.responsable is not null %}P.E.C <span style="color:red"> {{ reservation.responsable }}</span>{% endif %}
+                                    {% if reservation.amicale is not null and reservation.responsableAmicale is null %}
+                                        <p>En attente du validation par le Responsable amicale</p>
+                                    {% endif %}
+                                    {% if reservation.responsable is not null %}
+                                        <p>P.E.C <span style="color:red"> {{ reservation.responsable }}</span></p>
+                                    {% endif %}
                                 </td>
                                 <td>
                                     {% if reservation.surDemande %}

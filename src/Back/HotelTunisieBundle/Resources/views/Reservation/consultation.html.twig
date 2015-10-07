@@ -65,7 +65,6 @@
         </div>
         <div class="col-md-6">
             <h5 class="center">N° : {{ reservation.id }}</h5>
-
             <h3 class="center">{{ reservation.hotel }}</h3>
             <h5 class="center">{{ getStars(reservation.hotel.getStars)|raw }}</h5>
             {% if reservation.surDemande %}
@@ -75,6 +74,15 @@
             {% if reservation.etat==2 %}
                 <h4 class="center">Num voucher :
                     <a target="_blank" href="{{ path('voucher_reservation',{'id':reservation.id}) }}">{{ NumVoucher(reservation.id) }}</a>, le {{ reservation.validated|date('d/m/Y h:i') }}
+                </h4>
+            {% endif %}
+            {% if reservation.amicale is not null %}
+                <h4 class="center">
+                    {% if reservation.responsableAmicale is not null %}
+                        Validée par <span style="color:firebrick">{{ reservation.responsableAmicale }}</span> le <span style="color:firebrick">{{ reservation.validatedAmicale|date('d/m/Y h:i') }}</span>
+                    {% else %}
+                        <span style="color:firebrick">En attente du validation par le Responsable amicale</span>
+                    {% endif %}
                 </h4>
             {% endif %}
             <h5 class="center">{% if reservation.responsable is not null %} Prise en charge par : {{ reservation.responsable }} {% endif %}</h5>

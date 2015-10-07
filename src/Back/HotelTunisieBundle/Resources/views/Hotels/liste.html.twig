@@ -121,8 +121,10 @@
                                     <td>
                                         {% set saison=hotel.getSaisonPromotionByDate('now'|date('Y-m-d'),true) %}
                                         {% if saison is not null %}
-                                            <a href="{% if saison.type is null %}{{ path('saison_base',{'id':hotel.id}) }}{% else %}{{ path('GeneralSaison',{'id':saison.id}) }}{% endif %}" class="tooltips" title="{% if saison.type in [1,2] %}{% for periode in saison.periodes %}{{ periode.getCurrentPeriode }}{% endfor %}{% else %}Saison de base{% endif %}">
-                                                <span class="label label-sm {% if saison.type == 1 %}label-inverse{% elseif saison.type==2 %}label-teal{% else %}label-warning{% endif %}  ">
+                                            <a href="{% if saison.type is null %}{{ path('saison_base',{'id':hotel.id}) }}{% else %}{{ path('GeneralSaison',{'id':saison.id}) }}{% endif %}"
+                                               class="tooltips"
+                                               title="{% if saison.type in [1,2,3,4] %}{% for periode in saison.periodes %}{{ periode.getCurrentPeriode }}{% endfor %}{% if saison.type==4 %}  {{ saison.totalContingent }}_chambres{% endif %}{% else %}Saison de base{% endif %}">
+                                                <span class="label label-sm {% if saison.type == 1 %}label-inverse{% elseif saison.type==2 %}label-teal{% elseif saison.type==4 %}label-info{% else %}label-warning{% endif %}  ">
                                                     {{ saison }}
                                                 </span>
                                             </a>

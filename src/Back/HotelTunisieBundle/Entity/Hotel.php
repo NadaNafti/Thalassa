@@ -1067,7 +1067,7 @@ class Hotel
             return $this->getSaisonPromotionByDate($date);
         $currentSaison = $this->saisonBase;
         $Verif = FALSE;
-        foreach ($this->saisons as $saison) {
+        foreach ($this->saisons as $saison) {//get saison amicale
             if ($saison->getType() == 3) {
                 foreach ($saison->getPeriodes() as $periode) {
                     if ($periode->getDateDebut()->format('Y-m-d') <= $date && $periode->getDateFin()->format('Y-m-d') >= $date && $saison->getId() > $currentSaison->getId()) {
@@ -1092,8 +1092,11 @@ class Hotel
         $currentSaison = $this->saisonBase;
         foreach ($this->saisons as $saison) {
             foreach ($saison->getPeriodes() as $periode) {
-                if (($periode->getDateDebut()->format('Y-m-d') <= $date && $periode->getDateFin()->format('Y-m-d') >= $date && $saison->getId() > $currentSaison->getId() && $saison->getType() != 3 && $saison->getType() != 4) || ($saison->getType() == 4 && $contingent))
-                    $currentSaison = $saison;
+                if ($periode->isBetweenDate($date) && $saison->getId() > $currentSaison->getId() )
+                {
+                    if(($saison->getType() != 3 && $saison->getType() != 4) || ($saison->getType() == 4 && $contingent))
+                        $currentSaison = $saison;
+                }
             }
         }
         return $currentSaison;
@@ -1104,7 +1107,7 @@ class Hotel
         $currentSaison = $this->saisonBase;
         foreach ($this->saisons as $saison) {
             foreach ($saison->getPeriodes() as $periode) {
-                if ($periode->getDateDebut()->format('Y-m-d') <= $date && $periode->getDateFin()->format('Y-m-d') >= $date && $saison->getId() > $currentSaison->getId() && $saison->getType() == 1)
+                if ($periode->isBetweenDate($date) && $saison->getId() > $currentSaison->getId() && $saison->getType() == 1)
                     $currentSaison = $saison;
             }
         }
