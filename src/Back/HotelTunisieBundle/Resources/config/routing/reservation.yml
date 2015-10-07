@@ -77,3 +77,20 @@ renotifier_hotel:
 reservation_add_new_client:
     path:     /add_new_client
     defaults: { _controller: BackHotelTunisieBundle:Reservation:addNewClient }
+
+#Modification Reservation
+reservationSHT_back_delete_chambre:
+    path:     /consulter/{id}/delete_chambre
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:deleteChambre }
+
+reservationSHT_back_reseidents:
+    path:     /consulter/{id}/residents
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:modifierResidents }
+
+reservationSHT_back_add_chambres:
+    path:     /consulter/{id}/ajouter_chambres
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:ajouterChambre }
+
+reservationSHT_back_add_chambres_details:
+    path:     /consulter/{id}/ajouter_chambres/details
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:ajouterChambreDetails }
