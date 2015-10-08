@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Contact
  *
- * @ORM\Table(name="ost_user_contact")
+ * @ORM\Table(name="ost_contact")
  * @ORM\Entity(repositoryClass="Back\UserBundle\Entity\Repository\ContactRepository")
  */
 class Contact {
@@ -24,30 +24,37 @@ class Contact {
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nomPrenom", type="string", length=255)
+     */
+    private $nomPrenom;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="titreCivilite", type="integer", length=255, nullable=true)
+     * @ORM\Column(name="titreCivilite", type="integer", length=255)
      */
     private $titreCivilite;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fonction", type="string", length=255, nullable=true)
+     * @ORM\Column(name="fonction", type="string", length=255)
      */
     private $fonction;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telPro", type="string", length=255, nullable=true)
+     * @ORM\Column(name="telPro", type="string", length=255)
      */
     private $telPro;
 
@@ -68,37 +75,36 @@ class Contact {
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="text", nullable=true)
+     * @ORM\Column(name="adresse", type="text")
      */
     private $adresse;
 
     /**
      * @var integer
      * 
-     * @ORM\Column(name="codePostal", type="integer", nullable=true)
+     * @ORM\Column(name="codePostal", type="integer")
      */
     private $codePostal;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ville", type="string", nullable=true)
+     * @ORM\Column(name="ville", type="string")
      */
     private $ville;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="gouvernorat", type="string", nullable=true)
-     */
-    private $gouvernorat;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pays", type="string", nullable=true)
+     * @ORM\Column(name="gouvernorat", type="string")
      */
-    private $pays;
+    private $gouvernorat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Pays")
+     * @ORM\OrderBy({"libelle" = "ASC"})
+     */
+    protected $pays;
 
     /**
      * @var date
@@ -109,13 +115,11 @@ class Contact {
 
     /**
      * @ORM\ManyToOne(targetEntity="Fournisseur", inversedBy="contacts")
-     * @ORM\JoinColumn(name="fournisseur_id", referencedColumnName="id", nullable=true)
      */
     protected $fournisseur;
 
     /**
      * @ORM\ManyToOne(targetEntity="Client", inversedBy="contacts")
-     * @ORM\JoinColumn(name="client_id", referencedColumnName="id", nullable=true)
      */
     protected $client;
 
@@ -222,15 +226,13 @@ class Contact {
         }
     }
 
-
     /**
      * Set titreCivilite
      *
      * @param integer $titreCivilite
      * @return Contact
      */
-    public function setTitreCivilite($titreCivilite)
-    {
+    public function setTitreCivilite($titreCivilite) {
         $this->titreCivilite = $titreCivilite;
 
         return $this;
@@ -241,8 +243,7 @@ class Contact {
      *
      * @return integer 
      */
-    public function getTitreCivilite()
-    {
+    public function getTitreCivilite() {
         return $this->titreCivilite;
     }
 
@@ -252,8 +253,7 @@ class Contact {
      * @param string $telPro
      * @return Contact
      */
-    public function setTelPro($telPro)
-    {
+    public function setTelPro($telPro) {
         $this->telPro = $telPro;
 
         return $this;
@@ -265,8 +265,7 @@ class Contact {
      * @param string $adresse
      * @return Contact
      */
-    public function setAdresse($adresse)
-    {
+    public function setAdresse($adresse) {
         $this->adresse = $adresse;
 
         return $this;
@@ -277,8 +276,7 @@ class Contact {
      *
      * @return string 
      */
-    public function getAdresse()
-    {
+    public function getAdresse() {
         return $this->adresse;
     }
 
@@ -288,8 +286,7 @@ class Contact {
      * @param integer $codePostal
      * @return Contact
      */
-    public function setCodePostal($codePostal)
-    {
+    public function setCodePostal($codePostal) {
         $this->codePostal = $codePostal;
 
         return $this;
@@ -300,8 +297,7 @@ class Contact {
      *
      * @return integer 
      */
-    public function getCodePostal()
-    {
+    public function getCodePostal() {
         return $this->codePostal;
     }
 
@@ -311,8 +307,7 @@ class Contact {
      * @param string $ville
      * @return Contact
      */
-    public function setVille($ville)
-    {
+    public function setVille($ville) {
         $this->ville = $ville;
 
         return $this;
@@ -323,8 +318,7 @@ class Contact {
      *
      * @return string 
      */
-    public function getVille()
-    {
+    public function getVille() {
         return $this->ville;
     }
 
@@ -334,8 +328,7 @@ class Contact {
      * @param \DateTime $dateNaissance
      * @return Contact
      */
-    public function setDateNaissance($dateNaissance)
-    {
+    public function setDateNaissance($dateNaissance) {
         $this->dateNaissance = $dateNaissance;
 
         return $this;
@@ -346,8 +339,7 @@ class Contact {
      *
      * @return \DateTime 
      */
-    public function getDateNaissance()
-    {
+    public function getDateNaissance() {
         return $this->dateNaissance;
     }
 
@@ -357,8 +349,7 @@ class Contact {
      * @param \Back\UserBundle\Entity\Client $client
      * @return Contact
      */
-    public function setClient(\Back\UserBundle\Entity\Client $client = null)
-    {
+    public function setClient(\Back\UserBundle\Entity\Client $client = null) {
         $this->client = $client;
 
         return $this;
@@ -369,8 +360,7 @@ class Contact {
      *
      * @return \Back\UserBundle\Entity\Client 
      */
-    public function getClient()
-    {
+    public function getClient() {
         return $this->client;
     }
 
@@ -379,8 +369,7 @@ class Contact {
      *
      * @return string 
      */
-    public function getTelPro()
-    {
+    public function getTelPro() {
         return $this->telPro;
     }
 
@@ -390,8 +379,7 @@ class Contact {
      * @param string $telPerso
      * @return Contact
      */
-    public function setTelPerso($telPerso)
-    {
+    public function setTelPerso($telPerso) {
         $this->telPerso = $telPerso;
 
         return $this;
@@ -402,11 +390,9 @@ class Contact {
      *
      * @return string 
      */
-    public function getTelPerso()
-    {
+    public function getTelPerso() {
         return $this->telPerso;
     }
-    
 
     /**
      * Set gouvernorat
@@ -414,8 +400,7 @@ class Contact {
      * @param string $gouvernorat
      * @return Contact
      */
-    public function setGouvernorat($gouvernorat)
-    {
+    public function setGouvernorat($gouvernorat) {
         $this->gouvernorat = $gouvernorat;
 
         return $this;
@@ -426,18 +411,38 @@ class Contact {
      *
      * @return string 
      */
-    public function getGouvernorat()
-    {
+    public function getGouvernorat() {
         return $this->gouvernorat;
+    }
+
+    /**
+     * Set nomPrenom
+     *
+     * @param string $nomPrenom
+     * @return Contact
+     */
+    public function setNomPrenom($nomPrenom) {
+        $this->nomPrenom = $nomPrenom;
+
+        return $this;
+    }
+
+    /**
+     * Get nomPrenom
+     *
+     * @return string 
+     */
+    public function getNomPrenom() {
+        return $this->nomPrenom;
     }
 
     /**
      * Set pays
      *
-     * @param string $pays
+     * @param \Back\HotelTunisieBundle\Entity\Pays $pays
      * @return Contact
      */
-    public function setPays($pays)
+    public function setPays(\Back\HotelTunisieBundle\Entity\Pays $pays = null)
     {
         $this->pays = $pays;
 
@@ -447,7 +452,7 @@ class Contact {
     /**
      * Get pays
      *
-     * @return string 
+     * @return \Back\HotelTunisieBundle\Entity\Pays 
      */
     public function getPays()
     {

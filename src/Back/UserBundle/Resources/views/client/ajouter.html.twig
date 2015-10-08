@@ -1,5 +1,5 @@
 {% extends ":Back:base.html.twig" %}
-{% block title %}Ajouter/Editer client{% endblock %}
+{% block title %}Gérer client{% endblock %}
 {% block topbody %}   
     {{ parent() }}
     <li>
@@ -10,17 +10,20 @@
     <div class="row">
         <div class="col-md-12">
             <div class="tabbable">
+                {% include 'BackUserBundle:client/profil:menu.html.twig' %}
                 <div class="panel panel-default">
                     <div class="panel-body">
                         {{ form_start(form) }}
                         <div class="row">
                             {{ formulaire.input("col-md-2",null,form.type,false) }}
-                            {{ formulaire.input("col-md-3","Nom & Prénom/Nom du tiers",form.nomPrenom,false) }}
+                            {{ formulaire.input("col-md-3","Nom & Prénom/Intitulé",form.nomPrenom,false) }}
                             {{ formulaire.input("col-md-3 alternative no-display","Nom alternatif(commercial, marque...)",form.nomAlternatif,false) }}
-                            {{ formulaire.input("col-md-4","Adresse",form.adresse,false) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.input("col-md-3","Pays",form.pays,false) }}
+                            {{ formulaire.input("col-md-12","Adresse",form.adresse,false) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.select2("col-md-3","Pays",form.pays,false) }}
                             {{ formulaire.input("col-md-3","Gouvernorat",form.gouvernorat,false) }}
                             {{ formulaire.input("col-md-3","Ville",form.ville,false) }}
                             {{ formulaire.input("col-md-3","Code postal",form.codePostal,false) }}
@@ -40,7 +43,7 @@
                         </div>
                         <div class="row">
                             {{ formulaire.input("col-md-6","Forme juridique",form.formeJuridique,false) }}
-                            {{ formulaire.file("col-md-6","Logo",form.file,false) }}
+                            {{ formulaire.file("col-md-6","Logo/Photo",form.file,false) }}
                         </div>
                         {{ formulaire.submit("Enregistrer") }}
                         {{ form_end(form) }}

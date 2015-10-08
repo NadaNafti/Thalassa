@@ -6,9 +6,19 @@ back_crm_client_ajouter:
     path:     /ajouter/{id}
     defaults: { _controller: BackUserBundle:CRMClient:ajouter,id:null }
     
-back_crm_client_details:
-    path:      /details/{id}
-    defaults: { _controller: BackUserBundle:CRMClient:details }
+back_crm_client_profil:
+    path:      /profil/{id}
+    defaults: { _controller: BackUserBundle:CRMClient:profil }
+    
+back_crm_client_profil_contact:
+    path:     /profil/{id}/contact/{id2}/{page}
+    defaults: { _controller: BackUserBundle:CRMClient:profilContact,id2:null,page:1 }
+    requirements:
+        id:  \d+
+    
+back_crm_client_profil_contact_delete:
+    path:      /supprimer_profil_contact/{id}
+    defaults: { _controller: BackUserBundle:CRMClient:deleteProfilContact,id:null,page:1 }
     
 back_crm_client_delete:
     path:     /supprimerClient/{id}

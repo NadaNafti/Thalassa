@@ -26,15 +26,13 @@
                                 <th class="center">Nom alternatif</th>
                                 <th class="center">Matricule fiscale</th>
                                 <th class="center">Registre commercial</th>
-                                <th class="center" >Code douane</th>
                                 <th class="center" >Assujetti à la tva</th>
                                 <th class="center" >Forme juridique</th>
-                                <th class="center" >Logo</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for client in clients %}
+                            {% for client in clients if not client.passager %}
                                 <tr class="center">
                                     <td>{{ client.id }}</td>
                                     <td>{{ client.nomPrenom }}</td>
@@ -42,17 +40,11 @@
                                     <td>{{ client.nomAlternatif }}</td>
                                     <td>{{ client.matriculeFiscale }}</td>
                                     <td>{{ client.registreCommercie }}</td>
-                                    <td>{{ client.codeDouane }}</td>
                                     <td>{{ client.showTva }}</td>
                                     <td>{{ client.showFormeJuridique }}</td>
-                                    <td>
-                                        {% if client.url is not null %}
-                                            <img src="{{ asset(asset(client.getAssetPath)) }}" class="img-responsive" width="50"  height="50">
-                                        {% endif %}
-                                    </td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            {{ macros.boutton(path('back_crm_client_details',{'id':client.id}),'fa-eye','btn-dark-grey','Détails client') }}
+                                            {{ macros.boutton(path('back_crm_client_profil',{'id':client.id}),'fa-eye','btn-dark-grey','Détails client') }}
                                             {{ macros.tableEdit(path('back_crm_client_ajouter',{'id':client.id})) }}
                                             {{ macros.tableDelete(path('back_crm_client_delete',{'id':client.id})) }}
                                         </div>

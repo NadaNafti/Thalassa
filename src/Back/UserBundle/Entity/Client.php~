@@ -118,11 +118,10 @@ class Client {
     private $gouvernorat;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pays", type="string", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Pays")
+     * @ORM\OrderBy({"libelle" = "ASC"})
      */
-    private $pays;
+    protected $pays;
 
     /**
      * @var string
@@ -255,7 +254,7 @@ class Client {
     }
 
     public function getDirectory() {
-        return 'uploads/Clients';
+        return 'uploads/crm/clients';
     }
 
     public function getAssetPath() {
@@ -1084,9 +1083,9 @@ class Client {
 
     public function showTva() {
         if ($this->tva == 1) {
-            return 'oui';
+            return 'Oui';
         }
-        return 'non';
+        return 'Non';
     }
 
     /**
@@ -1138,27 +1137,6 @@ class Client {
      */
     public function getGouvernorat() {
         return $this->gouvernorat;
-    }
-
-    /**
-     * Set pays
-     *
-     * @param string $pays
-     * @return Client
-     */
-    public function setPays($pays) {
-        $this->pays = $pays;
-
-        return $this;
-    }
-
-    /**
-     * Get pays
-     *
-     * @return string 
-     */
-    public function getPays() {
-        return $this->pays;
     }
 
     /**

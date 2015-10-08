@@ -38,7 +38,7 @@ class ClientFullType extends AbstractType {
                 ->add('codeDouane')
                 ->add('tva', 'checkbox', array(
                     'label' => 'Assujetti à la tva',
-                    'required'=>false
+                    'required' => false
                 ))
                 ->add('formeJuridique', 'choice', array(
                     'required' => true,
@@ -52,7 +52,7 @@ class ClientFullType extends AbstractType {
                         7 => "Société à Responsabilité Limitée (SARL)",
                         8 => "Société en participation"
             )))
-                ->add('file', 'file', array('required' => TRUE))
+                ->add('file', 'file', array('required' => FALSE))
         ;
     }
 
