@@ -73,3 +73,11 @@ saison_frais_autre_chambre:
 saison_delete_frais_autre_chambre:
     path:     /saison_delete_frais_autre_chambre/{id}
     defaults: { _controller: BackHotelTunisieBundle:Saisons:deleteFraisChambre }
+
+saison_contingent:
+    path:     /saison/contingent/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:contingent }
+
+saison_delete_contingent:
+    path:     /saison_delete_contingent/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Saisons:deleteContingent }

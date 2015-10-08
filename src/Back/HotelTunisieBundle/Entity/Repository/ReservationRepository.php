@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityRepository;
 class ReservationRepository extends EntityRepository
 {
 
-    public function filtreBackOffice($etat, $amicale='all',$checkIn='all',$checkOut='all',$hotel='all',$user='all', $sort="r.id", $direction="asc")
+    public function filtreBackOffice($etat, $amicale='all',$checkIn='all',$checkOut='all',$hotel='all',$user='all', $sort="r.id", $direction="desc")
     {
         $query = $this->createQueryBuilder('r');
         $query->join('r.hotel','h');

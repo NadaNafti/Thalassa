@@ -2,6 +2,11 @@
     <li {% if app.request.get('_route')=='PeriodeSaison' %}class="active"{% endif %}>
         <a href="{{ path('PeriodeSaison', {'id':saison.id}) }}"> Périodes ({{ saison.periodes|length }}) </a>
     </li>
+    {% if saison.type==4 %}
+        <li {% if app.request.get('_route')=='saison_contingent' %}class="active"{% endif %}>
+            <a href="{{ path('saison_contingent', {'id':saison.id}) }}"> Contingents({{ saison.contingents|length }}) </a>
+        </li>
+    {% endif %}
     <li {% if app.request.get('_route')=='GeneralSaison' %}class="active"{% endif %}>
         <a href="{{ path('GeneralSaison', {'id':saison.id}) }}"> Générale {% if not saison.isArrBaseValide %}
                 <span class="badge badge-danger"><i class="fa fa-times fa fa-warning"></i></span> {% endif %}

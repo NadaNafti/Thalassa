@@ -1,4 +1,13 @@
 services:
+    reservationBackListnerSHT:
+          class: Back\HotelTunisieBundle\Listener\ReservationBackListnerSHT
+          arguments:
+              - @service_container
+              - @session
+              - @doctrine.orm.entity_manager
+          tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
     SaisonExtension:
       class: Back\HotelTunisieBundle\Twig\Extension\SaisonExtension
       tags:

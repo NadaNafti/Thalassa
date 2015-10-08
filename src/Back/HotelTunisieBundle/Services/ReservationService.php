@@ -2,6 +2,7 @@
 
 namespace Back\HotelTunisieBundle\Services;
 
+use Back\HotelTunisieBundle\Entity\ReservationChambreJour;
 use Back\HotelTunisieBundle\Entity\Saison;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -163,6 +164,7 @@ class ReservationService
     public function saveReservation($data, $result, $source, Reservation $reservation=null)
     {
         $hotel = $this->em->getRepository('BackHotelTunisieBundle:Hotel')->find($result['hotel']);
+        $calendrier=$this->getCalendrier($result);
         if(is_null($reservation)) {
             $tarifCommercial = $this->em->getRepository('BackCommercialBundle:Tarif')->find(1);
             $client = $data['client'];
@@ -212,6 +214,15 @@ class ReservationService
                 ->setVues($chambre['details']['vue'])
                 ->setNoms(array());
             $this->em->persist($reservationChambre);
+            foreach ($calendrier as $periode)
+            {
+                $jourChambre= new ReservationChambreJour();
+                $jourChambre->setChambre($reservationChambre)
+                    ->setJour(\DateTime::createFromFormat('Y-m-d',$periode['dateDebut']))
+                    ->setSaisonCalcule($periode['saison'])
+                    ->setSaisonContingent($this->container->get('saisons')->getSaisonContingent($hotel,$periode['dateDebut'],count($result['chambres'])));
+                $this->em->persist($jourChambre);
+            }
             foreach ($chambre['adultes'] as $adulte) {
                 $ReservationPersonne = new ReservationPersonne();
                 $ReservationPersonne->setReservationChambreAdulte($reservationChambre)
@@ -223,8 +234,7 @@ class ReservationService
                     $reservationJour = new ReservationJour();
                     $reservationJour->setPersonne($ReservationPersonne)
                         ->setJour(\DateTime::createFromFormat('Y-m-d', $jour['jour']))
-                        ->setSaison($this->em->getRepository('BackHotelTunisieBundle:Saison')->find($jour['saison']['id']))
-                        ->setSaisonContingent($this->container->get('saisons')->getSaisonContingent($hotel,$jour['jour'],count($result['chambres'])));
+                        ->setSaison($this->em->getRepository('BackHotelTunisieBundle:Saison')->find($jour['saison']['id']));
                     $this->em->persist($reservationJour);
                     foreach ($jour['lignes'] as $ligne) {
                         if (!is_null($ligne)) {
@@ -251,8 +261,7 @@ class ReservationService
                     $reservationJour = new ReservationJour();
                     $reservationJour->setPersonne($ReservationPersonne)
                         ->setJour(\DateTime::createFromFormat('Y-m-d', $jour['jour']))
-                        ->setSaison($this->em->getRepository('BackHotelTunisieBundle:Saison')->find($jour['saison']['id']))
-                        ->setSaisonContingent($this->container->get('saisons')->getSaisonContingent($hotel,$jour['jour'],count($result['chambres'])));
+                        ->setSaison($this->em->getRepository('BackHotelTunisieBundle:Saison')->find($jour['saison']['id']));
                     $this->em->persist($reservationJour);
                     foreach ($jour['lignes'] as $ligne) {
                         if (!is_null($ligne)) {
@@ -311,10 +320,7 @@ class ReservationService
         $calendrier = array();
         foreach ($dates as $date)
         {
-            if(isset($reservation['chambres']))
-                $saison = $this->container->get("saisons")->getSaisonByClient($hotel, $client, $date,count($reservation['chambres']));
-            else
-                $saison = $this->container->get("saisons")->getSaisonByClient($hotel, $client, $date);
+            $saison = $this->container->get("saisons")->getSaisonByClient($hotel, $client, $date);
             $calendrier[] = array('dateDebut' => $date, 'dateFin' => $date, 'saison' => $saison);
         }
         return $calendrier;
