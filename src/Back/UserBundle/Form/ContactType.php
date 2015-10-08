@@ -14,6 +14,7 @@ class ContactType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
+                ->add('nomPrenom')
                 ->add('titreCivilite', 'choice', array(
                     'choices' => array(
                         1 => 'Madame',
@@ -21,7 +22,8 @@ class ContactType extends AbstractType {
                         3 => 'Mademoiselle',
                         4 => 'Maître',
                         5 => 'Docteur'
-            )))
+                    ), 'required' => true,
+                    'empty_value' => 'choisir titre de civilité'))
                 ->add('fonction')
                 ->add('email')
                 ->add('telPro')
@@ -31,10 +33,24 @@ class ContactType extends AbstractType {
                 ->add('codePostal')
                 ->add('ville')
                 ->add('gouvernorat')
-                ->add('dateNaissance')
+                ->add('dateNaissance','date', array(
+                    'required' => FALSE,
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd',
+                ))
                 ->add('pays')
-                ->add('client')
-                ->add('fournisseur')
+                ->add('client', 'entity', array(
+                    'class' => 'BackUserBundle:Client',
+                    'required' => true,
+                    'empty_value' => 'choisir client',
+                    'empty_data' => null
+                ))
+                ->add('fournisseur', 'entity', array(
+                    'class' => 'BackUserBundle:Fournisseur',
+                    'required' => true,
+                    'empty_value' => 'choisir fournisseur',
+                    'empty_data' => null
+                ))
         ;
     }
 

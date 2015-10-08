@@ -111,11 +111,10 @@ class Fournisseur
     private $gouvernorat;
     
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pays", type="string", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Back\HotelTunisieBundle\Entity\Pays")
+     * @ORM\OrderBy({"libelle" = "ASC"})
      */
-    private $pays;
+    protected $pays;
 
     /**
      * @var string
@@ -530,29 +529,6 @@ class Fournisseur
     }
 
     /**
-     * Set pays
-     *
-     * @param string $pays
-     * @return Fournisseur
-     */
-    public function setPays($pays)
-    {
-        $this->pays = $pays;
-
-        return $this;
-    }
-
-    /**
-     * Get pays
-     *
-     * @return string 
-     */
-    public function getPays()
-    {
-        return $this->pays;
-    }
-
-    /**
      * Set matriculeFiscale
      *
      * @param string $matriculeFiscale
@@ -807,5 +783,28 @@ class Fournisseur
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set pays
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Pays $pays
+     * @return Fournisseur
+     */
+    public function setPays(\Back\HotelTunisieBundle\Entity\Pays $pays = null)
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * Get pays
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Pays 
+     */
+    public function getPays()
+    {
+        return $this->pays;
     }
 }
