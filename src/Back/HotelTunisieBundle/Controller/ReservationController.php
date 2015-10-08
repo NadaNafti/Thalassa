@@ -575,7 +575,6 @@ class ReservationController extends Controller
             foreach($ch->getEnfants() as $pers)
                 $personnes[]=$pers;
         }
-        dump($personnes);
         $form=$this->createFormBuilder()
             ->add('personnes','collection', array(
                 'type' => new ReservationPersonneType(),
