@@ -5,6 +5,7 @@ use Back\AdministrationBundle\Entity\SousEtat;
 use Back\AdministrationBundle\Form\SousEtatSHTType;
 use Back\AdministrationBundle\Form\SousEtatType;
 use Back\HotelTunisieBundle\Entity\Saison;
+use Back\HotelTunisieBundle\Form\ReservationPersonneType;
 use Back\UserBundle\Entity\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -23,6 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Back\CommercialBundle\Entity\Piece;
 use Back\CommercialBundle\Form\PieceType;
 use Back\CommercialBundle\Entity\Reglement;
+use Symfony\Component\Validator\Constraints\Collection;
 
 class ReservationController extends Controller
 {
@@ -537,5 +539,183 @@ class ReservationController extends Controller
         }
         $response->setData($array);
         return $response;
+    }
+
+    public function deleteChambreAction(ReservationChambre $chambre)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $user = $this->get('security.context')->getToken()->getUser();
+        if(!is_null($chambre->getReservation()->getResponsable()) && $chambre->getReservation()->getEtat()==1 && $chambre->getReservation()->getResponsable()->getId()==$user->getId())
+        {
+            try
+            {
+                $em->remove($chambre);
+                $em->flush();
+                $session->getFlashBag()->add('success', " La chambre a été supprimée avec succés ");
+            }
+            catch(\Exception $ex)
+            {
+                $session->getFlashBag()->add('danger', $ex->getMessage());
+            }
+        }
+        return $this->redirect($this->generateUrl('consulter_reservation',array('id'=>$chambre->getReservation()->getId())));
+    }
+
+    public function modifierResidentsAction(Reservation $reservation)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $personnes = array();
+        foreach($reservation->getChambres() as $ch)
+        {
+            foreach($ch->getAdultes() as $pers)
+                $personnes[]=$em->find('BackHotelTunisieBundle:ReservationPersonne',$pers->getId());
+            foreach($ch->getEnfants() as $pers)
+                $personnes[]=$pers;
+        }
+        dump($personnes);
+        $form=$this->createFormBuilder()
+            ->add('personnes','collection', array(
+                'type' => new ReservationPersonneType(),
+                'data'=>$personnes
+            ))
+            ->getForm();
+        $request=$this->getRequest();
+        if($request->isMethod('POST'))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $data=$form->getData();
+                foreach($data['personnes'] as $personne)
+                    $em->persist($personne);
+                $em->flush();
+                $session->getFlashBag()->add('success', " les résidents ont été modifiée avec succés ");
+                return $this->redirect($this->generateUrl('consulter_reservation',array('id'=>$reservation->getId())));
+            }
+        }
+        return $this->render('BackHotelTunisieBundle:Reservation:modifier_passagers.html.twig',array(
+            'form'=>$form->createView()
+        ));
+    }
+
+    public function ajouterChambreAction(Reservation $reservation)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        $reservation = $this->container->get('reservation')->generateSessionReservation($reservation);
+        $hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->find($reservation['hotel']);
+        $client = $em->getRepository("BackUserBundle:Client")->find($reservation['client']);
+        $dateDebut = new \DateTime($reservation['dateDebut']);
+        $dateFin = new \DateTime($reservation['dateFin']);
+        $saison = $this->container->get('saisons')->getSaisonByClient($hotel, $client, $reservation['dateDebut']);
+        if ($request->isMethod("POST")) {
+            $reservation['saison'] = $saison->getId();
+            $reservation['chambres'] = array();
+            $Verif = FALSE;
+            foreach ($saison->getChambres() as $chambre) {
+                $tab = array();
+                $idch = $chambre->getChambre()->getId();
+                if ($request->get("chambre_" . $idch) > 0) {
+                    $Verif = TRUE;
+                    for ($i = 1; $i <= $request->get("chambre_" . $idch); $i++) {
+                        $occupants = $request->get('adulte_' . $idch . '_' . $i);
+                        for ($j = 1; $j <= $request->get('enfant_' . $idch . '_' . $i); $j++)
+                            $occupants .= ',' . $request->get('age_' . $idch . '_' . $i . '_' . $j);
+                        $tab['chambre'] = $idch;
+                        $tab['occupants'] = $occupants;
+                        $tab['arrangement'] = $request->get('arrangement_' . $idch . '_' . $i);
+                        $tab['supp'] = array();
+                        $tab['vue'] = array();
+                        $tab['reduc'] = array();
+                        foreach ($saison->getAutresSupplements() as $supp) {
+                            if ($this->container->get('Library')->verifSuppReducDate($supp->getSupp(), $dateDebut, $dateFin) && $supp->getSupp()->getObligatoire() || $request->get('supp_' . $idch . '_' . $i . '_' . $supp->getSupp()->getId()))
+                                $tab['supp'][] = $supp->getSupp()->getId();
+                        }
+                        foreach ($saison->getAutresReductions() as $reduc) {
+                            if ($this->container->get('Library')->verifSuppReducDate($reduc->getReduc(), $dateDebut, $dateFin))
+                                $tab['reduc'][] = $reduc->getReduc()->getId();
+                        }
+                        foreach ($saison->getVues() as $vue) {
+                            if ($request->get('vue_' . $idch . '_' . $i . '_' . $vue->getVue()->getId()))
+                                $tab['vue'][] = $vue->getVue()->getId();
+                        }
+                        $reservation['chambres'][] = $tab;
+                    }
+                }
+            }
+            $session->set('reservation', $reservation);
+            if ($Verif)
+                return $this->redirect($this->generateUrl("reservationSHT_back_add_chambres_details",array('id'=>$request->get('id'))));
+            else {
+                $session->getFlashBag()->add('info', "Vous devez choisir au moin une chambre");
+                return $this->redirect($this->generateUrl("reservationSHT_back_add_chambres",array('id'=>$request->get('id'))));
+            }
+        }
+        $calendrier = $this->container->get('reservation')->getCalendrier($reservation);
+        return $this->render('BackHotelTunisieBundle:Reservation:formulaire.html.twig', array(
+            'calendrier' => $calendrier,
+            'hotel'      => $hotel,
+            'nuitees'    => $reservation['nuitees'],
+            'dateDebut'  => $dateDebut,
+            'dateFin'    => $dateFin,
+            'client'     => $client,
+            'saison'     => $saison,
+        ));
+    }
+
+    public function ajouterChambreDetailsAction(Reservation $res)
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        if (!$session->has("reservation"))
+            return $this->redirect($this->generateUrl("consulter_reservation",array('id'=>$res->getId())));
+        $reservation = $session->get('reservation');
+        $hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->find($reservation['hotel']);
+        $client = $em->getRepository("BackUserBundle:Client")->find($reservation['client']);
+        $form = $this->createFormBuilder();
+        $ordre = 1;
+        $chambres = array();
+        foreach ($reservation['chambres'] as $value) {
+            $adulte = array();
+            $enfant = array();
+            $tab = explode(',', $value['occupants']);
+            for ($i = 1; $i <= $tab[0]; $i++) {
+                $form->add("chambre" . $ordre . "adulte" . $i, 'text');
+                $adulte[] = "chambre" . $ordre . "adulte" . $i;
+            }
+            for ($i = 1; $i <= count($tab) - 1; $i++) {
+                $form->add("chambre" . $ordre . "Enfant" . $i, 'text');
+                $enfant[] = "chambre" . $ordre . "Enfant" . $i;
+            }
+            $ordre++;
+            $chambres[] = array('chambre' => $value['chambre'], 'adultes' => $adulte, 'enfants' => $enfant);
+        }
+        $form = $form->getForm();
+        $result = $this->container->get('reservation')->reservation($reservation);
+        if ($request->isMethod('post')) {
+            $form->submit($request);
+            $data = $form->getData();
+            $id = $this->container->get('reservation')->saveReservation($data, $result,'backoffice', $res);
+            $session->remove('reservation');
+            $session->getFlashBag()->add('success', " Vos chambres ont  été enregistré avec succès ");
+            return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $id)));
+        }
+        $reservation = $session->get('reservation');
+        return $this->render('BackHotelTunisieBundle:Reservation:details.html.twig', array(
+            'form'      => $form->createView(),
+            'chambres'  => $chambres,
+            'hotel'     => $hotel,
+            'client'    => $client,
+            'nuitees'   => $reservation['nuitees'],
+            'dateDebut' => new \DateTime($reservation['dateDebut']),
+            'dateFin'   => new \DateTime($reservation['dateFin']),
+            'resultat'  => $result,
+        ));
     }
 }

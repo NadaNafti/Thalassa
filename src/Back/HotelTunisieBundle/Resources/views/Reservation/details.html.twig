@@ -1,10 +1,10 @@
 {% extends ":Back:base.html.twig" %}
 {% block title %}Détails réservation{% endblock %}
 {% block description %}{% endblock %}
-{% block topbody %}   
+{% block topbody %}
     {{ parent() }}
     <li>
-        <a href="javascript:void(0)" >Détails réservation</a>
+        <a href="javascript:void(0)">Détails réservation</a>
     </li>
 {% endblock %}
 {% block body %}
@@ -30,10 +30,15 @@
                             <div class="col-md-3">
                                 <h2 class="center">{{ hotel }}</h2>
                                 <h5 class="center">{{ getStars(hotel.getStars)|raw }}</h5>
-                                <p><strong>Fournisseur  : </strong>{{ hotel.fournisseur }}</p>
-                                <p><strong>Ville  : </strong> {{ hotel.ville.pays|upper }} {{ hotel.ville }}</p>
+
+                                <p><strong>Fournisseur : </strong>{{ hotel.fournisseur }}</p>
+
+                                <p><strong>Ville : </strong> {{ hotel.ville.pays|upper }} {{ hotel.ville }}</p>
+
                                 <p><strong> Nuitées : </strong> {{ nuitees }}</p>
+
                                 <p><strong>Check IN : </strong> {{ dateDebut|date('d/m/Y') }}</p>
+
                                 <p><strong>Check OUT : </strong> {{ dateFin|date_modify('+1 day')|date('d/m/Y') }}</p>
                                 <hr>
                                 <p><strong> Client : </strong> {{ client }}</p>
@@ -43,87 +48,92 @@
                             </div>
                             <div class="col-md-9">
                                 <h2 class="center">Détails de la reservation</h2>
+
                                 <div class="panel-body">
                                     <table class="table">
                                         <tbody>
-                                            {% set totalVente=0 %}
-                                            {% set totalAchat=0 %}
-                                            {% for chambre in resultat.chambres %}
-                                                <tr style="background-color: black;color: white;">
-                                                    <th>{{ getNameChambre(chambre.details.chambre) }}</th>
-                                                    <th>{{ getNameArrangement(chambre.details.arrangement) }}</th>
-                                                    <th>Adultes : {{ chambre.adultes|length }}</th>
-                                                    <th>Enfants : {{ chambre.enfants|length }} [{% for enfant in chambre.enfants %} {{ enfant.age }} {% if loop.index != chambre.enfants|length %},{% endif %} {% endfor %}]</th>
+                                        {% set totalVente=0 %}
+                                        {% set totalAchat=0 %}
+                                        {% for chambre in resultat.chambres %}
+                                            <tr style="background-color: black;color: white;">
+                                                <th>{{ getNameChambre(chambre.details.chambre) }}</th>
+                                                <th>{{ getNameArrangement(chambre.details.arrangement) }}</th>
+                                                <th>Adultes : {{ chambre.adultes|length }}</th>
+                                                <th>Enfants : {{ chambre.enfants|length }}
+                                                    [{% for enfant in chambre.enfants %} {{ enfant.age }} {% if loop.index != chambre.enfants|length %},{% endif %} {% endfor %}
+                                                    ]
+                                                </th>
+                                            </tr>
+                                            {% for adulte in chambre.adultes %}
+                                                <tr style="  background-color: dimgray;color: white;">
+                                                    <th colspan="2" class="center">Adulte Num {{ adulte.ordre }}</th>
+                                                    <td style="text-align: right;">Achat</td>
+                                                    <td style="text-align: right;">Vente</td>
                                                 </tr>
-                                                {% for adulte in chambre.adultes %}
-                                                    <tr style="  background-color: dimgray;color: white;">
-                                                        <th colspan="2" class="center">Adulte Num {{ adulte.ordre }}</th>
-                                                        <td style="text-align: right;" >Achat</td>
-                                                        <td style="text-align: right;" >Vente</td>
+                                                {% for jour in adulte.jours %}
+                                                    <tr style="  background-color: honeydew;">
+                                                        <th colspan="4">{{ jour.jour }} [{{ jour.saison.name }}]</th>
                                                     </tr>
-                                                    {% for jour in adulte.jours %}
-                                                        <tr style="  background-color: honeydew;" >
-                                                            <th colspan="4">{{ jour.jour }} [{{ jour.saison.name }}]</th>
+                                                    {% for ligne in jour.lignes if ligne is not null and ligne.vente!=0 %}
+                                                        <tr style="  background-color: ghostwhite;">
+                                                            <td></td>
+                                                            <td colspan="1">{{ ligne.name }}</td>
+                                                            <td style="  text-align: right;">{{ ligne.achat }}</td>
+                                                            <td style="text-align: right;">{{ ligne.vente }}</td>
                                                         </tr>
-                                                        {% for ligne in jour.lignes if ligne is not null and ligne.vente!=0 %}
-                                                            <tr style="  background-color: ghostwhite;">
-                                                                <td></td>
-                                                                <td colspan="1">{{ ligne.name }}</td>
-                                                                <td style="  text-align: right;" >{{ ligne.achat }}</td>
-                                                                <td style="text-align: right;">{{ ligne.vente }}</td>
-                                                            </tr>
-                                                            {% set totalVente=totalVente+ligne.vente  %}
-                                                            {% set totalAchat=totalAchat+ligne.achat  %}
-                                                        {% endfor %}
+                                                        {% set totalVente=totalVente+ligne.vente %}
+                                                        {% set totalAchat=totalAchat+ligne.achat %}
                                                     {% endfor %}
-                                                {% endfor %}
-                                                {% for enfant in chambre.enfants %}
-                                                    <tr style="  background-color: dimgray;color: white;">
-                                                        <th colspan="2" class="center" >Enfant Num {{ enfant.ordre }}  , Age : {{ enfant.age }}</th>
-                                                        <td style="  text-align: right;" >Achat</td>
-                                                        <td style="  text-align: right;" >Vente</td>
-                                                    </tr>
-                                                    {% for jour in enfant.jours %}
-                                                        <tr style="  background-color: honeydew;" >
-                                                            <th colspan="4">{{ jour.jour }} [{{ jour.saison.name }}]</th>
-                                                        </tr>
-                                                        {% for ligne in jour.lignes if ligne is not null and ligne.vente!=0 %}
-                                                            <tr style="  background-color: ghostwhite;">
-                                                                <td></td>
-                                                                <td colspan="1">{{ ligne.name }}</td>
-                                                                <td style="  text-align: right;" >{{ ligne.achat }}</td>
-                                                                <td style="  text-align: right;" >{{ ligne.vente }}</td>
-                                                            </tr>
-                                                            {% set totalVente=totalVente+ligne.vente  %}
-                                                            {% set totalAchat=totalAchat+ligne.achat  %}
-                                                        {% endfor %}
-                                                    {% endfor %}
-                                                {% endfor %}
-                                                {% for ligne in chambre.supplements if ligne is not null and ligne.vente!=0 %}
-                                                    <tr style="  background-color: black;color: white;">
-                                                        <td colspan="2">{{ ligne.name }}</td>
-                                                        <td style="  text-align: right;" >{{ ligne.achat }}</td>
-                                                        <td style="text-align: right;">{{ ligne.vente }}</td>
-                                                    </tr>
-                                                    {% set totalVente=totalVente+ligne.vente  %}
-                                                    {% set totalAchat=totalAchat+ligne.achat  %}
-                                                {% endfor %}
-                                                {% for ligne in chambre.reductions if ligne is not null and ligne.vente!=0 %}
-                                                    <tr style="  background-color: black;color: white;">
-                                                        <td colspan="2">{{ ligne.name }}</td>
-                                                        <td style="  text-align: right;" >{{ ligne.achat }}</td>
-                                                        <td style="text-align: right;">{{ ligne.vente }}</td>
-                                                    </tr>
-                                                    {% set totalVente=totalVente+ligne.vente  %}
-                                                    {% set totalAchat=totalAchat+ligne.achat  %}
                                                 {% endfor %}
                                             {% endfor %}
-                                            <tr style="  background-color: antiquewhite;">
-                                                <th></th>
-                                                <th style="text-align: right;">Total</th>
-                                                <th style="text-align: right;">{{totalAchat}}</th>
-                                                <th style="text-align: right;">{{totalVente}}</th>
-                                            </tr>
+                                            {% for enfant in chambre.enfants %}
+                                                <tr style="  background-color: dimgray;color: white;">
+                                                    <th colspan="2" class="center">Enfant Num {{ enfant.ordre }} , Age
+                                                        : {{ enfant.age }}</th>
+                                                    <td style="  text-align: right;">Achat</td>
+                                                    <td style="  text-align: right;">Vente</td>
+                                                </tr>
+                                                {% for jour in enfant.jours %}
+                                                    <tr style="  background-color: honeydew;">
+                                                        <th colspan="4">{{ jour.jour }} [{{ jour.saison.name }}]</th>
+                                                    </tr>
+                                                    {% for ligne in jour.lignes if ligne is not null and ligne.vente!=0 %}
+                                                        <tr style="  background-color: ghostwhite;">
+                                                            <td></td>
+                                                            <td colspan="1">{{ ligne.name }}</td>
+                                                            <td style="  text-align: right;">{{ ligne.achat }}</td>
+                                                            <td style="  text-align: right;">{{ ligne.vente }}</td>
+                                                        </tr>
+                                                        {% set totalVente=totalVente+ligne.vente %}
+                                                        {% set totalAchat=totalAchat+ligne.achat %}
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            {% endfor %}
+                                            {% for ligne in chambre.supplements if ligne is not null and ligne.vente!=0 %}
+                                                <tr style="  background-color: black;color: white;">
+                                                    <td colspan="2">{{ ligne.name }}</td>
+                                                    <td style="  text-align: right;">{{ ligne.achat }}</td>
+                                                    <td style="text-align: right;">{{ ligne.vente }}</td>
+                                                </tr>
+                                                {% set totalVente=totalVente+ligne.vente %}
+                                                {% set totalAchat=totalAchat+ligne.achat %}
+                                            {% endfor %}
+                                            {% for ligne in chambre.reductions if ligne is not null and ligne.vente!=0 %}
+                                                <tr style="  background-color: black;color: white;">
+                                                    <td colspan="2">{{ ligne.name }}</td>
+                                                    <td style="  text-align: right;">{{ ligne.achat }}</td>
+                                                    <td style="text-align: right;">{{ ligne.vente }}</td>
+                                                </tr>
+                                                {% set totalVente=totalVente+ligne.vente %}
+                                                {% set totalAchat=totalAchat+ligne.achat %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                        <tr style="  background-color: antiquewhite;">
+                                            <th></th>
+                                            <th style="text-align: right;">Total</th>
+                                            <th style="text-align: right;">{{ totalAchat }}</th>
+                                            <th style="text-align: right;">{{ totalVente }}</th>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -139,26 +149,31 @@
                                         <h2><i class="fa fa-plus-square teal"></i> Valider la réservation</h2>
                                         <hr>
                                         {{ form_start(form) }}
-                                        <h4>Client :</h4>
-                                        <div class="no-display">
-                                            {{ formulaire.input("col-md-2","",form.client.responsable,false) }}
-                                        </div>
-                                        <div class="row">
-                                            {{ formulaire.input("col-md-2","Nom & Prénom",form.client.nomPrenom,true) }}
-                                            {{ formulaire.input("col-md-2","tel1",form.client.tel1,true) }}
-                                            {{ formulaire.input("col-md-2","tel2",form.client.tel2,false) }}
-                                        </div>
-                                        <div class="row">
-                                            {{ formulaire.input("col-md-8","Adresse",form.client.adresse,false) }}
-                                        </div>
-                                        <div class="row">
-                                            {{ formulaire.input("col-md-2","Matricule Fiscale",form.client.matriculeFiscale,false) }}
-                                            {{ formulaire.input("col-md-2","Registre Commercie",form.client.registreCommercie,false) }}
-                                            {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,false) }}
-                                        </div>
-                                        <hr>
-                                        {% for chambre in chambres  %}
-                                            <h4>Chambre {{ loop.index }} <small>{{ getNameChambre(chambre.chambre) }}</small> :</h4>
+                                        {% if app.request.get('id') is not defined %}
+                                            <h4>Client :</h4>
+                                            <div class="no-display">
+                                                {{ formulaire.input("col-md-2","",form.client.responsable,false) }}
+                                            </div>
+                                            <div class="row">
+                                                {{ formulaire.input("col-md-2","Nom & Prénom",form.client.nomPrenom,true) }}
+                                                {{ formulaire.input("col-md-2","tel1",form.client.tel1,true) }}
+                                                {{ formulaire.input("col-md-2","tel2",form.client.tel2,false) }}
+                                            </div>
+                                            <div class="row">
+                                                {{ formulaire.input("col-md-8","Adresse",form.client.adresse,false) }}
+                                            </div>
+                                            <div class="row">
+                                                {{ formulaire.input("col-md-2","Matricule Fiscale",form.client.matriculeFiscale,false) }}
+                                                {{ formulaire.input("col-md-2","Registre Commercie",form.client.registreCommercie,false) }}
+                                                {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,false) }}
+                                            </div>
+                                            <hr>
+                                        {% endif %}
+                                        {% for chambre in chambres %}
+                                            <h4>Chambre {{ loop.index }}
+                                                <small>{{ getNameChambre(chambre.chambre) }}</small>
+                                                :
+                                            </h4>
                                             <div class="row">
                                                 {% for adulte in chambre.adultes %}
                                                     {{ formulaire.input("col-md-2","Adulte "~loop.index,form[adulte],true) }}
@@ -168,19 +183,21 @@
                                                 {% endfor %}
                                             </div>
                                         {% endfor %}
-                                        <hr>
-                                        <h4>Commentaire : <small>Ce commentaire va étre afficher dans le voucher</small> </h4>
-                                        <div class="row">
-                                            {{ formulaire.input("col-md-8",null,form.observation,false) }}
-                                        </div>
-                                        <hr>
-                                        {% if hotel.options|length >0 %}
-                                            <h4>Les Options :</h4>
+                                        {% if app.request.get('id') is not defined %}
+                                            <hr>
+                                            <h4>Commentaire : <small>Ce commentaire va étre afficher dans le voucher</small>                                           </h4>
                                             <div class="row">
-                                                {% for option in hotel.options  %}
-                                                    {{ formulaire.input("col-md-12",null,form['option_'~option.id],false) }}
-                                                {% endfor %}
+                                                {{ formulaire.input("col-md-8",null,form.observation,false) }}
                                             </div>
+                                            <hr>
+                                            {% if hotel.options|length >0 %}
+                                                <h4>Les Options :</h4>
+                                                <div class="row">
+                                                    {% for option in hotel.options %}
+                                                        {{ formulaire.input("col-md-12",null,form['option_'~option.id],false) }}
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
                                         {% endif %}
                                         {{ formulaire.submit("Valider la réservation") }}
                                         {{ form_end(form) }}

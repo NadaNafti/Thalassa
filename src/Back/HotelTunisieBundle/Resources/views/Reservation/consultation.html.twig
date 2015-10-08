@@ -4,7 +4,7 @@
 {% block topbody %}
     {{ parent() }}
     <li>
-        <a href="javascript:void(0)">Consultation</a>
+        <a href="{{ path('consulter_reservation',{'id':app.request.get('id')}) }}">Consultation</a>
     </li>
 {% endblock %}
 {% block body %}
@@ -12,26 +12,62 @@
         {% if reservation.responsable is not null and app.user.id == reservation.responsable.id %}
             <div class="col-md-12 center">
                 {% if reservation.etat == 2 %}
-                    <a target="_blank" href="{{ path('voucher_reservation',{'id':reservation.id}) }}"  class="btn btn-light-grey center"> Voucher </a>
-                    <a target="_blank" href="{{ path('recus_reservation',{'id':reservation.id}) }}"  class="btn btn-light-grey center"> reçus </a>
-                {% endif %}
-                {% if not reservation.surDemande and reservation.etat  == 1 %}
-                    <a href="#remise" data-toggle="modal" class="btn btn-light-grey center"> Editer la Remise </a>
+                    <a target="_blank" href="{{ path('voucher_reservation',{'id':reservation.id}) }}"
+                       class="btn btn-light-grey center"> Voucher </a>
+                    <a target="_blank" href="{{ path('recus_reservation',{'id':reservation.id}) }}"
+                       class="btn btn-light-grey center"> reçus </a>
                 {% endif %}
                 {% if reservation.etat in [1,9] %}
-                    <a href="{{ path('valider_reservation',{'id':reservation.id}) }}" class="btn btn-success center"> Valider </a>
+                    <a href="{{ path('valider_reservation',{'id':reservation.id}) }}" class="btn btn-success center">
+                        Valider </a>
                 {% endif %}
                 {% if reservation.etat in [1,2] %}
                     <a href="#annuler" data-toggle="modal" class="btn btn-warning center"> Annuler </a>
                 {% endif %}
                 {% if reservation.etat in [1] %}
-                    <a href="{{ path('delete_reservation',{'id':reservation.id}) }}" class="btn btn-danger center" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette reservation ?'))"> Supprimer </a>
+                    <a href="{{ path('delete_reservation',{'id':reservation.id}) }}" class="btn btn-danger center"
+                       onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette reservation ?'))">
+                        Supprimer </a>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-purple">
+                            <i class="fa fa-pencil"></i>
+                            Modification
+                        </button>
+                        <button data-toggle="dropdown" class="btn btn-purple dropdown-toggle">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            {% if not reservation.surDemande %}
+                                <li>
+                                    <a href="#remise" data-toggle="modal">
+                                        <i class="fa fa-money"></i>
+                                        Remise
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <a href="{{ path('reservationSHT_back_reseidents',{'id':reservation.id}) }}">
+                                    <i class="fa fa-user"></i>
+                                    Nom des résidents
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('reservationSHT_back_add_chambres',{'id':reservation.id}) }}">
+                                    <i class="fa fa-plus"></i>
+                                    Chambres
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 {% endif %}
                 <hr>
             </div>
         {% else %}
             <div class="col-md-12 center">
-                <a href="{{ path('prise_en_charge_reservations',{'id':reservation.id}) }}" class="btn btn-success center" onclick="javascript:return(confirm('Etes-vous certain de vouloir prendre en charge cette reservation ?'))"> Prendre en charge cette réservation </a>
+                <a href="{{ path('prise_en_charge_reservations',{'id':reservation.id}) }}"
+                   class="btn btn-success center"
+                   onclick="javascript:return(confirm('Etes-vous certain de vouloir prendre en charge cette reservation ?'))">
+                    Prendre en charge cette réservation </a>
             </div>
         {% endif %}
         <div class="col-md-3">
@@ -40,15 +76,14 @@
             <p><strong>Nom hôtel : </strong> {{ reservation.hotel }}</p>
 
             <p>
-                <strong>Période : </strong> {{ reservation.dateDebut.format('d/m/Y') }}, {{ reservation.nuitees }} nuitées
-            </p>
+                <strong>Période : </strong> {{ reservation.dateDebut.format('d/m/Y') }}, {{ reservation.nuitees }}
+                nuitées </p>
             <h4 class="center">Les chambres</h4>
             {% for chambre in reservation.chambres %}
                 <hr>
                 <p><strong>Chambre {{ loop.index }} : </strong> {{ chambre.chambre }}, {{ chambre.arrangement }}</p>
                 <p>
-                    {{ chambre.adultes|length }} adulte(s) & {{ chambre.enfants|length }} enfant(s)
-                </p>
+                    {{ chambre.adultes|length }} adulte(s) & {{ chambre.enfants|length }} enfant(s) </p>
                 <p>
                     {% for enfant in chambre.enfants %}
                         {{ enfant.age }} ans {% if loop.index!=chambre.enfants|length %},{% endif %}
@@ -65,6 +100,7 @@
         </div>
         <div class="col-md-6">
             <h5 class="center">N° : {{ reservation.id }}</h5>
+
             <h3 class="center">{{ reservation.hotel }}</h3>
             <h5 class="center">{{ getStars(reservation.hotel.getStars)|raw }}</h5>
             {% if reservation.surDemande %}
@@ -73,13 +109,16 @@
             <h4 class="center">Etat : {{ reservation.showEtat }}</h4>
             {% if reservation.etat==2 %}
                 <h4 class="center">Num voucher :
-                    <a target="_blank" href="{{ path('voucher_reservation',{'id':reservation.id}) }}">{{ NumVoucher(reservation.id) }}</a>, le {{ reservation.validated|date('d/m/Y h:i') }}
+                    <a target="_blank"
+                       href="{{ path('voucher_reservation',{'id':reservation.id}) }}">{{ NumVoucher(reservation.id) }}</a>,
+                    le {{ reservation.validated|date('d/m/Y h:i') }}
                 </h4>
             {% endif %}
             {% if reservation.amicale is not null %}
                 <h4 class="center">
                     {% if reservation.responsableAmicale is not null %}
-                        Validée par <span style="color:firebrick">{{ reservation.responsableAmicale }}</span> le <span style="color:firebrick">{{ reservation.validatedAmicale|date('d/m/Y h:i') }}</span>
+                        Validée par <span style="color:firebrick">{{ reservation.responsableAmicale }}</span> le <span
+                            style="color:firebrick">{{ reservation.validatedAmicale|date('d/m/Y h:i') }}</span>
                     {% else %}
                         <span style="color:firebrick">En attente du validation par le Responsable amicale</span>
                     {% endif %}
@@ -184,12 +223,18 @@
                             <tr style="background-color: black;color: white;">
                                 <th>{{ chambre.chambre }}</th>
                                 <th>{{ chambre.arrangement }}</th>
-                                <th>Adultes : {{ chambre.adultes|length }}</th>
-                                <th>Enfants : {{ chambre.enfants|length }} [{% for enfant in chambre.enfants %} {{ enfant.age }} {% if loop.index != chambre.enfants|length %},{% endif %} {% endfor %}]</th>
+                                <th>Adultes : {{ chambre.adultes|length }},Enfants : {{ chambre.enfants|length }}</th>
+                                <th style="background-color: white;text-align: center;">
+                                    {% if reservation.etat == 1 and reservation.responsable is not null and app.user.id == reservation.responsable.id %}
+                                        <a href="{{ path('reservationSHT_back_delete_chambre',{'id':chambre.id}) }}"
+                                           onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette chambre ?'))"><span
+                                                    class="fa fa-trash-o"></span></a>
+                                    {% endif %}
+                                </th>
                             </tr>
                             {% for adulte in chambre.adultes %}
                                 <tr style="  background-color: dimgray;color: white;">
-                                    <th colspan="2" class="center">Adulte Num {{ adulte.ordre }}</th>
+                                    <th colspan="2" class="center">Adulte Num {{ adulte.ordre }}: {{ adulte.nom }} </th>
                                     <td style="text-align: right;">Achat</td>
                                     <td style="text-align: right;">Vente</td>
                                 </tr>
@@ -209,7 +254,8 @@
                             {% endfor %}
                             {% for enfant in chambre.enfants %}
                                 <tr style="  background-color: dimgray;color: white;">
-                                    <th colspan="2" class="center">Enfant Num {{ enfant.ordre }} , Age : {{ enfant.age }}</th>
+                                    <th colspan="2" class="center">Enfant Num {{ enfant.ordre }}: : {{ enfant.nom }} ,
+                                        Age : {{ enfant.age }}</th>
                                     <td style="  text-align: right;">Achat</td>
                                     <td style="  text-align: right;">Vente</td>
                                 </tr>
