@@ -149,7 +149,7 @@
                                         <h2><i class="fa fa-plus-square teal"></i> Valider la réservation</h2>
                                         <hr>
                                         {{ form_start(form) }}
-                                        {% if app.request.get('id') is not defined %}
+                                        {% if app.request.get('id') is null %}
                                             <h4>Client :</h4>
                                             <div class="no-display">
                                                 {{ formulaire.input("col-md-2","",form.client.responsable,false) }}
@@ -183,7 +183,7 @@
                                                 {% endfor %}
                                             </div>
                                         {% endfor %}
-                                        {% if app.request.get('id') is not defined %}
+                                        {% if app.request.get('id') is null %}
                                             <hr>
                                             <h4>Commentaire : <small>Ce commentaire va étre afficher dans le voucher</small>                                           </h4>
                                             <div class="row">

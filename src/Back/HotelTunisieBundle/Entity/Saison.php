@@ -120,6 +120,12 @@ class Saison
     protected $chambres;
 
     /**
+     * @ORM\OneToMany(targetEntity="SaisonContingent", mappedBy="saison")
+     * @ORM\OrderBy({"debut" = "DESC"})
+     */
+    protected $contingents;
+
+    /**
      * @ORM\OneToMany(targetEntity="SaisonFraisChambre", mappedBy="saison")
      * @ORM\OrderBy({"chambre" = "ASC"})
      */
@@ -1168,5 +1174,61 @@ class Saison
             if ($chambre->getChambre()->getId() == $ch)
                 return $chambre->getMaxEnfant();
         }
+    }
+
+    /**
+     * Add contingents
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonContingent $contingents
+     * @return Saison
+     */
+    public function addContingent(\Back\HotelTunisieBundle\Entity\SaisonContingent $contingents)
+    {
+        $this->contingents[] = $contingents;
+
+        return $this;
+    }
+
+    /**
+     * Remove contingents
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonContingent $contingents
+     */
+    public function removeContingent(\Back\HotelTunisieBundle\Entity\SaisonContingent $contingents)
+    {
+        $this->contingents->removeElement($contingents);
+    }
+
+    /**
+     * Get contingents
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getContingents()
+    {
+        return $this->contingents;
+    }
+
+    public function isInPeriode($date1,$date2)
+    {
+        if($date1>$date2)
+            return false;
+        foreach($this->periodes as $periode)
+        {
+            if($periode->isBetweenDate($date1) && $periode->isBetweenDate($date2) )
+                return true;
+        }
+        return false;
+    }
+
+    public function getNombreContingentDispo($date)
+    {
+        $dispo=0;
+        foreach($this->contingents as $contingent)
+        {
+            if($contingent->isBetweenDate($date))
+                $dispo+=$contingent->getNombreChambre();
+        }
+        return $dispo;
     }
 }

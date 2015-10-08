@@ -6,9 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PeriodeType extends AbstractType
+class SaisonContingentType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -16,26 +15,28 @@ class PeriodeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('dateDebut', 'date', array(
-                    'required'=>true,
-                    'widget'  =>'single_text',
-                    'format'  =>'yyyy-MM-dd',
-                ))
-                ->add('dateFin', 'date', array(
-                    'required'=>true,
-                    'widget'  =>'single_text',
-                    'format'  =>'yyyy-MM-dd',
-                ))
+            ->add('debut', 'date', array(
+                'required'=>false,
+                'widget'  =>'single_text',
+                'format'  =>'yyyy-MM-dd',
+            ))
+            ->add('fin', 'date', array(
+                'required'=>false,
+                'widget'  =>'single_text',
+                'format'  =>'yyyy-MM-dd',
+            ))
+            ->add('nombreChambre')
+//            ->add('saison')
         ;
     }
-
+    
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'=>'Back\HotelTunisieBundle\Entity\Periode'
+            'data_class' => 'Back\HotelTunisieBundle\Entity\SaisonContingent'
         ));
     }
 
@@ -44,7 +45,6 @@ class PeriodeType extends AbstractType
      */
     public function getName()
     {
-        return 'back_hoteltunisiebundle_periode';
+        return 'back_hoteltunisiebundle_saisoncontingent';
     }
-
 }

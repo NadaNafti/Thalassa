@@ -1,0 +1,50 @@
+<?php
+
+namespace Back\HotelTunisieBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ReservationJour
+ *
+ * @ORM\Table(name="ost_sht_reservation_chambre_jour")
+ * @ORM\Entity
+ */
+class ReservationChambreJour
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Saison")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $saisonCalcule;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Saison")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $saisonContingent;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="jour", type="date")
+     */
+    private $jour;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ReservationChambre", inversedBy="jours")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $chambre;
+
+}

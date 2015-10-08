@@ -94,6 +94,11 @@ class ReservationChambre
     protected $enfants;
 
     /**
+     * @ORM\OneToMany(targetEntity="ReservationChambreJour", mappedBy="chambre")
+     */
+    protected $jours;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -479,5 +484,38 @@ class ReservationChambre
             foreach($this->reductionLignes as $ligne)
                 $total+=$ligne->getAchat();
             return number_format($total,3,'.','');
+    }
+
+    /**
+     * Add jours
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationChambreJour $jours
+     * @return ReservationChambre
+     */
+    public function addJour(\Back\HotelTunisieBundle\Entity\ReservationChambreJour $jours)
+    {
+        $this->jours[] = $jours;
+
+        return $this;
+    }
+
+    /**
+     * Remove jours
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ReservationChambreJour $jours
+     */
+    public function removeJour(\Back\HotelTunisieBundle\Entity\ReservationChambreJour $jours)
+    {
+        $this->jours->removeElement($jours);
+    }
+
+    /**
+     * Get jours
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getJours()
+    {
+        return $this->jours;
     }
 }
