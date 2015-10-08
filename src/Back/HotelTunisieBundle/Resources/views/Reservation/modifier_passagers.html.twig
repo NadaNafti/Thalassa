@@ -1,0 +1,33 @@
+{% extends "BackHotelTunisieBundle:Reservation:consultation.html.twig" %}
+{% block title %}Modifier les résidents{% endblock %}
+{% block description %}{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">Modifier les résidents</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    {% for formPer in form.personnes %}
+                        <div class="row">
+                            {{ formulaire.input("col-md-4","Nom Prénom",formPer.nom,true) }}
+                        </div>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button class="btn btn-green btn-block" type="submit">
+                                Modifier <i class="fa fa-arrow-circle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

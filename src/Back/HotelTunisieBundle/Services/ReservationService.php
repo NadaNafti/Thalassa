@@ -160,42 +160,44 @@ class ReservationService
         return $results;
     }
 
-    public function saveReservation($data, $result, $source)
+    public function saveReservation($data, $result, $source, Reservation $reservation=null)
     {
         $hotel = $this->em->getRepository('BackHotelTunisieBundle:Hotel')->find($result['hotel']);
-        $tarifCommercial = $this->em->getRepository('BackCommercialBundle:Tarif')->find(1);
-        $client = $data['client'];
-        $coordoonnes = array($client->getNomPrenom(), $client->getTel1(), $client->getTel2(), $client->getAdresse());
-        $reservation = new Reservation();
-        $options = array();
-        foreach ($hotel->getOptions() as $option) {
-            if (isset($data['option_' . $option->getId()]) && $data['option_' . $option->getId()])
-                $options[] = $option->getId();
+        if(is_null($reservation)) {
+            $tarifCommercial = $this->em->getRepository('BackCommercialBundle:Tarif')->find(1);
+            $client = $data['client'];
+            $coordoonnes = array($client->getNomPrenom(), $client->getTel1(), $client->getTel2(), $client->getAdresse());
+            $reservation = new Reservation();
+            $options = array();
+            foreach ($hotel->getOptions() as $option) {
+                if (isset($data['option_' . $option->getId()]) && $data['option_' . $option->getId()])
+                    $options[] = $option->getId();
+            }
+            $reservation->setClient($client)
+                ->setCoordonnees($coordoonnes)
+                ->setHotel($hotel)
+                ->setDateDebut(\DateTime::createFromFormat('Y-m-d', $result['dateDebut']))
+                ->setDateFin(\DateTime::createFromFormat('Y-m-d', $result['dateFin']))
+                ->setNuitees($result['nuitees'])
+                ->setSurDemande($result['surDemande'])
+                ->setOptions($options);
+            if(!is_null($client->getAmicale()))
+            {
+                $reservation->setAmicale($client->getAmicale());
+                if($client->getResponsable())
+                    $reservation->setValidatedAmicale(new \DateTime())->setResponsableAmicale($client);
+            }
+            if (isset($data['observation']))
+                $reservation->setObservation($data['observation']);
+            if ($tarifCommercial && $tarifCommercial->getTimbre())
+                $reservation->setTimbre($tarifCommercial->getMontantTimbre());
+            if ($source == 'backoffice') {
+                $user = $this->container->get('security.context')->getToken()->getUser();
+                $reservation->setResponsable($user)->setFrontOffice(0);
+            } else
+                $reservation->setFrontOffice(1);
+            $this->em->persist($reservation);
         }
-        $reservation->setClient($client)
-            ->setCoordonnees($coordoonnes)
-            ->setHotel($hotel)
-            ->setDateDebut(\DateTime::createFromFormat('Y-m-d', $result['dateDebut']))
-            ->setDateFin(\DateTime::createFromFormat('Y-m-d', $result['dateFin']))
-            ->setNuitees($result['nuitees'])
-            ->setSurDemande($result['surDemande'])
-            ->setOptions($options);
-        if(!is_null($client->getAmicale()))
-        {
-            $reservation->setAmicale($client->getAmicale());
-            if($client->getResponsable())
-                $reservation->setValidatedAmicale(new \DateTime())->setResponsableAmicale($client);
-        }
-        if (isset($data['observation']))
-            $reservation->setObservation($data['observation']);
-        if ($tarifCommercial && $tarifCommercial->getTimbre())
-            $reservation->setTimbre($tarifCommercial->getMontantTimbre());
-        if ($source == 'backoffice') {
-            $user = $this->container->get('security.context')->getToken()->getUser();
-            $reservation->setResponsable($user)->setFrontOffice(0);
-        } else
-            $reservation->setFrontOffice(1);
-        $this->em->persist($reservation);
         $chambreOrdre = 0;
         foreach ($result['chambres'] as $chambre) {
             $noms = array();
@@ -318,6 +320,16 @@ class ReservationService
         return $calendrier;
     }
 
+    public function generateSessionReservation(Reservation $reservation)
+    {
+        $tab=array();
+        $tab['hotel']=$reservation->getHotel()->getId();
+        $tab['client']=$reservation->getClient()->getId();
+        $tab['dateDebut']=$reservation->getDateDebut()->format('Y-m-d');
+        $tab['dateFin']=$reservation->getDateFin()->format('Y-m-d');
+        $tab['nuitees']=$reservation->getNuitees();
+        return $tab;
+    }
 
 
 }
