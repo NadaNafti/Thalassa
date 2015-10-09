@@ -1,0 +1,30 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Configuration du payement électronique{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        {{ formulaire.input("col-md-2","Remise internet",form.remiseInternet,true) }}
+                        {{ formulaire.input("col-md-2","",form.remiseInternetPourcentage,false) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-2","Avance en pourcentage",form.avance,true) }}
+                    </div>
+                    {{ formulaire.submit("Enregistrer") }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
