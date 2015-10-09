@@ -1,16 +1,16 @@
-{% extends "BackUserBundle:client:liste.html.twig" %}
+{% extends "BackUserBundle:fournisseur:liste.html.twig" %}
 {% block title %}Liste des contacts{% endblock %}
 {% block topbody %}   
     {{ parent() }}
     <li>
-        <a href="javascript:void(0)" >{{ block('title') }} {{client}}</a>
+        <a href="javascript:void(0)" >{{ block('title') }} {{fournisseur}}</a>
     </li>
 {% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-md-12">
             <div class="tabbable">
-                {% include 'BackUserBundle:client/profil:menu.html.twig' %}
+                {% include 'BackUserBundle:fournisseur/profil:menu.html.twig' %}
                 <div class="panel panel-default">
                     <div class="panel-body">
                         {{ form_start(form) }}
@@ -42,7 +42,6 @@
             </div>
         </div>
     </div>
-       
     <hr>
     <div class="row">
         <div class="col-md-12">
@@ -68,7 +67,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for contact in client.contacts %}
+                            {% for contact in fournisseur.contacts %}
                                 <tr class="center">
                                     <td>{{ contact.id }}</td>
                                     <td>{{ contact.showTitreCivilite }} {{ contact.nomPrenom }}</td>
@@ -84,8 +83,8 @@
                                     <td>{{ contact.fax }}</td>
                                     <td>{{ contact.email }}</td>
                                     <td class="TableAction">
-                                        {{ macros.tableEdit(path('back_crm_client_profil_contact',{'id':client.id,'id2':contact.id})) }}
-                                        {{ macros.tableDelete(path('back_crm_client_profil_contact_delete',{'id':contact.id})) }}
+                                        {{ macros.tableEdit(path('back_crm_fournisseur_profil_contact',{'id':fournisseur.id,'id2':contact.id})) }}
+                                        {{ macros.tableDelete(path('back_crm_fournisseur_profil_contact_delete',{'id':contact.id})) }}
                                     </td>
                                 </tr>
                             {% endfor %}

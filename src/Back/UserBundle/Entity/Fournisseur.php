@@ -27,9 +27,9 @@ class Fournisseur
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle", type="string", length=255)
+     * @ORM\Column(name="nomPrenom", type="string", length=255)
      */
-    private $libelle;
+    private $nomPrenom;
     
     /**
      * @var integer
@@ -85,7 +85,7 @@ class Fournisseur
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="text", nullable=true)
+     * @ORM\Column(name="adresse", type="string", nullable=true)
      */
     private $adresse;
 
@@ -254,26 +254,26 @@ class Fournisseur
     }
 
     /**
-     * Set libelle
+     * Set nomPrenom
      *
-     * @param string $libelle
+     * @param string $nomPrenom
      * @return Fournisseur
      */
-    public function setLibelle($libelle)
+    public function setNomPrenom($nomPrenom)
     {
-        $this->libelle = $libelle;
+        $this->nomPrenom = $nomPrenom;
 
         return $this;
     }
 
     /**
-     * Get libelle
+     * Get nomPrenom
      *
      * @return string 
      */
-    public function getLibelle()
+    public function getNomPrenom()
     {
-        return $this->libelle;
+        return $this->nomPrenom;
     }
     /**
      * Constructor
@@ -318,7 +318,7 @@ class Fournisseur
     
     public function __toString()
     {
-        return $this->libelle;
+        return $this->nomPrenom;
     }
 
     /**

@@ -69,7 +69,7 @@ class Reservation
     private $tarif;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservationsPR")
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservationsBE")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $client;

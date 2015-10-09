@@ -6,24 +6,55 @@ back_crm_client_ajouter:
     path:     /ajouter/{id}
     defaults: { _controller: BackUserBundle:CRMClient:ajouter,id:null }
     
+back_crm_client_delete:
+    path:     /supprimerClient/{id}
+    defaults: { _controller: BackUserBundle:CRMClient:delete }
+
+#profil
 back_crm_client_profil:
     path:      /profil/{id}
     defaults: { _controller: BackUserBundle:CRMClient:profil }
     
+back_crm_client_profil_modifier:
+    path:      /modifierProfil/{id}
+    defaults: { _controller: BackUserBundle:CRMClient:modifierProfil }
+    
 back_crm_client_profil_contact:
-    path:     /profil/{id}/contact/{id2}/{page}
-    defaults: { _controller: BackUserBundle:CRMClient:profilContact,id2:null,page:1 }
+    path:     /profil/{id}/contact/{id2}
+    defaults: { _controller: BackUserBundle:CRMClient:profilContact,id2:null }
     requirements:
         id:  \d+
-    
+        
 back_crm_client_profil_contact_delete:
     path:      /supprimer_profil_contact/{id}
     defaults: { _controller: BackUserBundle:CRMClient:deleteProfilContact,id:null,page:1 }
+
+#réservations
+back_crm_client_profil_rHT:
+    path:     /profil/{id}/reservationsHT
+    defaults: { _controller: BackUserBundle:CRMClient:reservationsHT }
     
-back_crm_client_delete:
-    path:     /supprimerClient/{id}
-    defaults: { _controller: BackUserBundle:CRMClient:delete }
+back_crm_client_profil_rVO:
+    path:     /profil/{id}/reservationsVO
+    defaults: { _controller: BackUserBundle:CRMClient:reservationsVO }
     
+back_crm_client_profil_rPR:
+    path:     /profil/{id}/reservationsPR
+    defaults: { _controller: BackUserBundle:CRMClient:reservationsPR }
+    
+back_crm_client_profil_rBE:
+    path:     /profil/{id}/reservationsBE
+    defaults: { _controller: BackUserBundle:CRMClient:reservationsBE }
+    
+back_crm_client_profil_rB:
+    path:     /profil/{id}/reservationsB
+    defaults: { _controller: BackUserBundle:CRMClient:reservationsB }
+    
+back_crm_client_profil_rM:
+    path:     /profil/{id}/reservationsM
+    defaults: { _controller: BackUserBundle:CRMClient:reservationsM }
+
+#contacts   
 back_crm_client_contacts:
     path:     /contactsClient/{id}/{page}
     defaults: { _controller: BackUserBundle:CRMClient:contacts,id:null,page:1 }
@@ -31,3 +62,20 @@ back_crm_client_contacts:
 back_crm_client_contact_delete:
     path:     /supprimerContactClient/{id}
     defaults: { _controller: BackUserBundle:CRMClient:deleteContact }
+
+    
+ajax_reservationSHT_to_SousEtats:
+    path:     /ajax_reservationSHT_to_SousEtats
+    defaults: { _controller: BackHotelTunisieBundle:Reservation:ajaxSousEtats }
+    
+ajax_reservationVO_to_SousEtats:
+    path:     /ajax_reservationVO_to_SousEtats
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:ajaxSousEtats }
+    
+ajax_reservationPR_to_SousEtats:
+    path:     /ajax_reservationPR_to_SousEtats
+    defaults: { _controller: BackProgrammeBundle:Reservation:ajaxSousEtats }
+    
+ajax_reservationBE_to_SousEtats:
+    path:     /ajax_reservationBE_to_SousEtats
+    defaults: { _controller: BackBienEtreBundle:Reservation:ajaxSousEtats }

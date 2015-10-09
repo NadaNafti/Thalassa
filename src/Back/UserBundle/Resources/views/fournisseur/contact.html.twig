@@ -14,20 +14,27 @@
                     <div class="panel-body">
                         {{ form_start(form) }}
                         <div class="row">
-                            {{ formulaire.select2("col-md-4","Fournisseur",form.fournisseur,false) }}
-                            {{ formulaire.input("col-md-8","Adresse",form.adresse,false) }}
+                            {{ formulaire.select2("col-md-3","Fournisseur",form.fournisseur,true) }}
+                            {{ formulaire.input("col-md-3","Nom & Prenom",form.nomPrenom,true) }}
+                            {{ formulaire.input("col-md-3","Titre de civilité",form.titreCivilite,true) }}
+                            {{ formulaire.input("col-md-3","Date de naissance",form.dateNaissance,true) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.select2("col-md-3","Pays",form.pays,false) }}
-                            {{ formulaire.input("col-md-3","Gouvernorat",form.gouvernorat,false) }}
-                            {{ formulaire.input("col-md-3","Ville",form.ville,false) }}
-                            {{ formulaire.input("col-md-3","Code postal",form.codePostal,false) }}
+                            {{ formulaire.input("col-md-3","Fonction",form.fonction,true) }}
+                            {{ formulaire.input("col-md-9","Adresse",form.adresse,true) }}
+                        </div>
+                        <div class="row">
+                            
+                            {{ formulaire.input("col-md-3","Pays",form.pays,true) }}
+                            {{ formulaire.input("col-md-3","Gouvernorat",form.gouvernorat,true) }}
+                            {{ formulaire.input("col-md-3","Ville",form.ville,true) }}
+                            {{ formulaire.input("col-md-3","Code postal",form.codePostal,true) }}
                         </div>
                         <div class="row" id="telRow">
-                            {{ formulaire.input("col-md-3","Email",form.email,false) }}
-                            {{ formulaire.input("col-md-3","Tel pro",form.telPro,false) }}
-                            {{ formulaire.input("col-md-3","Tel perso",form.telPerso,false) }}
-                            {{ formulaire.input("col-md-3","Fax",form.fax,false) }}
+                            {{ formulaire.input("col-md-3","Email",form.email,true) }}
+                            {{ formulaire.input("col-md-3","Tel pro",form.telPro,true) }}
+                            {{ formulaire.input("col-md-3","Tel perso",form.telPerso,true) }}
+                            {{ formulaire.input("col-md-3","Fax",form.fax,true) }}
                         </div>
                         {{ formulaire.submit("Enregistrer") }}
                         {{ form_end(form) }}
@@ -49,6 +56,9 @@
                             <tr class="center">
                                 <th class="center">ID</th>
                                 <th class="center">Fournisseur</th>
+                                <th class="center">Nom & Prénom</th>
+                                <th class="center">Date de naissance</th>
+                                <th class="center">Fonction</th>
                                 <th class="center">Adresse</th>
                                 <th class="center">Code postal</th>
                                 <th class="center">Ville</th>
@@ -66,6 +76,9 @@
                                 <tr class="center">
                                     <td>{{ contact.id }}</td>
                                     <td>{{ contact.fournisseur }}</td>
+                                    <td>{{ contact.showTitreCivilite }} {{ contact.nomPrenom }}</td>
+                                    <td>{{ contact.dateNaissance|date('d-m-y') }}</td>
+                                    <td>{{ contact.fonction }}</td>
                                     <td>{{ contact.adresse }}</td>
                                     <td>{{ contact.codePostal }}</td>
                                     <td>{{ contact.ville }}</td>
