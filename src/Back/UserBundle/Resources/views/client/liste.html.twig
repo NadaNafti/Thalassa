@@ -50,9 +50,9 @@
                                     </td>
                                     <td>
                                         {% if  client.user is not null %}
-                                            <a href="{{ path('user_client',{'id':client.id}) }}" class="tooltips" title="Cliquez ici pour Modifier son compte" ><span class="label label-sm label-success">Oui</span></a>
+                                            <a href="{{ path('back_crm_client_profil_user',{'id':client.id}) }}" class="tooltips" title="Cliquez ici pour Modifier son compte" ><span class="label label-sm label-success">Oui</span></a>
                                         {% else %} 
-                                            <a href="{{ path('user_client',{'id':client.id}) }}" class="tooltips" title="Cliquez ici pour ajouter un compte a ce client" ><span class="label label-sm label-danger">Non</span></a>
+                                            <a href="{{ path('back_crm_client_profil_user',{'id':client.id}) }}" class="tooltips" title="Cliquez ici pour ajouter un compte a ce client" ><span class="label label-sm label-danger">Non</span></a>
                                         {% endif %}
                                     </td>
                                     <td class="TableAction">
