@@ -27,14 +27,7 @@
                                 <div class="row">
                                     {{ formulaire.input("col-md-1","Type",form.type,false) }}
                                     {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
-                                    {#{{ formulaire.input("col-md-2","Délai d'annulation",form.delaiAnnulation,true) }}#}
-                                    {#{{ formulaire.input("col-md-2","Délai retrocession",form.delaiRetrocession,true) }}#}
-                                    {#{{ formulaire.input("col-md-2","Nombre de place",form.nombrePlace,true) }}#}
-                                    {#{{ formulaire.input("col-md-4","Acompte",form.aCompte,true) }}#}
                                     {{ formulaire.input("col-md-2","Nbr min de nuitées",form.minStay,true) }}
-                                    {% if saison.type==4 %}
-                                        {{ formulaire.input("col-md-2","Total contingent",form.totalContingent,true) }}
-                                    {% endif %}
                                 </div>
                                 <div class="row">
                                     {{ formulaire.select2("col-md-3","Arrangement de base",form.ArrBase,true) }}

@@ -2,6 +2,7 @@
 
 namespace Back\HotelTunisieBundle\Services;
 
+use Proxies\__CG__\Back\HotelTunisieBundle\Entity\Saison;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Doctrine\ORM\EntityManager;
 use Back\UserBundle\Entity\Client;
@@ -15,24 +16,18 @@ class Saisons
         $this->em = $entityManager;
     }
 
-    public function getSaisonByClient(Hotel $hotel, Client $client, $date, $nbrChambre = 0)
+    public function getSaisonByClient(Hotel $hotel, Client $client, $date)
     {
 
         $saison = $hotel->getSaisonByClient($date, $client);
-        if (is_null($client) || is_null($client->getAmicale()) || $saison->getType() != 3) {
-            $saisonContingent = $this->getSaisonContingent( $hotel, $date,$nbrChambre);
-            if (!is_null(($saisonContingent)))
-                return $saisonContingent;
-        }
+        if (is_null($client) || is_null($client->getAmicale()) || $saison->getType() != 3)
+            $saison = $hotel->getSaisonPromotionByDate($date, true);
         return $saison;
     }
 
-    public function getSaisonContingent(Hotel $hotel, $date,$nbrChambre)
+    public function getSaisonContingent(Hotel $hotel, $date)
     {
-        $saisonContingent = $hotel->getSaisonPromotionByDate($date, true);
-        if ($this->hasChambreContingent($saisonContingent, $date, $nbrChambre))
-            return $saisonContingent;
-        return null;
+        return $hotel->getSaisonPromotionByDate($date, true);
     }
 
     public function hasChambreContingent($saison, $date, $nbrChambre)
@@ -40,7 +35,7 @@ class Saisons
         if (is_null($saison))
             return false;
         $query = $this->em->getRepository('BackHotelTunisieBundle:ReservationChambre')->getCountChambreContingent($saison, $date);
-        if ($query + $nbrChambre <= $saison->getTotalContingent() && $saison->getType() == 4)
+        if ($query + $nbrChambre <= $saison->getNombreContingentDispo($date) && $saison->getType() == 4 && $saison->getNombreContingentDispo($date)>0)
             return true;
         else
             return false;
