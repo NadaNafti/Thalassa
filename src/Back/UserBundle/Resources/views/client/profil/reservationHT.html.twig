@@ -1,0 +1,155 @@
+{% extends "BackUserBundle:client:liste.html.twig" %}
+{% block title %}Liste des réservations HT{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('liste_reservations') }}">Liste des reservations HT {{client}}</a>
+    </li>
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                {% include 'BackUserBundle:client/profil:menu.html.twig' %}
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover"  id="sample_1">
+                        <thead>
+                            <tr>
+                                <th class="center ">ID</th>
+                                <th class="center ">Date</th>
+                                <th class="center ">CheckIn &amp; CheckOut</th>
+                                <th class="center ">Hôtel</th>
+                                <th class="center ">Etat</th>
+                                <th class="center">Total</th>
+                                <th class="center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reservation in client.reservationsSHT %}
+                                <tr class="center">
+                                    <td>{{ reservation.id }}</td>
+                                    <td>
+                                        {{ reservation.created|date('d/m/Y H:i') }}<br>
+                                        <span style="color:red">
+                                            {% if reservation.frontOffice %}
+                                                Front office
+                                            {% else %}
+                                                Back office
+                                            {% endif %}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        Du {{ reservation.dateDebut|date('d/m/Y') }}
+                                        au {{ reservation.dateFin|date_modify('+ 1 day')|date('d/m/Y') }}<br>
+                                        <span style="color:red">{{ reservation.nuitees }} Nuitées</span>
+                                    </td>
+                                    <td>
+                                        {{ reservation.hotel|title }}<br>
+                                        {% if reservation.etat ==1 %}
+                                            {% if reservation.hotelNotifier %}
+                                                <a href="{{ path('renotifier_hotel',{'id':reservation.id}) }}"
+                                                   onclick="javascript:return(confirm('Etes-vous certain de vouloir renotifier cet hôtel ?'))"
+                                                   class="tooltips" tittle="Cliquez ici pour renotifier l'hôtel"><span
+                                                        style="color:green"> Notifier</span></a>
+                                                {% else %}
+                                                <a href="{{ path('renotifier_hotel',{'id':reservation.id}) }}"
+                                                   onclick="javascript:return(confirm('Etes-vous certain de vouloir Notifier cet hôtel ?'))"
+                                                   class="tooltips" title="Cliquez ici pour notifier l'hôtel"><span
+                                                        style="color:red">Non notifier</span></a>
+                                                {% endif %}
+                                            {% endif %}
+                                    </td>
+                                    <td>
+                                        {{ reservation.showEtat }}
+                                        {% if reservation.sousEtats|length!=0 %}
+                                            <a href="#liste" class="buttonEtats" data-toggle="modal" data-id="{{ reservation.id }}">
+                                                <small>({{ reservation.sousEtats.last }})</small>
+                                            </a>
+                                        {% endif %}
+                                        {% if reservation.amicale is not null and reservation.responsableAmicale is null %}
+                                            <p>En attente du validation par le Responsable amicale</p>
+                                        {% endif %}
+                                        {% if reservation.responsable is not null %}
+                                            <p>P.E.C <span style="color:red"> {{ reservation.responsable }}</span></p>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if reservation.surDemande %}
+                                            <span style="color:red">Sur demande</span>
+                                        {% else %}
+                                            {{ reservation.getTotal }} DT
+                                        {% endif %}
+                                    </td>
+                                    <td class="TableAction">
+                                        {% if reservation.responsable is null %}
+                                            {{ macros.boutton(path('prise_en_charge_reservations',{'id':reservation.id}),'fa-user','btn-dark-grey','Prendre en charge cette reservation') }}
+                                        {% else %}
+                                            {% if reservation.etat==2 %}
+                                                {{ macros.bouttonBlank(path('recus_reservation',{'id':reservation.id}),'fa-money','btn-dark-grey','Récus') }}
+                                                {{ macros.bouttonBlank(path('voucher_reservation',{'id':reservation.id}),'fa-print','btn-dark-grey','Voucher sans les prix') }}
+                                                {{ macros.bouttonBlank(path('voucher_prix_reservation',{'id':reservation.id}),'fa-print','btn-dark-grey','Voucher avec les prix') }}
+                                            {% endif %}
+                                            {{ macros.boutton(path('consulter_reservation',{'id':reservation.id}),'fa-eye','btn-dark-grey','Consulter la réservation') }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="liste" class="modal fade" tabindex="-1" data-width="960" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">liste des sous-états</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th class="center">Date</th>
+                                <th class="center">User</th>
+                                <th class="center">Sous-états</th>
+                                <th class="center">Commentaire</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tBodyEtats">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block jquery %}
+    <script>
+        $(document).ready(function () {
+            $(".addEtat").on('click', function () {
+                $("#back_administrationbundle_sousetat_sht_reservationSHT").val($(this).data('id'));
+            })
+            $(".buttonEtats").on('click', function () {
+                $('#tBodyEtats').html("<tr class='center'><td colspan='4'>Loading ...</td></tr>");
+                var res=$(this).data('id');
+                $.ajax({
+                    url: '{{ path('ajax_reservationSHT_to_SousEtats') }}',
+                    data: { 'id' : res },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(json) {
+                        $('#tBodyEtats').empty();
+                        $.each(json, function (index, value) {
+                            $('#tBodyEtats').append("<tr class='center'><td>"+value['date']+"</td><td>"+value['user']+"</td><td>"+value['etat']+"</td><td>"+value['commentaire']+"</td></tr>");
+                        });
+                    }
+                });
+            })
+        })
+    </script>
+{% endblock %}

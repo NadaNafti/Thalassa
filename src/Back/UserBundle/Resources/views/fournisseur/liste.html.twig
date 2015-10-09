@@ -21,15 +21,13 @@
                         <thead>
                             <tr class="center">
                                 <th class="center">ID</th>
-                                <th class="center">Libellé</th>
+                                <th class="center">Nom/Intitulé</th>
                                 <th class="center">Type</th>
                                 <th class="center">Nom alternatif</th>
                                 <th class="center">Matricule fiscale</th>
                                 <th class="center">Registre commercial</th>
-                                <th class="center" >Code douane</th>
                                 <th class="center" >Assujetti à la tva</th>
                                 <th class="center" >Forme juridique</th>
-                                <th class="center" >Logo</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -37,22 +35,16 @@
                             {% for fournisseur in fournisseurs %}
                                 <tr class="center">
                                     <td>{{ fournisseur.id }}</td>
-                                    <td>{{ fournisseur.libelle }}</td>
+                                    <td>{{ fournisseur.nomPrenom }}</td>
                                     <td>{{ fournisseur.showTypeFournisseur }}</td>
                                     <td>{{ fournisseur.nomAlternatif }}</td>
                                     <td>{{ fournisseur.matriculeFiscale }}</td>
                                     <td>{{ fournisseur.registreCommercie }}</td>
-                                    <td>{{ fournisseur.codeDouane }}</td>
                                     <td>{{ fournisseur.showTva }}</td>
                                     <td>{{ fournisseur.showFormeJuridique }}</td>
-                                    <td>
-                                        {% if fournisseur.url is not null %}
-                                            <img src="{{ asset(asset(fournisseur.getAssetPath)) }}" class="img-responsive"  width="50"  height="50">
-                                        {% endif %}
-                                    </td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            {{ macros.boutton(path('back_crm_fournisseur_details',{'id':fournisseur.id}),'fa-eye','btn-dark-grey','Détails fournisseur') }}
+                                            {{ macros.boutton(path('back_crm_fournisseur_profil',{'id':fournisseur.id}),'fa-eye','btn-dark-grey','Détails fournisseur') }}
                                             {{ macros.tableEdit(path('back_crm_fournisseur_ajouter',{'id':fournisseur.id})) }}
                                             {{ macros.tableDelete(path('back_crm_fournisseur_delete',{'id':fournisseur.id})) }}
                                         </div>

@@ -2,11 +2,11 @@
     <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue">
         <li {% if app.request.get('_route')=='back_crm_client_profil' %}class="active"{% endif %}>
             <a href="{{ path("back_crm_client_profil",{'id':client.id}) }}">
-                Profil
+                {{ client }}
             </a>
         </li>
-        <li {% if app.request.get('_route')=='back_crm_client_ajouter' %}class="active"{% endif %}>
-            <a href="{{ path("back_crm_client_ajouter",{'id':client.id}) }}">
+        <li {% if app.request.get('_route')=='back_crm_client_profil_modifier' %}class="active"{% endif %}>
+            <a href="{{ path("back_crm_client_profil_modifier",{'id':client.id}) }}">
                 Modifier profil
             </a>
         </li>
@@ -15,14 +15,34 @@
                 Contacts ({{ client.contacts|length }})
             </a>
         </li>
-        <li>
-            <a href="#panel_projects">
-                Réservation SHT
+        <li {% if app.request.get('_route')=='back_crm_client_profil_rHT' %}class="active"{% endif %}>
+            <a href="{{ path("back_crm_client_profil_rHT",{'id':client.id}) }}">
+                Hôtels tunisie ({{ client.reservationsSHT|length }})
             </a>
         </li>
-        <li>
-            <a href="#panel_projects">
-                Réservation VO
+        <li {% if app.request.get('_route')=='back_crm_client_profil_rVO' %}class="active"{% endif %}>
+            <a href="{{ path("back_crm_client_profil_rVO",{'id':client.id}) }}">
+                Voyages Organisés ({{ client.reservationsVO|length }})
+            </a>
+        </li>
+        <li {% if app.request.get('_route')=='back_crm_client_profil_rPR' %}class="active"{% endif %}>
+            <a href="{{ path("back_crm_client_profil_rPR",{'id':client.id}) }}">
+                Programmes ({{ client.reservationsPR|length }})
+            </a>
+        </li>
+        <li {% if app.request.get('_route')=='back_crm_client_profil_rBE' %}class="active"{% endif %}>
+            <a href="{{ path("back_crm_client_profil_rBE",{'id':client.id}) }}">
+                Bien-être ({{ client.reservationsBE|length }})
+            </a>
+        </li>
+        <li {% if app.request.get('_route')=='back_crm_client_profil_rB' %}class="active"{% endif %}>
+            <a href="{{ path("back_crm_client_profil_rB",{'id':client.id}) }}">
+                Billetterie ({{ client.reservationsB|length }})
+            </a>
+        </li>
+        <li {% if app.request.get('_route')=='back_crm_client_profil_rM' %}class="active"{% endif %}>
+            <a href="{{ path("back_crm_client_profil_rM",{'id':client.id}) }}">
+                Maritime ({{ client.reservationsM|length }})
             </a>
         </li>
     </ul>

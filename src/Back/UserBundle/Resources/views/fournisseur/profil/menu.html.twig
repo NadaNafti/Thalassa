@@ -1,0 +1,19 @@
+{% if fournisseur.id is not null %}
+    <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue">
+        <li {% if app.request.get('_route')=='back_crm_fournisseur_profil' %}class="active"{% endif %}>
+            <a href="{{ path("back_crm_fournisseur_profil",{'id':fournisseur.id}) }}">
+                {{ fournisseur }}
+            </a>
+        </li>
+        <li {% if app.request.get('_route')=='back_crm_fournisseur_profil_modifier' %}class="active"{% endif %}>
+            <a href="{{ path("back_crm_fournisseur_profil_modifier",{'id':fournisseur.id}) }}">
+                Modifier profil
+            </a>
+        </li>
+        <li {% if app.request.get('_route')=='back_crm_fournisseur_profil_contact' %}class="active"{% endif %}>
+            <a href="{{ path("back_crm_fournisseur_profil_contact",{'id':fournisseur.id}) }}">
+                Contacts ({{ fournisseur.contacts|length }})
+            </a>
+        </li>
+    </ul>
+{% endif %}
