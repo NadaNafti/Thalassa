@@ -41,7 +41,7 @@ class ClientFullType extends AbstractType {
                     'required' => false
                 ))
                 ->add('formeJuridique', 'choice', array(
-                    'required' => true,
+                    'required' => FALSE,
                     'choices' => array(
                         1 => "Groupe de sociétés",
                         2 => "Groupement d'intérêt économique (GEI)",

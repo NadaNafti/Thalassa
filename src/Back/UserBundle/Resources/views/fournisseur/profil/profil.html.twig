@@ -1,0 +1,122 @@
+{% extends "BackUserBundle:fournisseur:liste.html.twig" %}
+{% block title %}Détails fournisseur{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">{{ fournisseur }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabbable">
+                {% include 'BackUserBundle:fournisseur/profil:menu.html.twig' %}
+                <div class="tab-content">
+                    <div id="panel_overview" class="tab-pane in active">
+                        <div class="row">
+                            <div class="col-sm-5 col-md-4">
+                                <div class="user-left">
+                                    <div class="center">
+                                        <h4>{{ fournisseur.nomPrenom }}</h4>
+                                        {% if fournisseur.url is not null %}
+                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                <div class="user-image">
+                                                    <div class="fileupload-new thumbnail">
+                                                        <img src="{{ asset(asset(fournisseur.getAssetPath)) }}"  width="200px" height="200px">
+
+                                                    </div>
+                                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        <hr>
+                                        <p>
+                                            <a class="btn btn-twitter btn-sm btn-squared">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                            <a class="btn btn-linkedin btn-sm btn-squared">
+                                                <i class="fa fa-linkedin"></i>
+                                            </a>
+                                            <a class="btn btn-google-plus btn-sm btn-squared">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                            <a class="btn btn-github btn-sm btn-squared">
+                                                <i class="fa fa-github"></i>
+                                            </a>
+                                        </p>
+                                        <hr>
+                                    </div>
+                                    <table class="table table-condensed table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Coordonnées</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><th>Adresse</th> <td>{{ fournisseur.adresse }}</td></tr>
+                                            <tr><th>Code postal</th> <td>{{ fournisseur.codePostal }}</td></tr>
+                                            <tr><th >Ville</th> <td>{{ fournisseur.ville }}</td></tr>
+                                            <tr><th >Gouvernorat</th> <td>{{ fournisseur.gouvernorat }}</td></tr>
+                                            <tr><th >Pays</th> <td>{{ fournisseur.pays }}</td></tr>
+                                            <tr><th>Tel pro</th> <td>{{ fournisseur.tel1 }}</td></tr>
+                                            <tr><th>Tel perso</th> <td>{{ fournisseur.tel2 }}</td></tr>
+                                            <tr><th>Email</th> <td>{{ fournisseur.email }}</td></tr>
+                                            <tr><th>Site web</th> <td>{{ fournisseur.siteWeb }}</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-condensed table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Informations générales</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><th>Nom alternatif</th> <td>{{ fournisseur.nomAlternatif }}</td></tr>
+                                            <tr><th>Code douane</th> <td>{{ fournisseur.codeDouane }}</td></tr>
+                                            <tr><th >Registre commercie</th> <td>{{ fournisseur.registreCommercie }}</td></tr>
+                                            <tr><th >Matricule fiscale</th> <td>{{ fournisseur.matriculeFiscale }}</td></tr>
+                                            <tr><th >Assujetti à la tva</th> <td>{{ fournisseur.showTva }}</td></tr>
+                                            <tr><th>Forme juridique</th> <td>{{ fournisseur.showFormeJuridique }}</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-7 col-md-8">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas convallis porta purus, pulvinar mattis nulla tempus ut. Curabitur quis dui orci. Ut nisi dolor, dignissim a aliquet quis, vulputate id dui. Proin ultrices ultrices ligula, dictum varius turpis faucibus non. Curabitur faucibus ultrices nunc, nec aliquet leo tempor cursus.
+                                </p>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-icon btn-block">
+                                            <i class="clip-clip"></i>
+                                            Hôtels en tunisie <span class="badge badge-info"> 4 </span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-icon btn-block pulsate">
+                                            <i class="clip-bubble-2"></i>
+                                            Voyages Organisées <span class="badge badge-info"> 23 </span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-icon btn-block">
+                                            <i class="clip-calendar"></i>
+                                            Calendar <span class="badge badge-info"> 5 </span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-icon btn-block">
+                                            <i class="clip-list-3"></i>
+                                            Notifications <span class="badge badge-info"> 9 </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

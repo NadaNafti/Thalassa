@@ -1,5 +1,5 @@
 {% extends ":Back:base.html.twig" %}
-{% block title %}Ajouter/Editer fournisseur{% endblock %}
+{% block title %}Gérer fournisseur{% endblock %}
 {% block topbody %}   
     {{ parent() }}
     <li>
@@ -10,14 +10,17 @@
     <div class="row">
         <div class="col-md-12">
             <div class="tabbable">
+                {% include 'BackUserBundle:fournisseur/profil:menu.html.twig' %}
                 <div class="panel panel-default">
                     <div class="panel-body">
                         {{ form_start(form) }}
                         <div class="row">
-                            {{ formulaire.input("col-md-2",null,form.type,false) }}
-                            {{ formulaire.input("col-md-3","Libellé",form.libelle,false) }}
-                            {{ formulaire.input("col-md-3 alternative no-display","Nom alternatif(commercial, marque...)",form.nomAlternatif,false) }}
-                            {{ formulaire.input("col-md-4","Adresse",form.adresse,false) }}
+                            {{ formulaire.input("col-md-3",null,form.type,false) }}
+                            {{ formulaire.input("col-md-4","Nom & Prénom/Intitulé",form.nomPrenom,false) }}
+                            {{ formulaire.input("col-md-4 alternative no-display","Nom alternatif (commercial, marque...)",form.nomAlternatif,false) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-12","Adresse",form.adresse,false) }}
                         </div>
                         <div class="row">
                             {{ formulaire.select2("col-md-3","Pays",form.pays,false) }}

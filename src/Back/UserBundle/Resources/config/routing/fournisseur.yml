@@ -13,9 +13,28 @@ back_crm_fournisseur_details:
 back_crm_fournisseur_delete:
     path:     /supprimerClient/{id}
     defaults: { _controller: BackUserBundle:CRMFournisseur:delete }
+    
+#profil
+back_crm_fournisseur_profil:
+    path:      /profil/{id}
+    defaults: { _controller: BackUserBundle:CRMFournisseur:profil }
+    
+back_crm_fournisseur_profil_modifier:
+    path:      /modifierProfil/{id}
+    defaults: { _controller: BackUserBundle:CRMFournisseur:modifierProfil }
+    
+back_crm_fournisseur_profil_contact:
+    path:     /profil/{id}/contact/{id2}
+    defaults: { _controller: BackUserBundle:CRMFournisseur:profilContact,id2:null }
+    requirements:
+        id:  \d+
+        
+back_crm_fournisseur_profil_contact_delete:
+    path:      /supprimer_profil_contact/{id}
+    defaults: { _controller: BackUserBundle:CRMFournisseur:deleteProfilContact,id:null,page:1 }
 
 back_crm_fournisseur_contacts:
-    path:     /contactsClient/{id}/{page}
+    path:     /contactsFournisseur/{id}/{page}
     defaults: { _controller: BackUserBundle:CRMFournisseur:contacts,id:null,page:1 }
     
 back_crm_fournisseur_contact_delete:

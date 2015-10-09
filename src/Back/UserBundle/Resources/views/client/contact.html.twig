@@ -16,22 +16,25 @@
                         <div class="row">
                             {{ formulaire.select2("col-md-3","Client",form.client,true) }}
                             {{ formulaire.input("col-md-3","Nom & Prenom",form.nomPrenom,true) }}
-                            {{ formulaire.input("col-md-2","Titre de civilité",form.titreCivilite,true) }}
-                            {{ formulaire.input("col-md-2","Fonction",form.fonction,true) }}
-                            {{ formulaire.input("col-md-2","Date de naissance",form.dateNaissance,true) }}
+                            {{ formulaire.input("col-md-3","Titre de civilité",form.titreCivilite,true) }}
+                            {{ formulaire.input("col-md-3","Date de naissance",form.dateNaissance,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-3","Fonction",form.fonction,true) }}
+                            {{ formulaire.input("col-md-9","Adresse",form.adresse,true) }}
+                        </div>
+                        <div class="row">
+                            
+                            {{ formulaire.input("col-md-3","Pays",form.pays,true) }}
+                            {{ formulaire.input("col-md-3","Gouvernorat",form.gouvernorat,true) }}
+                            {{ formulaire.input("col-md-3","Ville",form.ville,true) }}
+                            {{ formulaire.input("col-md-3","Code postal",form.codePostal,true) }}
                         </div>
                         <div class="row" id="telRow">
                             {{ formulaire.input("col-md-3","Email",form.email,true) }}
                             {{ formulaire.input("col-md-3","Tel pro",form.telPro,true) }}
                             {{ formulaire.input("col-md-3","Tel perso",form.telPerso,true) }}
                             {{ formulaire.input("col-md-3","Fax",form.fax,true) }}
-                        </div>
-                        <div class="row">
-                            {{ formulaire.input("col-md-4","Adresse",form.adresse,true) }}
-                            {{ formulaire.input("col-md-2","Pays",form.pays,true) }}
-                            {{ formulaire.input("col-md-2","Gouvernorat",form.gouvernorat,true) }}
-                            {{ formulaire.input("col-md-2","Ville",form.ville,true) }}
-                            {{ formulaire.input("col-md-2","Code postal",form.codePostal,true) }}
                         </div>
                         {{ formulaire.submit("Enregistrer") }}
                         {{ form_end(form) }}
@@ -54,6 +57,7 @@
                                 <th class="center">ID</th>
                                 <th class="center">Client</th>
                                 <th class="center">Nom & Prénom</th>
+                                <th class="center">Date de naissance</th>
                                 <th class="center">Fonction</th>
                                 <th class="center">Adresse</th>
                                 <th class="center">Code postal</th>
@@ -64,7 +68,6 @@
                                 <th class="center">Tel Perso</th>
                                 <th class="center">Fax</th>
                                 <th class="center" >Email</th>
-                                <th class="center">Date de naissance</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -74,6 +77,7 @@
                                     <td>{{ contact.id }}</td>
                                     <td>{{ contact.client }}</td>
                                     <td>{{ contact.showTitreCivilite }} {{ contact.nomPrenom }}</td>
+                                    <td>{{ contact.dateNaissance|date('d-m-y') }}</td>
                                     <td>{{ contact.fonction }}</td>
                                     <td>{{ contact.adresse }}</td>
                                     <td>{{ contact.codePostal }}</td>
@@ -84,7 +88,6 @@
                                     <td>{{ contact.telPerso }}</td>
                                     <td>{{ contact.fax }}</td>
                                     <td>{{ contact.email }}</td>
-                                    <td>{{ contact.dateNaissance|date('d-m-y') }}</td>
                                     <td class="TableAction">
                                         {{ macros.tableEdit(path('back_crm_client_contacts',{'id':contact.id})) }}
                                         {{ macros.tableDelete(path('back_crm_client_contact_delete',{'id':contact.id})) }}
