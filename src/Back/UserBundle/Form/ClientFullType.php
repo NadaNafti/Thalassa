@@ -18,6 +18,7 @@ class ClientFullType extends AbstractType {
                 ->add('type', 'choice', array(
                     'required' => true,
                     'expanded' => true,
+                    'data' => 2,
                     'choices' => array(
                         1 => 'Société/Association',
                         2 => 'Individu privé'

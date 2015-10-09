@@ -1,0 +1,27 @@
+{% extends "BackUserBundle:client:liste.html.twig" %}
+{% block title %}Client{% endblock %}
+{% block description %}
+    {% if client.user is null %}Ajouter un compte{% else %}Modifier un compte{% endif %}
+{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="{{ path('back_crm_client_profil_modifier',{'id':client.id}) }}" >{{ client }}</a>
+    </li>
+    <li>
+        <a href="javascript:void(0)" >{% if client.user is null %}Ajouter un Compte{% else %}Modifier un Compte{% endif %}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabbable">
+                {% include 'BackUserBundle:client/profil:menu.html.twig' %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

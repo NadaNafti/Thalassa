@@ -1,5 +1,8 @@
 {% extends ":Back:base.html.twig" %}
-{% block title %}Gérer fournisseur{% endblock %}
+{% block title %}Fournisseur{% endblock %}
+{% block description %}
+    {% if fournisseur.id is null %}Ajouter{% else %}Modifier{% endif %}
+{% endblock %}
 {% block topbody %}   
     {{ parent() }}
     <li>

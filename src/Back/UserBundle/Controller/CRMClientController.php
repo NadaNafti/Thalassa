@@ -7,9 +7,12 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Response;
 use Back\UserBundle\Entity\Client;
 use Back\UserBundle\Form\ClientFullType;
+use Back\UserBundle\Entity\User;
+use Back\UserBundle\Form\RegistrationFormType;
 use Back\UserBundle\Entity\Contact;
 use Back\UserBundle\Form\ContactType;
 use Back\HotelTunisieBundle\Entity\Reservation;
+use Symfony\Component\Form\FormError;
 
 class CRMClientController extends Controller {
 
@@ -83,6 +86,48 @@ class CRMClientController extends Controller {
             }
         }
         return $this->render('BackUserBundle:client:ajouter.html.twig', array(
+                    'form' => $form->createView(),
+                    'client' => $client,
+        ));
+    }
+
+    public function addUserAction(Client $client) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        if (is_null($client->getUser())) {
+            $user = new User ();
+            $user->setEmail($client->getEmail());
+        } else
+            $user = $client->getUser();
+        $form = $this->createForm(new RegistrationFormType(), $user)->remove('groups');
+        if (!is_null($client->getUser()))
+            $form->remove('plainPassword');
+        if ($this->getRequest()->isMethod('POST')) {
+            $form->submit($this->getRequest());
+            if ($form->isValid()) {
+                $user = $form->getData();
+                if (is_null($client->getUser())) {
+                    $verif1 = $em->getRepository("BackUserBundle:User")->findBy(array('username' => $user->getUsername()));
+                    $verif2 = $em->getRepository("BackUserBundle:User")->findBy(array('email' => $user->getEmail()));
+                    if (count($verif2) > 0)
+                        $form->get('email')->addError(new FormError("E-mail  " . $user->getEmail() . " existe déjà dans la base "));
+                    elseif (count($verif1) > 0)
+                        $form->get('username')->addError(new FormError("Nom d'utilisateur  " . $user->getUsername() . " existe déjà dans la base "));
+                    else {
+                        $em->persist($user->setEnabled(TRUE)->setClient($client));
+                        $em->flush();
+                        $session->getFlashBag()->add('success', "Client traité avec succès ");
+                        return $this->redirect($this->generateUrl('back_crm_client_profil_user', array('id' => $client->getId())));
+                    }
+                } else {
+                    $em->persist($user->setEnabled(TRUE)->setClient($client));
+                    $em->flush();
+                    $session->getFlashBag()->add('success', " Client traité avec succès ");
+                    return $this->redirect($this->generateUrl('back_crm_client_profil_user', array('id' => $client->getId())));
+                }
+            }
+        }
+        return $this->render('BackUserBundle:client:profil\user.html.twig', array(
                     'form' => $form->createView(),
                     'client' => $client,
         ));

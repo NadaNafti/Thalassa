@@ -18,6 +18,9 @@
                                 <div class="user-left">
                                     <div class="center">
                                         <h4>{{ client.nomPrenom }}</h4>
+                                        
+                                        <p> User: <span style="color:green"> {{client.user}} </span></p>
+                                        
                                         {% if client.url is not null %}
                                             <div class="fileupload fileupload-new" data-provides="fileupload">
                                                 <div class="user-image">
