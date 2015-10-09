@@ -23,25 +23,38 @@
                                 <th class="center">ID</th>
                                 <th class="center">Nom & Prénom</th>
                                 <th class="center">Type</th>
-                                <th class="center">Nom alternatif</th>
-                                <th class="center">Matricule fiscale</th>
-                                <th class="center">Registre commercial</th>
-                                <th class="center" >Assujetti à la tva</th>
-                                <th class="center" >Forme juridique</th>
+                                <th class="center">Email</th>
+                                <th class="center">Tel 1</th>
+                                <th class="center">Tel 2</th>
+                                <th class="center">Amicale</th>
+                                <th class="center">Web User</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for client in clients if not client.passager %}
                                 <tr class="center">
-                                    <td>{{ client.id }}</td>
-                                    <td>{{ client.nomPrenom }}</td>
-                                    <td>{{ client.showTypeClient }}</td>
-                                    <td>{{ client.nomAlternatif }}</td>
-                                    <td>{{ client.matriculeFiscale }}</td>
-                                    <td>{{ client.registreCommercie }}</td>
-                                    <td>{{ client.showTva }}</td>
-                                    <td>{{ client.showFormeJuridique }}</td>
+                                    {% if not client.passager %}
+                                        <td>{{ client.id }}</td>
+                                        <td>{{ client.nomPrenom|title }}</td>
+                                        <td>{{ client.showTypeClient }}</td>
+                                        <td>{% if client.user.email is defined %}
+                                            {{ client.user.email }}
+                                        {% endif %}</td>
+                                    <td>{{ client.tel1 }}</td>
+                                    <td>{{ client.tel1 }}</td>
+                                    <td>
+                                        {% if  client.amicale.libelle is defined %}
+                                            {{ client.amicale.libelle }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if  client.user is not null %}
+                                            <a href="{{ path('user_client',{'id':client.id}) }}" class="tooltips" title="Cliquez ici pour Modifier son compte" ><span class="label label-sm label-success">Oui</span></a>
+                                        {% else %} 
+                                            <a href="{{ path('user_client',{'id':client.id}) }}" class="tooltips" title="Cliquez ici pour ajouter un compte a ce client" ><span class="label label-sm label-danger">Non</span></a>
+                                        {% endif %}
+                                    </td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             {{ macros.boutton(path('back_crm_client_profil',{'id':client.id}),'fa-eye','btn-dark-grey','Détails client') }}
@@ -49,15 +62,18 @@
                                             {{ macros.tableDelete(path('back_crm_client_delete',{'id':client.id})) }}
                                         </div>
                                     </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <div class="navigation">
-                        {{ knp_pagination_render(clients) }}
+                                {% else %}
+                                    <td colspan="10">Passager</td>
+                                    {% endif %}
+                                        {% endfor %}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="navigation">
+                                    {{ knp_pagination_render(clients) }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}

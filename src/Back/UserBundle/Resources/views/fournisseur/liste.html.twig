@@ -21,13 +21,11 @@
                         <thead>
                             <tr class="center">
                                 <th class="center">ID</th>
-                                <th class="center">Nom/Intitulé</th>
+                                <th class="center">Nom & Prenom / Intitulé</th>
                                 <th class="center">Type</th>
-                                <th class="center">Nom alternatif</th>
-                                <th class="center">Matricule fiscale</th>
-                                <th class="center">Registre commercial</th>
-                                <th class="center" >Assujetti à la tva</th>
-                                <th class="center" >Forme juridique</th>
+                                <th class="center">Email</th>
+                                <th class="center">Tel 1</th>
+                                <th class="center">Tel 2</th>
                                 <th class="center" >Action</th>
                             </tr>
                         </thead>
@@ -37,11 +35,9 @@
                                     <td>{{ fournisseur.id }}</td>
                                     <td>{{ fournisseur.nomPrenom }}</td>
                                     <td>{{ fournisseur.showTypeFournisseur }}</td>
-                                    <td>{{ fournisseur.nomAlternatif }}</td>
-                                    <td>{{ fournisseur.matriculeFiscale }}</td>
-                                    <td>{{ fournisseur.registreCommercie }}</td>
-                                    <td>{{ fournisseur.showTva }}</td>
-                                    <td>{{ fournisseur.showFormeJuridique }}</td>
+                                    <td>{{ fournisseur.email }}</td>
+                                    <td>{{ fournisseur.tel1 }}</td>
+                                    <td>{{ fournisseur.tel1 }}</td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             {{ macros.boutton(path('back_crm_fournisseur_profil',{'id':fournisseur.id}),'fa-eye','btn-dark-grey','Détails fournisseur') }}
