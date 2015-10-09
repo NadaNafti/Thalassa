@@ -15,6 +15,13 @@
                     </a>
                 </li>
             </ul>
+            <ul class="sub-menu">
+                <li {% if  app.request.get('_route')=='sht_connfiguration_payement' %} class="open"{% endif %}>
+                    <a href="{{ path('sht_connfiguration_payement') }}">
+                        <span class="title">Paiement électronique</span>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li {% if app.request.getPathInfo|split('/hotel_tunisie/reservation')|length > 1 %} class="active open"{% endif %} >
             <a href="javascript:void(0)"><i class="clip-earth-2"></i>
