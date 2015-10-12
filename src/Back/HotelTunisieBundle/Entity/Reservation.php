@@ -25,6 +25,20 @@ class Reservation
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="type_payement", type="integer")
+     */
+    private $typePayement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="montant_payement_electronique", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $montantPayementElectronique;
+
+    /**
      * @var string
      * @ORM\Column(name="code", type="string",nullable=true)
      */
@@ -197,22 +211,23 @@ class Reservation
      */
     public function __construct()
     {
-	$this->etat = 1;
-	$this->hotelNotifier = false;
-	$this->timbre = 0;
-	$this->remise = 0;
-	$this->coordonnees=array();
-	$this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->typePayement = 1;
+        $this->etat = 1;
+        $this->hotelNotifier = false;
+        $this->timbre = 0;
+        $this->remise = 0;
+        $this->coordonnees = array();
+        $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
-	return $this->id;
+        return $this->id;
     }
 
     /**
@@ -223,19 +238,19 @@ class Reservation
      */
     public function setDateDebut($dateDebut)
     {
-	$this->dateDebut = $dateDebut;
+        $this->dateDebut = $dateDebut;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get dateDebut
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateDebut()
     {
-	return $this->dateDebut;
+        return $this->dateDebut;
     }
 
     /**
@@ -246,19 +261,19 @@ class Reservation
      */
     public function setDateFin($dateFin)
     {
-	$this->dateFin = $dateFin;
+        $this->dateFin = $dateFin;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get dateFin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateFin()
     {
-	return $this->dateFin;
+        return $this->dateFin;
     }
 
     /**
@@ -269,19 +284,19 @@ class Reservation
      */
     public function setNuitees($nuitees)
     {
-	$this->nuitees = $nuitees;
+        $this->nuitees = $nuitees;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get nuitees
      *
-     * @return integer 
+     * @return integer
      */
     public function getNuitees()
     {
-	return $this->nuitees;
+        return $this->nuitees;
     }
 
     /**
@@ -292,19 +307,19 @@ class Reservation
      */
     public function setCreated($created)
     {
-	$this->created = $created;
+        $this->created = $created;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
-	return $this->created;
+        return $this->created;
     }
 
     /**
@@ -315,19 +330,19 @@ class Reservation
      */
     public function setUpdated($updated)
     {
-	$this->updated = $updated;
+        $this->updated = $updated;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
-	return $this->updated;
+        return $this->updated;
     }
 
     /**
@@ -338,19 +353,19 @@ class Reservation
      */
     public function setHotel(\Back\HotelTunisieBundle\Entity\Hotel $hotel = null)
     {
-	$this->hotel = $hotel;
+        $this->hotel = $hotel;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get hotel
      *
-     * @return \Back\HotelTunisieBundle\Entity\Hotel 
+     * @return \Back\HotelTunisieBundle\Entity\Hotel
      */
     public function getHotel()
     {
-	return $this->hotel;
+        return $this->hotel;
     }
 
     /**
@@ -361,19 +376,19 @@ class Reservation
      */
     public function setClient(\Back\UserBundle\Entity\Client $client = null)
     {
-	$this->client = $client;
+        $this->client = $client;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get client
      *
-     * @return \Back\UserBundle\Entity\Client 
+     * @return \Back\UserBundle\Entity\Client
      */
     public function getClient()
     {
-	return $this->client;
+        return $this->client;
     }
 
     /**
@@ -384,9 +399,9 @@ class Reservation
      */
     public function addChambre(\Back\HotelTunisieBundle\Entity\ReservationChambre $chambres)
     {
-	$this->chambres[] = $chambres;
+        $this->chambres[] = $chambres;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -396,17 +411,17 @@ class Reservation
      */
     public function removeChambre(\Back\HotelTunisieBundle\Entity\ReservationChambre $chambres)
     {
-	$this->chambres->removeElement($chambres);
+        $this->chambres->removeElement($chambres);
     }
 
     /**
      * Get chambres
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getChambres()
     {
-	return $this->chambres;
+        return $this->chambres;
     }
 
     /**
@@ -417,19 +432,19 @@ class Reservation
      */
     public function setFrontOffice($frontOffice)
     {
-	$this->frontOffice = $frontOffice;
+        $this->frontOffice = $frontOffice;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get frontOffice
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getFrontOffice()
     {
-	return $this->frontOffice;
+        return $this->frontOffice;
     }
 
     /**
@@ -440,19 +455,19 @@ class Reservation
      */
     public function setEtat($etat)
     {
-	$this->etat = $etat;
+        $this->etat = $etat;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get etat
      *
-     * @return integer 
+     * @return integer
      */
     public function getEtat()
     {
-	return $this->etat;
+        return $this->etat;
     }
 
     /**
@@ -463,19 +478,19 @@ class Reservation
      */
     public function setResponsable(\Back\UserBundle\Entity\User $responsable = null)
     {
-	$this->responsable = $responsable;
+        $this->responsable = $responsable;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get responsable
      *
-     * @return \Back\UserBundle\Entity\User 
+     * @return \Back\UserBundle\Entity\User
      */
     public function getResponsable()
     {
-	return $this->responsable;
+        return $this->responsable;
     }
 
     /**
@@ -486,28 +501,30 @@ class Reservation
      */
     public function setSurDemande($surDemande)
     {
-	$this->surDemande = $surDemande;
+        $this->surDemande = $surDemande;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get surDemande
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getSurDemande()
     {
-	return $this->surDemande;
+        return $this->surDemande;
     }
 
     public function showEtat()
     {
-        switch($this->etat)
-        {
-            case "1": return 'Enregistrée';
-            case "2": return 'Validée';
-            case "3": return 'Annulée';
+        switch ($this->etat) {
+            case "1":
+                return 'Enregistrée';
+            case "2":
+                return 'Validée';
+            case "3":
+                return 'Annulée';
         }
     }
 
@@ -519,19 +536,19 @@ class Reservation
      */
     public function setHotelNotifier($hotelNotifier)
     {
-	$this->hotelNotifier = $hotelNotifier;
+        $this->hotelNotifier = $hotelNotifier;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get hotelNotifier
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getHotelNotifier()
     {
-	return $this->hotelNotifier;
+        return $this->hotelNotifier;
     }
 
     /**
@@ -542,19 +559,19 @@ class Reservation
      */
     public function setCommentaire($commentaire)
     {
-	$this->commentaire = $commentaire;
+        $this->commentaire = $commentaire;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get commentaire
      *
-     * @return string 
+     * @return string
      */
     public function getCommentaire()
     {
-	return $this->commentaire;
+        return $this->commentaire;
     }
 
     /**
@@ -565,19 +582,19 @@ class Reservation
      */
     public function setCode($code)
     {
-	$this->code = $code;
+        $this->code = $code;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
-	return $this->code;
+        return $this->code;
     }
 
     /**
@@ -588,19 +605,19 @@ class Reservation
      */
     public function setValidated($validated)
     {
-	$this->validated = $validated;
+        $this->validated = $validated;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get validated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getValidated()
     {
-	return $this->validated;
+        return $this->validated;
     }
 
     /**
@@ -611,35 +628,35 @@ class Reservation
      */
     public function setOptions($options)
     {
-	$this->options = $options;
+        $this->options = $options;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get options
      *
-     * @return array 
+     * @return array
      */
     public function getOptions()
     {
-	return $this->options;
+        return $this->options;
     }
 
     public function calcVente()
     {
-	$vente = 0;
-	foreach ($this->chambres as $chambre)
-	    $vente+=$chambre->getTotal();
-	return number_format($vente, 3, '.', '');
+        $vente = 0;
+        foreach ($this->chambres as $chambre)
+            $vente += $chambre->getTotal();
+        return number_format($vente, 3, '.', '');
     }
 
     public function calcAchat()
     {
-	$achat = 0;
-	foreach ($this->chambres as $chambre)
-	    $achat+=$chambre->getTotalAchat();
-	return number_format($achat, 3, '.', '');
+        $achat = 0;
+        foreach ($this->chambres as $chambre)
+            $achat += $chambre->getTotalAchat();
+        return number_format($achat, 3, '.', '');
     }
 
     /**
@@ -650,9 +667,9 @@ class Reservation
      */
     public function addReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
     {
-	$this->reglements[] = $reglements;
+        $this->reglements[] = $reglements;
 
-	return $this;
+        return $this;
     }
 
     /**
@@ -662,7 +679,7 @@ class Reservation
      */
     public function removeReglement(\Back\CommercialBundle\Entity\Reglement $reglements)
     {
-	$this->reglements->removeElement($reglements);
+        $this->reglements->removeElement($reglements);
     }
 
     /**
@@ -671,12 +688,12 @@ class Reservation
      */
     public function getTotalNet()
     {
-	$total = 0;
-	if ($this->surDemande)
-	    return $total;
-	foreach ($this->chambres as $chambre)
-	    $total+=$chambre->getTotal();
-	return number_format($total, 3, '.', '');
+        $total = 0;
+        if ($this->surDemande)
+            return $total;
+        foreach ($this->chambres as $chambre)
+            $total += $chambre->getTotal();
+        return number_format($total, 3, '.', '');
     }
 
     /**
@@ -685,30 +702,30 @@ class Reservation
      */
     public function getTotal()
     {
-	return number_format($this->getTotalNet() + $this->timbre - $this->remise, 3, '.', '');
+        return number_format($this->getTotalNet() + $this->timbre - $this->remise, 3, '.', '');
     }
 
     /**
      * Get reglements
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getReglements()
     {
-	return $this->reglements;
+        return $this->reglements;
     }
 
     public function getMontantRegle()
     {
-	$montant = 0;
-	foreach ($this->reglements as $reglement)
-	    $montant+=$reglement->getMontant();
-	return number_format($montant, 3, '.', '');
+        $montant = 0;
+        foreach ($this->reglements as $reglement)
+            $montant += $reglement->getMontant();
+        return number_format($montant, 3, '.', '');
     }
 
     public function getMontantRestant()
     {
-	return number_format($this->getTotal() - $this->getMontantRegle(), 3, '.', '');
+        return number_format($this->getTotal() - $this->getMontantRegle(), 3, '.', '');
     }
 
     /**
@@ -719,19 +736,19 @@ class Reservation
      */
     public function setObservation($observation)
     {
-	$this->observation = $observation;
+        $this->observation = $observation;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get observation
      *
-     * @return string 
+     * @return string
      */
     public function getObservation()
     {
-	return $this->observation;
+        return $this->observation;
     }
 
     /**
@@ -742,19 +759,19 @@ class Reservation
      */
     public function setCoordonnees($coordonnees)
     {
-	$this->coordonnees = $coordonnees;
+        $this->coordonnees = $coordonnees;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get coordonnees
      *
-     * @return array 
+     * @return array
      */
     public function getCoordonnees()
     {
-	return $this->coordonnees;
+        return $this->coordonnees;
     }
 
     /**
@@ -765,19 +782,19 @@ class Reservation
      */
     public function setTimbre($timbre)
     {
-	$this->timbre = $timbre;
+        $this->timbre = $timbre;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get timbre
      *
-     * @return string 
+     * @return string
      */
     public function getTimbre()
     {
-	return $this->timbre;
+        return $this->timbre;
     }
 
     /**
@@ -788,19 +805,19 @@ class Reservation
      */
     public function setRemise($remise)
     {
-	$this->remise = $remise;
+        $this->remise = $remise;
 
-	return $this;
+        return $this;
     }
 
     /**
      * Get remise
      *
-     * @return string 
+     * @return string
      */
     public function getRemise()
     {
-	return $this->remise;
+        return $this->remise;
     }
 
 
@@ -830,7 +847,7 @@ class Reservation
     /**
      * Get sousEtats
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSousEtats()
     {
@@ -839,7 +856,7 @@ class Reservation
 
     public function __toString()
     {
-        return "Reservation : ".$this->getId();
+        return "Reservation : " . $this->getId();
     }
 
     /**
@@ -858,7 +875,7 @@ class Reservation
     /**
      * Get validatedAmicale
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getValidatedAmicale()
     {
@@ -881,7 +898,7 @@ class Reservation
     /**
      * Get amicale
      *
-     * @return \Back\AdministrationBundle\Entity\Amicale 
+     * @return \Back\AdministrationBundle\Entity\Amicale
      */
     public function getAmicale()
     {
@@ -904,10 +921,56 @@ class Reservation
     /**
      * Get responsableAmicale
      *
-     * @return \Back\UserBundle\Entity\Client 
+     * @return \Back\UserBundle\Entity\Client
      */
     public function getResponsableAmicale()
     {
         return $this->responsableAmicale;
+    }
+
+    /**
+     * Set typePayement
+     *
+     * @param integer $typePayement
+     * @return Reservation
+     */
+    public function setTypePayement($typePayement)
+    {
+        $this->typePayement = $typePayement;
+
+        return $this;
+    }
+
+    /**
+     * Get typePayement
+     *
+     * @return integer
+     */
+    public function getTypePayement()
+    {
+        return $this->typePayement;
+    }
+
+    /**
+     * Set montantPayementElectronique
+     *
+     * @param string $montantPayementElectronique
+     * @return Reservation
+     */
+    public function setMontantPayementElectronique($montantPayementElectronique)
+    {
+        $this->montantPayementElectronique = $montantPayementElectronique;
+
+        return $this;
+    }
+
+    /**
+     * Get montantPayementElectronique
+     *
+     * @return string 
+     */
+    public function getMontantPayementElectronique()
+    {
+        return $this->montantPayementElectronique;
     }
 }
