@@ -14,20 +14,23 @@ use Back\UserBundle\Form\ContactType;
 use Back\HotelTunisieBundle\Entity\Reservation;
 use Symfony\Component\Form\FormError;
 
-class CRMClientController extends Controller {
+class CRMClientController extends Controller
+{
 
-    public function listeAction($page) {
+    public function listeAction($page)
+    {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $clients = $em->getRepository('BackUserBundle:Client')->findBy(array(), array('id' => 'desc'));
         $paginator = $this->get('knp_paginator');
         $clients = $paginator->paginate($clients, $page, 20);
         return $this->render('BackUserBundle:client:liste.html.twig', array(
-                    'clients' => $clients
+            'clients' => $clients
         ));
     }
 
-    public function ajouterAction($id) {
+    public function ajouterAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         if (is_null($id))
@@ -46,12 +49,13 @@ class CRMClientController extends Controller {
             }
         }
         return $this->render('BackUserBundle:client:ajouter.html.twig', array(
-                    'form' => $form->createView(),
-                    'client' => $client,
+            'form'   => $form->createView(),
+            'client' => $client,
         ));
     }
 
-    public function deleteAction(Client $client) {
+    public function deleteAction(Client $client)
+    {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         try {
@@ -64,13 +68,15 @@ class CRMClientController extends Controller {
         return $this->redirect($this->generateUrl('back_crm_client_liste'));
     }
 
-    public function profilAction(Client $client) {
+    public function profilAction(Client $client)
+    {
         return $this->render('BackUserBundle:client:profil\profil.html.twig', array(
-                    'client' => $client,
+            'client' => $client,
         ));
     }
 
-    public function modifierProfilAction($id) {
+    public function modifierProfilAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $client = $em->getRepository("BackUserBundle:Client")->find($id);
@@ -86,54 +92,43 @@ class CRMClientController extends Controller {
             }
         }
         return $this->render('BackUserBundle:client:ajouter.html.twig', array(
-                    'form' => $form->createView(),
-                    'client' => $client,
+            'form'   => $form->createView(),
+            'client' => $client,
         ));
     }
 
-    public function addUserAction(Client $client) {
+    public function addUserAction(Client $client)
+    {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         if (is_null($client->getUser())) {
             $user = new User ();
             $user->setEmail($client->getEmail());
+            $form = $this->createForm(New RegistrationFormType(), $user, array('validation_groups' => array('Registration')))->remove('groups');
         } else
+        {
             $user = $client->getUser();
-        $form = $this->createForm(new RegistrationFormType(), $user)->remove('groups');
-        if (!is_null($client->getUser()))
-            $form->remove('plainPassword');
+            $form = $this->createForm(New RegistrationFormType(), $user, array('validation_groups' => array('Profile')))->remove('plainPassword')->remove('groups');
+        }
+
         if ($this->getRequest()->isMethod('POST')) {
             $form->submit($this->getRequest());
             if ($form->isValid()) {
                 $user = $form->getData();
-                if (is_null($client->getUser())) {
-                    $verif1 = $em->getRepository("BackUserBundle:User")->findBy(array('username' => $user->getUsername()));
-                    $verif2 = $em->getRepository("BackUserBundle:User")->findBy(array('email' => $user->getEmail()));
-                    if (count($verif2) > 0)
-                        $form->get('email')->addError(new FormError("E-mail  " . $user->getEmail() . " existe déjà dans la base "));
-                    elseif (count($verif1) > 0)
-                        $form->get('username')->addError(new FormError("Nom d'utilisateur  " . $user->getUsername() . " existe déjà dans la base "));
-                    else {
-                        $em->persist($user->setEnabled(TRUE)->setClient($client));
-                        $em->flush();
-                        $session->getFlashBag()->add('success', "Client traité avec succès ");
-                        return $this->redirect($this->generateUrl('back_crm_client_profil_user', array('id' => $client->getId())));
-                    }
-                } else {
-                    $em->persist($user->setEnabled(TRUE)->setClient($client));
-                    $em->flush();
-                    $session->getFlashBag()->add('success', " Client traité avec succès ");
-                    return $this->redirect($this->generateUrl('back_crm_client_profil_user', array('id' => $client->getId())));
-                }
+                $em->persist($user->setEnabled(TRUE)->setClient($client));
+                $em->flush();
+                $session->getFlashBag()->add('success', " Client traité avec succès ");
+                return $this->redirect($this->generateUrl('back_crm_client_profil_user', array('id' => $client->getId())));
             }
         }
         return $this->render('BackUserBundle:client:profil\user.html.twig', array(
-                    'form' => $form->createView(),
-                    'client' => $client,
+            'form'   => $form->createView(),
+            'client' => $client,
         ));
     }
 
-    public function profilContactAction($id, $id2) {
+    public function profilContactAction($id, $id2)
+    {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $request = $this->getRequest();
@@ -154,12 +149,13 @@ class CRMClientController extends Controller {
             }
         }
         return $this->render('BackUserBundle:client:profil\contactProfil.html.twig', array(
-                    'form' => $form->createView(),
-                    'client' => $client,
+            'form'   => $form->createView(),
+            'client' => $client,
         ));
     }
 
-    public function deleteProfilContactAction(Contact $contact) {
+    public function deleteProfilContactAction(Contact $contact)
+    {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         try {
@@ -172,7 +168,8 @@ class CRMClientController extends Controller {
         return $this->redirect($this->generateUrl('back_crm_client_profil_contact', array('id' => $contact->getClient()->getId())));
     }
 
-    public function contactsAction($id, $page) {
+    public function contactsAction($id, $page)
+    {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $request = $this->getRequest();
@@ -195,12 +192,13 @@ class CRMClientController extends Controller {
         $paginator = $this->get('knp_paginator');
         $contacts = $paginator->paginate($contacts, $page, 20);
         return $this->render('BackUserBundle:client:contact.html.twig', array(
-                    'form' => $form->createView(),
-                    'contacts' => $contacts,
+            'form'     => $form->createView(),
+            'contacts' => $contacts,
         ));
     }
 
-    public function deleteContactAction(Contact $contact) {
+    public function deleteContactAction(Contact $contact)
+    {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         try {
@@ -213,64 +211,70 @@ class CRMClientController extends Controller {
         return $this->redirect($this->generateUrl('back_crm_client_contacts'));
     }
 
-    public function reservationsHTAction($id) {
+    public function reservationsHTAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $client = $em->find('BackUserBundle:Client', $id);
 
         return $this->render('BackUserBundle:client:profil\reservationHT.html.twig', array(
-                    'client' => $client,
-                    'id' => $id,
+            'client' => $client,
+            'id'     => $id,
         ));
     }
 
-    public function reservationsBEAction($id) {
+    public function reservationsBEAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $client = $em->find('BackUserBundle:Client', $id);
         return $this->render('BackUserBundle:client:profil\reservationBE.html.twig', array(
-                    'client' => $client,
-                    'id' => $id,
+            'client' => $client,
+            'id'     => $id,
         ));
     }
 
-    public function reservationsVOAction($id) {
+    public function reservationsVOAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $client = $em->find('BackUserBundle:Client', $id);
         return $this->render('BackUserBundle:client:profil\reservationVO.html.twig', array(
-                    'client' => $client,
-                    'id' => $id,
+            'client' => $client,
+            'id'     => $id,
         ));
     }
 
-    public function reservationsPRAction($id) {
+    public function reservationsPRAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $client = $em->find('BackUserBundle:Client', $id);
         return $this->render('BackUserBundle:client:profil\reservationPR.html.twig', array(
-                    'client' => $client,
-                    'id' => $id,
+            'client' => $client,
+            'id'     => $id,
         ));
     }
 
-    public function reservationsBAction($id) {
+    public function reservationsBAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $client = $em->find('BackUserBundle:Client', $id);
         return $this->render('BackUserBundle:client:profil\reservationB.html.twig', array(
-                    'client' => $client,
-                    'id' => $id,
+            'client' => $client,
+            'id'     => $id,
         ));
     }
 
-    public function reservationsMAction($id) {
+    public function reservationsMAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $client = $em->find('BackUserBundle:Client', $id);
         return $this->render('BackUserBundle:client:profil\reservationM.html.twig', array(
-                    'client' => $client,
-                    'id' => $id,
+            'client' => $client,
+            'id'     => $id,
         ));
     }
 
