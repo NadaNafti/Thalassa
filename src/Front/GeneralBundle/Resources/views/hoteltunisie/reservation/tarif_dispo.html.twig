@@ -82,22 +82,13 @@
                             <hr>
                             {{ form_start(form) }}
                             <h4>Client :</h4>
-                            <div style="display: none">
-                                {{ formulaire.input("col-md-2","",form.observation,false) }}
-                                {{ formulaire.input("col-md-2","",form.client.responsable,false) }}
-                            </div>
                             <div class="row">
                                 {{ formulaire.input("col-md-4","Nom & prénom ",form.client.nomPrenom,true) }}
-                                {{ formulaire.input("col-md-4","Tel 1",form.client.tel1,true) }}
-                                {{ formulaire.input("col-md-4","Tel 2",form.client.tel2,true) }}
+                                {{ formulaire.input("col-md-4","Tel",form.client.tel1,true) }}
+                                {{ formulaire.input("col-md-4","Email",form.client.email,true) }}
                             </div>
                             <div class="row">
                                 {{ formulaire.input("col-md-12","Adresse",form.client.adresse,true) }}
-                            </div>
-                            <div style="display: none">
-                                {{ formulaire.input("col-md-4","Matricule Fiscale",form.client.matriculeFiscale,true) }}
-                                {{ formulaire.input("col-md-4","Registre Commercie",form.client.registreCommercie,true) }}
-                                {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,true) }}
                             </div>
                             <h3 class="section-title">Occupationts des chambres <span class="step active">2</span></h3>
                             <hr>
@@ -139,10 +130,11 @@
                                 <div class="col-md-8"></div>
                                 <div class="col-md-4">
                                     <button class="btn btn-primary btn-block" type="submit">
-                                        Validation <i class="fa fa-arrow-circle-right"></i>
+                                        Validation & Paiement <i class="fa fa-arrow-circle-right"></i>
                                     </button>
                                 </div>
                             </div>
+                            <div style="display: none;" >{{ form_rest(form,{'attr':{'required':false}}) }}</div>
                             {{ form_end(form) }}
                         </div>
                     </div>

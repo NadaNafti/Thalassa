@@ -1,6 +1,7 @@
 <?php
 namespace Front\GeneralBundle\Controller;
 
+use Back\UserBundle\Form\ClientFullType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Back\UserBundle\Form\ClientType;
 use Back\HotelTunisieBundle\Entity\Reservation;
@@ -274,7 +275,7 @@ class HotelTunisieController extends Controller
         else
             $client = $this->container->get('users')->getPassager();
         $form = $this->createFormBuilder()
-            ->add("client", new ClientType(), array('data' => $client));
+            ->add("client", new ClientFullType(), array('data' => $client));
         $ordre = 1;
         $chambres = array();
         foreach ($reservation['chambres'] as $value) {
