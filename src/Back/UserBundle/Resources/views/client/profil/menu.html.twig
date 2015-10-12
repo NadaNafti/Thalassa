@@ -7,7 +7,12 @@
         </li>
         <li {% if app.request.get('_route')=='back_crm_client_profil_modifier' %}class="active"{% endif %}>
             <a href="{{ path("back_crm_client_profil_modifier",{'id':client.id}) }}">
-                Modifier profil
+                Modifier
+            </a>
+        </li>
+        <li {% if app.request.get('_route')=='back_crm_client_profil_user' %}class="active"{% endif %}>
+            <a href="{{ path("back_crm_client_profil_user",{'id':client.id}) }}">
+                User
             </a>
         </li>
         <li {% if app.request.get('_route')=='back_crm_client_profil_contact' %}class="active"{% endif %}>
@@ -17,7 +22,7 @@
         </li>
         <li {% if app.request.get('_route')=='back_crm_client_profil_rHT' %}class="active"{% endif %}>
             <a href="{{ path("back_crm_client_profil_rHT",{'id':client.id}) }}">
-                Hôtels tunisie ({{ client.reservationsSHT|length }})
+                Hôtels Tunisie ({{ client.reservationsSHT|length }})
             </a>
         </li>
         <li {% if app.request.get('_route')=='back_crm_client_profil_rVO' %}class="active"{% endif %}>
