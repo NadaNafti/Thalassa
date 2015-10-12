@@ -17,12 +17,12 @@ class PeriodeType extends AbstractType
     {
         $builder
                 ->add('dateDebut', 'date', array(
-                    'required'=>true,
+                    'required'=>false,
                     'widget'  =>'single_text',
                     'format'  =>'yyyy-MM-dd',
                 ))
                 ->add('dateFin', 'date', array(
-                    'required'=>true,
+                    'required'=>false,
                     'widget'  =>'single_text',
                     'format'  =>'yyyy-MM-dd',
                 ))
