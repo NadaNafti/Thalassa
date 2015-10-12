@@ -29,6 +29,13 @@ class ConfigurationPayement
     private $remiseInternet;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="numero_affiliation", type="integer")
+     */
+    private $numeroAffiliation;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="remiseInternetPourcentage", type="boolean",nullable=true)
@@ -36,9 +43,9 @@ class ConfigurationPayement
     private $remiseInternetPourcentage;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="avance", type="decimal", precision=11, scale=3)
+     * @ORM\Column(name="avance", type="integer")
      */
     private $avance;
 
@@ -121,5 +128,29 @@ class ConfigurationPayement
     public function getAvance()
     {
         return $this->avance;
+    }
+
+
+    /**
+     * Set numeroAffiliation
+     *
+     * @param integer $numeroAffiliation
+     * @return ConfigurationPayement
+     */
+    public function setNumeroAffiliation($numeroAffiliation)
+    {
+        $this->numeroAffiliation = $numeroAffiliation;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroAffiliation
+     *
+     * @return integer 
+     */
+    public function getNumeroAffiliation()
+    {
+        return $this->numeroAffiliation;
     }
 }

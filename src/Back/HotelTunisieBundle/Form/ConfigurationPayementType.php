@@ -15,6 +15,7 @@ class ConfigurationPayementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('numeroAffiliation')
             ->add('remiseInternet')
             ->add('remiseInternetPourcentage', 'checkbox', array(
                 'label'    => "En pourcentage",
