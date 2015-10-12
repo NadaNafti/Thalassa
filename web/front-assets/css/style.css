@@ -2731,7 +2731,9 @@ ul.sort-nav li i {
 	font-size: 14px;
 	line-height: 24px;
 	text-align: center;
-	padding: 20px 20px 15px;
+	/*padding: 20px 20px 15px;*/
+	padding: 24px 20px 25px;
+	margin-bottom: 25px;
 	background: #FFF;
 }
 .counting-result .counting-price {
