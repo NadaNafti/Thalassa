@@ -19,6 +19,10 @@ back_crm_client_profil_modifier:
     path:      /modifierProfil/{id}
     defaults: { _controller: BackUserBundle:CRMClient:modifierProfil }
     
+back_crm_client_profil_user:
+    path:     /user/{id}
+    defaults: { _controller: BackUserBundle:CRMClient:addUser }
+    
 back_crm_client_profil_contact:
     path:     /profil/{id}/contact/{id2}
     defaults: { _controller: BackUserBundle:CRMClient:profilContact,id2:null }
