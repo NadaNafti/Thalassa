@@ -1,7 +1,23 @@
 front_hoteltunisie_accueil:
     path:     /
     defaults: { _controller: FrontGeneralBundle:HotelTunisie:accueil }
-    
+
+front_hoteltunisie_notification:
+    path:     /notification
+    defaults: { _controller: FrontGeneralBundle:HotelTunisie:notification }
+
+front_hoteltunisie_succes:
+    path:     /succes
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'FrontGeneralBundle:hoteltunisie/reservation:succesPaiement.html.twig'
+
+front_hoteltunisie_echec:
+    path:     /echec
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'FrontGeneralBundle:hoteltunisie/reservation:echecPaiement.html.twig'
+
 front_hoteltunisie_list:
     path:     /liste/{page}/{min}/{max}/{categorie}/{chaine}/{ville}/{tag}/{promotion}/{sort}/{direction}/{name}
     defaults: { _controller: FrontGeneralBundle:HotelTunisie:liste,page:1,min:0,max:1000,categorie:all,tag:all,promotion:no,chaine:all,ville:all,name:null,sort:h.libelle,direction:asc }
@@ -31,11 +47,15 @@ front_hoteltunisie_edit_periode:
 front_hoteltunisie_reservation:
     path:     /booking/{slug}/reservation
     defaults: { _controller: FrontGeneralBundle:HotelTunisie:reservation }
+
+front_hoteltunisie_thankyou:
+    path:     /success/{reservation}
+    defaults: { _controller: FrontGeneralBundle:HotelTunisie:thankyou }
+
+front_hoteltunisie_paiement:
+    path:     /payment/{reservation}/{paymentType}
+    defaults: { _controller: FrontGeneralBundle:HotelTunisie:paiement }
     
 front_hoteltunisie_tarif_dispo:
     path:     /{slug}/tarif_dispo
     defaults: { _controller: FrontGeneralBundle:HotelTunisie:tarifDispo }
-    
-front_hoteltunisie_thankyou:
-    path:     /{slug}/success/{reservation}
-    defaults: { _controller: FrontGeneralBundle:HotelTunisie:thankyou }

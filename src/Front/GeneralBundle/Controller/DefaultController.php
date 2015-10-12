@@ -30,24 +30,4 @@ class DefaultController extends Controller
             'pays'         => $pays,
         ));
     }
-
-    public function oleBookingAction()
-    {
-        return $this->render('FrontGeneralBundle::ole_booking.html.twig');
-    }
-
-    public function oleLocationAction()
-    {
-        return $this->render('FrontGeneralBundle::ole_location.html.twig');
-    }
-
-    public function oleLocationMondeAction()
-    {
-        return $this->render('FrontGeneralBundle::ole_location_monde.html.twig');
-    }
-
-    public function underConstructionAction()
-    {
-        return $this->render('FrontGeneralBundle::under_construction.html.twig');
-    }
 }

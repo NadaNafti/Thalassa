@@ -21,64 +21,6 @@
                         {% include ':Front:alert.html.twig' %}
                         <div class="person-information">
                             <h3 class="section-title">Information Personnelle <span class="step active">1</span></h3>
-                            {% if false %}
-                                <div class="bb2 mb-30"></div>
-                                <ul class="tabs">
-                                    <li><a href="#payment-tab1" class="active">Passager</a></li>
-                                    <li><a href="#payment-tab2">Authentification</a></li>
-                                </ul>
-                                <ul id="payment-tab" class="tabs-content xss-mb" style="padding: 20px 0">
-                                    <li id="payment-tab1" class="active">
-                                        <form class="form-horizontal" role="form">
-                                            <div class="clear"></div>
-                                            <div class="form-group">
-                                                <label for="inputEmail3" class="col-xs-12 col-sm-4 col-md-4 control-label">Card Identification Number:
-                                                    <span class="text-danger">*</span></label>
-                                                <div class="col-xs-12 col-sm-6 col-md-5">
-                                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Card Identification Number">
-                                                </div>
-                                                <div class="col-xs-12 col-sm-2 col-md-3">
-                                                    <span class="font12">What's this?</span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputEmail3" class="col-xs-12 col-sm-4 col-md-4 control-label">Billing ZIP Code::
-                                                    <span class="text-danger">*</span></label>
-                                                <div class="col-xs-12 col-sm-6 col-md-5">
-                                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Billing ZIP Code">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputEmail3" class="col-xs-12 col-sm-4 col-md-4 control-label">Cardholder Name:
-                                                    <span class="text-danger">*</span></label>
-                                                <div class="col-xs-12 col-sm-6 col-md-5">
-                                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Card Identification Number">
-                                                </div>
-                                                <div class="col-xs-12 col-sm-2 col-md-3">
-                                                    <span class="font12">(as it appears on the card)</span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputEmail3" class="col-xs-12 col-sm-4 col-md-4 control-label">Coupon code:
-                                                    <span class="font12">(optional)</span></label>
-                                                <div class="col-xs-12 col-sm-6 col-md-5">
-                                                    <input type="email" class="form-control" id="inputEmail3" placeholder="If Your Have">
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </li>
-                                    <li id="payment-tab2">
-                                        <div class="notification-box notification-box-warning mt-10 mb-20">
-                                            <p>
-                                                <strong>Important: </strong> You will be redirected to PayPal's website to securely complete your payment.
-                                            </p>
-                                            <a href="#" class="notification-close notification-close-warning"><i class="fa-times"></i></a>
-                                        </div>
-                                        <a href="#" class="btn btn-primary btn-large">Proceed To Paypal</a>
-                                    </li>
-                                </ul>
-                                <div class="clear"></div>
-                            {% endif %}
                             <hr>
                             {{ form_start(form) }}
                             <h4>Client :</h4>
@@ -115,8 +57,10 @@
                                     {% endfor %}
                                 </div>
                             {% endif %}
-                            <h3 class="section-title mt-40">Revoir et réserver votre séjour<span class="step active">4</span>
-                            </h3>
+                            <h3 class="section-title">Mode de paiement<span class="step active">4</span></h3>
+                            <hr>
+                            {{ form_widget(form.payment) }}
+                            <h3 class="section-title mt-40">Revoir et réserver votre séjour<span class="step active">5</span></h3>
                             <div class="bb2 mb-20"></div>
                             <div class="styled-checkbox mt-10">
                                 <label>
