@@ -27,7 +27,11 @@ class Saisons
 
     public function getSaisonContingent(Hotel $hotel, $date)
     {
-        return $hotel->getSaisonPromotionByDate($date, true);
+        $saison=$hotel->getSaisonPromotionByDate($date, true);
+        if($saison->getType()==4)
+            return $saison;
+        else
+            return null;
     }
 
     public function hasChambreContingent($saison, $date, $nbrChambre)
