@@ -16,6 +16,7 @@ class ConfigurationPayementType extends AbstractType
     {
         $builder
             ->add('numeroAffiliation')
+            ->add('url')
             ->add('remiseInternet')
             ->add('remiseInternetPourcentage', 'checkbox', array(
                 'label'    => "En pourcentage",

@@ -36,6 +36,13 @@ class ConfigurationPayement
     private $numeroAffiliation;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255)
+     */
+    private $url;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="remiseInternetPourcentage", type="boolean",nullable=true)
@@ -152,5 +159,28 @@ class ConfigurationPayement
     public function getNumeroAffiliation()
     {
         return $this->numeroAffiliation;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return ConfigurationPayement
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 }
