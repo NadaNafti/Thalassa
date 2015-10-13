@@ -165,6 +165,13 @@ class Reservation
     /**
      * @var string
      *
+     * @ORM\Column(name="remise_internet", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $remiseInternet;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="commentaire", type="text",nullable=true)
      */
     private $commentaire;
@@ -216,6 +223,7 @@ class Reservation
         $this->hotelNotifier = false;
         $this->timbre = 0;
         $this->remise = 0;
+        $this->remiseInternet = 0;
         $this->coordonnees = array();
         $this->chambres = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -702,7 +710,7 @@ class Reservation
      */
     public function getTotal()
     {
-        return number_format($this->getTotalNet() + $this->timbre - $this->remise, 3, '.', '');
+        return number_format($this->getTotalNet() + $this->timbre - $this->remise - $this->remiseInternet, 3, '.', '');
     }
 
     /**
@@ -972,5 +980,28 @@ class Reservation
     public function getMontantPayementElectronique()
     {
         return $this->montantPayementElectronique;
+    }
+
+    /**
+     * Set remiseInternet
+     *
+     * @param string $remiseInternet
+     * @return Reservation
+     */
+    public function setRemiseInternet($remiseInternet)
+    {
+        $this->remiseInternet = $remiseInternet;
+
+        return $this;
+    }
+
+    /**
+     * Get remiseInternet
+     *
+     * @return string 
+     */
+    public function getRemiseInternet()
+    {
+        return $this->remiseInternet;
     }
 }
