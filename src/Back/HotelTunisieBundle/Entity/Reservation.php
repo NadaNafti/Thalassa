@@ -40,6 +40,12 @@ class Reservation
 
     /**
      * @var string
+     * @ORM\Column(name="status_payement", type="string",nullable=true)
+     */
+    private $statusPayement;
+
+    /**
+     * @var string
      * @ORM\Column(name="code", type="string",nullable=true)
      */
     private $code;
@@ -1003,5 +1009,28 @@ class Reservation
     public function getRemiseInternet()
     {
         return $this->remiseInternet;
+    }
+
+    /**
+     * Set statusPayement
+     *
+     * @param string $statusPayement
+     * @return Reservation
+     */
+    public function setStatusPayement($statusPayement)
+    {
+        $this->statusPayement = $statusPayement;
+
+        return $this;
+    }
+
+    /**
+     * Get statusPayement
+     *
+     * @return string 
+     */
+    public function getStatusPayement()
+    {
+        return $this->statusPayement;
     }
 }
