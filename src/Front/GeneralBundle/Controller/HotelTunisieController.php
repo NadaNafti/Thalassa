@@ -361,6 +361,7 @@ class HotelTunisieController extends Controller
             case "DETAIL":
                 return new Response( "Reference=" . $ref . "&Action=" . $act . "&Reponse=" . $reservation->getMontantPayementElectronique());
             case "ERREUR":
+                $em->persist($reservation->setStat)
                 return new Response("Reference=" . $ref . "&Action=" . $act . "&Reponse=OK");
             case "ACCORD":
                 $piece = new Piece();//Add new piece
