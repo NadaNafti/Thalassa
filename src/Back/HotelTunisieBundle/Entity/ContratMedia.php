@@ -43,7 +43,7 @@ class ContratMedia
     public $path;
 
     /**
-     * @Assert\File()
+     * @Assert\NotBlank()
      */
     public $file;
 
