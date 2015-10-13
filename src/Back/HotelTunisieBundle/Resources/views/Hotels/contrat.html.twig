@@ -36,6 +36,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Libellé</th>
+                                                    <th>Fichier</th>
                                                     <th class="center" >Action</th>
                                                 </tr>
                                             </thead>
@@ -43,9 +44,15 @@
                                                 {% for contrat in hotel.contrats %}
                                                     <tr>
                                                         <td>{{ contrat.libelle }}</td>
+                                                        <td>
+                                                            {% for media in contrat.medias %}
+                                                               - <a href="{{ asset(media.getAssetPath) }}" target="_blank">Fichier {{ loop.index }} : {{ media.updateAt|date('d/m/Y') }}</a><br>
+                                                            {% endfor %}
+                                                        </td>
                                                         <td class="TableAction">
                                                             {{ macros.tableEdit(path('article_hotel',{'id':hotel.id,'id2':contrat.id})) }}
                                                             {{ macros.tableDelete(path('supprimer_article_hotel',{'id':contrat.id})) }}
+                                                            {{ macros.bouttonModal(contrat.id,"#responsive",'fa-plus','btn-trello addFile','joindre un fichier') }}
                                                         </td>
                                                     </tr>
                                                 {% endfor %}
@@ -60,5 +67,39 @@
             </div>
         </div>
     </div>
-
+    <div id="responsive" class="modal fade" tabindex="-1" data-width="960" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Ajouter un fichier</h4>
+        </div>
+        {{ form_start(formMedia, {'action': path('add_file_to_contrat',{'id':app.request.get('id')})}) }}
+        <div class="modal-body">
+            <div class="row">
+                {{ formulaire.input("col-md-8","Fichier",formMedia.file,true) }}
+            </div>
+            <div class="row no-display">
+                {{ form_rest(formMedia) }}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-light-grey">
+                Fermer
+            </button>
+            <button type="submit" class="btn btn-blue">
+                Enregistrer
+            </button>
+        </div>
+        {{ form_end(formMedia) }}
+    </div>
+{% endblock %}
+{% block jquery %}
+    <script>
+        $(document).ready(function () {
+            $(".addFile").on('click', function () {
+                $("#back_hoteltunisiebundle_contratmedia_contrat").val($(this).data('id'));
+            })
+        })
+    </script>
 {% endblock %}
