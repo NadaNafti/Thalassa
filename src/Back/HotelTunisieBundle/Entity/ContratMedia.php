@@ -3,7 +3,7 @@
 namespace Back\HotelTunisieBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Media
@@ -38,29 +38,24 @@ class ContratMedia
     protected $contrat;
 
     /**
-     * @ORM\PostLoad()
-     */
-    public function postLoad()
-    {
-        $this->updateAt = new \DateTime();
-    }
-
-    /**
      * @ORM\Column(type="string",length=255, nullable=true)
      */
     public $path;
 
     /**
      * @Assert\File(
-     *      maxSize="10M",
-     *      )
-     **/
+     *     maxSize = "1024k"
+     * )
+     */
     public $file;
 
     /**
-     * @ORM\Column(type="integer",nullable=true)
+     * @ORM\PostLoad()
      */
-    public $ordre;
+    public function postLoad()
+    {
+        $this->updateAt = new \DateTime();
+    }
 
     public function getUploadRootDir()
     {
