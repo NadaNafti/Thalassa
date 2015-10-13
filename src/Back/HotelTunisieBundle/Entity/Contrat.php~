@@ -40,6 +40,11 @@ class Contrat
      */
     private $saisons;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ContratMedia", mappedBy="contrat")
+     */
+    private $medias;
+
 
     /**
      * Get id

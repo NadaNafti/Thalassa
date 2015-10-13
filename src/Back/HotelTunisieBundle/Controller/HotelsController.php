@@ -3,6 +3,8 @@
 namespace Back\HotelTunisieBundle\Controller;
 
 use Back\AdministrationBundle\Entity\Amicale;
+use Back\HotelTunisieBundle\Entity\ContratMedia;
+use Back\HotelTunisieBundle\Form\ContratMediaType;
 use Back\HotelTunisieBundle\Form\GenererTarifsHotelsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -294,6 +296,7 @@ class HotelsController extends Controller
         else
             $contrat = $em->getRepository('BackHotelTunisieBundle:Contrat')->find($id2);
         $form = $this->createForm(new ContratType(), $contrat->setHotel($hotel));
+        $formMedia=$this->createForm(new ContratMediaType(),new ContratMedia());
         $request = $this->getRequest();
         if ($request->isMethod('POST')) {
             $form->submit($request);
@@ -307,9 +310,30 @@ class HotelsController extends Controller
         }
         return $this->render('BackHotelTunisieBundle:Hotels:contrat.html.twig', array(
             'hotel' => $hotel,
-            'form'  => $form->createView()
+            'form'  => $form->createView(),
+            'formMedia'=>$formMedia->createView()
         ));
     }
+    public function addfileToContratAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        $request=$this->getRequest();
+        $formMedia=$this->createForm(new ContratMediaType(),new ContratMedia());
+        if ($request->isMethod('POST')) {
+            $formMedia->submit($request);
+            if ($formMedia->isValid()) {
+                $data = $formMedia->getData();
+                $em->persist($data);
+                $em->flush();
+                $session->getFlashBag()->add('success', " Votre fichier a été traitée avec succées ");
+            }
+            else
+                $session->getFlashBag()->add('error', $formMedia->getErrors());
+        }
+        return $this->redirect($this->generateUrl("article_hotel", array('id' => $id)));
+    }
+
 
     public function deleteArticleAction(Contrat $contrat)
     {
