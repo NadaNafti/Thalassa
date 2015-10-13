@@ -38,29 +38,22 @@ class ContratMedia
     protected $contrat;
 
     /**
+     * @ORM\Column(type="string",length=255, nullable=true)
+     */
+    public $path;
+
+    /**
+     * @Assert\File(maxSize="10M")
+     **/
+    public $file;
+
+    /**
      * @ORM\PostLoad()
      */
     public function postLoad()
     {
         $this->updateAt = new \DateTime();
     }
-
-    /**
-     * @ORM\Column(type="string",length=255, nullable=true)
-     */
-    public $path;
-
-    /**
-     * @Assert\File(
-     *      maxSize="10M",
-     *      )
-     **/
-    public $file;
-
-    /**
-     * @ORM\Column(type="integer",nullable=true)
-     */
-    public $ordre;
 
     public function getUploadRootDir()
     {
