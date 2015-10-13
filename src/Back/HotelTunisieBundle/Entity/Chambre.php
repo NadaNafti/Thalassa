@@ -231,4 +231,12 @@ class Chambre {
     {
         return $this->hotels;
     }
+
+    public function getLongName()
+    {
+        if($this->type==0)
+            return '[AC] '.$this->libelle;
+        else
+            return '[CS] '.$this->libelle;
+    }
 }
