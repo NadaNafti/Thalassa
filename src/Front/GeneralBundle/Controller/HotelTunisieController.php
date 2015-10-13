@@ -325,10 +325,8 @@ class HotelTunisieController extends Controller
         return $this->render('FrontGeneralBundle:hoteltunisie/reservation:tarif_dispo.html.twig', array('form' => $form->createView(), 'chambres' => $chambres, 'hotel' => $hotel, 'client' => $client, 'nuitees' => $reservation['nuitees'], 'dateDebut' => new \DateTime($reservation['dateDebut']), 'dateFin' => new \DateTime($reservation['dateFin']), 'resultat' => $result, 'csrf_token' => $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate'),));
     }
 
-
     public function paiementAction(Reservation $reservation, $paymentType)
     {
-        $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
         $confPaiement = $em->find('BackHotelTunisieBundle:ConfigurationPayement', 1);
         {
@@ -353,7 +351,12 @@ class HotelTunisieController extends Controller
         $ref = $request->get('Reference');
         $act = $request->get('Action');
         $par = $request->get('Param');
+        $confPaiement = $em->find('BackHotelTunisieBundle:ConfigurationPayement', 1);
         $reservation=$em->find('BackHotelTunisieBundle:Reservation',$ref);
+        if($confPaiement->getRemiseInternetPourcentage())
+            $remiseInternet=$reservation->getTotal()*$confPaiement->getRemiseInternet()/100;
+        else
+            $remiseInternet=$confPaiement->getRemiseInternet();
         switch($act) {
             case "DETAIL":
                 return new Response( "Reference=" . $ref . "&Action=" . $act . "&Reponse=" . $reservation->getMontantPayementElectronique());
@@ -378,7 +381,7 @@ class HotelTunisieController extends Controller
                 $em->persist($reglement);
                 if($reservation->getTypePayement()==2)//validation reservation
                     $reservation->setEtat(2)->setValidated(new \DateTime())->setCode($this->container->get('reservation')->getCode());
-                $reservation->addReglement($reglement);
+                $reservation->addReglement($reglement)->setRemiseInternet($remiseInternet);
                 $em->persist($reservation);
                 $em->flush();
                 return new Response("Reference=" . $ref . "&Action=" . $act . "&Reponse=OK");
