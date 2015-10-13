@@ -303,6 +303,14 @@
                                 <th style="text-align: right;"> - {{ reservation.remise|number_format(3,'.','') }}</th>
                             </tr>
                         {% endif %}
+                        {% if reservation.remiseInternet !=0 %}
+                            <tr style="  background-color: antiquewhite;">
+                                <th></th>
+                                <th style="text-align: right;">Remise Internet</th>
+                                <th style="text-align: right;"></th>
+                                <th style="text-align: right;"> - {{ reservation.remiseInternet|number_format(3,'.','') }}</th>
+                            </tr>
+                        {% endif %}
                         {% if reservation.timbre !=0 %}
                             <tr style="  background-color: antiquewhite;">
                                 <th></th>
