@@ -40,6 +40,12 @@ class Reservation
 
     /**
      * @var string
+     * @ORM\Column(name="status_payement", type="string",nullable=true)
+     */
+    private $statusPayement;
+
+    /**
+     * @var string
      * @ORM\Column(name="code", type="string",nullable=true)
      */
     private $code;

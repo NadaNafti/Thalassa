@@ -44,7 +44,7 @@ class ContratMedia
 
     /**
      * @Assert\File(
-     *     maxSize = "1024k"
+     *     maxSize = "6000k"
      * )
      */
     public $file;
