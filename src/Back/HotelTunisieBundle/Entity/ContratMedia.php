@@ -43,8 +43,8 @@ class ContratMedia
     public $path;
 
     /**
-     * @Assert\File(maxSize="10M")
-     **/
+     * @Assert\File()
+     */
     public $file;
 
     /**
