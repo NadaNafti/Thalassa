@@ -361,7 +361,8 @@ class HotelTunisieController extends Controller
             case "DETAIL":
                 return new Response( "Reference=" . $ref . "&Action=" . $act . "&Reponse=" . $reservation->getMontantPayementElectronique());
             case "ERREUR":
-                $em->persist($reservation->setStat)
+                $em->persist($reservation->setStatusPayement('ERREUR'));
+                $em->flush();
                 return new Response("Reference=" . $ref . "&Action=" . $act . "&Reponse=OK");
             case "ACCORD":
                 $piece = new Piece();//Add new piece
@@ -387,8 +388,12 @@ class HotelTunisieController extends Controller
                 $em->flush();
                 return new Response("Reference=" . $ref . "&Action=" . $act . "&Reponse=OK");
             case "REFUS":
+                $em->persist($reservation->setStatusPayement('REFUS'));
+                $em->flush();
                 return new Response("Reference=" . $ref . "&Action=" . $act . "&Reponse=OK");
             case "ANNULATION":
+                $em->persist($reservation->setStatusPayement('ANNULATION'));
+                $em->flush();
                 return new Response("Reference=" . $ref . "&Action=" . $act . "&Reponse=OK");
         }
     }
