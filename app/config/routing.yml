@@ -1,3 +1,7 @@
+back_resa_booking:
+    resource: "@BackResaBookingBundle/Resources/config/routing.yml"
+    prefix:   /admin/resabooking
+
 back_billetterie_maritime:
     resource: "@BackBilletterieMaritimeBundle/Resources/config/routing.yml"
     prefix:   /admin
