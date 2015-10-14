@@ -1,0 +1,3 @@
+back_resabooking_config_parametres:
+    path:     /parametres
+    defaults: { _controller: BackResaBookingBundle:Configuration:parametres }

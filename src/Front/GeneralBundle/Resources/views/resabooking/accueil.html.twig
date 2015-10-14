@@ -1,0 +1,83 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Réservation Immédiate{% endblock %}
+{% block body %}
+    <div id="page_title">
+        <div class="container clearfix">
+            <div class="page-name">{{ block('title') }}</div>
+            <div class="breadcrumb clearfix">
+                <a href="{{ path('accueil') }}">Accueil</a>
+                <a>Hôtels en tunisie</a>
+                <span class="current-page">{{ block('title') }}</span></a>
+            </div>
+        </div>
+    </div>
+    <div id="slider_wrapper">
+        <div class="owl-slider-wrapper center-capture">
+            <div id="owl-slider" class="owl-carousel owl-theme">
+                {% for slider in sliders %}
+                    <div class="item">
+                        <img class="lazyOwl" data-src="{{ asset(slider.assetPath) }}" alt="Image" style="height: 560px">
+                        <div class="owl-capture">
+                            <p class="owl-price">{{ slider.titre1 }}</p>
+                            <h2><a href="{{ slider.url }}" class="right-capture">{{ slider.titre2 }}</a></h2>
+                            <p>{{ slider.titre3 }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="owlSliderNavigation">
+                <a class="owlSlider-prev"><i class="arrow_carrot-left_alt2"></i></a>
+                <a class="owlSlider-next"><i class="arrow_carrot-right_alt2"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="content_wrapper">
+        <div class="container">
+            <div class="travel-search">
+                <div class="travel-search-inner">
+                    <ul class="tabs searchTab">
+                        <li><a href="#hotelsSearch" class="active"><span class="hotel mi"></span>{{ block('title') }}</a>
+                        </li>
+                    </ul>
+                    <!-- tabs -->
+                    <ul class="tabs-content">
+                        <li id="hotelsSearch" class="active">
+                            <form role="form" class="row" method="post" action="{{ path('front_resabooking_accueil') }}">
+                                <div class="col-xs-12 col-sm-3 col-md-3">
+                                    <div class="form-group">
+                                        <label for="hotelLocation">Ville de destination</label>
+                                        <select class="form-control mySelectBoxClass" name="ville" id="VilleDestination">
+                                            <option value="all">Tous les villes</option>
+                                            {% for ville in villes if ville.hasHotelsValide %}
+                                                <option value="{{ ville }}">{{ ville }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                    <div class="form-group datepicker-wrapper">
+                                        <label for="hotel-check-in">Date d'entrée</label>
+                                        <input type="text" class="form-control date" value="{{ 'now'|date_modify("+1 day")|date("Y-m-d") }}" id="hotel-check-in" name="dateDebut" placeholder="yyyy-mm-dd">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                    <div class="form-group datepicker-wrapper">
+                                        <label for="hotel-check-out">Nbr Nuitées</label>
+                                        <input type="number" name="nuitees" min="1" value="1" class="form-control" id="NbrNuitee">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-3"></div>
+                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                    <div class="clear"></div>
+                                    <button type="submit" class="btn btn-primary btn-block">Recherche</button>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

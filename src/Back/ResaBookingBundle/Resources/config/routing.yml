@@ -1,0 +1,3 @@
+Hotel_Tunisie_Referentiel:
+    resource: "@BackResaBookingBundle/Resources/config/routing/configuration.yml"
+    prefix:   /configuration
