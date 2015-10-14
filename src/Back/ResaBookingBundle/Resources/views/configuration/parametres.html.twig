@@ -12,10 +12,14 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     {{ form_start(form) }}
-                        <div class="row">
-                            {{ formulaire.input("col-md-4","Login",form.login,true) }}
-                            {{ formulaire.input("col-md-4","Password",form.password,true) }}
-                        </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-4","Login",form.login,true) }}
+                        {{ formulaire.input("col-md-4","Password",form.password,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-4","Lien XML Produit",form.lienProduit,true) }}
+                        {{ formulaire.input("col-md-4","Lien XML Prix",form.lienPrix,true) }}
+                    </div>
                         {{ formulaire.submit("Enregistrer") }}
                     {{ form_end(form) }}
                 </div>

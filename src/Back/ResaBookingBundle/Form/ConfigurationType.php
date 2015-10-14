@@ -17,6 +17,8 @@ class ConfigurationType extends AbstractType
         $builder
             ->add('login')
             ->add('password')
+            ->add('lienProduit')
+            ->add('lienPrix')
         ;
     }
     
