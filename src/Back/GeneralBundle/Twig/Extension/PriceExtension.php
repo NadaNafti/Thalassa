@@ -18,7 +18,7 @@ class PriceExtension extends \Twig_Extension
 
     public function isExist($var)
     {
-        if(count($var)>0)
+        if(!is_array($var))
             return $var;
         return null;
     }

@@ -47,7 +47,7 @@ class HotelsController extends Controller
         $config=$em->find('BackResaBookingBundle:Configuration',1);
         if(!$config)
         {
-            $session->getFlashBag()->add('success'," Vos paramétres de configuration sont vides ");
+            $session->getFlashBag()->add('info'," Vos paramétres de configuration sont vides ");
             return $this->redirect($this->generateUrl('back_resabooking_hotels_liste'));
         }
         $xmlProducts = simplexml_load_file($config->getLienProduit(),"SimpleXMLELement",LIBXML_NOCDATA);
