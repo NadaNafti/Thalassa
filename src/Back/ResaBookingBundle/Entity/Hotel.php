@@ -227,4 +227,9 @@ class Hotel
     {
         return $this->prix;
     }
+
+    public function __toString()
+    {
+        return $this->libelle;
+    }
 }

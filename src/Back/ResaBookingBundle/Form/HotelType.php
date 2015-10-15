@@ -16,7 +16,12 @@ class HotelType extends AbstractType
     {
         $builder
             ->add('id','hidden')
-            ->add('hotel','entity',array('class'=>'BackHotelTunisieBundle:Hotel'))
+            ->add('hotel','entity',array(
+                'class'=>'BackHotelTunisieBundle:Hotel',
+                'required'      => false,
+                'empty_value'   => 'Pas d\'hôtel',
+                'empty_data'    => null
+            ))
         ;
     }
 
