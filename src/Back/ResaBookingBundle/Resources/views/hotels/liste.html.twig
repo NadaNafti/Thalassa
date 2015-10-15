@@ -4,7 +4,7 @@
 {% block topbody %}
     {{ parent() }}
     <li>
-        <a href="{{ path('list_hotels') }}">Hotels</a>
+        <a href="{{ path('back_resabooking_hotels_liste') }}">Hotels ResaBooking</a>
     </li>
 {% endblock %}
 {% block body %}
@@ -27,7 +27,7 @@
                             <th class="center">Libelle</th>
                             <th class="center">Region</th>
                             <th class="center">Rapprochement</th>
-                            <th class="center">Date Mise à jour</th>
+                            <th class="center">Derniére Mise à jour</th>
                             <th class="center">Action</th>
                         </tr>
                         </thead>
@@ -35,13 +35,17 @@
                         {% for hotel in hotels %}
                             <tr class="center">
                                 <td>{{ hotel.id }}</td>
-                                <td>{% for i in 1..hotel.produit.categrie %}<i
-                                            class="fa fa-star fa fa-white"></i>{% endfor %}</td>
+                                <td>{% for i in 1..hotel.produit.categrie %}<i class="fa fa-star fa fa-white"></i>{% endfor %}</td>
                                 <td>{{ hotel.libelle }}</td>
                                 <td>{{ hotel.produit.region }}</td>
-                                <td>{{ hotel.hotel }}</td>
-                                <td>{{ hotel.updated|date('d/m/Y h:i') }}</td>
                                 <td>
+                                    {% if hotel.hotel is not null %}
+                                        <a target="_blank" href="{{ path('modif_hotel',{'id':hotel.hotel.id}) }}">{{ hotel.hotel }}</a>
+                                    {% endif %}
+                                </td>
+                                <td>{{ hotel.updated|date('d/m/Y H:i') }}</td>
+                                <td>
+                                    {{ macros.bouttonBlank(path('back_resabooking_hotels_details',{'id':hotel.id}),'fa-eye','btn-trello','Détails hôtel') }}
                                     {{ macros.bouttonModal(hotel.id,"#rapprocher",'fa-exchange','btn-trello Rapprocher','Rapprocher avec un Hôtel de notre base') }}
                                 </td>
                             </tr>

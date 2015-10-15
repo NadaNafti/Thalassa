@@ -81,4 +81,9 @@ class HotelsController extends Controller
         $session->getFlashBag()->add('success'," les hôtels sont à jour ");
         return $this->redirect($this->generateUrl('back_resabooking_hotels_liste'));
     }
+
+    public function detailsAction(Hotel $hotel)
+    {
+        return $this->render('BackResaBookingBundle:hotels:details.html.twig',array('hotel'=>$hotel));
+    }
 }
