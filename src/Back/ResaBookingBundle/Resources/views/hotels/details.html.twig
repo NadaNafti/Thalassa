@@ -119,10 +119,10 @@
                             Prix &nbsp; <i class="fa fa-caret-down width-auto"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-info">
-                            {% for i in 1 .. hotel.prix|length %}
+                            {% for prix in hotel.prix %}
                                 <li>
-                                    <a href="#panel_tab_prix{{ i }}" data-toggle="tab">
-                                        Prix {{ i }}
+                                    <a href="#panel_tab_prix{{ loop.index }}" data-toggle="tab">
+                                        {{ prix.date_debut }} - {{ prix.date_fin }}
                                     </a>
                                 </li>
                             {% endfor %}
