@@ -40,6 +40,11 @@ class ContratMedia
     /**
      * @ORM\Column(type="string",length=255, nullable=true)
      */
+    public $name;
+
+    /**
+     * @ORM\Column(type="string",length=255, nullable=true)
+     */
     public $path;
 
     /**
@@ -88,7 +93,10 @@ class ContratMedia
         $this->updateAt = new \DateTime();
 
         if (null !== $this->file)
+        {
             $this->path = sha1(uniqid(mt_rand(), true)) . '.' . $this->file->guessExtension();
+            $this->name = $this->file->	getClientOriginalName();
+        }
     }
 
     /**
@@ -237,5 +245,28 @@ class ContratMedia
     public function getContrat()
     {
         return $this->contrat;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return ContratMedia
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

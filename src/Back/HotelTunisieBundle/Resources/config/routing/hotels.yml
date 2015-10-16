@@ -59,6 +59,11 @@ add_file_to_contrat:
     path:     /add_file_to_contrat/{id}
     defaults: { _controller: BackHotelTunisieBundle:Hotels:addfileToContrat }
 
+
+supprimer_file_to_contrat:
+    path:     /delete_add_file_to_contrat/{id}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:deletefileToContrat }
+
 supprimer_article_hotel:
     path:     /supprimer_contrats_hotel/{id}
     defaults: { _controller: BackHotelTunisieBundle:Hotels:deleteArticle }

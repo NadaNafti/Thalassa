@@ -1,4 +1,9 @@
 services:
-#    back_resa_booking.example:
-#        class: Back\ResaBookingBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    resaBookingService:
+        class: Back\ResaBookingBundle\Services\ResaBookingService
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @session
+            - @service_container
+            - @mailer
+            - @templating

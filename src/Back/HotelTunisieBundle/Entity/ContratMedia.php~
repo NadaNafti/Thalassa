@@ -3,7 +3,7 @@
 namespace Back\HotelTunisieBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Media
@@ -33,8 +33,26 @@ class ContratMedia
 
     /**
      * @ORM\ManyToOne(targetEntity="Contrat", inversedBy="medias")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $contrat;
+
+    /**
+     * @ORM\Column(type="string",length=255, nullable=true)
+     */
+    public $name;
+
+    /**
+     * @ORM\Column(type="string",length=255, nullable=true)
+     */
+    public $path;
+
+    /**
+     * @Assert\File(
+     *     maxSize = "6000k"
+     * )
+     */
+    public $file;
 
     /**
      * @ORM\PostLoad()
@@ -43,17 +61,6 @@ class ContratMedia
     {
         $this->updateAt = new \DateTime();
     }
-
-    /**
-     * @ORM\Column(type="string",length=255, nullable=true)
-     */
-    public $path;
-    public $file;
-
-    /**
-     * @ORM\Column(type="integer",nullable=true)
-     */
-    public $ordre;
 
     public function getUploadRootDir()
     {
@@ -180,4 +187,60 @@ class ContratMedia
         return $this;
     }
 
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set ordre
+     *
+     * @param integer $ordre
+     * @return ContratMedia
+     */
+    public function setOrdre($ordre)
+    {
+        $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    /**
+     * Get ordre
+     *
+     * @return integer 
+     */
+    public function getOrdre()
+    {
+        return $this->ordre;
+    }
+
+    /**
+     * Set contrat
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Contrat $contrat
+     * @return ContratMedia
+     */
+    public function setContrat(\Back\HotelTunisieBundle\Entity\Contrat $contrat = null)
+    {
+        $this->contrat = $contrat;
+
+        return $this;
+    }
+
+    /**
+     * Get contrat
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Contrat 
+     */
+    public function getContrat()
+    {
+        return $this->contrat;
+    }
 }

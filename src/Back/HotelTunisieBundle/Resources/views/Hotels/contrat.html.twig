@@ -46,7 +46,9 @@
                                                         <td>{{ contrat.libelle }}</td>
                                                         <td>
                                                             {% for media in contrat.medias %}
-                                                               - <a href="{{ asset(media.getAssetPath) }}" target="_blank">Fichier {{ loop.index }} : {{ media.updateAt|date('d/m/Y') }}</a><br>
+                                                               - <a href="{{ asset(media.getAssetPath) }}" target="_blank">{{ media.name }} </a>
+                                                                <a href="{{ path('supprimer_file_to_contrat',{'id':media.id}) }}" title="Supperimer fichier" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer ce fichier ?'))">X</a>
+                                                                <br>
                                                             {% endfor %}
                                                         </td>
                                                         <td class="TableAction">
