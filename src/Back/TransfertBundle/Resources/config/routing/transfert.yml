@@ -1,0 +1,31 @@
+back_transfert_reservation_liste:
+    path:      /liste/{page}/{etat}/{sort}/{direction}
+    defaults: { _controller: BackTransfertBundle:Transfert:liste,page:1,etat:1,sort:r.id,direction:desc }
+
+back_transfert_reservation_consultation:
+    path:      /consulter/{id}
+    defaults: { _controller: BackTransfertBundle:Transfert:consulter }
+
+back_transfert_reservation_delete:
+    path:      /back_Transfert_reservation_delete/{id}
+    defaults: { _controller: BackTransfertBundle:Transfert:delete }
+
+back_transfert_reservation_prendrecharge:
+    path:      /encharge/{id}
+    defaults: { _controller: BackTransfertBundle:Transfert:prendreEnCharge }
+
+back_transfert_reservation_validation:
+    path:      /validation/{id}
+    defaults: { _controller: BackTransfertBundle:Transfert:valider }
+
+back_transfert_reservation_remise:
+    path:      /remise/{id}
+    defaults: { _controller: BackTransfertBundle:Transfert:remise }
+
+back_transfert_reservation_total:
+    path:      /total/{id}
+    defaults: { _controller: BackTransfertBundle:Transfert:total }
+
+back_transfert_reservation_annuler:
+    path:      /annuler/{id}
+    defaults: { _controller: BackTransfertBundle:Transfert:annuler }

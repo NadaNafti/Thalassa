@@ -92,7 +92,7 @@ class Client {
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="text", nullable=true)
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=true)
      */
     private $adresse;
 
@@ -235,6 +235,12 @@ class Client {
      * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $reservationsM;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Back\TransfertBundle\Entity\TransfertReservation", mappedBy="client")
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    protected $reservationsT;
 
     /**
      * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Piece", mappedBy="client")
@@ -1202,4 +1208,27 @@ class Client {
         return $this->tel2;
     }
 
+
+    /**
+     * Set pays
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Pays $pays
+     * @return Client
+     */
+    public function setPays(\Back\HotelTunisieBundle\Entity\Pays $pays = null)
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * Get pays
+     *
+     * @return \Back\HotelTunisieBundle\Entity\Pays 
+     */
+    public function getPays()
+    {
+        return $this->pays;
+    }
 }

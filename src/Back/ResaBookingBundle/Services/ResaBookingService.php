@@ -37,21 +37,28 @@ class ResaBookingService
 
     public function getCode()
     {
-//        $client = new \SoapClient('http://www.resabooking.com/auto_hot_xft_test.php?wsdl');
-////        $result = $client->call('hello', array('name' => 'Scott'));
-//        $request=array(
-//            "Ville"=>"hammamet",
-//            "login"=>"olevoyage",
-//            "pw"=>"olevoyage2015",
-//            "Debut"=>"2015-11-10",
-//            "Fin"=>"2015-11-12",
-//            "Rooms"=>"",
-//            "Marche"=>"Magrabein",
-//            "Langue"=>"fr",
-//            "Monnaie"=>"dt",
-//        );
-//        $reponse = $client->__soapCall( 'availabilityhotel', $request );
-//        dump($reponse);
+        $client = new \SoapClient('http://www.resabooking.com/auto_hot_xft_test.php?wsdl');
+        $rooms = array(//rooms
+            array(//room
+                array('adult'),//passager
+                array('adult')//passager
+            ),
+        );
+        $request = array(
+            $_SERVER["REMOTE_ADDR"],
+            'djerba', //ville
+            null, //idhotel
+            '2015-11-01', //date debut
+            '2015-11-02',// date fin
+            $rooms, //rooms
+            "olevoyage", //login
+            "olevoyage2015", //password
+            "fr", //langue
+            "Magrabein", //marché
+            "dt" //maonai
+        );
+        $reponse = $client->__soapCall('availabilityhotel', $request);
+        dump($reponse);
     }
 
 

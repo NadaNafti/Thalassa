@@ -58,6 +58,11 @@ class Reglement
     protected $reservationBE;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Back\TransfertBundle\Entity\TransfertReservation", inversedBy="reglements")
+     */
+    protected $reservationT;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="date")
@@ -287,5 +292,28 @@ class Reglement
     public function getReservationBE()
     {
         return $this->reservationBE;
+    }
+
+    /**
+     * Set reservationT
+     *
+     * @param \Back\TransfertBundle\Entity\TransfertReservation $reservationT
+     * @return Reglement
+     */
+    public function setReservationT(\Back\TransfertBundle\Entity\TransfertReservation $reservationT = null)
+    {
+        $this->reservationT = $reservationT;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationT
+     *
+     * @return \Back\TransfertBundle\Entity\TransfertReservation 
+     */
+    public function getReservationT()
+    {
+        return $this->reservationT;
     }
 }

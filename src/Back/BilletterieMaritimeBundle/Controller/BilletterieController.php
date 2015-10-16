@@ -42,7 +42,7 @@ class BilletterieController extends Controller
         ));
     }
 
-    public function deleteActon(BilletterieReservation $reservation)
+    public function deleteAction(BilletterieReservation $reservation)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();

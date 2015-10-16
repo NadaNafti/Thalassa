@@ -237,6 +237,12 @@ class Client {
     protected $reservationsM;
 
     /**
+     * @ORM\OneToMany(targetEntity="Back\TransfertBundle\Entity\TransfertReservation", mappedBy="client")
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    protected $reservationsT;
+
+    /**
      * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Piece", mappedBy="client")
      */
     protected $pieces;
@@ -1224,5 +1230,38 @@ class Client {
     public function getPays()
     {
         return $this->pays;
+    }
+
+    /**
+     * Add reservationsT
+     *
+     * @param \Back\TransfertBundle\Entity\TransfertReservation $reservationsT
+     * @return Client
+     */
+    public function addReservationsT(\Back\TransfertBundle\Entity\TransfertReservation $reservationsT)
+    {
+        $this->reservationsT[] = $reservationsT;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservationsT
+     *
+     * @param \Back\TransfertBundle\Entity\TransfertReservation $reservationsT
+     */
+    public function removeReservationsT(\Back\TransfertBundle\Entity\TransfertReservation $reservationsT)
+    {
+        $this->reservationsT->removeElement($reservationsT);
+    }
+
+    /**
+     * Get reservationsT
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReservationsT()
+    {
+        return $this->reservationsT;
     }
 }

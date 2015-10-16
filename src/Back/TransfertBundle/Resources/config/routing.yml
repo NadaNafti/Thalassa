@@ -1,0 +1,3 @@
+Tranfert_Referentiel:
+    resource: "@BackTransfertBundle/Resources/config/routing/transfert.yml"
+    prefix:   /transfert

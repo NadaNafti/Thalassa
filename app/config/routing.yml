@@ -1,3 +1,7 @@
+back_transfert:
+    resource: "@BackTransfertBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
 back_resa_booking:
     resource: "@BackResaBookingBundle/Resources/config/routing.yml"
     prefix:   /admin/resabooking
