@@ -349,6 +349,21 @@ class HotelsController extends Controller
         return $this->redirect($this->generateUrl("article_hotel", array('id' => $contrat->getHotel()->getId())));
     }
 
+
+    public function deletefileToContratAction(ContratMedia $media)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->getRequest()->getSession();
+        try {
+            $em->remove($media);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Votre fichier a été supprimé avec succées ");
+        } catch (\Exception $ex) {
+            $session->getFlashBag()->add('danger', $ex->getMessage());
+        }
+        return $this->redirect($this->generateUrl("article_hotel", array('id' => $media->getContrat()->getHotel()->getId())));
+    }
+
     public function genereTarifsAction()
     {
         $form = $this->createForm(new GenererTarifsHotelsType());
