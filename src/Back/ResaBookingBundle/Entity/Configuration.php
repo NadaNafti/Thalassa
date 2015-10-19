@@ -50,6 +50,29 @@ class Configuration
      */
     private $lienPrix;
 
+    /**
+     * @var string
+     * @Assert\Url()
+     * @ORM\Column(name="wsdl", type="string", length=255)
+     */
+    private $wsdl;
+
+    /**
+     * @return string
+     */
+    public function getWsdl()
+    {
+        return $this->wsdl;
+    }
+
+    /**
+     * @param string $wsdl
+     */
+    public function setWsdl($wsdl)
+    {
+        $this->wsdl = $wsdl;
+    }
+
 
     /**
      * Get id

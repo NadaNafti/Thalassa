@@ -145,7 +145,7 @@ class TransfertController extends Controller
                         $em->persist($piece->setMontant($piece->getMontant() - $reservation->getMontantRestant()));
                     }
                     $reglement->setPiece($piece);
-                    $reglement->setReservationsBilletterie($reservation);
+                    $reglement->setReservationT($reservation);
                     $reglement->setDateCreation(new \DateTime());
                     $em->persist($reglement);
                     $reservation->addReglement($reglement);
@@ -165,7 +165,7 @@ class TransfertController extends Controller
                         $em->persist($piece->setRegle(FALSE)->setMontant($piece->getMontantOrigine() - $reservation->getMontantRestant()));
                     }
                     $reglement->setPiece($piece);
-                    $reglement->setReservationsBilletterie($reservation);
+                    $reglement->setReservationT($reservation);
                     $reglement->setDateCreation(new \DateTime());
                     $em->persist($reglement);
                     $reservation->addReglement($reglement);

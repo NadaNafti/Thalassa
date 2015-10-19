@@ -9,6 +9,9 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Back\ResaBookingBundle\WSDL\rooms;
+use Back\ResaBookingBundle\WSDL\Traveller;
+use Back\ResaBookingBundle\WSDL\room;
 
 
 class HotelsController extends Controller
@@ -84,7 +87,11 @@ class HotelsController extends Controller
 
     public function detailsAction(Hotel $hotel)
     {
-        $this->container->get('resaBookingService')->getCode();
+        $room = new room();
+        $room->addTraveller(new Traveller('adult',27,'1988-03-09'))->addTraveller(new Traveller('adult',27,'1988-03-09'));
+        $rooms=new rooms();
+        $rooms->addRoom($room);
+        dump($this->container->get('resaBookingService')->availabilityHotel('Hammamet','2015-11-01','2015-11-03',$rooms));
         return $this->render('BackResaBookingBundle:hotels:details.html.twig',array('hotel'=>$hotel));
     }
 }
