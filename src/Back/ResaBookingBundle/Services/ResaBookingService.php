@@ -38,6 +38,17 @@ class ResaBookingService
         $this->templating = $templating;
     }
 
+    public function convertRooms($room)
+    {
+        $tabRoom=explode(',',$room);
+        $room= new room();
+        for($i=1;$i<=$tabRoom[0];$i++)
+            $room->addTraveller(new Traveller('adult'));
+        for($i=1;$i<=count($tabRoom)-1;$i++)
+            $room->addTraveller(new Traveller('enfant',$tabRoom[$i]));
+        return $room;
+    }
+
     public function availabilityHotel($ville,$debut,$fin,rooms $rooms,$idHotel=null)
     {
         $configResaBooking= $this->em->find('BackResaBookingBundle:Configuration',1);
