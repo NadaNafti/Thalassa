@@ -19,6 +19,7 @@ class ConfigurationType extends AbstractType
             ->add('password')
             ->add('lienProduit')
             ->add('lienPrix')
+            ->add('wsdl')
         ;
     }
     

@@ -16,6 +16,9 @@ use Back\HotelTunisieBundle\Entity\ReservationRepository;
 use Back\HotelTunisieBundle\Entity\Hotel;
 use Back\AdministrationBundle\Entity\EmailRepository;
 use Back\UserBundle\Entity\Client;
+use Back\ResaBookingBundle\WSDL\rooms;
+use Back\ResaBookingBundle\WSDL\Traveller;
+use Back\ResaBookingBundle\WSDL\room;
 
 class ResaBookingService
 {
@@ -35,23 +38,23 @@ class ResaBookingService
         $this->templating = $templating;
     }
 
-    public function getCode()
+    public function availabilityHotel($ville,$debut,$fin,rooms $rooms,$idHotel=null)
     {
-//        $client = new \SoapClient('http://www.resabooking.com/auto_hot_xft_test.php?wsdl');
-////        $result = $client->call('hello', array('name' => 'Scott'));
-//        $request=array(
-//            "Ville"=>"hammamet",
-//            "login"=>"olevoyage",
-//            "pw"=>"olevoyage2015",
-//            "Debut"=>"2015-11-10",
-//            "Fin"=>"2015-11-12",
-//            "Rooms"=>"",
-//            "Marche"=>"Magrabein",
-//            "Langue"=>"fr",
-//            "Monnaie"=>"dt",
-//        );
-//        $reponse = $client->__soapCall( 'availabilityhotel', $request );
-//        dump($reponse);
+        $configResaBooking= $this->em->find('BackResaBookingBundle:Configuration',1);
+        $client = new \SoapClient($configResaBooking->getWsdl());
+        $request = array($_SERVER["REMOTE_ADDR"],
+            $ville,
+            $idHotel,
+            $debut,
+            $fin,
+            $rooms,
+            $configResaBooking->getLogin(),
+            $configResaBooking->getPassword(),
+            "fr",
+            "Magrabein",
+            "dt"
+        );
+        return $client->__soapCall('availabilityhotel', $request);
     }
 
 
