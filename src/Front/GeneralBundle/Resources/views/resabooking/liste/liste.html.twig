@@ -1,0 +1,44 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Liste des hôtels{% endblock %}
+{% block body %}
+    <div id="page_title">
+        <div class="container clearfix">
+            <div class="page-name">{{ block('title') }}</div>
+            <div class="breadcrumb clearfix">
+                <a href="{{ path('accueil') }}">Accueil</a>
+                <span class="current-page">Liste des hôtels (Immediate)</span></a>
+            </div>
+        </div>
+    </div>
+    <div id="content_wrapper">
+        <div class="container">
+            <div class="row clearfix pv-30 mt-20">
+                {% include 'FrontGeneralBundle:resabooking/liste:filtre.html.twig' %}
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    {#{% include 'FrontGeneralBundle:resabooking/liste:sort.html.twig' %}#}
+                    <div class="row items-container list-style">
+                        {% for hotel in reponse.hots %}
+                            {% include 'FrontGeneralBundle:resabooking/liste:article.html.twig' %}
+                        {% endfor %}
+                    </div>
+                    {#<div class="clear"></div>#}
+                    {#<nav class="paging pull-right">#}
+                    {#<p>Page 01 of 06</p>#}
+                    {#<ul class="pagination">#}
+                    {#<li class="disabled"><a href="#">&laquo;</a></li>#}
+                    {#<li class="active"><a href="#">1</a></li>#}
+                    {#<li><a href="#">2</a></li>#}
+                    {#<li><a href="#">3</a></li>#}
+                    {#<li><a href="#">4</a></li>#}
+                    {#<li><a href="#">5</a></li>#}
+                    {#<li><a href="#">6</a></li>#}
+                    {#<li><a href="#">&raquo;</a></li>#}
+                    {#</ul>#}
+                    {#</nav>#}
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

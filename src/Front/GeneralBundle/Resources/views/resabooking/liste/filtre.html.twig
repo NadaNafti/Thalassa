@@ -1,0 +1,154 @@
+<div class="col-xs-12 col-sm-4 col-md-3">
+    <div class="sidebar">
+        <div class="counting-result">
+            <span class="counthotel">{{ reponse.hots|length }}</span> Hôtel(s) trouvé(s)
+        </div>
+        <div class="search-filter">
+            <ul class="search-tabs-content">
+                <li id="search-f-hotels" class="active">
+                    <form role="form" class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label for="hotelLocation">Where do you want to go?</label>
+                                <input type="text" class="form-control" id="hotelLocation" placeholder="Thailand">
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group datepicker-wrapper">
+                                <label for="hotel-check-in">Check-in</label>
+                                <input type="text" class="form-control date" id="hotel-check-in" placeholder="dd/dm/yy">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group datepicker-wrapper">
+                                <label for="hotel-check-out">Check-out</label>
+                                <input type="text" class="form-control date" id="hotel-check-out" placeholder="dd/dm/yy">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="room1">
+                                <div class="add-room">
+                                    <div class="two-fourth">
+                                        <span>Room 1</span><br/>
+
+                                        <div class="addroom1 block">
+                                            <a onclick="addroom2()">+ Add room</a>
+                                        </div>
+                                    </div>
+                                    <div class="one-fourth mr">
+                                        <span>Adult</span>
+                                        <select class="form-control mySelectBoxClass">
+                                            <option>1</option>
+                                            <option selected>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    <div class="one-fourth">
+                                        <span>Child</span>
+                                        <select class="form-control mySelectBoxClass">
+                                            <option>0</option>
+                                            <option selected>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- add-room -->
+                            </div>
+                            <!-- end room1 -->
+
+
+                            <div class="room2 none">
+                                <div class="clearfix"></div>
+                                <div class="line1"></div>
+                                <div class="add-room">
+                                    <div class="two-fourth">
+                                        <span>Room 2</span><br/>
+
+                                        <div class="addroom2 block">
+                                            <a onclick="addroom3()" class="inline">+ Add room</a> |
+                                            <a onclick="removeroom2()" class="add-room-close"></a></div>
+                                    </div>
+
+                                    <div class="one-fourth mr">
+                                        <span>Adult</span>
+                                        <select class="form-control mySelectBoxClass">
+                                            <option>1</option>
+                                            <option selected>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    <div class="one-fourth">
+                                        <span>Child</span>
+                                        <select class="form-control mySelectBoxClass">
+                                            <option>0</option>
+                                            <option selected>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- add-room -->
+                            </div>
+                            <!-- end room2 -->
+
+                            <div class="room3 none">
+                                <div class="clearfix"></div>
+                                <div class="line1"></div>
+                                <div class="add-room">
+                                    <div class="two-fourth">
+                                        <span>Room 3</span><br/>
+
+                                        <div class="addroom3 block"><a onclick="addroom3()">+ Add
+                                                room</a> |
+                                            <a onclick="removeroom3()" class="add-room-close"></a></div>
+                                    </div>
+
+                                    <div class="one-fourth mr">
+                                        <span>Adult</span>
+                                        <select class="form-control mySelectBoxClass">
+                                            <option>1</option>
+                                            <option selected>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    <div class="one-fourth">
+                                        <span>Child</span>
+                                        <select class="form-control mySelectBoxClass">
+                                            <option>0</option>
+                                            <option selected>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- add-room -->
+                            </div>
+                            <!-- end room3 -->
+                        </div>
+                        <div class="clear mb-20"></div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

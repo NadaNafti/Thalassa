@@ -1,0 +1,45 @@
+{% set hotelBase=getHotelResaBooking(hotel.id) %}
+{% set htefDetails= path('front_resabooking_details',{'hotel':hotel.id,'debut':app.request.get('debut'),'fin':app.request.get('fin'),'room1':app.request.get('room1'),'room2':app.request.get('room2'),'room3':app.request.get('room3'),'room4':app.request.get('room4'),'room5':app.request.get('room5')}) %}
+<div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="list-item">
+        <div class="list-item-image">
+            <div class="image-inner">
+                <a class="link-image" href="{{ htefDetails }}">
+                    <img src="{% if hotelBase.produit.image_principal|show is not null %}{{ hotelBase.produit.image_principal|show }}{% else %}https://placeholdit.imgix.net/~text?txtsize=25&txt={{ hotel.libelle }}&w=270&h=195{% endif %}">
+                </a>
+            </div>
+        </div>
+
+        <div class="list-item-label">
+            <div class="left">
+                <h4 class="list-item-title">
+                    <a href="{{ htefDetails }}" class="inverse">
+                        {{ hotel.libelle }}
+                    </a>
+                </h4>
+                <span class="list-item-location">{{ reponse.ville }}</span>
+                <div class="list-item-details">
+                    <div class="clear mt-10"></div>
+                    {{ hotel.accroche|raw }}
+                    <ul class="hotelpreferences">
+                        {% for icon in hotelBase.produit.services.icone if icon|show is not null %}
+                            <li>
+                                <img src="{{ icon|show }}">
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="clear mb-10"></div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="list-item-meta">
+                    <span class="rating-static rating-{{ hotel.etoile*10 }}"></span>
+                </div>
+                <div class="list-item-price">
+                    {{ bestChambre(hotel.chambres).price }} DT <span> Total en</span><span> {{ bestChambre(hotel.chambres).libelle_pension }}</span>
+                </div>
+                <a href="{{ htefDetails }}" class="btn">Details</a>
+            </div>
+        </div>
+    </div>
+</div>
