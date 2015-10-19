@@ -87,11 +87,6 @@ class HotelsController extends Controller
 
     public function detailsAction(Hotel $hotel)
     {
-        $room = new room();
-        $room->addTraveller(new Traveller('adult',27,'1988-03-09'))->addTraveller(new Traveller('adult',27,'1988-03-09'));
-        $rooms=new rooms();
-        $rooms->addRoom($room);
-        dump($this->container->get('resaBookingService')->availabilityHotel('Hammamet','2015-11-01','2015-11-03',$rooms));
         return $this->render('BackResaBookingBundle:hotels:details.html.twig',array('hotel'=>$hotel));
     }
 }
