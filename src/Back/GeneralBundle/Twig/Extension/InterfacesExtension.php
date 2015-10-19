@@ -28,14 +28,14 @@ class InterfacesExtension extends \Twig_Extension
             'getAgence'              => new \Twig_Function_Method($this, 'getAgence'),
             'testeZero'              => new \Twig_Function_Method($this, 'testeZero'),
             'isZero'                 => new \Twig_Function_Method($this, 'isZero'),
-            'bestChambre'            => new \Twig_Function_Method($this, 'bestChambre'),,
-            'getHotelResaBooking'            => new \Twig_Function_Method($this, 'getHotelResaBooking'),
+            'bestChambre'            => new \Twig_Function_Method($this, 'bestChambre'),
+            'getHotelResaBooking'    => new \Twig_Function_Method($this, 'getHotelResaBooking'),
         );
     }
 
     public function getHotelResaBooking($id)
     {
-        return $this->em->find('BackResaBookingBundle:Hotel',$id);
+        return $this->em->find('BackResaBookingBundle:Hotel', $id);
     }
 
     public function bestChambre($chambres)
