@@ -28,13 +28,24 @@ class InterfacesExtension extends \Twig_Extension
             'getAgence'              => new \Twig_Function_Method($this, 'getAgence'),
             'testeZero'              => new \Twig_Function_Method($this, 'testeZero'),
             'isZero'                 => new \Twig_Function_Method($this, 'isZero'),
+            'bestChambre'            => new \Twig_Function_Method($this, 'bestChambre'),
         );
+    }
+
+    public function bestChambre($chambres)
+    {
+        $ch = null;
+        foreach ($chambres as $chambre) {
+            if ($ch == null || $chambre->chambre[0]->price < $ch->price)
+                $ch = $chambre->chambre[0];
+        }
+        return $ch;
     }
 
     public function getProduitByCode($code)
     {
-        $produit=$this->em->getRepository('BackAdministrationBundle:Produit')->findOneBy(array('code'=>$code));
-        if($produit)
+        $produit = $this->em->getRepository('BackAdministrationBundle:Produit')->findOneBy(array('code' => $code));
+        if ($produit)
             return $produit->getLibelle();
         return null;
     }
