@@ -69,16 +69,38 @@ class Traveller
     protected $tel = null;
 
     /**
+     * Traveller constructor.
      * @param string $typ
      * @param string $age
+     * @param string $ID
      * @param string $BirthDate
+     * @param string $FirstName
+     * @param string $LastName
+     * @param string $civiliti
+     * @param string $adresse
+     * @param string $pays
+     * @param string $ville
+     * @param string $mail
+     * @param string $tel
+     * @param string $cp
      */
-    public function __construct($typ, $age, $BirthDate)
+    public function __construct($typ, $age=null, $BirthDate=null,$ID=null, $FirstName=null, $LastName=null, $civiliti=null, $adresse=null, $pays=null, $ville=null, $mail=null, $tel=null, $cp=null)
     {
-      $this->typ = $typ;
-      $this->age = $age;
-      $this->BirthDate = $BirthDate;
+        $this->typ = $typ;
+        $this->age = $age;
+        $this->ID = $ID;
+        $this->BirthDate = $BirthDate;
+        $this->FirstName = $FirstName;
+        $this->LastName = $LastName;
+        $this->civiliti = $civiliti;
+        $this->adresse = $adresse;
+        $this->pays = $pays;
+        $this->ville = $ville;
+        $this->mail = $mail;
+        $this->tel = $tel;
+        $this->cp = $cp;
     }
+
 
     /**
      * @return string
