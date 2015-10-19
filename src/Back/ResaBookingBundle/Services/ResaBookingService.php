@@ -49,6 +49,21 @@ class ResaBookingService
         return $room;
     }
 
+    public function getRooms($room1,$room2=null,$room3=null,$room4=null,$room5=null)
+    {
+        $rooms= new rooms();
+        $rooms->addRoom($this->convertRooms($room1));
+        if(!is_null($room2))
+            $rooms->addRoom($this->convertRooms($room2));
+        if(!is_null($room3))
+            $rooms->addRoom($this->convertRooms($room3));
+        if(!is_null($room4))
+            $rooms->addRoom($this->convertRooms($room4));
+        if(!is_null($room5))
+            $rooms->addRoom($this->convertRooms($room5));
+        return $rooms;
+    }
+
     public function availabilityHotel($ville,$debut,$fin,rooms $rooms,$idHotel=null)
     {
         $configResaBooking= $this->em->find('BackResaBookingBundle:Configuration',1);

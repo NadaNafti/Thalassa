@@ -87,6 +87,7 @@ class HotelsController extends Controller
 
     public function detailsAction(Hotel $hotel)
     {
+        dump($this->container->get('resabookingservice')->getRooms('2','2,15','1'));
         return $this->render('BackResaBookingBundle:hotels:details.html.twig',array('hotel'=>$hotel));
     }
 }
