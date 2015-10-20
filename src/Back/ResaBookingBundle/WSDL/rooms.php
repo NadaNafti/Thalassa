@@ -14,7 +14,7 @@ class rooms
         $this->room=array();
     }
 
-    public function addRoom($room)
+    public function addRoom(room $room)
     {
         $this->room[]=$room;
         return $this;

@@ -1,0 +1,39 @@
+{% if  user.sessions|length != 0 %}
+    <li class="dropdown">
+        <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:void(0)">
+            <i class="clip-banknote"></i>
+            {% if  user.sessions.last.isOpen  %}
+                <span class="badge">
+                    Session ouverte 
+                </span>
+            {%endif%} 
+        </a>
+        <ul class="dropdown-menu notifications">
+            <li>
+                <span class="dropdown-menu-title center">Ma Caisse</span>
+            </li>
+            <li>
+                <div class="drop-down-wrapper">
+                    <ul>
+                        <li>
+                            {% if user.sessions.last.isOpen %}
+                                <a href="{{ path('back_caisse_session',{'id':user.sessions.last.id}) }}">
+                                    Session ouverte le {{ user.sessions.last }}
+                                </a>
+                            {% else %}
+                                <a href="{{ path('back_caisse_session_liste') }}">
+                                    Ouvrir une nouvelle session
+                                </a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="view-all">
+                <a href="{{ path('back_caisse_session_liste') }}">
+                    Voir toutes les sessions <i class="fa fa-arrow-circle-o-right"></i>
+                </a>
+            </li>
+        </ul>
+    </li>
+{% endif %}

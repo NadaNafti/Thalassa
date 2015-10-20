@@ -1,0 +1,135 @@
+<?php
+
+namespace Back\AdministrationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SessionCaisse
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class SessionCaisse
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateOuverture", type="datetime")
+     */
+    private $dateOuverture;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateFermeture", type="datetime")
+     */
+    private $dateFermeture;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="FondInitial", type="decimal", precision=11, scale=3)
+     */
+    private $fondInitial;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Caisse", inversedBy="sessionCaisses")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $caisse;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="SessionCaisseLigne", mappedBy="session")
+     */
+    protected $lignes;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set dateOuverture
+     *
+     * @param string $dateOuverture
+     * @return SessionCaisse
+     */
+    public function setDateOuverture($dateOuverture)
+    {
+        $this->dateOuverture = $dateOuverture;
+
+        return $this;
+    }
+
+    /**
+     * Get dateOuverture
+     *
+     * @return string 
+     */
+    public function getDateOuverture()
+    {
+        return $this->dateOuverture;
+    }
+
+    /**
+     * Set dateFermeture
+     *
+     * @param string $dateFermeture
+     * @return SessionCaisse
+     */
+    public function setDateFermeture($dateFermeture)
+    {
+        $this->dateFermeture = $dateFermeture;
+
+        return $this;
+    }
+
+    /**
+     * Get dateFermeture
+     *
+     * @return string 
+     */
+    public function getDateFermeture()
+    {
+        return $this->dateFermeture;
+    }
+
+    /**
+     * Set fondInitial
+     *
+     * @param string $fondInitial
+     * @return SessionCaisse
+     */
+    public function setFondInitial($fondInitial)
+    {
+        $this->fondInitial = $fondInitial;
+
+        return $this;
+    }
+
+    /**
+     * Get fondInitial
+     *
+     * @return string 
+     */
+    public function getFondInitial()
+    {
+        return $this->fondInitial;
+    }
+}

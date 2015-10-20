@@ -1,0 +1,45 @@
+<?php
+
+namespace Back\CaisseBundle\Entity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Caisse
+ *
+ * @ORM\Table("ost_c_caisseligne")
+ * @ORM\Entity
+ */
+class CaisseLigne
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="libelle", type="string", length=255)
+     */
+    private $libelle;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="montant", type="decimal", precision=11, scale=3)
+     */
+    private $montant;
+    
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="TypeLigneCaisse")
+     */
+    protected $type;
+    
+}

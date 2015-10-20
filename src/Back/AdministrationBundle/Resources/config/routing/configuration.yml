@@ -1,6 +1,14 @@
 configuration_agence:
     path:     /agence
     defaults: { _controller: BackAdministrationBundle:Configuration:agence }
+    
+configuration_pointVente:
+    path:     /pointVente/{id}
+    defaults: { _controller: BackAdministrationBundle:Configuration:pointVente,id:null }
+    
+configuration_pointVente_delete:
+    path:     /configuration_pointVente_delete/{id}
+    defaults: { _controller: BackAdministrationBundle:Configuration:pointVenteDelete }
 
 configuration_etat:
     path:     /etat/{id}
