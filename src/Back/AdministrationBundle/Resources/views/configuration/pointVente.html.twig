@@ -1,0 +1,69 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Gestion des Points de vente{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
+                        {{ formulaire.input("col-md-3","Tel1",form.tel1,true) }}
+                        {{ formulaire.input("col-md-3","Tel2",form.tel2,false) }}
+                        {{ formulaire.input("col-md-3","Fax",form.fax,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-12","Adresse",form.adresse,true) }}
+                    </div>
+                    {{ formulaire.submit("Enregistrer") }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered  table-full-width table-condensed">
+                        <thead>
+                            <tr class="center">
+                                <th>ID</th>
+                                <th>Libellé</th>
+                                <th>Tel 1</th>
+                                <th>Tel 2</th>
+                                <th>Fax</th>
+                                <th>Adresse</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pointVente in pointVentes %}
+                                <tr>
+                                    <td>{{ pointVente.id }}</td>
+                                    <td>{{ pointVente.libelle }}</td>
+                                    <td>{{ pointVente.tel1 }}</td>
+                                    <td>{{ pointVente.tel2 }}</td>
+                                    <td>{{ pointVente.fax }}</td>
+                                    <td>{{ pointVente.adresse }}</td>
+                                    <td class="TableAction">
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                            {{ macros.tableEdit(path('configuration_pointVente',{'id':pointVente.id})) }}
+                                            {{ macros.tableDelete(path('configuration_pointVente_delete',{'id':pointVente.id})) }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -34,14 +34,34 @@ class User extends BaseUser
      * )
      */
     protected $groups;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\AdministrationBundle\Entity\PointVente", inversedBy="users")
+     */
+    private $pointVente;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Back\CaisseBundle\Entity\SessionCaisse", mappedBy="user")
+     */
+    private $sessions;
 
     /**
      * Constructor
      */
+    
+    
     public function __construct()
     {
         parent::__construct();
         $this->groups=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sessions=new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    public function getLastSession()
+    {
+        if(count($this->sessions)==0)
+            return null;
+        return $this->sessions->last();
     }
 
     /**
@@ -83,5 +103,69 @@ class User extends BaseUser
             return $this->username;
         else
             return $this->client->getNomPrenom();
+    }
+
+    
+    /**
+     * Set pointVente
+     *
+     * @param \Back\AdministrationBundle\Entity\PointVente $pointVente
+     * @return User
+     */
+    public function setPointVente(\Back\AdministrationBundle\Entity\PointVente $pointVente = null)
+    {
+        $this->pointVente = $pointVente;
+
+        return $this;
+    }
+
+    /**
+     * Get pointVente
+     *
+     * @return \Back\AdministrationBundle\Entity\PointVente 
+     */
+    public function getPointVente()
+    {
+        return $this->pointVente;
+    }
+
+    /**
+     * Add sessions
+     *
+     * @param \Back\CaisseBundle\Entity\SessionCaisse $sessions
+     * @return User
+     */
+    public function addSession(\Back\CaisseBundle\Entity\SessionCaisse $sessions)
+    {
+        $this->sessions[] = $sessions;
+
+        return $this;
+    }
+
+    /**
+     * Remove sessions
+     *
+     * @param \Back\CaisseBundle\Entity\SessionCaisse $sessions
+     */
+    public function removeSession(\Back\CaisseBundle\Entity\SessionCaisse $sessions)
+    {
+        $this->sessions->removeElement($sessions);
+    }
+
+    /**
+     * Get sessions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSessions()
+    {
+        return $this->sessions;
+    }
+    
+    public function sessionOuverte()
+    {
+        if($this->sessions->isEmpty())
+            return false;
+        return $this->sessions->last()->isOpen();
     }
 }

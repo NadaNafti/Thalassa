@@ -1,3 +1,7 @@
+back_caisse:
+    resource: "@BackCaisseBundle/Resources/config/routing.yml"
+    prefix:   /admin/caisse
+    
 back_transfert:
     resource: "@BackTransfertBundle/Resources/config/routing.yml"
     prefix:   /admin

@@ -1,0 +1,4 @@
+services:
+#    back_caisse.example:
+#        class: Back\CaisseBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

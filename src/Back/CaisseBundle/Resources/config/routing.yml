@@ -1,0 +1,7 @@
+Caisse_Session:
+    resource: "@BackCaisseBundle/Resources/config/routing/caisse.yml"
+    prefix:   /session
+    
+Caisse_referentiel:
+    resource: "@BackCaisseBundle/Resources/config/routing/referentiel.yml"
+    prefix:   /referentiel

@@ -1,0 +1,9 @@
+back_caisse_referentiel_typeLigne:
+    path:     /typeLigne/{id}
+    defaults: { _controller: BackCaisseBundle:Referentiel:type,id:null }
+    requirements:
+        id:  \d+
+        
+back_caisse_referentiel_typeLigne_supprimer:
+    path:     /typeLigne_supprimer/{id}
+    defaults: { _controller: BackCaisseBundle:Referentiel:deleteType }

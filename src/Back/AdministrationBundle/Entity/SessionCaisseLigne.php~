@@ -1,0 +1,136 @@
+<?php
+
+namespace Back\AdministrationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SessionCaisseLigne
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class SessionCaisseLigne
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="DateLigne", type="datetime")
+     */
+    private $dateLigne;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="MontantLigne", type="decimal", precision=11, scale=3)
+     */
+    private $montantLigne;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="refPiece", type="string", length=255, nullable=true)
+     */
+    private $refPiece;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="SessionCaisse", inversedBy="lignes")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $session;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="TypeLigneCaisse")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $type;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set dateLigne
+     *
+     * @param \DateTime $dateLigne
+     * @return SessionCaisseLigne
+     */
+    public function setDateLigne($dateLigne)
+    {
+        $this->dateLigne = $dateLigne;
+
+        return $this;
+    }
+
+    /**
+     * Get dateLigne
+     *
+     * @return \DateTime 
+     */
+    public function getDateLigne()
+    {
+        return $this->dateLigne;
+    }
+
+    /**
+     * Set montantLigne
+     *
+     * @param string $montantLigne
+     * @return SessionCaisseLigne
+     */
+    public function setMontantLigne($montantLigne)
+    {
+        $this->montantLigne = $montantLigne;
+
+        return $this;
+    }
+
+    /**
+     * Get montantLigne
+     *
+     * @return string 
+     */
+    public function getMontantLigne()
+    {
+        return $this->montantLigne;
+    }
+
+    /**
+     * Set refPiece
+     *
+     * @param string $refPiece
+     * @return SessionCaisseLigne
+     */
+    public function setRefPiece($refPiece)
+    {
+        $this->refPiece = $refPiece;
+
+        return $this;
+    }
+
+    /**
+     * Get refPiece
+     *
+     * @return string 
+     */
+    public function getRefPiece()
+    {
+        return $this->refPiece;
+    }
+}
