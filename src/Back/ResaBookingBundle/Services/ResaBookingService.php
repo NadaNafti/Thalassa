@@ -38,6 +38,48 @@ class ResaBookingService
         $this->templating = $templating;
     }
 
+    public function availabilityHotel($ville,$debut,$fin,rooms $rooms,$idHotel=null)
+    {
+        $configResaBooking= $this->em->find('BackResaBookingBundle:Configuration',1);
+        $client = new \SoapClient($configResaBooking->getWsdl());
+        $request = array($_SERVER["REMOTE_ADDR"],$ville,$idHotel,$debut,$fin,$rooms,$configResaBooking->getLogin(),$configResaBooking->getPassword(),"fr","Magrabein","dt");
+        return $client->__soapCall('availabilityhotel', $request);
+    }
+
+    public function devis($session,$idHotel,$idHotel,$pension,$chambs,$options)
+    {
+        $configResaBooking= $this->em->find('BackResaBookingBundle:Configuration',1);
+        $client = new \SoapClient($configResaBooking->getWsdl());
+        $request = array($configResaBooking->getLogin(),$configResaBooking->getPassword(),$session,$idHotel,$pension,$chambs,$options);
+        return $client->__soapCall('devis', $request);
+    }
+
+    public function createbooking($session,$travels,$organisateur,$vol,$info_agence,$note_supplementaire,$frais_supplementaire)
+    {
+        $configResaBooking= $this->em->find('BackResaBookingBundle:Configuration',1);
+        $client = new \SoapClient($configResaBooking->getWsdl());
+        $request = array($session,$travels,$organisateur,$configResaBooking->getLogin(),$configResaBooking->getPassword(), $vol, $info_agence, $note_supplementaire,$frais_supplementaire);
+        return $client->__soapCall('createbooking', $request);
+    }
+
+    public function getReservation($reference)
+    {
+        $configResaBooking= $this->em->find('BackResaBookingBundle:Configuration',1);
+        $client = new \SoapClient($configResaBooking->getWsdl());
+        $request = array($configResaBooking->getLogin(),$configResaBooking->getPassword(), $reference);
+        return $client->__soapCall('getreservation', $request);
+    }
+
+    public function findReservation($debut,$fin)
+    {
+        $configResaBooking= $this->em->find('BackResaBookingBundle:Configuration',1);
+        $client = new \SoapClient($configResaBooking->getWsdl());
+        $request = array($configResaBooking->getLogin(),$configResaBooking->getPassword(), $debut,$fin);
+        return $client->__soapCall('findreservation', $request);
+    }
+
+    /***************************************************************************************************************************/
+
     public function convertRooms($room)
     {
         $tabRoom=explode(',',$room);
@@ -62,25 +104,6 @@ class ResaBookingService
         if(!is_null($room5))
             $rooms->addRoom($this->convertRooms($room5));
         return $rooms;
-    }
-
-    public function availabilityHotel($ville,$debut,$fin,rooms $rooms,$idHotel=null)
-    {
-        $configResaBooking= $this->em->find('BackResaBookingBundle:Configuration',1);
-        $client = new \SoapClient($configResaBooking->getWsdl());
-        $request = array($_SERVER["REMOTE_ADDR"],
-            $ville,
-            $idHotel,
-            $debut,
-            $fin,
-            $rooms,
-            $configResaBooking->getLogin(),
-            $configResaBooking->getPassword(),
-            "fr",
-            "Magrabein",
-            "dt"
-        );
-        return $client->__soapCall('availabilityhotel', $request);
     }
 
 

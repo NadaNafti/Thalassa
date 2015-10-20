@@ -15,7 +15,7 @@ class room
         $this->Traveller=array();
     }
 
-    public function addTraveller($Traveller)
+    public function addTraveller(Traveller $Traveller)
     {
         $this->Traveller[]=$Traveller;
         return $this;
