@@ -1,47 +1,113 @@
-{#<h2>Période <small>Séjour minimum : {{ saison.minStay }} nuitée(s)</small> </h2>#}
-{#<form method="post" action="{{ path('front_hoteltunisie_edit_periode',{'slug':app.request.get('slug')}) }}" role="form" id="form" style="  margin-bottom: 50px;">#}
-    {#<div class="row">#}
-        {#<div class="col-sm-6 col-md-3">#}
-            {#<label>Date de réservation</label>#}
-            {#<div class="datepicker-wrap red">#}
-                {#<input type="date" name="dateDebut" class="form-control" value="{{ app.request.session.get('dateDebut') }}" required/>#}
-            {#</div>#}
-        {#</div>#}
-        {#<div class="col-sm-6 col-md-3">#}
-            {#<label>Nombre de nuitées </label>#}
-            {#<div class="">#}
-                {#<input type="number" name="nuitees" class="form-control" value="{{ app.request.session.get('nuitees') }}" min="{{ saison.minStay }}" max="20" required/>#}
-            {#</div>#}
-        {#</div>#}
-    {#</div>#}
-    {#<button type="submit" class="btn btn-primary" style="float: right;">Modifié la période</button>#}
-{#</form>#}
-{#<hr>#}
-{#<h2>Réservation - {{ hotel|title }}</h2>#}
-{#<form method="post" action="{{ path('front_hoteltunisie_reservation',{'slug':hotel.slug}) }}" role="form" id="form">#}
-    {#<div class="panel-body">#}
-        {#{% for chambre in saison.chambres if chambre.etat==1 %}#}
-            {#<div class="row" style="margin-bottom: 5px;">#}
-                {#<div class="row" style="  padding: 10px;  background-color: linen;">#}
-                    {#<div class="col-md-4">#}
-                        {#<label>{{ chambre.chambre }}</label>#}
-                        {#<select name="chambre_{{ chambre.chambre.id }}" data-id="{{ chambre.id }}" id="chambre-{{ chambre.chambre.id }}" data-frais="{{ isFraisChambre(saison.id,chambre.chambre.id ) }}" class="form-control chambresSelect">#}
-                            {#{% for i in 0..20 %}#}
-                                {#<option value="{{ i }}">{{ i }}</option>#}
-                            {#{% endfor %}#}
-                        {#</select>#}
-                    {#</div>#}
-                    {#{% if chambre.prixChambre>0 %}#}
-                        {#<div class="col-md-8" style="  padding-top: 30px;"> A partir de#}
-                            {#<strong> {{ chambre.prixChambre|number_format(0) }}</strong> DT par personne en#}
-                            {#<strong>{{ saison.arrBase }}</strong></div>#}
-                    {#{% else %}#}
-                        {#<div class="col-md-8" style="  padding-top: 30px;">Prix sur demande</div>#}
-                    {#{% endif %}#}
-                {#</div>#}
-                {#<div class="row details"></div>#}
-            {#</div>#}
-        {#{% endfor %}#}
-    {#</div>#}
-    {#<button type="submit" class="btn btn-primary" style="float: right;">Tarif & dispo</button>#}
-{#</form>#}
+<div class="availability">
+    {% set nbrRoom=1 %}
+    {% if app.request.get('room2') is not null %}{% set nbrRoom=nbrRoom+1 %}{% endif %}
+    {% if app.request.get('room3') is not null %}{% set nbrRoom=nbrRoom+1 %}{% endif %}
+    {% if app.request.get('room4') is not null %}{% set nbrRoom=nbrRoom+1 %}{% endif %}
+    {% if app.request.get('room5') is not null %}{% set nbrRoom=nbrRoom+1 %}{% endif %}
+    <form method="post" action="{{ path('front_resabooking_details_update_rooms',{'hotel':hotel.id}) }}">
+        <div class="availability-inner">
+            <div class="form-group datepicker-wrapper  mr-10">
+                <label for="availability1-check-in">Date debut</label>
+                <input type="text" class="form-control date" name="debut" id="availability1-check-in" value="{{ app.request.get('debut') }}">
+                <i class="fa fa-calendar"></i>
+            </div>
+            <div class="form-group datepicker-wrapper mr-20">
+                <label for="availability1-check-out">Date Fin</label>
+                <input type="text" class="form-control date" name="fin" id="availability1-check-out" value="{{ app.request.get('fin') }}">
+                <i class="fa fa-calendar"></i>
+            </div>
+            <div class="form-group datepicker-wrapper mr-20">
+                <label for="availability1-check-out">Nombre de chambre</label>
+                <select class="form-control mySelectBoxClass" name="nombreChambre" id="nombreChambre" required>
+                    <option value="">0</option>
+                    {% for i in 1..5 %}
+                        <option value="{{ i }}" {% if i==nbrRoom %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="update">
+                <button type="submit" class="btn btn-info">Devis <i class="fa-check"></i></button>
+            </div>
+            <div class="clear"></div>
+            <div class="rooms">
+                {% for ch in 1..5 %}
+                    {% if app.request.get('room'~ch) is not null %}
+                        {% set data = app.request.get('room'~ch)|split(',') %}
+                        <div class="row">
+                            <div class="col-md-2" style="padding-top: 20px;">
+                                Chambre {{ ch }}
+                            </div>
+                            <div class="col-md-2">
+                                <label>Adulte</label>
+                                <select class="form-control mySelectBoxClass" name="adulte{{ ch }}" required="">
+                                    {% for i in 1..5 %}
+                                        <option value="{{ i }}" {% if i==data[0] %}selected{% endif %}>{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Enfant</label>
+                                <select data-chambre="{{ ch }}" class="form-control mySelectBoxClass enfantSelect" name="enfant{{ ch }}">
+                                    {% for i in 0..5 %}
+                                        <option value="{{ i }}" {% if i==data|length-1 %}selected{% endif %}>{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="ages">
+                                {% if data|length-1>0 %}
+                                    {% for age in 1..data|length-1 %}
+                                        <div class="col-md-1">
+                                            <label>Age {{ age }}</label>
+                                            <select class="form-control" name="age_{{ ch }}_{{ age }}" required="" style="padding: 0px;">
+                                                {% for i in 1..12 %}
+                                                    <option value="{{ i }}" {% if i==data[age] %}selected{% endif %}>{{ i }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </form>
+</div>
+<div class="clear mb-30"></div>
+{% include ':Front:alert.html.twig' %}
+{% if reponse.hots is not null %}
+    <h4>Choisissez la formule qui vous convient</h4>
+    <ul class="detail-item">
+        {% for ch in reponse.hots[0].chambres %}
+            {% set chambre=ch.chambre[0] %}
+            <li class="clearfix" style="padding: 20px 160px 25px 50px;">
+                <div class="br2">
+                    <h3>{{ chambre.libelle_pension|title }}</h3>
+                    {% for chamb in chambre.chamb %}
+                        <span>
+                        <ul>
+                            <li>{{ chamb.libelle_chambre|title }}
+                                <ul>
+                                    {% if chamb.nombre_adult !=0 %}
+                                        <li>{{ chamb.nombre_adult }} adulte(s)</li>{% endif %}
+                                    {% if chamb.nombre_enfant !=0 %}
+                                        <li>{{ chamb.nombre_enfant }} enfant(s)</li>{% endif %}
+                                    {% if chamb.nombre_bebe !=0 %}
+                                        <li>{{ chamb.nombre_bebe }} bébé(s)</li>{% endif %}
+                                </ul>
+                            </li>
+                        </ul>
+                    </span><br>
+                    {% endfor %}
+                </div>
+                <div class="detail-meta">
+                    <div class="detail-price">
+                        {{ chambre.price }} DT <span>Total</span>
+                    </div>
+                    <a href="page-details.html" class="btn">Réserver</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

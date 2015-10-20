@@ -1,3 +1,7 @@
+front_resabooking_initialise_date:
+    path:     /initialise_date
+    defaults: { _controller: FrontGeneralBundle:ResaBooking:initialise}
+
 front_resabooking_liste:
     path:     /{page}/{region}/{debut}/{fin}/{room1}/{room2}/{room3}/{room4}/{room5}
     defaults: { _controller: FrontGeneralBundle:ResaBooking:liste,page:1,region:Hammamet,debut:_,fin:_,room1:"2",room2:null,room3:null,room4:null,room5:null}
@@ -7,5 +11,11 @@ front_resabooking_liste:
 front_resabooking_details:
     path:     /details/{hotel}/{debut}/{fin}/{room1}/{room2}/{room3}/{room4}/{room5}
     defaults: { _controller: FrontGeneralBundle:ResaBooking:details,room2:null,room3:null,room4:null,room5:null}
+    requirements:
+            hotel:  \d+
+
+front_resabooking_details_update_rooms:
+    path:     /details/{hotel}
+    defaults: { _controller: FrontGeneralBundle:ResaBooking:detailsUpdateRooms}
     requirements:
             hotel:  \d+

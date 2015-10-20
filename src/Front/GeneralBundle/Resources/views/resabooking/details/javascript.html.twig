@@ -108,3 +108,42 @@
         }, 500);
     }
 </script>
+<script>
+$(document).ready(function(){
+    $('#nombreChambre').on('change',function(){
+        nbrRooms=$(this).val();
+        Block = $(this).parent().parent().find('.rooms');
+        var exist = Block.children().length;
+        if (exist < nbrRooms) {
+            for (var i = 1; i <= nbrRooms; i++) {
+                if (i > exist)
+                    Block.append('<div class="row"><div class="col-md-2" style="padding-top: 20px;"> Chambre '+i+'</div><div class="col-md-2"> <label>Adulte</label> <select class="form-control mySelectBoxClass" name="adulte'+i+'" required>{% for i in 1..5 %} <option value="{{ i }}">{{ i }}</option> {% endfor %} </select></div><div class="col-md-2"> <label>Enfant</label> <select data-chambre="'+i+'" class="form-control mySelectBoxClass enfantSelect" name="enfant'+i+'"> <option value="">0</option> {% for i in 1..5 %} <option value="{{ i }}">{{ i }}</option> {% endfor %} </select></div><div class="ages"></div></div>');
+            }
+        }
+        else {
+            var toRemove = (exist - nbrRooms);
+            var nmbr = Block.children().length;
+            for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                Block.children().eq(i).remove();
+        }
+    })
+    $(document).on('change', '.enfantSelect', function() {
+        nbrAge=$(this).val();
+        idChambre=$(this).data('chambre');
+        Block = $(this).parent().parent().find('.ages');
+        var exist = Block.children().length;
+        if (exist < nbrAge) {
+            for (var i = 1; i <= nbrAge; i++) {
+                if (i > exist)
+                    Block.append('<div class="col-md-1"><label>Age '+i+'</label><select class="form-control" name="age_'+idChambre+'_'+i+'" required style="padding: 0px;">{% for i in 1..12 %} <option value="{{ i }}">{{ i }}</option> {% endfor %}</select></div>');
+            }
+        }
+        else {
+            var toRemove = (exist - nbrAge);
+            var nmbr = Block.children().length;
+            for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                Block.children().eq(i).remove();
+        }
+    })
+})
+</script>

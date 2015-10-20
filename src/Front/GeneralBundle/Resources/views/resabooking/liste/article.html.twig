@@ -5,11 +5,10 @@
         <div class="list-item-image">
             <div class="image-inner">
                 <a class="link-image" href="{{ htefDetails }}">
-                    <img src="{% if hotelBase.produit.image_principal|show is not null %}{{ hotelBase.produit.image_principal|show }}{% else %}https://placeholdit.imgix.net/~text?txtsize=25&txt={{ hotel.libelle }}&w=270&h=195{% endif %}">
+                    <img src="{% if hotelBase is not null and hotelBase.produit.image_principal|show is not null %}{{ hotelBase.produit.image_principal|show }}{% else %}https://placeholdit.imgix.net/~text?txtsize=25&txt={{ hotel.libelle }}&w=270&h=195{% endif %}">
                 </a>
             </div>
         </div>
-
         <div class="list-item-label">
             <div class="left">
                 <h4 class="list-item-title">
@@ -22,11 +21,13 @@
                     <div class="clear mt-10"></div>
                     {{ hotel.accroche|raw }}
                     <ul class="hotelpreferences">
+                        {% if hotelBase is not null %}
                         {% for icon in hotelBase.produit.services.icone if icon|show is not null %}
                             <li>
                                 <img src="{{ icon|show }}">
                             </li>
                         {% endfor %}
+                        {% endif %}
                     </ul>
                     <div class="clear mb-10"></div>
                 </div>

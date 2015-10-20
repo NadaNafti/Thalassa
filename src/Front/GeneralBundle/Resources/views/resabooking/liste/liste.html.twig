@@ -16,6 +16,7 @@
                 {% include 'FrontGeneralBundle:resabooking/liste:filtre.html.twig' %}
                 <div class="col-xs-12 col-sm-8 col-md-9">
                     {#{% include 'FrontGeneralBundle:resabooking/liste:sort.html.twig' %}#}
+                    {% include ':Front:alert.html.twig' %}
                     <div class="row items-container list-style">
                         {% for hotel in reponse.hots %}
                             {% include 'FrontGeneralBundle:resabooking/liste:article.html.twig' %}

@@ -6,29 +6,30 @@
         <div class="search-filter">
             <ul class="search-tabs-content">
                 <li id="search-f-hotels" class="active">
-                    <form role="form" class="row">
+                    <form role="form" class="row" method="post" action="{{ path('front_resabooking_initialise_date') }}">
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <label for="hotelLocation">Where do you want to go?</label>
-                                <input type="text" class="form-control" id="hotelLocation" placeholder="Thailand">
+                                <label for="hotelLocation">Où veux-tu aller?</label>
+                                <input type="text" class="form-control" name="region" value="{{ app.request.get('region') }}" required>
                             </div>
                         </div>
                         <div class="clear"></div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group datepicker-wrapper">
-                                <label for="hotel-check-in">Check-in</label>
-                                <input type="text" class="form-control date" id="hotel-check-in" placeholder="dd/dm/yy">
-                                <i class="fa fa-calendar"></i>
+                                <label for="hotel-check-in">Date debut</label>
+                                <input type="text" class="form-control date" name="debut"  value="{{ app.request.get('debut') }}" required>
+                                {#<i class="fa fa-calendar"></i>#}
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group datepicker-wrapper">
-                                <label for="hotel-check-out">Check-out</label>
-                                <input type="text" class="form-control date" id="hotel-check-out" placeholder="dd/dm/yy">
-                                <i class="fa fa-calendar"></i>
+                                <label for="hotel-check-out">Date fin</label>
+                                <input type="text" class="form-control date" name="fin"  value="{{ app.request.get('fin') }}" required>
+                                {#<i class="fa fa-calendar"></i>#}
                             </div>
                         </div>
                         <div class="clear"></div>
+                        {% if false %}
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="room1">
                                 <div class="add-room">
@@ -143,8 +144,9 @@
                             <!-- end room3 -->
                         </div>
                         <div class="clear mb-20"></div>
+                        {% endif %}
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            <button type="submit" class="btn btn-primary">Search</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
                         </div>
                     </form>
                 </li>

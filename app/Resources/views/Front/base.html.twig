@@ -76,21 +76,21 @@
                         </div>
 			{% include ':Front:menu.html.twig' %}
                     </div>
-                </div>   
+                </div>
             </header>
 	    {% block body %}
 	    {% endblock %}
-	    {% include ':Front:footer.html.twig' %}    
+	    {% include ':Front:footer.html.twig' %}
 	</div>
 	<!-- Scripts -->
 	{% block javascripts %}
 	    <script src="{{ asset('front-assets/js/jquery.v2.0.3.js') }}"></script>
 	    {#	    <script src="{{ asset('front-assets/js/initialize-google-map.js') }}"></script>#}
 	    <script src="{{ asset('front-assets/bootstrap/js/bootstrap.min.js') }}"></script>
-	    <script src="{{ asset('front-assets/js/jquery-ui.min.js') }}"></script> 
+	    <script src="{{ asset('front-assets/js/jquery-ui.min.js') }}"></script>
 	    <script src="{{ asset('front-assets/js/plugins.js') }}"></script>
 	    <script src="{{ asset('front-assets/js/sliders.js') }}"></script>
-	    <script src="{{ asset('front-assets/js/custom.js') }}"></script>  
+	    <script src="{{ asset('front-assets/js/custom.js') }}"></script>
 	    {#<script >
 		setTimeout(function () {
 		    $('.menu-voayge').addClass('animated bounceIn').show();

@@ -6,7 +6,7 @@
             <div class="page-name">{{ block('title') }}</div>
             <div class="breadcrumb clearfix">
                 <a href="{{ path('accueil') }}">Accueil</a>
-                <a href="{{ path('front_resabooking_liste') }}">Liste des hôtels (Immediate)</a>
+                <a href="{{ path('front_resabooking_initialise_date') }}">Liste des hôtels (Immediate)</a>
                 <span class="current-page">{{ block('title') }}</span>
             </div>
         </div>
@@ -44,7 +44,7 @@
                         </div>
 
                     <div class="clear"></div>
-                    {% include ':Front:alert.html.twig' %}
+                    {#{% include ':Front:alert.html.twig' %}#}
                     <div class="clear"></div>
 
                     <ul class="tabs mt-20">
