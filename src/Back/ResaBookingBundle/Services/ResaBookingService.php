@@ -4,6 +4,8 @@ namespace Back\ResaBookingBundle\Services;
 
 use Back\HotelTunisieBundle\Entity\ReservationChambreJour;
 use Back\HotelTunisieBundle\Entity\Saison;
+use Back\ResaBookingBundle\WSDL\chamb;
+use Back\ResaBookingBundle\WSDL\chambs;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\DependencyInjection\Container;
@@ -91,6 +93,15 @@ class ResaBookingService
         return $room;
     }
 
+    public function convertChamb($room)
+    {
+        $tabRoom=explode(',',$room);
+        $chamb= new chamb();
+        $chamb->setNombre_adult($tabRoom[0]);
+        $chamb->setNombre_enfant(count($tabRoom)-1);
+        return $chamb;
+    }
+
     public function getRooms($room1,$room2=null,$room3=null,$room4=null,$room5=null)
     {
         $rooms= new rooms();
@@ -106,5 +117,19 @@ class ResaBookingService
         return $rooms;
     }
 
+    public function getchambs($room1,$room2=null,$room3=null,$room4=null,$room5=null)
+    {
+        $chambs= new chambs();
+        $chambs->addChamb($this->convertChamb($room1));
+        if(!is_null($room2))
+            $chambs->addChamb($this->convertChamb($room2));
+        if(!is_null($room3))
+            $chambs->addChamb($this->convertChamb($room3));
+        if(!is_null($room4))
+            $chambs->addChamb($this->convertChamb($room4));
+        if(!is_null($room5))
+            $chambs->addChamb($this->convertChamb($room5));
+        return $chambs;
+    }
 
 }
