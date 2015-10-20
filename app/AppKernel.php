@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new EspaceClientBundle\EspaceClientBundle(),
             new Back\BienEtreBundle\BackBienEtreBundle(),
             new Back\BilletterieMaritimeBundle\BackBilletterieMaritimeBundle(),
+            new Back\CaisseBundle\BackCaisseBundle(),
             new Back\ResaBookingBundle\BackResaBookingBundle(),
             new Back\TransfertBundle\BackTransfertBundle(),
         );

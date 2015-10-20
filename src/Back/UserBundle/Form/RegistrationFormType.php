@@ -10,7 +10,8 @@ class RegistrationFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('groups', 'entity', array(
+        $builder->add('pointVente')
+                ->add('groups', 'entity', array(
                     'class'   =>'Back\UserBundle\Entity\Group',
                     'required'=>true,
                     'expanded'=>true,

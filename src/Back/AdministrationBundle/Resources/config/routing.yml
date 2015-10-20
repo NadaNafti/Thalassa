@@ -13,4 +13,3 @@ Administration_client:
 Administration_configuration:
     resource: "@BackAdministrationBundle/Resources/config/routing/configuration.yml"
     prefix:   /configuration
-    

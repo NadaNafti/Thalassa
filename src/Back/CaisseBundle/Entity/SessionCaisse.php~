@@ -1,0 +1,206 @@
+<?php
+
+namespace Back\CaisseBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SessionCaisse
+ *
+ * @ORM\Table("ost_c_sessioncaisse")
+ * @ORM\Entity
+ */
+class SessionCaisse {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateOuverture", type="datetime")
+     */
+    private $dateOuverture;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateFermeture", type="datetime", nullable=true)
+     */
+    private $dateFermeture;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="FondInitial", type="decimal", precision=11, scale=3)
+     */
+    private $fondInitial;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\User", inversedBy="sessions")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="SessionCaisseLigne", mappedBy="session")
+     */
+    private $lignes;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->lignes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set dateOuverture
+     *
+     * @param \DateTime $dateOuverture
+     * @return SessionCaisse
+     */
+    public function setDateOuverture($dateOuverture) {
+        $this->dateOuverture = $dateOuverture;
+
+        return $this;
+    }
+
+    /**
+     * Get dateOuverture
+     *
+     * @return \DateTime 
+     */
+    public function getDateOuverture() {
+        return $this->dateOuverture;
+    }
+
+    /**
+     * Set dateFermeture
+     *
+     * @param \DateTime $dateFermeture
+     * @return SessionCaisse
+     */
+    public function setDateFermeture($dateFermeture) {
+        $this->dateFermeture = $dateFermeture;
+
+        return $this;
+    }
+
+    /**
+     * Get dateFermeture
+     *
+     * @return \DateTime 
+     */
+    public function getDateFermeture() {
+        return $this->dateFermeture;
+    }
+
+    /**
+     * Set fondInitial
+     *
+     * @param string $fondInitial
+     * @return SessionCaisse
+     */
+    public function setFondInitial($fondInitial) {
+        $this->fondInitial = $fondInitial;
+
+        return $this;
+    }
+
+    /**
+     * Get fondInitial
+     *
+     * @return string 
+     */
+    public function getFondInitial() {
+        return $this->fondInitial;
+    }
+
+    /**
+     * Add lignes
+     *
+     * @param \Back\CaisseBundle\Entity\SessionCaisseLigne $lignes
+     * @return SessionCaisse
+     */
+    public function addLigne(\Back\CaisseBundle\Entity\SessionCaisseLigne $lignes) {
+        $this->lignes[] = $lignes;
+
+        return $this;
+    }
+
+    /**
+     * Remove lignes
+     *
+     * @param \Back\CaisseBundle\Entity\SessionCaisseLigne $lignes
+     */
+    public function removeLigne(\Back\CaisseBundle\Entity\SessionCaisseLigne $lignes) {
+        $this->lignes->removeElement($lignes);
+    }
+
+    /**
+     * Get lignes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLignes() {
+        return $this->lignes;
+    }
+
+    public function __toString() {
+        try {
+            return date_format($this->dateOuverture, "d/m/y H:i:s");
+        } catch (\Exception $exception) {
+            return '';
+        }
+    }
+    
+    public function getTotalDebit()
+    {
+        $montant = 0;
+        foreach ($this->lignes as $ligne){
+            if($ligne->isDebit())
+                $montant += $ligne->getMontantLigne();
+        }
+        return number_format($montant, 3, '.', '');
+    }
+    
+    public function getTotalCredit()
+    {
+        $montant = 0;
+        foreach ($this->lignes as $ligne){
+            if($ligne->isCredit())
+                $montant += $ligne->getMontantLigne();
+        }
+        return number_format($montant, 3, '.', '');
+    }
+    
+    public function getTotal()
+    {
+        $montant = $this->getFondInitial()+$this->getTotalDebit()-$this->getTotalCredit();
+        return number_format($montant, 3, '.', '');
+    }
+
+    public function isOpen() 
+    {
+        if (is_null($this->getDateFermeture()))
+            return TRUE;
+        return FALSE;
+    }
+
+}
