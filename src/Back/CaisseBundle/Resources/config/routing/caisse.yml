@@ -1,0 +1,23 @@
+back_caisse_session_liste:
+    path:     /liste_sessions/{page}
+    defaults: { _controller: BackCaisseBundle:Caisse:listeSession,page:1}
+    
+back_caisse_session:
+    path:     /session/{id}
+    defaults: { _controller: BackCaisseBundle:Caisse:session}
+    
+back_caisse_session_ouvrir:
+    path:     /ouvrir_session
+    defaults: { _controller: BackCaisseBundle:Caisse:ouvrirSession}
+    
+back_caisse_session_fermer:
+    path:     /fermer_session/{id}
+    defaults: { _controller: BackCaisseBundle:Caisse:fermerSession}
+    
+back_caisse_mvtCaisses:
+    path:     /mouvementCaisses/{page}/{user}/{session}/{type}/{dateLigne}/{sort}/{direction}
+    defaults: { _controller: BackCaisseBundle:Caisse:mvtCaisses,page:1,user:all,session:all,type:all,dateLigne:all,sort:l.id,direction:desc}
+    
+filtre_mvtcaisses:
+    path:     /filtre_liste
+    defaults: { _controller: BackCaisseBundle:Caisse:filtre }

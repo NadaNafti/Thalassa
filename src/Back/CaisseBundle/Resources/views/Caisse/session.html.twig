@@ -1,0 +1,127 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Détails session{% endblock %}
+{% block description %}{{ user }}{% endblock %}
+{% block topbody %}   
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ block('title') }} </a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-2"><p><strong>Session n° : </strong>{{ session.id }}</p></div>
+        <div class="col-md-2"><p><strong>Utilisateur : </strong>{{ user.username }}</p></div>
+        <div class="col-md-2"><p><strong>Fond initial : </strong>{{ session.fondInitial }}</p></div>
+        <div class="col-md-3"><p><strong>Date ouverture: </strong>{{ session.dateOuverture|date("d/m/y H:i:s") }}</p></div>
+        <div class="col-md-3"><p><strong>Date fermeture: </strong>{%if session.dateFermeture is not null %}{{ session.dateFermeture|date("d/m/y H:i:s") }}{%endif%}</p></div>
+    </div>
+    <hr>
+    <div class="row center">
+        {%if session.isOpen() %}
+            <a href="#fermer" data-toggle="modal" class="btn btn-warning center"> Fermer Session </a>
+            <a href="#ligne" data-toggle="modal" class="btn btn-purple center"> Nouveau mouvement </a>
+        {%endif%}
+    </div><hr>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-hover table-full-width table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th class="center">ID</th>
+                                <th class="center">Date</th>
+                                <th class="center">Libellé</th>
+                                <th class="center">Type</th>
+                                <th class="center">Débit</th>
+                                <th class="center">Crédit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ligne in session.lignes %}
+                                <tr class="center">
+                                    <td>{{ ligne.id }}</td>
+                                    <td>{{ ligne.dateLigne|date("d/m/y H:i:s") }}</td>
+                                    <td>{{ ligne.libelle }}</td>
+                                    <td>{{ ligne.type }}</td>
+                                    <td style="text-align: right;">{%if ligne.isDebit%}{{ ligne.MontantLigne }} {%endif%}</td>
+                                    <td style="text-align: right;">{%if ligne.isCredit%}{{ ligne.MontantLigne }} {%endif%}</td>
+                                </tr>
+                            {% endfor %}
+                            <tr></tr>
+                            <tr style="  background-color: antiquewhite;">
+                                <th colspan="4" style="text-align: right">Totaux</th>
+                                <th style="text-align: right;">{{ session.totalDebit|number_format(3,'.','') }}</th>
+                                <th style="text-align: right">{{ session.totalCredit|number_format(3,'.','') }}</th>
+                            </tr>
+                            <tr></tr>
+                            <tr style="  background-color: antiquewhite;">
+                                <th colspan="5" style="text-align: right">Total</th>
+                                <th style="text-align: right">{{ session.total }} DT</th>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fermer" class="modal fade" tabindex="-1" data-width="960" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Montant physique</h4>
+        </div>
+        <form action="{{ path('back_caisse_session_fermer',{'id':session.id}) }}" method="post">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Veuillez saisir le montant physique :
+                            <input type="text" class="form-control" name="montantPhysique" value=""/>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-light-grey">
+                    Fermer
+                </button>
+                <button type="submit" class="btn btn-blue">
+                    Valider
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div id="ligne" class="modal fade" tabindex="-1" data-width="960" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Ajouter Mouvement</h4>
+        </div>
+        {{ form_start(form) }}
+        <div class="modal-body">
+            <div class="row">
+                {{ formulaire.select2("col-md-4","Type Mouvement",form.type,true) }}
+                {{ formulaire.input("col-md-4","Montant",form.montantLigne,true) }}
+                {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
+            </div>
+            <div class="row no-display">
+                {{ form_widget(form) }}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-light-grey">
+                Fermer
+            </button>
+            <button type="submit" class="btn btn-blue">
+                Valider
+            </button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{%endblock%}

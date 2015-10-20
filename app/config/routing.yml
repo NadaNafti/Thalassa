@@ -1,3 +1,7 @@
+back_caisse:
+    resource: "@BackCaisseBundle/Resources/config/routing.yml"
+    prefix:   /admin/caisse
+
 back_billetterie_maritime:
     resource: "@BackBilletterieMaritimeBundle/Resources/config/routing.yml"
     prefix:   /admin
