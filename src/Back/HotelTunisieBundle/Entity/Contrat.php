@@ -40,6 +40,11 @@ class Contrat
      */
     private $saisons;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ContratMedia", mappedBy="contrat")
+     */
+    private $medias;
+
 
     /**
      * Get id
@@ -140,5 +145,38 @@ class Contrat
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * Add medias
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ContratMedia $medias
+     * @return Contrat
+     */
+    public function addMedia(\Back\HotelTunisieBundle\Entity\ContratMedia $medias)
+    {
+        $this->medias[] = $medias;
+
+        return $this;
+    }
+
+    /**
+     * Remove medias
+     *
+     * @param \Back\HotelTunisieBundle\Entity\ContratMedia $medias
+     */
+    public function removeMedia(\Back\HotelTunisieBundle\Entity\ContratMedia $medias)
+    {
+        $this->medias->removeElement($medias);
+    }
+
+    /**
+     * Get medias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMedias()
+    {
+        return $this->medias;
     }
 }

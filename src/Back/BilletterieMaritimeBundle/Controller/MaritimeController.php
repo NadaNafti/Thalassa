@@ -43,7 +43,7 @@ class MaritimeController extends Controller
         ));
     }
 
-    public function deleteActon(MaritimeReservation $reservation)
+    public function deleteAction(MaritimeReservation $reservation)
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();

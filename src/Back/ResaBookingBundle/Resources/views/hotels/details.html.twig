@@ -1,0 +1,160 @@
+{% extends "BackResaBookingBundle:hotels:liste.html.twig" %}
+{% block title %}{{ hotel }}{% endblock %}
+{% block description %}Détails{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">{{ hotel }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-sm-5 col-md-4">
+            <div class="user-left">
+                <div class="center">
+                    <h4>{{ hotel }}</h4>
+
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                        <div class="user-image">
+                            <div class="fileupload-new thumbnail"><img src="{{ hotel.produit.image_principal }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    {% for icon in hotel.produit.services.icone %}
+                        <img src="{{ icon|show }}">
+                    {% endfor %}
+                    <hr>
+                </div>
+                <table class="table table-condensed table-hover">
+                    <thead>
+                    <tr>
+                        <th colspan="3">General information</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Catégorie</td>
+                        <td>{{ hotel.produit.categrie|show }} étoiles</td>
+                    </tr>
+                    <tr>
+                        <td>Région</td>
+                        <td>{{ hotel.produit.region|show }}</td>
+                    </tr>
+                    <tr>
+                        <td>Adresse</td>
+                        <td>{{ hotel.produit.adresse|show }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ hotel.produit.email|show }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tel</td>
+                        <td>{{ hotel.produit.tel|show }}</td>
+                    </tr>
+                    <tr>
+                        <td>Fax</td>
+                        <td>{{ hotel.produit.fax|show }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table table-condensed table-hover">
+                    <thead>
+                    <tr>
+                        <th colspan="3">Contact Information</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Résp. Rés.</td>
+                        <td>{{ hotel.produit.responsable_reservation|show }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email Rés.</td>
+                        <td>{{ hotel.produit.email|show }}</td>
+                    </tr>
+                    <tr>
+                        <td>Résp. Com.</td>
+                        <td>{{ hotel.produit.responsable_commercial|show }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email Com.</td>
+                        <td>{{ hotel.produit.email_commercial|show }}</td>
+                    </tr>
+                    <tr>
+                        <td>Résp. fin.</td>
+                        <td>{{ hotel.produit.responsable_financier|show }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email fin.</td>
+                        <td>{{ hotel.produit.email_financier|show }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table table-condensed table-hover">
+                    <thead>
+                    <tr>
+                        <th colspan="3">Accroche</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ hotel.produit.accroche|show|raw }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-7 col-md-8">
+            <div class="tabbable">
+                <ul id="myTab" class="nav nav-tabs tab-bricky">
+                    <li class="active">
+                        <a href="#panel_tab2_example1" data-toggle="tab">
+                            <i class="green fa fa-home"></i> Déscription
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Prix &nbsp; <i class="fa fa-caret-down width-auto"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-info">
+                            {% for prix in hotel.prix %}
+                                <li>
+                                    <a href="#panel_tab_prix{{ loop.index }}" data-toggle="tab">
+                                        {{ prix.date_debut }} - {{ prix.date_fin }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                    </li>
+                </ul>
+                </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane in active" id="panel_tab2_example1">
+                        <p>
+                            {{ hotel.produit.descriptif|show|raw }}
+                        </p>
+                    </div>
+                    {% for prix in hotel.prix %}
+                        <div class="tab-pane" id="panel_tab_prix{{ loop.index }}">
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                <tr>
+                                    <th colspan="3">Du {{ prix.date_debut|show }} au {{ prix.date_fin }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, value in prix if value|show not in ['-',null]  %}
+                                    <tr><td>{{ key }}</td><td>{{ value|show }}</td></tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

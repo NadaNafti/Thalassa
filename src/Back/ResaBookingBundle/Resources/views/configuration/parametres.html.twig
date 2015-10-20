@@ -1,0 +1,32 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Configuration des paramétres{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)" >{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        {{ formulaire.input("col-md-4","Login",form.login,true) }}
+                        {{ formulaire.input("col-md-4","Password",form.password,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-6","Lien XML Produit",form.lienProduit,true) }}
+                        {{ formulaire.input("col-md-6","Lien XML Prix",form.lienPrix,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-8","WSDL",form.wsdl,true) }}
+                    </div>
+                        {{ formulaire.submit("Enregistrer") }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

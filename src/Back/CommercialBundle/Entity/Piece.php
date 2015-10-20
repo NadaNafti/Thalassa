@@ -37,6 +37,13 @@ class Piece
     private $numero;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="param", type="string", length=255,nullable=true)
+     */
+    private $param;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="date")
@@ -352,6 +359,8 @@ class Piece
     {
         if ($this->modeReglement == "AD")
             return "Autorisation de débit";
+        if ($this->modeReglement == "PE")
+            return "Paiement électronique";
         if ($this->modeReglement == "PC")
             return "Pris en charge";
         if ($this->modeReglement == "CB")
@@ -369,4 +378,27 @@ class Piece
         return $this->numero .' '.$this->montantOrigine.' DT';
     }
 
+
+    /**
+     * Set param
+     *
+     * @param string $param
+     * @return Piece
+     */
+    public function setParam($param)
+    {
+        $this->param = $param;
+
+        return $this;
+    }
+
+    /**
+     * Get param
+     *
+     * @return string 
+     */
+    public function getParam()
+    {
+        return $this->param;
+    }
 }

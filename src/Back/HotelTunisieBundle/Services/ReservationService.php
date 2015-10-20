@@ -168,7 +168,7 @@ class ReservationService
         if(is_null($reservation)) {
             $tarifCommercial = $this->em->getRepository('BackCommercialBundle:Tarif')->find(1);
             $client = $data['client'];
-            $coordoonnes = array($client->getNomPrenom(), $client->getTel1(), $client->getTel2(), $client->getAdresse());
+            $coordoonnes = array($client->getNomPrenom(), $client->getTel1(), $client->getEmail(), $client->getAdresse());
             $reservation = new Reservation();
             $options = array();
             foreach ($hotel->getOptions() as $option) {

@@ -25,37 +25,40 @@ class HotelType extends AbstractType
             ->add('tel2')
             ->add('longitude')
             ->add('latitude')
-            ->add('adresse','text')
+            ->add('adresse', 'text')
             ->add('descriptionCourte')
             ->add('tripAdvisor')
             ->add('shortTripAdvisor')
-            ->add('descriptionLongue','ckeditor')
+            ->add('descriptionLongue', 'ckeditor')
             ->add('chaine')
             ->add('fournisseur')
-                ->add('ville', 'entity', array('class' => 'BackHotelTunisieBundle:Ville',
-                    'query_builder' => function(EntityRepository $er)
-                    {
-                        return $er->createQueryBuilder('u')
-                                ->join('u.pays', 'p')
-                                ->where('p.code= :code')->setParameter(':code', 'tn')
-                                ->orderBy('u.libelle', 'ASC');
-                    },
-                    'required' => true,
-                    'empty_value' => 'Tous les villes en tunisie',
-                    'empty_data' => null
-                ))
+            ->add('ville', 'entity', array(
+                'class'         => 'BackHotelTunisieBundle:Ville',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->join('u.pays', 'p')
+                        ->where('p.code= :code')->setParameter(':code', 'tn')
+                        ->orderBy('u.libelle', 'ASC');
+                },
+                'required'      => true,
+                'empty_value'   => 'Tous les villes en tunisie',
+                'empty_data'    => null
+            ))
             ->add('categorie')
             ->add('tags')
-            ->add('chambres')
+            ->add('chambres', 'entity', array(
+                'class'    => 'BackHotelTunisieBundle:Chambre',
+                'multiple' => true,
+                'property' => 'getLongName'
+            ))
             ->add('options')
             ->add('localisations')
             ->add('themes')
             ->add('arrangements')
             ->add('amenagements')
-            ->add('vues')
-        ;
+            ->add('vues');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

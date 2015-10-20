@@ -191,11 +191,16 @@
                             <tbody>
                             {% for reglement in reservation.reglements %}
                                 <tr>
-                                    <td>{{ reglement.piece.numero }}</td>
+                                    <td>
+                                        {{ reglement.piece.numero }}
+                                    </td>
                                     <td>
                                         {{ reglement.piece.showModeReglement }}
                                         {% if reglement.piece.modeReglement == 'C' %}
                                             / Echéance {{ reglement.piece.dateEcheance|date('d/m/Y') }}
+                                        {% endif %}
+                                        {% if reglement.piece.param is not null %}
+                                            [{{ reglement.piece.param }}]
                                         {% endif %}
                                     </td>
                                     <td>{{ reglement.dateCreation|date('d/m/Y') }}</td>
@@ -296,6 +301,14 @@
                                 <th style="text-align: right;">Remise</th>
                                 <th style="text-align: right;"></th>
                                 <th style="text-align: right;"> - {{ reservation.remise|number_format(3,'.','') }}</th>
+                            </tr>
+                        {% endif %}
+                        {% if reservation.remiseInternet !=0 %}
+                            <tr style="  background-color: antiquewhite;">
+                                <th></th>
+                                <th style="text-align: right;">Remise Internet</th>
+                                <th style="text-align: right;"></th>
+                                <th style="text-align: right;"> - {{ reservation.remiseInternet|number_format(3,'.','') }}</th>
                             </tr>
                         {% endif %}
                         {% if reservation.timbre !=0 %}

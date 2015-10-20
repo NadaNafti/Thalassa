@@ -1,0 +1,15 @@
+back_resabooking_hotels_liste:
+    path:     /{page}
+    defaults: { _controller: BackResaBookingBundle:Hotels:liste,page:1 }
+    requirements:
+        page:  \d+
+
+back_resabooking_hotels_details:
+    path:     /details/{id}
+    defaults: { _controller: BackResaBookingBundle:Hotels:details }
+    requirements:
+        id:  \d+
+
+back_resabooking_hotels_refresh:
+    path:     /refresh
+    defaults: { _controller: BackResaBookingBundle:Hotels:refresh }

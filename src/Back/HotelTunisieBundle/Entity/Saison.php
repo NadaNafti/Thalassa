@@ -905,6 +905,8 @@ class Saison
 
     public function isValid()
     {
+        if($this->isAncienneSaison())
+            return true;
         if (!$this->isArrBaseValide())
             return FALSE;
         if (count($this->chambres) != count($this->getHotel()->getChambres()))
@@ -923,6 +925,16 @@ class Saison
             return FALSE;
         else
             return TRUE;
+    }
+
+    public function isAncienneSaison()
+    {
+        foreach($this->periodes as $periode)
+        {
+            if($periode->getDateFin()->format('Y-m-d')>=date('Y-m-d'))
+                return false;
+        }
+        return true;
     }
 
     /**

@@ -1,0 +1,9 @@
+services:
+    resaBookingService:
+        class: Back\ResaBookingBundle\Services\ResaBookingService
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @session
+            - @service_container
+            - @mailer
+            - @templating

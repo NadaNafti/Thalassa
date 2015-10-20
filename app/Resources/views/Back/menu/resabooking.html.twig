@@ -1,0 +1,32 @@
+<li {% if app.request.getPathInfo|split('/admin/resabooking')|length > 1 %} class="active open"{% endif %}>
+    <a href="javascript:void(0)"><i class="clip-globe"></i>
+        <span class="title">Resa Booking</span><i class="icon-arrow"></i>
+        <span class="selected"></span>
+    </a>
+    <ul class="sub-menu">
+        <li {% if app.request.getPathInfo|split('/admin/resabooking/configuration')|length > 1 %}  class="active open"{% endif %} >
+            <a href="javascript:void(0)"><i class="clip-settings"></i>
+                <span class="title">Configuration</span><i class="icon-arrow"></i>
+            </a>
+            <ul class="sub-menu">
+                <li {% if app.request.get('_route')=='back_resabooking_config_parametres' %} class="open"{% endif %}>
+                    <a href="{{ path('back_resabooking_config_parametres') }}">
+                        <span class="title">Paramétres</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li {% if app.request.getPathInfo|split('/admin/resabooking/hotels')|length > 1 %}  class="active open"{% endif %} >
+            <a href="javascript:void(0)"><i class="clip-list"></i>
+                <span class="title">Hôtels</span><i class="icon-arrow"></i>
+            </a>
+            <ul class="sub-menu">
+                <li {% if app.request.get('_route')=='back_resabooking_hotels_liste' %} class="open"{% endif %}>
+                    <a href="{{ path('back_resabooking_hotels_liste') }}">
+                        <span class="title">Liste</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</li>

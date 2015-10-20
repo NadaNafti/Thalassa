@@ -24,32 +24,32 @@ class FicheTechnique
     private $id;
 
     /**
-     * @var integer
+     * @var decimal
      *
-     * @ORM\Column(name="min1AgeEnfant", type="integer")
+     * @ORM\Column(name="min1AgeEnfant", type="decimal", precision=3, scale=1)
      * @Assert\NotBlank()
      */
     private $min1AgeEnfant;
 
     /**
-     * @var integer
+     * @var deciaml
      *
-     * @ORM\Column(name="max1AgeEnfant", type="integer")
+     * @ORM\Column(name="max1AgeEnfant", type="decimal", precision=3, scale=1)
      * @Assert\NotBlank()
      */
     private $max1AgeEnfant;
 
     /**
-     * @var integer
+     * @var decimal
      *
-     * @ORM\Column(name="min2AgeEnfant", type="integer",nullable=true)
+     * @ORM\Column(name="min2AgeEnfant", type="decimal", precision=3, scale=1)
      */
     private $min2AgeEnfant;
 
     /**
-     * @var integer
+     * @var decimal
      *
-     * @ORM\Column(name="max2AgeEnfant", type="integer",nullable=true)
+     * @ORM\Column(name="max2AgeEnfant", type="decimal", precision=3, scale=1)
      */
     private $max2AgeEnfant;
 
@@ -167,7 +167,7 @@ class FicheTechnique
     /**
      * Set min2AgeEnfant
      *
-     * @param integer $min2AgeEnfant
+     * @param decimal $min2AgeEnfant
      * @return FicheTechnique
      */
     public function setMin2AgeEnfant($min2AgeEnfant)
@@ -180,7 +180,7 @@ class FicheTechnique
     /**
      * Get min2AgeEnfant
      *
-     * @return integer 
+     * @return decimal
      */
     public function getMin2AgeEnfant()
     {
@@ -190,7 +190,7 @@ class FicheTechnique
     /**
      * Set max2AgeEnfant
      *
-     * @param integer $max2AgeEnfant
+     * @param decimal $max2AgeEnfant
      * @return FicheTechnique
      */
     public function setMax2AgeEnfant($max2AgeEnfant)
@@ -203,7 +203,7 @@ class FicheTechnique
     /**
      * Get max2AgeEnfant
      *
-     * @return integer 
+     * @return decimal
      */
     public function getMax2AgeEnfant()
     {
