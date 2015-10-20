@@ -46,7 +46,7 @@ class ResaBookingService
         return $client->__soapCall('availabilityhotel', $request);
     }
 
-    public function devis($session,$idHotel,$idHotel,$pension,$chambs,$options)
+    public function devis($session,$idHotel,$pension,$chambs,$options)
     {
         $configResaBooking= $this->em->find('BackResaBookingBundle:Configuration',1);
         $client = new \SoapClient($configResaBooking->getWsdl());
