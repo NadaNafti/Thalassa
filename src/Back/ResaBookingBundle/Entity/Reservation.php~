@@ -1,0 +1,125 @@
+<?php
+
+
+namespace Back\ResaBookingBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Billetterie
+ *
+ * @ORM\Table(name="ost_resa_resarvation")
+ * @ORM\Entity()
+ */
+class Reservation
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column( type="datetime")
+     */
+    private $dateDebut;
+
+    /**
+     * @ORM\Column( type="datetime")
+     */
+    private $dateFin;
+
+    /**
+     * @var integer
+     *
+     * 1:Enregistr�e
+     * 2:Valid�e
+     * 9:Annul�e
+     * @ORM\Column(name="etat", type="integer")
+     */
+    private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\Client", inversedBy="reservationsRB")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $client;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="validated", type="datetime" ,nullable=true)
+     */
+    private $validated;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationsRB")
+     */
+    protected $reglements;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationRV")
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    protected $sousEtats;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column( type="datetime")
+     */
+    private $created;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column( type="datetime")
+     */
+    private $updated;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="total", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $total;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="reponseDevis", type="json_array")
+     */
+    private $reponseDevis;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="reponseBooking", type="json_array")
+     */
+    private $reponseBooking;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="travellers", type="json_array")
+     */
+    private $travellers;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="responsable", type="json_array")
+     */
+    private $responsable;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="reponseTunisieMonetique", type="json_array")
+     */
+    private $reponseTunisieMonetique;
+
+}

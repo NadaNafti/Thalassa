@@ -243,6 +243,12 @@ class Client {
     protected $reservationsT;
 
     /**
+     * @ORM\OneToMany(targetEntity="Back\ResaBookingBundle\Entity\Reservation", mappedBy="client")
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    protected $reservationsRB;
+
+    /**
      * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Piece", mappedBy="client")
      */
     protected $pieces;
@@ -1263,5 +1269,38 @@ class Client {
     public function getReservationsT()
     {
         return $this->reservationsT;
+    }
+
+    /**
+     * Add reservationsRB
+     *
+     * @param \Back\ResaBookingBundle\Entity\Reservation $reservationsRB
+     * @return Client
+     */
+    public function addReservationsRB(\Back\ResaBookingBundle\Entity\Reservation $reservationsRB)
+    {
+        $this->reservationsRB[] = $reservationsRB;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservationsRB
+     *
+     * @param \Back\ResaBookingBundle\Entity\Reservation $reservationsRB
+     */
+    public function removeReservationsRB(\Back\ResaBookingBundle\Entity\Reservation $reservationsRB)
+    {
+        $this->reservationsRB->removeElement($reservationsRB);
+    }
+
+    /**
+     * Get reservationsRB
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReservationsRB()
+    {
+        return $this->reservationsRB;
     }
 }

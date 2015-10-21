@@ -89,6 +89,13 @@ class SousEtat
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="Back\ResaBookingBundle\Entity\Reservation", inversedBy="sousEtats", fetch="EAGER")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $reservationRB;
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -354,5 +361,28 @@ class SousEtat
     public function getReservationT()
     {
         return $this->reservationT;
+    }
+
+    /**
+     * Set reservationRB
+     *
+     * @param \Back\ResaBookingBundle\Entity\Reservation $reservationRB
+     * @return SousEtat
+     */
+    public function setReservationRB(\Back\ResaBookingBundle\Entity\Reservation $reservationRB = null)
+    {
+        $this->reservationRB = $reservationRB;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationRB
+     *
+     * @return \Back\ResaBookingBundle\Entity\Reservation 
+     */
+    public function getReservationRB()
+    {
+        return $this->reservationRB;
     }
 }
