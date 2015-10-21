@@ -15,7 +15,7 @@ class chambs
         $this->chs=array();
     }
 
-    public function addChamb(chamb $chamb)
+    public function addChamb($chamb)
     {
         $this->chs[]=$chamb;
     }
