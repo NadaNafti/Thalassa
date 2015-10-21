@@ -7,6 +7,7 @@ use Back\ResaBookingBundle\WSDL\chamb;
 use Back\ResaBookingBundle\WSDL\chambs;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Back\ResaBookingBundle\WSDL\rooms;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ResaBookingController extends Controller
 {
@@ -36,18 +37,6 @@ class ResaBookingController extends Controller
         return $this->render('FrontGeneralBundle:resabooking/liste:liste.html.twig',array('reponse'=>$reponse));
     }
 
-    public function detailsAction(Hotel $hotel,$debut,$fin,$room1,$room2,$room3,$room4,$room5)
-    {
-        $rooms= $this->container->get('resabookingservice')->getRooms($room1,$room2,$room3,$room4,$room5);
-        $reponse=$this->container->get('resabookingservice')->availabilityHotel($hotel->getProduit()['region'],$debut,$fin, $rooms,$hotel->getId());
-        if($reponse->rep->statut=='failure')
-            $this->getRequest()->getSession()->getFlashBag()->add('warning', $reponse->rep->detail_erreur);
-        return $this->render('FrontGeneralBundle:resabooking/details:details.html.twig',array(
-            'hotel'=>$hotel,
-            'reponse'=>$reponse
-        ));
-    }
-
     public function detailsUpdateRoomsAction($hotel)
     {
         $room1=null;
@@ -74,5 +63,43 @@ class ResaBookingController extends Controller
             'room4'=>$room4,
             'room5'=>$room5
         )));
+    }
+
+    public function detailsAction(Hotel $hotel,$debut,$fin,$room1,$room2,$room3,$room4,$room5)
+    {
+        $reponse=$this->container->get('resabookingservice')->availabilityHotel($hotel->getProduit()['region'],$debut,$fin, $this->container->get('resabookingservice')->getRooms($room1,$room2,$room3,$room4,$room5),$hotel->getId());
+        if($reponse->rep->statut=='failure')
+            $this->getRequest()->getSession()->getFlashBag()->add('warning', $reponse->rep->detail_erreur);
+        return $this->render('FrontGeneralBundle:resabooking/details:details.html.twig',array(
+            'hotel'     =>$hotel,
+            'reponse'   =>$reponse
+        ));
+    }
+
+    public function devisAction($pension, Hotel $hotel,$debut,$fin,$room1,$room2,$room3,$room4,$room5)
+    {
+        $reponse=$this->container->get('resabookingservice')->availabilityHotel($hotel->getProduit()['region'],$debut,$fin, $this->container->get('resabookingservice')->getRooms($room1,$room2,$room3,$room4,$room5),$hotel->getId());
+        if($reponse->rep->statut=='failure')
+        {
+            $this->getRequest()->getSession()->getFlashBag()->add('warning', $reponse->rep->detail_erreur);
+            return $this->redirect($this->generateUrl('front_resabooking_initialise_date'));
+        }
+        $chambs=new chambs();
+        foreach($reponse->hots[0]->chambres[0]->chambre[0]->chamb as  $chamb)
+            $chambs->addChamb($chamb);
+        $reponseDevis=$this->container->get('resabookingservice')->devis($reponse->session,$hotel->getId(),$pension,$chambs,null);
+        if($reponseDevis->rep->statut=='failure')
+        {
+            $this->getRequest()->getSession()->getFlashBag()->add('warning', $reponseDevis->rep->detail_erreur);
+            return $this->redirect($this->generateUrl('front_resabooking_initialise_date'));
+        }
+        dump($chambs);
+        return $this->render('FrontGeneralBundle:resabooking:devis.html.twig',array(
+            'hotel'=>$hotel,
+            'chambs'=>$chambs->getChs(),
+            'reponseDevis'=>$reponseDevis,
+            'dateDebut'=> \DateTime::createFromFormat('Y-m-d', $debut),
+            'dateFin'=> \DateTime::createFromFormat('Y-m-d', $fin),
+        ));
     }
 }

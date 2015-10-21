@@ -1,0 +1,134 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}{{ hotel }}{% endblock %}
+{% block body %}
+    <div id="content_wrapper">
+        <div class="container">
+            <div class="row clearfix pv-50">
+                <div class="col-xs-12 col-sm-9 col-md-19 xs-mb">
+                    <div class="white-bg payment-wrapper">
+                        <form action="" method="post">
+                            <h3 class="section-title">Information Organisateur <span class="step active">1</span></h3><hr>
+                            <div class="row">
+                                {{ formulaire.htmlInput("col-md-3","Civilité","civiliti",true,"Mr,Mme,Melle") }}
+                                {{ formulaire.htmlInput("col-md-3","Nom","LastName",true) }}
+                                {{ formulaire.htmlInput("col-md-3","Prénom","FirstName",true) }}
+                                {{ formulaire.htmlInput("col-md-3","Email","mail",true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.htmlInput("col-md-12","Adresse","adresse",true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.htmlInput("col-md-3","Téléphone","tel",true) }}
+                                {{ formulaire.htmlInput("col-md-3","Pays","pays",true) }}
+                                {{ formulaire.htmlInput("col-md-3","Ville","ville",true) }}
+                                {{ formulaire.htmlInput("col-md-3","Code Postal","cp",true) }}
+                            </div>
+                            <h3 class="section-title">Les Occupants <span class="step active">1</span></h3><hr>
+                            {% for chamb in chambs %}
+                                {% set index=loop.index %}
+                                <h4>{{ chamb.libelle_chambre }}</h4>
+                                    {% if chamb.nombre_adult>0 %}
+                                        {% for i in  1..chamb.nombre_adult %}
+                                            <div class="row">
+                                                <div class="col-md-3" style="padding-top: 20px;">{{ "Adulte "~i }}</div>
+                                                {{ formulaire.htmlInput("col-md-3","Nom",index~"_AdulteFirstName_"~i,true) }}
+                                                {{ formulaire.htmlInput("col-md-3","Prénom",index~"_AdulteLastName_"~i,true) }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% if chamb.nombre_enfant>0 %}
+                                    {% for i in  1..chamb.nombre_enfant %}
+                                        <div class="row">
+                                            <div class="col-md-3" style="padding-top: 20px;">{{ "Enfant "~i }}</div>
+                                            {{ formulaire.htmlInput("col-md-3","Nom",index~"_EnfantFirstName_"~i,true) }}
+                                            {{ formulaire.htmlInput("col-md-3","Prénom",index~"_AEnfantLastName_"~i,true) }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if chamb.nombre_bebe>0 %}
+                                    {% for i in  1..chamb.nombre_bebe %}
+                                        <div class="row">
+                                            <div class="col-md-3" style="padding-top: 20px;">{{ "BéBé "~i }}</div>
+                                            {{ formulaire.htmlInput("col-md-3","Nom",index~"_BeBeFirstName_"~i,true) }}
+                                            {{ formulaire.htmlInput("col-md-3","Prénom",index~"_BeBeLastName_"~i,true) }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+
+
+
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-8"></div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary btn-block" type="submit">
+                                        Passer au paiement <i class="fa fa-arrow-circle-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <div class="sidebar hotel-sidebar">
+                        <div class="sidebar-item mb-20">
+                            <div class="summary-payment">
+                                <div class="summary-header mb-30">
+                                    {% if hotel.produit.image_principal|show is not null %}
+                                        <img src="{{ hotel.produit.image_principal|show }}" alt="" style="width: 75px;height: 65px"/>
+                                    {% else %}
+                                        <img src="https://placeholdit.imgix.net/~text?txtsize=15&txt={{ hotel }}&w=75&h=65" alt="" style="width: 75px;height: 65px"/>
+                                    {% endif %}
+                                    <h3 class="no-mb">{{ hotel|title }}</h3>
+                                    <span>{{ hotel.produit.region|title }}</span>
+                                    <span class="rating-static rating-{{ hotel.produit.categrie|show*10 }}"></span>
+                                </div>
+                                <div class="bb2 mb-30"></div>
+                                <table class="table table-bordered table-striped mb-30">
+                                    <tr>
+                                        <td colspan=2><span class="text-bold"> Du {{ dateDebut|date('d/m/Y') }}
+                                                au {{ dateFin|date('d/m/Y') }}</td>
+                                    </tr>
+                                    {% for chamb in chambs %}
+                                        <tr>
+                                            <td>
+                                                <span class="text-bold">{{ loop.index }}
+                                                    - {{ chamb.libelle_chambre }}</span>:
+                                                en {{ app.request.get('pension') }}<br/> Nombre d'occupants
+                                                <button type="button" class="summary-collapse collapsed mt-5" data-toggle="collapse" data-target="#collapse1{{ loop.index }}"></button>
+                                                <div id="collapse1{{ loop.index }}" class="collapse">
+                                                    <div class="left font12 text-info">
+                                                        Adulte <br/> Enfant <br/> Bébé
+                                                    </div>
+                                                    <div class="right font12 text-info">
+                                                        {{ chamb.nombre_adult }}
+                                                        <br/>
+                                                        {{ chamb.nombre_enfant }}
+                                                        <br/>
+                                                        {{ chamb.nombre_bebe }}
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                                <div class="bb2 mb-20"></div>
+                                <span class="left">Total:</span>
+                                <span class="right text-success text-bold font24">
+                                        {{ reponseDevis.price }} DT
+                                </span>
+                                <div class="clear mb-10"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

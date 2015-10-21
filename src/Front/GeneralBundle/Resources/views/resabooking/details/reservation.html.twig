@@ -26,7 +26,7 @@
                 </select>
             </div>
             <div class="update">
-                <button type="submit" class="btn btn-info">Devis <i class="fa-check"></i></button>
+                <button type="submit" class="btn btn-info">Recherche <i class="fa-check"></i></button>
             </div>
             <div class="clear"></div>
             <div class="rooms">
@@ -81,6 +81,17 @@
     <ul class="detail-item">
         {% for ch in reponse.hots[0].chambres %}
             {% set chambre=ch.chambre[0] %}
+            {% set pathVar=path('front_resabooking_devis',{
+            'pension':chambre.pension,
+            'hotel':hotel.id,
+            'debut':app.request.get('debut'),
+            'fin':app.request.get('fin'),
+            'room1':app.request.get('room1'),
+            'room2':app.request.get('room2'),
+            'room3':app.request.get('room3'),
+            'room4':app.request.get('room4'),
+            'room5':app.request.get('room5')
+            }) %}
             <li class="clearfix" style="padding: 20px 160px 25px 50px;">
                 <div class="br2">
                     <h3>{{ chambre.libelle_pension|title }}</h3>
@@ -105,7 +116,7 @@
                     <div class="detail-price">
                         {{ chambre.price }} DT <span>Total</span>
                     </div>
-                    <a href="page-details.html" class="btn">Réserver</a>
+                    <a href="{{ pathVar }}" class="btn">Réserver</a>
                 </div>
             </li>
         {% endfor %}

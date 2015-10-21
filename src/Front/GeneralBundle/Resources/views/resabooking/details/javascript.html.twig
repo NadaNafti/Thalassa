@@ -75,7 +75,7 @@
                 ]
             }
         ];
-        var myLatlng = new google.maps.LatLng({{ hotel.produit.longitude }}, {{ hotel.produit.latitude }});
+        var myLatlng = new google.maps.LatLng({{ hotel.produit.longitude|show }}, {{ hotel.produit.latitude|show }});
         var styledMap = new google.maps.StyledMapType(styles,
                 {name: "Styled Map"});
         var mapOptions = {
