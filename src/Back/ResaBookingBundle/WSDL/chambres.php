@@ -15,7 +15,7 @@ class chambres
         $this->chambre=array();
     }
 
-    public function addChambre(chambre  $chambre)
+    public function addChambre($chambre)
     {
         $this-$chambre[]=$chambre;
     }

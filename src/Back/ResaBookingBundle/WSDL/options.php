@@ -15,7 +15,7 @@ class options
         $this->opt=array();
     }
 
-    public function addOption(option  $option)
+    public function addOption($option)
     {
         $this->opt[]=$option;
     }

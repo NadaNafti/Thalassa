@@ -20,7 +20,7 @@ class Travellers
         $this->Traveller=array();
     }
 
-    public function addTraveller(Traveller $traveller)
+    public function addTraveller($traveller)
     {
         $this->Traveller[]=$traveller;
     }
