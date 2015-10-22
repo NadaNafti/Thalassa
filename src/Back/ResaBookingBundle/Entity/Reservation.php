@@ -139,7 +139,6 @@ class Reservation
         $this->reponseTunisieMonetique=array();
         $this->travellers=array();
         $this->traveller=array();
-        $this->responsable=array();
         $this->total=0;
         $this->etat=1;
     }
