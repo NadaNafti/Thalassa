@@ -107,16 +107,16 @@ class Reservation
     private $reponseBooking;
 
     /**
-     * @var array
+     * @var \stdClass
      *
-     * @ORM\Column(name="travellers", type="json_array")
+     * @ORM\Column(name="travellers", type="object")
      */
     private $travellers;
 
     /**
-     * @var array
+     * @var \stdClass
      *
-     * @ORM\Column(name="traveller", type="json_array")
+     * @ORM\Column(name="traveller", type="object")
      */
     private $traveller;
 
