@@ -1,7 +1,7 @@
 <?php
 namespace Back\ResaBookingBundle\WSDL;
 
-class info_agence
+class infoagence
 {
 
     protected $type_reglement = null;
@@ -50,7 +50,7 @@ class info_agence
 
     /**
      * @param string $type_reglement
-     * @return info_agence
+     * @return infoagence
      */
     public function setType_reglement($type_reglement)
     {
@@ -68,7 +68,7 @@ class info_agence
 
     /**
      * @param string $payer_par
-     * @return info_agence
+     * @return infoagence
      */
     public function setPayer_par($payer_par)
     {
@@ -86,7 +86,7 @@ class info_agence
 
     /**
      * @param string $marge
-     * @return info_agence
+     * @return infoagence
      */
     public function setMarge($marge)
     {
@@ -104,7 +104,7 @@ class info_agence
 
     /**
      * @param string $etat_paiement
-     * @return info_agence
+     * @return infoagence
      */
     public function setEtat_paiement($etat_paiement)
     {
@@ -122,7 +122,7 @@ class info_agence
 
     /**
      * @param string $email_client
-     * @return info_agence
+     * @return infoagence
      */
     public function setEmail_client($email_client)
     {
@@ -140,7 +140,7 @@ class info_agence
 
     /**
      * @param string $tel_client
-     * @return info_agence
+     * @return infoagence
      */
     public function setTel_client($tel_client)
     {
@@ -158,7 +158,7 @@ class info_agence
 
     /**
      * @param string $agence
-     * @return info_agence
+     * @return infoagence
      */
     public function setAgence($agence)
     {
@@ -176,7 +176,7 @@ class info_agence
 
     /**
      * @param string $adresse_livraison
-     * @return info_agence
+     * @return infoagence
      */
     public function setAdresse_livraison($adresse_livraison)
     {
@@ -194,7 +194,7 @@ class info_agence
 
     /**
      * @param string $modalite_payment
-     * @return info_agence
+     * @return infoagence
      */
     public function setModalite_payment($modalite_payment)
     {
