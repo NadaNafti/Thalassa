@@ -25,6 +25,11 @@ class Reservation
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\User")
+     */
+    protected $responsable;
+
+    /**
      * @ORM\Column( type="datetime")
      */
     private $dateDebut;
@@ -63,7 +68,7 @@ class Reservation
     protected $reglements;
 
     /**
-     * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationRV")
+     * @ORM\OneToMany(targetEntity="Back\AdministrationBundle\Entity\SousEtat", mappedBy="reservationRB")
      * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $sousEtats;
@@ -111,9 +116,9 @@ class Reservation
     /**
      * @var array
      *
-     * @ORM\Column(name="responsable", type="json_array")
+     * @ORM\Column(name="traveller", type="json_array")
      */
-    private $responsable;
+    private $traveller;
 
     /**
      * @var array
@@ -133,6 +138,7 @@ class Reservation
         $this->reponseBooking=array();
         $this->reponseTunisieMonetique=array();
         $this->travellers=array();
+        $this->traveller=array();
         $this->responsable=array();
         $this->total=0;
         $this->etat=1;
@@ -534,5 +540,28 @@ class Reservation
     public function getMontantRestant()
     {
         return number_format($this->getTotal() - $this->getMontantRegle(), 3, '.', '');
+    }
+
+    /**
+     * Set traveller
+     *
+     * @param array $traveller
+     * @return Reservation
+     */
+    public function setTraveller($traveller)
+    {
+        $this->traveller = $traveller;
+
+        return $this;
+    }
+
+    /**
+     * Get traveller
+     *
+     * @return array 
+     */
+    public function getTraveller()
+    {
+        return $this->traveller;
     }
 }

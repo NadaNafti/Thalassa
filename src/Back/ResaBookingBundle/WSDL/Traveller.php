@@ -3,69 +3,18 @@ namespace Back\ResaBookingBundle\WSDL;
 class Traveller
 {
 
-    /**
-     * @var string $typ
-     */
     protected $typ = null;
-
-    /**
-     * @var string $age
-     */
     protected $age = null;
-
-    /**
-     * @var string $BirthDate
-     */
     protected $BirthDate = null;
-
-    /**
-     * @var string $ID
-     */
     protected $ID = null;
-
-    /**
-     * @var string $FirstName
-     */
     protected $FirstName = null;
-
-    /**
-     * @var string $LastName
-     */
     protected $LastName = null;
-
-    /**
-     * @var string $civiliti
-     */
     protected $civiliti = null;
-
-    /**
-     * @var string $adresse
-     */
     protected $adresse = null;
-
-    /**
-     * @var string $cp
-     */
     protected $cp = null;
-
-    /**
-     * @var string $pays
-     */
     protected $pays = null;
-
-    /**
-     * @var string $ville
-     */
     protected $ville = null;
-
-    /**
-     * @var string $mail
-     */
     protected $mail = null;
-
-    /**
-     * @var string $tel
-     */
     protected $tel = null;
 
     /**
