@@ -107,18 +107,25 @@ class Reservation
     private $reponseBooking;
 
     /**
-     * @var array
+     * @var \stdClass
      *
-     * @ORM\Column(name="travellers", type="json_array")
+     * @ORM\Column(name="travellers", type="object")
      */
     private $travellers;
 
     /**
-     * @var array
+     * @var \stdClass
      *
-     * @ORM\Column(name="traveller", type="json_array")
+     * @ORM\Column(name="traveller", type="object")
      */
     private $traveller;
+
+    /**
+     * @var \stdClass
+     *
+     * @ORM\Column(name="chambs", type="object")
+     */
+    private $chambs;
 
     /**
      * @var array
@@ -139,7 +146,6 @@ class Reservation
         $this->reponseTunisieMonetique=array();
         $this->travellers=array();
         $this->traveller=array();
-        $this->responsable=array();
         $this->total=0;
         $this->etat=1;
     }
@@ -540,5 +546,28 @@ class Reservation
     public function getMontantRestant()
     {
         return number_format($this->getTotal() - $this->getMontantRegle(), 3, '.', '');
+    }
+
+    /**
+     * Set traveller
+     *
+     * @param array $traveller
+     * @return Reservation
+     */
+    public function setTraveller($traveller)
+    {
+        $this->traveller = $traveller;
+
+        return $this;
+    }
+
+    /**
+     * Get traveller
+     *
+     * @return array 
+     */
+    public function getTraveller()
+    {
+        return $this->traveller;
     }
 }
