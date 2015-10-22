@@ -121,6 +121,13 @@ class Reservation
     private $traveller;
 
     /**
+     * @var \stdClass
+     *
+     * @ORM\Column(name="chambs", type="object")
+     */
+    private $chambs;
+
+    /**
      * @var array
      *
      * @ORM\Column(name="reponseTunisieMonetique", type="json_array")
@@ -562,5 +569,28 @@ class Reservation
     public function getTraveller()
     {
         return $this->traveller;
+    }
+
+    /**
+     * Set chambs
+     *
+     * @param \stdClass $chambs
+     * @return Reservation
+     */
+    public function setChambs($chambs)
+    {
+        $this->chambs = $chambs;
+
+        return $this;
+    }
+
+    /**
+     * Get chambs
+     *
+     * @return \stdClass 
+     */
+    public function getChambs()
+    {
+        return $this->chambs;
     }
 }
