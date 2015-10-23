@@ -176,7 +176,7 @@ class Reglement
     /**
      * Set reservation
      *
-     * @param \Back\HotelTunisieBundle\Entity\Reservation $reservation
+     * @paramsh  $reservation
      * @return Reglement
      */
     public function setReservationByCode($reservation,$code)
