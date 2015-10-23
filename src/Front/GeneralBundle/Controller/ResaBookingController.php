@@ -3,10 +3,12 @@
 namespace Front\GeneralBundle\Controller;
 
 use Back\ResaBookingBundle\Entity\Hotel;
-use Back\ResaBookingBundle\WSDL\chamb;
+use Back\ResaBookingBundle\Entity\Reservation;
+use Back\ResaBookingBundle\WSDL\infoagence;
 use Back\ResaBookingBundle\WSDL\chambs;
+use Back\ResaBookingBundle\WSDL\Traveller;
+use Back\ResaBookingBundle\WSDL\Travellers;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Back\ResaBookingBundle\WSDL\rooms;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class ResaBookingController extends Controller
@@ -78,6 +80,19 @@ class ResaBookingController extends Controller
 
     public function devisAction($pension, Hotel $hotel,$debut,$fin,$room1,$room2,$room3,$room4,$room5)
     {
+        $em=$this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') && !is_null($user->getClient()))
+            $client = $user->getClient();
+        else
+            $client = $this->container->get('users')->getPassager();
+        $confPaiement = $em->find('BackHotelTunisieBundle:ConfigurationPayement', 1);
+        if($confPaiement) {
+            $choices[2] = 'Paiement Total en ligne';
+            if($confPaiement->getAvance() != 0) {
+                $choices[3] = 'Paiement avance de ' . $confPaiement->getAvance() . '% en ligne';
+            }
+        }
         $reponse=$this->container->get('resabookingservice')->availabilityHotel($hotel->getProduit()['region'],$debut,$fin, $this->container->get('resabookingservice')->getRooms($room1,$room2,$room3,$room4,$room5),$hotel->getId());
         if($reponse->rep->statut=='failure')
         {
@@ -93,8 +108,61 @@ class ResaBookingController extends Controller
             $this->getRequest()->getSession()->getFlashBag()->add('warning', $reponseDevis->rep->detail_erreur);
             return $this->redirect($this->generateUrl('front_resabooking_initialise_date'));
         }
-        dump($chambs);
+        $request=$this->getRequest();
+        if($request->isMethod('POST'))
+        {
+            $travellerPrincipale=new Traveller ('adult', null, null,null, $request->get("FirstName"),$request->get("LastName"), $request->get('civiliti'), $request->get('adresse'),$request->get('pays'), $request->get('ville'), $request->get('mail'),$request->get('tel'), $request->get('cp'));
+            $travellers =new Travellers();
+            $index=1;
+            foreach($chambs->getChs() as $chamb)
+            {
+                for($i=1;$i<=$chamb->nombre_adult;$i++)
+                {
+                    $traveller= new Traveller('adult');
+                    if($i==1 && $index==1)
+                        $traveller=$travellerPrincipale;
+                    else
+                    {
+                        $traveller->setFirstName($request->get($index."_AdulteFirstName_".$i));
+                        $traveller->setLastName($request->get($index."_AdulteLastName_".$i));
+                    }
+                    $travellers->addTraveller($traveller);
+                }
+                for($i=1;$i<=$chamb->nombre_enfant;$i++)
+                {
+                    $traveller= new Traveller('enfant');
+                    $traveller->setFirstName($request->get($index."_EnfantFirstName_".$i));
+                    $traveller->setLastName($request->get($index."_EnfantLastName_".$i));
+                    $travellers->addTraveller($traveller);
+                }
+                for($i=1;$i<=$chamb->nombre_bebe;$i++)
+                {
+                    $traveller= new Traveller('bebe');
+                    $traveller->setFirstName($request->get($index."_BeBeFirstName_".$i));
+                    $traveller->setLastName($request->get($index."_BeBeLastName_".$i));
+                    $travellers->addTraveller($traveller);
+                }
+                $index++;
+            }
+            $reservation = new Reservation();
+            $reservation->setClient($client)
+                ->setChambs($chambs)
+                ->setTraveller($travellerPrincipale)
+                ->setTravellers($travellers)
+                ->setReponseDevis($reponseDevis)
+                ->setTotal($reponseDevis->price)
+                ->setDateDebut(\DateTime::createFromFormat('Y-m-d', $debut))
+                ->setDateFin(\DateTime::createFromFormat('Y-m-d', $fin));
+            if($request->get('paiement') == 3 && $confPaiement->getAvance()!=0)
+                $montan = round($reponseDevis->price * $confPaiement->getAvance() / 100);
+            else
+                $montan = $reponseDevis->price;
+            $em->persist($reservation->setTypePayement($request->get('paiement'))->setMontantPayementElectronique($montan));
+            $em->flush();
+            return $this->redirect($confPaiement->getUrl() . 'RB-'.$reservation->getId() . '&Montant=' . $montan . '&Devise=TND&sid=' . session_id() . '&affilie=' . $confPaiement->getNumeroAffiliation());
+        }
         return $this->render('FrontGeneralBundle:resabooking:devis.html.twig',array(
+            'choinces'=>$choices,
             'hotel'=>$hotel,
             'chambs'=>$chambs->getChs(),
             'reponseDevis'=>$reponseDevis,

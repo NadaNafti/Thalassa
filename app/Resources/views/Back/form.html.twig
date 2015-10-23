@@ -117,3 +117,15 @@
         </div>
     </div>
 {% endmacro %}
+{% macro htmlDate(class,label,name,required=false,placeholder=null) %}
+    <div class="{{class}}">
+        <div class="form-group">
+            {% if label is not null %}
+                <label class="control-label">
+                    {{label|raw}} {% if required %}<span class="symbol required"></span>{% endif %}
+                </label>
+            {% endif %}
+            <input type="date" name="{{ name }}" class="form-control" {% if required %}required{% endif %} placeholder="{{ placeholder }}">
+        </div>
+    </div>
+{% endmacro %}

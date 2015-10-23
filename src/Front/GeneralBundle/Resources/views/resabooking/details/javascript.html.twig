@@ -135,7 +135,7 @@ $(document).ready(function(){
         if (exist < nbrAge) {
             for (var i = 1; i <= nbrAge; i++) {
                 if (i > exist)
-                    Block.append('<div class="col-md-1"><label>Age '+i+'</label><select class="form-control" name="age_'+idChambre+'_'+i+'" required style="padding: 0px;">{% for i in 1..12 %} <option value="{{ i }}">{{ i }}</option> {% endfor %}</select></div>');
+                    Block.append('<div class="col-md-1"><label>Age '+i+'</label><select class="form-control" name="age_'+idChambre+'_'+i+'" required style="padding: 0px;width: 113%;">{% for i in 1..12 %} <option value="{{ i }}">{{ i }}</option> {% endfor %}</select></div>');
             }
         }
         else {

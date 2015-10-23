@@ -58,7 +58,7 @@
                                     {% for age in 1..data|length-1 %}
                                         <div class="col-md-1">
                                             <label>Age {{ age }}</label>
-                                            <select class="form-control" name="age_{{ ch }}_{{ age }}" required="" style="padding: 0px;">
+                                            <select class="form-control" name="age_{{ ch }}_{{ age }}" required="" style="padding: 0px;width: 113%;">
                                                 {% for i in 1..12 %}
                                                     <option value="{{ i }}" {% if i==data[age] %}selected{% endif %}>{{ i }}</option>
                                                 {% endfor %}

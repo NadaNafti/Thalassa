@@ -53,3 +53,7 @@ front_maritime:
 front_bienetre:
     resource: "@FrontGeneralBundle/Resources/config/routing/bienetre.yml"
     prefix:   /BienEtre
+
+front_paiement:
+    resource: "@FrontGeneralBundle/Resources/config/routing/paiement.yml"
+    prefix:   /

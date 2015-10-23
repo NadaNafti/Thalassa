@@ -1,13 +1,9 @@
 <?php
 namespace Front\GeneralBundle\Controller;
 
-use Back\CommercialBundle\Entity\Piece;
-use Back\CommercialBundle\Entity\Reglement;
 use Back\UserBundle\Form\ClientFullType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Back\UserBundle\Form\ClientType;
 use Back\HotelTunisieBundle\Entity\Reservation;
-use Symfony\Component\HttpFoundation\Response;
 
 class HotelTunisieController extends Controller
 {
@@ -335,68 +331,16 @@ class HotelTunisieController extends Controller
                 if($paymentType == 2)
                     $monant = $total;
                 elseif($paymentType == 3 && $confPaiement->getAvance() != 0)
-                    $monant = $total * $confPaiement->getAvance() / 100;
+                    $monant = round($total * $confPaiement->getAvance() / 100);
                 $em->persist($reservation->setTypePayement($paymentType)->setMontantPayementElectronique($monant));
                 $em->flush();
-                return $this->redirect($confPaiement->getUrl() . $reservation->getId() . '&Montant=' . $monant . '&Devise=TND&sid=' . session_id() . '&affilie=' . $confPaiement->getNumeroAffiliation());
+                return $this->redirect($confPaiement->getUrl() . 'SHT-'.$reservation->getId() . '&Montant=' . $monant . '&Devise=TND&sid=' . session_id() . '&affilie=' . $confPaiement->getNumeroAffiliation());
             }
         }
         return $this->redirect($this->generateUrl("front_hoteltunisie_thankyou", array('reservation' => $reservation->getId(),)));
     }
 
-    public function notificationAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $request = $this->getRequest();
-        $ref = $request->get('Reference');
-        $act = $request->get('Action');
-        $par = $request->get('Param');
-        $confPaiement = $em->find('BackHotelTunisieBundle:ConfigurationPayement', 1);
-        $reservation=$em->find('BackHotelTunisieBundle:Reservation',$ref);
-        if($confPaiement->getRemiseInternetPourcentage())
-            $remiseInternet=$reservation->getTotal()*$confPaiement->getRemiseInternet()/100;
-        else
-            $remiseInternet=$confPaiement->getRemiseInternet();
-        switch($act) {
-            case "DETAIL":
-                return new Response( "Reference=" . $ref . "&Action=" . $act . "&Reponse=" . $reservation->getMontantPayementElectronique());
-            case "ERREUR":
-                $em->persist($reservation->setStatusPayement('ERREUR'));
-                $em->flush();
-                return new Response("Reference=" . $ref . "&Action=" . $act . "&Reponse=OK");
-            case "ACCORD":
-                $piece = new Piece();//Add new piece
-                $piece->setClient($reservation->getClient())
-                    ->setDateCreation(new \DateTime())
-                    ->setDateReglement(new \DateTime())
-                    ->setMontantOrigine($reservation->getMontantPayementElectronique())
-                    ->setMontant(0)
-                    ->setParam($par)
-                    ->setModeReglement("PE")
-                    ->setRegle(true);
-                $em->persist($piece);
-                $reglement = new Reglement();//add new reglement
-                $reglement->setPiece($piece)
-                    ->setMontant($reservation->getMontantPayementElectronique())
-                    ->setReservation($reservation)
-                    ->setDateCreation(new \DateTime());
-                $em->persist($reglement);
-                if($reservation->getTypePayement()==2)//validation reservation
-                    $reservation->setEtat(2)->setValidated(new \DateTime())->setCode($this->container->get('reservation')->getCode());
-                $reservation->addReglement($reglement)->setRemiseInternet($remiseInternet);
-                $em->persist($reservation);
-                $em->flush();
-                return new Response("Reference=" . $ref . "&Action=" . $act . "&Reponse=OK");
-            case "REFUS":
-                $em->persist($reservation->setStatusPayement('REFUS'));
-                $em->flush();
-                return new Response("Reference=" . $ref . "&Action=" . $act . "&Reponse=OK");
-            case "ANNULATION":
-                $em->persist($reservation->setStatusPayement('ANNULATION'));
-                $em->flush();
-                return new Response("Reference=" . $ref . "&Action=" . $act . "&Reponse=OK");
-        }
-    }
+
 
     public function thankyouAction(Reservation $reservation)
     {

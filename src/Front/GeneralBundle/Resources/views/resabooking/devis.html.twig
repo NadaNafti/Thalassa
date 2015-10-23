@@ -1,13 +1,24 @@
 {% extends ":Front:base.html.twig" %}
 {% block title %}{{ hotel }}{% endblock %}
 {% block body %}
+    {% set pathVar=path('front_resabooking_devis',{
+    'pension':app.request.get('pension'),
+    'hotel':hotel.id,
+    'debut':app.request.get('debut'),
+    'fin':app.request.get('fin'),
+    'room1':app.request.get('room1'),
+    'room2':app.request.get('room2'),
+    'room3':app.request.get('room3'),
+    'room4':app.request.get('room4'),
+    'room5':app.request.get('room5')
+    }) %}
     <div id="content_wrapper">
         <div class="container">
             <div class="row clearfix pv-50">
                 <div class="col-xs-12 col-sm-9 col-md-19 xs-mb">
                     <div class="white-bg payment-wrapper">
-                        <form action="" method="post">
-                            <h3 class="section-title">Information Organisateur <span class="step active">1</span></h3><hr>
+                        <form action="{{ pathVar }}" method="post">
+                            <h3 class="section-title">Information Personnelle <span class="step active">1</span></h3><hr>
                             <div class="row">
                                 {{ formulaire.htmlInput("col-md-3","Civilité","civiliti",true,"Mr,Mme,Melle") }}
                                 {{ formulaire.htmlInput("col-md-3","Nom","LastName",true) }}
@@ -23,7 +34,7 @@
                                 {{ formulaire.htmlInput("col-md-3","Ville","ville",true) }}
                                 {{ formulaire.htmlInput("col-md-3","Code Postal","cp",true) }}
                             </div>
-                            <h3 class="section-title">Les Occupants <span class="step active">1</span></h3><hr>
+                            <h3 class="section-title">Les Occupants <span class="step active">2</span></h3><hr>
                             {% for chamb in chambs %}
                                 {% set index=loop.index %}
                                 <h4>{{ chamb.libelle_chambre }}</h4>
@@ -41,7 +52,7 @@
                                         <div class="row">
                                             <div class="col-md-3" style="padding-top: 20px;">{{ "Enfant "~i }}</div>
                                             {{ formulaire.htmlInput("col-md-3","Nom",index~"_EnfantFirstName_"~i,true) }}
-                                            {{ formulaire.htmlInput("col-md-3","Prénom",index~"_AEnfantLastName_"~i,true) }}
+                                            {{ formulaire.htmlInput("col-md-3","Prénom",index~"_EnfantLastName_"~i,true) }}
                                         </div>
                                     {% endfor %}
                                 {% endif %}
@@ -55,10 +66,14 @@
                                     {% endfor %}
                                 {% endif %}
                             {% endfor %}
-
-
-
-
+                            <h3 class="section-title">Paiement en ligne <span class="step active">2</span></h3><hr>
+                            <div class="row">
+                                {% for key, value in choinces %}
+                                    <div class="col-md-12">
+                                        <label><input type="radio" name="paiement" value="{{ key }}" {% if loop.index ==1 %}checked{% endif %} >  {{ value }} </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
                             <hr>
                             <div class="row">
                                 <div class="col-md-8"></div>
