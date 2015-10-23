@@ -1162,6 +1162,7 @@ class Saison
             if ($chambre->getChambre()->getId() == $ch)
                 return $chambre->getMinAdulte();
         }
+        return 0;
     }
 
     public function getOccMaxAdulte($ch)
@@ -1170,6 +1171,7 @@ class Saison
             if ($chambre->getChambre()->getId() == $ch)
                 return $chambre->getMaxAdulte();
         }
+        return 0;
     }
 
     public function getOccMinEnfant($ch)
@@ -1178,6 +1180,7 @@ class Saison
             if ($chambre->getChambre()->getId() == $ch)
                 return $chambre->getMinEnfant();
         }
+        return 0;
     }
 
     public function getOccMaxEnfant($ch)
@@ -1186,6 +1189,7 @@ class Saison
             if ($chambre->getChambre()->getId() == $ch)
                 return $chambre->getMaxEnfant();
         }
+        return 0;
     }
 
     /**
