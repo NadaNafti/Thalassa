@@ -168,9 +168,26 @@ class Reglement
      */
     public function setReservation(\Back\HotelTunisieBundle\Entity\Reservation $reservation = null)
     {
-	$this->reservation = $reservation;
+        $this->reservation = $reservation;
 
-	return $this;
+        return $this;
+    }
+
+    /**
+     * Set reservation
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Reservation $reservation
+     * @return Reglement
+     */
+    public function setReservationByCode($reservation,$code)
+    {
+        switch($code)
+        {
+            case "SHT": $this->reservation=$reservation;
+            case "RB": $this->reservationRB=$reservation;
+        }
+
+        return $this;
     }
 
     /**
