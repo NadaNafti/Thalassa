@@ -470,7 +470,7 @@ class SaisonsController extends Controller
             for($nbrAdulte = $saison->getOccMinAdulte($chambre->getId()); $nbrAdulte <= $saison->getOccMaxAdulte($chambre->getId()); $nbrAdulte++) {
                 $nbrEnfant = $saison->getOccMaxAdulte($chambre->getId()) + $saison->getOccMinEnfant($chambre->getId()) - $nbrAdulte;
                 for($i = 0; $i <= $nbrEnfant; $i++) {
-                    if(($i + $nbrAdulte) > 0) {
+                    if(($i + $nbrAdulte) > 0 && $i>=$saison->getOccMinEnfant($chambre->getId()) &&  $i<=$saison->getOccMaxEnfant($chambre->getId())) {
                         $ligne = new SaisonFraisChambreLigne();
                         $em->persist($ligne->setEntete($fraisChambre)->setNombreAdulte($nbrAdulte)->setNombreEnfant($i)->setArrangement($saison->getArrBase()));
                         foreach($saison->getArrangements() as $arr) {
