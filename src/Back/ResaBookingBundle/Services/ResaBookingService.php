@@ -56,7 +56,7 @@ class ResaBookingService
         $organisateur=new Traveller ('adult', null, null,null, $configResaBooking->getPrenom(),$configResaBooking->getNom(), $configResaBooking->getCivilite(), $configResaBooking->getAdresse(),"Tunisie", $configResaBooking->getVille(), $configResaBooking->getEmail(),$configResaBooking->getTel(), $configResaBooking->getCodePostal());
         $infoAgence = new infoagence('debiteur',$configAgence->getNom(),null,"confirmer",null, null,$configAgence->getNom());
         $client = new \SoapClient($configResaBooking->getWsdl());
-        $request = array($reservation->getReponseDevis()['session'],$reservation->getTravellers(),$organisateur,$configResaBooking->getLogin(),$configResaBooking->getPassword(), null, $infoAgence, null,null);
+        $request = array($reservation->getReponseDevis(),$reservation->getTravellers(),$organisateur,$configResaBooking->getLogin(),$configResaBooking->getPassword(), null, $infoAgence, null,null);
         return $client->__soapCall('createbooking', $request);
     }
 
