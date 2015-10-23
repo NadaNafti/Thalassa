@@ -24,10 +24,6 @@ class PaiementController extends Controller
             case "SHT": $reservation=$em->find('BackHotelTunisieBundle:Reservation',$refArray[1]);
             case "RB": $reservation =$em->find('BackResaBookingBundle:Reservation',$refArray[1]);
         }
-        if($confPaiement->getRemiseInternetPourcentage())
-            $remiseInternet=$reservation->getTotal()*$confPaiement->getRemiseInternet()/100;
-        else
-            $remiseInternet=$confPaiement->getRemiseInternet();
         switch($act) {
             case "DETAIL":
                 return new Response( "Reference=" . $ref . "&Action=" . $act . "&Reponse=" . $reservation->getMontantPayementElectronique());
@@ -49,12 +45,16 @@ class PaiementController extends Controller
                 $reglement = new Reglement();//add new reglement
                 $reglement->setPiece($piece)
                     ->setMontant($reservation->getMontantPayementElectronique())
-                    ->setReservation
+                    ->setReservationByCode($reservation,$refArray[0])
                     ->setDateCreation(new \DateTime());
                 $em->persist($reglement);
                 if($reservation->getTypePayement()==2)//validation reservation
-                    $reservation->setEtat(2)->setValidated(new \DateTime())->setCode($this->container->get('reservation')->getCode());
-                $reservation->addReglement($reglement)->setRemiseInternet($remiseInternet);
+                    $reservation->setEtat(2)->setValidated(new \DateTime());
+                switch($refArray[0])
+                {
+                    case "SHT": $reservation->setCode($this->container->get('reservation')->getCode());
+                    case "RB": $reservation->setReponseBooking($this->container->get('resabookingservice')->createbooking($reservation));
+                }
                 $em->persist($reservation);
                 $em->flush();
                 return new Response("Reference=" . $ref . "&Action=" . $act . "&Reponse=OK");

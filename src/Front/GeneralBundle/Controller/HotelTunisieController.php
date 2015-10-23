@@ -325,21 +325,23 @@ class HotelTunisieController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $confPaiement = $em->find('BackHotelTunisieBundle:ConfigurationPayement', 1);
+        if($confPaiement->getRemiseInternetPourcentage())
+            $remiseInternet = $reservation->getTotal() * $confPaiement->getRemiseInternet() / 100;
+        else
+            $remiseInternet = $confPaiement->getRemiseInternet();
+        if($confPaiement && $confPaiement->getNumeroAffiliation() != 0 && in_array($paymentType, array(2, 3)))
         {
-            if($confPaiement && $confPaiement->getNumeroAffiliation() != 0  && in_array($paymentType, array(2, 3))) {
-                $total = $reservation->getTotal();
-                if($paymentType == 2)
-                    $monant = $total;
-                elseif($paymentType == 3 && $confPaiement->getAvance() != 0)
-                    $monant = round($total * $confPaiement->getAvance() / 100);
-                $em->persist($reservation->setTypePayement($paymentType)->setMontantPayementElectronique($monant));
-                $em->flush();
-                return $this->redirect($confPaiement->getUrl() . 'SHT-'.$reservation->getId() . '&Montant=' . $monant . '&Devise=TND&sid=' . session_id() . '&affilie=' . $confPaiement->getNumeroAffiliation());
-            }
+            $total = $reservation->getTotal();
+            if($paymentType == 2)
+                $monant = $total;
+            elseif($paymentType == 3 && $confPaiement->getAvance() != 0)
+                $monant = round($total * $confPaiement->getAvance() / 100);
+            $em->persist($reservation->setTypePayement($paymentType)->setMontantPayementElectronique($monant)->setRemiseInternet($remiseInternet));
+            $em->flush();
+            return $this->redirect($confPaiement->getUrl() . 'SHT-' . $reservation->getId() . '&Montant=' . $monant . '&Devise=TND&sid=' . session_id() . '&affilie=' . $confPaiement->getNumeroAffiliation());
         }
         return $this->redirect($this->generateUrl("front_hoteltunisie_thankyou", array('reservation' => $reservation->getId(),)));
     }
-
 
 
     public function thankyouAction(Reservation $reservation)
