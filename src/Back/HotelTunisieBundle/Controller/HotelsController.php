@@ -239,7 +239,7 @@ class HotelsController extends Controller
                 $ficheTechnique = $form->getData();
                 if ($ficheTechnique->getMax1AgeEnfant() > $ficheTechnique->getMin1AgeEnfant()
                     && $ficheTechnique->getMin1AgeEnfant() >= 0
-                    && (($ficheTechnique->getMin2AgeEnfant() < $ficheTechnique->getMax1AgeEnfant()
+                    && (($ficheTechnique->getMin2AgeEnfant() > $ficheTechnique->getMax1AgeEnfant()
                             && $ficheTechnique->getMax2AgeEnfant() > $ficheTechnique->getMin2AgeEnfant())
                         || ($ficheTechnique->getMin2AgeEnfant() == 0
                             && $ficheTechnique->getMax2AgeEnfant() == 0))) {
