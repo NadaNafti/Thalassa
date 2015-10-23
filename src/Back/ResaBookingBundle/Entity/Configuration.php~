@@ -24,6 +24,13 @@ class Configuration
 
     /**
      * @var string
+     * @Assert\Email()
+     * @ORM\Column(name="email", type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="login", type="string", length=255)
      */
@@ -49,6 +56,71 @@ class Configuration
      * @ORM\Column(name="lien_prix", type="string", length=255)
      */
     private $lienPrix;
+
+    /**
+     * @var string
+     * @Assert\Url()
+     * @ORM\Column(name="wsdl", type="string", length=255)
+     */
+    private $wsdl;
+
+    /**
+     * @var string
+     * @ORM\Column(name="civilite", type="string", length=255)
+     */
+    private $civilite;
+
+    /**
+     * @var string
+     * @ORM\Column(name="nom", type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     * @ORM\Column(name="prenom", type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @var string
+     * @ORM\Column(name="adresse", type="string", length=255)
+     */
+    private $adresse;
+
+    /**
+     * @var string
+     * @ORM\Column(name="ville", type="string", length=255)
+     */
+    private $ville;
+
+    /**
+     * @var string
+     * @ORM\Column(name="tel", type="string", length=255)
+     */
+    private $tel;
+
+    /**
+     * @var string
+     * @ORM\Column(name="codePostal", type="string", length=255)
+     */
+    private $codePostal;
+
+    /**
+     * @return string
+     */
+    public function getWsdl()
+    {
+        return $this->wsdl;
+    }
+
+    /**
+     * @param string $wsdl
+     */
+    public function setWsdl($wsdl)
+    {
+        $this->wsdl = $wsdl;
+    }
 
 
     /**
@@ -105,5 +177,74 @@ class Configuration
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set lienProduit
+     *
+     * @param string $lienProduit
+     * @return Configuration
+     */
+    public function setLienProduit($lienProduit)
+    {
+        $this->lienProduit = $lienProduit;
+
+        return $this;
+    }
+
+    /**
+     * Get lienProduit
+     *
+     * @return string 
+     */
+    public function getLienProduit()
+    {
+        return $this->lienProduit;
+    }
+
+    /**
+     * Set lienPrix
+     *
+     * @param string $lienPrix
+     * @return Configuration
+     */
+    public function setLienPrix($lienPrix)
+    {
+        $this->lienPrix = $lienPrix;
+
+        return $this;
+    }
+
+    /**
+     * Get lienPrix
+     *
+     * @return string 
+     */
+    public function getLienPrix()
+    {
+        return $this->lienPrix;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Configuration
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

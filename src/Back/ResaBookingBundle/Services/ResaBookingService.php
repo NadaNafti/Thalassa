@@ -2,22 +2,15 @@
 
 namespace Back\ResaBookingBundle\Services;
 
-use Back\HotelTunisieBundle\Entity\ReservationChambreJour;
-use Back\HotelTunisieBundle\Entity\Saison;
+use Back\ResaBookingBundle\Entity\Reservation;
 use Back\ResaBookingBundle\WSDL\chamb;
 use Back\ResaBookingBundle\WSDL\chambs;
+use Back\ResaBookingBundle\WSDL\infoagence;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\DependencyInjection\Container;
-use Back\HotelTunisieBundle\Entity\Reservation;
-use Back\HotelTunisieBundle\Entity\ReservationPersonne;
-use Back\HotelTunisieBundle\Entity\ReservationLigne;
-use Back\HotelTunisieBundle\Entity\ReservationJour;
-use Back\HotelTunisieBundle\Entity\ReservationChambre;
 use Back\HotelTunisieBundle\Entity\ReservationRepository;
-use Back\HotelTunisieBundle\Entity\Hotel;
 use Back\AdministrationBundle\Entity\EmailRepository;
-use Back\UserBundle\Entity\Client;
 use Back\ResaBookingBundle\WSDL\rooms;
 use Back\ResaBookingBundle\WSDL\Traveller;
 use Back\ResaBookingBundle\WSDL\room;
@@ -56,11 +49,14 @@ class ResaBookingService
         return $client->__soapCall('devis', $request);
     }
 
-    public function createbooking($session,$travels,$organisateur,$vol,$info_agence,$note_supplementaire,$frais_supplementaire)
+    public function createbooking(Reservation $reservation)
     {
         $configResaBooking= $this->em->find('BackResaBookingBundle:Configuration',1);
+        $configAgence= $this->em->find('BackAdministrationBundle:Agence',1);
+        $organisateur=new Traveller ('adult', null, null,null, $configResaBooking->getPrenom(),$configResaBooking->getNom(), $configResaBooking->getCivilite(), $configResaBooking->getAdresse(),"Tunisie", $configResaBooking->getVille(), $configResaBooking->getEmail(),$configResaBooking->getTel(), $configResaBooking->getCodePostal());
+        $infoAgence = new infoagence('debiteur',$configAgence->getNom(),null,"confirmer",null, null,$configAgence->getNom());
         $client = new \SoapClient($configResaBooking->getWsdl());
-        $request = array($session,$travels,$organisateur,$configResaBooking->getLogin(),$configResaBooking->getPassword(), $vol, $info_agence, $note_supplementaire,$frais_supplementaire);
+        $request = array($reservation->getReponseDevis()->session,$reservation->getTravellers(),$organisateur,$configResaBooking->getLogin(),$configResaBooking->getPassword(), null, $infoAgence, null,null);
         return $client->__soapCall('createbooking', $request);
     }
 
