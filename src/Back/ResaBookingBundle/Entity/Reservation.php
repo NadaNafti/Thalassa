@@ -25,6 +25,26 @@ class Reservation
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="type_payement", type="integer")
+     */
+    private $typePayement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="montant_payement_electronique", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $montantPayementElectronique;
+
+    /**
+     * @var string
+     * @ORM\Column(name="status_payement", type="string",nullable=true)
+     */
+    private $statusPayement;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\User")
      */
     protected $responsable;
@@ -144,8 +164,6 @@ class Reservation
         $this->reponseDevis=array();
         $this->reponseBooking=array();
         $this->reponseTunisieMonetique=array();
-        $this->travellers=array();
-        $this->traveller=array();
         $this->total=0;
         $this->etat=1;
     }
@@ -592,5 +610,74 @@ class Reservation
     public function getChambs()
     {
         return $this->chambs;
+    }
+
+    /**
+     * Set typePayement
+     *
+     * @param integer $typePayement
+     * @return Reservation
+     */
+    public function setTypePayement($typePayement)
+    {
+        $this->typePayement = $typePayement;
+
+        return $this;
+    }
+
+    /**
+     * Get typePayement
+     *
+     * @return integer 
+     */
+    public function getTypePayement()
+    {
+        return $this->typePayement;
+    }
+
+    /**
+     * Set montantPayementElectronique
+     *
+     * @param string $montantPayementElectronique
+     * @return Reservation
+     */
+    public function setMontantPayementElectronique($montantPayementElectronique)
+    {
+        $this->montantPayementElectronique = $montantPayementElectronique;
+
+        return $this;
+    }
+
+    /**
+     * Get montantPayementElectronique
+     *
+     * @return string 
+     */
+    public function getMontantPayementElectronique()
+    {
+        return $this->montantPayementElectronique;
+    }
+
+    /**
+     * Set statusPayement
+     *
+     * @param string $statusPayement
+     * @return Reservation
+     */
+    public function setStatusPayement($statusPayement)
+    {
+        $this->statusPayement = $statusPayement;
+
+        return $this;
+    }
+
+    /**
+     * Get statusPayement
+     *
+     * @return string 
+     */
+    public function getStatusPayement()
+    {
+        return $this->statusPayement;
     }
 }
