@@ -26,7 +26,7 @@ class FicheTechnique
     /**
      * @var decimal
      *
-     * @ORM\Column(name="min1AgeEnfant", type="decimal", precision=3, scale=1)
+     * @ORM\Column(name="min1AgeEnfant", type="decimal", precision=4, scale=2)
      * @Assert\NotBlank()
      */
     private $min1AgeEnfant;
@@ -34,7 +34,7 @@ class FicheTechnique
     /**
      * @var deciaml
      *
-     * @ORM\Column(name="max1AgeEnfant", type="decimal", precision=3, scale=1)
+     * @ORM\Column(name="max1AgeEnfant", type="decimal", precision=4, scale=2)
      * @Assert\NotBlank()
      */
     private $max1AgeEnfant;
@@ -42,14 +42,14 @@ class FicheTechnique
     /**
      * @var decimal
      *
-     * @ORM\Column(name="min2AgeEnfant", type="decimal", precision=3, scale=1)
+     * @ORM\Column(name="min2AgeEnfant", type="decimal", precision=4, scale=2)
      */
     private $min2AgeEnfant;
 
     /**
      * @var decimal
      *
-     * @ORM\Column(name="max2AgeEnfant", type="decimal", precision=3, scale=1)
+     * @ORM\Column(name="max2AgeEnfant", type="decimal", precision=4, scale=2)
      */
     private $max2AgeEnfant;
 
@@ -116,98 +116,6 @@ class FicheTechnique
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set min1AgeEnfant
-     *
-     * @param integer $min1AgeEnfant
-     * @return FicheTechnique
-     */
-    public function setMin1AgeEnfant($min1AgeEnfant)
-    {
-        $this->min1AgeEnfant = $min1AgeEnfant;
-
-        return $this;
-    }
-
-    /**
-     * Get min1AgeEnfant
-     *
-     * @return integer 
-     */
-    public function getMin1AgeEnfant()
-    {
-        return $this->min1AgeEnfant;
-    }
-
-    /**
-     * Set max1AgeEnfant
-     *
-     * @param integer $max1AgeEnfant
-     * @return FicheTechnique
-     */
-    public function setMax1AgeEnfant($max1AgeEnfant)
-    {
-        $this->max1AgeEnfant = $max1AgeEnfant;
-
-        return $this;
-    }
-
-    /**
-     * Get max1AgeEnfant
-     *
-     * @return integer 
-     */
-    public function getMax1AgeEnfant()
-    {
-        return $this->max1AgeEnfant;
-    }
-
-    /**
-     * Set min2AgeEnfant
-     *
-     * @param decimal $min2AgeEnfant
-     * @return FicheTechnique
-     */
-    public function setMin2AgeEnfant($min2AgeEnfant)
-    {
-        $this->min2AgeEnfant = $min2AgeEnfant;
-
-        return $this;
-    }
-
-    /**
-     * Get min2AgeEnfant
-     *
-     * @return decimal
-     */
-    public function getMin2AgeEnfant()
-    {
-        return $this->min2AgeEnfant;
-    }
-
-    /**
-     * Set max2AgeEnfant
-     *
-     * @param decimal $max2AgeEnfant
-     * @return FicheTechnique
-     */
-    public function setMax2AgeEnfant($max2AgeEnfant)
-    {
-        $this->max2AgeEnfant = $max2AgeEnfant;
-
-        return $this;
-    }
-
-    /**
-     * Get max2AgeEnfant
-     *
-     * @return decimal
-     */
-    public function getMax2AgeEnfant()
-    {
-        return $this->max2AgeEnfant;
     }
 
     /**
@@ -392,5 +300,97 @@ class FicheTechnique
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set min1AgeEnfant
+     *
+     * @param string $min1AgeEnfant
+     * @return FicheTechnique
+     */
+    public function setMin1AgeEnfant($min1AgeEnfant)
+    {
+        $this->min1AgeEnfant = $min1AgeEnfant;
+
+        return $this;
+    }
+
+    /**
+     * Get min1AgeEnfant
+     *
+     * @return string 
+     */
+    public function getMin1AgeEnfant()
+    {
+        return $this->min1AgeEnfant;
+    }
+
+    /**
+     * Set max1AgeEnfant
+     *
+     * @param string $max1AgeEnfant
+     * @return FicheTechnique
+     */
+    public function setMax1AgeEnfant($max1AgeEnfant)
+    {
+        $this->max1AgeEnfant = $max1AgeEnfant;
+
+        return $this;
+    }
+
+    /**
+     * Get max1AgeEnfant
+     *
+     * @return string 
+     */
+    public function getMax1AgeEnfant()
+    {
+        return $this->max1AgeEnfant;
+    }
+
+    /**
+     * Set min2AgeEnfant
+     *
+     * @param string $min2AgeEnfant
+     * @return FicheTechnique
+     */
+    public function setMin2AgeEnfant($min2AgeEnfant)
+    {
+        $this->min2AgeEnfant = $min2AgeEnfant;
+
+        return $this;
+    }
+
+    /**
+     * Get min2AgeEnfant
+     *
+     * @return string 
+     */
+    public function getMin2AgeEnfant()
+    {
+        return $this->min2AgeEnfant;
+    }
+
+    /**
+     * Set max2AgeEnfant
+     *
+     * @param string $max2AgeEnfant
+     * @return FicheTechnique
+     */
+    public function setMax2AgeEnfant($max2AgeEnfant)
+    {
+        $this->max2AgeEnfant = $max2AgeEnfant;
+
+        return $this;
+    }
+
+    /**
+     * Get max2AgeEnfant
+     *
+     * @return string 
+     */
+    public function getMax2AgeEnfant()
+    {
+        return $this->max2AgeEnfant;
     }
 }
