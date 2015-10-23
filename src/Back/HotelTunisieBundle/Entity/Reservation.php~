@@ -1010,4 +1010,27 @@ class Reservation
     {
         return $this->remiseInternet;
     }
+
+    /**
+     * Set statusPayement
+     *
+     * @param string $statusPayement
+     * @return Reservation
+     */
+    public function setStatusPayement($statusPayement)
+    {
+        $this->statusPayement = $statusPayement;
+
+        return $this;
+    }
+
+    /**
+     * Get statusPayement
+     *
+     * @return string 
+     */
+    public function getStatusPayement()
+    {
+        return $this->statusPayement;
+    }
 }

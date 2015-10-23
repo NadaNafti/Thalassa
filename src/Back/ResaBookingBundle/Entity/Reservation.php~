@@ -25,6 +25,26 @@ class Reservation
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="type_payement", type="integer")
+     */
+    private $typePayement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="montant_payement_electronique", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $montantPayementElectronique;
+
+    /**
+     * @var string
+     * @ORM\Column(name="status_payement", type="string",nullable=true)
+     */
+    private $statusPayement;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Back\UserBundle\Entity\User")
      */
     protected $responsable;
@@ -144,8 +164,6 @@ class Reservation
         $this->reponseDevis=array();
         $this->reponseBooking=array();
         $this->reponseTunisieMonetique=array();
-        $this->travellers=array();
-        $this->traveller=array();
         $this->total=0;
         $this->etat=1;
     }
@@ -569,5 +587,28 @@ class Reservation
     public function getTraveller()
     {
         return $this->traveller;
+    }
+
+    /**
+     * Set chambs
+     *
+     * @param \stdClass $chambs
+     * @return Reservation
+     */
+    public function setChambs($chambs)
+    {
+        $this->chambs = $chambs;
+
+        return $this;
+    }
+
+    /**
+     * Get chambs
+     *
+     * @return \stdClass 
+     */
+    public function getChambs()
+    {
+        return $this->chambs;
     }
 }
