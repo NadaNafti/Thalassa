@@ -504,6 +504,10 @@ class SaisonsController extends Controller
             }
         }
         $occChambre = $em->getRepository('BackHotelTunisieBundle:SaisonChambre')->findOneBy(array('saison' => $saison, 'chambre' => $chambre->getChambre()));
+        if(is_null($occChambre))
+        {
+            return $this->redirect($this->generateUrl('saison_delete_frais_autre_chambre',array('id'=>$chambre->getId())));
+        }
         return $this->render('BackHotelTunisieBundle:Saisons:frais_autres_chambres.html.twig', array('maxAdultes' => $occChambre->getMaxAdulte(), 'hotel' => $saison->getHotel(), 'saison' => $saison, 'form' => $form->createView(), 'chambre' => $chambre,));
     }
 
