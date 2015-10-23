@@ -20,6 +20,21 @@ class ConfigurationType extends AbstractType
             ->add('lienProduit')
             ->add('lienPrix')
             ->add('wsdl')
+            ->add('email')
+            ->add('civilite','choice',array(
+                'required'=>true,
+                'choices'=>array(
+                    'Mr'=>"Mr",
+                    'Mme'=>"Mme",
+                    'Melle'=>"Melle",
+                )
+            ))
+            ->add('nom')
+            ->add('prenom')
+            ->add('adresse')
+            ->add('tel')
+            ->add('ville')
+            ->add('codePostal')
         ;
     }
     

@@ -12,17 +12,31 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     {{ form_start(form) }}
-                    <div class="row">
-                        {{ formulaire.input("col-md-4","Login",form.login,true) }}
-                        {{ formulaire.input("col-md-4","Password",form.password,true) }}
-                    </div>
-                    <div class="row">
-                        {{ formulaire.input("col-md-6","Lien XML Produit",form.lienProduit,true) }}
-                        {{ formulaire.input("col-md-6","Lien XML Prix",form.lienPrix,true) }}
-                    </div>
-                    <div class="row">
-                        {{ formulaire.input("col-md-8","WSDL",form.wsdl,true) }}
-                    </div>
+                        <h4>Paramétres de ResaBooking</h4><hr>
+                        <div class="row">
+                            {{ formulaire.input("col-md-6","Login",form.login,true) }}
+                            {{ formulaire.input("col-md-6","Password",form.password,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-6","Lien XML Produit",form.lienProduit,true) }}
+                            {{ formulaire.input("col-md-6","Lien XML Prix",form.lienPrix,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-6","WSDL",form.wsdl,true) }}
+                            {{ formulaire.input("col-md-6","Email Voucher",form.email,true) }}
+                        </div>
+                        <h4>Organisateur</h4><hr>
+                        <div class="row">
+                            {{ formulaire.input("col-md-3","Civilité",form.civilite,true) }}
+                            {{ formulaire.input("col-md-3","Nom",form.nom,true) }}
+                            {{ formulaire.input("col-md-3","Prénom",form.prenom,true) }}
+                            {{ formulaire.input("col-md-3","Tel",form.tel,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-3","Adresse",form.adresse,true) }}
+                            {{ formulaire.input("col-md-3","ville",form.ville,true) }}
+                            {{ formulaire.input("col-md-3","Code Postal",form.codePostal,true) }}
+                        </div>
                         {{ formulaire.submit("Enregistrer") }}
                     {{ form_end(form) }}
                 </div>
