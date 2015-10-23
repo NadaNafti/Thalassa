@@ -26,7 +26,7 @@ class FicheTechnique
     /**
      * @var decimal
      *
-     * @ORM\Column(name="min1AgeEnfant", type="decimal", precision=3, scale=1)
+     * @ORM\Column(name="min1AgeEnfant", type="decimal", precision=4, scale=2)
      * @Assert\NotBlank()
      */
     private $min1AgeEnfant;
@@ -34,7 +34,7 @@ class FicheTechnique
     /**
      * @var deciaml
      *
-     * @ORM\Column(name="max1AgeEnfant", type="decimal", precision=3, scale=1)
+     * @ORM\Column(name="max1AgeEnfant", type="decimal", precision=4, scale=2)
      * @Assert\NotBlank()
      */
     private $max1AgeEnfant;
@@ -42,14 +42,14 @@ class FicheTechnique
     /**
      * @var decimal
      *
-     * @ORM\Column(name="min2AgeEnfant", type="decimal", precision=3, scale=1)
+     * @ORM\Column(name="min2AgeEnfant", type="decimal", precision=4, scale=2)
      */
     private $min2AgeEnfant;
 
     /**
      * @var decimal
      *
-     * @ORM\Column(name="max2AgeEnfant", type="decimal", precision=3, scale=1)
+     * @ORM\Column(name="max2AgeEnfant", type="decimal", precision=4, scale=2)
      */
     private $max2AgeEnfant;
 
