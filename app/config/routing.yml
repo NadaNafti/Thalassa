@@ -1,3 +1,7 @@
+paiement_notification:
+    path:     /notification.php
+    defaults: { _controller: BackResaBookingBundle:Paiement:notification }
+
 back_caisse:
     resource: "@BackCaisseBundle/Resources/config/routing.yml"
     prefix:   /admin/caisse
