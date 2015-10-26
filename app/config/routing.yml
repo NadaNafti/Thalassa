@@ -1,7 +1,3 @@
-paiement_notification:
-    path:     /notification.php
-    defaults: { _controller: BackResaBookingBundle:Paiement:notification }
-
 back_caisse:
     resource: "@BackCaisseBundle/Resources/config/routing.yml"
     prefix:   /admin/caisse
@@ -12,7 +8,7 @@ back_transfert:
 
 back_resa_booking:
     resource: "@BackResaBookingBundle/Resources/config/routing.yml"
-    prefix:   /admin/resabooking
+    prefix:   /
 
 back_billetterie_maritime:
     resource: "@BackBilletterieMaritimeBundle/Resources/config/routing.yml"
