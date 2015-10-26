@@ -1,7 +1,23 @@
 Hotel_Tunisie_Referentiel:
     resource: "@BackResaBookingBundle/Resources/config/routing/configuration.yml"
-    prefix:   /configuration
+    prefix:   /admin/resabooking/configuration
 
 Hotel_Tunisie_hotels:
     resource: "@BackResaBookingBundle/Resources/config/routing/hotels.yml"
-    prefix:   /hotels
+    prefix:   /admin/resabooking/hotels
+
+paiement_notification:
+    path:     /notification.php
+    defaults: { _controller: BackResaBookingBundle:Paiement:notification }
+
+front_paiement_succes:
+    path:     /succes.php
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'FrontGeneralBundle::succes.html.twig'
+
+front_paiement_echec:
+    path:     /echec.php
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'FrontGeneralBundle::echec.html.twig'
