@@ -2,18 +2,6 @@ accueil:
     path:     /
     defaults: { _controller: FrontGeneralBundle:Default:accueil }
 
-front_paiement_succes:
-    path:     /succes.php
-    defaults:
-        _controller: FrameworkBundle:Template:template
-        template: 'FrontGeneralBundle::succes.html.twig'
-
-front_paiement_echec:
-    path:     /echec.php
-    defaults:
-        _controller: FrameworkBundle:Template:template
-        template: 'FrontGeneralBundle::echec.html.twig'
-
 ole_booking_hotels:
     path:     /hotels_dans_le_monde
     defaults:
