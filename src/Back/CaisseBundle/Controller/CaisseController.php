@@ -125,7 +125,7 @@ class CaisseController extends Controller {
     
     public function notificationAction() {
         $user = $this->get('security.context')->getToken()->getUser();
-        return $this->render('BackCaisseBundle:caisse:notification.html.twig', array(
+        return $this->render('BackCaisseBundle:Caisse:notification.html.twig', array(
                     'user' => $user,
         ));
     }
