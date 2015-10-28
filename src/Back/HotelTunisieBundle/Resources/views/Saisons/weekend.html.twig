@@ -22,30 +22,37 @@
                     <div class="tabbable">
                         {% include 'BackHotelTunisieBundle:Saisons:menu.html.twig' %}
                         <div class="panel-body tab-content">
-                            <form action="{{ path('WeekendSaison',{'id':saison.id}) }}" method="post" role="form" id="formDisable">
-                                {{ form_widget(form._token) }}
+                            {{ form_start(form) }}
                                 <div class="row">
                                     <div class="col-md-2"></div>
+                                    {{ formulaire.input("col-md-2","",form.jeudi,false) }}
                                     {{ formulaire.input("col-md-2","",form.vendredi,false) }}
                                     {{ formulaire.input("col-md-2","",form.samedi,false) }}
                                     {{ formulaire.input("col-md-2","",form.dimanche,false) }}
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    {{ formulaire.select2("col-md-4","Liste des chambres",form.chambres,false) }}
+                                    {{ formulaire.input("col-md-2","",form.type,false) }}
                                     {{ formulaire.input("col-md-2","Nombre de nuitées minimum",form.nbNuitMin,false) }}
                                     {{ formulaire.input("col-md-2","Nombre de nuitées maximum",form.nbNuitMax,false) }}
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    {{ formulaire.input("col-md-2","",form.type,false) }}
-                                    {{ formulaire.input("col-md-1","Valeur",form.valeur,false) }}
-                                    {{ formulaire.input("col-md-2","",form.valeurPour,false) }}
-                                    {{ formulaire.input("col-md-1","Marge",form.marge,false) }}
+                                    {{ formulaire.input("col-md-2","Marge",form.marge,false) }}
                                     {{ formulaire.input("col-md-2","",form.margePour,false) }}
                                 </div>
+                            {% for formC in form.lignes %}
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-2" style="height: 68px;">
+                                        <label style="margin-top: 20px;">
+                                            {{ formC.chambre.vars.data.libelle }}
+                                        </label>
+                                    </div>
+                                    {{ formulaire.input("col-md-2","",formC.valeur,false) }}
+                                    {{ formulaire.input("col-md-2","",formC.valeurPour,false) }}
+                                </div>
+                            {% endfor %}
+                                <div class="no-display">{{ form_rest(form) }}</div>
                                 {{ formulaire.submit("Modifier") }}
-                            </form>
+                            {{ form_end(form) }}
                         </div>
                     </div>
                 </div>

@@ -5,8 +5,11 @@ use Back\HotelTunisieBundle\Entity\Chambre;
 use Back\HotelTunisieBundle\Entity\SaisonContingent;
 use Back\HotelTunisieBundle\Entity\SaisonFraisChambre;
 use Back\HotelTunisieBundle\Entity\SaisonFraisChambreLigne;
+use Back\HotelTunisieBundle\Entity\SaisonWeekendLigne;
 use Back\HotelTunisieBundle\Form\SaisonContingentType;
 use Back\HotelTunisieBundle\Form\SaisonFraisChambreType;
+use Back\HotelTunisieBundle\Form\SaisonVueType;
+use Back\HotelTunisieBundle\Form\SaisonWeekendLigneType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\ORM\EntityRepository;
@@ -329,6 +332,7 @@ class SaisonsController extends Controller
             }
         }
         $form = $this->createForm(new SaisonVType(), $saison);
+        $form->add('vues', 'collection', array('type'=>new SaisonVueType($saison->getHotel()->getId())));
         if($request->isMethod("POST")) {
             $form->bind($request);
             if($form->isValid()) {
@@ -348,22 +352,29 @@ class SaisonsController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
-        if($saison->getSaisonWeekend() == NULL) {
+        if($saison->getSaisonWeekend() == NULL)
             $saisonWeekend = new SaisonWeekend();
-        }
-        else {
+        else
             $saisonWeekend = $saison->getSaisonWeekend();
+        foreach($saison->getHotel()->getChambres() as $chambre) {
+            $verif = $em->getRepository("BackHotelTunisieBundle:SaisonWeekendLigne")->findBy(array('saisonWeekend' => $saisonWeekend, 'chambre' => $chambre));
+            if(count($verif) == 0) {
+                $saisonWeekendLigne = new SaisonWeekendLigne();
+                $saisonWeekendLigne->setChambre($chambre);
+                $saisonWeekend->addLigne($saisonWeekendLigne);
+            }
         }
         $form = $this->createForm(new SaisonWeekendType(), $saisonWeekend);
-        $form->add("chambres", "entity", array('class' => 'BackHotelTunisieBundle:Chambre', 'query_builder' => function (EntityRepository $er) use ($saison) {
-            return $er->createQueryBuilder('a')->join("a.hotels", "h")->where('h.id = :id')->setParameter('id', $saison->getHotel()->getId());;
-        }, 'multiple'                                  => TRUE, 'expanded' => FALSE,));
+        $form->add('lignes', 'collection', array('type'=>new SaisonWeekendLigneType($saison->getHotel()->getId())));
         $request = $this->getRequest();
         if($request->isMethod('POST')) {
             $form->submit($request);
             if($form->isValid()) {
                 $saisonWeekend = $form->getData();
                 $em->persist($saisonWeekend);
+                foreach($saisonWeekend->getLignes() as $ligne) {
+                    $em->persist($ligne->setSaisonWeekend($saisonWeekend));
+                }
                 $em->persist($saison->setSaisonWeekend($saisonWeekend));
                 $em->flush();
                 $session->getFlashBag()->add('success', " Votre saison de base a été modifié avec succées ");

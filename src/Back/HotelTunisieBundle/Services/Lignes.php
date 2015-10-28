@@ -129,14 +129,14 @@ class Lignes
         $saisonWeekend = $saison->getSaisonWeekend();
         if (!is_null($saisonWeekend)) {
             $date = \DateTime::createFromFormat('Y-m-d', $date);
-            if ($nuitee >= $saisonWeekend->getNbNuitMin() && $nuitee <= $saisonWeekend->getNbNuitMax() && ($date->format("w") == 5 && $saisonWeekend->getVendredi()) || ($date->format("w") == 6 && $saisonWeekend->getSamedi()) || ($date->format("w") == 0 && $saisonWeekend->getDimanche())) {
-                foreach ($saisonWeekend->getChambres() as $chambre) {
-                    if ($ch == $chambre->getId()) {
+            if (($nuitee >= $saisonWeekend->getNbNuitMin() && $nuitee <= $saisonWeekend->getNbNuitMax()) && (($date->format("w") == 4 && $saisonWeekend->getJeudi()) ||($date->format("w") == 5 && $saisonWeekend->getVendredi()) || ($date->format("w") == 6 && $saisonWeekend->getSamedi()) || ($date->format("w") == 0 && $saisonWeekend->getDimanche()))) {
+                foreach ($saisonWeekend->getLignes() as $ligne) {
+                    if ($ch == $ligne->getChambre()->getId()) {
                         return array(
                             'code'  => 'SUPP-REDUC-WEEKEND',
                             'name'  => 'Supp ou reduction Weekend ' . $date->format("l"),
-                            'achat' => $saisonWeekend->getReducSuppAchat($arr),
-                            'vente' => $saisonWeekend->getReducSuppVente($arr),
+                            'achat' => $ligne->getReducSuppAchat($arr),
+                            'vente' => $ligne->getReducSuppVente($arr),
                         );
                     }
                 }

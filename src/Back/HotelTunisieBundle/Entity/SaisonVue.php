@@ -72,6 +72,14 @@ class SaisonVue
     protected $saison;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Chambre")
+     * @ORM\JoinTable(name="ost_sht_saison_vue_chambres",
+     *      joinColumns={@ORM\JoinColumn(onDelete="CASCADE")}
+     * )
+     */
+    protected $removedChambres;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -273,4 +281,56 @@ class SaisonVue
         }
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->removedChambres = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add removedChambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Chambre $removedChambres
+     * @return SaisonVue
+     */
+    public function addRemovedChambre(\Back\HotelTunisieBundle\Entity\Chambre $removedChambres)
+    {
+        $this->removedChambres[] = $removedChambres;
+
+        return $this;
+    }
+
+    /**
+     * Remove removedChambres
+     *
+     * @param \Back\HotelTunisieBundle\Entity\Chambre $removedChambres
+     */
+    public function removeRemovedChambre(\Back\HotelTunisieBundle\Entity\Chambre $removedChambres)
+    {
+        $this->removedChambres->removeElement($removedChambres);
+    }
+
+    /**
+     * Get removedChambres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRemovedChambres()
+    {
+        return $this->removedChambres;
+    }
+
+    public function hasChambre($ch)
+    {
+        if($this->removedChambres->count()==0)
+            return true;
+        foreach($this->removedChambres as $chambre)
+        {
+            if($chambre->getId()==$ch)
+                return false;
+        }
+        return true;
+    }
 }

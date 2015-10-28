@@ -76,6 +76,11 @@
          */
         protected $saison;
 
+        /**
+         * @ORM\ManyToMany(targetEntity="SaisonVue",mappedBy="chambres")
+         */
+        protected $vues;
+
         public function __construct()
         {
             $this->contingent = 0;
@@ -245,11 +250,6 @@
             return $this->chambre;
         }
 
-        public function __toString()
-        {
-            return "";
-        }
-
         /**
          * Set etat
          *
@@ -310,4 +310,6 @@
                 return number_format($this->saison->prixBaseVente() + $this->getSuppReducVente() / 4 + $this->saison->getSaisonReduc()->getReduc3LitVente() / 4,3,'.','');
             return number_format($this->saison->prixBaseVente() + $this->getSuppReducVente(),3,'.','');
         }
-    }
+    
+
+}

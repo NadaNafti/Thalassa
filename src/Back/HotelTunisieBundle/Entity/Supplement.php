@@ -330,7 +330,7 @@ class Supplement
     /**
      * Get jourFin
      *
-     * @return integer 
+     * @return integer
      */
     public function getJourFin()
     {
@@ -353,7 +353,7 @@ class Supplement
     /**
      * Get moisFin
      *
-     * @return integer 
+     * @return integer
      */
     public function getMoisFin()
     {
@@ -386,7 +386,8 @@ class Supplement
 
     public function __toString()
     {
-        return $this->libelle.' du '.$this->jourDebut.'/'.$this->moisDebut.'/'.date('Y').' au '.$this->jourFin.'/'.$this->moisFin.'/'.date('Y');
+        if($this->obligatoire)
+            return $this->libelle.' Oblo';
     }
 
     public function getDateDebut($year)

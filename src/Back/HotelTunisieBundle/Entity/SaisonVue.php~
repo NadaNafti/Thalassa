@@ -72,6 +72,14 @@ class SaisonVue
     protected $saison;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Chambre")
+     * @ORM\JoinTable(name="ost_sht_saison_vue_chambres",
+     *      joinColumns={@ORM\JoinColumn(onDelete="CASCADE")}
+     * )
+     */
+    protected $removedChambres;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -273,4 +281,11 @@ class SaisonVue
         }
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+//        $this->chambresRemoveds = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 }
