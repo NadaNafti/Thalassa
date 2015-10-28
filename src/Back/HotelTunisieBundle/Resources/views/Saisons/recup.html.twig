@@ -34,9 +34,9 @@
                                     </ul>
                                 </li>
                             </ul>
-                            {% if saison.saisonWeekend is not null %}
+                            {% if saison.saisonWeekend is not null and false %}
                                 <hr> 
-                                <h3>Weekend <small>{{ saison.arrBase }}</small></h3>
+                                <h3>Supp/Reduc. Weekend <small>{{ saison.arrBase }}</small></h3>
                                 <ul>
                                     <li>
                                         <strong style='white-space:nowrap' >Tarif weekend</strong>
@@ -54,7 +54,7 @@
 
                             {% if saison.suppChambres|length!=0 %}
                                 <hr> 
-                                <h3>Autres Chambres <small>{{ saison.arrBase }}</small></h3>
+                                <h3>Supp. Autres Chambres <small>{{ saison.arrBase }}</small></h3>
                                 <ul>
                                     {% for chambre in saison.suppChambres %}
                                         <li>
@@ -413,7 +413,7 @@
                                         </ul>
                                     </li>
                                 </ul>
-                                {% if saison.saisonWeekend is not null %}
+                                {% if saison.saisonWeekend is not null and false %}
                                     <hr> 
                                     <h3>Weekend <small>{{ saisonArr.arrangement }}</small></h3>
                                     <ul>

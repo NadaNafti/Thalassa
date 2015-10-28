@@ -1,0 +1,108 @@
+<?php
+
+namespace Back\HotelTunisieBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * SaisonWeekendLigne
+ *
+ * @ORM\Table(name="ost_sht_saison_weekend_lignes")
+ * @ORM\Entity
+ */
+class SaisonWeekendLigne
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="SaisonWeekend", inversedBy="lignes")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $saisonWeekend;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Chambre",fetch="EAGER")
+     * @ORM\JoinColumn(name="chambre_id", referencedColumnName="id")
+     */
+    protected $chambre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valeur", type="decimal")
+     */
+    private $valeur;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="valeurPour", type="boolean")
+     */
+    private $valeurPour;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set valeur
+     *
+     * @param string $valeur
+     * @return SaisonWeekendLigne
+     */
+    public function setValeur($valeur)
+    {
+        $this->valeur = $valeur;
+
+        return $this;
+    }
+
+    /**
+     * Get valeur
+     *
+     * @return string 
+     */
+    public function getValeur()
+    {
+        return $this->valeur;
+    }
+
+    /**
+     * Set valeurPour
+     *
+     * @param boolean $valeurPour
+     * @return SaisonWeekendLigne
+     */
+    public function setValeurPour($valeurPour)
+    {
+        $this->valeurPour = $valeurPour;
+
+        return $this;
+    }
+
+    /**
+     * Get valeurPour
+     *
+     * @return boolean 
+     */
+    public function getValeurPour()
+    {
+        return $this->valeurPour;
+    }
+}

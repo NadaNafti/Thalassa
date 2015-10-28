@@ -27,6 +27,13 @@ class SaisonWeekend
     /**
      * @var boolean
      *
+     * @ORM\Column(name="jeudi", type="boolean",nullable=true)
+     */
+    private $jeudi;
+
+    /**
+     * @var boolean
+     *
      * @ORM\Column(name="vendredi", type="boolean",nullable=true)
      */
     private $vendredi;
@@ -51,20 +58,6 @@ class SaisonWeekend
      * @ORM\Column(name="type", type="integer")
      */
     private $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="valeur", type="decimal", precision=11, scale=3)
-     */
-    private $valeur;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="valeurPour", type="boolean",nullable=true)
-     */
-    private $valeurPour;
 
     /**
      * @var string
@@ -95,18 +88,14 @@ class SaisonWeekend
     private $nbNuitMax;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Chambre")
-     * @ORM\JoinTable(name="ost_sht_saison_weekend_chambres",
-     *      joinColumns={@ORM\JoinColumn(name="id_saison_weekend", referencedColumnName="id",onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_chambre", referencedColumnName="id")}
-     * )
-     */
-    protected $chambres;
-
-    /**
      * @ORM\OneToOne(targetEntity="Saison", mappedBy="saisonWeekend")
      * */
     private $saison;
+
+    /**
+     * @ORM\OneToMany(targetEntity="SaisonWeekendLigne",mappedBy="saisonWeekend", cascade={"persist"})
+     */
+    protected $lignes;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -220,52 +209,6 @@ class SaisonWeekend
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set valeur
-     *
-     * @param string $valeur
-     * @return SaisonWeekend
-     */
-    public function setValeur($valeur)
-    {
-        $this->valeur=$valeur;
-
-        return $this;
-    }
-
-    /**
-     * Get valeur
-     *
-     * @return string 
-     */
-    public function getValeur()
-    {
-        return $this->valeur;
-    }
-
-    /**
-     * Set valeurPour
-     *
-     * @param boolean $valeurPour
-     * @return SaisonWeekend
-     */
-    public function setValeurPour($valeurPour)
-    {
-        $this->valeurPour=$valeurPour;
-
-        return $this;
-    }
-
-    /**
-     * Get valeurPour
-     *
-     * @return boolean 
-     */
-    public function getValeurPour()
-    {
-        return $this->valeurPour;
     }
 
     /**
@@ -407,47 +350,6 @@ class SaisonWeekend
     }
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->chambres=new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add chambres
-     *
-     * @param \Back\HotelTunisieBundle\Entity\Chambre $chambres
-     * @return SaisonWeekend
-     */
-    public function addChambre(\Back\HotelTunisieBundle\Entity\Chambre $chambres)
-    {
-        $this->chambres[]=$chambres;
-
-        return $this;
-    }
-
-    /**
-     * Remove chambres
-     *
-     * @param \Back\HotelTunisieBundle\Entity\Chambre $chambres
-     */
-    public function removeChambre(\Back\HotelTunisieBundle\Entity\Chambre $chambres)
-    {
-        $this->chambres->removeElement($chambres);
-    }
-
-    /**
-     * Get chambres
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getChambres()
-    {
-        return $this->chambres;
-    }
-
-    /**
      * Set saison
      *
      * @param \Back\HotelTunisieBundle\Entity\Saison $saison
@@ -470,36 +372,7 @@ class SaisonWeekend
         return $this->saison;
     }
 
-    public function getReducSuppAchat($arrangement = null)
-    {
-        if($this->type == 1)
-            $x=1;
-        else
-            $x=-1;
-        if($this->valeurPour)
-            $suppReduc =  $x * $this->getSaison()->prixBaseAchat($arrangement) * $this->valeur / 100;
-        else
-            $suppReduc = $x * $this->valeur;
-        return number_format($suppReduc, 3, '.', '');
-    }
 
-    public function getReducSuppVente($arrangement = null)
-    {
-        if($this->type == 1)
-            $x=1;
-        else
-            $x=-1;
-        if($this->valeurPour)
-            $suppReduc =  $x * $this->getSaison()->prixBaseVente($arrangement) * $this->valeur / 100;
-        else
-            $suppReduc = $x * $this->valeur;
-        
-        if($this->margePour)
-            $marge = abs($suppReduc) * $this->marge / 100;
-        else
-            $marge = $this->marge;
-        return number_format($suppReduc + $marge, 3, '.', '');
-    }
     
     public function __clone()
     {
@@ -507,5 +380,68 @@ class SaisonWeekend
         {
             $this->id = NULL ;
         }
+    }
+
+    /**
+     * Set jeudi
+     *
+     * @param boolean $jeudi
+     * @return SaisonWeekend
+     */
+    public function setJeudi($jeudi)
+    {
+        $this->jeudi = $jeudi;
+
+        return $this;
+    }
+
+    /**
+     * Get jeudi
+     *
+     * @return boolean 
+     */
+    public function getJeudi()
+    {
+        return $this->jeudi;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->lignes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add lignes
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonWeekendLigne $lignes
+     * @return SaisonWeekend
+     */
+    public function addLigne(\Back\HotelTunisieBundle\Entity\SaisonWeekendLigne $lignes)
+    {
+        $this->lignes[] = $lignes;
+
+        return $this;
+    }
+
+    /**
+     * Remove lignes
+     *
+     * @param \Back\HotelTunisieBundle\Entity\SaisonWeekendLigne $lignes
+     */
+    public function removeLigne(\Back\HotelTunisieBundle\Entity\SaisonWeekendLigne $lignes)
+    {
+        $this->lignes->removeElement($lignes);
+    }
+
+    /**
+     * Get lignes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLignes()
+    {
+        return $this->lignes;
     }
 }

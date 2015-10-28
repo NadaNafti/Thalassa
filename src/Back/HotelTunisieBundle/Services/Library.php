@@ -44,7 +44,7 @@ class Library
     public function verifSuppReducDate($suppReduc, $date1, $date2)
     {
         $dates=$this->getDatesBetween($date1->format('Y-m-d'), $date2->format('Y-m-d'));
-        $dates2=$this->getDatesBetween($date1->format('Y').'-'.$suppReduc->getMoisDebut().'-'.$suppReduc->getJourDebut(), $date1->format('Y').'-'.$suppReduc->getMoisFin().'-'.$suppReduc->getJourFin());
+        $dates2 = $this->getDatesBetween($suppReduc->getDateFin(date('Y')),$suppReduc->getDateDebut(date('Y')));
         foreach($dates as $date)
         {
             foreach($dates2 as $date2)
