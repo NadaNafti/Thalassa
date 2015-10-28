@@ -387,7 +387,8 @@ class Supplement
     public function __toString()
     {
         if($this->obligatoire)
-            return $this->libelle.' Oblo';
+            return $this->libelle.' (OBLIGATOIRE)';
+        return $this->libelle;
     }
 
     public function getDateDebut($year)

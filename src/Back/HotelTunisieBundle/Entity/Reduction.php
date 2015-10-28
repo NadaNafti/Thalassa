@@ -348,7 +348,7 @@ class Reduction
 
     public function __toString()
     {
-        return $this->libelle.' du '.$this->jourDebut.'/'.$this->moisDebut.'/'.date('Y').' au '.$this->jourFin.'/'.$this->moisFin.'/'.date('Y');
+        return $this->libelle;
     }
 
     public function getDateDebut($year)
