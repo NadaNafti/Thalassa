@@ -21,7 +21,6 @@ class PaiementController extends Controller
         $refArray=explode('-',$ref);
         if($refArray[0]=='SHT')$reservation=$em->find('BackHotelTunisieBundle:Reservation',$refArray[1]);
         if($refArray[0]=='RB')$reservation =$em->find('BackResaBookingBundle:Reservation',$refArray[1]);
-        dump($reservation);
         switch($act) {
             case "DETAIL":
                 return new Response( "Reference=" . $ref . "&Action=" . $act . "&Reponse=" . $reservation->getMontantPayementElectronique());
