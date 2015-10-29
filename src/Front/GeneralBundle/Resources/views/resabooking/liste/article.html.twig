@@ -5,7 +5,11 @@
         <div class="list-item-image">
             <div class="image-inner">
                 <a class="link-image" href="{{ htefDetails }}">
-                    <img src="{% if hotelBase is not null and hotelBase.produit.image_principal|show is not null %}{{ hotelBase.produit.image_principal|show }}{% else %}https://placeholdit.imgix.net/~text?txtsize=25&txt={{ hotel.libelle }}&w=270&h=195{% endif %}">
+                    {% if hotelBase.hotel is not null and hotelBase.hotel.photoPrincipal is not null%}
+                            <img src="{{ asset(hotelBase.hotel.photoPrincipal.assetPath) }}" alt="" style="width: 270px;height: 195px"/>
+                    {% else %}
+                        <img src="{% if hotelBase is not null and hotelBase.produit.image_principal|show is not null %}{{ hotelBase.produit.image_principal|show }}{% else %}https://placeholdit.imgix.net/~text?txtsize=25&txt={{ hotel.libelle }}&w=270&h=195{% endif %}">
+                    {% endif %}
                 </a>
             </div>
         </div>
@@ -19,7 +23,15 @@
                 <span class="list-item-location">{{ reponse.ville }}</span>
                 <div class="list-item-details">
                     <div class="clear mt-10"></div>
-                    {{ hotel.accroche|raw }}
+                    {% if hotelBase.hotel is not null %}
+                        {% if  hotelBase.hotel.descriptionCourte|length >200 %}
+                            {{ hotelBase.hotel.descriptionCourte|slice(0, 200)|raw }} ...
+                        {% else %}
+                            {{ hotelBase.hotel.descriptionCourte|raw }}
+                        {% endif %}
+                    {% else %}
+                        {{ hotel.accroche|raw }}
+                    {% endif %}
                     <ul class="hotelpreferences">
                         {% if hotelBase is not null %}
                         {% for icon in hotelBase.produit.services.icone if icon|show is not null %}

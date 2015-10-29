@@ -32,11 +32,19 @@
                             <div class="panel">
                                 <div id="left"><a href="javascript:void(0);" class="left-arrow"></a></div>
                                 <ul id="details-slider-images">
-                                    {% for i in 1..6 if hotel.produit["image"~i]|show is not null %}
-                                        <li>
-                                            <a href="{{ hotel.produit["image"~i]|show }}"><img src="{{ hotel.produit["image"~i]|show }}" alt="Detailts" title="Photo num ° {{ loop.index }}"/></a>
-                                        </li>
-                                    {% endfor %}
+                                    {% if hotel.hotel is not null and hotel.hotel.photosAlbum|length>0 %}
+                                        {% for image in hotel.hotel.photosAlbum %}
+                                            <li>
+                                                <a href="{{ asset(image.assetPath) }}"><img src="{{ asset(image.assetPath) }}" alt="Detailts" title="Photo num ° {{ loop.index }}"/></a>
+                                            </li>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for i in 1..6 if hotel.produit["image"~i]|show is not null %}
+                                            <li>
+                                                <a href="{{ hotel.produit["image"~i]|show }}"><img src="{{ hotel.produit["image"~i]|show }}" alt="Detailts" title="Photo num ° {{ loop.index }}"/></a>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
                                 </ul>
                                 <div id="right"><a href="javascript:void(0);" class="right-arrow"></a></div>
                                 <div class="clear"></div>

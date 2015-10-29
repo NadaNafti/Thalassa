@@ -1,4 +1,26 @@
-<h1>{{ hotel }}</h1><p>
-    {{ hotel.produit.descriptif|raw }}
-</p>
+<h1>{{ hotel }}</h1>
+{% if hotel.hotel is not null  %}
+    <p>
+        {{ hotel.hotel.descriptionLongue|raw }}
+    </p>
+    {% if hotel.hotel.checkIn is not null %}
+        <ul class="check-in-out">
+            <li><i class="fa-clock-o"></i> Check-In Time<span>{{ hotel.hotel.checkIn }} </span></li>
+            <li><i class="fa-clock-o"></i> Check-Out Time<span>{{ hotel.hotel.checkOut }}</span></li>
+        </ul>
+    {% endif %}
+    <ul class="address">
+        <li><i class="fa-map-marker"></i>{{ hotel.hotel.adresse }}</li>
+        {% if hotel.hotel.tel1 is not null %}
+            <li><i class="fa-phone"></i> {{ hotel.hotel.tel1 }}</li>
+        {% endif %}
+        {% if hotel.hotel.tel2 is not null %}
+            <li><i class="fa-phone"></i> {{ hotel.hotel.tel2 }}</li>
+        {% endif %}
+    </ul>
+{% else %}
+    <p>
+        {{ hotel.produit.descriptif|raw }}
+    </p>
+{% endif %}
 <div class="clear mb-20"></div>
