@@ -19,11 +19,9 @@ class PaiementController extends Controller
         $act = $request->get('Action');
         $par = $request->get('Param');
         $refArray=explode('-',$ref);
-        switch($refArray[0])
-        {
-            case "SHT": $reservation=$em->find('BackHotelTunisieBundle:Reservation',$refArray[1]);
-            case "RB": $reservation =$em->find('BackResaBookingBundle:Reservation',$refArray[1]);
-        }
+        if($refArray[0]=='SHT')$reservation=$em->find('BackHotelTunisieBundle:Reservation',$refArray[1]);
+        if($refArray[0]=='RB')$reservation =$em->find('BackResaBookingBundle:Reservation',$refArray[1]);
+        dump($reservation);
         switch($act) {
             case "DETAIL":
                 return new Response( "Reference=" . $ref . "&Action=" . $act . "&Reponse=" . $reservation->getMontantPayementElectronique());
@@ -50,11 +48,8 @@ class PaiementController extends Controller
                 $em->persist($reglement);
                 if($reservation->getTypePayement()==2)//validation reservation
                     $reservation->setEtat(2)->setValidated(new \DateTime());
-                switch($refArray[0])
-                {
-                    case "SHT": $reservation->setCode($this->container->get('reservation')->getCode());
-                    case "RB": $reservation->setReponseBooking($this->container->get('resabookingservice')->createbooking($reservation));
-                }
+                if($refArray[0]=='SHT')$reservation->setCode($this->container->get('reservation')->getCode());
+                if($refArray[0]=='RB')$reservation->setReponseBooking($this->container->get('resabookingservice')->createbooking($reservation));
                 $em->persist($reservation);
                 $em->flush();
                 return new Response("Reference=" . $ref . "&Action=" . $act . "&Reponse=OK");
