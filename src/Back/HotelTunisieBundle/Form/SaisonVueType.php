@@ -51,7 +51,9 @@ class SaisonVueType extends AbstractType
                                 ->join("a.hotels", "h")->where('h.id = :id')->setParameter('id', $id);
                         }
                     , 'multiple'        => TRUE,
-                        'expanded'      => FALSE,)
+                        'expanded'      => FALSE,
+                        'required'=>false
+                        )
                 );
             }
     }
