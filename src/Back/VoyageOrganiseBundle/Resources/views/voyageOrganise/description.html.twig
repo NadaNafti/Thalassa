@@ -21,6 +21,10 @@
                             {{ formulaire.input("col-md-2","",form.lateral,false) }}
                         </div>
                         <div class="row">
+                            {{ formulaire.input("col-md-2","Photo",form.file,false) }}
+                            {{ formulaire.input("col-md-2","",form.photoVisible,false) }}
+                        </div>
+                        <div class="row">
                             {{ formulaire.input("col-md-12","Texte",form.texte,true) }}
                         </div>
                         {{ formulaire.submit("Enregistrer") }}
@@ -38,7 +42,8 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Libellé</th>
+                            <th>Photo</th>
+                            <th>Libelle</th>
                             <th>Ordre</th>
                             <th>Visible</th>
                             <th>Latéral/Central</th>
@@ -50,6 +55,13 @@
                         {% for description in descriptions %}
                             <tr>
                                 <td>{{ description.id }}</td>
+                                <td class="center">
+                                    {% if description.path is not null and description.photoVisible %}
+                                        <img src="{{ asset(description.assetPath) }}" width="50px" height="50px" >
+                                    {% else %}
+                                        No Photo
+                                    {% endif %}
+                                </td>
                                 <td>{{ description.libelle }}</td>
                                 <td>{{ description.ordre }}</td>
                                 <td>{{ description.showVisible }}</td>
