@@ -174,7 +174,7 @@ class ReservationController extends Controller
             }
         }
         $calendrier = $this->container->get('reservation')->getCalendrier($reservation);
-        return $this->render('BackHotelTunisieBundle:Reservation:formulaire.html.twig', array(
+        return $this->render('BackHotelTunisieBundle:Reservation/Formulaire:formulaire.html.twig', array(
             'calendrier' => $calendrier,
             'hotel'      => $hotel,
             'nuitees'    => $reservation['nuitees'],
@@ -656,7 +656,7 @@ class ReservationController extends Controller
             }
         }
         $calendrier = $this->container->get('reservation')->getCalendrier($reservation);
-        return $this->render('BackHotelTunisieBundle:Reservation:formulaire.html.twig', array(
+        return $this->render('BackHotelTunisieBundle:Reservation/Formulaire:formulaire.html.twig', array(
             'calendrier' => $calendrier,
             'hotel'      => $hotel,
             'nuitees'    => $reservation['nuitees'],

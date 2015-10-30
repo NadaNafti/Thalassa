@@ -1,0 +1,39 @@
+<div class="tab-pane" id="formulaire_reservation">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2><i class="fa fa-plus-square teal"></i> Nouvelle réservation
+                        <small>{{ saison }}</small>
+                    </h2>
+                    <hr>
+                    <form method="post" action="{{ app.request.requestUri }}" role="form" id="form">
+                        <div class="panel-body">
+                            {% for chambre in saison.chambres if chambre.etat==1 %}
+                                <div class="row">
+                                    <div class="row" style="  padding: 10px;  background-color: #eee;  margin-bottom: 5px;">
+                                        <div class="col-md-2">
+                                            <label>{{ chambre.chambre }}</label>
+                                            <select id="chambre-{{ chambre.chambre.id }}" name="chambre_{{ chambre.chambre.id }}" data-frais="{{ isFraisChambre(saison.id,chambre.chambre.id ) }}" data-id="{{ chambre.id }}" class="form-control chambresSelect">
+                                                {% for i in 0..100 %}
+                                                    <option value="{{ i }}">{{ i }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6" style="padding-top: 28px;">
+                                            A partir de
+                                            <strong> {{ chambre.prixChambre|number_format(0) }}</strong> DT par personne en
+                                            <strong>{{ saison.arrBase }}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="row details"></div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {{ formulaire.submit("Suivant") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

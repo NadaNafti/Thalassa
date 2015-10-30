@@ -1,0 +1,36 @@
+<div class="tab-pane in active" id="details_reservation">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h2 class="center">{{ hotel }}</h2>
+                    <h5 class="center">{{ getStars(hotel.getStars)|raw }}</h5>
+                    <p><strong>Fournisseur : </strong>{{ hotel.fournisseur }}</p>
+                    <p><strong>Ville : </strong> {{ hotel.ville.pays|upper }} {{ hotel.ville }}</p>
+                    <p><strong>Date debut : </strong> {{ dateDebut|date('d/m/Y') }}</p>
+                    <p><strong> Nuitées : </strong> {{ nuitees }}</p>
+                    <p>
+                        <strong>Date Fin : </strong> {{ dateFin|date_modify("+1 day")|date("d/m/Y") }}
+                    </p>
+                    <hr>
+                    <p><strong> Client : </strong> {{ client }}</p>
+                    {% if client.amicale is not null %}
+                        <p><strong> Amicale : </strong> {{ client.amicale }}</p>
+                        <p><strong> Plafond : </strong> {{ client.amicale.plafond }} DT</p>
+                        <p>
+                            <strong> Restant : </strong> {{ client.amicale.plafond - client.amicale.montant }} DT
+                        </p>
+                    {% endif %}
+                </div>
+                <div class="col-sm-6">
+                    <div id='calendar'></div>
+                </div>
+            </div>
+            <div class="row">
+                <hr>
+                <div class="col-sm-12" id="SaisonBlock">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
