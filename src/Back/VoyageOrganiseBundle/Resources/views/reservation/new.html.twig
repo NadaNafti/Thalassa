@@ -1,0 +1,108 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Nouvelle réservation{% endblock %}
+{% block description %}{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">Nouvelle réservation</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        {{ formulaire.select2("col-md-4","Voyage",form.voyages,false) }}
+                        {{ formulaire.select2("col-md-4","Période",form.periodes,false) }}
+                        {{ formulaire.select2("col-md-4","Pack",form.packs,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.select2("col-md-6","Client",form.client,true) }}
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-4">
+                            <button class="btn btn-green btn-block" type="submit">
+                                Suivant <i class="fa fa-arrow-circle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block jquery %}
+    <script>
+        $(document).ready(function () {
+            $('#NewReservationType_packs').empty();
+            $('#NewReservationType_voyages').on('change', function () {
+                var periode = $('#NewReservationType_periodes');
+                periode.empty();
+                periode.append('<option value="">Loading ...</option>');
+                periode.select2();
+                var pack = $('#NewReservationType_packs');
+                pack.empty();
+                var voyage = $('#NewReservationType_voyages').val();
+                $.ajax({
+                    url: '{{ path('ajax_reservationVO_to_Periode') }}',
+                    data: {'voyage': voyage},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        periode.empty();
+                        pack.empty();
+                        if (json.length == 0)
+                        {
+                            periode.append('<option value="">Pas de Périodes</option>');
+                            periode.select2();
+                            pack.append('<option value="">Pas de Packs</option>');
+                            pack.select2();
+                        }
+                        else
+                        {
+                            periode.append('<option value="">Liste des Périodes</option>');
+                            $.each(json, function (index, value) {
+                                periode.append('<option value="' + index + '">' + value + '</option>');
+                                periode.select2();
+                            });
+                        }
+                    }
+                });
+            })
+            $('#NewReservationType_periodes').on('change', function () {
+                var pack = $('#NewReservationType_packs');
+                pack.empty();
+                pack.append('<option value="">Loading ...</option>');
+                pack.select2();
+                var periode = $('#NewReservationType_periodes').val();
+                $.ajax({
+                    url: '{{ path('ajax_reservationVO_to_Pack') }}',
+                    data: {'periode': periode},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        pack.empty();
+                        if (json.length == 0)
+                        {
+                            pack.append('<option value="">Pas de Packs</option>');
+                            pack.select2();
+                        }
+                        else
+                        {
+                            pack.append('<option value="">Liste des Packs</option>');
+                            $.each(json, function (index, value) {
+                                pack.append('<option value="' + index + '">' + value + '</option>');
+                                pack.select2();
+                            });
+                        }
+                    }
+                });
+            })
+        })
+    </script>
+{% endblock %}
