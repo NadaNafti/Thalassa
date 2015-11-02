@@ -63,7 +63,14 @@
             <ul class="sub-menu">
                 <li {% if app.request.getPathInfo|split('/hotel_tunisie/tarif_hotels')|length > 1 %} class="open"{% endif %}>
                     <a href="{{ path('generer_tarif_hotels') }}">
-                        <span class="title">Générer tarifs Hôtels</span>
+                        <span class="title">Tarifs Hôtels</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sub-menu">
+                <li {% if app.request.getPathInfo|split('/hotel_tunisie/convention_liste')|length > 1 %} class="open"{% endif %}>
+                    <a href="{{ path('generer_hotels_conventions') }}">
+                        <span class="title">Convention Hôtels</span>
                     </a>
                 </li>
             </ul>

@@ -1,0 +1,157 @@
+{% extends "BackHotelTunisieBundle:Hotels:generer_tarifs.html.twig" %}
+{% block title %}Conventions hôtels{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">Liste</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body tab-content">
+                <form action="{{ path('generer_hotels_conventions') }}" method="post" role="form" id="form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Hôtels</label>
+                                <select name="hotelSearch"  class="form-control search-select">
+                                    <option value="">Tous le Hôtels</option>
+                                    {% for hotel in hotels %}
+                                        <option value="{{ hotel.id }}" {% if app.request.get('hotel')==hotel.id %}selected{% endif %} >{{ hotel }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button class="btn btn-green btn-block" type="submit" style="margin-top: 24px;">
+                                    Filtre <i class="fa fa-arrow-circle-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="sample-table-1">
+                            <thead>
+                            <tr>
+                                <th class="center" rowspan="2">Convention</th>
+                                <th class="center" rowspan="2">Hôtels</th>
+                                <th class="center" rowspan="2">Saison</th>
+                                <th class="center" rowspan="2">Périodes</th>
+                                <th class="center" rowspan="2">Min Stay</th>
+                                <th class="center" rowspan="2">Arr Base</th>
+                                <th class="center" colspan="3">Prix Convention</th>
+                                <th class="center" rowspan="2">Occupation Chambre</th>
+                                <th class="center" rowspan="2">Arrangement</th>
+                                <th class="center" colspan="2">Age Enfant</th>
+                                <th class="center" rowspan="2">Réduction</th>
+                                <th class="center" colspan="3">Supp Single</th>
+                                <th class="center" rowspan="2">Supp Autres chambres</th>
+                                <th class="center" rowspan="2"> Vue</th>
+                                <th class="center" rowspan="2">Autres Supp</th>
+                                <th class="center" rowspan="2">Autres Reduc</th>
+                            </tr>
+                            <tr>
+                                <th class="center">Achat</th>
+                                <th class="center">Marge</th>
+                                <th class="center">Vente</th>
+                                <th class="center">Age 1</th>
+                                <th class="center">Age 2</th>
+                                <th class="center">Achat</th>
+                                <th class="center">Marge</th>
+                                <th class="center">Vente</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for saison in saisons %}
+                                <tr>
+                                    <td class="center">{{ saison.contrat }}</td>
+                                    <td class="center" style="white-space: nowrap">{{ saison.hotel }}</td>
+                                    <td class="center" style="white-space: nowrap"><a target="_blank" href="{{ path('GeneralSaison',{'id':saison.id}) }}">{{ saison.showCodeSaison }}-{{ saison }}</a></td>
+                                    <td style="white-space: nowrap">
+                                        {% for periode in saison.periodes %}
+                                            {{ periode.showPeriode|raw }}<br>
+                                        {% endfor %}
+                                    </td>
+                                    <td class="center">{{ saison.minStay }}</td>
+                                    <td class="center">{{ saison.ArrBase.code }}</td>
+
+                                    <td class="center">{{ saison.prixBaseAchat }}</td>
+                                    <td class="center">{{ saison.margeVente }}{% if saison.pourcentage %}%{% endif %}</td>
+                                    <td class="center">{{ saison.prixBaseVente }}</td>
+                                    <td style="white-space: nowrap">
+                                        {% for chambre in saison.chambres if chambre.etat %}
+                                            <li>{{ chambre.chambre }} ({{ chambre.minAdulte }}|{{ chambre.maxAdulte }}|{{ chambre.minEnfant }}|{{ chambre.maxEnfant }})</li>
+                                        {% endfor %}
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        {% for arrangement in saison.arrangements  if arrangement.etat %}
+                                            <li>{{ arrangement.arrangement.code }} ({{ arrangement.getReducSuppAchat }}|{{ arrangement.marge }}{% if arrangement.margePour %}%{% endif %}|{{ arrangement.getReducSuppVente }})</li>
+                                        {% endfor %}
+                                    </td>
+                                    <td class="center" style="white-space: nowrap">{{ saison.hotel.ficheTechnique.min1AgeEnfant }}-{{ saison.hotel.ficheTechnique.max1AgeEnfant }}</td>
+                                    <td class="center" style="white-space: nowrap">{{ saison.hotel.ficheTechnique.min2AgeEnfant }}-{{ saison.hotel.ficheTechnique.max2AgeEnfant }}</td>
+                                    <td style="white-space: nowrap">
+                                        <li>1 ENF , 1 ADL Même Chambre ({{ saison.saisonReduc.val1Enfant1Adulte1 }}|{{ saison.saisonReduc.val1Enfant1Adulte2 }})</li>
+                                        <li>1 ENF , 2+ ADL Même Chambre ({{ saison.saisonReduc.val1Enfant2Adulte1 }}|{{ saison.saisonReduc.val1Enfant2Adulte2 }})</li>
+                                        <li>1 ENF Chambre séparé({{ saison.saisonReduc.val1EnfantSepare1 }}|{{ saison.saisonReduc.val1EnfantSepare2 }})</li>
+                                        <li>2+ ENF , 1 ADL Même Chambre ({{ saison.saisonReduc.val2Enfant1Adulte1 }}|{{ saison.saisonReduc.val2Enfant1Adulte2 }})</li>
+                                        <li>2+ ENF , 2+ ADL Même Chambre ({{ saison.saisonReduc.val2Enfant2Adulte1 }}|{{ saison.saisonReduc.val2Enfant2Adulte2 }})</li>
+                                        <li>2+ ENF Chambre séparé({{ saison.saisonReduc.val2EnfantOuPlusSepare1 }}|{{ saison.saisonReduc.val2EnfantOuPlusSepare2 }})</li>
+                                    </td>
+                                    <td class="center">{{ saison.saisonSupp.getSuppSingleAchat }}</td>
+                                    <td class="center">{{ saison.saisonSupp.sippSingleMarge }}{% if saison.saisonSupp.suppSingleMargePour %}%{% endif %}</td>
+                                    <td class="center">{{ saison.saisonSupp.getSuppSingleVente }}</td>
+                                    <td style="white-space: nowrap">
+                                        {% for chambre in saison.suppChambres  if chambre.etat %}
+                                            <li>{{ chambre.chambre }} ({{ chambre.getSuppAchat }}|{{ chambre.marge }}{% if chambre.margePour %}%{% endif %}|{{ chambre.getSuppVente }})</li>
+                                        {% endfor %}
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        {% for vue in saison.vues  if vue.etat %}
+                                            <li>{{ vue.vue }} ({{ vue.getSuppAchat }}|{{ vue.marge }}{% if vue.margePour %}%{% endif %}|{{ vue.getSuppVente }})</li>
+                                        {% endfor %}
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        {% for supp in saison.autresSupplements  %}
+                                            <li>{{ supp.supp }} ({{ supp.getSuppAdulteAchat }}|{{ supp.marge }}{% if supp.margePour %}%{% endif %}|{{ supp.getSuppAdulteVente }})</li>
+                                        {% endfor %}
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        {% for reduc in saison.autresReductions  %}
+                                            <li>{{ reduc.reduc }} ({{ reduc.valeurAdulte }}{% if reduc.valeurPour %}%{% endif %})</li>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .table-responsive {
+            width: 100%;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+            border: 1px solid #ddd
+        }
+    </style>
+{% endblock %}

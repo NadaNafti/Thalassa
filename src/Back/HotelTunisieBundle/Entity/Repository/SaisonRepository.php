@@ -33,4 +33,15 @@ class SaisonRepository extends EntityRepository
 
         return $query->getQuery()->getResult();
     }
+    public function valableListe($hotel=null)
+    {
+        $query = $this->createQueryBuilder('s');
+        $query
+            ->join('s.periodes', 'p')
+            ->where($query->expr()->isNotNull('s.type'))
+            ->andWhere('p.dateFin>=:date')->setParameter('date', date('Y-m-d'));
+        if(!is_null($hotel))
+            $query->andWhere('s.hotel=:hotel')->setParameter('hotel', $hotel);
+        return $query->getQuery()->getResult();
+    }
 }
