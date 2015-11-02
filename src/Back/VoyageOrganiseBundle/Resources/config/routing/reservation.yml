@@ -26,6 +26,15 @@ back_voyages_organises_reservation:
     path:     /liste/{page}/{etat}/{sort}/{direction}
     defaults: { _controller: BackVoyageOrganiseBundle:Reservation:liste,page:1,etat:1,sort:r.id,direction:desc }
 
+back_voyages_organises_new_reservation:
+    path:     /new
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:new }
+    
+formulaire_reservationVO:
+    path:     /new/{idClient}/{idPack}
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:formulaire}
+
+
 back_voyages_organises_reservation_ligne_supprimer:
     path:     /reservation_ligne_supprimer/{id}
     defaults: { _controller: BackVoyageOrganiseBundle:Reservation:deleteLigne }
@@ -53,3 +62,11 @@ back_voyages_organises_reservation_add_sousetats:
 ajax_reservationVO_to_SousEtats:
     path:     /ajax_reservationVO_to_SousEtats
     defaults: { _controller: BackVoyageOrganiseBundle:Reservation:ajaxSousEtats }
+
+ajax_reservationVO_to_Periode:
+    path:     /ajax_reservationVO_to_Periode
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:ajaxPeriode }
+
+ajax_reservationVO_to_Pack:
+    path:     /ajax_reservationVO_to_Pack
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:ajaxPack }

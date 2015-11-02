@@ -4,10 +4,24 @@
         <span class="selected"></span>
     </a>
     <ul class="sub-menu">
-        <li {% if app.request.get('_route') in ['configuration_agence','configuration_pointVente','configuration_etat'] %} class="active open"{% endif %} >
+        <li {% if app.request.getPathInfo|split('/admin/administration/configuration')|length > 1 %} class="active open"{% endif %} >
             <a href="javascript:void(0)"><i class="clip-settings"></i>
                 <span class="title">Configuration</span><i class="icon-arrow"></i>
             </a>
+            <ul class="sub-menu">
+                <li {% if app.request.get('_route')in ['configuration_produit'] %} class="open"{% endif %}>
+                    <a href="{{ path('configuration_produit') }}">
+                        <span class="title">Produits</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sub-menu">
+                <li {% if app.request.get('_route')in ['configuration_tva'] %} class="open"{% endif %}>
+                    <a href="{{ path('configuration_tva') }}">
+                        <span class="title">TVA</span>
+                    </a>
+                </li>
+            </ul>
             <ul class="sub-menu">
                 <li {% if app.request.get('_route')in ['configuration_agence'] %} class="open"{% endif %}>
                     <a href="{{ path('configuration_agence') }}">

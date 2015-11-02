@@ -17,3 +17,19 @@ configuration_etat:
 configuration_etat_supprimer:
     path:     /configuration_etat_supprimer/{id}
     defaults: { _controller: BackAdministrationBundle:Configuration:etatDelete }
+
+configuration_produit:
+    path:     /produit/{id}
+    defaults: { _controller: BackAdministrationBundle:Configuration:produit,id:null }
+
+configuration_produit_delete:
+    path:     /produit_delete/{id}
+    defaults: { _controller: BackAdministrationBundle:Configuration:produitDelete }
+
+configuration_tva:
+    path:     /tva/{id}
+    defaults: { _controller: BackAdministrationBundle:Configuration:tva,id:null }
+
+configuration_tva_delete:
+    path:     /tva_delete/{id}
+    defaults: { _controller: BackAdministrationBundle:Configuration:tvaDelete }

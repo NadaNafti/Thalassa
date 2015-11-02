@@ -49,6 +49,11 @@ class Produit
     protected $etats ;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Tva")
+     */
+    private $tva;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -181,5 +186,28 @@ class Produit
     public function getEtats()
     {
         return $this->etats;
+    }
+
+    /**
+     * Set tva
+     *
+     * @param \Back\AdministrationBundle\Entity\Tva $tva
+     * @return Produit
+     */
+    public function setTva(\Back\AdministrationBundle\Entity\Tva $tva = null)
+    {
+        $this->tva = $tva;
+
+        return $this;
+    }
+
+    /**
+     * Get tva
+     *
+     * @return \Back\AdministrationBundle\Entity\Tva 
+     */
+    public function getTva()
+    {
+        return $this->tva;
     }
 }

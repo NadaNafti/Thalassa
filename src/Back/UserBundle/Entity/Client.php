@@ -528,8 +528,8 @@ class Client {
     }
 
     public function getLongName() {
-        $amical = !is_null($this->getAmicale()) ? ' - ' . $this->getAmicale()->getLibelle() : '';
-        return $this->nomPrenom . $amical . ' - ' . $this->tel1;
+        $amical = !is_null($this->getAmicale()) ?  '['.$this->getAmicale()->getLibelle().'] '  : '';
+        return $amical.$this->nomPrenom  . ' - ' . $this->tel1;
     }
 
     /**
@@ -584,6 +584,8 @@ class Client {
         $this->reservationsBE = new \Doctrine\Common\Collections\ArrayCollection();
         $this->reservationsB = new \Doctrine\Common\Collections\ArrayCollection();
         $this->reservationsM = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reservationsT = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reservationsRB = new \Doctrine\Common\Collections\ArrayCollection();
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
