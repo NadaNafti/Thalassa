@@ -1,0 +1,226 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Nouvelle Réservation{% endblock %}
+{% block description %}{{pack}},{{periode}}{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">Nouvelle Réservation</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="person-information">
+                        {{ form_start(form) }}
+                        <h3 class="section-title">Hébergement </h3>
+
+                        <div class="bb2 mb-10"></div>
+                        {% for ch in ['single','double','triple','quadruple'] if attribute(pack, ch) %}
+                            <div class="row">
+                                <div class="col-md-3"><h5 style="padding-top: 5px;">Chambre {{ ch }}</h5></div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <select data-name="{{ ch }}" name='chambre{{ ch }}' class="form-control" id="{{ ch }}">
+                                            <option value="0">0</option>
+                                            {% for i in 1..10 %}
+                                                <option value="{{ i }}">{{ i }}</option>{% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p style="padding-top: 5px;"> à partir de {{ attribute(pack, ch~'Vente') }}
+                                            DT</p>
+                                    </div>
+                                </div>
+                                <div class="occupants"></div>
+                                <div class="bb2 mb-10"></div>
+                            {% endfor %}
+                            <div class="mb-20"></div>
+                            {% if pack.supplements|length >0 %}
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <th>Suppléments</th>
+                                            <th>Prix</th>
+                                            </thead>
+                                            {% for option in pack.supplements %}
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                <label><input type="checkbox" name="supplement{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}
+                                                                    <small>Obligatoire</small>{% endif %}</label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                {{ option.adulteVente }} DT
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="mb-20"></div>
+                            {% endif %}
+                            {% set k=2 %}
+                            {% if periode.circuits|length >0 %}
+                                <hr>
+                                <h3 class="section-title">Circuits & excursions</h3>
+                                {% set k=k+1 %}
+
+
+                                <div class="bb2 mb-10"></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <th></th>
+                                            <th>Prix Adulte</th>
+                                            <th>Prix Enfant</th>
+                                            </thead>
+                                            {% for option in periode.circuits %}
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                <label><input type="checkbox" name="circuit{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}
+                                                                    <small>Obligatoire</small>{% endif %}</label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                {{ option.adulteVente }} DT
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                {{ option.enfantVente }} DT
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="mb-20"></div>
+                            {% endif %}
+                            {% if periode.frais|length >0 %}
+                                <hr>
+                                <h3 class="section-title">Autres frais divers</h3>
+                                {% set k=k+1 %}
+
+
+                                <div class="bb2 mb-10"></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <th></th>
+                                            <th>Prix Adulte</th>
+                                            <th>Prix Enfant</th>
+                                            </thead>
+                                            {% for option in periode.frais %}
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                <label><input type="checkbox" name="frai{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}
+                                                                    <small>Obligatoire</small>{% endif %}</label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                {{ option.adulteVente }} DT
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="styled-checkbox mt-10">
+                                                                {{ option.enfantVente }} DT
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="mb-20"></div>
+                            {% endif %}
+                            <hr>
+                            <h3 class="section-title">Information Personnelle</h3>
+
+                            <div class="bb2 mb-10"></div>
+                            <div style="display: none">
+                                {{ formulaire.input("col-md-2","",form.client.responsable,false) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-4","Nom & prénom ",form.client.nomPrenom,true) }}
+                                {{ formulaire.input("col-md-4","Tel 1",form.client.tel1,true) }}
+                                {{ formulaire.input("col-md-4","Email",form.client.tel2,false) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-12","Adresse",form.client.adresse,true) }}
+                            </div>
+                            <div style="display: none">
+                                {{ formulaire.input("col-md-4","Matricule Fiscale",form.client.matriculeFiscale,true) }}
+                                {{ formulaire.input("col-md-4","Registre Commercie",form.client.registreCommercie,true) }}
+                                {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,true) }}
+                            </div>
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-md-8"></div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary btn-block" type="submit">
+                                        Validation <i class="fa fa-arrow-circle-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+
+            {% block jquery %}
+                <script>
+                    $(document).ready(function () {
+                        $("#single,#double,#triple,#quadruple").on('change', function () {
+                            var nbrChambre = $(this).val();
+                            var name = $(this).data('name');
+                            var block = $(this).parent().parent().parent().next();
+                            var exist = block.children().length;
+                            if (exist < nbrChambre) {
+                                for (var i = 1; i <= nbrChambre; i++) {
+                                    if (i > exist) {
+                                        if (name == 'single')
+                                            block.append('<div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre ' + i + ' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_1" required class="form-control"><option value=""></option><option value="adulte">+12</option></select></div></div></div></div>');
+                                        if (name == 'double')
+                                            block.append('<div><div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre ' + i + ' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_1" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_2" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div></div>');
+                                        if (name == 'triple')
+                                            block.append('<div><div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre ' + i + ' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_1" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_2" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_3" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div></div>');
+                                        if (name == 'quadruple')
+                                            block.append('<div><div class="row"><div class="col-md-3"><p style="text-align: right;padding-top: 25px;"> Chambre ' + i + ' </p></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_1" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_1" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_2" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_2" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_3" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_3" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div><div class="row"><div class="col-md-3"></div><div class="col-md-3"><div class="form-group"><label>Nom & Prénom</label><input type="text" name="' + name + '_nom_' + i + '_4" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><label>Passport</label><input type="text" name="' + name + '_passport_' + i + '_4" required class="form-control" /></div></div><div class="col-md-3"><div class="form-group"><div class="form-group"><label>Age</label><select name="' + name + '_age_' + i + '_4" required class="form-control"><option value=""></option>{% for i in 2..12 %}<option value="{{ i }}">{{ i }}</option>{% endfor %}<option value="adulte">+12</option></select></div></div></div></div></div>');
+                                    }
+                                }
+                            }
+                            else {
+                                var toRemove = (exist - nbrChambre);
+                                var nmbr = block.children().length;
+                                for (var i = nmbr; i >= (nmbr - toRemove); i--)
+                                    block.children().eq(i).remove();
+                            }
+                        })
+                    })
+                </script>
+            {% endblock %}

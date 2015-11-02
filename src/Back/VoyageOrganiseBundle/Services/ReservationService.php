@@ -52,6 +52,8 @@
                 $reservation->setTimbre($tarifCommercial->getMontantTimbre());
             if($source == 'frontoffice')
                 $reservation->setFrontOffice(TRUE);
+            else
+                $reservation->setResponsable ($this->container->get('security.context')->getToken()->getUser());
             $this->em->persist($reservation);
             $x = 0;
             foreach($chambres as $ch){
