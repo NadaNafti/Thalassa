@@ -15,6 +15,7 @@ class DescriptionType extends AbstractType
     {
         $builder
             ->add('libelle')
+            ->add('titre')
             ->add('texte', 'ckeditor')
             ->add('ordre')
             ->add('visible', 'checkbox', array(

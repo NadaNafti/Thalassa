@@ -21,6 +21,7 @@
                             {{ formulaire.input("col-md-2","",form.lateral,false) }}
                         </div>
                         <div class="row">
+                            {{ formulaire.input("col-md-2","Titre",form.titre,true) }}
                             {{ formulaire.input("col-md-2","Photo",form.file,false) }}
                             {{ formulaire.input("col-md-2","",form.photoVisible,false) }}
                         </div>
@@ -43,6 +44,7 @@
                         <tr>
                             <th>#</th>
                             <th>Photo</th>
+                            <th>Titre</th>
                             <th>Libelle</th>
                             <th>Ordre</th>
                             <th>Visible</th>
@@ -62,6 +64,7 @@
                                         No Photo
                                     {% endif %}
                                 </td>
+                                <td>{{ description.titre }}</td>
                                 <td>{{ description.libelle }}</td>
                                 <td>{{ description.ordre }}</td>
                                 <td>{{ description.showVisible }}</td>
