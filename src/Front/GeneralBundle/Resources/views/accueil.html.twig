@@ -35,9 +35,9 @@
                                   action="{{ path('front_hoteltunisie_accueil') }}">
                                 <div class="col-xs-12 col-sm-3 col-md-2">
                                     <div class="form-group">
-                                        <label for="hotelLocation">Ville de destination</label>
+                                        <label for="hotelLocation">Destination</label>
                                         <select class="form-control" name="ville" id="">
-                                            <option value="all">Tous les villes</option>
+                                            <option value="all">Toutes les villes</option>
                                             {% for ville in villes if ville.hasHotelsValide %}
                                                 <option value="{{ ville.id }}">{{ ville }}</option>
                                             {% endfor %}
@@ -48,7 +48,7 @@
                                     <div class="form-group">
                                         <label for="hotelLocation">Catégorie</label>
                                         <select class="form-control" name="categorie" id="">
-                                            <option value="all">Tous les carégories</option>
+                                            <option value="all">Toutes les carégories</option>
                                             {% for categorie in categories if categorie.hasHotelsValide %}
                                                 <option value="{{ categorie.id }}">{{ categorie }}</option>
                                             {% endfor %}
@@ -88,9 +88,9 @@
                                   action="{{ path('front_voyageorganise_accueil') }}">
                                 <div class="col-xs-12 col-sm-3 col-md-2">
                                     <div class="form-group">
-                                        <label for="hotelLocation">Themes</label>
+                                        <label for="hotelLocation">Thèmes</label>
                                         <select class="form-control" name="themes" id="">
-                                            <option value="all">Tous les themes</option>
+                                            <option value="all">Tous les thèmes</option>
                                             {% for theme in themes %}
                                                 <option value="{{ theme.id }}">{{ theme }}</option>
                                             {% endfor %}
@@ -99,9 +99,9 @@
                                 </div>
                                 <div class="col-xs-12 col-sm-3 col-md-3">
                                     <div class="form-group">
-                                        <label for="hotelLocation">Ville de destination</label>
+                                        <label for="hotelLocation">Destination</label>
                                         <select class="form-control" name="destinations" id="">
-                                            <option value="all">Tous les destinations</option>
+                                            <option value="all">Toutes les destinations</option>
                                             {% for destination in destinations %}
                                                 <option value="{{ destination.id }}">{{ destination }}</option>
                                             {% endfor %}

@@ -23,7 +23,7 @@ class VoyageOrganiseController extends Controller
         $session = $this->getRequest()->getSession();
         $request = $this->getRequest();
         $sliders = $em->getRepository('FrontConfigBundle:SliderVO')->findBy(array(), array('ordre' => 'asc'));
-        $pays = $em->getRepository('BackHotelTunisieBundle:Pays')->findBy(array(), array('libelle' => 'asc'));
+        $pays = $em->getRepository('BackHotelTunisieBundle:Pays')->paysVoyageOrganise();
         $destinations = $em->getRepository('BackVoyageOrganiseBundle:Destination')->findBy(array(), array('libelle' => 'asc'));
         $themes = $em->getRepository('BackVoyageOrganiseBundle:Theme')->findBy(array(), array('libelle' => 'asc'));
         if ($request->isMethod('POST'))
@@ -48,7 +48,7 @@ class VoyageOrganiseController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $request = $this->getRequest();
-        $listePays = $em->getRepository('BackHotelTunisieBundle:Pays')->findBy(array(), array('libelle' => 'asc'));
+        $listePays = $em->getRepository('BackHotelTunisieBundle:Pays')->paysVoyageOrganise();
         $listeDestinations = $em->getRepository('BackVoyageOrganiseBundle:Destination')->findBy(array(), array('libelle' => 'asc'));
         $listeThemes = $em->getRepository('BackVoyageOrganiseBundle:Theme')->findBy(array(), array('libelle' => 'asc'));
         if ($request->isMethod('POST'))
