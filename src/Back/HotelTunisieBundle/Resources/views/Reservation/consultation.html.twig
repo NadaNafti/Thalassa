@@ -11,17 +11,20 @@
     <div class="row">
         {% if reservation.responsable is not null and app.user.id == reservation.responsable.id %}
             <div class="col-md-12 center">
+                {% if reservation.reglements|length>0 %}
+                    <a target="_blank" href="{{ path('recus_reservation',{'id':reservation.id}) }}"
+                       class="btn btn-light-grey center"> Reçu
+                    </a>
+                {% endif %}
                 {% if reservation.etat == 2 %}
                     <a target="_blank" href="{{ path('voucher_reservation',{'id':reservation.id}) }}"
                        class="btn btn-light-grey center"> Voucher </a>
-                    <a target="_blank" href="{{ path('recus_reservation',{'id':reservation.id}) }}"
-                       class="btn btn-light-grey center"> reçus </a>
                 {% endif %}
                 {% if reservation.etat in [1,9] %}
                     <a href="{{ path('valider_reservation',{'id':reservation.id}) }}" class="btn btn-success center">
                         Valider </a>
-                {% endif %}
-                {% if reservation.etat in [1,2] %}
+                    {% endif %}
+                    {% if reservation.etat in [1,2] %}
                     <a href="#annuler" data-toggle="modal" class="btn btn-warning center"> Annuler </a>
                 {% endif %}
                 {% if reservation.etat in [1] %}
@@ -180,38 +183,38 @@
                     <div class="panel-body">
                         <table class="table">
                             <thead>
-                            <tr>
-                                <th>Piece</th>
-                                <th>Mode Reglement</th>
-                                <th>Date du réglement</th>
-                                <th style="text-align: right">Montant piéce</th>
-                                <th style="text-align: right">Montant payé</th>
-                            </tr>
+                                <tr>
+                                    <th>Piece</th>
+                                    <th>Mode Reglement</th>
+                                    <th>Date du réglement</th>
+                                    <th style="text-align: right">Montant piéce</th>
+                                    <th style="text-align: right">Montant payé</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            {% for reglement in reservation.reglements %}
+                                {% for reglement in reservation.reglements %}
+                                    <tr>
+                                        <td>
+                                            {{ reglement.piece.numero }}
+                                        </td>
+                                        <td>
+                                            {{ reglement.piece.showModeReglement }}
+                                            {% if reglement.piece.modeReglement == 'C' %}
+                                                / Echéance {{ reglement.piece.dateEcheance|date('d/m/Y') }}
+                                            {% endif %}
+                                            {% if reglement.piece.param is not null %}
+                                                [{{ reglement.piece.param }}]
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ reglement.dateCreation|date('d/m/Y') }}</td>
+                                        <td style="text-align: right">{{ reglement.piece.montantOrigine }} DT</td>
+                                        <td style="color:red;text-align: right">{{ reglement.montant }} DT</td>
+                                    </tr>
+                                {% endfor %}
                                 <tr>
-                                    <td>
-                                        {{ reglement.piece.numero }}
-                                    </td>
-                                    <td>
-                                        {{ reglement.piece.showModeReglement }}
-                                        {% if reglement.piece.modeReglement == 'C' %}
-                                            / Echéance {{ reglement.piece.dateEcheance|date('d/m/Y') }}
-                                        {% endif %}
-                                        {% if reglement.piece.param is not null %}
-                                            [{{ reglement.piece.param }}]
-                                        {% endif %}
-                                    </td>
-                                    <td>{{ reglement.dateCreation|date('d/m/Y') }}</td>
-                                    <td style="text-align: right">{{ reglement.piece.montantOrigine }} DT</td>
-                                    <td style="color:red;text-align: right">{{ reglement.montant }} DT</td>
+                                    <td colspan="4" style="text-align: right">Montant régle</td>
+                                    <td style="color:red;text-align: right">{{ reservation.montantRegle }} DT</td>
                                 </tr>
-                            {% endfor %}
-                            <tr>
-                                <td colspan="4" style="text-align: right">Montant régle</td>
-                                <td style="color:red;text-align: right">{{ reservation.montantRegle }} DT</td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -224,107 +227,107 @@
                 <div class="panel-body">
                     <table class="table">
                         <tbody>
-                        {% for chambre in reservation.chambres %}
-                            <tr style="background-color: black;color: white;">
-                                <th>{{ chambre.chambre }}</th>
-                                <th>{{ chambre.arrangement }}</th>
-                                <th>Adultes : {{ chambre.adultes|length }},Enfants : {{ chambre.enfants|length }}</th>
-                                <th style="background-color: white;text-align: center;">
-                                    {% if reservation.etat == 1 and reservation.responsable is not null and app.user.id == reservation.responsable.id %}
-                                        <a href="{{ path('reservationSHT_back_delete_chambre',{'id':chambre.id}) }}"
-                                           onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette chambre ?'))"><span
+                            {% for chambre in reservation.chambres %}
+                                <tr style="background-color: black;color: white;">
+                                    <th>{{ chambre.chambre }}</th>
+                                    <th>{{ chambre.arrangement }}</th>
+                                    <th>Adultes : {{ chambre.adultes|length }},Enfants : {{ chambre.enfants|length }}</th>
+                                    <th style="background-color: white;text-align: center;">
+                                        {% if reservation.etat == 1 and reservation.responsable is not null and app.user.id == reservation.responsable.id %}
+                                            <a href="{{ path('reservationSHT_back_delete_chambre',{'id':chambre.id}) }}"
+                                               onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette chambre ?'))"><span
                                                     class="fa fa-trash-o"></span></a>
-                                    {% endif %}
-                                </th>
-                            </tr>
-                            {% for adulte in chambre.adultes %}
-                                <tr style="  background-color: dimgray;color: white;">
-                                    <th colspan="2" class="center">Adulte Num {{ adulte.ordre }}: {{ adulte.nom }} </th>
-                                    <td style="text-align: right;">Achat</td>
-                                    <td style="text-align: right;">Vente</td>
+                                            {% endif %}
+                                    </th>
                                 </tr>
-                                {% for jour in adulte.jours %}
-                                    <tr style="  background-color: honeydew;">
-                                        <th colspan="4">{{ jour.jour|date('d/m/Y') }} [{{ jour.saison }}]</th>
+                                {% for adulte in chambre.adultes %}
+                                    <tr style="  background-color: dimgray;color: white;">
+                                        <th colspan="2" class="center">Adulte Num {{ adulte.ordre }}: {{ adulte.nom }} </th>
+                                        <td style="text-align: right;">Achat</td>
+                                        <td style="text-align: right;">Vente</td>
                                     </tr>
-                                    {% for ligne in jour.lignes %}
-                                        <tr style="  background-color: ghostwhite;">
-                                            <td></td>
-                                            <td colspan="1">{{ ligne.libelle }}</td>
-                                            <td style="  text-align: right;">{{ ligne.achat }}</td>
-                                            <td style="text-align: right;">{{ ligne.vente }}</td>
+                                    {% for jour in adulte.jours %}
+                                        <tr style="  background-color: honeydew;">
+                                            <th colspan="4">{{ jour.jour|date('d/m/Y') }} [{{ jour.saison }}]</th>
                                         </tr>
+                                        {% for ligne in jour.lignes %}
+                                            <tr style="  background-color: ghostwhite;">
+                                                <td></td>
+                                                <td colspan="1">{{ ligne.libelle }}</td>
+                                                <td style="  text-align: right;">{{ ligne.achat }}</td>
+                                                <td style="text-align: right;">{{ ligne.vente }}</td>
+                                            </tr>
+                                        {% endfor %}
                                     {% endfor %}
                                 {% endfor %}
-                            {% endfor %}
-                            {% for enfant in chambre.enfants %}
-                                <tr style="  background-color: dimgray;color: white;">
-                                    <th colspan="2" class="center">Enfant Num {{ enfant.ordre }}: : {{ enfant.nom }} ,
-                                        Age : {{ enfant.age }}</th>
-                                    <td style="  text-align: right;">Achat</td>
-                                    <td style="  text-align: right;">Vente</td>
-                                </tr>
-                                {% for jour in enfant.jours %}
-                                    <tr style="  background-color: honeydew;">
-                                        <th colspan="4">{{ jour.jour|date('d/m/Y') }} [{{ jour.saison }}]</th>
+                                {% for enfant in chambre.enfants %}
+                                    <tr style="  background-color: dimgray;color: white;">
+                                        <th colspan="2" class="center">Enfant Num {{ enfant.ordre }}: : {{ enfant.nom }} ,
+                                            Age : {{ enfant.age }}</th>
+                                        <td style="  text-align: right;">Achat</td>
+                                        <td style="  text-align: right;">Vente</td>
                                     </tr>
-                                    {% for ligne in jour.lignes %}
-                                        <tr style="  background-color: ghostwhite;">
-                                            <td></td>
-                                            <td colspan="1">{{ ligne.libelle }}</td>
-                                            <td style="  text-align: right;">{{ ligne.achat }}</td>
-                                            <td style="  text-align: right;">{{ ligne.vente }}</td>
+                                    {% for jour in enfant.jours %}
+                                        <tr style="  background-color: honeydew;">
+                                            <th colspan="4">{{ jour.jour|date('d/m/Y') }} [{{ jour.saison }}]</th>
                                         </tr>
+                                        {% for ligne in jour.lignes %}
+                                            <tr style="  background-color: ghostwhite;">
+                                                <td></td>
+                                                <td colspan="1">{{ ligne.libelle }}</td>
+                                                <td style="  text-align: right;">{{ ligne.achat }}</td>
+                                                <td style="  text-align: right;">{{ ligne.vente }}</td>
+                                            </tr>
+                                        {% endfor %}
                                     {% endfor %}
                                 {% endfor %}
+                                {% for ligne in chambre.supplementLignes %}
+                                    <tr style="  background-color: dimgray;color: white;">
+                                        <td></td>
+                                        <td colspan="1">{{ ligne.libelle }}</td>
+                                        <td style="  text-align: right;">{{ ligne.achat }}</td>
+                                        <td style="text-align: right;">{{ ligne.vente }}</td>
+                                    </tr>
+                                {% endfor %}
+                                {% for ligne in chambre.reductionLignes %}
+                                    <tr style="  background-color: dimgray;color: white;">
+                                        <td></td>
+                                        <td colspan="1">{{ ligne.libelle }}</td>
+                                        <td style="  text-align: right;">{{ ligne.achat }}</td>
+                                        <td style="text-align: right;">{{ ligne.vente }}</td>
+                                    </tr>
+                                {% endfor %}
                             {% endfor %}
-                            {% for ligne in chambre.supplementLignes %}
-                                <tr style="  background-color: dimgray;color: white;">
-                                    <td></td>
-                                    <td colspan="1">{{ ligne.libelle }}</td>
-                                    <td style="  text-align: right;">{{ ligne.achat }}</td>
-                                    <td style="text-align: right;">{{ ligne.vente }}</td>
+                            {% if reservation.remise !=0 %}
+                                <tr style="  background-color: antiquewhite;">
+                                    <th></th>
+                                    <th style="text-align: right;">Remise</th>
+                                    <th style="text-align: right;"></th>
+                                    <th style="text-align: right;"> - {{ reservation.remise|number_format(3,'.','') }}</th>
                                 </tr>
-                            {% endfor %}
-                            {% for ligne in chambre.reductionLignes %}
-                                <tr style="  background-color: dimgray;color: white;">
-                                    <td></td>
-                                    <td colspan="1">{{ ligne.libelle }}</td>
-                                    <td style="  text-align: right;">{{ ligne.achat }}</td>
-                                    <td style="text-align: right;">{{ ligne.vente }}</td>
+                            {% endif %}
+                            {% if reservation.remiseInternet !=0 %}
+                                <tr style="  background-color: antiquewhite;">
+                                    <th></th>
+                                    <th style="text-align: right;">Remise Internet</th>
+                                    <th style="text-align: right;"></th>
+                                    <th style="text-align: right;"> - {{ reservation.remiseInternet|number_format(3,'.','') }}</th>
                                 </tr>
-                            {% endfor %}
-                        {% endfor %}
-                        {% if reservation.remise !=0 %}
+                            {% endif %}
+                            {% if reservation.timbre !=0 %}
+                                <tr style="  background-color: antiquewhite;">
+                                    <th></th>
+                                    <th style="text-align: right;">Timbre</th>
+                                    <th style="text-align: right;"></th>
+                                    <th style="text-align: right;">{{ reservation.timbre|number_format(3,'.','') }}</th>
+                                </tr>
+                            {% endif %}
                             <tr style="  background-color: antiquewhite;">
                                 <th></th>
-                                <th style="text-align: right;">Remise</th>
-                                <th style="text-align: right;"></th>
-                                <th style="text-align: right;"> - {{ reservation.remise|number_format(3,'.','') }}</th>
+                                <th style="text-align: right;">Total</th>
+                                <th style="text-align: right;">{{ reservation.calcAchat|number_format(3,'.','') }}</th>
+                                <th style="text-align: right;">{{ reservation.total }}</th>
                             </tr>
-                        {% endif %}
-                        {% if reservation.remiseInternet !=0 %}
-                            <tr style="  background-color: antiquewhite;">
-                                <th></th>
-                                <th style="text-align: right;">Remise Internet</th>
-                                <th style="text-align: right;"></th>
-                                <th style="text-align: right;"> - {{ reservation.remiseInternet|number_format(3,'.','') }}</th>
-                            </tr>
-                        {% endif %}
-                        {% if reservation.timbre !=0 %}
-                            <tr style="  background-color: antiquewhite;">
-                                <th></th>
-                                <th style="text-align: right;">Timbre</th>
-                                <th style="text-align: right;"></th>
-                                <th style="text-align: right;">{{ reservation.timbre|number_format(3,'.','') }}</th>
-                            </tr>
-                        {% endif %}
-                        <tr style="  background-color: antiquewhite;">
-                            <th></th>
-                            <th style="text-align: right;">Total</th>
-                            <th style="text-align: right;">{{ reservation.calcAchat|number_format(3,'.','') }}</th>
-                            <th style="text-align: right;">{{ reservation.total }}</th>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -386,8 +389,8 @@
     <script src="{{ asset("back-assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js") }}"></script>
     <script src="{{ asset("back-assets/js/ui-modals.js") }}"></script>
     <script>
-        jQuery(document).ready(function () {
-            UIModals.init();
-        });
+                                               jQuery(document).ready(function () {
+                                                   UIModals.init();
+                                               });
     </script>
 {% endblock %}

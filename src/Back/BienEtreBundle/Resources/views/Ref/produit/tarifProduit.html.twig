@@ -56,9 +56,8 @@
                                     <td>Du {{ tarif.dateDeb|date('d/m/Y') }} au {{ tarif.dateFin|date('d/m/Y') }}</td>
                                     <td>{{ tarif.prixAchat }} DT</td>
                                     <td>{{ tarif.prixVente }} DT</td>
-                                    <td>{%if( tarif.promotion ==1)%}
-                                            {{ tarif.libelle }}
-                                        {% endif %}
+                                    <td>{%if( tarif.promotion ==1)%}Promotion
+                                        {% else %} {% endif %}
                                         </td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">

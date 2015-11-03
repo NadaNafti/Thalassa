@@ -6,6 +6,10 @@ back_transfert_reservation_consultation:
     path:      /consulter/{id}
     defaults: { _controller: BackTransfertBundle:Transfert:consulter }
 
+back_transfert_reservation_reçu:
+    path:     /recus/{id}
+    defaults: { _controller: BackTransfertBundle:Transfert:recu }
+
 back_transfert_reservation_delete:
     path:      /back_Transfert_reservation_delete/{id}
     defaults: { _controller: BackTransfertBundle:Transfert:delete }

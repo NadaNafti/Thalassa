@@ -11,6 +11,11 @@
     <div class="row">
         {% if reservation.responsable is not null and app.user.id == reservation.responsable.id %}
             <div class="col-md-12 center">
+                {% if reservation.reglements|length>0 %}
+                    <a target="_blank" href="{{ path('back_programmes_reservation_reçu',{'id':reservation.id}) }}"
+                       class="btn btn-light-grey center"> Reçu
+                    </a>
+                {% endif %}
                 {% if  reservation.etat  == 1 %}
                     <a href="#remise" data-toggle="modal" class="btn btn-light-grey center"> Editer la Remise </a>
                 {% endif %}

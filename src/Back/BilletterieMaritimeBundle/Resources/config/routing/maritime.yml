@@ -6,6 +6,10 @@ back_maritime_reservation_consultation:
     path:      /consulter/{id}
     defaults: { _controller: BackBilletterieMaritimeBundle:Maritime:consulter }
 
+back_maritime_reservation_reçu:
+    path:     /recus/{id}
+    defaults: { _controller: BackBilletterieMaritimeBundle:Maritime:recu }
+
 back_maritime_reservation_delete:
     path:      /back_maritime_reservation_delete/{id}
     defaults: { _controller: BackBilletterieMaritimeBundle:Maritime:delete }
