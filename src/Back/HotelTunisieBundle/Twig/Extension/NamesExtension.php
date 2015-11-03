@@ -59,7 +59,7 @@
         {
             $reservation = $this->em->getRepository("BackHotelTunisieBundle:Reservation")->find($id);
             $ConfigVoucher = $this->em->getRepository("BackHotelTunisieBundle:ConfigurationVoucher")->find(1);
-            if($reservation){
+            if($reservation && !is_null($reservation->getCode())){
                 if($ConfigVoucher){
                     if($ConfigVoucher->getTypeNumerotation() == 1)
                         return $reservation->getValidated()->format('Y') . sprintf("%'.06d\n",$reservation->getCode());
@@ -67,7 +67,8 @@
                         return $reservation->getCode() . $reservation->getValidated()->format('/m/Y');
                 } else
                     return $reservation->getCode();
-            }
+            }else
+               return  'Pas de Numéro';
         }
 
         public function getNameChambre($id)

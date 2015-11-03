@@ -340,8 +340,6 @@ class ReservationController extends Controller
 
     public function recusAction(Reservation $reservation)
     {
-        if ($reservation->getEtat() != 2)
-            return $this->redirect($this->generateUrl("liste_reservations"));
         $em = $this->getDoctrine()->getManager();
         return $this->render('BackHotelTunisieBundle:Reservation:recus.html.twig', array(
             'reservation' => $reservation,

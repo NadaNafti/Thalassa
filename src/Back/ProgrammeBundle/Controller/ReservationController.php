@@ -71,6 +71,15 @@ class ReservationController extends Controller {
                     'form' => $form->createView(),
         ));
     }
+    
+    public function recuAction(Reservation $reservation)
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $this->render('BackProgrammeBundle:Reservation:recus.html.twig', array(
+            'reservation' => $reservation,
+            'agence'      => $em->getRepository('BackAdministrationBundle:Agence')->find(1),
+        ));
+    }
 
     public function annulerAction(Reservation $reservation) {
         $user = $this->get('security.context')->getToken()->getUser();

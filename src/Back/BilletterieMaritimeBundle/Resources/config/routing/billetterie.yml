@@ -5,6 +5,10 @@ back_billetterie_reservation_liste:
 back_billetterie_reservation_consultation:
     path:      /consulter/{id}
     defaults: { _controller: BackBilletterieMaritimeBundle:Billetterie:consulter }
+    
+back_billetterie_reservation_reçu:
+    path:     /recus/{id}
+    defaults: { _controller: BackBilletterieMaritimeBundle:Billetterie:recu }
 
 back_billetterie_reservation_delete:
     path:      /back_billetterie_reservation_delete/{id}

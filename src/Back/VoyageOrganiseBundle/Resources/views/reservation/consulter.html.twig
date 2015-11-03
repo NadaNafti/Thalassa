@@ -11,6 +11,11 @@
     <div class="row">
         {% if reservation.responsable is not null and app.user.id == reservation.responsable.id %}
             <div class="col-md-12 center">
+                {% if reservation.reglements|length>0 %}
+                    <a target="_blank" href="{{ path('back_voyages_organises_recus_reservation',{'id':reservation.id}) }}"
+                       class="btn btn-light-grey center"> Reçu
+                    </a>
+                {% endif %}
                 {% if  reservation.etat  == 1 %}
                     <a href="#remise" data-toggle="modal" class="btn btn-light-grey center"> Editer la Remise </a>
                     <a href="{{ path('back_voyages_organises_reservation_contingent',{'id':reservation.id}) }}"  class="btn btn-light-grey center"> Contingent </a>
@@ -81,33 +86,33 @@
                     <div class="panel-body">
                         <table class="table">
                             <thead>
-                            <tr>
-                                <th>Piece</th>
-                                <th>Mode Reglement</th>
-                                <th>Date du réglement</th>
-                                <th style="text-align: right">Montant piéce</th>
-                                <th style="text-align: right">Montant payé</th>
-                            </tr>
+                                <tr>
+                                    <th>Piece</th>
+                                    <th>Mode Reglement</th>
+                                    <th>Date du réglement</th>
+                                    <th style="text-align: right">Montant piéce</th>
+                                    <th style="text-align: right">Montant payé</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            {% for reglement in reservation.reglements %}
+                                {% for reglement in reservation.reglements %}
+                                    <tr>
+                                        <td>{{ reglement.piece.numero }}</td>
+                                        <td>
+                                            {{ reglement.piece.showModeReglement }}
+                                            {% if reglement.piece.modeReglement == 'C' %}
+                                                / Echéance {{ reglement.piece.dateEcheance|date('d/m/Y') }}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ reglement.dateCreation|date('d/m/Y') }}</td>
+                                        <td style="text-align: right">{{ reglement.piece.montantOrigine }} DT</td>
+                                        <td style="color:red;text-align: right">{{ reglement.montant }} DT</td>
+                                    </tr>
+                                {% endfor %}
                                 <tr>
-                                    <td>{{ reglement.piece.numero }}</td>
-                                    <td>
-                                        {{ reglement.piece.showModeReglement }}
-                                        {% if reglement.piece.modeReglement == 'C' %}
-                                            / Echéance {{ reglement.piece.dateEcheance|date('d/m/Y') }}
-                                        {% endif %}
-                                    </td>
-                                    <td>{{ reglement.dateCreation|date('d/m/Y') }}</td>
-                                    <td style="text-align: right">{{ reglement.piece.montantOrigine }} DT</td>
-                                    <td style="color:red;text-align: right">{{ reglement.montant }} DT</td>
+                                    <td colspan="4" style="text-align: right">Montant régle</td>
+                                    <td style="color:red;text-align: right">{{ reservation.montantRegle }} DT</td>
                                 </tr>
-                            {% endfor %}
-                            <tr>
-                                <td colspan="4" style="text-align: right">Montant régle</td>
-                                <td style="color:red;text-align: right">{{ reservation.montantRegle }} DT</td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -122,81 +127,81 @@
                 <div class="panel-body">
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th class="center">Type</th>
-                            <th class="center">Nom Prénom</th>
-                            <th class="center">Passport</th>
-                            <th class="center">Chambre Réservation</th>
-                            <th class="center">Chambre Contingent</th>
-                            <th></th>
-                            <th style="text-align: right">Achat</th>
-                            <th style="text-align: right">Vente</th>
-                            <th></th>
-                        </tr>
+                            <tr>
+                                <th class="center">Type</th>
+                                <th class="center">Nom Prénom</th>
+                                <th class="center">Passport</th>
+                                <th class="center">Chambre Réservation</th>
+                                <th class="center">Chambre Contingent</th>
+                                <th></th>
+                                <th style="text-align: right">Achat</th>
+                                <th style="text-align: right">Vente</th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody>
-                        {% for chambre in reservation.chambres %}
-                            {% for personne in chambre.occupants %}
-                                <tr style="background-color: cornsilk;">
-                                    <td class="center">
-                                        {% if personne.enfant %}[Enfant]{% else %}[Adulte]{% endif %}
-                                    </td>
-                                    <td class="center">{{ personne.nomPrenom }} {% if personne.enfant %}{{ personne.age }} ans{% endif %}</td>
-                                    <td class="center">{{ personne.passport }}</td>
-                                    <td class="center">Chambre {{ chambre }}</td>
-                                    <td class="center" style="color: red;font-size: 23px;"> <strong>{{ personne.chambreContingent }}</strong></td>
-                                    <td colspan="3"></td>
-                                    <td>
-                                        {% if reservation.etat in [1] and reservation.responsable is not null and app.user.id == reservation.responsable.id %}
-                                            <a href="#addNewLine" data-toggle="modal" class="addNewLine" data-id="{{ personne.id }}"><span class="clip-plus-circle"></span></a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% for ligne in personne.lignes %}
-                                    <tr>
-                                        <td colspan="5"></td>
-                                        <td class="center">{{ ligne.libelle }}</td>
-                                        <td style="text-align: right;">{{ ligne.achat }}</td>
-                                        <td style="text-align: right;">{{ ligne.vente }}</td>
+                            {% for chambre in reservation.chambres %}
+                                {% for personne in chambre.occupants %}
+                                    <tr style="background-color: cornsilk;">
+                                        <td class="center">
+                                            {% if personne.enfant %}[Enfant]{% else %}[Adulte]{% endif %}
+                                        </td>
+                                        <td class="center">{{ personne.nomPrenom }} {% if personne.enfant %}{{ personne.age }} ans{% endif %}</td>
+                                        <td class="center">{{ personne.passport }}</td>
+                                        <td class="center">Chambre {{ chambre }}</td>
+                                        <td class="center" style="color: red;font-size: 23px;"> <strong>{{ personne.chambreContingent }}</strong></td>
+                                        <td colspan="3"></td>
                                         <td>
                                             {% if reservation.etat in [1] and reservation.responsable is not null and app.user.id == reservation.responsable.id %}
-                                                <a href="#editLine" data-toggle="modal" class="editLine" data-id="{{ ligne.id }}" data-achat="{{ ligne.achat }}" data-libelle="{{ ligne.libelle }}" data-vente="{{ ligne.vente }}"><span class="clip-pencil-3"></span></a>
-                                                <a href="{{ path('back_voyages_organises_reservation_ligne_supprimer',{'id':ligne.id}) }}" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette ligne ?'))"><span class="clip-remove"></span></a>
-                                            {% endif %}
+                                                <a href="#addNewLine" data-toggle="modal" class="addNewLine" data-id="{{ personne.id }}"><span class="clip-plus-circle"></span></a>
+                                                {% endif %}
                                         </td>
                                     </tr>
+                                    {% for ligne in personne.lignes %}
+                                        <tr>
+                                            <td colspan="5"></td>
+                                            <td class="center">{{ ligne.libelle }}</td>
+                                            <td style="text-align: right;">{{ ligne.achat }}</td>
+                                            <td style="text-align: right;">{{ ligne.vente }}</td>
+                                            <td>
+                                                {% if reservation.etat in [1] and reservation.responsable is not null and app.user.id == reservation.responsable.id %}
+                                                    <a href="#editLine" data-toggle="modal" class="editLine" data-id="{{ ligne.id }}" data-achat="{{ ligne.achat }}" data-libelle="{{ ligne.libelle }}" data-vente="{{ ligne.vente }}"><span class="clip-pencil-3"></span></a>
+                                                    <a href="{{ path('back_voyages_organises_reservation_ligne_supprimer',{'id':ligne.id}) }}" onclick="javascript:return(confirm('Etes-vous certain de vouloir supprimer cette ligne ?'))"><span class="clip-remove"></span></a>
+                                                    {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
                                 {% endfor %}
                             {% endfor %}
-                        {% endfor %}
-                        <tr style="background-color: azure;">
-                            <td colspan="5"></td>
-                            <td style="text-align: right;">Somme</td>
-                            <td style="text-align: right;">{{ reservation.totalLigneAchat }}</td>
-                            <td style="text-align: right;">{{ reservation.totalLigneVente }}</td>
-                            <td></td>
-                        </tr>
-                        {% if reservation.remise!=0 %}
                             <tr style="background-color: azure;">
-                                <td colspan="6"></td>
-                                <td style="text-align: right;">Remise</td>
-                                <td style="text-align: right;">{{ reservation.remise }}</td>
+                                <td colspan="5"></td>
+                                <td style="text-align: right;">Somme</td>
+                                <td style="text-align: right;">{{ reservation.totalLigneAchat }}</td>
+                                <td style="text-align: right;">{{ reservation.totalLigneVente }}</td>
                                 <td></td>
                             </tr>
-                        {% endif %}
-                        {% if reservation.timbre!=0 %}
+                            {% if reservation.remise!=0 %}
+                                <tr style="background-color: azure;">
+                                    <td colspan="6"></td>
+                                    <td style="text-align: right;">Remise</td>
+                                    <td style="text-align: right;">{{ reservation.remise }}</td>
+                                    <td></td>
+                                </tr>
+                            {% endif %}
+                            {% if reservation.timbre!=0 %}
+                                <tr style="background-color: azure;">
+                                    <td colspan="6"></td>
+                                    <td style="text-align: right;">Timbre</td>
+                                    <td style="text-align: right;">{{ reservation.timbre }}</td>
+                                    <td></td>
+                                </tr>
+                            {% endif %}
                             <tr style="background-color: azure;">
                                 <td colspan="6"></td>
-                                <td style="text-align: right;">Timbre</td>
-                                <td style="text-align: right;">{{ reservation.timbre }}</td>
+                                <td style="text-align: right;">Total</td>
+                                <td style="text-align: right;">{{ reservation.total }}</td>
                                 <td></td>
                             </tr>
-                        {% endif %}
-                        <tr style="background-color: azure;">
-                            <td colspan="6"></td>
-                            <td style="text-align: right;">Total</td>
-                            <td style="text-align: right;">{{ reservation.total }}</td>
-                            <td></td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -332,24 +337,24 @@
     <script src="{{ asset("back-assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js") }}"></script>
     <script src="{{ asset("back-assets/js/ui-modals.js") }}"></script>
     <script>
-        jQuery(document).ready(function () {
-            UIModals.init();
-        });
-        $(document).ready(function () {
-            $('.addNewLine').on('click', function () {
-                var id = $(this).data('id');
-                $('#back_voyageorganisebundle_reservationligne_personne').val(id);
-            })
-            $('.editLine').on('click', function () {
-                var id = $(this).data('id');
-                var achat = $(this).data('achat');
-                var vente = $(this).data('vente');
-                var libelle = $(this).data('libelle');
-                $('#editLineId').val(id);
-                $('#editLineAchat').val(achat);
-                $('#editLineVente').val(vente);
-                $('#editLineLibelle').val(libelle);
-            })
-        })
+                                                    jQuery(document).ready(function () {
+                                                        UIModals.init();
+                                                    });
+                                                    $(document).ready(function () {
+                                                        $('.addNewLine').on('click', function () {
+                                                            var id = $(this).data('id');
+                                                            $('#back_voyageorganisebundle_reservationligne_personne').val(id);
+                                                        })
+                                                        $('.editLine').on('click', function () {
+                                                            var id = $(this).data('id');
+                                                            var achat = $(this).data('achat');
+                                                            var vente = $(this).data('vente');
+                                                            var libelle = $(this).data('libelle');
+                                                            $('#editLineId').val(id);
+                                                            $('#editLineAchat').val(achat);
+                                                            $('#editLineVente').val(vente);
+                                                            $('#editLineLibelle').val(libelle);
+                                                        })
+                                                    })
     </script>
 {% endblock %}

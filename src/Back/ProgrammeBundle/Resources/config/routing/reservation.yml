@@ -9,6 +9,10 @@ back_programmes_reservation_total:
 back_programmes_reservation_consulter:
     path:     /consulter/{id}
     defaults: { _controller: BackProgrammeBundle:Reservation:consulter }
+    
+back_programmes_reservation_reçu:
+    path:     /recus/{id}
+    defaults: { _controller: BackProgrammeBundle:Reservation:recu }
 
 back_programmes_reservation_annuler:
     path:     /annuler/{id}
