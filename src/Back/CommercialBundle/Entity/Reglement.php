@@ -68,6 +68,11 @@ class Reglement
     protected $reservationRB;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Back\ReservationDiversBundle\Entity\Reservation", inversedBy="reglements")
+     */
+    protected $reservationsDivers;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="date")
@@ -360,5 +365,28 @@ class Reglement
     public function getReservationRB()
     {
         return $this->reservationRB;
+    }
+
+    /**
+     * Set reservationsDivers
+     *
+     * @param \Back\ReservationDiversBundle\Entity\Reservation $reservationsDivers
+     * @return Reglement
+     */
+    public function setReservationsDivers(\Back\ReservationDiversBundle\Entity\Reservation $reservationsDivers = null)
+    {
+        $this->reservationsDivers = $reservationsDivers;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationsDivers
+     *
+     * @return \Back\ReservationDiversBundle\Entity\Reservation 
+     */
+    public function getReservationsDivers()
+    {
+        return $this->reservationsDivers;
     }
 }

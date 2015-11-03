@@ -249,6 +249,12 @@ class Client {
     protected $reservationsRB;
 
     /**
+     * @ORM\OneToMany(targetEntity="Back\ReservationDiversBundle\Entity\Reservation", mappedBy="client")
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    protected $reservationsDivers;
+
+    /**
      * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Piece", mappedBy="client")
      */
     protected $pieces;
@@ -528,8 +534,8 @@ class Client {
     }
 
     public function getLongName() {
-        $amical = !is_null($this->getAmicale()) ? ' - ' . $this->getAmicale()->getLibelle() : '';
-        return $this->nomPrenom . $amical . ' - ' . $this->tel1;
+        $amical = !is_null($this->getAmicale()) ?  '['.$this->getAmicale()->getLibelle().'] '  : '';
+        return $amical.$this->nomPrenom  . ' - ' . $this->tel1;
     }
 
     /**
@@ -584,6 +590,8 @@ class Client {
         $this->reservationsBE = new \Doctrine\Common\Collections\ArrayCollection();
         $this->reservationsB = new \Doctrine\Common\Collections\ArrayCollection();
         $this->reservationsM = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reservationsT = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reservationsRB = new \Doctrine\Common\Collections\ArrayCollection();
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -1269,5 +1277,38 @@ class Client {
     public function getReservationsT()
     {
         return $this->reservationsT;
+    }
+
+    /**
+     * Add reservationsRB
+     *
+     * @param \Back\ResaBookingBundle\Entity\Reservation $reservationsRB
+     * @return Client
+     */
+    public function addReservationsRB(\Back\ResaBookingBundle\Entity\Reservation $reservationsRB)
+    {
+        $this->reservationsRB[] = $reservationsRB;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservationsRB
+     *
+     * @param \Back\ResaBookingBundle\Entity\Reservation $reservationsRB
+     */
+    public function removeReservationsRB(\Back\ResaBookingBundle\Entity\Reservation $reservationsRB)
+    {
+        $this->reservationsRB->removeElement($reservationsRB);
+    }
+
+    /**
+     * Get reservationsRB
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReservationsRB()
+    {
+        return $this->reservationsRB;
     }
 }

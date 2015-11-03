@@ -1,0 +1,3 @@
+back_Reservation_divers_reservation:
+    resource: "@BackReservationDiversBundle/Resources/config/routing/reservation.yml"
+    prefix:   /

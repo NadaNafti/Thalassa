@@ -1,0 +1,148 @@
+<?php
+
+namespace Back\ReservationDiversBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ * ReservationLigne
+ *
+ * @ORM\Table(name="ost_divers_reservation_ligne")
+ * @ORM\Entity
+ */
+class ReservationLigne
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\ReservationDiversBundle\Entity\Reservation", inversedBy="lignes")
+     */
+    protected $reservation ;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ReservationLigne", inversedBy="fils")
+     */
+    protected $parent ;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ReservationLigne", mappedBy="parent")
+     */
+
+    protected $fils ;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\AdministrationBundle\Entity\Produit")
+     * @ORM\JoinColumn(name="produit_id", referencedColumnName="id")
+     */
+    protected $produit ;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="designation", type="string", length=255)
+     */
+    private $designation ;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="quantite", type="integer")
+     */
+    private $quantite ;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbrAdulte", type="integer")
+     */
+    private $nbrAdulte ;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="puhtAdulte", type="decimal", precision=11, scale=3)
+     */
+    private $puhtAdulte ;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="puttAdulte", type="decimal", precision=11, scale=3)
+     */
+    private $puttAdulte ;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbrEnfant", type="integer",nullable=true)
+     */
+    private $nbrEnfant ;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="puhtEnfant", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $puhtEnfant ;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="puttEnfant", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $puttEnfant ;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tauxTva", type="integer")
+     */
+    private $tauxTva ;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mntTva", type="decimal", precision=11, scale=3)
+     */
+    private $mntTva ;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="montantTaxable", type="decimal", precision=11, scale=3)
+     */
+    private $montantTaxable ;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="montantNonTaxable", type="decimal", precision=11, scale=3)
+     */
+    private $montantNonTaxable ;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="montantRemise", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $montantRemise ;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}
