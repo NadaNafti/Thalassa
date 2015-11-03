@@ -1,0 +1,25 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Nouveau Réservation Divers{% endblock %}
+{% block topbody %}
+    {{ parent() }}
+    <li>
+        <a href="javascript:void(0)">{{ block('title') }}</a>
+    </li>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
+                        {{ formulaire.input("col-md-3","Nombre d'étoiles",form.nombreEtoiles,false) }}
+                    </div>
+                    {{ formulaire.submit("Ajouter") }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

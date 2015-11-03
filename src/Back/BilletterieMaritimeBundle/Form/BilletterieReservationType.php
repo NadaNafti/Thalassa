@@ -55,7 +55,8 @@ class BilletterieReservationType extends AbstractType
                 'type' => new BilletterieReservationLigneType(),
                 'allow_add' => true,
                 'by_reference' => true,
-            ));    }
+            ));
+    }
 
     /**
      * @param OptionsResolverInterface $resolver

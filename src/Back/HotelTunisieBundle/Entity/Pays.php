@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Pays
  *
  * @ORM\Table("ost_sht_pays")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Back\HotelTunisieBundle\Entity\Repository\PaysRepository")
  */
 class Pays
 {
@@ -48,7 +48,12 @@ class Pays
      * @ORM\OrderBy({"libelle" = "ASC"})
      */
     protected $villes;
-    
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Back\VoyageOrganiseBundle\Entity\VoyageOrganise" ,mappedBy="pays")
+     */
+    private $voyages;
+
 
     /**
      * Get id
@@ -172,5 +177,38 @@ class Pays
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * Add voyages
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyages
+     * @return Pays
+     */
+    public function addVoyage(\Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyages)
+    {
+        $this->voyages[] = $voyages;
+
+        return $this;
+    }
+
+    /**
+     * Remove voyages
+     *
+     * @param \Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyages
+     */
+    public function removeVoyage(\Back\VoyageOrganiseBundle\Entity\VoyageOrganise $voyages)
+    {
+        $this->voyages->removeElement($voyages);
+    }
+
+    /**
+     * Get voyages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVoyages()
+    {
+        return $this->voyages;
     }
 }

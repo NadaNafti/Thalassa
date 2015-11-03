@@ -1,0 +1,4 @@
+services:
+#    back_reservation_divers.example:
+#        class: Back\ReservationDiversBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -108,7 +108,7 @@
         }
 
         /**
-         * @ORM\PostPersist()
+         * @ORM\PrePersist()
          * @ORM\PreUpdate()
          */
         public function preUpload()

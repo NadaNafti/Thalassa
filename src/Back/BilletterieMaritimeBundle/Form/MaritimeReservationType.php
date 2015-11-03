@@ -38,9 +38,9 @@ class MaritimeReservationType extends AbstractType
             ))
             ->add('cabine', 'choice', array(
                 'choices' => array(
-                    1 => "Fauteuille",
-                    2 => "Cabinet-Exterieur",
-                    3 => "Cabinet-Interieur",
+                    1 => "Fauteuil",
+                    2 => "Cabine-Exterieur",
+                    3 => "Cabine-Interieur",
                     4 => "Suite",
                 )
             ))

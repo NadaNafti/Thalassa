@@ -249,6 +249,12 @@ class Client {
     protected $reservationsRB;
 
     /**
+     * @ORM\OneToMany(targetEntity="Back\ReservationDiversBundle\Entity\Reservation", mappedBy="client")
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    protected $reservationsDivers;
+
+    /**
      * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Piece", mappedBy="client")
      */
     protected $pieces;
@@ -1304,5 +1310,38 @@ class Client {
     public function getReservationsRB()
     {
         return $this->reservationsRB;
+    }
+
+    /**
+     * Add reservationsDivers
+     *
+     * @param \Back\ReservationDiversBundle\Entity\Reservation $reservationsDivers
+     * @return Client
+     */
+    public function addReservationsDiver(\Back\ReservationDiversBundle\Entity\Reservation $reservationsDivers)
+    {
+        $this->reservationsDivers[] = $reservationsDivers;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservationsDivers
+     *
+     * @param \Back\ReservationDiversBundle\Entity\Reservation $reservationsDivers
+     */
+    public function removeReservationsDiver(\Back\ReservationDiversBundle\Entity\Reservation $reservationsDivers)
+    {
+        $this->reservationsDivers->removeElement($reservationsDivers);
+    }
+
+    /**
+     * Get reservationsDivers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReservationsDivers()
+    {
+        return $this->reservationsDivers;
     }
 }

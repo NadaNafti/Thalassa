@@ -499,7 +499,7 @@ class ReservationController extends Controller
                 $this->container->get('mailerservice')->validation($reservation,'SHT');
                 return $this->redirect($this->generateUrl("consulter_reservation", array('id' => $reservation->getId())));
             } else
-                $session->getFlashBag()->add('info', " Votre Réservation n'a pas été encore validée, reste encore <strong>" . $reservation->getMontantRestant() . " DT </strong> a payé");
+                $session->getFlashBag()->add('info', " Votre Réservation n'a pas été encore validée, reste encore <strong>" . $reservation->getMontantRestant() . " DT </strong> à payer");
             $em->flush();
             return $this->redirect($this->generateUrl("valider_reservation", array('id' => $reservation->getId())));
         }

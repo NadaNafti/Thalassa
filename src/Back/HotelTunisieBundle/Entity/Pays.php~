@@ -48,12 +48,11 @@ class Pays
      * @ORM\OrderBy({"libelle" = "ASC"})
      */
     protected $villes;
-    
+
     /**
-     * @ORM\OneToMany(targetEntity="Back\UserBundle\Entity\Gouvernorat", mappedBy="pays")
-     * @ORM\OrderBy({"libelle" = "ASC"})
+     * @ORM\ManyToMany(targetEntity="Back\VoyageOrganiseBundle\Entity\VoyageOrganise" ,mappedBy="pays")
      */
-    protected $gouvernorats;
+    private $voyages;
 
 
     /**

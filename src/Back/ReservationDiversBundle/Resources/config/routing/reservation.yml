@@ -1,0 +1,3 @@
+back_reservation_divers_nouveau:
+    path:     /nouveau/{id}
+    defaults: { _controller: BackReservationDiversBundle:Reservation:nouveau,id:null }

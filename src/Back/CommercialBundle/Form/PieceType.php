@@ -22,7 +22,7 @@ class PieceType extends AbstractType
                         'PC' => 'Pris en charge',
                         'CB' => 'Carte Bancaire',
                         'C' => 'Chèque',
-                        'E' => 'Espece',
+                        'E' => 'Espèce',
                         'V' => 'Virement',
                     ),
                     'required' => false
