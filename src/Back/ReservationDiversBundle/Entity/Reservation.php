@@ -449,39 +449,6 @@ class Reservation
     }
 
     /**
-     * Add lignes
-     *
-     * @param \Back\ReservationDiversBundle\Entity\ReservationLignes $lignes
-     * @return Reservation
-     */
-    public function addLigne(\Back\ReservationDiversBundle\Entity\ReservationLignes $lignes)
-    {
-        $this->lignes[] = $lignes;
-
-        return $this;
-    }
-
-    /**
-     * Remove lignes
-     *
-     * @param \Back\ReservationDiversBundle\Entity\ReservationLignes $lignes
-     */
-    public function removeLigne(\Back\ReservationDiversBundle\Entity\ReservationLignes $lignes)
-    {
-        $this->lignes->removeElement($lignes);
-    }
-
-    /**
-     * Get lignes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getLignes()
-    {
-        return $this->lignes;
-    }
-
-    /**
      * Add sousEtats
      *
      * @param \Back\AdministrationBundle\Entity\SousEtat $sousEtats
@@ -540,4 +507,37 @@ class Reservation
         return number_format($this->getTotal() - $this->getMontantRegle(), 3, '.', '');
     }
 
+
+    /**
+     * Add lignes
+     *
+     * @param \Back\ReservationDiversBundle\Entity\ReservationLigne $lignes
+     * @return Reservation
+     */
+    public function addLigne(\Back\ReservationDiversBundle\Entity\ReservationLigne $lignes)
+    {
+        $this->lignes[] = $lignes;
+
+        return $this;
+    }
+
+    /**
+     * Remove lignes
+     *
+     * @param \Back\ReservationDiversBundle\Entity\ReservationLigne $lignes
+     */
+    public function removeLigne(\Back\ReservationDiversBundle\Entity\ReservationLigne $lignes)
+    {
+        $this->lignes->removeElement($lignes);
+    }
+
+    /**
+     * Get lignes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLignes()
+    {
+        return $this->lignes;
+    }
 }
