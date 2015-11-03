@@ -112,7 +112,7 @@
                                     <td class="center">{{ saison.saisonSupp.sippSingleMarge }}{% if saison.saisonSupp.suppSingleMargePour %}%{% endif %}</td>
                                     <td class="center">{{ saison.saisonSupp.getSuppSingleVente }}</td>
                                     <td style="white-space: nowrap">
-                                        {% for chambre in saison.suppChambres  if chambre.etat %}
+                                        {% for chambre in saison.suppChambres %}
                                             <li>{{ chambre.chambre }} ({{ chambre.getSuppAchat }}|{{ chambre.marge }}{% if chambre.margePour %}%{% endif %}|{{ chambre.getSuppVente }})</li>
                                         {% endfor %}
                                     </td>
