@@ -570,6 +570,20 @@ class Saison
             return "Contingent";
     }
 
+    public function showCodeSaison()
+    {
+        if ($this->type == null)
+            return "B";
+        if ($this->type == 1)
+            return "S";
+        if ($this->type == 2)
+            return "P";
+        if ($this->type == 3)
+            return "A";
+        if ($this->type == 4)
+            return "C";
+    }
+
     /**
      * Constructor
      */

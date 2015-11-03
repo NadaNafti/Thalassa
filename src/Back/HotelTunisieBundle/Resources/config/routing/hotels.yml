@@ -67,3 +67,7 @@ supprimer_file_to_contrat:
 supprimer_article_hotel:
     path:     /supprimer_contrats_hotel/{id}
     defaults: { _controller: BackHotelTunisieBundle:Hotels:deleteArticle }
+
+generer_hotels_conventions:
+    path:     /convention_liste/{hotel}
+    defaults: { _controller: BackHotelTunisieBundle:Hotels:genereConventionListe,hotel:null }

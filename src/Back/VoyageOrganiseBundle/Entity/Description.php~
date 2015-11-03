@@ -44,6 +44,13 @@ class Description
     private $texte;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="titre", type="text",nullable=true)
+     */
+    private $titre;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="ordre", type="integer")
@@ -92,38 +99,36 @@ class Description
 
     public function getUploadRootDir()
     {
-        return __dir__ . '/../../../../web/uploads/VoyageOrganise/Description';
+        return __dir__ . '/../../../../web/' . $this->getDirectory();
     }
 
-    public function getAbsolutePath()
+    public function getDirectory()
     {
-        return NULL === $this->path ? NULL : $this->getUploadRootDir() . '/' . $this->path;
+            return 'uploads/VoyageOrganise/Description';
     }
 
     public function getAssetPath()
     {
-        return 'uploads/VoyageOrganise/Description/' . $this->path;
+        return $this->getDirectory() . '/' . $this->path;
     }
 
-    /**
-     * @ORM\PostLoad()
-     */
-    public function postLoad()
+    public function getAbsolutePath()
     {
-        $this->updateAt = new \DateTime();
+        return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
     }
 
     /**
-     * @ORM\PostPersist()
+     * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
     public function preUpload()
     {
         $this->tempFile = $this->getAbsolutePath();
-        $this->oldFile = $this->path;
+        $this->oldFile = $this->getPath();
         $this->updateAt = new \DateTime();
-        if(NULL !== $this->file)
-            $this->path = sha1(uniqid(mt_rand(),TRUE)) . '.' . $this->file->guessExtension();
+
+        if (null !== $this->file)
+            $this->path = sha1(uniqid(mt_rand(), true)) . '.' . $this->file->guessExtension();
     }
 
     /**
@@ -132,10 +137,11 @@ class Description
      */
     public function upload()
     {
-        if(NULL !== $this->file){
-            $this->file->move($this->getUploadRootDir(),$this->path);
+        if (null !== $this->file)
+        {
+            $this->file->move($this->getUploadRootDir(), $this->path);
             unset($this->file);
-            if($this->oldFile != NULL && file_exists($this->tempFile))
+            if ($this->oldFile != null && file_exists($this->tempFile))
                 unlink($this->tempFile);
         }
     }
@@ -153,7 +159,7 @@ class Description
      */
     public function removeUpload()
     {
-        if(file_exists($this->tempFile))
+        if (file_exists($this->tempFile))
             unlink($this->tempFile);
     }
 
@@ -313,5 +319,74 @@ class Description
     public function getLateral()
     {
         return $this->lateral;
+    }
+
+    /**
+     * Set updateAt
+     *
+     * @param \DateTime $updateAt
+     * @return Description
+     */
+    public function setUpdateAt($updateAt)
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updateAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdateAt()
+    {
+        return $this->updateAt;
+    }
+
+    /**
+     * Set photoVisible
+     *
+     * @param boolean $photoVisible
+     * @return Description
+     */
+    public function setPhotoVisible($photoVisible)
+    {
+        $this->photoVisible = $photoVisible;
+
+        return $this;
+    }
+
+    /**
+     * Get photoVisible
+     *
+     * @return boolean 
+     */
+    public function getPhotoVisible()
+    {
+        return $this->photoVisible;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Description
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 }

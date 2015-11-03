@@ -1,3 +1,7 @@
+back_reservation_divers:
+    resource: "@BackReservationDiversBundle/Resources/config/routing.yml"
+    prefix:   /admin/reservation_divers
+
 back_caisse:
     resource: "@BackCaisseBundle/Resources/config/routing.yml"
     prefix:   /admin/caisse

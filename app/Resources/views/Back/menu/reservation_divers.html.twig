@@ -1,0 +1,27 @@
+<li {% if app.request.getPathInfo|split('/admin/reservation_divers')|length > 1 %} class="active open"{% endif %}>
+    <a href="javascript:void(0)"><i class="clip-settings"></i>
+        <span class="title">Réservation Divers</span><i class="icon-arrow"></i>
+        <span class="selected"></span>
+    </a>
+    <ul class="sub-menu">
+        <li {% if app.request.getPathInfo|split('/admin/reservation_divers/')|length > 1 %} class="active open"{% endif %} >
+            <a href="javascript:void(0)"><i class="clip-list"></i>
+                <span class="title">Réservations</span><i class="icon-arrow"></i>
+            </a>
+            <ul class="sub-menu">
+                <li {% if app.request.get('_route')in ['back_reservation_divers_nouveau'] %} class="open"{% endif %}>
+                    <a href="{{ path('back_reservation_divers_nouveau') }}">
+                        <span class="title">Nouveau</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sub-menu">
+                <li {#% if app.request.get('_route')in ['configuration_produit'] %} class="open"{% endif %}#}>
+                    <a href="{#{ path('configuration_produit') }}#}">
+                        <span class="title">Liste</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</li>

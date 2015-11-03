@@ -68,6 +68,11 @@ class Reglement
     protected $reservationRB;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Back\ReservationDiversBundle\Entity\Reservation", inversedBy="reglements")
+     */
+    protected $reservationsDivers;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="date")
@@ -168,9 +173,26 @@ class Reglement
      */
     public function setReservation(\Back\HotelTunisieBundle\Entity\Reservation $reservation = null)
     {
-	$this->reservation = $reservation;
+        $this->reservation = $reservation;
 
-	return $this;
+        return $this;
+    }
+
+    /**
+     * Set reservation
+     *
+     * @paramsh  $reservation
+     * @return Reglement
+     */
+    public function setReservationByCode($reservation,$code)
+    {
+        switch($code)
+        {
+            case "SHT": $this->reservation=$reservation;
+            case "RB": $this->reservationRB=$reservation;
+        }
+
+        return $this;
     }
 
     /**
@@ -320,5 +342,28 @@ class Reglement
     public function getReservationT()
     {
         return $this->reservationT;
+    }
+
+    /**
+     * Set reservationRB
+     *
+     * @param \Back\ResaBookingBundle\Entity\Reservation $reservationRB
+     * @return Reglement
+     */
+    public function setReservationRB(\Back\ResaBookingBundle\Entity\Reservation $reservationRB = null)
+    {
+        $this->reservationRB = $reservationRB;
+
+        return $this;
+    }
+
+    /**
+     * Get reservationRB
+     *
+     * @return \Back\ResaBookingBundle\Entity\Reservation 
+     */
+    public function getReservationRB()
+    {
+        return $this->reservationRB;
     }
 }

@@ -27,6 +27,18 @@ use Symfony\Component\Form\FormError;
 
 class HotelsController extends Controller
 {
+    public function genereConventionListeAction($hotel)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $request=$this->getRequest();
+        if($request->isMethod('POST'))
+            return $this->redirect($this->generateUrl('generer_hotels_conventions',array('hotel'=>$request->get('hotelSearch'))));
+        $saisons=$em->getRepository('BackHotelTunisieBundle:Saison')->valableListe($hotel);
+        return $this->render('BackHotelTunisieBundle:Hotels:convention_hotels.html.twig',array(
+            'saisons'=>$saisons,
+            'hotels'=>$em->getRepository('BackHotelTunisieBundle:Hotel')->findAll()
+        ));
+    }
 
     public function etatAction(Hotel $hotel, $etat)
     {

@@ -44,7 +44,7 @@
         private $nbrNuit;
 
         /**
-         * @ORM\ManyToMany(targetEntity="Back\HotelTunisieBundle\Entity\Pays")
+         * @ORM\ManyToMany(targetEntity="Back\HotelTunisieBundle\Entity\Pays" ,inversedBy="voyages")
          * @ORM\JoinTable(name="ost_vo_voyages_pays")
          */
         private $pays;
