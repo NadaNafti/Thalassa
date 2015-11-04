@@ -24,7 +24,8 @@ class SaisonChambreType extends AbstractType
             ->add('maxAdulte')
             ->add('minEnfant')
             ->add('maxEnfant')
-            ->add('contingent')
+            ->add('minPax')
+            ->add('maxPax')
             ->add('chambre')
         ;
     }
