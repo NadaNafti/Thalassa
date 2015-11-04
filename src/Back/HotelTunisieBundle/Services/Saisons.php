@@ -56,4 +56,15 @@ class Saisons
         return $newList;
     }
 
+    public function isFraisChambre($idSaison,$ch)
+    {
+        $saison=$this->em->find('BackHotelTunisieBundle:Saison',$idSaison);
+        foreach($saison->getFraisChambres() as $frais)
+        {
+            if($frais->getChambre()->getId() == $ch)
+                return 'true';
+        }
+        return 'false';
+    }
+
 }
