@@ -11,7 +11,8 @@
                 {% endfor %}
     };
 
-    $('#calendar').fullCalendar({
+    {% if calendrier is defined %}
+        $('#calendar').fullCalendar({
         month:{{ dateDebut|date('m')-1 }},
         year:{{ dateDebut|date('Y') }},
         events: [
@@ -40,6 +41,7 @@
             });
         }
     })
+    {% endif %}
     $('.chambresSelect').change(function () {
         var nbrRooms = $(this).val();
         var id = $(this).data('id');
@@ -60,9 +62,6 @@
                 Block.children().eq(i).remove();
         }
     })
-
-
-
 
     $(document).on('change', '.AdulteChambre', function () {
         Block = $(this).parent().parent().find('.ages .row');
@@ -95,9 +94,6 @@
             }
         }
     })
-
-
-
     $(document).on('change', '.EnfantChambre', function () {
         var chambre = $(this).data('chambre');
         var chambre = $(this).data('chambre');
