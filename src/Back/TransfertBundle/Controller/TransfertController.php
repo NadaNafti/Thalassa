@@ -41,6 +41,15 @@ class TransfertController extends Controller
             'reservation' => $reservation,
         ));
     }
+    
+    public function recuAction(TransfertReservation $reservation)
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $this->render('BackTransfertBundle:transfert:recus.html.twig', array(
+            'reservation' => $reservation,
+            'agence'      => $em->getRepository('BackAdministrationBundle:Agence')->find(1),
+        ));
+    }
 
     public function deleteAction(TransfertReservation $reservation)
     {

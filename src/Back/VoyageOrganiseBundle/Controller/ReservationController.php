@@ -126,6 +126,15 @@ class ReservationController extends Controller {
         $session->getFlashBag()->add('success', "Vous avez pris en charge cette réservation avec succès ");
         return $this->redirect($this->generateUrl("back_voyages_organises_reservation_consulter", array('id' => $reservation->getId())));
     }
+    
+    public function recusAction(Reservation $reservation)
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $this->render('BackVoyageOrganiseBundle:Reservation:recus.html.twig', array(
+            'reservation' => $reservation,
+            'agence'      => $em->getRepository('BackAdministrationBundle:Agence')->find(1),
+        ));
+    }
 
     public function consulterAction(Reservation $reservation) {
         $em = $this->getDoctrine()->getManager();

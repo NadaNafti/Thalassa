@@ -20,10 +20,10 @@
                             {{ formulaire.select2("col-md-4","Centre",form.centre,true) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.input("col-md-12","Description courte",form.descriptionCourte,true) }}
+                            {{ formulaire.input("col-md-12","Description courte",form.descriptionCourte,false) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.input("col-md-12","Description longue",form.descriptionLongue,true) }}
+                            {{ formulaire.input("col-md-12","Description longue",form.descriptionLongue,false) }}
                         </div>
                         {{ formulaire.submit("Enregistrer") }}
                         {{ form_end(form) }}

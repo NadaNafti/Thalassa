@@ -10,6 +10,10 @@ back_bienetre_reservation_consultation:
     path:      /consulter/{id}
     defaults: { _controller: BackBienEtreBundle:Reservation:consulter }
     
+back_bienetre_reservation_reçu:
+    path:     /recus/{id}
+    defaults: { _controller: BackBienEtreBundle:Reservation:recu }
+    
 back_bienetre_reservation_delete:
     path:      /back_bienetre_reservation_delete/{id}
     defaults: { _controller: BackBienEtreBundle:Reservation:delete }

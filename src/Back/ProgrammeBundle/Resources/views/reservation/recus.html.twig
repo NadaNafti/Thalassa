@@ -1,0 +1,156 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Reçu N° {{ reservation.code }}</title>
+    <link rel="stylesheet" href="{{ asset('recus-assets/style.css') }}">
+    <script src="{{ asset('recus-assets/script.js') }}"></script>
+</head>
+<html>
+    <aside style="margin-top: 105px;">
+        <span style="position: absolute;margin-top: -122px;"><img alt="" src="{{ asset(agence.assetPath) }}"></span>
+        <h1>
+            <span style="letter-spacing: 2px;margin-right: 125px;">Reçu N° {{ reservation.id}}</span>
+        </h1>
+        <table class="meta" style="margin-top: -75px;">
+            <tr>
+                <th><span>Bon pour </span></th>
+                <td><span>{{ reservation.getMontantRegle }} DT</span></td>
+            </tr>
+            <tr>
+                <th><span>En date du </span></th>
+                <td>{{ reservation.validated|date('d/m/Y') }} </td>
+            </tr>
+        </table>
+    </aside>
+
+        <aside style="margin-bottom: 15px;">
+            <div>
+                <p>De Mr, Mme : {{ reservation.client }}</p>
+                <p>Prise en charge par {{ reservation.responsable }}</p>
+                <p>Pour la réservation d'un séjour Programmes et Activités, et ce comme suit :</p>
+            </div>
+        </aside>
+        <article style="margin: 0px;">
+
+            <table class="inventory" style="margin-bottom: 10px;">
+                <thead>
+                    <tr>
+                        <th style="width: 100px;"><span>Nature Pièce</span></th>
+                        <th><span>Description pièce</span></th>
+                        <th style="width: 100px;"><span>Montant</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reglement in reservation.reglements %}
+                        <tr>
+                            <td><span>{{ reglement.piece.showModeReglement }}</span></td>
+                            <td><span>
+                                    {{ reglement.piece.numero }}
+                                    {% if reglement.piece.modeReglement == 'C' %}
+                                        à escompter le {{ reglement.piece.dateEcheance|date('d/m/Y') }}
+                                    {% endif %}
+                                </span></td>
+                            <td><span>{{ reglement.montant }} DT</span></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;"><span>Cachet et signature Agence<br/><br/><br/><br/><br/></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
+        <aside>
+            <h1><span></span></h1>
+            <div>
+                <p style="font-size: 10px;text-align: center;line-height: 15px;">
+                    {{ agence.adresse }} - 
+                    Tél : {{ agence.tel1 }} - {{ agence.tel2 }} - 
+                    Fax : {{ agence.fax }}
+                    <br/>
+                    E-mail : {{ agence.contactEmail }} - Site Web : {{ agence.site }}
+                </p>
+            </div>
+        </aside>
+        <aside style="margin-top:10px">
+            <h1 style="border-style: dashed;"><span></span></h1>
+        </aside>
+
+
+        <aside style="margin-top: 130px;">
+            <span style="position: absolute;margin-top: -105px;"><img alt="" src="{{ asset(agence.assetPath) }}"></span>
+            <h1>
+                <span style="letter-spacing: 2px;margin-right: 125px;">Reçu N° {{ reservation.id }}</span>
+            </h1>
+            <table class="meta" style="margin-top: -75px;">
+                <tr>
+                    <th><span>Bon pour </span></th>
+                    <td><span>{{ reservation.getMontantRegle }} DT</span></td>
+                </tr>
+                <tr>
+                    <th><span>En date du </span></th>
+                    <td>{{ reservation.validated|date('d/m/Y') }} </td>
+                </tr>
+            </table>
+        </aside> 
+
+        <aside style="margin-bottom: 15px;">
+            <div>
+                <p>De Mr, Mme : {{ reservation.client }}</p>
+                <p>Prise en charge par {{ reservation.responsable }}</p>
+                {#                <p>La somme de mille cinq cent soixante dinars, 600 millimes</p>#}
+                <p>Pour la réservation d'un séjour Programmes et Activités, et ce comme suit :</p>
+            </div>
+        </aside>
+        <article style="margin: 0px;">
+
+            <table class="inventory" style="margin-bottom: 10px;">
+                <thead>
+                    <tr>
+                        <th style="width: 100px;"><span>Nature Pièce</span></th>
+                        <th><span>Description pièce</span></th>
+                        <th style="width: 100px;"><span>Montant</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reglement in reservation.reglements %}
+                        <tr>
+                            <td><span>{{ reglement.piece.showModeReglement }}</span></td>
+                            <td><span>
+                                    {{ reglement.piece.numero }}
+                                    {% if reglement.piece.modeReglement == 'C' %}
+                                        à escompter le {{ reglement.piece.dateEcheance|date('d/m/Y') }}
+                                    {% endif %}
+                                </span></td>
+                            <td><span>{{ reglement.montant }} DT</span></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;"><span>Signature Client<br/><br/><br/><br/><br/></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
+        <aside>
+            <h1><span></span></h1>
+            <div>
+                <p style="font-size: 10px;text-align: center;line-height: 15px;">
+                    {{ agence.adresse }} - 
+                    Tél : {{ agence.tel1 }} - {{ agence.tel2 }} - 
+                    Fax : {{ agence.fax }}
+                    <br/>
+                    E-mail : {{ agence.contactEmail }} - Site Web : {{ agence.site }}
+                </p>
+            </div>
+        </aside>     
+    </body>
+</html>

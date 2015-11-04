@@ -11,9 +11,14 @@
     <div class="row">
         {% if reservation.responsable is not null and app.user.id == reservation.responsable.id %}
             <div class="col-md-12 center">
+                {% if reservation.reglements|length>0 %}
+                    <a target="_blank" href="{{ path('back_billetterie_reservation_reçu',{'id':reservation.id}) }}"
+                       class="btn btn-light-grey center"> Reçu
+                    </a>
+                {% endif %}
                 {% if  reservation.etat  == 1 %}
                     <a href="#remise" data-toggle="modal" class="btn btn-light-grey center"> Editer la Remise </a>
-                    <a href="#total" data-toggle="modal" class="btn btn-light-grey center"> Editer es totaux </a>
+                    <a href="#total" data-toggle="modal" class="btn btn-light-grey center"> Editer les totaux </a>
                 {% endif %}
                 {% if reservation.etat in [1,9] %}
                     <a href="{{ path('back_billetterie_reservation_validation',{'id':reservation.id}) }}" class="btn btn-success center"> Valider </a>

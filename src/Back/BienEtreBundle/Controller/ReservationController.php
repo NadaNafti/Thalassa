@@ -44,6 +44,15 @@ class ReservationController extends Controller {
                     'reservation' => $reservation,
         ));
     }
+    
+    public function recuAction(Reservation $reservation)
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $this->render('BackBienEtreBundle:Reservation:recus.html.twig', array(
+            'reservation' => $reservation,
+            'agence'      => $em->getRepository('BackAdministrationBundle:Agence')->find(1),
+        ));
+    }
 
     public function deleteAction(Reservation $reservation) {
         $em = $this->getDoctrine()->getManager();

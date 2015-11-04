@@ -42,6 +42,15 @@ class MaritimeController extends Controller
             'reservation' => $reservation,
         ));
     }
+    
+    public function recuAction(MaritimeReservation $reservation)
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $this->render('BackBilletterieMaritimeBundle:maritime:recus.html.twig', array(
+            'reservation' => $reservation,
+            'agence'      => $em->getRepository('BackAdministrationBundle:Agence')->find(1),
+        ));
+    }
 
     public function deleteAction(MaritimeReservation $reservation)
     {

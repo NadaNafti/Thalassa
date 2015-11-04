@@ -30,6 +30,10 @@ back_voyages_organises_new_reservation:
     path:     /new
     defaults: { _controller: BackVoyageOrganiseBundle:Reservation:new }
     
+back_voyages_organises_recus_reservation:
+    path:     /recus/{id}
+    defaults: { _controller: BackVoyageOrganiseBundle:Reservation:recus }
+    
 formulaire_reservationVO:
     path:     /new/{idClient}/{idPack}
     defaults: { _controller: BackVoyageOrganiseBundle:Reservation:formulaire}
