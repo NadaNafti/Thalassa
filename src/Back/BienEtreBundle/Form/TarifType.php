@@ -28,6 +28,7 @@ class TarifType extends AbstractType {
                 ))
                 ->add('libelle')
                 ->add('promotion')
+                ->add('duree')
         ;
     }
 

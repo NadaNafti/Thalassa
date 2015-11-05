@@ -23,7 +23,8 @@
                             {{ formulaire.input("col-md-4","Date Fin",form.dateFin,true) }}
                         </div>
                         <div class="row">
-                            {{ formulaire.input("col-md-4","Libellé",form.libelle,false) }}
+                            {{ formulaire.input("col-md-4","Durée",form.duree,false) }}
+                            {{ formulaire.input("col-md-4","Libellé Promotion",form.libelle,false) }}
                             {{ formulaire.input("col-md-4","",form.promotion,false) }}
                         </div>
                         {{ formulaire.submit("Enregistrer") }}
@@ -44,6 +45,7 @@
                                 <th>Date</th>
                                 <th>Prix d'achat</th>
                                 <th>Prix de vente</th>
+                                <th>Durée</th>
                                 <th>Promotion</th>
                                 <th class="tarif" >Action</th>
                             </tr>
@@ -52,25 +54,26 @@
                             {% for tarif in produit.tarifs %}
                                 <tr>
                                     <td>{{ tarif.id }}</td>
-                                    <td>{{ tarif.libelle }}</td>
                                     <td>Du {{ tarif.dateDeb|date('d/m/Y') }} au {{ tarif.dateFin|date('d/m/Y') }}</td>
                                     <td>{{ tarif.prixAchat }} DT</td>
                                     <td>{{ tarif.prixVente }} DT</td>
-                                    <td>{%if( tarif.promotion ==1)%}Promotion
-                                        {% else %} {% endif %}
+                                    <td>{{ tarif.duree }}</td>
+                                    <td>{%if( tarif.promotion ==1)%}
+                                        {{ tarif.libelle }}
+                                        {% endif %}
                                         </td>
-                                    <td class="TableAction">
-                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            {{ macros.tableEdit(path('back_bienetre_ref_produit_tarif',{'id':produit.id,'id2':tarif.id})) }}
-                                            {{ macros.tableDelete(path('delete_tarif_produit',{'id':tarif.id})) }}
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                                        <td class="TableAction">
+                                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                {{ macros.tableEdit(path('back_bienetre_ref_produit_tarif',{'id':produit.id,'id2':tarif.id})) }}
+                                                {{ macros.tableDelete(path('delete_tarif_produit',{'id':tarif.id})) }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-{% endblock %}
+                {% endblock %}
