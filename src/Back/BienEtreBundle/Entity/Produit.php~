@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Pack
  *
  * @ORM\Table(name="ost_be_produit")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Back\BienEtreBundle\Entity\Repository\ProduitRepository")
  */
 class Produit {
 
@@ -32,6 +32,9 @@ class Produit {
     /**
      * @var integer
      *
+     * 1:Pack
+     * 2:Cure
+     * 3:Soin
      * @ORM\Column(name="type", type="integer")
      */
     private $type;
@@ -39,24 +42,26 @@ class Produit {
     /**
      * @var string
      *
-     * @ORM\Column(name="descriptionCourte", type="text")
+     * @ORM\Column(name="descriptionCourte", type="text", nullable=true)
      */
     private $descriptionCourte;
-    
+
     /**
      * @var string
      *
-     * @ORM\Column(name="descriptionLongue", type="text")
+     * @ORM\Column(name="descriptionLongue", type="text", nullable=true)
      */
     private $descriptionLongue;
 
-
     /**
-     * @ORM\ManyToOne(targetEntity="Back\BienEtreBundle\Entity\Centre")
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\ManyToMany(targetEntity="Back\BienEtreBundle\Entity\Centre")
+     * @ORM\JoinTable(name="ost_be_produit_centre",
+     *      joinColumns={@ORM\JoinColumn(name="produit_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="centre_id", referencedColumnName="id")}
+     * )
      */
-    private $centre;
-    
+    protected $centres;
+
     /**
      * @ORM\OneToMany(targetEntity="Tarif", mappedBy="produit")
      */
@@ -64,13 +69,13 @@ class Produit {
 
     /**
      * @Gedmo\Slug(fields={"libelle"})
-     * @ORM\Column(name="slug", length=128, unique=true)
+     * @ORM\Column(name="slug", length=128,unique=true)
      */
     private $slug;
-    
+
     /**
-    * @ORM\OneToMany(targetEntity="Photo", mappedBy="produit", cascade={"remove"})
-    */
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="produit", cascade={"remove"})
+     */
     private $photos;
 
     /**
@@ -85,13 +90,10 @@ class Produit {
      */
     private $updated;
 
-    
-    
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->tarifs = new \Doctrine\Common\Collections\ArrayCollection();
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -101,8 +103,7 @@ class Produit {
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -112,8 +113,7 @@ class Produit {
      * @param string $libelle
      * @return Produit
      */
-    public function setLibelle($libelle)
-    {
+    public function setLibelle($libelle) {
         $this->libelle = $libelle;
 
         return $this;
@@ -124,8 +124,7 @@ class Produit {
      *
      * @return string 
      */
-    public function getLibelle()
-    {
+    public function getLibelle() {
         return $this->libelle;
     }
 
@@ -135,8 +134,7 @@ class Produit {
      * @param integer $type
      * @return Produit
      */
-    public function setType($type)
-    {
+    public function setType($type) {
         $this->type = $type;
 
         return $this;
@@ -147,8 +145,7 @@ class Produit {
      *
      * @return integer 
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
 
@@ -158,8 +155,7 @@ class Produit {
      * @param string $descriptionCourte
      * @return Produit
      */
-    public function setDescriptionCourte($descriptionCourte)
-    {
+    public function setDescriptionCourte($descriptionCourte) {
         $this->descriptionCourte = $descriptionCourte;
 
         return $this;
@@ -170,8 +166,7 @@ class Produit {
      *
      * @return string 
      */
-    public function getDescriptionCourte()
-    {
+    public function getDescriptionCourte() {
         return $this->descriptionCourte;
     }
 
@@ -181,8 +176,7 @@ class Produit {
      * @param string $descriptionLongue
      * @return Produit
      */
-    public function setDescriptionLongue($descriptionLongue)
-    {
+    public function setDescriptionLongue($descriptionLongue) {
         $this->descriptionLongue = $descriptionLongue;
 
         return $this;
@@ -193,8 +187,7 @@ class Produit {
      *
      * @return string 
      */
-    public function getDescriptionLongue()
-    {
+    public function getDescriptionLongue() {
         return $this->descriptionLongue;
     }
 
@@ -204,8 +197,7 @@ class Produit {
      * @param \DateTime $created
      * @return Produit
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
@@ -216,8 +208,7 @@ class Produit {
      *
      * @return \DateTime 
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
@@ -227,8 +218,7 @@ class Produit {
      * @param \DateTime $updated
      * @return Produit
      */
-    public function setUpdated($updated)
-    {
+    public function setUpdated($updated) {
         $this->updated = $updated;
 
         return $this;
@@ -239,32 +229,8 @@ class Produit {
      *
      * @return \DateTime 
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         return $this->updated;
-    }
-
-    /**
-     * Set centre
-     *
-     * @param \Back\BienEtreBundle\Entity\Centre $centre
-     * @return Produit
-     */
-    public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre = null)
-    {
-        $this->centre = $centre;
-
-        return $this;
-    }
-
-    /**
-     * Get centre
-     *
-     * @return \Back\BienEtreBundle\Entity\Centre 
-     */
-    public function getCentre()
-    {
-        return $this->centre;
     }
 
     /**
@@ -273,8 +239,7 @@ class Produit {
      * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
      * @return Produit
      */
-    public function addTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
-    {
+    public function addTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs) {
         $this->tarifs[] = $tarifs;
 
         return $this;
@@ -285,8 +250,7 @@ class Produit {
      *
      * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
      */
-    public function removeTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs)
-    {
+    public function removeTarif(\Back\BienEtreBundle\Entity\Tarif $tarifs) {
         $this->tarifs->removeElement($tarifs);
     }
 
@@ -295,8 +259,7 @@ class Produit {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getTarifs()
-    {
+    public function getTarifs() {
         return $this->tarifs;
     }
 
@@ -306,8 +269,7 @@ class Produit {
      * @param \Back\BienEtreBundle\Entity\Photo $photos
      * @return Produit
      */
-    public function addPhoto(\Back\BienEtreBundle\Entity\Photo $photos)
-    {
+    public function addPhoto(\Back\BienEtreBundle\Entity\Photo $photos) {
         $this->photos[] = $photos;
 
         return $this;
@@ -318,8 +280,7 @@ class Produit {
      *
      * @param \Back\BienEtreBundle\Entity\Photo $photos
      */
-    public function removePhoto(\Back\BienEtreBundle\Entity\Photo $photos)
-    {
+    public function removePhoto(\Back\BienEtreBundle\Entity\Photo $photos) {
         $this->photos->removeElement($photos);
     }
 
@@ -328,13 +289,11 @@ class Produit {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getPhotos()
-    {
+    public function getPhotos() {
         return $this->photos;
     }
-    
-    public function __toString()
-    {
+
+    public function __toString() {
         return $this->libelle;
     }
 
@@ -344,8 +303,7 @@ class Produit {
      * @param string $slug
      * @return Produit
      */
-    public function setSlug($slug)
-    {
+    public function setSlug($slug) {
         $this->slug = $slug;
 
         return $this;
@@ -356,8 +314,95 @@ class Produit {
      *
      * @return string 
      */
-    public function getSlug()
-    {
+    public function getSlug() {
         return $this->slug;
+    }
+
+    public function getPhotoPrincipal() {
+        if (count($this->photos) == 0)
+            return NULL;
+        foreach ($this->photos as $image) {
+            if ($image->getType() == 1)
+                return $image;
+        }
+        return NULL;
+    }
+
+    public function getPhotosAlbum() {
+        $album = array();
+        foreach ($this->photos as $image) {
+            if ($image->getType() == 2)
+                $album[] = $image;
+        }
+        return $album;
+    }
+    
+    public function getTarifByDate($date)
+    {
+        foreach ($this->tarifs as $tarif)
+        {
+            if($tarif->isValideByDate($date))
+                return $tarif;
+        }
+        return null;
+    }
+    public function showType()
+    {
+        if($this->type == 1)
+            return 'Pack';
+        if($this->type == 2)
+            return 'Soin';
+        if($this->type == 3)
+            return 'Cure';
+    }
+    
+    public function getPrixAchat()
+    {
+        foreach ($this->tarifs as $tarif)
+        {
+                return $tarif->getPrixAchat;
+        }
+    }
+    
+    public function getPrixVente()
+    {
+        foreach ($this->tarifs as $tarif)
+        {
+                return $tarif->getPrixVente;
+        }
+    }
+    
+
+    /**
+     * Add centres
+     *
+     * @param \Back\BienEtreBundle\Entity\Centre $centres
+     * @return Produit
+     */
+    public function addCentre(\Back\BienEtreBundle\Entity\Centre $centres)
+    {
+        $this->centres[] = $centres;
+
+        return $this;
+    }
+
+    /**
+     * Remove centres
+     *
+     * @param \Back\BienEtreBundle\Entity\Centre $centres
+     */
+    public function removeCentre(\Back\BienEtreBundle\Entity\Centre $centres)
+    {
+        $this->centres->removeElement($centres);
+    }
+
+    /**
+     * Get centres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCentres()
+    {
+        return $this->centres;
     }
 }

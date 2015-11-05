@@ -25,7 +25,7 @@ class ProduitType extends AbstractType {
                 ))
                 ->add('descriptionCourte')
                 ->add('descriptionLongue', 'ckeditor')
-                ->add('centre')
+                ->add('centres')
         ;
     }
 

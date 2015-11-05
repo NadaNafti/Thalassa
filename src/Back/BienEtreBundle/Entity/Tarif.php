@@ -55,6 +55,13 @@ class Tarif {
      * @ORM\Column(name="libelle", type="string", length=255,nullable=true)
      */
     private $libelle;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="duree", type="string", length=255,nullable=true)
+     */
+    private $duree;
 
     /**
      * @var boolean
@@ -243,4 +250,27 @@ class Tarif {
     
     
 
+
+    /**
+     * Set duree
+     *
+     * @param string $duree
+     * @return Tarif
+     */
+    public function setDuree($duree)
+    {
+        $this->duree = $duree;
+
+        return $this;
+    }
+
+    /**
+     * Get duree
+     *
+     * @return string 
+     */
+    public function getDuree()
+    {
+        return $this->duree;
+    }
 }

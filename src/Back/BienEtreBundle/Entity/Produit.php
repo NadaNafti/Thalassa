@@ -42,22 +42,25 @@ class Produit {
     /**
      * @var string
      *
-     * @ORM\Column(name="descriptionCourte", type="text")
+     * @ORM\Column(name="descriptionCourte", type="text", nullable=true)
      */
     private $descriptionCourte;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descriptionLongue", type="text")
+     * @ORM\Column(name="descriptionLongue", type="text", nullable=true)
      */
     private $descriptionLongue;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\BienEtreBundle\Entity\Centre")
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\ManyToMany(targetEntity="Back\BienEtreBundle\Entity\Centre")
+     * @ORM\JoinTable(name="ost_be_produit_centre",
+     *      joinColumns={@ORM\JoinColumn(name="produit_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="centre_id", referencedColumnName="id")}
+     * )
      */
-    private $centre;
+    protected $centres;
 
     /**
      * @ORM\OneToMany(targetEntity="Tarif", mappedBy="produit")
@@ -231,27 +234,6 @@ class Produit {
     }
 
     /**
-     * Set centre
-     *
-     * @param \Back\BienEtreBundle\Entity\Centre $centre
-     * @return Produit
-     */
-    public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre = null) {
-        $this->centre = $centre;
-
-        return $this;
-    }
-
-    /**
-     * Get centre
-     *
-     * @return \Back\BienEtreBundle\Entity\Centre 
-     */
-    public function getCentre() {
-        return $this->centre;
-    }
-
-    /**
      * Add tarifs
      *
      * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
@@ -374,11 +356,6 @@ class Produit {
             return 'Cure';
     }
     
-    public function getVille()
-    {
-        return $this->centre->getVille();
-    }
-    
     public function getPrixAchat()
     {
         foreach ($this->tarifs as $tarif)
@@ -395,4 +372,37 @@ class Produit {
         }
     }
     
+
+    /**
+     * Add centres
+     *
+     * @param \Back\BienEtreBundle\Entity\Centre $centres
+     * @return Produit
+     */
+    public function addCentre(\Back\BienEtreBundle\Entity\Centre $centres)
+    {
+        $this->centres[] = $centres;
+
+        return $this;
+    }
+
+    /**
+     * Remove centres
+     *
+     * @param \Back\BienEtreBundle\Entity\Centre $centres
+     */
+    public function removeCentre(\Back\BienEtreBundle\Entity\Centre $centres)
+    {
+        $this->centres->removeElement($centres);
+    }
+
+    /**
+     * Get centres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCentres()
+    {
+        return $this->centres;
+    }
 }
