@@ -30,7 +30,7 @@ class MailerService
     {
         $agence = $this->em->getRepository('BackAdministrationBundle:Agence')->find(1);
         $user = $this->container->get('security.context')->getToken()->getUser();
-        if (!is_null($reservation->getHotel()->getEmail()) ) {
+        if (!is_null($reservation->getHotel()->getEmail())) {
             $message = \Swift_Message::newInstance()
                 ->setSubject('Nouvelle Réservation de la par ' . $agence->getNom())
                 ->setFrom($user->getEmail())
@@ -55,7 +55,7 @@ class MailerService
         $user = $this->container->get('security.context')->getToken()->getUser();
         $message = \Swift_Message::newInstance()
             ->setSubject($agence->getNom()." : Annulation d'une réservation  ".$code )
-            ->setFrom($user->getEmail())
+            ->setFrom($agence->getContactEmail())
             ->setTo($user->getEmail());
         $emails = $this->em->getRepository('BackAdministrationBundle:Email')->findByProduit($code,'annulation');
         foreach ($emails as $email)
@@ -76,7 +76,7 @@ class MailerService
         $user = $this->container->get('security.context')->getToken()->getUser();
         $message = \Swift_Message::newInstance()
             ->setSubject($agence->getNom()." : Validation d'une réservation  ".$code )
-            ->setFrom($user->getEmail())
+            ->setFrom($agence->getContactEmail())
             ->setTo($user->getEmail());
         $emails = $this->em->getRepository('BackAdministrationBundle:Email')->findByProduit($code,'validation');
         foreach ($emails as $email)
@@ -97,7 +97,7 @@ class MailerService
         $user = $this->container->get('security.context')->getToken()->getUser();
         $message = \Swift_Message::newInstance()
             ->setSubject($agence->getNom()." : Nouvelle réservation BackOffice  ".$code )
-            ->setFrom($user->getEmail())
+            ->setFrom($agence->getContactEmail())
             ->setTo($user->getEmail());
         $emails = $this->em->getRepository('BackAdministrationBundle:Email')->findByProduit($code,'creationBack');
         foreach ($emails as $email)
