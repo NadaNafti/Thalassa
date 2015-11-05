@@ -59,6 +59,20 @@
 
         /**
          * @var integer
+         * @Assert\Range(min = 1)
+         * @ORM\Column(name="minPax", type="integer")
+         */
+        private $minPax;
+
+        /**
+         * @var integer
+         * @Assert\Range(min = 1)
+         * @ORM\Column(name="maxPax", type="integer")
+         */
+        private $maxPax;
+
+        /**
+         * @var integer
          *
          * @ORM\Column(name="contingent", type="integer",nullable=true)
          */
@@ -310,4 +324,54 @@
                 return number_format($this->saison->prixBaseVente() + $this->getSuppReducVente() / 4 + $this->saison->getSaisonReduc()->getReduc3LitVente() / 4,3,'.','');
             return number_format($this->saison->prixBaseVente() + $this->getSuppReducVente(),3,'.','');
         }
+    
+    /**
+     * Set minPax
+     *
+     * @param integer $minPax
+     * @return SaisonChambre
+     */
+    public function setMinPax($minPax)
+    {
+        $this->minPax = $minPax;
+
+        return $this;
     }
+
+    /**
+     * Get minPax
+     *
+     * @return integer 
+     */
+    public function getMinPax()
+    {
+        if($this->minPax==0)
+            return $this->maxAdulte+$this->minEnfant;
+        return $this->minPax;
+    }
+
+    /**
+     * Set maxPax
+     *
+     * @param integer $maxPax
+     * @return SaisonChambre
+     */
+    public function setMaxPax($maxPax)
+    {
+        $this->maxPax = $maxPax;
+
+        return $this;
+    }
+
+    /**
+     * Get maxPax
+     *
+     * @return integer 
+     */
+    public function getMaxPax()
+    {
+        if($this->maxPax==0)
+            return $this->maxAdulte+$this->minEnfant;
+        return $this->maxPax;
+    }
+}

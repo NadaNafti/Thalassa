@@ -2,58 +2,17 @@
     $(document).ready(function () {
         var obj = {
                 {% for chambre in saison.chambres %}
-                {{ 'minAdulte'~chambre.chambre.id~':'~chambre.minAdulte|raw }},
-                {{ 'maxAdulte'~chambre.chambre.id~':'~chambre.maxAdulte|raw }},
-                {{ 'minEnfant'~chambre.chambre.id~':'~chambre.minEnfant|raw }},
-                {{ 'maxEnfant'~chambre.chambre.id~':'~chambre.maxEnfant|raw }},
-        {% endfor %}
+                    {{ 'minAdulte'~chambre.chambre.id~':'~chambre.minAdulte|raw }},
+                    {{ 'maxAdulte'~chambre.chambre.id~':'~chambre.maxAdulte|raw }},
+                    {{ 'minEnfant'~chambre.chambre.id~':'~chambre.minEnfant|raw }},
+                    {{ 'maxEnfant'~chambre.chambre.id~':'~chambre.maxEnfant|raw }},
+                    {{ 'minPax'~chambre.chambre.id~':'~chambre.minPax|raw }},
+                    {{ 'maxPax'~chambre.chambre.id~':'~chambre.maxPax|raw }},
+                {% endfor %}
     };
-    $(document).on('change', '.AdulteChambre', function () {
-        var chambre = $(this).data('chambre');
-        var frais = $('#chambre-' + chambre).data('frais');
-        var ordre = $(this).data('ordre');
-        var val = $(this).val();
-        var nbrENF = $(this).parent().parent().find('.EnfantChambre').val();
-        var nbrKids = obj['maxAdulte' + chambre] - val;
-        if (nbrKids > obj['maxEnfant' + chambre])
-            nbrKids = obj['maxEnfant' + chambre];
-        if (nbrKids < obj['minEnfant' + chambre])
-            nbrKids = obj['minEnfant' + chambre];
-        Block = $(this).parent().parent().find('.ages .row');
-        var exist = Block.children().length;
-        if (frais) {
-            if (parseInt(nbrENF) + parseInt(val) == 0) {
-                var i = 1
-                $(this).parent().parent().find('.EnfantChambre').val(1);
-                Block.append('<div class="col-md-1"><label>Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
-            }
-            if (exist >= nbrKids) {
-                $(this).parent().parent().find('.EnfantChambre').val(nbrKids);
-                var toRemove = (exist - nbrKids);
-                var nmbr = Block.children().length;
-                for (var i = nmbr; i >= (nmbr - toRemove); i--)
-                    Block.children().eq(i).remove();
-            }
-        }
-        else {
-            $(this).parent().parent().find('.EnfantChambre').val(nbrKids);
-            if (exist < nbrKids) {
-                for (var i = 1; i <= nbrKids; i++) {
-                    if (i > exist)
-                        Block.append('<div class="col-md-1"><label>Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
-                }
-            }
-            else {
-                var toRemove = (exist - nbrKids);
-                var nmbr = Block.children().length;
-                for (var i = nmbr; i >= (nmbr - toRemove); i--)
-                    Block.children().eq(i).remove();
-            }
-        }
 
-    })
-
-    $('#calendar').fullCalendar({
+    {% if calendrier is defined %}
+        $('#calendar').fullCalendar({
         month:{{ dateDebut|date('m')-1 }},
         year:{{ dateDebut|date('Y') }},
         events: [
@@ -82,6 +41,7 @@
             });
         }
     })
+    {% endif %}
     $('.chambresSelect').change(function () {
         var nbrRooms = $(this).val();
         var id = $(this).data('id');
@@ -103,54 +63,75 @@
         }
     })
 
+    $(document).on('change', '.AdulteChambre', function () {
+        Block = $(this).parent().parent().find('.ages .row');
+        var chambre = $(this).data('chambre');
+        var minEnfant=obj['minEnfant' + chambre];
+        var maxEnfant=obj['maxEnfant' + chambre];
+        var minAdulte=obj['minAdulte' + chambre];
+        var maxAdulte=obj['maxAdulte' + chambre];
+        var minPax=obj['minPax' + chambre];
+        var maxPax=obj['maxPax' + chambre];
+        var ordre = $(this).data('ordre');
+        var nbrADL = $(this).val();
+        var nbrENF = $(this).parent().parent().find('.EnfantChambre').val();
+        var nbrBlockExist = Block.children().length;
+        var total=parseInt(nbrADL)+parseInt(nbrENF);
+        if(total >maxPax)
+        {
+            var toRemove =total-maxPax;
+            $(this).parent().parent().find('.EnfantChambre').val(maxPax-nbrADL);
+            for (var i = nbrBlockExist; i >= (nbrBlockExist - toRemove); i--)
+                Block.children().eq(i).remove();
+        }
+        if(total<minPax)
+        {
+            var nbrKids=minPax-nbrADL;
+            $(this).parent().parent().find('.EnfantChambre').val(nbrKids);
+            for (var i = 1; i <= nbrKids; i++) {
+                if (i > nbrBlockExist)
+                    Block.append('<div class="col-md-2"><label>Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
+            }
+        }
+    })
     $(document).on('change', '.EnfantChambre', function () {
         var chambre = $(this).data('chambre');
-        var frais = $('#chambre-' + chambre).data('frais');
+        var chambre = $(this).data('chambre');
+        var minEnfant=obj['minEnfant' + chambre];
+        var maxEnfant=obj['maxEnfant' + chambre];
+        var minAdulte=obj['minAdulte' + chambre];
+        var maxAdulte=obj['maxAdulte' + chambre];
+        var minPax=obj['minPax' + chambre];
+        var maxPax=obj['maxPax' + chambre];
+        //var frais = $('#chambre-' + chambre).data('frais');
         var ordre = $(this).data('ordre');
-        var nbrKids = $(this).val();
-        var nbrAd = $(this).parent().parent().find('.AdulteChambre').val();
-        var nbrAdulte = obj['maxAdulte' + chambre] - nbrKids;
-        if (nbrAdulte > obj['maxAdulte' + chambre])
-            nbrAdulte = obj['maxAdulte' + chambre];
-        if (nbrAdulte < obj['nbrAdulte' + chambre])
-            nbrAdulte = obj['minEnfant' + chambre];
+        var nbrENF = $(this).val();
+        var nbrADL = $(this).parent().parent().find('.AdulteChambre').val();
         Block = $(this).parent().parent().find('.ages .row');
-        var exist = Block.children().length;
-        if (frais) {
-            if ((parseInt(nbrAd) + parseInt(nbrKids)) > (obj['minEnfant' + chambre] + obj['maxAdulte' + chambre]))
-                $(this).parent().parent().find('.AdulteChambre').val(nbrAdulte);
-            if (exist < nbrKids) {
-                for (var i = 1; i <= nbrKids; i++) {
-                    if (i > exist)
-                        Block.append('<div class="col-md-1"><label style="white-space:nowrap;">Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
+        var nbrBlockExist = Block.children().length;
+        var total=parseInt(nbrADL)+parseInt(nbrENF);
+        if(total >maxPax)
+        {
+            $(this).parent().parent().find('.AdulteChambre').val(maxPax-nbrENF)
+        }
+        if(total<minPax)
+        {
+            $(this).parent().parent().find('.AdulteChambre').val(minPax-nbrENF)
+        }
+        if (nbrBlockExist < nbrENF)
+            {
+                for (var i = 1; i <= nbrENF; i++) {
+                    if (i > nbrBlockExist)
+                        Block.append('<div class="col-md-2"><label style="white-space:nowrap;">Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
                 }
             }
-            else {
-                var toRemove = (exist - nbrKids);
-                var nmbr = Block.children().length;
-                for (var i = nmbr; i >= (nmbr - toRemove); i--)
-                    Block.children().eq(i).remove();
-                if(parseInt(nbrKids)+parseInt(nbrAd)==0)
-                    $(this).parent().parent().find('.AdulteChambre').val(1);
-            }
-        }
-        else {
-            $(this).parent().parent().find('.AdulteChambre').val(nbrAdulte);
-            if (exist < nbrKids) {
-                for (var i = 1; i <= nbrKids; i++) {
-                    if (i > exist)
-                        Block.append('<div class="col-md-1"><label style="white-space:nowrap;">Age ' + i + ' </label><select name="age_' + chambre + '_' + ordre + '_' + i + '" class="form-control" style="width: 70px;">{% for i in hotel.minAge..hotel.maxAge %}<option value="{{ i }}" >{{ i }}</option>{% endfor %}</select></div>');
-                }
-            }
-            else {
-                var toRemove = (exist - nbrKids);
-                var nmbr = Block.children().length;
-                for (var i = nmbr; i >= (nmbr - toRemove); i--)
+        else{
+                var toRemove = (nbrBlockExist - nbrENF);
+                for (var i = nbrBlockExist; i >= (nbrBlockExist - toRemove); i--)
                     Block.children().eq(i).remove();
             }
-        }
-
     })
+
     })
     ;
     {% for ch in saison.chambres %}
