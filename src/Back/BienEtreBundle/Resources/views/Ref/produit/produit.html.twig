@@ -16,8 +16,8 @@
                         {{ form_start(form) }}
                         <div class="row">
                             {{ formulaire.input("col-md-2","Type",form.type,true) }}
-                            {{ formulaire.input("col-md-4","Libellé",form.libelle,true) }}
-                            {{ formulaire.select2("col-md-4","Centre",form.centre,true) }}
+                            {{ formulaire.input("col-md-5","Libellé",form.libelle,true) }}
+                            {{ formulaire.select2("col-md-5","Centre",form.centres,true) }}
                         </div>
                         <div class="row">
                             {{ formulaire.input("col-md-12","Description courte",form.descriptionCourte,false) }}
@@ -53,7 +53,9 @@
                                 <tr>
                                     <td>{{ produit.id }}</td>
                                     <td>{{ produit.libelle }}</td>
-                                    <td>{{ produit.centre }}</td>
+                                    <td>{% for centre in produit.centres %}
+                                        - {{ centre.libelle }}<br>
+                                    {% endfor %}</td>
                                     <td>{%if( produit.type == 1 )%} pack
                                         {%elseif ( produit.type == 2 )%} soin
                                             {%else%} cure

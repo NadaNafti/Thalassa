@@ -57,6 +57,13 @@ class Tarif {
     private $libelle;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="duree", type="string", length=255,nullable=true)
+     */
+    private $duree;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="promotion", type="boolean",nullable=true)
@@ -234,13 +241,32 @@ class Tarif {
             return TRUE;
         return FALSE;
     }
-    
+
     public function isValideByDate($date) {
         if ($this->dateDeb->format('Y-m-d') <= $date && $this->dateFin->format('Y-m-d') >= $date)
             return TRUE;
         return FALSE;
     }
-    
-    
+
+    /**
+     * Set duree
+     *
+     * @param string $duree
+     * @return Tarif
+     */
+    public function setDuree($duree) {
+        $this->duree = $duree;
+
+        return $this;
+    }
+
+    /**
+     * Get duree
+     *
+     * @return string 
+     */
+    public function getDuree() {
+        return $this->duree;
+    }
 
 }
