@@ -30,7 +30,7 @@ class MailerService
     {
         $agence = $this->em->getRepository('BackAdministrationBundle:Agence')->find(1);
         $user = $this->container->get('security.context')->getToken()->getUser();
-        if (!is_null($reservation->getHotel()->getEmail()) && false) {
+        if (!is_null($reservation->getHotel()->getEmail()) ) {
             $message = \Swift_Message::newInstance()
                 ->setSubject('Nouvelle Réservation de la par ' . $agence->getNom())
                 ->setFrom($user->getEmail())
