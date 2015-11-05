@@ -354,7 +354,7 @@ class Produit {
             return 'Cure';
     }
 
-    public function getAPartieDe()
+    public function getAPartirDe()
     {
         foreach ($this->tarifs as $tarif)
         {
