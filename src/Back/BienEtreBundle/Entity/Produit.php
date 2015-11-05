@@ -336,42 +336,33 @@ class Produit {
         }
         return $album;
     }
-    
-    public function getTarifByDate($date)
-    {
-        foreach ($this->tarifs as $tarif)
-        {
-            if($tarif->isValideByDate($date))
+
+    public function getTarifByDate($date) {
+        foreach ($this->tarifs as $tarif) {
+            if ($tarif->isValideByDate($date))
                 return $tarif;
         }
         return null;
     }
-    public function showType()
-    {
-        if($this->type == 1)
+
+    public function showType() {
+        if ($this->type == 1)
             return 'Pack';
-        if($this->type == 2)
+        if ($this->type == 2)
             return 'Soin';
-        if($this->type == 3)
+        if ($this->type == 3)
             return 'Cure';
     }
-    
-    public function getPrixAchat()
+
+    public function getAPartieDe()
     {
         foreach ($this->tarifs as $tarif)
         {
-                return $tarif->getPrixAchat;
+            if($tarif->isValide())
+                return $tarif->getPrixVente();
         }
+        return null;
     }
-    
-    public function getPrixVente()
-    {
-        foreach ($this->tarifs as $tarif)
-        {
-                return $tarif->getPrixVente;
-        }
-    }
-    
 
     /**
      * Add centres
@@ -379,8 +370,7 @@ class Produit {
      * @param \Back\BienEtreBundle\Entity\Centre $centres
      * @return Produit
      */
-    public function addCentre(\Back\BienEtreBundle\Entity\Centre $centres)
-    {
+    public function addCentre(\Back\BienEtreBundle\Entity\Centre $centres) {
         $this->centres[] = $centres;
 
         return $this;
@@ -391,8 +381,7 @@ class Produit {
      *
      * @param \Back\BienEtreBundle\Entity\Centre $centres
      */
-    public function removeCentre(\Back\BienEtreBundle\Entity\Centre $centres)
-    {
+    public function removeCentre(\Back\BienEtreBundle\Entity\Centre $centres) {
         $this->centres->removeElement($centres);
     }
 
@@ -401,8 +390,8 @@ class Produit {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getCentres()
-    {
+    public function getCentres() {
         return $this->centres;
     }
+
 }
