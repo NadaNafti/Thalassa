@@ -716,10 +716,6 @@ class Reservation
         return $this->produit->showType();
     }
     
-    public function getCentre()
-    {
-        return $this->produit->getCentre();
-    }
     
     public function getVille()
     {
@@ -738,5 +734,15 @@ class Reservation
         $this->centre = $centre;
 
         return $this;
+    }
+
+    /**
+     * Get centre
+     *
+     * @return \Back\BienEtreBundle\Entity\Centre 
+     */
+    public function getCentre()
+    {
+        return $this->centre;
     }
 }
