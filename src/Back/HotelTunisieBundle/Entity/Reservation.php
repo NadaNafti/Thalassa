@@ -537,7 +537,7 @@ class Reservation
                 return 'Enregistrée';
             case "2":
                 return 'Validée';
-            case "3":
+            case "9":
                 return 'Annulée';
         }
     }
