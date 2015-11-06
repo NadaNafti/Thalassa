@@ -1,0 +1,44 @@
+<div class="availability">
+                                <form method="post" action="{{ path('front_produit_details',{'slug':produit.slug,'tarifs':tarifs}) }}">
+                                    <div class="availability-inner">
+                                        <div class="form-group datepicker-wrapper  mr-10">
+                                            <label for="availability1-check-in">Date debut</label>
+                                            <input type="text" class="form-control date" name="debut" id="availability1-check-in" value="{{ app.request.get('debut') }}">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <div class="update">
+                                            <button type="submit" class="btn btn-info">Recherche <i class="fa-check"></i></button>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            {%if app.request.get('debut') is not null %}
+                                <div class="clear mb-30"></div>
+                                <h4>Choisissez la formule qui vous convient</h4>
+                                <ul class="detail-item">
+                                    <li class="clearfix" style="padding: 20px 160px 25px 50px;">
+                                        <div class="br2">
+                                            {% for tarif in tarifs %}
+                                                <span>
+                                                    <ul>
+                                                        <li>{{ tarif.duree }}
+                                                            <ul>
+                                                                <li><div class="detail-price">{{ tarif.prixAchat }}</div></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </span><br>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="detail-meta">
+                                            <a href="{{ path('front_bienetre_reservation',{'debut':app.request.get('debut'),'produit':produit.id}) }}" class="btn">Réserver</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            {% endif%}
+
+
+                        </ul>
+                        <div class="clear xss-mb"></div>

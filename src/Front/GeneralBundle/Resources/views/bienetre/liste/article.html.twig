@@ -34,15 +34,12 @@
             </div>
             <div class="right">
                 <div class="list-item-meta">
-                        <span class="rating-static" style="margin-top: -8px;background: inherit">A partir de</span>
-                        {% for tarif in produit.tarifs if tarif.isValide==true %}
-                            <span class="list-item-review">{{ tarif.prixVente }} DT</span>
-                        {%else%} <span class="list-item-review">0.000 DT</span>
-                        {%endfor%}
-                    </div>
+                    <span class="rating-static" style="margin-top: -8px;background: inherit">A partir de</span>
+                    <span class="list-item-review" style="color:rosybrown;">{{ produit.APartirDe }} DT</span>
+                </div>
                 <a href="{{ path('front_produit_details',{'slug':produit.slug}) }}" class="btn">Détails</a>
             </div>
         </div>
-        
+
     </div>
 </div>

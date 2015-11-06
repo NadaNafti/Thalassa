@@ -9,9 +9,19 @@ front_bienetre_sort:
     defaults: { _controller: FrontGeneralBundle:BienEtre:sort,produits:all,name:null }
     
 front_produit_details:
-    path:     /{slug}
-    defaults: { _controller: FrontGeneralBundle:BienEtre:details }
+    path:     /{slug}/{date}
+    defaults: { _controller: FrontGeneralBundle:BienEtre:details,date:null }
 
 front_bienetre_success:
     path:     /success/{id}
     defaults: { _controller: FrontGeneralBundle:BienEtre:success }
+    
+#front_produit_details_tarif:
+#    path:     /{id}
+#    defaults: { _controller: FrontGeneralBundle:BienEtre:detailsTarif}
+#    requirements:
+#        id:  \d+
+#    
+front_bienetre_reservation:
+    path:     /reservation/{slug}/{date}/{tarif}
+    defaults: { _controller: FrontGeneralBundle:BienEtre:reservation }
