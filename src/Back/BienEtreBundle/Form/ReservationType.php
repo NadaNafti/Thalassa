@@ -8,10 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ReservationType extends AbstractType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -26,7 +22,7 @@ class ReservationType extends AbstractType
                         7 => '7',
                         8 => '8',
                         9 => '9',
-                        310 => '10'
+                        10 => '10'
                     )
                 ))
             ->add('nomPrenom')

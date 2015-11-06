@@ -64,6 +64,12 @@ class Reservation
     private $produit;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Centre")
+     * @Assert\NotBlank()
+     */
+    private $centre;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Tarif")
      */
     private $tarif;
@@ -720,4 +726,17 @@ class Reservation
         return $this->produit->getVille();
     }
     
+
+    /**
+     * Set centre
+     *
+     * @param \Back\BienEtreBundle\Entity\Centre $centre
+     * @return Reservation
+     */
+    public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre = null)
+    {
+        $this->centre = $centre;
+
+        return $this;
+    }
 }
