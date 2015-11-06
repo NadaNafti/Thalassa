@@ -39,15 +39,12 @@
                         <table class="table table-striped">
                             <tbody>
                                 <tr>
-                                    <td>Bien-être : {{reservation.typeProduit}}:</td>
-                                </tr>
-                                <tr>
-                                    <td>Nom {{reservation.typeProduit}} :</td>
+                                    <td>{{ reservation.produit.showType }}:</td>
                                     <td>{{ reservation.produit }}</td>
                                 </tr>
                                 <tr>
                                     <td>Centre :</td>
-                                    <td>{{ reservation.centre }} ( {{ reservation.ville }} )</td>
+                                    <td>{{ reservation.centre }}, {{ reservation.centre.ville }}</td>
                                 </tr>
                                 <tr>
                                     <td>Date d'arrivée :</td>
@@ -55,7 +52,7 @@
                                 </tr>
                                 <tr>
                                     <td>Nombre de personnes :</td>
-                                    <td>{{ reservation.nombrePersonne }}</td>
+                                    <td>{{ reservation.nombrePersonne }} Personnes</td>
                                 </tr>
                                 {% if reservation.commentaire is not null %}
                                     <tr>
@@ -64,13 +61,13 @@
                                     </tr>
                                 {% endif %}
                                 <tr>
-                                    <td>Montant total :</td>
-                                    <td>{{ reservation.total }}</td>
+                                    <td>Total :</td>
+                                    <td><span class="text-success text-bold font24">
+                                            {{ reservation.total }}  DT
+                                        </span></td>
                                 </tr>
-
                             </tbody>
                         </table>
-                        <hr>
                     </div>
                 </div>
             </div>

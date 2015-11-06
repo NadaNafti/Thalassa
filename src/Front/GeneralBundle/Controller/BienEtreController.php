@@ -77,17 +77,15 @@ class BienEtreController extends Controller {
     }
 
     public function successAction(Reservation $reservation) {
-        return $this->render("FrontGeneralBundle:bienetre/details:success.html.twig", array(
+        return $this->render("FrontGeneralBundle:bienetre:success.html.twig", array(
                     'reservation' => $reservation
         ));
     }
 
-    public function reservationAction($slug, $date, $tarif) {
+    public function reservationAction($slug, $date,  Tarif $tarif) {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $request = $this->getRequest();
-        $produit = $em->getRepository('BackBienEtreBundle:Produit')->findOneBy(array('slug' => $slug));
-        $t = $em->getRepository('BackBienEtreBundle:Tarif')->find($tarif);
         $user = $this->get('security.context')->getToken()->getUser();
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') && !is_null($user->getClient()))
             $client = $user->getClient();
@@ -99,31 +97,30 @@ class BienEtreController extends Controller {
                 ->setTel($client->getTel1());
         if (!is_null($client->getUser()))
             $reservation->setEmail($client->getUser()->getEmail());
-        $form = $this->createForm(new ReservationType(), $reservation)->remove('dateDebut');
-        $form1 = $this->createFormBuilder()->add('centres', 'entity', array(
-                    'class' => 'BackBienEtreBundle:Centre',
-                    'choices' => $produit->getCentres(),
-                    'empty_value' => 'Choisir un centre',
-                    'required' => true
-                ))->getForm();
+        $form = $this->createForm(new ReservationType(), $reservation)
+                ->remove('dateDebut')
+                ->add('centre', 'entity', array(
+            'class' => 'BackBienEtreBundle:Centre',
+            'choices' => $tarif->getProduit()->getCentres(),
+            'empty_value' => 'Choisir un centre',
+            'required' => true
+        ));
         if ($request->isMethod('POST')) {
             $form->submit($request);
-            $centre = $form1->getData();
             $reservation = $form->getData();
             $em->persist($reservation->setEtat(1)
                             ->setFrontOffice(1)
-                            ->setTarif($t)
-                            ->setProduit($produit)
-                            ->setDateDebut($date));
+                            ->setTarif($tarif)
+                            ->setProduit($tarif->getProduit())
+                            ->setDateDebut(\DateTime::createFromFormat('Y-m-d', $date)));
             $em->flush();
             return $this->redirect($this->generateUrl('front_bienetre_success', array('id' => $reservation->getId())));
         }
         $csrf_token = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
-        return $this->render('FrontGeneralBundle:bienetre/details:reservation.html.twig', array(
+        return $this->render('FrontGeneralBundle:bienetre:reservation.html.twig', array(
                     'csrf_token' => $csrf_token,
                     'form' => $form->createView(),
-                    'form1' => $form1->createView(),
-                    'tarif' => $t
+                    'tarif' => $tarif
         ));
     }
 
