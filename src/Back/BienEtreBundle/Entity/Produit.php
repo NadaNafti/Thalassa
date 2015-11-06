@@ -337,12 +337,13 @@ class Produit {
         return $album;
     }
 
-    public function getTarifByDate($date) {
+    public function getTarifsByDate($date) {
+        $tarifs=array();
         foreach ($this->tarifs as $tarif) {
             if ($tarif->isValideByDate($date))
-                return $tarif;
+                $tarifs[]= $tarif;
         }
-        return null;
+        return $tarifs;
     }
 
     public function showType() {
