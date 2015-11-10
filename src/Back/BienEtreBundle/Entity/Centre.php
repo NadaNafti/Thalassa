@@ -289,5 +289,24 @@ class Centre {
     {
         return $this->libelle;
     }
+    
+    public function getPhotoPrincipal() {
+        if (count($this->photos) == 0)
+            return NULL;
+        foreach ($this->photos as $image) {
+            if ($image->getType() == 1)
+                return $image;
+        }
+        return NULL;
+    }
+
+    public function getPhotosAlbum() {
+        $album = array();
+        foreach ($this->photos as $image) {
+            if ($image->getType() == 2)
+                $album[] = $image;
+        }
+        return $album;
+    }
 
 }
