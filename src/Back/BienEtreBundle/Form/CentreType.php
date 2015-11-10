@@ -16,7 +16,7 @@ class CentreType extends AbstractType
     {
         $builder
             ->add('libelle')
-            ->add('description')
+            ->add('description','ckeditor')
             ->add('hotel')
             ->add('ville')
         ;

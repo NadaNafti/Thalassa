@@ -42,22 +42,25 @@ class Produit {
     /**
      * @var string
      *
-     * @ORM\Column(name="descriptionCourte", type="text")
+     * @ORM\Column(name="descriptionCourte", type="text", nullable=true)
      */
     private $descriptionCourte;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descriptionLongue", type="text")
+     * @ORM\Column(name="descriptionLongue", type="text", nullable=true)
      */
     private $descriptionLongue;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Back\BienEtreBundle\Entity\Centre")
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\ManyToMany(targetEntity="Back\BienEtreBundle\Entity\Centre")
+     * @ORM\JoinTable(name="ost_be_produit_centre",
+     *      joinColumns={@ORM\JoinColumn(name="produit_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="centre_id", referencedColumnName="id")}
+     * )
      */
-    private $centre;
+    protected $centres;
 
     /**
      * @ORM\OneToMany(targetEntity="Tarif", mappedBy="produit")
@@ -231,27 +234,6 @@ class Produit {
     }
 
     /**
-     * Set centre
-     *
-     * @param \Back\BienEtreBundle\Entity\Centre $centre
-     * @return Produit
-     */
-    public function setCentre(\Back\BienEtreBundle\Entity\Centre $centre = null) {
-        $this->centre = $centre;
-
-        return $this;
-    }
-
-    /**
-     * Get centre
-     *
-     * @return \Back\BienEtreBundle\Entity\Centre 
-     */
-    public function getCentre() {
-        return $this->centre;
-    }
-
-    /**
      * Add tarifs
      *
      * @param \Back\BienEtreBundle\Entity\Tarif $tarifs
@@ -354,45 +336,63 @@ class Produit {
         }
         return $album;
     }
-    
-    public function getTarifByDate($date)
+
+    public function getTarifsByDate($date) {
+        $tarifs=array();
+        foreach ($this->tarifs as $tarif) {
+            if ($tarif->isValideByDate($date))
+                $tarifs[]= $tarif;
+        }
+        return $tarifs;
+    }
+
+    public function showType() {
+        if ($this->type == 1)
+            return 'Pack';
+        if ($this->type == 2)
+            return 'Soin';
+        if ($this->type == 3)
+            return 'Cure';
+    }
+
+    public function getAPartirDe()
     {
         foreach ($this->tarifs as $tarif)
         {
-            if($tarif->isValideByDate($date))
-                return $tarif;
+            if($tarif->isValide())
+                return $tarif->getPrixVente();
         }
         return null;
     }
-    public function showType()
-    {
-        if($this->type == 1)
-            return 'Pack';
-        if($this->type == 2)
-            return 'Soin';
-        if($this->type == 3)
-            return 'Cure';
+
+    /**
+     * Add centres
+     *
+     * @param \Back\BienEtreBundle\Entity\Centre $centres
+     * @return Produit
+     */
+    public function addCentre(\Back\BienEtreBundle\Entity\Centre $centres) {
+        $this->centres[] = $centres;
+
+        return $this;
     }
-    
-    public function getVille()
-    {
-        return $this->centre->getVille();
+
+    /**
+     * Remove centres
+     *
+     * @param \Back\BienEtreBundle\Entity\Centre $centres
+     */
+    public function removeCentre(\Back\BienEtreBundle\Entity\Centre $centres) {
+        $this->centres->removeElement($centres);
     }
-    
-    public function getPrixAchat()
-    {
-        foreach ($this->tarifs as $tarif)
-        {
-                return $tarif->getPrixAchat;
-        }
+
+    /**
+     * Get centres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCentres() {
+        return $this->centres;
     }
-    
-    public function getPrixVente()
-    {
-        foreach ($this->tarifs as $tarif)
-        {
-                return $tarif->getPrixVente;
-        }
-    }
-    
+
 }

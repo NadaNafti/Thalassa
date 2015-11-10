@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ost_be_tarif")
  * @ORM\Entity
  */
-class Tarif
-{
+class Tarif {
+
     /**
      * @var integer
      *
@@ -55,6 +55,13 @@ class Tarif
      * @ORM\Column(name="libelle", type="string", length=255,nullable=true)
      */
     private $libelle;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="duree", type="string", length=255,nullable=true)
+     */
+    private $duree;
 
     /**
      * @var boolean
@@ -62,22 +69,19 @@ class Tarif
      * @ORM\Column(name="promotion", type="boolean",nullable=true)
      */
     private $promotion;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Produit",inversedBy="tarifs")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $produit;
 
-    
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -87,8 +91,7 @@ class Tarif
      * @param string $prixAchat
      * @return Tarif
      */
-    public function setPrixAchat($prixAchat)
-    {
+    public function setPrixAchat($prixAchat) {
         $this->prixAchat = $prixAchat;
 
         return $this;
@@ -99,8 +102,7 @@ class Tarif
      *
      * @return string 
      */
-    public function getPrixAchat()
-    {
+    public function getPrixAchat() {
         return $this->prixAchat;
     }
 
@@ -110,8 +112,7 @@ class Tarif
      * @param string $prixVente
      * @return Tarif
      */
-    public function setPrixVente($prixVente)
-    {
+    public function setPrixVente($prixVente) {
         $this->prixVente = $prixVente;
 
         return $this;
@@ -122,8 +123,7 @@ class Tarif
      *
      * @return string 
      */
-    public function getPrixVente()
-    {
+    public function getPrixVente() {
         return $this->prixVente;
     }
 
@@ -133,8 +133,7 @@ class Tarif
      * @param \DateTime $dateDeb
      * @return Tarif
      */
-    public function setDateDeb($dateDeb)
-    {
+    public function setDateDeb($dateDeb) {
         $this->dateDeb = $dateDeb;
 
         return $this;
@@ -145,8 +144,7 @@ class Tarif
      *
      * @return \DateTime 
      */
-    public function getDateDeb()
-    {
+    public function getDateDeb() {
         return $this->dateDeb;
     }
 
@@ -156,8 +154,7 @@ class Tarif
      * @param \DateTime $dateFin
      * @return Tarif
      */
-    public function setDateFin($dateFin)
-    {
+    public function setDateFin($dateFin) {
         $this->dateFin = $dateFin;
 
         return $this;
@@ -168,8 +165,7 @@ class Tarif
      *
      * @return \DateTime 
      */
-    public function getDateFin()
-    {
+    public function getDateFin() {
         return $this->dateFin;
     }
 
@@ -179,8 +175,7 @@ class Tarif
      * @param string $libelle
      * @return Tarif
      */
-    public function setLibelle($libelle)
-    {
+    public function setLibelle($libelle) {
         $this->libelle = $libelle;
 
         return $this;
@@ -191,8 +186,7 @@ class Tarif
      *
      * @return string 
      */
-    public function getLibelle()
-    {
+    public function getLibelle() {
         return $this->libelle;
     }
 
@@ -202,8 +196,7 @@ class Tarif
      * @param boolean $promotion
      * @return Tarif
      */
-    public function setPromotion($promotion)
-    {
+    public function setPromotion($promotion) {
         $this->promotion = $promotion;
 
         return $this;
@@ -214,8 +207,7 @@ class Tarif
      *
      * @return boolean 
      */
-    public function getPromotion()
-    {
+    public function getPromotion() {
         return $this->promotion;
     }
 
@@ -225,8 +217,7 @@ class Tarif
      * @param \Back\BienEtreBundle\Entity\Produit $produit
      * @return Tarif
      */
-    public function setProduit(\Back\BienEtreBundle\Entity\Produit $produit = null)
-    {
+    public function setProduit(\Back\BienEtreBundle\Entity\Produit $produit = null) {
         $this->produit = $produit;
 
         return $this;
@@ -237,13 +228,26 @@ class Tarif
      *
      * @return \Back\BienEtreBundle\Entity\Produit 
      */
-    public function getProduit()
-    {
+    public function getProduit() {
         return $this->produit;
     }
-    
-    public function __toString()
-    {
+
+    public function __toString() {
         return $this->libelle;
     }
+
+    public function isValide() {
+        if ($this->dateDeb->format('Y-m-d') <= date('Y-m-d') && $this->dateFin->format('Y-m-d') >= date('Y-m-d'))
+            return TRUE;
+        return FALSE;
+    }
+    
+    public function isValideByDate($date) {
+        if ($this->dateDeb->format('Y-m-d') <= $date && $this->dateFin->format('Y-m-d') >= $date)
+            return TRUE;
+        return FALSE;
+    }
+    
+    
+
 }
