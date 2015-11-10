@@ -1,0 +1,42 @@
+<div class="col-xs-12 col-sm-6 col-md-4">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="list-item">
+            <div class="list-item-image">
+                <div class="image-inner">
+                    <a class="link-image" href="{{ path('front_produit_details',{'slug':produit.slug}) }}">
+                        {% if produit.photoPrincipal.assetPath is defined %}
+                            <img src="{{ asset(produit.photoPrincipal.assetPath) }}" alt="" style="width: 270px;height: 195px"/>
+                        {% else %}
+                            <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=270&h=195" alt=""/>
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+            <div class="list-item-label">
+                <div class="left">
+                    <h4 class="list-item-title">
+                        <a href="{{ path('front_produit_details',{'slug':produit.slug}) }}" class="inverse">{{ produit }}</a>
+                    </h4>
+                    <div class="list-item-meta">
+                        <span class="rating-static" style="margin-top: -8px;background: inherit">A partir de</span>
+                        {% for tarif in produit.tarifs if tarif.isValide==true %}
+                            <span class="list-item-review">{{ tarif.prixVente }} DT</span>
+                        {%else%} <span class="list-item-review">0.000 DT</span>
+                        {%endfor%}
+                    </div>
+                    <div class="list-item-details">
+                        <div class="clear mt-10"></div>
+                        {% if  produit.descriptionCourte|length >80 %}
+                            {{ produit.descriptionCourte|slice(0, 80)|raw }} ...
+                        {% else %}
+                            {{ produit.descriptionCourte|raw }}
+                        {% endif %}
+                    </div>
+
+                    <div class="clear"></div>
+                    <a href="{{ path('front_produit_details',{'slug':produit.slug}) }}" class="btn btn-block">Détails</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

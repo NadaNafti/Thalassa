@@ -1,17 +1,17 @@
 {% extends ":Front:base.html.twig" %}
-{% block title %}Liste des packs, soins & cures{% endblock %}
+{% block title %}Liste Bien-Être{% endblock %}
 {% block body %}
     <div id="page_title">
         <div class="container clearfix">
             <div class="page-name">{{ block('title') }}</div>
             <div class="breadcrumb clearfix">
                 <a href="{{ path('accueil') }}">Accueil</a>
-                <span class="current-page">Bien-être Liste</span>
+                <span class="current-page">Liste</span>
             </div>
         </div>
     </div>
     <div class="banner-intern">
-        <img src="{{ asset('front-assets/images/bien-etre.jpg') }}" style="width:100%">
+        <img src="{{ asset('front-assets/images/banner-2.png') }}" style="width:100%">
     </div>
     <div id="content_wrapper">
         <div class="container">
@@ -19,7 +19,7 @@
                 {% include 'FrontGeneralBundle:bienetre/liste:filtre.html.twig' %}
                 <div class="col-xs-12 col-sm-8 col-md-9">
                     {% include 'FrontGeneralBundle:bienetre/liste:sort.html.twig' %}
-                    <div class="row items-container">
+                    <div class="row items-container list-style">
                         {% for produit in produits %}
                             {% include 'FrontGeneralBundle:bienetre/liste:article.html.twig' %}
                         {% endfor %}
