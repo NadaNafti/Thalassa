@@ -7,6 +7,12 @@ class Library
 
     public function getDatesBetween($dStart, $dEnd)
     {
+        if($dStart>$dEnd)
+        {
+            $var=$dStart;
+            $dStart=$dEnd;
+            $dEnd=$var;
+        }
         $iStart=strtotime($dStart);
         $iEnd=strtotime($dEnd);
         if(false === $iStart || false === $iEnd)
