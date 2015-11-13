@@ -547,7 +547,7 @@
         public function getFirstPeriodeValide()
         {
             if($this->isValide())
-                return $this->getPeriodes(true)->first();
+                return $this->getPeriodes(true)[0];
             return null;
         }
     
