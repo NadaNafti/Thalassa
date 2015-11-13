@@ -23,6 +23,14 @@
         private $id;
 
         /**
+         * 1:Organise,2:A la carte
+         * @var integer
+         *
+         * @ORM\Column(name="type", type="integer")
+         */
+        private $type;
+
+        /**
          * @var string
          *
          * @ORM\Column(name="libelle", type="string", length=255)
@@ -119,6 +127,7 @@
          */
         public function __construct()
         {
+            $this->type=1;
             $this->nbrInscriptions = 0;
             $this->periodes = new \Doctrine\Common\Collections\ArrayCollection();
             $this->pays = new \Doctrine\Common\Collections\ArrayCollection();
@@ -534,6 +543,13 @@
                 return TRUE;
             return FALSE;
         }
+
+        public function getFirstPeriodeValide()
+        {
+            if($this->isValide())
+                return $this->getPeriodes(true)->first();
+            return null;
+        }
     
     /**
      * Add contingents
@@ -567,4 +583,37 @@
     {
         return $this->contingents;
     }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     * @return VoyageOrganise
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer 
+     */
+    public function getType()
+    {
+        if(is_null($this->type) || $this->type==0)
+            return 1;
+        return $this->type;
+    }
+
+        public function showType()
+        {
+            if($this->getType()==1)
+                return 'Voyage Organisé';
+            if($this->getType()==2)
+                return 'Voyage à la carte';
+        }
 }

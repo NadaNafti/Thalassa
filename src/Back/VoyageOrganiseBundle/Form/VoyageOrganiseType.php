@@ -15,21 +15,28 @@ class VoyageOrganiseType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-	$builder
-		->add('libelle')
-		->add('nbrJour')
-		->add('nbrNuit')
-		->add('prix')
-		->add('descriptionCourte')
-		->add('themes')
-		->add('pays')
-		->add('destination', 'entity', array(
-		    'class' => 'Back\VoyageOrganiseBundle\Entity\Destination',
-		    'required' => true,
-		    'empty_value' => 'Liste des déstinations',
-		    'empty_data' => null
-		))
-	;
+        $builder
+            ->add('libelle')
+            ->add('nbrJour')
+            ->add('nbrNuit')
+            ->add('prix')
+            ->add('descriptionCourte')
+            ->add('themes')
+            ->add('pays')
+            ->add('destination', 'entity', array(
+                'class'       => 'Back\VoyageOrganiseBundle\Entity\Destination',
+                'required'    => true,
+                'empty_value' => 'Liste des déstinations',
+                'empty_data'  => null
+            ))
+            ->add('type', 'choice', array(
+                'choices'=>array(
+                    1=>'Voyage Organisé',
+                    2=>'Voyage à la carte'
+                ),
+                'required'=>true,
+                'expanded'=>true,
+            ));
     }
 
     /**
@@ -37,9 +44,9 @@ class VoyageOrganiseType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-	$resolver->setDefaults(array(
-	    'data_class' => 'Back\VoyageOrganiseBundle\Entity\VoyageOrganise'
-	));
+        $resolver->setDefaults(array(
+            'data_class' => 'Back\VoyageOrganiseBundle\Entity\VoyageOrganise'
+        ));
     }
 
     /**
@@ -47,7 +54,7 @@ class VoyageOrganiseType extends AbstractType
      */
     public function getName()
     {
-	return 'back_voyageorganisebundle_voyageorganise';
+        return 'back_voyageorganisebundle_voyageorganise';
     }
 
 }
