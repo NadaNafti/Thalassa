@@ -1206,6 +1206,24 @@ class Saison
         return 0;
     }
 
+    public function getOccMinPax($ch)
+    {
+        foreach ($this->chambres as $chambre) {
+            if ($chambre->getChambre()->getId() == $ch)
+                return $chambre->getMinPax();
+        }
+        return 0;
+    }
+
+    public function getOccMaxPax($ch)
+    {
+        foreach ($this->chambres as $chambre) {
+            if ($chambre->getChambre()->getId() == $ch)
+                return $chambre->getMaxPax();
+        }
+        return 0;
+    }
+
     /**
      * Add contingents
      *
