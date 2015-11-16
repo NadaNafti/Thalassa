@@ -478,16 +478,18 @@ class SaisonsController extends Controller
             $session->getFlashBag()->add('success', "les frais de la chambre " . $chambre->getLibelle() . " a été ajoutée avec succées.");
             $fraisChambre = new SaisonFraisChambre();
             $em->persist($fraisChambre->setSaison($saison)->setChambre($chambre));
-            for($nbrAdulte = $saison->getOccMinAdulte($chambre->getId()); $nbrAdulte <= $saison->getOccMaxAdulte($chambre->getId()); $nbrAdulte++) {
-                $nbrEnfant = $saison->getOccMaxAdulte($chambre->getId()) + $saison->getOccMinEnfant($chambre->getId()) - $nbrAdulte;
-                for($i = 0; $i <= $nbrEnfant; $i++) {
-                    if(($i + $nbrAdulte) > 0 && $i>=$saison->getOccMinEnfant($chambre->getId()) &&  $i<=$saison->getOccMaxEnfant($chambre->getId())) {
+            for($nbrAdulte = $saison->getOccMinAdulte($chambre->getId()); $nbrAdulte <= $saison->getOccMaxAdulte($chambre->getId()); $nbrAdulte++)
+            {
+                for($nbrEnfant = $saison->getOccMinEnfant($chambre->getId()); $nbrEnfant <= $saison->getOccMaxEnfant($chambre->getId()); $nbrEnfant++)
+                {
+                    if($nbrAdulte+$nbrEnfant<=$saison->getOccMaxPax($chambre->getId()) && $nbrAdulte+$nbrEnfant>=$saison->getOccMinPax($chambre->getId()))
+                    {
                         $ligne = new SaisonFraisChambreLigne();
-                        $em->persist($ligne->setEntete($fraisChambre)->setNombreAdulte($nbrAdulte)->setNombreEnfant($i)->setArrangement($saison->getArrBase()));
+                        $em->persist($ligne->setEntete($fraisChambre)->setNombreAdulte($nbrAdulte)->setNombreEnfant($nbrEnfant)->setArrangement($saison->getArrBase()));
                         foreach($saison->getArrangements() as $arr) {
                             if($arr->getEtat() == 1) {
                                 $ligne = new SaisonFraisChambreLigne();
-                                $em->persist($ligne->setEntete($fraisChambre)->setNombreAdulte($nbrAdulte)->setNombreEnfant($i)->setArrangement($arr->getArrangement()));
+                                $em->persist($ligne->setEntete($fraisChambre)->setNombreAdulte($nbrAdulte)->setNombreEnfant($nbrEnfant)->setArrangement($arr->getArrangement()));
                             }
                         }
                     }

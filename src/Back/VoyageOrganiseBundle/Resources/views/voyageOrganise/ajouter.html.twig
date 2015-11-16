@@ -15,6 +15,7 @@
 		    <div class="panel-body">
 			{{ form_start(form) }}
 			<div class="row">
+			    {{ formulaire.input("col-md-2","Type",form.type,true) }}
 			    {{ formulaire.input("col-md-3","Libellé",form.libelle,true) }}
 			    {{ formulaire.select2("col-md-3","Destination",form.destination,true) }}
 			    {{ formulaire.input("col-md-3","Prix",form.prix,true) }}

@@ -62,8 +62,8 @@ class VoyageOrganiseController extends Controller
                 $voyageOrganise = $form->getData();
                 $em->persist($voyageOrganise);
                 $em->flush();
-                $session->getFlashBag()->add('success', " Votre Voyage organisé a été ajoutée avec succées ");
-                return $this->redirect($this->generateUrl('back_vo_liste'));
+                $session->getFlashBag()->add('success', " Votre Voyage organisé a été enregistré avec succées ");
+                return $this->redirect($this->generateUrl('back_vo_ajouter',array('id'=>$voyageOrganise->getId())));
             }
         }
         return $this->render('BackVoyageOrganiseBundle:voyageOrganise:ajouter.html.twig', array(

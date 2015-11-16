@@ -40,7 +40,7 @@
                 ->add('min')
                 ->add('max')
                 ->add('departGarantie','checkbox',array(
-                    'label'    => 'Départ garentie',
+                    'label'    => 'Départ garantie',
                     'required' => FALSE,
                 ));
         }
