@@ -13,33 +13,32 @@ class ReportingNombreReservationType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        for($i=2010;$i<=date('Y');$i++)
-        {
-            $years[$i]=$i;
+        for ($i = 2010; $i <= date('Y'); $i++) {
+            $years[$i] = $i;
         }
         $builder
             ->add('mois', 'choice', array(
-                'choices'=>array(
-                    1=>'Janvier',
-                    2=>'Février',
-                    3=>'Mars',
-                    4=>'Avril',
-                    5=>'Mai',
-                    6=>'Juin',
-                    7=>'Juillet',
-                    8=>'Août',
-                    9=>'Septembre',
-                    10=>'Octobre',
-                    11=>'Novembre',
-                    12=>'Decembre',
+                'choices'  => array(
+                    1  => 'Janvier',
+                    2  => 'Février',
+                    3  => 'Mars',
+                    4  => 'Avril',
+                    5  => 'Mai',
+                    6  => 'Juin',
+                    7  => 'Juillet',
+                    8  => 'Août',
+                    9  => 'Septembre',
+                    10 => 'Octobre',
+                    11 => 'Novembre',
+                    12 => 'Decembre',
                 ),
-                'multiple'=>true,
-                'required'=>false
+                'multiple' => true,
+                'required' => false
             ))
-            ->add('annee','choice',array(
-                'choices'=>$years,
-                'required'=>true,
-                'data'=>date('Y')
+            ->add('annee', 'choice', array(
+                'choices'  => $years,
+                'required' => true,
+                'data'     => date('Y')
             ))
             ->add('etat', 'choice', array(
                 'choices'  => array(
@@ -52,12 +51,14 @@ class ReportingNombreReservationType extends AbstractType
             ))
             ->add('type', 'choice', array(
                 'choices'  => array(
-//                    "semaine" => "Vue par Semaine",
-                    "mois"    => "Vue par mois",
-//                    "annee"   => "Vue par année",
+                    "hotel"     => "Hôtel",
+                    "region"    => "Région",
+                    "operateur" => "Opérateur",
+                    "source"    => "Source",
+                    "client"    => "Client",
+                    "amicale"   => "Amicale",
                 ),
-                'data'     => 'mois',
-                'expanded' => true
+                'data'     => 'hotel',
             ))
             ->add('hotels', 'entity', array('class'         => 'BackHotelTunisieBundle:Hotel',
                                             'query_builder' => function (EntityRepository $er) {

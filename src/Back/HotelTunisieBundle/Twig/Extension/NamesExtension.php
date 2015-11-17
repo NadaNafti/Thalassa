@@ -25,6 +25,7 @@
                 'getTexteVoucher'    => new \Twig_Function_Method($this,'getTexteVoucher'),
                 'isGoogleMaps'       => new \Twig_Function_Method($this,'isGoogleMaps'),
                 'getCodeCouleur'     => new \Twig_Function_Method($this,'getCodeCouleur'),
+                'getNameEtat'     => new \Twig_Function_Method($this,'getNameEtat'),
             );
         }
 
@@ -99,6 +100,18 @@
         {
             $arrangement = $this->em->getRepository("BackHotelTunisieBundle:Supplement")->find($id);
             return $arrangement->getLibelle();
+        }
+
+        public function getNameEtat($id)
+        {
+            switch ($id) {
+                case "1":
+                    return 'Enregistrée';
+                case "2":
+                    return 'Validée';
+                case "9":
+                    return 'Annulée';
+            }
         }
 
         public function getNameOption($id)

@@ -39,12 +39,14 @@ class ReservationRepository extends EntityRepository
         $emConfig->addCustomDatetimeFunction('DAY', 'DoctrineExtensions\Query\Mysql\Day');
 
         $query = $this->createQueryBuilder('r');
-        $query->select('count(r.id)')
-            ->join('r.hotel', 'h')
-            ->where('h.id=:hotel')->setParameter('hotel', $idHotel)
-            ->andWhere('r.etat=:etat')->setParameter('etat', $etat)
-            ->andWhere('YEAR(r.dateDebut) = :year')->setParameter('year', $annee)
-            ->andWhere('MONTH(r.dateDebut) = :month')->setParameter('month', $mois);
+        $query->select('count(r.id)');
+        $query->where($query->expr()->isNotNull('r.id'));
+        if (!is_null($idHotel))
+            $query->andWhere('r.hotel=:hotel')->setParameter('hotel', $idHotel);
+        $query->andWhere('r.etat=:etat')->setParameter('etat', $etat)
+            ->andWhere('YEAR(r.dateDebut) = :year')->setParameter('year', $annee);
+        if (!is_null($mois))
+            $query->andWhere('MONTH(r.dateDebut) = :month')->setParameter('month', $mois);
         if ($users != 'all') {
             $array = explode(',', $users);
             $query->where('r.responsable IN (:array)')->setParameter('array', $array);

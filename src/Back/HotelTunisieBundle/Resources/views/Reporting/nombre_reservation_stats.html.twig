@@ -1,23 +1,44 @@
 {% extends ':Back:base_reporting.html.twig' %}
 {% block title %}Nombre de réservation par {{ app.request.get('type') }}{% endblock %}
 {% block body %}
+
+    <div id="details" class="clearfix">
+        <div id="client">
+            <h2 class="to" style="line-height: 39px;">Nombre de réservation Par Hôtel</h2>
+
+            <div class="address">Année: {{ app.request.get('annee') }}</div>
+            <div class="address">Etat: {{ getNameEtat(app.request.get('etat')) }}</div>
+            {#{% if reservation.hotel.tel2 is not null %}#}
+                {#<div class="address">{{ reservation.hotel.tel1 }}</div>#}
+            {#{% endif %}#}
+            {#{% if reservation.hotel.tel2 is not null %}#}
+                {#<div class="address">{{ reservation.hotel.tel2 }}</div>#}
+            {#{% endif %}#}
+        </div>
+    </div>
+    <hr>
     <table>
         <thead>
             <tr>
                 <th><b>Hôtels</b></th>
                 {% for i in mois %}
-                    <th><b>{{ getNameMonth(i) }}</b></th>
+                    <th><b>{{ getNameMonth(i) }} ({{ getNombreReservation(null,i,app.request.get('annee'),app.request.get('etat'),app.request.get('users')) }})</b></th>
                 {% endfor %}
             </tr>
         </thead>
         <tbody>
         {% for hotel  in hotels %}
-            <tr>
-                <th><b>{{ hotel }}</b></th>
-                {% for i in mois %}
-                    <th class="cell">{{ getNombreReservation(hotel.id,i,app.request.get('annee'),app.request.get('etat'),app.request.get('users')) }}</th>
-                {% endfor %}
-            </tr>
+            {% set total=getNombreReservation(hotel.id,null,app.request.get('annee'),app.request.get('etat'),app.request.get('users')) %}
+            {% if total!=0 or app.request.get('hotels')!='all' %}
+                <tr>
+                    <th><b>{{ hotel }} ({{ total }})</b></th>
+                    {% for i in mois %}
+                        <th class="cell">
+                            {{ getNombreReservation(hotel.id,i,app.request.get('annee'),app.request.get('etat'),app.request.get('users')) }}
+                        </th>
+                    {% endfor %}
+                </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>
@@ -26,13 +47,13 @@
     <script>
         $(document).ready(function(){
             $(this).find('.cell').each (function() {
-                if($(this).html()>0 && $(this).html()<=5)
+                if($(this).html()>0 && $(this).html()<5)
                     $(this).css('background','#CCFFFF');
-                else if($(this).html()>5 && $(this).html()<=10)
+                else if($(this).html()>=5 && $(this).html()<10)
                     $(this).css('background','#66FF99');
-                else if($(this).html()>10 && $(this).html()<=20)
+                else if($(this).html()>=10 && $(this).html()<20)
                     $(this).css('background','#996600');
-                else if($(this).html()>20)
+                else if($(this).html()>=20)
                     $(this).css('background','#CC00CC');
             });
         })
