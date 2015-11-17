@@ -1,0 +1,7 @@
+Hotel_Tunisie_Reporting_NombreReservation_form:
+    path:     /nombreReservation
+    defaults: { _controller: BackHotelTunisieBundle:Reporting:nombreReservation }
+
+Hotel_Tunisie_Reporting_NombreReservation_stat:
+    path:     /nombreReservation_state/{annee}/{mois}/{etat}/{type}/{regions}/{hotels}/{users}
+    defaults: { _controller: BackHotelTunisieBundle:Reporting:nombreReservationRapport }

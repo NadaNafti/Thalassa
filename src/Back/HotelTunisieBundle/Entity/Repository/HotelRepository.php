@@ -14,6 +14,25 @@ class HotelRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function getFromString($ch,$regions)
+    {
+        $query = $this->createQueryBuilder('h');
+        $query->where($query->expr()->isNotNull('h.id'));
+        if($ch!='all')
+        {
+            $array=explode(',',$ch);
+            $query->andWhere('h.id IN (:array1)')->setParameter('array1', $array);
+        }
+        $query->join('h.ville','v');
+        if($regions!='all')
+        {
+            $array=explode(',',$regions);
+            $query->andWhere('v.region IN (:array2)')->setParameter('array2', $array);
+        }
+        $query->orderBy("h.libelle", 'asc');
+        return $query->getQuery()->getResult();
+    }
+
     public function filtreFrontOffice($categorie, $chaine, $ville, $name)
     {
         $query = $this->createQueryBuilder('h');
