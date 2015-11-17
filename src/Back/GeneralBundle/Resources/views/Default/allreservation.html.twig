@@ -1,0 +1,26 @@
+<table border="1">
+    <thead>
+        <th>ID</th>
+        <th>Date Réservation</th>
+        <th>Date Debut</th>
+        <th>Nuitees</th>
+        <th>Hotel</th>
+        <th>Client</th>
+        <th>Etat</th>
+        <th>Total</th>
+    </thead>
+    <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.id }}</td>
+                <td>{{ reservation.created|date('d/m/Y H:i') }}</td>
+                <td>Du {{ reservation.dateDebut|date('d/m/Y') }} au {{ reservation.dateFin|date_modify('+ 1 day')|date('d/m/Y') }}</td>
+                <td>{{ reservation.nuitees }} Nuitées</td>
+                <td>{{ reservation.hotel }}</td>
+                <td>{{ reservation.client }}</td>
+                <td>{{ reservation.showEtat }}</td>
+                <td>{{ reservation.total }} DT</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

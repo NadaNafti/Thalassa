@@ -52,11 +52,11 @@ class ReportingNombreReservationType extends AbstractType
             ))
             ->add('type', 'choice', array(
                 'choices'  => array(
-                    "semaine" => "Vue par Semaine",
+//                    "semaine" => "Vue par Semaine",
                     "mois"    => "Vue par mois",
-                    "annee"   => "Vue par année",
+//                    "annee"   => "Vue par année",
                 ),
-                'data'     => 'semaine',
+                'data'     => 'mois',
                 'expanded' => true
             ))
             ->add('hotels', 'entity', array('class'         => 'BackHotelTunisieBundle:Hotel',
