@@ -1,26 +1,47 @@
-<table border="1">
-    <thead>
-        <th>ID</th>
-        <th>Date Réservation</th>
-        <th>Date Debut</th>
-        <th>Nuitees</th>
-        <th>Hotel</th>
-        <th>Client</th>
-        <th>Etat</th>
-        <th>Total</th>
-    </thead>
-    <tbody>
-        {% for reservation in reservations %}
-            <tr>
-                <td>{{ reservation.id }}</td>
-                <td>{{ reservation.created|date('d/m/Y H:i') }}</td>
-                <td>Du {{ reservation.dateDebut|date('d/m/Y') }} au {{ reservation.dateFin|date_modify('+ 1 day')|date('d/m/Y') }}</td>
-                <td>{{ reservation.nuitees }} Nuitées</td>
-                <td>{{ reservation.hotel }}</td>
-                <td>{{ reservation.client }}</td>
-                <td>{{ reservation.showEtat }}</td>
-                <td>{{ reservation.total }} DT</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <table border="1">
+            <thead>
+            <th>ID</th>
+            <th>Source</th>
+            <th>Date Réservation</th>
+            <th>Mois</th>
+            <th>Année</th>
+            <th>Check IN</th>
+            <th>Check OUT</th>
+            <th>Nuitees</th>
+            <th>Hotel</th>
+            <th>Région</th>
+            <th>Client</th>
+            <th>Amicale</th>
+            <th>Etat</th>
+            <th>Responsable</th>
+            <th>Total</th>
+            </thead>
+            <tbody>
+            {% for reservation in reservations %}
+                <tr>
+                    <td>{{ reservation.id }}</td>
+                    <td>{% if reservation.frontOffice %}FrontOffice{% else %}BackOffice{% endif %}</td>
+                    <td>{{ reservation.created|date('d/m/Y H:i') }}</td>
+                    <td>{{ getNameMonth(reservation.dateDebut|date('m')) }}</td>
+                    <td>{{ reservation.dateDebut|date('Y') }}</td>
+                    <td>{{ reservation.dateDebut|date('d/m/Y') }}</td>
+                    <td>{{ reservation.dateFin|date_modify('+ 1 day')|date('d/m/Y') }}</td>
+                    <td>{{ reservation.nuitees }}</td>
+                    <td>{{ reservation.hotel }}</td>
+                    <td>{{ reservation.hotel.ville.region }}</td>
+                    <td>{{ reservation.client }}</td>
+                    <td>{{ reservation.client.amicale }}</td>
+                    <td>{{ reservation.showEtat }}</td>
+                    <td>{{ reservation.responsable }}</td>
+                    <td>{{ reservation.total }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
