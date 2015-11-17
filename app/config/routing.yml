@@ -71,3 +71,7 @@ back_general:
 #liip immage Bundle
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+get_all_reservations:
+    path:     /all
+    defaults: { _controller: BackGeneralBundle:Default:allReservation }

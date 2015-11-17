@@ -10,4 +10,7 @@ $loader = require __DIR__.'/../vendor/autoload.php';
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
+$classLoader = new \Doctrine\Common\ClassLoader('DoctrineExtensions', '/path/to/extensions');
+$classLoader->register();
+
 return $loader;

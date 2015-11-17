@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('voucher-assets/style.css') }}" media="all"/>
+</head>
+<body style="width: 95%">
+<header class="clearfix">
+    <div id="logo">
+        <img src="{{ asset(getAgence().assetPath) }}">
+    </div>
+    <div id="company">
+        <h2 class="name">{{ getAgence().nom }}</h2>
+        <div>{{ getAgence().adresse }}</div>
+        <div>{{ getAgence().tel1 }}</div>
+        <div>{{ getAgence().tel2 }}</div>
+        <div><a>{{ getAgence().contactEmail }}</a></div>
+    </div>
+</header>
+<main>
+{% block body %}{% endblock %}
+</main>
+{#<footer>#}
+    {#{{ getAgence().adresse }} - Tél : {{ getAgence().tel1 }} - {{ getAgence().tel2 }} - Fax : {{ getAgence().fax }}#}
+    {#<br/> E-mail : {{ getAgence().contactEmail }} - Site Web : {{ getAgence().site }}#}
+    {#<br>Powered By Octasoft#}
+{#</footer>#}
+<script src="{{ asset("back-assets/plugins/jQuery-lib/2.0.3/jquery.min.js") }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

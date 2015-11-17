@@ -1,0 +1,40 @@
+{% extends ':Back:base_reporting.html.twig' %}
+{% block title %}Nombre de réservation par {{ app.request.get('type') }}{% endblock %}
+{% block body %}
+    <table>
+        <thead>
+            <tr>
+                <th><b>Hôtels</b></th>
+                {% for i in mois %}
+                    <th><b>{{ getNameMonth(i) }}</b></th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for hotel  in hotels %}
+            <tr>
+                <th><b>{{ hotel }}</b></th>
+                {% for i in mois %}
+                    <th class="cell">{{ getNombreReservation(hotel.id,i,app.request.get('annee'),app.request.get('etat'),app.request.get('users')) }}</th>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            $(this).find('.cell').each (function() {
+                if($(this).html()>0 && $(this).html()<=5)
+                    $(this).css('background','#CCFFFF');
+                else if($(this).html()>5 && $(this).html()<=10)
+                    $(this).css('background','#66FF99');
+                else if($(this).html()>10 && $(this).html()<=20)
+                    $(this).css('background','#996600');
+                else if($(this).html()>20)
+                    $(this).css('background','#CC00CC');
+            });
+        })
+    </script>
+{% endblock %}

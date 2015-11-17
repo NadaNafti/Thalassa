@@ -10,4 +10,11 @@ class DefaultController extends Controller
     {
        return $this->render('BackGeneralBundle:Default:index.html.twig');
     }
+
+    public function allReservationAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $reservations=$em->getRepository('BackHotelTunisieBundle:Reservation')->findAll();
+        return $this->render('BackGeneralBundle:Default:allreservation.html.twig',array('reservations'=>$reservations));
+    }
 }

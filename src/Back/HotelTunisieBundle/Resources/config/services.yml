@@ -8,6 +8,14 @@ services:
           tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
+    ReportingSHTExtensionTwig:
+      class: Back\HotelTunisieBundle\Twig\Extension\ReportingExtension
+      tags:
+          - { name: twig.extension }
+      arguments:
+          em: "@doctrine.orm.entity_manager"
+          container: "@service_container"
+
     SaisonExtension:
       class: Back\HotelTunisieBundle\Twig\Extension\SaisonExtension
       tags:

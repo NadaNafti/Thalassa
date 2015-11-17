@@ -7,11 +7,11 @@ use Doctrine\ORM\EntityRepository;
 class ReservationRepository extends EntityRepository
 {
 
-    public function filtreBackOffice($etat, $amicale='all',$checkIn='all',$checkOut='all',$hotel='all',$user='all', $sort="r.id", $direction="desc")
+    public function filtreBackOffice($etat, $amicale = 'all', $checkIn = 'all', $checkOut = 'all', $hotel = 'all', $user = 'all', $sort = "r.id", $direction = "desc")
     {
         $query = $this->createQueryBuilder('r');
-        $query->join('r.hotel','h');
-        $query->join('r.client','c');
+        $query->join('r.hotel', 'h');
+        $query->join('r.client', 'c');
         $query->where($query->expr()->isNotNull('r.id'));
         if ($etat != 'all')
             $query->andWhere('r.etat=:etat')->setParameter('etat', $etat);
@@ -23,13 +23,33 @@ class ReservationRepository extends EntityRepository
             $query->andWhere('r.responsable=:user')->setParameter('user', $user);
         if ($checkIn != 'all')
             $query->andWhere('r.dateDebut=:checkIn')->setParameter('checkIn', $checkIn);
-        if ($checkOut != 'all')
-        {
-            $date= new \DateTime($checkOut);
+        if ($checkOut != 'all') {
+            $date = new \DateTime($checkOut);
             $query->andWhere('r.dateFin=:checkOut')->setParameter('checkOut', $date->modify('-1 day')->format('Y-m-d'));
         }
         $query->orderBy($sort, $direction);
         return $query->getQuery()->getResult();
+    }
+
+    public function getNombreReservaion($idHotel, $mois, $annee, $etat, $users)
+    {
+        $emConfig = $this->getEntityManager()->getConfiguration();
+        $emConfig->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
+        $emConfig->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
+        $emConfig->addCustomDatetimeFunction('DAY', 'DoctrineExtensions\Query\Mysql\Day');
+
+        $query = $this->createQueryBuilder('r');
+        $query->select('count(r.id)')
+            ->join('r.hotel', 'h')
+            ->where('h.id=:hotel')->setParameter('hotel', $idHotel)
+            ->andWhere('r.etat=:etat')->setParameter('etat', $etat)
+            ->andWhere('YEAR(r.dateDebut) = :year')->setParameter('year', $annee)
+            ->andWhere('MONTH(r.dateDebut) = :month')->setParameter('month', $mois);
+        if ($users != 'all') {
+            $array = explode(',', $users);
+            $query->where('r.responsable IN (:array)')->setParameter('array', $array);
+        }
+        return $query->getQuery()->getSingleScalarResult();
     }
 
 }
