@@ -38,7 +38,7 @@
                     <td>{{ reservation.client.amicale }}</td>
                     <td>{{ reservation.showEtat }}</td>
                     <td>{{ reservation.responsable }}</td>
-                    <td>{{ reservation.total }}</td>
+                    <td>{{ reservation.total|number_format(3,',','') }}</td>
                 </tr>
             {% endfor %}
             </tbody>
