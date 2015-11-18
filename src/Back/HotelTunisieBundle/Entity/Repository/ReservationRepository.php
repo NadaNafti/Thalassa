@@ -31,25 +31,41 @@ class ReservationRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
 
-    public function getNombreReservaion($idHotel, $mois, $annee, $etat, $users)
+    public function getNombreReservaion($mois, $annee, $etat, $regions, $hotels, $users,$source="all")
     {
         $emConfig = $this->getEntityManager()->getConfiguration();
         $emConfig->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
         $emConfig->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
         $emConfig->addCustomDatetimeFunction('DAY', 'DoctrineExtensions\Query\Mysql\Day');
-
         $query = $this->createQueryBuilder('r');
         $query->select('count(r.id)');
         $query->where($query->expr()->isNotNull('r.id'));
-        if (!is_null($idHotel))
-            $query->andWhere('r.hotel=:hotel')->setParameter('hotel', $idHotel);
+        if($source!='all')
+        {
+            if($source=='f')
+                $query->andWhere('r.frontOffice= true');
+            else
+                $query->andWhere('r.frontOffice = false');
+        }
+        if ($hotels != 'all') {
+            $array = explode(',', $hotels);
+            $query->andWhere('r.hotel IN (:arrayH)')->setParameter('arrayH', $array);
+        }
+        if ($regions != 'all') {
+            $query->join('r.hotel','h');
+            $query->join('h.ville','v');
+            $array = explode(',', $regions);
+            $query->andWhere('v.region IN (:arrayR)')->setParameter('arrayR', $array);
+        }
         $query->andWhere('r.etat=:etat')->setParameter('etat', $etat)
             ->andWhere('YEAR(r.dateDebut) = :year')->setParameter('year', $annee);
-        if (!is_null($mois))
-            $query->andWhere('MONTH(r.dateDebut) = :month')->setParameter('month', $mois);
+        if ($mois != 'all') {
+            $array = explode(',', $mois);
+            $query->andWhere('MONTH(r.dateDebut) IN (:arrayM)')->setParameter('arrayM', $array);
+        }
         if ($users != 'all') {
             $array = explode(',', $users);
-            $query->where('r.responsable IN (:array)')->setParameter('array', $array);
+            $query->andWhere('r.responsable IN (:array)')->setParameter('array', $array);
         }
         return $query->getQuery()->getSingleScalarResult();
     }

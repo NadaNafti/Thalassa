@@ -1,60 +1,132 @@
 {% extends ':Back:base_reporting.html.twig' %}
 {% block title %}Nombre de réservation par {{ app.request.get('type') }}{% endblock %}
 {% block body %}
-
     <div id="details" class="clearfix">
         <div id="client">
-            <h2 class="to" style="line-height: 39px;">Nombre de réservation Par Hôtel</h2>
+            <h2 class="to" style="line-height: 39px;">Nombre de réservation</h2>
 
             <div class="address">Année: {{ app.request.get('annee') }}</div>
             <div class="address">Etat: {{ getNameEtat(app.request.get('etat')) }}</div>
-            {#{% if reservation.hotel.tel2 is not null %}#}
-                {#<div class="address">{{ reservation.hotel.tel1 }}</div>#}
-            {#{% endif %}#}
-            {#{% if reservation.hotel.tel2 is not null %}#}
-                {#<div class="address">{{ reservation.hotel.tel2 }}</div>#}
-            {#{% endif %}#}
+            <div class="address">
+                Hôtels :
+                {% if app.request.get('hotels')=='all' %}
+                    Tous
+                {% else %}
+                    ({% for hotel in app.request.get('hotels')|split(',') %}{{ getNamehotel(hotel) }}{% if loop.index!=app.request.get('hotels')|split(',')|length %}, {% endif %}{% endfor %})
+                {% endif %}
+            </div>
+            <div class="address">
+                Operateurs :
+                {% if app.request.get('users')=='all' %}
+                    Tous
+                {% else %}
+                    ({% for user in app.request.get('users')|split(',') %}{{ getNameUser(user) }}{% if loop.index!=app.request.get('users')|split(',')|length %}, {% endif %}{% endfor %})
+                {% endif %}
+            </div>
+            <div class="address">
+                Région :
+                {% if app.request.get('regions')=='all' %}
+                    Tous
+                {% else %}
+                    ({% for region in app.request.get('regions')|split(',') %}{{ getNameRegion(region) }}{% if loop.index!=app.request.get('regions')|split(',')|length %}, {% endif %}{% endfor %})
+                {% endif %}
+            </div>
         </div>
     </div>
-    <hr>
-    <table>
-        <thead>
+    <div id="details" class="clearfix">
+        <div id="client">
+            <h2 class="to" style="line-height: 39px;">Vue par Hôtels</h2>
+        </div>
+    </div>
+    <table id="details">
+        <tbody>
+        {% for ligne  in dataHotel%}
+            {% set loopindex1=loop.index %}
             <tr>
-                <th><b>Hôtels</b></th>
-                {% for i in mois %}
-                    <th><b>{{ getNameMonth(i) }} ({{ getNombreReservation(null,i,app.request.get('annee'),app.request.get('etat'),app.request.get('users')) }})</b></th>
+                {% for cellule in ligne %}
+                    <th class="cell">
+                        {% if loop.index==1 or loopindex1==1 %}<b>{{ cellule }}</b>{% else %}{{ cellule }}{% endif %}
+                    </th>
                 {% endfor %}
             </tr>
-        </thead>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div id="details" class="clearfix">
+        <div id="client">
+            <h2 class="to" style="line-height: 39px;">Vue par Région</h2>
+        </div>
+    </div>
+    <table id="details">
         <tbody>
-        {% for hotel  in hotels %}
-            {% set total=getNombreReservation(hotel.id,null,app.request.get('annee'),app.request.get('etat'),app.request.get('users')) %}
-            {% if total!=0 or app.request.get('hotels')!='all' %}
-                <tr>
-                    <th><b>{{ hotel }} ({{ total }})</b></th>
-                    {% for i in mois %}
-                        <th class="cell">
-                            {{ getNombreReservation(hotel.id,i,app.request.get('annee'),app.request.get('etat'),app.request.get('users')) }}
-                        </th>
-                    {% endfor %}
-                </tr>
-            {% endif %}
+        {% for ligne  in dataRegion %}
+            {% set loopindex1=loop.index %}
+            <tr>
+                {% for cellule in ligne %}
+                    <th class="cell">
+                        {% if loop.index==1 or loopindex1==1 %}<b>{{ cellule }}</b>{% else %}{{ cellule }}{% endif %}
+                    </th>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div id="details" class="clearfix">
+        <div id="client">
+            <h2 class="to" style="line-height: 39px;">Vue par Operateur</h2>
+        </div>
+    </div>
+    <table id="details">
+        <tbody>
+        {% for ligne  in dataOperateur %}
+            {% set loopindex1=loop.index %}
+            <tr>
+                {% for cellule in ligne %}
+                    <th class="cell">
+                        {% if loop.index==1 or loopindex1==1 %}<b>{{ cellule }}</b>{% else %}{{ cellule }}{% endif %}
+                    </th>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div id="details" class="clearfix">
+        <div id="client">
+            <h2 class="to" style="line-height: 39px;">Vue par Source</h2>
+        </div>
+    </div>
+    <table id="details">
+        <tbody>
+        {% for ligne  in dataSource %}
+            {% set loopindex1=loop.index %}
+            <tr>
+                {% for cellule in ligne %}
+                    <th class="cell">
+                        {% if loop.index==1 or loopindex1==1 %}<b>{{ cellule }}</b>{% else %}{{ cellule }}{% endif %}
+                    </th>
+                {% endfor %}
+            </tr>
         {% endfor %}
         </tbody>
     </table>
 {% endblock %}
 {% block javascripts %}
+    <style>
+        th:first-of-type{
+            width: 350px;
+        }
+    </style>
     <script>
-        $(document).ready(function(){
-            $(this).find('.cell').each (function() {
-                if($(this).html()>0 && $(this).html()<5)
-                    $(this).css('background','#CCFFFF');
-                else if($(this).html()>=5 && $(this).html()<10)
-                    $(this).css('background','#66FF99');
-                else if($(this).html()>=10 && $(this).html()<20)
-                    $(this).css('background','#996600');
-                else if($(this).html()>=20)
-                    $(this).css('background','#CC00CC');
+        $(document).ready(function () {
+            $(this).find('.cell').each (function () {
+                if ($(this).html() > 0 && $(this).html() < 5)
+                    $(this).css('background', '#CCFFFF');
+                else if ($(this).html() >= 5 && $(this).html() < 10)
+                    $(this).css('background', '#66FF99');
+                else if ($(this).html() >= 10 && $(this).html() < 20)
+                    $(this).css('background', '#996600');
+                else if ($(this).html() >= 20)
+                    $(this).css('background', '#CC00CC');
             });
         })
     </script>

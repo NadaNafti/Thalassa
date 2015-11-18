@@ -49,20 +49,23 @@ class ReportingNombreReservationType extends AbstractType
                 'data'     => 2,
                 'expanded' => true
             ))
-            ->add('type', 'choice', array(
-                'choices'  => array(
-                    "hotel"     => "Hôtel",
-                    "region"    => "Région",
-                    "operateur" => "Opérateur",
-                    "source"    => "Source",
-                    "client"    => "Client",
-                    "amicale"   => "Amicale",
-                ),
-                'data'     => 'hotel',
-            ))
+//            ->add('type', 'choice', array(
+//                'choices' => array(
+//                    "hotel"     => "Hôtel",
+//                    "region"    => "Région",
+//                    "operateur" => "Opérateur",
+//                    "source"    => "Source",
+//                    "client"    => "Client",
+//                    "amicale"   => "Amicale",
+//                ),
+//                'data'    => 'hotel',
+//            ))
             ->add('hotels', 'entity', array('class'         => 'BackHotelTunisieBundle:Hotel',
                                             'query_builder' => function (EntityRepository $er) {
                                                 return $er->createQueryBuilder('h')
+                                                    ->join('h.ville', 'v')
+                                                    ->join('v.pays', 'p')
+                                                    ->where('p.code = :code')->setParameter('code', 'tn')
                                                     ->orderBy('h.libelle', 'ASC');
                                             },
                                             'required'      => false,
@@ -72,8 +75,11 @@ class ReportingNombreReservationType extends AbstractType
             ))
             ->add('regions', 'entity', array('class'         => 'BackHotelTunisieBundle:Region',
                                              'query_builder' => function (EntityRepository $er) {
-                                                 return $er->createQueryBuilder('h')
-                                                     ->orderBy('h.libelle', 'ASC');
+                                                 return $er->createQueryBuilder('r')
+                                                     ->join('r.villes', 'v')
+                                                     ->join('v.pays', 'p')
+                                                     ->where('p.code = :code')->setParameter('code', 'tn')
+                                                     ->orderBy('r.libelle', 'ASC');
                                              },
                                              'required'      => false,
                                              'multiple'      => true,

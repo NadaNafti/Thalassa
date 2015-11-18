@@ -43,4 +43,13 @@ services:
             - @service_container
             - @mailer
             - @templating
+
+    reportingSHT:
+        class: Back\HotelTunisieBundle\Services\ReportingSHTService
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @session
+            - @service_container
+            - @mailer
+            - @templating
             

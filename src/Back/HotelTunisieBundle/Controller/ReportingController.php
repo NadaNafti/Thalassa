@@ -18,7 +18,6 @@ class ReportingController extends Controller
             $array=array();
             $array['annee']=$data['annee'];
             $array['etat']=$data['etat'];
-            $array['type']=$data['type'];
             if(count($data['mois'])==0)
                 $array['mois']='all';
             else
@@ -52,23 +51,28 @@ class ReportingController extends Controller
             {
                 $users=array();
                 foreach($data['users'] as $user)
-                    $hotels[]=$user->getId();
+                    $users[]=$user->getId();
                 $array['users']=implode(',',$users);
             }
             return $this->redirect($this->generateUrl('Hotel_Tunisie_Reporting_NombreReservation_stat',$array));
         }
-        return $this->render('BackHotelTunisieBundle:Reporting:nombre_reservation.html.twig', array(
+        return $this->render('BackHotelTunisieBundle:Reporting:nombre_reservation_form.html.twig', array(
             'form' => $form->createView()
         ));
     }
 
-    public function nombreReservationRapportAction($mois, $annee, $etat, $type, $regions, $hotels, $users)
+    public function nombreReservationRapportAction($mois, $annee, $etat, $regions, $hotels, $users)
     {
-        $em=$this->getDoctrine()->getManager();
-        $hotelsFind=$em->getRepository('BackHotelTunisieBundle:Hotel')->getFromString($hotels,$regions);
+        $dataParHotel=$this->get('reportingSHT')->getDataNombreReservationParHotel($mois, $annee, $etat, $regions, $hotels, $users);
+        $dataParRegion=$this->get('reportingSHT')->getDataNombreReservationParRegion($mois, $annee, $etat, $regions, $hotels, $users);
+        $dataOperateur=$this->get('reportingSHT')->getDataNombreReservationParOperateur($mois, $annee, $etat, $regions, $hotels, $users);
+        $dataSource=$this->get('reportingSHT')->getDataNombreReservationParSource($mois, $annee, $etat, $regions, $hotels, $users);
         return $this->render('BackHotelTunisieBundle:Reporting:nombre_reservation_stats.html.twig',array(
-            'hotels'=>$hotelsFind,
-            'mois'=>($mois=='all')?array(1,2,3,4,5,6,7,8,9,10,11,12):explode(',',$mois)
+            'mois'=>($mois=='all')?array(1,2,3,4,5,6,7,8,9,10,11,12):explode(',',$mois),
+            'dataHotel'=>$dataParHotel,
+            'dataRegion'=>$dataParRegion,
+            'dataOperateur'=>$dataOperateur,
+            'dataSource'=>$dataSource,
         ));
     }
 }

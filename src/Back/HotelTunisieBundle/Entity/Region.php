@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Region
  *
  * @ORM\Table("ost_sht_region")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Back\HotelTunisieBundle\Entity\Repository\RegionRepository")
  */
 class Region
 {

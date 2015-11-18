@@ -17,4 +17,16 @@
                 ->setParameter('roles', '%"'.$role.'"%');
             return $qb->getQuery()->getResult();
         }
+
+        public function getFromString($ch)
+        {
+            $query = $this->createQueryBuilder('u');
+            $query->where($query->expr()->isNotNull('u.id'));
+            if($ch!='all')
+            {
+                $array=explode(',',$ch);
+                $query->andWhere('u.id IN (:array)')->setParameter('array', $array);
+            }
+            return $query->getQuery()->getResult();
+        }
     }
