@@ -68,7 +68,6 @@ class ReportingController extends Controller
         $dataOperateur=$this->get('reportingSHT')->getDataNombreReservationParOperateur($mois, $annee, $etat, $regions, $hotels, $users);
         $dataSource=$this->get('reportingSHT')->getDataNombreReservationParSource($mois, $annee, $etat, $regions, $hotels, $users);
         return $this->render('BackHotelTunisieBundle:Reporting:nombre_reservation_stats.html.twig',array(
-            'mois'=>($mois=='all')?array(1,2,3,4,5,6,7,8,9,10,11,12):explode(',',$mois),
             'dataHotel'=>$dataParHotel,
             'dataRegion'=>$dataParRegion,
             'dataOperateur'=>$dataOperateur,

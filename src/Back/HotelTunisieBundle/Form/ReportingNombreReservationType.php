@@ -49,17 +49,6 @@ class ReportingNombreReservationType extends AbstractType
                 'data'     => 2,
                 'expanded' => true
             ))
-//            ->add('type', 'choice', array(
-//                'choices' => array(
-//                    "hotel"     => "Hôtel",
-//                    "region"    => "Région",
-//                    "operateur" => "Opérateur",
-//                    "source"    => "Source",
-//                    "client"    => "Client",
-//                    "amicale"   => "Amicale",
-//                ),
-//                'data'    => 'hotel',
-//            ))
             ->add('hotels', 'entity', array('class'         => 'BackHotelTunisieBundle:Hotel',
                                             'query_builder' => function (EntityRepository $er) {
                                                 return $er->createQueryBuilder('h')
