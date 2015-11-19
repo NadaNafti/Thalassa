@@ -40,6 +40,10 @@ class ReservationRepository extends EntityRepository
         $query = $this->createQueryBuilder('r');
         if($typeStatistique=='nbr_reservation')
             $query->select('count(r.id)');
+        else if($typeStatistique=='nombre_nuitee')
+            $query->select('sum(r.nuitees)');
+        else if($typeStatistique=='chiffre_affaire')
+            $query->select('sum(r.chiffreAffaire)');
         $query->where($query->expr()->isNotNull('r.id'));
         if($source!='all')
         {
