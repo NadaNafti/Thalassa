@@ -31,14 +31,15 @@ class ReservationRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
 
-    public function getNombreReservaion($mois, $annee, $etat, $regions, $hotels, $users,$source="all")
+    public function getNombreReservaion($typeStatistique,$mois, $annee, $etat, $regions, $hotels, $users,$source="all")
     {
         $emConfig = $this->getEntityManager()->getConfiguration();
         $emConfig->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
         $emConfig->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
         $emConfig->addCustomDatetimeFunction('DAY', 'DoctrineExtensions\Query\Mysql\Day');
         $query = $this->createQueryBuilder('r');
-        $query->select('count(r.id)');
+        if($typeStatistique=='nbr_reservation')
+            $query->select('count(r.id)');
         $query->where($query->expr()->isNotNull('r.id'));
         if($source!='all')
         {

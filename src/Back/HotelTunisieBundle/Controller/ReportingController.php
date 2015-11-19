@@ -63,10 +63,10 @@ class ReportingController extends Controller
 
     public function nombreReservationRapportAction($mois, $annee, $etat, $regions, $hotels, $users)
     {
-        $dataParHotel=$this->get('reportingSHT')->getDataNombreReservationParHotel($mois, $annee, $etat, $regions, $hotels, $users);
-        $dataParRegion=$this->get('reportingSHT')->getDataNombreReservationParRegion($mois, $annee, $etat, $regions, $hotels, $users);
-        $dataOperateur=$this->get('reportingSHT')->getDataNombreReservationParOperateur($mois, $annee, $etat, $regions, $hotels, $users);
-        $dataSource=$this->get('reportingSHT')->getDataNombreReservationParSource($mois, $annee, $etat, $regions, $hotels, $users);
+        $dataParHotel=$this->get('reportingSHT')->getDataParHotel($mois, $annee, $etat, $regions, $hotels, $users,"nbr_reservation");
+        $dataParRegion=$this->get('reportingSHT')->getDataParRegion($mois, $annee, $etat, $regions, $hotels, $users,"nbr_reservation");
+        $dataOperateur=$this->get('reportingSHT')->getDataParOperateur($mois, $annee, $etat, $regions, $hotels, $users,"nbr_reservation");
+        $dataSource=$this->get('reportingSHT')->getDataParSource($mois, $annee, $etat, $regions, $hotels, $users,"nbr_reservation");
         return $this->render('BackHotelTunisieBundle:Reporting:nombre_reservation_stats.html.twig',array(
             'dataHotel'=>$dataParHotel,
             'dataRegion'=>$dataParRegion,
