@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="ost_sht_reservation")
  * @ORM\Entity(repositoryClass="Back\HotelTunisieBundle\Entity\Repository\ReservationRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Reservation
 {
@@ -218,6 +219,13 @@ class Reservation
      * @ORM\Column( type="datetime")
      */
     private $updated;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="chiffreAffaire", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $chiffreAffaire;
 
     /**
      * Constructor
@@ -537,7 +545,7 @@ class Reservation
                 return 'Enregistrée';
             case "2":
                 return 'Validée';
-            case "3":
+            case "9":
                 return 'Annulée';
         }
     }
@@ -1032,5 +1040,13 @@ class Reservation
     public function getStatusPayement()
     {
         return $this->statusPayement;
+    }
+
+    /**
+     * @ORM\PostLoad()
+     */
+    public function postLoad()
+    {
+        $this->updateAt = new \DateTime();
     }
 }

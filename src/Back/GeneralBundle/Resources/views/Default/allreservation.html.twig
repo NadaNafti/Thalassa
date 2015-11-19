@@ -19,7 +19,8 @@
             <th>Amicale</th>
             <th>Etat</th>
             <th>Responsable</th>
-            <th>Total</th>
+            <th>Total Achat</th>
+            <th>Total Vente</th>
             </thead>
             <tbody>
             {% for reservation in reservations %}
@@ -38,6 +39,7 @@
                     <td>{{ reservation.client.amicale }}</td>
                     <td>{{ reservation.showEtat }}</td>
                     <td>{{ reservation.responsable }}</td>
+                    <td>{{ reservation.calcAchat|number_format(3,',','') }}</td>
                     <td>{{ reservation.total|number_format(3,',','') }}</td>
                 </tr>
             {% endfor %}
