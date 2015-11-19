@@ -73,6 +73,7 @@ class ReportingController extends Controller
             'dataRegion'=>$dataParRegion,
             'dataOperateur'=>$dataOperateur,
             'dataSource'=>$dataSource,
+            'titre' => "Nombre Réservation"
         ));
     }
     
@@ -142,6 +143,7 @@ class ReportingController extends Controller
             'dataRegion'=>$dataParRegion,
             'dataOperateur'=>$dataOperateur,
             'dataSource'=>$dataSource,
+            'titre' => "Nombre Nuitées"
         ));
     }
     
@@ -202,6 +204,7 @@ class ReportingController extends Controller
     
     public function chiffreAffaireRapportAction($mois, $annee, $etat, $regions, $hotels, $users)
     {
+        $this->get('reportingSHT')->updateChiffreAffaireHotels($hotels,$regions);
         $dataParHotel=$this->get('reportingSHT')->getDataParHotel($mois, $annee, $etat, $regions, $hotels, $users,"chiffre_affaire");
         $dataParRegion=$this->get('reportingSHT')->getDataParRegion($mois, $annee, $etat, $regions, $hotels, $users,"chiffre_affaire");
         $dataOperateur=$this->get('reportingSHT')->getDataParOperateur($mois, $annee, $etat, $regions, $hotels, $users,"chiffre_affaire");
@@ -211,6 +214,7 @@ class ReportingController extends Controller
             'dataRegion'=>$dataParRegion,
             'dataOperateur'=>$dataOperateur,
             'dataSource'=>$dataSource,
+            'titre' => "Chiffre Affaire"
         ));
     }
 }
