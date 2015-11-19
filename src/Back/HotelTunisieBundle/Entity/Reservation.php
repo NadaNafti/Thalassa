@@ -220,6 +220,13 @@ class Reservation
     private $updated;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="chiffreAffaire", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $chiffreAffaire;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -1032,5 +1039,28 @@ class Reservation
     public function getStatusPayement()
     {
         return $this->statusPayement;
+    }
+
+    /**
+     * Set chiffreAffaire
+     *
+     * @param string $chiffreAffaire
+     * @return Reservation
+     */
+    public function setChiffreAffaire($chiffreAffaire)
+    {
+        $this->chiffreAffaire = $chiffreAffaire;
+
+        return $this;
+    }
+
+    /**
+     * Get chiffreAffaire
+     *
+     * @return string 
+     */
+    public function getChiffreAffaire()
+    {
+        return $this->getTotal()-$this->calcAchat();
     }
 }

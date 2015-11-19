@@ -482,7 +482,7 @@ class ReservationChambre
             foreach($this->supplementLignes as $ligne)
                 $total+=$ligne->getAchat();
             foreach($this->reductionLignes as $ligne)
-                $total+=$ligne->getAchat();
+                $total-=$ligne->getAchat();
             return number_format($total,3,'.','');
     }
 
