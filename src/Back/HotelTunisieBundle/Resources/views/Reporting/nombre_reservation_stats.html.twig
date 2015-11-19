@@ -1,5 +1,8 @@
 {% extends ':Back:base_reporting.html.twig' %}
-{% block title %}Nombre de réservation par {{ app.request.get('type') }}{% endblock %}
+{% block title %}
+    {#{%if app.request.get('typeStatistique')=="nombreReservation" %}#} Nombre de réservation  par  {{app.request.get('type')}}  
+{#        {%endif%}#}
+{% endblock %}
 {% block body %}
     <div id="details" class="clearfix">
         <div id="client">
