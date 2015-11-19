@@ -1061,6 +1061,6 @@ class Reservation
      */
     public function getChiffreAffaire()
     {
-        return $this->chiffreAffaire;
+        return $this->getTotal()-$this->calcAchat();
     }
 }

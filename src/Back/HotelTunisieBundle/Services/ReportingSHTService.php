@@ -152,4 +152,15 @@ class ReportingSHTService
         }
         return $data;
     }
+
+    public function updateChiffreAffaireHotels($hotels,$regions)
+    {
+        $reservations=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getFromString($hotels,$regions);
+        foreach($reservations as $reservation)
+        {
+            $reservation->setChiffreAffaire($reservation->getChiffreAffaire());
+            $this->em->persist($reservation);
+        }
+        $this->em->flush();
+    }
 }

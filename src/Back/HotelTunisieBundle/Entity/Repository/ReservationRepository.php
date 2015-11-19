@@ -71,4 +71,23 @@ class ReservationRepository extends EntityRepository
         return $query->getQuery()->getSingleScalarResult();
     }
 
+    public function getFromString($hotels,$regions)
+    {
+        $query = $this->createQueryBuilder('r');
+        $query->where($query->expr()->isNotNull('r.id'));
+        $query->join('r.hotel','h');
+        if($hotels!='all')
+        {
+            $array=explode(',',$hotels);
+            $query->andWhere('h.id IN (:array1)')->setParameter('array1', $array);
+        }
+        $query->join('h.ville','v');
+        if($regions!='all')
+        {
+            $array=explode(',',$regions);
+            $query->andWhere('v.region IN (:array2)')->setParameter('array2', $array);
+        }
+        return $query->getQuery()->getResult();
+    }
+
 }
