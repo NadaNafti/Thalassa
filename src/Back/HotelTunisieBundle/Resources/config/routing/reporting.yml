@@ -5,3 +5,11 @@ Hotel_Tunisie_Reporting_NombreReservation_form:
 Hotel_Tunisie_Reporting_NombreReservation_stat:
     path:     /nombreReservation_state/{annee}/{mois}/{etat}/{regions}/{hotels}/{users}
     defaults: { _controller: BackHotelTunisieBundle:Reporting:nombreReservationRapport }
+  
+Hotel_Tunisie_Reporting_ChiffreAffaire_form:
+    path:     /chiffreAffaire
+    defaults: { _controller: BackHotelTunisieBundle:Reporting:chiffreAffaire }
+    
+Hotel_Tunisie_Reporting_ChiffreAffaire_stat:
+    path:     /chiffreAffaire_state/{annee}/{mois}/{etat}/{regions}/{hotels}/{users}
+    defaults: { _controller: BackHotelTunisieBundle:Reporting:chiffreAffaireRapport }
