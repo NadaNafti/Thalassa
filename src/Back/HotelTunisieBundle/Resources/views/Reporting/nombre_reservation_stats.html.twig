@@ -1,9 +1,9 @@
 {% extends ':Back:base_reporting.html.twig' %}
-{% block title %}Nombre de réservation par {{ app.request.get('type') }}{% endblock %}
+{% block title %}{{ titre }}{% endblock %}
 {% block body %}
     <div id="details" class="clearfix">
         <div id="client">
-            <h2 class="to" style="line-height: 39px;">Nombre de réservation</h2>
+            <h2 class="to" style="line-height: 39px;">{{ titre }}</h2>
 
             <div class="address">Année: {{ app.request.get('annee') }}</div>
             <div class="address">Etat: {{ getNameEtat(app.request.get('etat')) }}</div>
@@ -119,14 +119,40 @@
     <script>
         $(document).ready(function () {
             $(this).find('.cell').each (function () {
+                if ($(this).html() == 0)
+                    $(this).css('background', 'white');
                 if ($(this).html() > 0 && $(this).html() < 5)
-                    $(this).css('background', '#CCFFFF');
+                    $(this).css('background', '#F2F2F2');
                 else if ($(this).html() >= 5 && $(this).html() < 10)
-                    $(this).css('background', '#66FF99');
+                    $(this).css('background', '#F6CED8');
                 else if ($(this).html() >= 10 && $(this).html() < 20)
-                    $(this).css('background', '#996600');
-                else if ($(this).html() >= 20)
-                    $(this).css('background', '#CC00CC');
+                    $(this).css('background', '#F6CEE3');
+                else if ($(this).html() >= 20 && $(this).html() < 30)
+                    $(this).css('background', '#ECCEF5');
+                else if ($(this).html() >= 30 && $(this).html() < 40)
+                    $(this).css('background', '#F6CEF5');
+                else if ($(this).html() >= 40 && $(this).html() < 50)
+                    $(this).css('background', '#D8CEF6');
+                else if ($(this).html() >= 50 && $(this).html() < 100)
+                    $(this).css('background', '#CEE3F6');
+                else if ($(this).html() >= 100 && $(this).html() < 200)
+                    $(this).css('background', '#A9F5F2');
+                else if ($(this).html() >= 200 && $(this).html() < 500)
+                    $(this).css('background', '#A9F5D0');
+                else if ($(this).html() >= 500 && $(this).html() < 1000)
+                    $(this).css('background', '#A9F5BC');
+                else if ($(this).html() >= 1000 && $(this).html() < 2500)
+                    $(this).css('background', '#BCF5A9');
+                else if ($(this).html() >= 2500 && $(this).html() < 5000)
+                    $(this).css('background', '#D8F781');
+                else if ($(this).html() >= 5000 && $(this).html() < 7500)
+                    $(this).css('background', '#F3F781');
+                else if ($(this).html() >= 7500 && $(this).html() < 10000)
+                    $(this).css('background', '#F7D358');
+                else if ($(this).html() >= 10000 && $(this).html() < 20000)
+                    $(this).css('background', '#FA8258');
+                else if ($(this).html() >= 20000 )
+                    $(this).css('background', '#FE2E2E');
             });
         })
     </script>

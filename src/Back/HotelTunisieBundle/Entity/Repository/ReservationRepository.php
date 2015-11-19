@@ -40,6 +40,10 @@ class ReservationRepository extends EntityRepository
         $query = $this->createQueryBuilder('r');
         if($typeStatistique=='nbr_reservation')
             $query->select('count(r.id)');
+        else if($typeStatistique=='nombre_nuitee')
+            $query->select('sum(r.nuitees)');
+        else if($typeStatistique=='chiffre_affaire')
+            $query->select('sum(r.chiffreAffaire)');
         $query->where($query->expr()->isNotNull('r.id'));
         if($source!='all')
         {
@@ -69,6 +73,25 @@ class ReservationRepository extends EntityRepository
             $query->andWhere('r.responsable IN (:array)')->setParameter('array', $array);
         }
         return $query->getQuery()->getSingleScalarResult();
+    }
+
+    public function getFromString($hotels,$regions)
+    {
+        $query = $this->createQueryBuilder('r');
+        $query->where($query->expr()->isNotNull('r.id'));
+        $query->join('r.hotel','h');
+        if($hotels!='all')
+        {
+            $array=explode(',',$hotels);
+            $query->andWhere('h.id IN (:array1)')->setParameter('array1', $array);
+        }
+        $query->join('h.ville','v');
+        if($regions!='all')
+        {
+            $array=explode(',',$regions);
+            $query->andWhere('v.region IN (:array2)')->setParameter('array2', $array);
+        }
+        return $query->getQuery()->getResult();
     }
 
 }
