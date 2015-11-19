@@ -54,91 +54,91 @@ class ReportingSHTService
         }
     }
 
-    public function getDataNombreReservationParHotel($mois, $annee, $etat, $regions, $hotels, $users)
+    public function getDataParHotel($mois, $annee, $etat, $regions, $hotels, $users,$typeStatistique)
     {
         $hotelsFind=$this->em->getRepository('BackHotelTunisieBundle:Hotel')->getFromString($hotels,$regions);
         $monthFound=($mois=='all')?array(1,2,3,4,5,6,7,8,9,10,11,12):explode(',',$mois);
         $data=array();
-        $ligne[]='Par Hôtel ('.$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($mois, $annee, $etat, $regions, $hotels, $users).')';
+        $ligne[]='Par Hôtel ('.$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$mois, $annee, $etat, $regions, $hotels, $users).')';
         foreach($monthFound as $month)
-            $ligne[]=$this->getNameMonth($month)." (".$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($month, $annee, $etat, $regions, $hotels, $users).")";
+            $ligne[]=$this->getNameMonth($month)." (".$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$month, $annee, $etat, $regions, $hotels, $users).")";
         $data[]=$ligne;
         foreach($hotelsFind as $hotel)
         {
             $ligne=array();
-            $total=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($mois, $annee, $etat, $regions, $hotel->getId(), $users);
+            $total=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$mois, $annee, $etat, $regions, $hotel->getId(), $users);
             if($total!=0 /*|| $hotels='all'*/)
             {
                 $ligne[]=$hotel->getLibelle()." (".$total.')';
                 foreach($monthFound as $month)
-                    $ligne[]=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($month, $annee, $etat, $regions, $hotel->getId(), $users);
+                    $ligne[]=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$month, $annee, $etat, $regions, $hotel->getId(), $users);
                 $data[]=$ligne;
             }
         }
         return $data;
     }
 
-    public function getDataNombreReservationParRegion($mois, $annee, $etat, $regions, $hotels, $users)
+    public function getDataParRegion($mois, $annee, $etat, $regions, $hotels, $users,$typeStatistique)
     {
         $regionsFind=$this->em->getRepository('BackHotelTunisieBundle:Region')->getFromString($regions);
         $monthFound=($mois=='all')?array(1,2,3,4,5,6,7,8,9,10,11,12):explode(',',$mois);
         $data=array();
-        $ligne[]='Par Région ('.$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($mois, $annee, $etat, $regions, $hotels, $users).')';
+        $ligne[]='Par Région ('.$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$mois, $annee, $etat, $regions, $hotels, $users).')';
         foreach($monthFound as $month)
-            $ligne[]=$this->getNameMonth($month)." (".$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($month, $annee, $etat, $regions, $hotels, $users).")";
+            $ligne[]=$this->getNameMonth($month)." (".$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$month, $annee, $etat, $regions, $hotels, $users).")";
         $data[]=$ligne;
         foreach($regionsFind as $region)
         {
             $ligne=array();
-            $total=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($mois, $annee, $etat, $region->getId(), $hotels, $users);
+            $total=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$mois, $annee, $etat, $region->getId(), $hotels, $users);
             if($total!=0 /*|| $regions='all'*/)
             {
                 $ligne[]=$region->getLibelle()." (".$total.')';
                 foreach($monthFound as $month)
-                    $ligne[]=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($month, $annee, $etat, $region->getId(), $hotels, $users);
+                    $ligne[]=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$month, $annee, $etat, $region->getId(), $hotels, $users);
                 $data[]=$ligne;
             }
         }
         return $data;
     }
 
-    public function getDataNombreReservationParOperateur($mois, $annee, $etat, $regions, $hotels, $users)
+    public function getDataParOperateur($mois, $annee, $etat, $regions, $hotels, $users,$typeStatistique)
     {
         $usersFind=$this->em->getRepository('BackUserBundle:User')->getFromString($users);
         $monthFound=($mois=='all')?array(1,2,3,4,5,6,7,8,9,10,11,12):explode(',',$mois);
         $data=array();
-        $ligne[]='Par Operateur ('.$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($mois, $annee, $etat, $regions, $hotels, $users).')';
+        $ligne[]='Par Operateur ('.$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$mois, $annee, $etat, $regions, $hotels, $users).')';
         foreach($monthFound as $month)
-            $ligne[]=$this->getNameMonth($month)." (".$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($month, $annee, $etat, $regions, $hotels, $users).")";
+            $ligne[]=$this->getNameMonth($month)." (".$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$month, $annee, $etat, $regions, $hotels, $users).")";
         $data[]=$ligne;
         foreach($usersFind as $user)
         {
             $ligne=array();
-            $total=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($mois, $annee, $etat, $regions, $hotels, $user->getId());
+            $total=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$mois, $annee, $etat, $regions, $hotels, $user->getId());
             if($total!=0)
             {
                 $ligne[]=$user->getUsername()." (".$total.')';
                 foreach($monthFound as $month)
-                    $ligne[]=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($month, $annee, $etat, $regions, $hotels, $user->getId());
+                    $ligne[]=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$month, $annee, $etat, $regions, $hotels, $user->getId());
                 $data[]=$ligne;
             }
         }
         return $data;
     }
 
-    public function getDataNombreReservationParSource($mois, $annee, $etat, $regions, $hotels, $users)
+    public function getDataParSource($mois, $annee, $etat, $regions, $hotels, $users,$typeStatistique)
     {
         $sourceFound=array('b','f');
         $monthFound=($mois=='all')?array(1,2,3,4,5,6,7,8,9,10,11,12):explode(',',$mois);
         $data=array();
-        $ligne[]='Par Source ('.$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($mois, $annee, $etat, $regions, $hotels, $users).')';
+        $ligne[]='Par Source ('.$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$mois, $annee, $etat, $regions, $hotels, $users).')';
         foreach($monthFound as $month)
-            $ligne[]=$this->getNameMonth($month)." (".$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($month, $annee, $etat, $regions, $hotels, $users).")";
+            $ligne[]=$this->getNameMonth($month)." (".$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$month, $annee, $etat, $regions, $hotels, $users).")";
         $data[]=$ligne;
         foreach($sourceFound as $source)
         {
             $ligne=array();
-            $total=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($mois, $annee, $etat, $regions, $hotels, $users,$source);
+            $total=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$mois, $annee, $etat, $regions, $hotels, $users,$source);
             if($total!=0)
             {
                 if($source=='b')
@@ -146,7 +146,7 @@ class ReportingSHTService
                 else
                     $ligne[]='Front Office'." (".$total.')';
                 foreach($monthFound as $month)
-                    $ligne[]=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($month, $annee, $etat, $regions, $hotels, $users,$source);
+                    $ligne[]=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$month, $annee, $etat, $regions, $hotels, $users,$source);
                 $data[]=$ligne;
             }
         }
