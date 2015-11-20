@@ -31,20 +31,31 @@ class ReservationRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
 
-    public function getNombreReservaion($typeStatistique,$mois, $annee, $etat, $regions, $hotels, $users,$source="all")
+    public function getNombreReservaion($typeStatistique,$mois, $annee, $etat, $regions="all", $hotels="all", $users="all",$source="all",$arrangements="all",$chambres='all')
     {
         $emConfig = $this->getEntityManager()->getConfiguration();
         $emConfig->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
         $emConfig->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
-        $emConfig->addCustomDatetimeFunction('DAY', 'DoctrineExtensions\Query\Mysql\Day');
         $query = $this->createQueryBuilder('r');
-        if($typeStatistique=='nbr_reservation')
-            $query->select('count(r.id)');
-        else if($typeStatistique=='nombre_nuitee')
-            $query->select('sum(r.nuitees)');
-        else if($typeStatistique=='chiffre_affaire')
-            $query->select('sum(r.chiffreAffaire)');
+        switch($typeStatistique)
+        {
+            case 'nbr_reservation': $query->select('count(DISTINCT r.id)');break;
+            case 'nombre_nuitee': $query->select('sum(r.nuitees)');break;
+            case 'chiffre_affaire': $query->select('sum(r.chiffreAffaire)');break;
+            case 'nbr_chambre': $query->select('count(c.id)')->join('r.chambres','c');break;
+        }
+
         $query->where($query->expr()->isNotNull('r.id'));
+
+        if ($arrangements != 'all') {
+            $array = explode(',', $arrangements);
+            $query->andWhere('c.arrangement IN (:arrayArr)')->setParameter('arrayArr', $array);
+        }
+
+        if ($chambres != 'all') {
+            $array = explode(',', $chambres);
+            $query->andWhere('c.chambre IN (:arrayCH)')->setParameter('arrayCH', $array);
+        }
         if($source!='all')
         {
             if($source=='f')
@@ -74,6 +85,7 @@ class ReservationRepository extends EntityRepository
         }
         return $query->getQuery()->getSingleScalarResult();
     }
+
 
     public function getFromString($hotels,$regions)
     {
