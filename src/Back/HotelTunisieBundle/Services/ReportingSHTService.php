@@ -163,4 +163,53 @@ class ReportingSHTService
         }
         $this->em->flush();
     }
+
+    public function getDataParArrangement($mois, $annee, $etat,$typeStatistique)
+    {
+        $arrangements=$this->em->getRepository('BackHotelTunisieBundle:Arrangement')->findAll();
+        $monthFound=($mois=='all')?array(1,2,3,4,5,6,7,8,9,10,11,12):explode(',',$mois);
+        $data=array();
+        $ligne[]='Chambres ('.$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$mois, $annee, $etat).')';
+        foreach($monthFound as $month)
+            $ligne[]=$this->getNameMonth($month)." (".$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$month, $annee, $etat).")";
+        $data[]=$ligne;
+        foreach($arrangements as $arrangement)
+        {
+            $ligne=array();
+            $total=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$mois, $annee, $etat,'all','all','all','all',$arrangement->getId());
+            if($total!=0)
+            {
+                $ligne[]=$arrangement->getLibelle()." (".$total.')';
+                foreach($monthFound as $month)
+                    $ligne[]=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$month, $annee, $etat,'all','all','all','all',$arrangement->getId());
+                $data[]=$ligne;
+            }
+        }
+        return $data;
+    }
+
+    public function getDataParChambre($mois, $annee, $etat,$typeStatistique)
+    {
+        $chambres=$this->em->getRepository('BackHotelTunisieBundle:Chambre')->findAll();
+        $monthFound=($mois=='all')?array(1,2,3,4,5,6,7,8,9,10,11,12):explode(',',$mois);
+        $data=array();
+        $ligne[]='Chambres ('.$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$mois, $annee, $etat).')';
+        foreach($monthFound as $month)
+            $ligne[]=$this->getNameMonth($month)." (".$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$month, $annee, $etat).")";
+        $data[]=$ligne;
+        foreach($chambres as $chambre)
+        {
+            $ligne=array();
+            $total=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$mois, $annee, $etat,'all','all','all','all','all',$chambre->getId());
+            if($total!=0)
+            {
+                $ligne[]=$chambre->getLibelle()." (".$total.')';
+                foreach($monthFound as $month)
+                    $ligne[]=$this->em->getRepository('BackHotelTunisieBundle:Reservation')->getNombreReservaion($typeStatistique,$month, $annee, $etat,'all','all','all','all','all',$chambre->getId());
+                $data[]=$ligne;
+            }
+        }
+        return $data;
+    }
+
 }

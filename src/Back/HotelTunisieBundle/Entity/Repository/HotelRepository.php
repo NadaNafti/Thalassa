@@ -48,14 +48,10 @@ class HotelRepository extends EntityRepository
             $query->andWhere('h.chaine=:chaine')->setParameter('chaine', $chaine);
         if ($name != 'all')
         {
-            $ORs = array();
-            $name = explode('+', $name);
-            foreach ($name as $mot)
-                $ORs[] = $query->expr()->like("UPPER(h.libelle)", "UPPER('%" . $mot . "%')");
-            $orX = $query->expr()->andX();
-            foreach ($ORs as $or)
-                $orX->add($or);
-            $query->andWhere($orX);
+            $mots = explode('+', $name);
+            foreach ($mots as $mot)
+				$andX = $query->expr()->andX()->add($query->expr()->like("UPPER(h.libelle)", "UPPER('%" . $mot . "%')"));
+            $query->andWhere($andX);
         }
         $query->orderBy("h.libelle", 'asc');
         return $query->getQuery()->getResult();
@@ -79,14 +75,10 @@ class HotelRepository extends EntityRepository
             $query->andWhere('h.chaine=:chaine')->setParameter('chaine', $chaine);
         if ($libelle != 'all')
         {
-            $ORs = array();
             $libelle = explode('+', $libelle);
             foreach ($libelle as $mot)
-                $ORs[] = $query->expr()->like("UPPER(h.libelle)", "UPPER('%" . $mot . "%')");
-            $orX = $query->expr()->andX();
-            foreach ($ORs as $or)
-                $orX->add($or);
-            $query->andWhere($orX);
+				$andX = $query->expr()->andX()->add($query->expr()->like("UPPER(h.libelle)", "UPPER('%" . $mot . "%')"));
+            $query->andWhere($andX);
         }
         $query->orderBy($sort, $direction);
         return $query->getQuery()->getResult();
