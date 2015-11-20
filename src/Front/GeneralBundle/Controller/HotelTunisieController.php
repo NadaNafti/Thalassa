@@ -143,11 +143,15 @@ class HotelTunisieController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
-        $ddd = \DateTime::createFromFormat('Y-m-d', $session->get('dateDebut'));
         $hotel = $em->getRepository('BackHotelTunisieBundle:Hotel')->findOneBy(array('slug' => $slug));
         $hotels = $em->getRepository('BackHotelTunisieBundle:Hotel')->findBy(array('ville' => $hotel->getVille()), array(), 5);
         $hotels = $this->removeInvalideHotel($hotels);
-        return $this->render('FrontGeneralBundle:hoteltunisie/details:details.html.twig', array('dateDebut' => $ddd, 'dateFin' => $ddd->modify('+' . $session->get('nuitees') . ' day'), 'hotel' => $hotel, 'hotels' => $hotels,));
+        return $this->render('FrontGeneralBundle:hoteltunisie/details:details.html.twig', array(
+            'dateDebut' => \DateTime::createFromFormat('Y-m-d', $session->get('dateDebut')),
+            'dateFin' => \DateTime::createFromFormat('Y-m-d', $session->get('dateDebut'))->modify('+' . $session->get('nuitees') . ' day'),
+            'hotel' => $hotel,
+            'hotels' => $hotels
+            ));
     }
 
     public function removeInvalideHotel($hotels, $min = 0, $max = 1000, $topPromo = 'no')
