@@ -40,6 +40,11 @@
                                 <p><strong>Check IN : </strong> {{ dateDebut|date('d/m/Y') }}</p>
 
                                 <p><strong>Check OUT : </strong> {{ dateFin|date_modify('+1 day')|date('d/m/Y') }}</p>
+
+                                {% if resultat.surDemande %}
+                                    <hr><p style="color:red;font-size: 40px;text-align: center;">Sur demande</p>
+                                {% endif %}
+
                                 <hr>
                                 <p><strong> Client : </strong> {{ client }}</p>
                                 {% if client.amicale is not null %}
@@ -48,7 +53,6 @@
                             </div>
                             <div class="col-md-9">
                                 <h2 class="center">Détails de la reservation</h2>
-
                                 <div class="panel-body">
                                     <table class="table">
                                         <tbody>

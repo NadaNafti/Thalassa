@@ -4,46 +4,6 @@
         <span class="selected"></span>
     </a>
     <ul class="sub-menu">
-        <li {% if app.request.getPathInfo|split('/hotel_tunisie/reporting')|length > 1 %} class="active open"{% endif %} >
-            <a href="javascript:void(0)"><i class="clip-stats"></i>
-                <span class="title">Reporting</span><i class="icon-arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_NombreReservation_form' %} class="open"{% endif %}>
-                    <a href="{{ path('Hotel_Tunisie_Reporting_NombreReservation_form') }}">
-                        <span class="title">Nombre Réservation</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_NombreNuitee_form' %} class="open"{% endif %}>
-                    <a href="{{ path('Hotel_Tunisie_Reporting_NombreNuitee_form') }}">
-                        <span class="title">Nombre Nuitées</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_ChiffreAffaire_form' %} class="open"{% endif %}>
-                    <a href="{{ path('Hotel_Tunisie_Reporting_ChiffreAffaire_form') }}">
-                        <span class="title">Chiffre Affaire</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_arrangement_form' %} class="open"{% endif %}>
-                    <a href="{{ path('Hotel_Tunisie_Reporting_arrangement_form') }}">
-                        <span class="title">Arrangements</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_chambre_form' %} class="open"{% endif %}>
-                    <a href="{{ path('Hotel_Tunisie_Reporting_chambre_form') }}">
-                        <span class="title">Chambres</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
         <li {% if app.request.getPathInfo|split('/hotel_tunisie/configuration')|length > 1 %} class="active open"{% endif %} >
             <a href="javascript:void(0)"><i class="clip-settings"></i>
                 <span class="title">Configuration</span><i class="icon-arrow"></i>
@@ -221,6 +181,46 @@
                 <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/reduction')|length > 1 %} class="open"{% endif %}>
                     <a href="{{ path('gestion_reduction') }}">
                         <span class="title">Réductions</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li {% if app.request.getPathInfo|split('/hotel_tunisie/reporting')|length > 1 %} class="active open"{% endif %} >
+            <a href="javascript:void(0)"><i class="clip-stats"></i>
+                <span class="title">Reporting</span><i class="icon-arrow"></i>
+            </a>
+            <ul class="sub-menu">
+                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_NombreReservation_form' %} class="open"{% endif %}>
+                    <a href="{{ path('Hotel_Tunisie_Reporting_NombreReservation_form') }}">
+                        <span class="title">Nombre Réservation</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sub-menu">
+                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_NombreNuitee_form' %} class="open"{% endif %}>
+                    <a href="{{ path('Hotel_Tunisie_Reporting_NombreNuitee_form') }}">
+                        <span class="title">Nombre Nuitées</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sub-menu">
+                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_ChiffreAffaire_form' %} class="open"{% endif %}>
+                    <a href="{{ path('Hotel_Tunisie_Reporting_ChiffreAffaire_form') }}">
+                        <span class="title">Chiffre Affaire</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sub-menu">
+                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_arrangement_form' %} class="open"{% endif %}>
+                    <a href="{{ path('Hotel_Tunisie_Reporting_arrangement_form') }}">
+                        <span class="title">Arrangements</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sub-menu">
+                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_chambre_form' %} class="open"{% endif %}>
+                    <a href="{{ path('Hotel_Tunisie_Reporting_chambre_form') }}">
+                        <span class="title">Chambres</span>
                     </a>
                 </li>
             </ul>
