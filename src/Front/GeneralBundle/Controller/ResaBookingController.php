@@ -152,13 +152,14 @@ class ResaBookingController extends Controller
                 ->setHotel($hotel)
                 ->setPension($pension)
                 ->setReponseDevis($reponseDevis)
-                ->setTotal($reponseDevis->price)
+                ->setTotalAchat($reponseDevis->price)
+                ->setTotal($this->get('resabookingservice')->margeResaBooking($reponseDevis->price))
                 ->setDateDebut(\DateTime::createFromFormat('Y-m-d', $debut))
                 ->setDateFin(\DateTime::createFromFormat('Y-m-d', $fin));
             if($request->get('paiement') == 3 && $confPaiement->getAvance()!=0)
-                $montan = round($reponseDevis->price * $confPaiement->getAvance() / 100);
+                $montan = round($reservation->getTotal() * $confPaiement->getAvance() / 100);
             else
-                $montan = $reponseDevis->price;
+                $montan = $reservation->getTotal();
             $em->persist($reservation->setTypePayement($request->get('paiement'))->setMontantPayementElectronique($montan));
             $em->flush();
             return $this->redirect($confPaiement->getUrl() . 'RB-'.$reservation->getId() . '&Montant=' . $montan . '&Devise=TND&sid=' . session_id() . '&affilie=' . $confPaiement->getNumeroAffiliation());
