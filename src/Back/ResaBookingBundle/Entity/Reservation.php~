@@ -119,6 +119,13 @@ class Reservation
     /**
      * @var string
      *
+     * @ORM\Column(name="total_achat", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $totalAchat;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="total", type="decimal", precision=11, scale=3,nullable=true)
      */
     private $total;
@@ -690,5 +697,61 @@ class Reservation
     public function getStatusPayement()
     {
         return $this->statusPayement;
+    }
+
+    /**
+     * Set pension
+     *
+     * @param string $pension
+     * @return Reservation
+     */
+    public function setPension($pension)
+    {
+        $this->pension = $pension;
+
+        return $this;
+    }
+
+    /**
+     * Get pension
+     *
+     * @return string 
+     */
+    public function getPension()
+    {
+        return $this->pension;
+    }
+
+    /**
+     * Set hotel
+     *
+     * @param \Back\ResaBookingBundle\Entity\Hotel $hotel
+     * @return Reservation
+     */
+    public function setHotel(\Back\ResaBookingBundle\Entity\Hotel $hotel = null)
+    {
+        $this->hotel = $hotel;
+
+        return $this;
+    }
+
+    /**
+     * Get hotel
+     *
+     * @return \Back\ResaBookingBundle\Entity\Hotel 
+     */
+    public function getHotel()
+    {
+        return $this->hotel;
+    }
+
+    public function showTypePaiement()
+    {
+        switch($this->typePayement)
+        {
+            case '1':return "A l'agence";break;
+            case '2':return "Total";break;
+            case '3':return "Avance ";break;
+        }
     }
 }

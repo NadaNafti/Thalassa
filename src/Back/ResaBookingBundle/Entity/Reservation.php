@@ -119,6 +119,13 @@ class Reservation
     /**
      * @var string
      *
+     * @ORM\Column(name="total_achat", type="decimal", precision=11, scale=3,nullable=true)
+     */
+    private $totalAchat;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="total", type="decimal", precision=11, scale=3,nullable=true)
      */
     private $total;
@@ -746,5 +753,28 @@ class Reservation
             case '2':return "Total";break;
             case '3':return "Avance ";break;
         }
+    }
+
+    /**
+     * Set totalAchat
+     *
+     * @param string $totalAchat
+     * @return Reservation
+     */
+    public function setTotalAchat($totalAchat)
+    {
+        $this->totalAchat = $totalAchat;
+
+        return $this;
+    }
+
+    /**
+     * Get totalAchat
+     *
+     * @return string 
+     */
+    public function getTotalAchat()
+    {
+        return $this->totalAchat;
     }
 }
