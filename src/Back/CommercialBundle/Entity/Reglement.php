@@ -188,8 +188,8 @@ class Reglement
     {
         switch($code)
         {
-            case "SHT": $this->reservation=$reservation;
-            case "RB": $this->reservationRB=$reservation;
+            case "SHT": $this->reservation=$reservation;break;
+            case "RB": $this->reservationRB=$reservation;break;
         }
 
         return $this;
