@@ -12,6 +12,10 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     {{ form_start(form) }}
+                        <h4>Marge de vente </h4><hr>
+                        <div class="row">
+                            {{ formulaire.input("col-md-4","Marge de vente (en %)",form.marge,true) }}
+                        </div>
                         <h4>Paramétres de ResaBooking</h4><hr>
                         <div class="row">
                             {{ formulaire.input("col-md-6","Login",form.login,true) }}

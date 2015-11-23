@@ -737,4 +737,14 @@ class Reservation
     {
         return $this->hotel;
     }
+
+    public function showTypePaiement()
+    {
+        switch($this->typePayement)
+        {
+            case '1':return "A l'agence";break;
+            case '2':return "Total";break;
+            case '3':return "Avance ";break;
+        }
+    }
 }

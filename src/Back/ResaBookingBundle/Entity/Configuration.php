@@ -24,6 +24,13 @@ class Configuration
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="marge", type="decimal", precision=4, scale=2)
+     */
+    private $marge;
+
+    /**
+     * @var string
      * @Assert\Email()
      * @ORM\Column(name="email", type="string", length=255)
      */
@@ -407,5 +414,28 @@ class Configuration
     public function getCodePostal()
     {
         return $this->codePostal;
+    }
+
+    /**
+     * Set marge
+     *
+     * @param string $marge
+     * @return Configuration
+     */
+    public function setMarge($marge)
+    {
+        $this->marge = $marge;
+
+        return $this;
+    }
+
+    /**
+     * Get marge
+     *
+     * @return string 
+     */
+    public function getMarge()
+    {
+        return $this->marge;
     }
 }

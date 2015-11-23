@@ -33,6 +33,14 @@ class ResaBookingService
         $this->templating = $templating;
     }
 
+    public function margeResaBooking($prix)
+    {
+        $config = $this->em->find('BackResaBookingBundle:Configuration', 1);
+        if (!$config || is_null($config->getMarge()) || $config->getMarge() == 0)
+            return $prix;
+        return $prix + ($prix * $config->getMarge() / 100);
+    }
+
     public function availabilityHotel($ville,$debut,$fin,rooms $rooms,$idHotel=null)
     {
         $configResaBooking= $this->em->find('BackResaBookingBundle:Configuration',1);
