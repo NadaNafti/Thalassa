@@ -47,6 +47,7 @@ class PaiementController extends Controller
                 $em->persist($reglement);
                 if($reservation->getTypePayement()==2)//validation reservation
                     $reservation->setEtat(2)->setValidated(new \DateTime());
+                $reservation->setStatusPayement('ACCORD');
                 if($refArray[0]=='SHT')$reservation->setCode($this->container->get('reservation')->getCode());
                 if($refArray[0]=='RB')$reservation->setReponseBooking($this->container->get('resabookingservice')->createbooking($reservation));
                 $em->persist($reservation);

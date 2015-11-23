@@ -94,7 +94,7 @@ class Reservation
     private $validated;
 
     /**
-     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationsRB")
+     * @ORM\OneToMany(targetEntity="Back\CommercialBundle\Entity\Reglement", mappedBy="reservationRB")
      */
     protected $reglements;
 
