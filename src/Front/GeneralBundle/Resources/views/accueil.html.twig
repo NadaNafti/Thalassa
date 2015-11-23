@@ -7,12 +7,15 @@
                 {% for slider in sliders %}
                     <li>
                         <img src="{{ asset(slider.assetPath) }}" alt="#">
-
-                        <p class="flex-price">{{ slider.titre1 }}</p>
-
-                        <h3><a href="{{ slider.url }}">{{ slider.titre2 }}</a></h3>
-
-                        <p>{{ slider.titre3 }}</p>
+                        {% if slider.titre1 is not null %}
+                            <p class="flex-price">{{ slider.titre1 }}</p>
+                        {% endif %}
+                        {% if slider.titre2 is not null %}
+                            <h3><a href="{{ slider.url }}">{{ slider.titre2 }}</a></h3>
+                        {% endif %}
+                        {% if slider.titre3 is not null %}
+                            <p>{{ slider.titre3 }}</p>
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul>
@@ -171,8 +174,7 @@
                                 <div class="list-item-image">
                                     <div class="image-inner">
                                         <a class="link-image" href="{{ accueil.lien(i) }}">
-                                            <img src="{{ asset(accueil.photo(i).assetPath) }}" alt=""/>
-                                        </a>
+                                            <img src="{{ asset(accueil.photo(i).assetPath) }}" alt=""/> </a>
                                     </div>
                                 </div>
                                 <div class="product-4-label">

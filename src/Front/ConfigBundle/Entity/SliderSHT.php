@@ -34,28 +34,28 @@ class SliderSHT
     /**
      * @var string
      *
-     * @ORM\Column(name="titre1", type="string", length=255)
+     * @ORM\Column(name="titre1", type="string", length=255,nullable=true)
      */
     private $titre1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="titre2", type="string", length=255)
+     * @ORM\Column(name="titre2", type="string", length=255,nullable=true)
      */
     private $titre2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="titre3", type="string", length=255)
+     * @ORM\Column(name="titre3", type="string", length=255,nullable=true)
      */
     private $titre3;
     
     /**
      * @var string
      * @Assert\Url()
-     * @ORM\Column(name="url", type="string", length=255)
+     * @ORM\Column(name="url", type="string", length=255,nullable=true)
      */
     private $url;
 
