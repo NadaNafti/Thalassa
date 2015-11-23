@@ -149,6 +149,8 @@ class ResaBookingController extends Controller
                 ->setChambs($chambs)
                 ->setTraveller($travellerPrincipale)
                 ->setTravellers($travellers)
+                ->setHotel($hotel)
+                ->setPension($pension)
                 ->setReponseDevis($reponseDevis)
                 ->setTotal($reponseDevis->price)
                 ->setDateDebut(\DateTime::createFromFormat('Y-m-d', $debut))
