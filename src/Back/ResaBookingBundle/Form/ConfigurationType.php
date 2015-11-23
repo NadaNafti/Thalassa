@@ -15,6 +15,7 @@ class ConfigurationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('marge')
             ->add('login')
             ->add('password')
             ->add('lienProduit')

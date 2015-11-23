@@ -30,7 +30,16 @@ class InterfacesExtension extends \Twig_Extension
             'isZero'                 => new \Twig_Function_Method($this, 'isZero'),
             'bestChambre'            => new \Twig_Function_Method($this, 'bestChambre'),
             'getHotelResaBooking'    => new \Twig_Function_Method($this, 'getHotelResaBooking'),
+            'margeResaBooking'       => new \Twig_Function_Method($this, 'margeResaBooking'),
         );
+    }
+
+    public function margeResaBooking($prix)
+    {
+        $config = $this->em->find('BackResaBookingBundle:Configuration', 1);
+        if (!$config || is_null($config->getMarge()) || $config->getMarge() == 0)
+            return $prix;
+        return $prix + ($prix * $config->getMarge() / 100);
     }
 
     public function getHotelResaBooking($id)
