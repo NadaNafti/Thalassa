@@ -415,4 +415,27 @@ class Configuration
     {
         return $this->codePostal;
     }
+
+    /**
+     * Set marge
+     *
+     * @param string $marge
+     * @return Configuration
+     */
+    public function setMarge($marge)
+    {
+        $this->marge = $marge;
+
+        return $this;
+    }
+
+    /**
+     * Get marge
+     *
+     * @return string 
+     */
+    public function getMarge()
+    {
+        return $this->marge;
+    }
 }
