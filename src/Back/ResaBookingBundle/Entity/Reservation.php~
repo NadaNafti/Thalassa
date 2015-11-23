@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Billetterie
  *
  * @ORM\Table(name="ost_resa_resarvation")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Back\ResaBookingBundle\Entity\Repository\ReservationRepository")
  */
 class Reservation
 {
@@ -23,6 +23,17 @@ class Reservation
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Hotel")
+     */
+    protected $hotel;
+
+    /**
+     * @var string
+     * @ORM\Column(name="pension", type="string")
+     */
+    private $pension;
 
     /**
      * @var integer
@@ -610,5 +621,74 @@ class Reservation
     public function getChambs()
     {
         return $this->chambs;
+    }
+
+    /**
+     * Set typePayement
+     *
+     * @param integer $typePayement
+     * @return Reservation
+     */
+    public function setTypePayement($typePayement)
+    {
+        $this->typePayement = $typePayement;
+
+        return $this;
+    }
+
+    /**
+     * Get typePayement
+     *
+     * @return integer 
+     */
+    public function getTypePayement()
+    {
+        return $this->typePayement;
+    }
+
+    /**
+     * Set montantPayementElectronique
+     *
+     * @param string $montantPayementElectronique
+     * @return Reservation
+     */
+    public function setMontantPayementElectronique($montantPayementElectronique)
+    {
+        $this->montantPayementElectronique = $montantPayementElectronique;
+
+        return $this;
+    }
+
+    /**
+     * Get montantPayementElectronique
+     *
+     * @return string 
+     */
+    public function getMontantPayementElectronique()
+    {
+        return $this->montantPayementElectronique;
+    }
+
+    /**
+     * Set statusPayement
+     *
+     * @param string $statusPayement
+     * @return Reservation
+     */
+    public function setStatusPayement($statusPayement)
+    {
+        $this->statusPayement = $statusPayement;
+
+        return $this;
+    }
+
+    /**
+     * Get statusPayement
+     *
+     * @return string 
+     */
+    public function getStatusPayement()
+    {
+        return $this->statusPayement;
     }
 }

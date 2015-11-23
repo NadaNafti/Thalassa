@@ -1,10 +1,14 @@
-Hotel_Tunisie_Referentiel:
+back_resabooking_bundle_referentiel:
     resource: "@BackResaBookingBundle/Resources/config/routing/configuration.yml"
     prefix:   /admin/resabooking/configuration
 
-Hotel_Tunisie_hotels:
+back_resabooking_bundle_hotels:
     resource: "@BackResaBookingBundle/Resources/config/routing/hotels.yml"
     prefix:   /admin/resabooking/hotels
+
+back_resabooking_bundle_reservation:
+    resource: "@BackResaBookingBundle/Resources/config/routing/reservation.yml"
+    prefix:   /admin/resabooking/reservation
 
 paiement_notification:
     path:     /notification.php

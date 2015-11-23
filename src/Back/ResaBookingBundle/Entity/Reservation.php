@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Billetterie
  *
  * @ORM\Table(name="ost_resa_resarvation")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Back\ResaBookingBundle\Entity\Repository\ReservationRepository")
  */
 class Reservation
 {
@@ -23,6 +23,17 @@ class Reservation
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Hotel")
+     */
+    protected $hotel;
+
+    /**
+     * @var string
+     * @ORM\Column(name="pension", type="string")
+     */
+    private $pension;
 
     /**
      * @var integer
@@ -679,5 +690,51 @@ class Reservation
     public function getStatusPayement()
     {
         return $this->statusPayement;
+    }
+
+    /**
+     * Set pension
+     *
+     * @param string $pension
+     * @return Reservation
+     */
+    public function setPension($pension)
+    {
+        $this->pension = $pension;
+
+        return $this;
+    }
+
+    /**
+     * Get pension
+     *
+     * @return string 
+     */
+    public function getPension()
+    {
+        return $this->pension;
+    }
+
+    /**
+     * Set hotel
+     *
+     * @param \Back\ResaBookingBundle\Entity\Hotel $hotel
+     * @return Reservation
+     */
+    public function setHotel(\Back\ResaBookingBundle\Entity\Hotel $hotel = null)
+    {
+        $this->hotel = $hotel;
+
+        return $this;
+    }
+
+    /**
+     * Get hotel
+     *
+     * @return \Back\ResaBookingBundle\Entity\Hotel 
+     */
+    public function getHotel()
+    {
+        return $this->hotel;
     }
 }

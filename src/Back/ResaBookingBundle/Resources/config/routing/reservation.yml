@@ -1,0 +1,7 @@
+back_resabooking_reservation_liste:
+    path:     /liste/{page}/{etat}
+    defaults: { _controller: BackResaBookingBundle:Reservation:liste,page:1,etat:1 }
+
+back_resabooking_reservation_liste_filtre:
+    path:     /listefiltre
+    defaults: { _controller: BackResaBookingBundle:Reservation:filtre }
