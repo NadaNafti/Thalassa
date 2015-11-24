@@ -1,33 +1,43 @@
-<div class="top-header">
-    <div class="clearfix">
-        <div class="top-header-inner clearfix">
-            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                <a href="{{ path('fos_user_registration_register') }}" class="login-modal" style="border-right: none">
-                    <i class="icon icon icon-user-add mi"></i>S'inscrire </a>
-                <a href="{{ path('fos_user_security_login') }}" class="login-modal">
-                    <i class="fa-sign-in mi"></i>Se connecter </a>
-            {% else %}
-                <a href="{{ path('fos_user_security_logout') }}" class="login-modal" style="border-right: none">
-                    <i class="fa-sign-in mi"></i>Se déconnecter </a>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('tableaubord') }}" target="_blank" class="login-modal">
-                        <i class="fa-lock mi"></i>Back Office </a>
-                {% endif %}
-                {% if app.user.client is not null %}
-                    <a href="{{ path('espace_client_homepage') }}" target="_blank" class="login-modal">
-                        <i class="fa-lock mi"></i>Espace client
-                    </a>
-                    {% if app.user.client.amicale is not null and app.user.client.responsable %}
-                        <a href="{{ path('espace_amicale_homepage') }}" target="_blank" class="login-modal">
-                            <i class="fa-lock mi"></i>Espace {{ app.user.client.amicale }}
-                        </a>
-                    {% endif %}
-                {% endif %}
-                <p class="login-modal" style="  cursor: inherit;">
-                    <strong>Bienvenue</strong> {{ app.user }}
-                </p>
-            {% endif %}
-            <div class="clear xss-mb-10"></div>
+<div class="header-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <a class="logo" href="{{ path('accueil') }}">
+                    <img src="{{ asset('front-assets/img/logo.png')}}" alt="Image Alternative text" title="Thalassa" />
+                </a>
+            </div>
+            <div class="col-md-3 col-md-offset-2">
+                <form class="main-header-search" type="submit" >
+                    <div class="form-group form-group-icon-left">
+                        <i class="fa fa-search input-icon"></i>
+                        <input type="text" class="form-control" id="MotCles" name="motcles">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <div class="top-user-area clearfix">
+                    <ul class="top-user-area-list list list-horizontal list-border">
+                        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li><a href="{{ path('fos_user_registration_register') }}" >S'inscrire </a></li>
+                            <li><a href="{{ path('fos_user_security_login') }}">Se connecter </a></li>
+                            {% else %}
+                            <li><a href="{{ path('fos_user_security_logout') }}" >Se déconnecter </a></li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('tableaubord') }}">Back Office </a></li>
+                                {% endif %}
+                                {% if app.user.client is not null %}
+                                <li><a href="{{ path('espace_client_homepage') }}">Espace client</a></li>
+                                    {% if app.user.client.amicale is not null and app.user.client.responsable %}
+                                    <li><a href="{{ path('espace_amicale_homepage') }}">Espace {{ app.user.client.amicale }}</a></li>
+                                    {% endif %}
+                                {% endif %}
+                            <li class="top-user-area-avatar">
+                                <strong>Bienvenue</strong> {{ app.user }}
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>

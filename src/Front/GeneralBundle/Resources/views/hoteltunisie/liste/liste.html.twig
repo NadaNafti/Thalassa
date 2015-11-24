@@ -1,39 +1,36 @@
 {% extends ":Front:base.html.twig" %}
 {% block title %}Liste hôtels en Tunisie{% endblock %}
 {% block body %}
-    <div id="page_title">
-        <div class="container clearfix">
-            <div class="page-name">{{ block('title') }}</div>
-            <div class="breadcrumb clearfix">
-                <a href="{{ path('accueil') }}">Accueil</a>
-                <a href="{{ path('front_hoteltunisie_accueil') }}">Hôtels en Tunisie</a>
-                <span class="current-page">Liste</span>
-            </div>
-        </div>
-    </div>
-    <div class="banner-intern">
-        <img src="{{ asset('front-assets/images/banner-2.png') }}" style="width:100%">
-    </div>
-    <div id="content_wrapper">
-        <div class="container">
-            <div class="row clearfix pv-30 mt-20">
-                {% include 'FrontGeneralBundle:hoteltunisie/liste:filtre.html.twig' %}
-                <div class="col-xs-12 col-sm-8 col-md-9">
-                    {% include 'FrontGeneralBundle:hoteltunisie/liste:sort.html.twig' %}
-                    <div class="row items-container list-style">
-                        {% for hotel in hotels %}
+    <div class="container">
+                <ul class="breadcrumb">
+                    <li><a href="{{ path('accueil') }}">Acceuil</a>
+                    </li>
+                    <li><a href="{{ path('front_hoteltunisie_accueil') }}">Liste Hôtels</a>
+                    </li>
+                </ul>
+                <h3 class="booking-title">{{ hotels.getTotalItemCount }} Hôtel(s) trouvé(s)</h3>
+                <div class="row">
+                    {% include 'FrontGeneralBundle:hoteltunisie/liste:filtre.html.twig' %}
+                    <div class="col-md-9">
+                        {% include 'FrontGeneralBundle:hoteltunisie/liste:sort.html.twig' %}
+                        <ul class="booking-list">
+                            {% for hotel in hotels %}
                             {% include 'FrontGeneralBundle:hoteltunisie/liste:article.html.twig' %}
                         {% endfor %}
+                        </ul>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><small>{{ hotels.getTotalItemCount }} hotels trouvés.</small>
+                                </p>
+                                <ul class="pagination">
+                                    {{ knp_pagination_render(hotels) }}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="clear"></div>
-                    <nav class="paging pull-right">
-                        {{ knp_pagination_render(hotels) }}
-                    </nav>
                 </div>
-                <div class="clear"></div>
+                <div class="gap"></div>
             </div>
-        </div>
-    </div>
 {% endblock %}
 {% block jquery %}
     <script>
@@ -43,29 +40,29 @@
                 table.toggle();
             })
         })
-        $(document).ready(function($) {
+        $(document).ready(function ($) {
 
             try {
 
-                for( var i = 100; i <= 10000; i++ ){
+                for (var i = 100; i <= 10000; i++) {
                     $('#start-val').append(
                             '<option value="' + i + '">' + i + '</option>'
-                    );
+                            );
                 }
                 // Initialise noUiSlider
                 $('.noUiSlider').noUiSlider({
-                    range: [0,1000],
-                    start: [{{ app.request.get('min') }},{{ app.request.get('max') }}],
+                    range: [0, 1000],
+                    start: [{{ app.request.get('min') }},{{ app.request.get('max') }} ],
                     handles: 2,
                     connect: true,
                     step: 1,
                     serialization: {
-                        to: [ $('#start-val'),
-                            $('#end-val') ],
+                        to: [$('#start-val'),
+                            $('#end-val')],
                         resolution: 1
                     }
                 });
-            } catch(err) {
+            } catch (err) {
 
             }
 

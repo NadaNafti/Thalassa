@@ -5,121 +5,74 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta charset="utf-8" />
-        <title>{% block title %}Olé voyage{% endblock %}</title>
-	{% block meta %}
-	    <meta name="keywords" content=""/>
-	    <meta name="description" content="">
-	    <meta name="author" content="">
-	    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-	{% endblock %}
-	<link rel="shortcut icon" href="{{ asset('front-assets/images/ico/favico.ico') }}">
-	{% block stylesheets %}
-	    <!-- Styles -->
-	    <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/bootstrap/css/bootstrap.css') }}" media="screen" />
-	    <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/external-styled.css') }}" media="screen" />
-	    <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/style.css') }}" media="screen" />
-	    <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/icons.css') }}" media="screen" />
-	    <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/animate.css') }}" media="screen" />
-	    <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/jquery-ui.css') }}" media="screen" />
-	    <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/smoothness/jquery-ui-1.8.16.custom.css') }}" media="screen" />
-	    <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/responsive.css') }}" media="screen" />
-	    <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/yamm.css') }}" media="screen" />
-	    <!-- Google Fonts -->
-	    <link href="{{ asset('front-assets/css/front-google1.css') }}"  rel='stylesheet' type='text/css'>
-	    <link href="{{ asset('front-assets/css/front-google2.css') }}"  rel='stylesheet' type='text/css'>
-		<style>
-			#details-slider-images li, #details-slider-images img {
-				width: 143px ;
-				height: 80px ;
-			}
-			.page-name {
-				float: right!important;
-				display: none;
-			}
-			.breadcrumb {
-				float: left!important;
-			}
-		</style>
-	{% endblock %}
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-          <script src="{{ asset('front-assets/js/html5shiv.js') }}"></script>
-          <script src="{{ asset('front-assets/js/respond.min.js') }}"></script>
-        <![endif]-->
-
+        <title>{% block title %}Tunisia Thalassa Travel{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block meta %}
+            <meta name="keywords" content=""/>
+            <meta name="description" content="">
+            <meta name="author" content="">
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        {% endblock %}
+        {% block stylesheets %}
+            <!-- GOOGLE FONTS -->
+            <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700' rel='stylesheet' type='text/css'>
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600' rel='stylesheet' type='text/css'>
+            <!-- /GOOGLE FONTS -->
+            <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/bootstrap.css') }}" media="screen">
+            <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/font-awesome.css') }}" media="screen" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/icomoon.css') }}" media="screen" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/styles.css') }}" media="screen" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/mystyles.css') }}" media="screen" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/css/schemes/mandy.css') }}" media="screen" />
+            <script src="{{ asset('front-assets/js/modernizr.js') }}"></script>
+        {% endblock %}
         <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-
     </head>
 
     <body>
-	<div id="fb-root"></div>
-	<script>(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) return;
-			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.4&appId=770925942943303";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));</script>
-        <div id="preloader">
-            <div id="status">&nbsp;</div>
-        </div>
-        <div id="body_wrapper" class="full trip">
-            <header id="header">
-		{% include ':Front:topnav.html.twig' %}
-
-                <div class="clear"></div>
-                <div class="large-header my_sticky">
-                    <div class="clearfix">
-                        <div class="logo">
-                            <a href="{{ path('accueil') }}" title="Logo"><img src="{{ asset('front-assets/images/logo.png') }}" alt="Logo"></a>
-                        </div>
-			{% include ':Front:menu.html.twig' %}
-                    </div>
-                </div>
+        <!-- FACEBOOK WIDGET -->
+        <div id="fb-root"></div>
+        <script>
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <!-- /FACEBOOK WIDGET -->
+        <div class="global-wrap">
+            <header id="main-header">
+                {% include ':Front:topnav.html.twig' %}
+                {% include ':Front:menu.html.twig' %}
             </header>
-	    {% block body %}
-	    {% endblock %}
-	    {% include ':Front:footer.html.twig' %}
-	</div>
-	<!-- Scripts -->
-	{% block javascripts %}
-	    <script src="{{ asset('front-assets/js/jquery.v2.0.3.js') }}"></script>
-	    {#	    <script src="{{ asset('front-assets/js/initialize-google-map.js') }}"></script>#}
-	    <script src="{{ asset('front-assets/bootstrap/js/bootstrap.min.js') }}"></script>
-	    <script src="{{ asset('front-assets/js/jquery-ui.min.js') }}"></script>
-	    <script src="{{ asset('front-assets/js/plugins.js') }}"></script>
-	    <script src="{{ asset('front-assets/js/sliders.js') }}"></script>
-	    <script src="{{ asset('front-assets/js/custom.js') }}"></script>
-	    {#<script >
-		setTimeout(function () {
-		    $('.menu-voayge').addClass('animated bounceIn').show();
-		}, 1000);
-
-		if ($(window).width() > 786) {
-		    $('.menu-voayge a.smd').on('mouseenter', function () {
-			$('.image-hover').hide();
-			$(this).parent().children('.image-hover').addClass('animated fadeInDown').fadeIn();
-		    });
-
-		    $('.menu-voayge .image-hover').on('mouseleave', function () {
-			$(this).parent().children('.image-hover').removeClass('animated fadeInDown').fadeOut();
-		    });
-		}
-	    </script>#}
-	{% endblock %}
-	<script>
-	    $('input.date').datepicker({
-		dateFormat: 'yy-mm-dd',
-		changeMonth: true,
-		changeYear: true,
-		beforeShowDay: function (date) {
-		    var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-		    return [string > "{{ 'now'|date('Y-m-d') }}"]
-		}
-	    });
-	</script>
-	{% block jquery %}
-	{% endblock %}
-    </body>
+        {% block body %}{% endblock %}
+        {% include ':Front:footer.html.twig' %}
+        {% block javascripts %}
+            <script src="{{ asset('front-assets/js/jquery.js')}}"></script>
+            <script src="{{ asset('front-assets/js/bootstrap.js')}}"></script>
+            <script src="{{ asset('front-assets/js/slimmenu.js')}}"></script>
+            <script src="{{ asset('front-assets/js/bootstrap-datepicker.js')}}"></script>
+            <script src="{{ asset('front-assets/js/bootstrap-timepicker.js')}}"></script>
+            <script src="{{ asset('front-assets/js/nicescroll.js')}}"></script>
+            <script src="{{ asset('front-assets/js/dropit.js')}}"></script>
+            <script src="{{ asset('front-assets/js/ionrangeslider.js')}}"></script>
+            <script src="{{ asset('front-assets/js/icheck.js')}}"></script>
+            <script src="{{ asset('front-assets/js/fotorama.js')}}"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+            <script src="{{ asset('front-assets/js/typeahead.js')}}"></script>
+            <script src="{{ asset('front-assets/js/card-payment.js')}}"></script>
+            <script src="{{ asset('front-assets/js/magnific.js')}}"></script>
+            <script src="{{ asset('front-assets/js/owl-carousel.js')}}"></script>
+            <script src="{{ asset('front-assets/js/fitvids.js')}}"></script>
+            <script src="{{ asset('front-assets/js/tweet.js')}}"></script>
+            <script src="{{ asset('front-assets/js/countdown.js')}}"></script>
+            <script src="{{ asset('front-assets/js/gridrotator.js')}}"></script>
+            <script src="{{ asset('front-assets/js/custom.js')}}"></script>
+        {% endblock %}
+    </div>
+</body>
 </html>
