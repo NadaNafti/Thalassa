@@ -9,7 +9,7 @@
         <div class="input-daterange" data-date-format="dd/mm/yyyy">
             <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                 <label>Date d'entrée</label>
-                <input type="text" class="form-control" name="start" id="hotel-check-in"
+                <input name="dateDebutSearch" type="text" class="form-control" name="start" id="hotel-check-in"
                        value="{{ app.request.session.get('dateDebut') }}">
             </div>
         </div>
@@ -27,8 +27,7 @@
                 <label class="btn btn-primary">
                     <input type="radio" name="options" />4+</label>
             </div>
-            <select class="form-control hidden" type="number" min="1" class="form-control" name="nuiteesSearch"
-                    value="{{ app.request.session.get('nuitees') }}" id="hotel-check-out">
+            <select class="form-control hidden">
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -45,6 +44,7 @@
                 <option>14</option>
             </select>
         </div>
+        <input name="nuiteesSearch" type="hidden" class="form-control " value="{{ app.request.session.get('nuitees') }}">
         <div class="checkbox">
             <label>
                 <input class="i-check" type="checkbox" name="promotionSearch"
@@ -53,68 +53,79 @@
         </div>
         <input class="btn btn-primary" type="submit" value="Recherche" />
         <input id="minSearch" type="hidden" name="minSearch" value="{{ app.request.get('min') }}">
-                <input id="maxSearch" type="hidden" name="maxSearch" value="{{ app.request.get('max') }}">
+        <input id="maxSearch" type="hidden" name="maxSearch" value="{{ app.request.get('max') }}">
     </form>
     <form method="post" action="{{ path('front_hoteltunisie_filtre') }}">
-    <aside class="booking-filters text-white">
-        <h3>Filtrer Par:</h3>
-        <ul class="list booking-filters-list">
-            <li>
-                <h5 class="booking-filters-title">Budget <small>Par pers & par nuitées</small></h5>
-                <input id="minSearch" type="hidden" name="minSearch" value="{{ app.request.get('min') }}">
-                <input id="maxSearch" type="hidden" name="maxSearch" value="{{ app.request.get('max') }}">
-                <input class="btn btn-primary" type="submit" value="Recherche" />
-            </li>
-            <li>
-                <h5 class="booking-filters-title">Catégorie</h5>
-                {% set categoriesSplit = app.request.get('categorie')|split(',') %}
-                {% for categorie in categories if categorie.hasHotelsValide %}
-                    <div class="checkbox">
-                        <label>
-                            <input class="i-check" type="checkbox" {% if categorie.id in categoriesSplit %}checked{% endif %}
-                                   value="{{ categorie.id }}"/>{{ categorie|title }}</label>
-                    </div>
-                {% endfor %}
-                <input class="btn btn-primary" type="submit" value="Recherche" />
-            </li>
-            <li>
-                <h5 class="booking-filters-title">Ville</h5>
-                {% set villesSplit = app.request.get('ville')|split(',') %}
-                {% for ville in villes if ville.hasHotelsValide %}
-                    <div class="checkbox">
-                        <label>
-                            <input class="i-check" type="checkbox" name="ville_{{ ville.id }}"
-                                   {% if ville.id in villesSplit %}checked{% endif %} value="{{ ville.id }}"/> 
-                            {{ ville|title }}</label>
-                    </div>
-                {% endfor %}
-                <input class="btn btn-primary" type="submit" value="Recherche" />
-            </li>
-            <li>
-                <h5 class="booking-filters-title" {% if app.request.get('chaine') != 'all' or true %}class="active"{% endif %}>Chaîne hôtelière</h5>
-                {% set chainesSplit = app.request.get('chaine')|split(',') %}
-                {% for chaine in chaines if chaine.hasHotelsValide %}
-                    <div class="checkbox">
-                        <label>
-                            <input class="i-check" type="checkbox" {% if chaine.id in chainesSplit %}checked{% endif %} value="{{ chaine.id }}">
-                            {{ chaine|title }}</label>
-                    </div>
-                {% endfor %}
-                <input class="btn btn-primary" type="submit" value="Recherche" />
-            </li>
-            <li>
-                <h5 class="booking-filters-title" {% if app.request.get('tag') != 'all' or true %}class="active"{% endif %}>Thème</h5>
-                {% set tagsSplit = app.request.get('tag')|split(',') %}
-                {% for tag in tags if tag.hasHotelsValide  %}
-                    <div class="checkbox">
-                        <label>
-                            <input class="i-check" type="checkbox" {% if tag.id in tagsSplit %}checked{% endif %} value="{{ tag.id }}">
-                            {{ tag|title }}</label>
-                    </div>
-                {% endfor %}
-                <input class="btn btn-primary" type="submit" value="Recherche" />
-            </li>
-        </ul>
-    </aside>
-</form>
+        <aside class="booking-filters text-white">
+            <h3>Filtrer Par:</h3>
+            <ul class="list booking-filters-list">
+                <li>
+                    <h5 class="booking-filters-title">Budget <small>Par pers & par nuitées</small></h5>
+                    <input type="text" id="price-slider">
+                    <input id="minSearch" type="hidden" name="minSearch" value="{{ app.request.get('min') }}">
+                    <input id="maxSearch" type="hidden" name="maxSearch" value="{{ app.request.get('max') }}">
+                    <input class="btn btn-primary" type="submit" value="Recherche" />
+                </li>
+                <li>
+                    <h5 class="booking-filters-title">Catégorie</h5>
+                    {% set categoriesSplit = app.request.get('categorie')|split(',') %}
+                    {% for categorie in categories if categorie.hasHotelsValide %}
+                        <div class="checkbox">
+                            <label>
+                                <input class="i-check" name="categorie_{{ categorie.id }}" {% if categorie.id in categoriesSplit %}checked{% endif %} type="checkbox" value="{{ categorie.id }}"/>{{ categorie|title }}</label>
+                        </div>
+                    {% endfor %}
+                    <input class="btn btn-primary" type="submit" value="Recherche" />
+                </li>
+                <li>
+                    <h5 class="booking-filters-title">Ville</h5>
+                    {% set villesSplit = app.request.get('ville')|split(',') %}
+                    {% for ville in villes if ville.hasHotelsValide %}
+                        <div class="checkbox">
+                            <label>
+                                <input class="i-check" type="checkbox" name="ville_{{ ville.id }}"
+                                       {% if ville.id in villesSplit %}checked{% endif %} value="{{ ville.id }}"/> 
+                                {{ ville|title }}</label>
+                        </div>
+                    {% endfor %}
+                    <input class="btn btn-primary" type="submit" value="Recherche" />
+                </li>
+                <li>
+                    <h5 class="booking-filters-title" {% if app.request.get('chaine') != 'all' or true %}class="active"{% endif %}>Chaîne hôtelière</h5>
+                    {% set chainesSplit = app.request.get('chaine')|split(',') %}
+                    {% for chaine in chaines if chaine.hasHotelsValide %}
+                        <div class="checkbox">
+                            <label>
+                                <input class="i-check" type="checkbox" name="chaine_{{ chaine.id }}" {% if chaine.id in chainesSplit %}checked{% endif %} value="{{ chaine.id }}">
+                                {{ chaine|title }}</label>
+                        </div>
+                    {% endfor %}
+                    <input class="btn btn-primary" type="submit" value="Recherche" />
+                </li>
+                <li>
+                    <h5 class="booking-filters-title" {% if app.request.get('tag') != 'all' or true %}class="active"{% endif %}>Thème</h5>
+                    {% set tagsSplit = app.request.get('tag')|split(',') %}
+                    {% for tag in tags if tag.hasHotelsValide  %}
+                        <div class="checkbox">
+                            <label>
+                                <input class="i-check" type="checkbox" name="tag_{{ tag.id }}" value="{{ tag.id }}">
+                                {{ tag|title }}</label>
+                        </div>
+                    {% endfor %}
+                    <input class="btn btn-primary" type="submit" value="Recherche" />
+                </li>
+            </ul>
+        </aside>
+    </form>
 </div>
+<script type="text/javascript">
+    jQuery("#price-slider").slider({from: 0, to: 1000, step: 5, smooth: true, round: 0, dimension: "&nbsp;DT", skin: "round", format: {format: "# ##0.##"},
+        callback: function () {
+            for (var i = 0, values = jQuery("#Slider1").val().split(";"), keys = ["min", "max"], final = {}; i < values.length; i++) {
+                final[keys[i]] = values[i];
+                $('#minSearch').val(final.min);
+                $('#maxSearch').val(final.max);
+            }
+        }
+    });
+</script>

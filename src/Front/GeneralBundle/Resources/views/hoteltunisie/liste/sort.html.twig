@@ -2,19 +2,45 @@
 {% set dir=app.request.get('direction') %}
 {% set action=path('front_hoteltunisie_sort',{'min':app.request.get('min'),'max':app.request.get('max'),'categorie':app.request.get('categorie'),'chaine':app.request.get('chaine'),'ville':app.request.get('ville'),'tag':app.request.get('tag'),'promotion':app.request.get('promotion'),'name':app.request.get('name'),}) %}
 <div class="nav-drop booking-sort">
-    <h5 class="booking-sort-title"><a href="#">Trier Par<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>
-    <ul class="nav-drop-menu">
-        <li><a href="#">Nom de A à Z</a>
-        </li>
-        <li><a href="#">Nom de Z à A</a>
-        </li>
-        <li><a href="#">Catégorie Croissant</a>
-        </li>
-        <li><a href="#">Catégorie Décroissant</a>
-        </li>
-        <li><a href="#">Ville Ascendant</a>
-        </li>
-        <li><a href="#">Ville Descendant</a>
-        </li>
-    </ul>
+    <div class="col-md-2">
+    <h4 class="booking-sort-title">Trier Par</h4>
 </div>
+<div class="col-md-3">
+    <form method="post" action="{{ action }}">
+        <div class="sort-option mr-15 xs-mb sm-mb">
+            <input type="hidden" name="sort" value="h.libelle">
+            <select class="form-control" name="direction" onchange="submit()">
+                <option value="" selected>Nom</option>
+                <option value="asc" {% if sort=='h.libelle' and dir=='asc' %}selected {% endif %}>De A à Z</option>
+                <option value="desc" {% if sort=='h.libelle' and dir=='desc' %}selected {% endif %}>De Z à A</option>
+            </select>
+        </div>
+    </form>
+</div>
+<div class="col-md-3">
+    <form method="post" action="{{ action }}">
+        <input type="hidden" name="sort" value="h.categorie">
+
+        <div class="sort-option mr-15 xs-mb sm-mb">
+            <select class="form-control" name="direction" onchange="submit()">
+                <option value="" selected>Catégorie</option>
+                <option value="asc" {% if sort=='h.categorie' and dir=='asc' %}selected {% endif %}>Croissant</option>
+                <option value="desc" {% if sort=='h.categorie' and dir=='desc' %}selected {% endif %}>Descendant</option>
+            </select>
+        </div>
+    </form>
+</div>
+<div class="col-md-3">
+    <form method="post" action="{{ action }}">
+        <input type="hidden" name="sort" value="v.libelle">
+
+        <div class="sort-option mr-15 xs-mb sm-mb">
+            <select class="form-control" name="direction" onchange="submit()">
+                <option value="" selected>Ville</option>
+                <option value="asc" {% if sort=='v.libelle' and dir=='asc' %}selected {% endif %}>Ascendant</option>
+                <option value="desc" {% if sort=='v.libelle' and dir=='desc' %}selected {% endif %}>Descendant</option>
+            </select>
+        </div>
+    </form>
+</div>
+</div><hr>

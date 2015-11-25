@@ -288,6 +288,7 @@ blockquote:before {
 .btn-primary {
   background: #ed8323;
   border-color: #e27513;
+  display: table;
 }
 .btn-primary:hover {
   background: #e27513;
@@ -2245,7 +2246,8 @@ img.pp-img {
   height: 20px;
 }
 div.nav-drop {
-  display: inline-block;
+  display: block;
+  margin-bottom: 50px;
 }
 .nav-drop {
   position: relative;
@@ -2274,7 +2276,7 @@ div.nav-drop {
   filter: alpha(opacity=0);
 }
 .nav-drop > .nav-drop-menu {
-  min-width: 85px;
+  min-width: 133px;
   height: 0;
   overflow: hidden;
   position: absolute;
@@ -6574,6 +6576,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 }
 .booking-item-title {
   margin-bottom: 7px;
+  border-bottom: 1px solid #f7f7f7;
 }
 .booking-item-description {
   font-size: 13px;
@@ -6609,7 +6612,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .booking-item-rating {
   margin-bottom: 3px;
   padding-bottom: 3px;
-  border-bottom: 1px solid #f7f7f7;
+  /*border-bottom: 1px solid #f7f7f7;*/
   display: inline-block;
 }
 .booking-item-rating .booking-item-rating-stars {
