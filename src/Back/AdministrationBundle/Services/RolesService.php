@@ -21,6 +21,7 @@ class RolesService
     {
         $array = array(
             "ROLE_SUPER_ADMIN"             => "Super Admin",
+            "ROLE_FRONT_CONFIG"            => "Configuration Front Office",
             "ROLE_CAISSE_SESSION"          => "Caisse Session",
             "ROLE_CAISSE_MOUVEMENT"        => "Caisse Mouvement",
             "ROLE_CAISSE_REF"              => "Caisse Réferentiel",
