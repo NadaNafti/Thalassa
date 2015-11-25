@@ -1,4 +1,4 @@
-{% if  user.sessions|length != 0 %}
+{% if is_granted("ROLE_CAISSE") and octasoft.caisse and  user.sessions|length != 0 %}
     <li class="dropdown">
         <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="javascript:void(0)">
             <i class="clip-banknote"></i>

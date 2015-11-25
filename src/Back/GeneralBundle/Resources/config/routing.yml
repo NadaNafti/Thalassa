@@ -1,3 +1,55 @@
 tableaubord:
     path:     /
     defaults: { _controller: BackGeneralBundle:Default:index }
+
+Hotel_Tunisie_Reporting:
+    resource: "@BackHotelTunisieBundle/Resources/config/routing/reporting.yml"
+    prefix:   /reporting/HotelTunisie
+
+Administration_b2b:
+    resource: "@BackAdministrationBundle/Resources/config/routing/b2c.yml"
+    prefix:   /b2c
+
+back_reservation_divers:
+    resource: "@BackReservationDiversBundle/Resources/config/routing.yml"
+    prefix:   /reservation_divers
+
+back_caisse:
+    resource: "@BackCaisseBundle/Resources/config/routing.yml"
+    prefix:   /caisse
+
+back_transfert:
+    resource: "@BackTransfertBundle/Resources/config/routing.yml"
+    prefix:   /transfert
+
+back_billetterie_maritime:
+    resource: "@BackBilletterieMaritimeBundle/Resources/config/routing.yml"
+    prefix:   /
+
+back_bien_etre:
+    resource: "@BackBienEtreBundle/Resources/config/routing.yml"
+    prefix:   /bien_etre
+
+back_programme:
+    resource: "@BackProgrammeBundle/Resources/config/routing.yml"
+    prefix:   /programme
+
+back_voyage_organise:
+    resource: "@BackVoyageOrganiseBundle/Resources/config/routing.yml"
+    prefix:   /voyage_organise
+
+back_administration:
+    resource: "@BackAdministrationBundle/Resources/config/routing.yml"
+    prefix:   /administration
+
+back_commercial:
+    resource: "@BackCommercialBundle/Resources/config/routing.yml"
+    prefix:   /commercial
+
+back_hotel_tunisie:
+    resource: "@BackHotelTunisieBundle/Resources/config/routing.yml"
+    prefix:   /hotel_tunisie
+
+back_user:
+    resource: "@BackUserBundle/Resources/config/routing.yml"
+    prefix:   /crm

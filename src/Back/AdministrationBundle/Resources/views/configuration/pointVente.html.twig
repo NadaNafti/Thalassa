@@ -40,6 +40,7 @@
                                 <th>Tel 2</th>
                                 <th>Fax</th>
                                 <th>Adresse</th>
+                                <th>Utilisateurs</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -52,6 +53,7 @@
                                     <td>{{ pointVente.tel2 }}</td>
                                     <td>{{ pointVente.fax }}</td>
                                     <td>{{ pointVente.adresse }}</td>
+                                    <td>{{ pointVente.users|length }}</td>
                                     <td class="TableAction">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             {{ macros.tableEdit(path('configuration_pointVente',{'id':pointVente.id})) }}

@@ -14,3 +14,8 @@ services:
             - @service_container
             - @mailer
             - @templating
+
+    rolesService:
+        class: Back\AdministrationBundle\Services\RolesService
+        arguments:
+            - @service_container

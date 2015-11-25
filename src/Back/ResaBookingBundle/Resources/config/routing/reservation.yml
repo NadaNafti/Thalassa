@@ -1,7 +1,19 @@
 back_resabooking_reservation_liste:
     path:     /liste/{page}/{etat}
-    defaults: { _controller: BackResaBookingBundle:Reservation:liste,page:1,etat:1 }
+    defaults: { _controller: BackResaBookingBundle:Reservation:liste,page:1,etat:all }
 
 back_resabooking_reservation_liste_filtre:
     path:     /listefiltre
     defaults: { _controller: BackResaBookingBundle:Reservation:filtre }
+
+back_resabooking_reservation_en_charge:
+    path:     /prendre_en_charge/{id}
+    defaults: { _controller: BackResaBookingBundle:Reservation:enCharge }
+
+back_resabooking_reservation_details:
+    path:     /details/{id}
+    defaults: { _controller: BackResaBookingBundle:Reservation:details }
+
+back_resabooking_reservation_validation:
+    path:     /validation/{id}
+    defaults: { _controller: BackResaBookingBundle:Reservation:validation }

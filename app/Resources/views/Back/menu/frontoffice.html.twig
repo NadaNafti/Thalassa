@@ -1,73 +1,75 @@
-<li {% if app.request.getPathInfo|split('/admin/FrontOffice')|length > 1 %} class="active open"{% endif %}>
-    <a href="javascript:void(0)"><i class="clip-screen"></i>
-        <span class="title">FrontOffice</span><i class="icon-arrow"></i> <span class="selected"></span> </a>
-    <ul class="sub-menu">
-        <li {% if app.request.getPathInfo|split('/admin/FrontOffice/accueil')|length > 1 %} class="active open"{% endif %} >
-            <a href="javascript:void(0)"> <span class="title">Page accueil</span><i class="icon-arrow"></i> </a>
-            <ul class="sub-menu">
-                <li {% if app.request.get('_route')in ['config_front_accueil'] %} class="open"{% endif %}>
-                    <a href="{{ path('config_front_accueil') }}"> <span class="title">Config</span> </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.get('_route')in ['config_front_accueil_slider'] %} class="open"{% endif %}>
-                    <a href="{{ path('config_front_accueil_slider') }}"> <span class="title">Slider</span> </a>
-                </li>
-            </ul>
-        </li>
-        <li {% if app.request.getPathInfo|split('/admin/FrontOffice/HotelTunisie')|length > 1 %} class="active open"{% endif %} >
-            <a href="javascript:void(0)"> <span class="title">Hôtele tunisie</span><i class="icon-arrow"></i> </a>
-            <ul class="sub-menu">
-                <li {% if app.request.get('_route')in ['config_front_hoteltunisie_slider'] %} class="open"{% endif %}>
-                    <a href="{{ path('config_front_hoteltunisie_slider') }}"> <span class="title">Slider</span> </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.get('_route')in ['config_front_hoteltunisie_blockmetro'] %} class="open"{% endif %}>
-                    <a href="{{ path('config_front_hoteltunisie_blockmetro') }}"> <span class="title">Block metro</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li {% if app.request.getPathInfo|split('/admin/FrontOffice/VoyageOrganise')|length > 1 %} class="active open"{% endif %} >
-            <a href="javascript:void(0)"> <span class="title">Voyage Organisé</span><i class="icon-arrow"></i> </a>
-            <ul class="sub-menu">
-                <li {% if app.request.get('_route')in ['front_config_voyageorganise_topdestination'] %} class="open"{% endif %}>
-                    <a href="{{ path('front_config_voyageorganise_topdestination') }}">
-                        <span class="title">Top Destination</span> </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.get('_route')in ['front_config_voyageorganise_slider'] %} class="open"{% endif %}>
-                    <a href="{{ path('front_config_voyageorganise_slider') }}"> <span class="title">Slider</span> </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.get('_route')in ['front_config_voyageorganise_blockmetro'] %} class="open"{% endif %}>
-                    <a href="{{ path('front_config_voyageorganise_blockmetro') }}">
-                        <span class="title">Block metro</span> </a>
-                </li>
-            </ul>
-        </li>
-        <li {% if app.request.getPathInfo|split('/admin/FrontOffice/Programme')|length > 1 %} class="active open"{% endif %} >
-            <a href="javascript:void(0)"> <span class="title">Programmes</span><i class="icon-arrow"></i> </a>
-            <ul class="sub-menu">
-                <li {% if app.request.get('_route')in ['front_config_programme_slider'] %} class="open"{% endif %}>
-                    <a href="{{ path('front_config_programme_slider') }}"> <span class="title">Slider</span> </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.get('_route')in ['front_config_programme_blockmetro'] %} class="open"{% endif %}>
-                    <a href="{{ path('front_config_programme_blockmetro') }}"> <span class="title">Block Metro</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.get('_route')in ['front_config_programme_topprogramme'] %} class="open"{% endif %}>
-                    <a href="{{ path('front_config_programme_topprogramme') }}">
-                        <span class="title">Top Programme</span> </a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</li>
+{% if is_granted('ROLE_FRONT_CONFIG') %}
+    <li {% if app.request.getPathInfo|split('/admin/FrontOffice')|length > 1 %} class="active open"{% endif %}>
+        <a href="javascript:void(0)"><i class="clip-screen"></i>
+            <span class="title">FrontOffice</span><i class="icon-arrow"></i> <span class="selected"></span> </a>
+        <ul class="sub-menu">
+            <li {% if app.request.getPathInfo|split('/admin/FrontOffice/accueil')|length > 1 %} class="active open"{% endif %} >
+                <a href="javascript:void(0)"> <span class="title">Page accueil</span><i class="icon-arrow"></i> </a>
+                <ul class="sub-menu">
+                    <li {% if app.request.get('_route')in ['config_front_accueil'] %} class="open"{% endif %}>
+                        <a href="{{ path('config_front_accueil') }}"> <span class="title">Config</span> </a>
+                    </li>
+                </ul>
+                <ul class="sub-menu">
+                    <li {% if app.request.get('_route')in ['config_front_accueil_slider'] %} class="open"{% endif %}>
+                        <a href="{{ path('config_front_accueil_slider') }}"> <span class="title">Slider</span> </a>
+                    </li>
+                </ul>
+            </li>
+            <li {% if app.request.getPathInfo|split('/admin/FrontOffice/HotelTunisie')|length > 1 %} class="active open"{% endif %} >
+                <a href="javascript:void(0)"> <span class="title">Hôtele tunisie</span><i class="icon-arrow"></i> </a>
+                <ul class="sub-menu">
+                    <li {% if app.request.get('_route')in ['config_front_hoteltunisie_slider'] %} class="open"{% endif %}>
+                        <a href="{{ path('config_front_hoteltunisie_slider') }}"> <span class="title">Slider</span> </a>
+                    </li>
+                </ul>
+                <ul class="sub-menu">
+                    <li {% if app.request.get('_route')in ['config_front_hoteltunisie_blockmetro'] %} class="open"{% endif %}>
+                        <a href="{{ path('config_front_hoteltunisie_blockmetro') }}"> <span class="title">Block metro</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li {% if app.request.getPathInfo|split('/admin/FrontOffice/VoyageOrganise')|length > 1 %} class="active open"{% endif %} >
+                <a href="javascript:void(0)"> <span class="title">Voyage Organisé</span><i class="icon-arrow"></i> </a>
+                <ul class="sub-menu">
+                    <li {% if app.request.get('_route')in ['front_config_voyageorganise_topdestination'] %} class="open"{% endif %}>
+                        <a href="{{ path('front_config_voyageorganise_topdestination') }}">
+                            <span class="title">Top Destination</span> </a>
+                    </li>
+                </ul>
+                <ul class="sub-menu">
+                    <li {% if app.request.get('_route')in ['front_config_voyageorganise_slider'] %} class="open"{% endif %}>
+                        <a href="{{ path('front_config_voyageorganise_slider') }}"> <span class="title">Slider</span> </a>
+                    </li>
+                </ul>
+                <ul class="sub-menu">
+                    <li {% if app.request.get('_route')in ['front_config_voyageorganise_blockmetro'] %} class="open"{% endif %}>
+                        <a href="{{ path('front_config_voyageorganise_blockmetro') }}">
+                            <span class="title">Block metro</span> </a>
+                    </li>
+                </ul>
+            </li>
+            <li {% if app.request.getPathInfo|split('/admin/FrontOffice/Programme')|length > 1 %} class="active open"{% endif %} >
+                <a href="javascript:void(0)"> <span class="title">Programmes</span><i class="icon-arrow"></i> </a>
+                <ul class="sub-menu">
+                    <li {% if app.request.get('_route')in ['front_config_programme_slider'] %} class="open"{% endif %}>
+                        <a href="{{ path('front_config_programme_slider') }}"> <span class="title">Slider</span> </a>
+                    </li>
+                </ul>
+                <ul class="sub-menu">
+                    <li {% if app.request.get('_route')in ['front_config_programme_blockmetro'] %} class="open"{% endif %}>
+                        <a href="{{ path('front_config_programme_blockmetro') }}"> <span class="title">Block Metro</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="sub-menu">
+                    <li {% if app.request.get('_route')in ['front_config_programme_topprogramme'] %} class="open"{% endif %}>
+                        <a href="{{ path('front_config_programme_topprogramme') }}">
+                            <span class="title">Top Programme</span> </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+{% endif %}

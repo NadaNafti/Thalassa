@@ -18,7 +18,9 @@
                         {{ form_widget(form._token) }}
                         <div class="row">
                             {{ formulaire.input("col-md-4","Libélle",form.name,true) }}
-                            {{ formulaire.input("col-md-4","Roles",form.roles,true) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.select2("col-md-12","Roles",form.roles,true) }}
                         </div>
                         {% if group.id is null %}
                             {{ formulaire.submit("Ajouter") }}

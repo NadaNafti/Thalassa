@@ -1,0 +1,50 @@
+{% if  is_granted('ROLE_REPORTING') and octasoft.reporting %}
+<li  {% if app.request.getPathInfo|split('admin/reporting')|length > 1 %} class="active open"{% endif %}>
+    <a href="javascript:void(0)"><i class="clip-stats"></i>
+        <span class="title">Reporting</span><i class="icon-arrow"></i>
+        <span class="selected"></span>
+    </a>
+    <ul class="sub-menu">
+        <li {% if app.request.getPathInfo|split('admin/reporting/HotelTunisie')|length > 1 %} class="active open"{% endif %} >
+            <a href="javascript:void(0)"><i class="clip-star"></i>
+                <span class="title">Hôtels en tunisie</span><i class="icon-arrow"></i>
+            </a>
+            <ul class="sub-menu">
+                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_NombreReservation_form' %} class="open"{% endif %}>
+                    <a href="{{ path('Hotel_Tunisie_Reporting_NombreReservation_form') }}">
+                        <span class="title">Nombre Réservation</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sub-menu">
+                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_NombreNuitee_form' %} class="open"{% endif %}>
+                    <a href="{{ path('Hotel_Tunisie_Reporting_NombreNuitee_form') }}">
+                        <span class="title">Nombre Nuitées</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sub-menu">
+                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_ChiffreAffaire_form' %} class="open"{% endif %}>
+                    <a href="{{ path('Hotel_Tunisie_Reporting_ChiffreAffaire_form') }}">
+                        <span class="title">Chiffre Affaire</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sub-menu">
+                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_arrangement_form' %} class="open"{% endif %}>
+                    <a href="{{ path('Hotel_Tunisie_Reporting_arrangement_form') }}">
+                        <span class="title">Arrangements</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sub-menu">
+                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_chambre_form' %} class="open"{% endif %}>
+                    <a href="{{ path('Hotel_Tunisie_Reporting_chambre_form') }}">
+                        <span class="title">Chambres</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</li>
+{% endif %}
