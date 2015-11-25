@@ -24,13 +24,10 @@ class UsersController extends Controller
             $group=$em->getRepository("BackUserBundle:Group")->find($id);
         $groups=$em->getRepository("BackUserBundle:Group")->findAll();
         $form=$this->createForm(new GroupType(), $group);
-        $form->add('roles', 'choice', array( 'choices' =>
-            array(
-                'ROLE_SUPER_ADMIN'=>'SUPER ADMIN',
-                'ROLE_ADMIN'      =>'ADMIN',
-            ),
+        $form->add('roles', 'choice', array(
+            'choices' =>$this->get('rolesService')->getRoles(),
             'required'=>true,
-            'expanded'=>true,
+            'expanded'=>false,
             'multiple'=>true
         ));
         if($this->getRequest()->isMethod("POST"))

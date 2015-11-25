@@ -5,7 +5,47 @@ security:
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_SUPER_ADMIN: ROLE_CAISSE_REF,ROLE_CAISSE_MOUVEMENT,ROLE_CAISSE_SESSION,ROLE_COMMERCIAL,ROLE_ADMINISTRATION,ROLE_CRM,ROLE_B2C,ROLE_REPORTING,ROLE_DIVERS,ROLE_TRANSFERT,ROLE_BIETTERIE,ROLE_MARITIME,ROLE_BE_REF,ROLE_BE_RESERVATION,ROLE_PR_REF,ROLE_PR_PROGRAMME,ROLE_PR_RESERVATION,ROLE_RESABOOKING_REF,ROLE_RESABOOKING_HOTEL,ROLE_RESABOOKING_RESERVATION,ROLE_SHT_CONFIG,ROLE_SHT_RESERVATION,ROLE_SHT_REF,ROLE_SHT_HOTEL,ROLE_VO_RESERVATION,ROLE_VO_VOYAGE,ROLE_VO_REF
+
+        ROLE_MARITIME: ROLE_ADMIN
+        ROLE_BIETTERIE: ROLE_ADMIN
+        ROLE_TRANSFERT: ROLE_ADMIN
+        ROLE_DIVERS: ROLE_ADMIN
+        ROLE_REPORTING: ROLE_ADMIN
+        ROLE_B2C: ROLE_ADMIN
+        ROLE_CRM: ROLE_ADMIN
+        ROLE_ADMINISTRATION: ROLE_ADMIN
+        ROLE_COMMERCIAL: ROLE_ADMIN
+
+        ROLE_CAISSE: ROLE_ADMIN
+        ROLE_CAISSE_SESSION: ROLE_CAISSE
+        ROLE_CAISSE_MOUVEMENT: ROLE_CAISSE
+        ROLE_CAISSE_REF: ROLE_CAISSE
+
+        ROLE_SHT: ROLE_ADMIN
+        ROLE_SHT_CONFIG: ROLE_SHT
+        ROLE_SHT_RESERVATION: ROLE_SHT
+        ROLE_SHT_REF: ROLE_SHT
+        ROLE_SHT_HOTEL: ROLE_SHT
+
+        ROLE_VO: ROLE_ADMIN
+        ROLE_VO_RESERVATION: ROLE_VO
+        ROLE_VO_VOYAGE: ROLE_VO
+        ROLE_VO_REF: ROLE_VO
+
+        ROLE_RESABOOKING: ROLE_ADMIN
+        ROLE_RESABOOKING_RESERVATION: ROLE_RESABOOKING
+        ROLE_RESABOOKING_HOTEL: ROLE_RESABOOKING
+        ROLE_RESABOOKING_CONFIG: ROLE_RESABOOKING
+
+        ROLE_PR: ROLE_ADMIN
+        ROLE_PR_RESERVATION: ROLE_PR
+        ROLE_PR_PROGRAMME: ROLE_PR
+        ROLE_PR_REF: ROLE_PR
+
+        ROLE_BE: ROLE_ADMIN
+        ROLE_BE_RESERVATION: ROLE_BE
+        ROLE_BE_REF: ROLE_BE
 
     providers:
         fos_userbundle:
@@ -26,3 +66,27 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/espace_client/, role: ROLE_USER }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/admin/hotel_tunisie/referentiel/, role: ROLE_SHT_REF }
+        - { path: ^/admin/hotel_tunisie/configuration/, role: ROLE_SHT_CONFIG }
+        - { path: ^/admin/hotel_tunisie/reservation/, role: ROLE_SHT_RESERVATION }
+        - { path: ^/admin/hotel_tunisie/hotels/, role: ROLE_SHT_HOTEL }
+        - { path: ^/admin/voyage_organise/ref/, role: ROLE_VO_REF }
+        - { path: ^/admin/voyage_organise/vo/, role: ROLE_VO_VOYAGE }
+        - { path: ^/admin/voyage_organise/reservation/, role: ROLE_VO_RESERVATION }
+        - { path: ^/admin/programme/ref/, role: ROLE_PR_RESERVATION }
+        - { path: ^/admin/programme/pr/, role: ROLE_PR_PROGRAMME }
+        - { path: ^/admin/programme/reservation/, role: ROLE_PR_REF }
+        - { path: ^/admin/reporting/, role: ROLE_REPORTING }
+        - { path: ^/admin/b2c/, role: ROLE_B2C }
+        - { path: ^/admin/reservation_divers/, role: ROLE_DIVERS }
+        - { path: ^/admin/caisse/session/, role: ROLE_CAISSE_SESSION }
+        - { path: ^/admin/caisse/referentiel/, role: ROLE_CAISSE_REF }
+        - { path: ^/admin/caisse/mouvementCaisses/, role: ROLE_CAISSE_MOUVEMENT }
+        - { path: ^/admin/back_transfert/, role: ROLE_TRANSFERT }
+        - { path: ^/admin/billetterie/, role: ROLE_BIETTERIE }
+        - { path: ^/admin/maritime/, role: ROLE_MARITIME }
+        - { path: ^/admin/bien_etre/ref/, role: ROLE_BE_REF }
+        - { path: ^/admin/bien_etre/reservation/, role: ROLE_BE_RESERVATION }
+        - { path: ^/admin/administration/, role: ROLE_ADMINISTRATION }
+        - { path: ^/admin/commercial/, role: ROLE_COMMERCIAL }
+        - { path: ^/admin/crm/, role: ROLE_CRM }

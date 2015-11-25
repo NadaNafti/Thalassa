@@ -1,66 +1,18 @@
-back_reservation_divers:
-    resource: "@BackReservationDiversBundle/Resources/config/routing.yml"
-    prefix:   /admin/reservation_divers
-
-back_caisse:
-    resource: "@BackCaisseBundle/Resources/config/routing.yml"
-    prefix:   /admin/caisse
-    
-back_transfert:
-    resource: "@BackTransfertBundle/Resources/config/routing.yml"
-    prefix:   /admin
-
 back_resa_booking:
     resource: "@BackResaBookingBundle/Resources/config/routing.yml"
     prefix:   /
 
-back_billetterie_maritime:
-    resource: "@BackBilletterieMaritimeBundle/Resources/config/routing.yml"
-    prefix:   /admin
-
-back_bien_etre:
-    resource: "@BackBienEtreBundle/Resources/config/routing.yml"
-    prefix:   /admin/bien_etre
-    
 espace_client:
     resource: "@EspaceClientBundle/Resources/config/routing.yml"
     prefix:   /espace_client
 
-back_programme:
-    resource: "@BackProgrammeBundle/Resources/config/routing.yml"
-    prefix:   /admin/programme
-
-back_voyage_organise:
-    resource: "@BackVoyageOrganiseBundle/Resources/config/routing.yml"
-    prefix:   /admin/voyage_organise
-
-back_administration:
-    resource: "@BackAdministrationBundle/Resources/config/routing.yml"
-    prefix:   /admin/administration
-
-back_commercial:
-    resource: "@BackCommercialBundle/Resources/config/routing.yml"
-    prefix:   /admin/commercial
-
-#Hotel en tunisie
-back_hotel_tunisie:
-    resource: "@BackHotelTunisieBundle/Resources/config/routing.yml"
-    prefix:   /admin/hotel_tunisie
-
-#FosUserBundle
-back_user:
-    resource: "@BackUserBundle/Resources/config/routing.yml"
-    prefix:   /admin/crm
-    
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
-#Back Office
 back_general:
     resource: "@BackGeneralBundle/Resources/config/routing.yml"
     prefix:   /admin
 
-#liip immage Bundle
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 

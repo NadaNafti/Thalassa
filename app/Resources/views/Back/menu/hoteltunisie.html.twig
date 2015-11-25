@@ -1,229 +1,200 @@
-<li  {% if app.request.getPathInfo|split('/hotel_tunisie')|length > 1 %} class="active open"{% endif %}>
-    <a href="javascript:void(0)"><i class="clip-star"></i>
-        <span class="title">Hotel en Tunisie</span><i class="icon-arrow"></i>
-        <span class="selected"></span>
-    </a>
-    <ul class="sub-menu">
-        <li {% if app.request.getPathInfo|split('/hotel_tunisie/configuration')|length > 1 %} class="active open"{% endif %} >
-            <a href="javascript:void(0)"><i class="clip-settings"></i>
-                <span class="title">Configuration</span><i class="icon-arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='sht_connfiguration_voucher' %} class="open"{% endif %}>
-                    <a href="{{ path('sht_connfiguration_voucher') }}">
-                        <span class="title">Voucher</span>
+{% if is_granted('ROLE_SHT') %}
+    <li {% if app.request.getPathInfo|split('/hotel_tunisie')|length > 1 %} class="active open"{% endif %}>
+        <a href="javascript:void(0)"><i class="clip-star"></i>
+            <span class="title">Hotel en Tunisie</span><i class="icon-arrow"></i>
+            <span class="selected"></span>
+        </a>
+        <ul class="sub-menu">
+            {% if is_granted('ROLE_SHT_CONFIG') %}
+                <li {% if app.request.getPathInfo|split('/hotel_tunisie/configuration')|length > 1 %} class="active open"{% endif %} >
+                    <a href="javascript:void(0)"><i class="clip-settings"></i>
+                        <span class="title">Configuration</span><i class="icon-arrow"></i>
                     </a>
+                    <ul class="sub-menu">
+                        <li {% if  app.request.get('_route')=='sht_connfiguration_voucher' %} class="open"{% endif %}>
+                            <a href="{{ path('sht_connfiguration_voucher') }}">
+                                <span class="title">Voucher</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if  app.request.get('_route')=='sht_connfiguration_payement' %} class="open"{% endif %}>
+                            <a href="{{ path('sht_connfiguration_payement') }}">
+                                <span class="title">Paiement électronique</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='sht_connfiguration_payement' %} class="open"{% endif %}>
-                    <a href="{{ path('sht_connfiguration_payement') }}">
-                        <span class="title">Paiement électronique</span>
+            {% endif %}
+            {% if is_granted('ROLE_SHT_RESERVATION') %}
+                <li {% if app.request.getPathInfo|split('/hotel_tunisie/reservation')|length > 1 %} class="active open"{% endif %} >
+                    <a href="javascript:void(0)"><i class="clip-earth-2"></i>
+                        <span class="title">Réservations</span><i class="icon-arrow"></i>
                     </a>
+                    <ul class="sub-menu">
+                        <li {% if  app.request.get('_route')=='liste_reservations' %} class="open"{% endif %}>
+                            <a href="{{ path('liste_reservations') }}">
+                                <span class="title">Liste ({{ render(controller('BackHotelTunisieBundle:Reservation:countEnregistrer')) }}
+                                    )</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if  app.request.get('_route')=='new_reservation' %} class="open"{% endif %}>
+                            <a href="{{ path('new_reservation') }}">
+                                <span class="title">Nouvelle</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-            </ul>
-        </li>
-        <li {% if app.request.getPathInfo|split('/hotel_tunisie/reservation')|length > 1 %} class="active open"{% endif %} >
-            <a href="javascript:void(0)"><i class="clip-earth-2"></i>
-                <span class="title">Réservations</span><i class="icon-arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='liste_reservations' %} class="open"{% endif %}>
-                    <a href="{{ path('liste_reservations') }}">
-                        <span class="title">Liste ({{ render(controller('BackHotelTunisieBundle:Reservation:countEnregistrer')) }})</span>
+            {% endif %}
+            {% if is_granted('ROLE_SHT_HOTEL') %}
+                <li {% if app.request.getPathInfo|split('/hotel_tunisie/hotels')|length > 1 or app.request.getPathInfo|split('/deleted_hotels')|length > 1 %} class="active open"{% endif %} >
+                    <a href="javascript:void(0)"><i class="clip-home"></i>
+                        <span class="title">Gestion des hôtels</span><i class="icon-arrow"></i>
                     </a>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/hotels')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('list_hotels') }}">
+                                <span class="title">Liste</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/deleted_hotels')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('list_hotels_deleted') }}">
+                                <span class="title">Hôtels supprimés</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/tarif_hotels')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('generer_tarif_hotels') }}">
+                                <span class="title">Tarifs Hôtels</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/convention_liste')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('generer_hotels_conventions') }}">
+                                <span class="title">Convention Hôtels</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='new_reservation' %} class="open"{% endif %}>
-                    <a href="{{ path('new_reservation') }}">
-                        <span class="title">Nouvelle</span>
+            {% endif %}
+            {% if is_granted('ROLE_SHT_REF') %}
+                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel')|length > 1 %} class="active"{% endif %} >
+                    <a href="javascript:void(0)"><i class="clip-list"></i>
+                        <span class="title"> Référentiel</span><i class="icon-arrow"></i>
                     </a>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/categories')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_categories') }}">
+                                <span class="title">Catégories</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/regions')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_regions') }}">
+                                <span class="title">Régions</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/villes')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_villes') }}">
+                                <span class="title">Villes</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/type_amenagement')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_type_amenagement') }}">
+                                <span class="title">Types Aménagement</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/amenagement')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_amenagement') }}">
+                                <span class="title">Aménagements</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/chaine')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_chaine') }}">
+                                <span class="title">Chaines hôtelières</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/theme')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_theme') }}">
+                                <span class="title">Thèmes</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/vue')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_vue') }}">
+                                <span class="title">Vues</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/option')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_optionn') }}">
+                                <span class="title">Options</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/localisation')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_localisation') }}">
+                                <span class="title">Localisations</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/chambre')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_chambre') }}">
+                                <span class="title">Chambres</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/arrangement')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_arrangement') }}">
+                                <span class="title">Arrangements</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/tag')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_tag') }}">
+                                <span class="title">Tags</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/supplement')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_supplement') }}">
+                                <span class="title">Suppléments</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sub-menu">
+                        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/reduction')|length > 1 %} class="open"{% endif %}>
+                            <a href="{{ path('gestion_reduction') }}">
+                                <span class="title">Réductions</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-            </ul>
-        </li>
-        <li {% if app.request.getPathInfo|split('/hotel_tunisie/hotels')|length > 1 or app.request.getPathInfo|split('/deleted_hotels')|length > 1 %} class="active open"{% endif %} >
-            <a href="javascript:void(0)"><i class="clip-home"></i>
-                <span class="title">Gestion des hôtels</span><i class="icon-arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/hotels')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('list_hotels') }}">
-                        <span class="title">Liste</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/deleted_hotels')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('list_hotels_deleted') }}">
-                        <span class="title">Hôtels supprimés</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/tarif_hotels')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('generer_tarif_hotels') }}">
-                        <span class="title">Tarifs Hôtels</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/convention_liste')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('generer_hotels_conventions') }}">
-                        <span class="title">Convention Hôtels</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel')|length > 1 %} class="active"{% endif %} >
-            <a href="javascript:void(0)"><i class="clip-list"></i>
-                <span class="title"> Référentiel</span><i class="icon-arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/categories')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_categories') }}">
-                        <span class="title">Catégories</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/regions')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_regions') }}">
-                        <span class="title">Régions</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/villes')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_villes') }}">
-                        <span class="title">Villes</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/type_amenagement')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_type_amenagement') }}">
-                        <span class="title">Types Aménagement</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/amenagement')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_amenagement') }}">
-                        <span class="title">Aménagements</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/chaine')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_chaine') }}">
-                        <span class="title">Chaines hôtelières</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/theme')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_theme') }}">
-                        <span class="title">Thèmes</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/vue')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_vue') }}">
-                        <span class="title">Vues</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/option')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_optionn') }}">
-                        <span class="title">Options</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/localisation')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_localisation') }}">
-                        <span class="title">Localisations</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/chambre')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_chambre') }}">
-                        <span class="title">Chambres</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/arrangement')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_arrangement') }}">
-                        <span class="title">Arrangements</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/tag')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_tag') }}">
-                        <span class="title">Tags</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/supplement')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_supplement') }}">
-                        <span class="title">Suppléments</span>
-                    </a>
-                </li>
-            </ul> 
-            <ul class="sub-menu">
-                <li {% if app.request.getPathInfo|split('/hotel_tunisie/referentiel/reduction')|length > 1 %} class="open"{% endif %}>
-                    <a href="{{ path('gestion_reduction') }}">
-                        <span class="title">Réductions</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li {% if app.request.getPathInfo|split('/hotel_tunisie/reporting')|length > 1 %} class="active open"{% endif %} >
-            <a href="javascript:void(0)"><i class="clip-stats"></i>
-                <span class="title">Reporting</span><i class="icon-arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_NombreReservation_form' %} class="open"{% endif %}>
-                    <a href="{{ path('Hotel_Tunisie_Reporting_NombreReservation_form') }}">
-                        <span class="title">Nombre Réservation</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_NombreNuitee_form' %} class="open"{% endif %}>
-                    <a href="{{ path('Hotel_Tunisie_Reporting_NombreNuitee_form') }}">
-                        <span class="title">Nombre Nuitées</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_ChiffreAffaire_form' %} class="open"{% endif %}>
-                    <a href="{{ path('Hotel_Tunisie_Reporting_ChiffreAffaire_form') }}">
-                        <span class="title">Chiffre Affaire</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_arrangement_form' %} class="open"{% endif %}>
-                    <a href="{{ path('Hotel_Tunisie_Reporting_arrangement_form') }}">
-                        <span class="title">Arrangements</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sub-menu">
-                <li {% if  app.request.get('_route')=='Hotel_Tunisie_Reporting_chambre_form' %} class="open"{% endif %}>
-                    <a href="{{ path('Hotel_Tunisie_Reporting_chambre_form') }}">
-                        <span class="title">Chambres</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</li>
+            {% endif %}
+        </ul>
+    </li>
+{% endif %}

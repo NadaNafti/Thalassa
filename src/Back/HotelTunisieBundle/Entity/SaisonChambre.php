@@ -345,7 +345,7 @@
      */
     public function getMinPax()
     {
-        if($this->minPax==0)
+        if($this->minPax===0)
             return $this->maxAdulte+$this->minEnfant;
         return $this->minPax;
     }
@@ -370,7 +370,7 @@
      */
     public function getMaxPax()
     {
-        if($this->maxPax==0)
+        if($this->maxPax===0)
             return $this->maxAdulte+$this->minEnfant;
         return $this->maxPax;
     }
