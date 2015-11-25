@@ -1,39 +1,27 @@
 <div class="container">
     <div class="nav">
-        <div class="row">
-            <ul class="slimmenu" id="slimmenu">
-                <li><a href="{{ path('accueil') }}">Acceuil</a>
-                </li>
-                <li {% if app.request.getPathInfo|split('/HotelTunisie')|length > 1 or app.request.getPathInfo|split('/reservation_immediate')|length > 1 %} class="active" {% endif %}>
-                    <a href="{{ path('front_hoteltunisie_list') }}">Hôtels en tunisie</a>
-                </li>
-                <li {% if app.request.get('_route')=='ole_booking_hotels' %} class="active" {% endif %}>
-                    <a href="{{ path('ole_booking_hotels') }}">Hôtels dans le monde</a>
-                </li>
-                <li {% if app.request.getPathInfo|split('/VoyageOrganise')|length > 1 %} class="active" {% endif %}>
-                    <a href="{{ path('front_voyageorganise_liste') }}">Voyages organisés</a>
-                </li>
-                <li {% if app.request.getPathInfo|split('/Programme')|length > 1 %} class="active" {% endif %}>
-                    <a href="{{ path('front_programme_liste') }}">Programmes et activités</a>
-                </li>
-                <li>
-                    <a href="#">Billetterie</a>
-                    <ul>
-                        <li><a href="{{ path('front_billetterie') }}" >Avion</a></li>
-                        <li><a href="{{ path('front_maritime') }}" >Maritime</a></li>
-                    </ul>
-                </li>
-                <li {% if app.request.get('_route') in ['ole_locaton_cars','ole_locaton_cars_monde'] %} class="active" {% endif %}>
-                    <a href="#">Location de voiture</a>
-                    <ul>
-                        <li><a href="{{ path('ole_locaton_cars') }}">Tunisie</a></li>
-                        <li><a href="{{ path('ole_locaton_cars_monde') }}">Monde</a></li>
-                    </ul>
-                </li>
-                <li {% if app.request.getPathInfo|split('/BienEtre')|length > 1 %} class="active" {% endif %}>
-                    <a href="{{ path('front_bienetre_liste') }}">Bien-être</a>
-                </li>
-            </ul>
-        </div>
+        <ul class="slimmenu" id="slimmenu">
+            <li><a href="{{ path('accueil') }}">Acceuil</a>
+            </li>
+            <li {% if app.request.getPathInfo|split('/HotelTunisie')|length > 1 or app.request.getPathInfo|split('/reservation_immediate')|length > 1 %} class="active" {% endif %}>
+                <a href="{{ path('front_hoteltunisie_list') }}">Hôtels en tunisie</a>
+            </li>
+            <li {% if app.request.getPathInfo|split('/VoyageOrganise')|length > 1 %} class="active" {% endif %}>
+                <a href="{{ path('front_voyageorganise_liste') }}">Voyages organisés</a>
+            </li>
+            <li {% if app.request.getPathInfo|split('/Programme')|length > 1 %} class="active" {% endif %}>
+                <a href="{{ path('front_programme_liste') }}">Programmes et activités</a>
+            </li>
+            <li>
+                <a href="#">Billetterie</a>
+                <ul>
+                    <li><a href="{{ path('front_billetterie') }}" >Avion</a></li>
+                    <li><a href="{{ path('front_maritime') }}" >Maritime</a></li>
+                </ul>
+            </li>
+            <li {% if app.request.getPathInfo|split('/BienEtre')|length > 1 %} class="active" {% endif %}>
+                <a href="{{ path('front_bienetre_liste') }}">Bien-être</a>
+            </li>
+        </ul>
     </div>
 </div>

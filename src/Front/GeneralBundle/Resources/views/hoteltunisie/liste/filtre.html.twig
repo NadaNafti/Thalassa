@@ -9,13 +9,14 @@
         <div class="input-daterange" data-date-format="dd/mm/yyyy">
             <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                 <label>Date d'entrée</label>
-                <input name="dateDebutSearch" type="text" class="form-control" name="start" id="hotel-check-in"
+                <input type="text" class="form-control date" name="start" id="hotel-check-in" name="dateDebutSearch"
                        value="{{ app.request.session.get('dateDebut') }}">
             </div>
         </div>
         <div class="form-group form-group- form-group-select-plus">
             <label>Nombre de nuitées</label>
             <div class="btn-group btn-group-select-num" data-toggle="buttons">
+                <input name="nuiteesSearch" type="hidden" class="form-control " value="{{ app.request.session.get('nuitees') }}">
                 <label class="btn btn-primary active">
                     <input type="radio" name="options" />1</label>
                 <label class="btn btn-primary">
@@ -44,7 +45,6 @@
                 <option>14</option>
             </select>
         </div>
-        <input name="nuiteesSearch" type="hidden" class="form-control " value="{{ app.request.session.get('nuitees') }}">
         <div class="checkbox">
             <label>
                 <input class="i-check" type="checkbox" name="promotionSearch"

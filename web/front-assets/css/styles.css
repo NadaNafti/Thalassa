@@ -288,7 +288,6 @@ blockquote:before {
 .btn-primary {
   background: #ed8323;
   border-color: #e27513;
-  display: table;
 }
 .btn-primary:hover {
   background: #e27513;
@@ -1001,8 +1000,8 @@ ul.slimmenu li {
 }
 ul.slimmenu li a {
   display: block;
-  padding: 15px 7px;
-  font-size: 14px;
+  padding: 12px 20px;
+  font-size: 15px;
   text-transform: uppercase;
   font-family: 'Roboto', arial, helvetica, sans-serif;
   color: #737373;
@@ -1013,7 +1012,7 @@ ul.slimmenu li a {
   transition: background-color 0.17s ease-out;
 }
 ul.slimmenu li.slimmenu-sub-menu a {
-  padding: 10px 28px 10px 4px;
+  padding: 12px 34px 12px 20px;
 }
 ul.slimmenu li.active > a,
 ul.slimmenu li:hover > a {
@@ -2246,8 +2245,7 @@ img.pp-img {
   height: 20px;
 }
 div.nav-drop {
-  display: block;
-  margin-bottom: 50px;
+  display: inline-block;
 }
 .nav-drop {
   position: relative;
@@ -2276,7 +2274,7 @@ div.nav-drop {
   filter: alpha(opacity=0);
 }
 .nav-drop > .nav-drop-menu {
-  min-width: 133px;
+  min-width: 85px;
   height: 0;
   overflow: hidden;
   position: absolute;
@@ -6576,7 +6574,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 }
 .booking-item-title {
   margin-bottom: 7px;
-  border-bottom: 1px solid #f7f7f7;
 }
 .booking-item-description {
   font-size: 13px;
@@ -6612,7 +6609,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .booking-item-rating {
   margin-bottom: 3px;
   padding-bottom: 3px;
-  /*border-bottom: 1px solid #f7f7f7;*/
+  border-bottom: 1px solid #f7f7f7;
   display: inline-block;
 }
 .booking-item-rating .booking-item-rating-stars {

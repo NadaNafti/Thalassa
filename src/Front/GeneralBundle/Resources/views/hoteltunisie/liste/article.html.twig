@@ -12,37 +12,40 @@
                 </div>
                 </a>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <h4 class="booking-item-title"><a href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}">{{ hotel|title }}</a></h4>
                 <p class="booking-item-address"><i class="fa fa-map-marker"></i> {{ hotel.ville|title }}</p>
-                <small class="booking-item-last-booked">{% if saison.type==2 %}
+                <p class="booking-item-last-booked">{% if saison.type==2 %}
                     <span style='color:red'>{{ saison }} ,</span>
                     {% endif %}
-                        Minimum Stay: {{ saison.minStay }}</small>
-                    <div class="gap gap-small"></div>
-                    <p>{% if  hotel.descriptionCourte|length >200 %}
-                        {{ hotel.descriptionCourte|slice(0, 200)|raw }} ...
+                        Minimum Stay: {{ saison.minStay }} nuitée(s)</p>
+{#                    <div class="gap gap-small"></div>#}
+                    <p style="font-size: 11px">{% if  hotel.descriptionCourte|length >200 %}
+                        {{ hotel.descriptionCourte|slice(0, 100)|raw }} ...
                         {% else %}
                             {{ hotel.descriptionCourte|raw }}
                             {% endif %}
                             </p>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2 text-center">
                             <div class="booking-item-rating">
                                 <ul class="icon-group booking-item-rating-stars">
                                     {{ getStars(hotel.getStars)|raw }}
                                 </ul>
                             </div>
-                            {{ hotel.shortTripAdvisor|raw }}
-                            <div class="gap gap-small"></div>
+                            <div  class="col-md-offset-1">
+                                {{ hotel.shortTripAdvisor|raw }}
+                            </div>
+{#                            <div class="gap gap-small"></div>#}
                             {% if saison.type is null %}
                                 <span class="booking-item-price-from"> Sur Demande</span>
                             {% else %}
                                 <span class="booking-item-price-from">A partir de</span>     
                                 <span class="booking-item-price">
-                                    {{ saison.prixDeBase|number_format(0) }} <sup style="font-size:28px">DT</sup></span>
+                                    {{ saison.prixDeBase|number_format(0) }} <sup style="font-size:28px">DT</sup>
+                                </span>
+                                <span style="display: block">En {{ saison.arrBase.code }}</span>
                                 {% endif %}
-                            <p>{{ saison.arrBase }}</p>
                             <a class="btn btn-primary" href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}">Détails</a>
                         </div>
                     </div>
