@@ -13,7 +13,7 @@
                 </a>
             </div>
             <div class="col-md-7">
-                <h4 class="booking-item-title margenull"><a href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}">{{ hotel|title }}</a></h4>
+                <h5 class="booking-item-title margenull"><a href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}">{{ hotel|title }}</a></h5>
                 <div class="booking-item-rating margenull">
                     <ul class="icon-group booking-item-rating-stars">
                         {{ getStars(hotel.getStars)|raw }}
@@ -40,8 +40,8 @@
                             {% else %}
                                 <span class="booking-item-price-from margenull">A partir de</span>     
                                 <span class="booking-item-price margenull">
-                                    {{ saison.prixDeBase|number_format(0) }} <sup style="font-size:10px">DT</sup>
-                                </span>
+                                    {{ saison.prixDeBase|number_format(0) }}
+                                </span><sup style="font-size:10px">DT</sup>
                                 <span class="margenull">/{{ saison.arrBase.code }}</span>
                             {% endif %}
                             <a class="btn btn-primary" href="{{ path('front_hoteltunisie_details',{'slug':hotel.slug}) }}">Détails</a>

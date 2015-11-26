@@ -1,32 +1,34 @@
-{% if hotel.amenagements |length> 0%}
-    <h4>Amménagements</h4>
-    <ul>
-	{% for ammenagement in hotel.amenagements %}
-	    <li class="checked">{{ ammenagement }}</li>
-	    {% endfor %}
-    </ul>
-{% endif %}
-{% if hotel.localisations |length> 0%}
-    <h4>Localisations</h4>
-    <ul>
-	{% for localisation in hotel.localisations %}
-	    <li class="checked">{{ localisation }}</li>
-	    {% endfor %}
-    </ul>
-{% endif %}
-{% if hotel.options |length> 0%}
-    <h4>Options</h4>
-    <ul>
-	{% for option in hotel.options %}
-	    <li class="checked" style="width: 100%">{{ option }}</li>
-	    {% endfor %}
-    </ul>
-{% endif %}
-{% if hotel.tags |length> 0%}
-    <h4>Tags</h4>
-    <ul>
-	{% for tag in hotel.tags %}
-	    <li class="checked">{{ tag }}</li>
-	    {% endfor %}
-    </ul>
-{% endif %}
+<div class="detail">
+    {% if hotel.amenagements |length> 0%}
+        <h4>Amménagements</h4>
+        <ul>
+            {% for ammenagement in hotel.amenagements %}
+                <li class="checked">{{ ammenagement }}</li>
+                {% endfor %}
+        </ul>
+    {% endif %}
+    {% if hotel.localisations |length> 0%}
+        <h4>Localisations</h4>
+        <ul>
+            {% for localisation in hotel.localisations %}
+                <li class="checked">{{ localisation }}</li>
+                {% endfor %}
+        </ul>
+    {% endif %}
+    {% if hotel.options |length> 0%}
+        <h4>Options</h4>
+        <ul>
+            {% for option in hotel.options %}
+                <li class="checked" style="width: 100%">{{ option }}</li>
+                {% endfor %}
+        </ul>
+    {% endif %}
+    {% if hotel.tags |length> 0%}
+        <h4>Tags</h4>
+        <ul>
+            {% for tag in hotel.tags %}
+                <li class="checked">{{ tag }}</li>
+                {% endfor %}
+        </ul>
+    {% endif %}
+</div>

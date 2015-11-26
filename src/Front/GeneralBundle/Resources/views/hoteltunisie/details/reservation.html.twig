@@ -1,47 +1,58 @@
-<h2>Période <small>Séjour minimum : {{ saison.minStay }} nuitée(s)</small> </h2>
-<form method="post" action="{{ path('front_hoteltunisie_edit_periode',{'slug':app.request.get('slug')}) }}" role="form" id="form" style="  margin-bottom: 50px;">
-    <div class="row">
-        <div class="col-sm-6 col-md-3">
-            <label>Date de réservation</label>
-            <div class="datepicker-wrap red">
-                <input type="date" name="dateDebut" class="form-control" value="{{ app.request.session.get('dateDebut') }}" required/>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <label>Nombre de nuitées </label>
-            <div class="">
-                <input type="number" name="nuitees" class="form-control" value="{{ app.request.session.get('nuitees') }}" min="{{ saison.minStay }}" max="20" required/>
-            </div>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary" style="float: right;">Modifier la période</button>
-</form>
-<hr>
-<h2>Réservation - {{ hotel|title }}</h2>
-<form method="post" action="{{ path('front_hoteltunisie_reservation',{'slug':hotel.slug}) }}" role="form" id="form">
-    <div class="panel-body">
-        {% for chambre in saison.chambres if chambre.etat==1 %}
-            <div class="row" style="margin-bottom: 5px;">
-                <div class="row" style="  padding: 10px;  background-color: linen;">
-                    <div class="col-md-4">
-                        <label>{{ chambre.chambre }}</label>
-                        <select name="chambre_{{ chambre.chambre.id }}" data-id="{{ chambre.id }}" id="chambre-{{ chambre.chambre.id }}" data-frais="{{ isFraisChambre(saison.id,chambre.chambre.id ) }}" class="form-control chambresSelect">
-                            {% for i in 0..20 %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
+<div class="detail">
+    <h3>Période <small>Séjour minimum : {{ saison.minStay }} nuitée(s)</small> </h3>
+    <div class="booking-item-dates-change">
+        <form method="post" action="{{ path('front_hoteltunisie_edit_periode',{'slug':app.request.get('slug')}) }}">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="input-daterange">
+                        <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                            <label>Date de réservation</label>
+                            <input type="date" name="dateDebut" class="form-control" value="{{ app.request.session.get('dateDebut') }}" required />
+                        </div>
                     </div>
-                    {% if chambre.prixChambre>0 %}
-                        <div class="col-md-8" style="  padding-top: 30px;"> A partir de
-                            <strong> {{ chambre.prixChambre|number_format(0) }}</strong> DT par personne en
-                            <strong>{{ saison.arrBase }}</strong></div>
-                    {% else %}
-                        <div class="col-md-8" style="  padding-top: 30px;">Prix sur demande</div>
-                    {% endif %}
                 </div>
-                <div class="row details"></div>
+                <div class="col-md-4">
+                    <label>Nombre de nuitée(s)</label>
+                    <input type="number" name="nuitees" class="form-control" value="{{ app.request.session.get('nuitees') }}" min="{{ saison.minStay }}" max="20" required/>
+                </div>
+                <div class="col-md-4" style="padding-top: 36px;">
+                    <button type="submit" class="btn btn-primary" style="float: right;">Modifier Période</button>
+                </div>
             </div>
-        {% endfor %}
+        </form>
     </div>
-    <button type="submit" class="btn btn-primary" style="float: right;">Tarif & dispo</button>
-</form>
+</div>
+<div class="gap gap-small"></div>
+<div class="detail">
+    <h3>Réservation - {{ hotel|title }}</h3>
+    <form method="post" action="{{ path('front_hoteltunisie_reservation',{'slug':hotel.slug}) }}">
+        <ul class="booking-list">
+            {% for chambre in saison.chambres if chambre.etat==1 %}
+                <li>
+                    <div class="booking-item">
+                        <div class="row" {#style="  padding: 10px;  background-color: #EEEEEE;"#}>
+                            <div class="col-md-6">
+                                <label><strong>{{ chambre.chambre }}</strong></label>
+                                <select name="chambre_{{ chambre.chambre.id }}" data-id="{{ chambre.id }}" id="chambre-{{ chambre.chambre.id }}" data-frais="{{ isFraisChambre(saison.id,chambre.chambre.id ) }}" class="form-control chambresSelect">
+                                    {% for i in 0..20 %}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                {% if chambre.prixChambre>0 %}
+                                    <span class="booking-item-price-from">A partir de</span>
+                                    <span class="booking-item-price margenull">{{ chambre.prixChambre|number_format(0) }}</span><sup>DT</sup>
+                                    <p class="text-center">Par personne en <strong>Logement Simple</strong></p>
+                                {% else %}
+                                    <span class="booking-item-price" style="font-size:15px">Sur demande</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row details"></div>
+                </li>
+            {%endfor%}
+            <button type="submit" class="btn btn-primary" style="float: right;">Tarif & Dispo</button>
+        </ul>
+    </form>
+</div>

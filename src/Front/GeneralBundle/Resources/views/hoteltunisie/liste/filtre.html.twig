@@ -1,5 +1,5 @@
 <div class="col-md-3">
-    <form class="booking-item-dates-change mb30" method="post" action="{{ path('front_hoteltunisie_filtre') }}">
+    <form class="booking-item-dates-change mb30" method="post" action="{{ path('front_hoteltunisie_filtre') }}" style="padding: 0px;">
         <div style="padding: 15px 20px;">
         <label>Mot clé</label>
         <div class="form-group form-group-icon-left main-header-search">
@@ -26,10 +26,6 @@
         </div>
         <input class="btn btn-primary" type="submit" value="Recherche" />
         <a style="background-color: #D6CDC5; border-color: #D6CDC5;" href="{{ path('front_hoteltunisie_list') }}" class=" btn btn-primary">Initialiser</a>
-        {#<input id="minSearch" type="hidden" name="minSearch" value="{{ app.request.get('min') }}">
-        <input id="maxSearch" type="hidden" name="maxSearch" value="{{ app.request.get('max') }}">
-    </form>
-    <form method="post" action="{{ path('front_hoteltunisie_filtre') }}">#}
         </div>
         <aside class="booking-filters text-white">
             <h3>Filtrer Par:</h3>

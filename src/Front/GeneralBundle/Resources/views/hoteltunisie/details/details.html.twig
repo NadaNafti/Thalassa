@@ -11,23 +11,25 @@
         <div class="booking-item-details">
             <header class="booking-item-header">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                         <h2 class="lh1em">{{ hotel }}</h2>
-                        <div class="booking-item-rating">
+                        <div class="booking-item-rating margenull">
                             <ul class="icon-group booking-item-rating-stars">
                                 {{ getStars(hotel.getStars)|raw }}
                             </ul>
+                            <span class="booking-item-address margenull"><i class="fa fa-map-marker"></i> {{ hotel.ville|title }}</span>
                         </div>
-                        <p class="lh1em text-small"><i class="fa fa-map-marker"></i> {{ hotel.ville }}</p>
                     </div>
-                    <div class="col-md-3">
-                        <p class="booking-item-header-price">
-                            {% if saison.type is null %}
-                                Sur Demande
-                            {% else %}
-                                <small>A partir de</small><span class="text-lg">{{ saison.prixDeBase|number_format(0) }} </span><sup style="font-size:28px">DT</sup></p>
+                    <div class="col-md-4">
+                        {% if saison.type is null %}
+                            <span class="booking-item-header-price">Sur demande</span>
+                        {% else %}
+                            <p class="booking-item-header-price margenull" style="font-size:15px"><small>A partir de</small>
+                                <span class="booking-item-price margenull" style="font-size:30px">
+                                    {{ saison.prixDeBase|number_format(0) }}
+                                </span><sup style="font-size:15px">DT</sup>
+                                <span class="margenull">/{{ saison.arrBase.code }}</span></p>
                             {% endif %}
-                        <span>Par pers & nuit en {{ saison.arrBase }}</span>
                     </div>
                 </div>
             </header>
@@ -37,428 +39,79 @@
                         <ul class="nav nav-tabs" id="myTab">
                             <li class="active"><a href="#details-tab1" data-toggle="tab"><i class="fa fa-camera"></i>Photos</a></li>
                             <li><a href="#google-map-tab" data-toggle="tab"><i class="fa fa-map-marker"></i>Map</a></li>
-                            <li><a href="#details-tab2" data-toggle="tab"><i class=""></i>Description</a></li>
+                            <li onclick="loadScript()"><a href="#details-tab2" data-toggle="tab"><i class=""></i>Description</a></li>
                             <li><a href="#details-tab3" data-toggle="tab"><i class=""></i>Aménagements</a></li>
                             <li><a href="#details-tab4" data-toggle="tab"><i class=""></i>Conditions Restrictives</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane fade in active" id="#details-tab1">
+                            <div class="tab-pane fade in active" id="details-tab1">
                                 {% include 'FrontGeneralBundle:hoteltunisie/details:photos.html.twig' %}
                             </div>
                             <div class="tab-pane fade" id="google-map-tab">
                                 <div id="map-canvas" style="width:100%; height:500px;"></div>
                             </div>
-                            <div class="tab-pane fade" id="#details-tab2">
-                                <h1>{{ hotel }}</h1>
-                                <p>
-                                    {{ hotel.descriptionLongue|raw }}
-                                </p>
+                            <div class="tab-pane fade" id="details-tab2">
                                 {% include 'FrontGeneralBundle:hoteltunisie/details:description.html.twig' %}
                             </div>
-                            <div class="tab-pane fade" id="#details-tab3">
+                            <div class="tab-pane fade" id="details-tab3">
                                 {% include 'FrontGeneralBundle:hoteltunisie/details:amenagement.html.twig' %}
                             </div>
-                            <div class="tab-pane fade" id="#details-tab4">
+                            <div class="tab-pane fade" id="details-tab4">
                                 {% include 'FrontGeneralBundle:hoteltunisie/details:condition.html.twig' %}
                             </div>
                         </div>
                     </div>
                     <div class="gap"></div>
-                    <h3>Réservation</h3>
-                    <div class="booking-item-dates-change">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="input-daterange" data-date-format="yyyy-mm-dd">
-                                        <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
-                                            <label>Date de réservation</label>
-                                            <input class="form-control" name="start" type="text" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="form-group form-group-select-plus">
-                                        <label>Nombre de nuitée(s)</label>
-                                        <div class="btn-group btn-group-select-num" data-toggle="buttons">
-                                            <label class="btn btn-primary active">
-                                                <input type="radio" name="options" />1</label>
-                                            <label class="btn btn-primary">
-                                                <input type="radio" name="options" />2</label>
-                                            <label class="btn btn-primary">
-                                                <input type="radio" name="options" />3</label>
-                                            <label class="btn btn-primary">
-                                                <input type="radio" name="options" />3+</label>
-                                        </div>
-                                        <select class="form-control hidden">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option selected="selected">4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                            <option>9</option>
-                                            <option>10</option>
-                                            <option>11</option>
-                                            <option>12</option>
-                                            <option>13</option>
-                                            <option>14</option>
-                                        </select>
-                                    </div>
-                                    <button class="btn btn-primary" style="float: right;">Modifier Période</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="gap gap-small"></div>
-                    <ul class="booking-list">
-                        <li>
-                            <a class="booking-item">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <h5 class="booking-item-title">Chambre Standard</h5>
-                                        <p class="text-small">Par personne en <strong>Logement Simple</strong></p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group form-group-select-plus">
-                                            <label>Nombre de nuitée(s)</label>
-                                            <div class="btn-group btn-group-select-num" data-toggle="buttons">
-                                                <label class="btn btn-primary active">
-                                                    <input type="radio" name="options" />1</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />2</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />3</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />3+</label>
-                                            </div>
-                                            <select class="form-control hidden">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option selected="selected">4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                                <option>11</option>
-                                                <option>12</option>
-                                                <option>13</option>
-                                                <option>14</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3"><span class="booking-item-price">428</span><span>DT</span><span class="btn btn-primary">Tarif & Dispo</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="booking-item">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <h5 class="booking-item-title">Suite Familiale</h5>
-                                        <p class="text-small">Par personne en <strong>Logement Simple</strong></p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group form-group-select-plus">
-                                            <label>Nombre de nuitée(s)</label>
-                                            <div class="btn-group btn-group-select-num" data-toggle="buttons">
-                                                <label class="btn btn-primary active">
-                                                    <input type="radio" name="options" />1</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />2</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />3</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />3+</label>
-                                            </div>
-                                            <select class="form-control hidden">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option selected="selected">4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                                <option>11</option>
-                                                <option>12</option>
-                                                <option>13</option>
-                                                <option>14</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3"><span class="booking-item-price">428</span><span>DT</span><span class="btn btn-primary">Tarif & Dispo</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="booking-item">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <h5 class="booking-item-title">Chambre Double</h5>
-                                        <p class="text-small">Par personne en <strong>Logement Simple</strong></p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group form-group-select-plus">
-                                            <label>Nombre de nuitée(s)</label>
-                                            <div class="btn-group btn-group-select-num" data-toggle="buttons">
-                                                <label class="btn btn-primary active">
-                                                    <input type="radio" name="options" />1</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />2</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />3</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />3+</label>
-                                            </div>
-                                            <select class="form-control hidden">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option selected="selected">4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                                <option>11</option>
-                                                <option>12</option>
-                                                <option>13</option>
-                                                <option>14</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3"><span class="booking-item-price">428</span><span>DT</span><span class="btn btn-primary">Tarif & Dispo</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="booking-item">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <h5 class="booking-item-title">Suite Junior</h5>
-                                        <p class="text-small">Par personne en <strong>Logement Simple</strong></p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group form-group-select-plus">
-                                            <label>Nombre de nuitée(s)</label>
-                                            <div class="btn-group btn-group-select-num" data-toggle="buttons">
-                                                <label class="btn btn-primary active">
-                                                    <input type="radio" name="options" />1</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />2</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />3</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />3+</label>
-                                            </div>
-                                            <select class="form-control hidden">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option selected="selected">4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                                <option>11</option>
-                                                <option>12</option>
-                                                <option>13</option>
-                                                <option>14</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3"><span class="booking-item-price">428</span><span>DT</span><span class="btn btn-primary">Tarif & Dispo</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
+                    {% include 'FrontGeneralBundle:hoteltunisie/details:reservation.html.twig' %}
                 </div>
                 <div class="col-md-4">
                     <div class="gap gap-small"></div>
                     <div class="gap gap-small"></div>
-                    <div id="TA_socialButtonIcon751" class="TA_socialButtonIcon">
-                        <ul id="QwYppkNEKj3" class="TA_links PZ9YPKS">
-                            <li id="9q31LbWEx1f" class="Sl80cF6lZ">
-                                <a target="_blank" href="http://www.tripadvisor.com/Attraction_Review-g294191-d3735349-Reviews-Asia_Tour_Advisor_Myanmar_Day_Trip-Yangon_Rangoon_Yangon_Region.html"><img src="http://www.tripadvisor.com/img/cdsi/img2/branding/socialWidget/20x28_green-21690-2.png"/></a>
-                            </li>
-                        </ul>
-                    </div>
-
+                    {% if  hotel.tripAdvisor is not null and  hotel.tripAdvisor is not empty %}
+                        <div class="detail" style="display: block; padding: 0px;">
+                            {{ hotel.tripAdvisor|raw }}
+                        </div>
+                    {% endif %}
 
                     <div class="gap gap-small"></div>
-                    <h4>Hôtels à proximité</h4>
-                    <ul class="booking-list">
-                        <li>
-                            <div class="booking-item booking-item-small">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />
-                                    </div>
-                                    <div class="col-xs-5">
-                                        <h5 class="booking-item-title">Waldorf Astoria New York</h5>
-                                        <ul class="icon-group booking-item-rating-stars">
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$345</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="booking-item booking-item-small">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY LIBERDADE" />
-                                    </div>
-                                    <div class="col-xs-5">
-                                        <h5 class="booking-item-title">Holiday Inn Express Kennedy Airport</h5>
-                                        <ul class="icon-group booking-item-rating-stars">
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star-half-empty"></i>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$223</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="booking-item booking-item-small">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel THE CLIFF BAY spa suite" />
-                                    </div>
-                                    <div class="col-xs-5">
-                                        <h5 class="booking-item-title">Wellington Hotel</h5>
-                                        <ul class="icon-group booking-item-rating-stars">
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star-o"></i>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$395</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="booking-item booking-item-small">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel 2" />
-                                    </div>
-                                    <div class="col-xs-5">
-                                        <h5 class="booking-item-title">New York Hilton Midtown</h5>
-                                        <ul class="icon-group booking-item-rating-stars">
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star-half-empty"></i>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$166</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="booking-item booking-item-small">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="The pool" />
-                                    </div>
-                                    <div class="col-xs-5">
-                                        <h5 class="booking-item-title">Grand Hyatt New York</h5>
-                                        <ul class="icon-group booking-item-rating-stars">
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star-o"></i>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$423</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="booking-item booking-item-small">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY RIO INTERNACIONAL rooftop pool" />
-                                    </div>
-                                    <div class="col-xs-5">
-                                        <h5 class="booking-item-title">Warwick New York Hotel</h5>
-                                        <ul class="icon-group booking-item-rating-stars">
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star"></i>
-                                            </li>
-                                            <li><i class="fa fa-star-half-empty"></i>
-                                            </li>
-                                            <li><i class="fa fa-star-o"></i>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$218</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    {% if hotels|length>1 %}
+                        <div class="detail" padding: 0px;">
+                             <h5>Hôtels à proximité</h5>
+                            <i class="text-info fa-heart"></i>
+                            <h2>{{ hotel.ville|title }}</h2>
+                            <ul class="booking-list">
+                                {% for hot in hotels if hotel.id!=hot.id %}
+                                    {% set sai = hot.getSaisonPromotionByDate(app.request.session.get('dateDebut')) %}
+                                    <li>
+                                        <div class="booking-item booking-item-small">
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <a href="{{ path('front_hoteltunisie_details',{'slug':hot.slug}) }}">
+                                                        {% if hot.photoPrincipal is not null %}
+                                                            <img src="{{ asset(hot.photoPrincipal.assetPath) }}" alt="Image Alternative text" style="width:60px;height: 72px"/>
+                                                        {% else %}
+                                                            <img src="https://placeholdit.imgix.net/~text?txtsize=10&txt=No%20image&w=60&h=71" alt="" style="width:60px;height: 72px"/>
+                                                        {% endif %}
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <h5 class="booking-item-title margenull"><a href="{{ path('front_hoteltunisie_details',{'slug':hot.slug}) }}">{{ hotel|title }}</a></h5>
+                                                    <ul class="icon-group booking-item-rating-stars">
+                                                        {{ getStars(hot.getStars)|raw }}
+                                                    </ul>
+                                                </div>
+                                                <div class="col-xs-3"><span class="booking-item-price-from">A partir de</span><span class="booking-item-price">$345</span>
+                                                    <span class="booking-item-price-from margenull">A partir de</span>
+                                                    <span class="booking-item-price margenull">{{ saison.prixDeBase|number_format(0) }}</span><sup style="font-size:10px">DT</sup>    
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {%endif%}
                 </div>
             </div>
         </div>
