@@ -1,0 +1,7 @@
+{% if hotel.photosAlbum|length > 0 %}
+    <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs">
+        {% for image in hotel.photosAlbum %}
+            <img src="{{ asset(image.assetPath) }}" alt="Photos" title="Photo num ° {{ loop.index }}" />
+        {% endfor %}
+    </div>
+{%endif%}

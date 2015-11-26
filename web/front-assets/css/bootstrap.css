@@ -75,7 +75,7 @@ sup {
     font-size: 75%;
     line-height: 0;
     position: relative;
-    vertical-align: baseline;
+    vertical-align: middle;
 }
 sup {
     top: -0.5em;
@@ -1992,7 +1992,7 @@ select[multiple].input-lg {
 .btn {
     display: inline-block;
     margin-bottom: 0;
-    margin-top: 10px;
+    margin-top: 5px;
     font-weight: normal;
     text-align: center;
     vertical-align: middle;
@@ -2000,7 +2000,7 @@ select[multiple].input-lg {
     background-image: none;
     border: 1px solid transparent;
     white-space: nowrap;
-    padding: 6px 12px;
+    padding: 4px 10px;
     font-size: 14px;
     line-height: 1.42857143;
     border-radius: 4px;

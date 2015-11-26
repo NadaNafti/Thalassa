@@ -6574,6 +6574,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 }
 .booking-item-title {
   margin-bottom: 7px;
+  border-bottom: 1px solid #f7f7f7;
 }
 .booking-item-description {
   font-size: 13px;
@@ -6604,12 +6605,12 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   margin-right: 3px;
 }
 .booking-item-last-booked {
-  font-size: 11px;
+  font-size: 13px;
 }
 .booking-item-rating {
   margin-bottom: 3px;
   padding-bottom: 3px;
-  border-bottom: 1px solid #f7f7f7;
+  /*border-bottom: 1px solid #f7f7f7;*/
   display: inline-block;
 }
 .booking-item-rating .booking-item-rating-stars {
@@ -6629,7 +6630,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 }
 .booking-item-address {
   line-height: 1em;
-  font-size: 13px;
+  font-size: 14px;
 }
 .booking-item-price-from {
   display: block;
@@ -6637,7 +6638,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   line-height: 1em;
 }
 .booking-item-price {
-  font-size: 47px;
+  font-size: 25px;
   color: #626262;
   line-height: 1em;
   display: inline-block;
@@ -7309,7 +7310,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .booking-item-dates-change {
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  padding: 15px 20px;
+  /*padding: 15px 20px;*/
   border: 1px solid #ed8323;
   -webkit-box-shadow: 0 2px 1px rgba(0,0,0,0.15);
   box-shadow: 0 2px 1px rgba(0,0,0,0.15);
@@ -10952,4 +10953,8 @@ img.mfp-img {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
+}
+.margenull {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
 }
