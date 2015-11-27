@@ -1,46 +1,68 @@
-<div class="col-xs-12 col-sm-6 col-md-4">
-    <div class="list-item">
-        <div class="list-item-image">
-            <div class="image-inner">
-                <a class="link-image" href="{{ path('front_voyageorganise_details',{'slug':voyage.slug}) }}">
-                    {% if voyage.photoPrincipal.assetPath is defined %}
-                        <img src="{{ asset(voyage.photoPrincipal.assetPath) }}" alt="" style="width: 270px;height: 195px" />
+<li>
+    <div class="booking-item-container">
+        <div class="booking-item">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="booking-item-img-wrap">
+                    {% if voyage.photoPrincipal is not null %}
+                        <img src="{{ asset(voyage.photoPrincipal.assetPath) }}" alt="Image Alternative text"/>
                     {% else %}
-                        <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=270&h=195" alt="" />
+                        <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=270&h=195"  alt="Image Alternative text"/>
+                    {% endif %}              
+                </div>
+                </div>
+                <div class="col-md-7">
+                <h5 class="booking-item-title"><a href="{{ path('front_voyageorganise_details',{'slug':voyage.slug}) }}">{{ voyage|title }}</a></h5>
+                    <span class="booking-item-address margenull"><i class="fa fa-map-marker"></i> {{ voyage.destination.libelle|raw }}</span>
+                    <p class="booking-item-last-booked">{{ voyage.showType }}</p>
+                    {% if voyage.periodes(true) | length > 0 and voyage.type == 1 %}
+                    {% set periode = voyage.firstPeriodeValide %}
+                    {% if periode is not null  %}
+                    <div class="booking-item-flight-details">
+                        <div class="booking-item-departure"><i class="fa fa-plane"></i>
+                            <p class="booking-item-date" style="padding-top: 12px;"> {{ periode.depart |date('d/m/Y')}} </p>
+                            {#<p class="booking-item-date">Sun, Mar 22</p>
+                            <p class="booking-item-destination">London, England, United Kingdom (LHR)</p>#}
+                        </div>
+                        <div class="booking-item-arrival" ><i class="fa fa-plane fa-flip-vertical"></i>
+                            <p class="booking-item-date" style="padding-top: 14px;"> {{ periode.retour |date('d/m/Y')}} </p>
+                        </div>
+                    </div>
                     {% endif %}
-                </a>	
+                    {% endif %}
+                    {% if voyage.type == 2 %}
+                    <div class="booking-item-flight-details">
+                        <div class="booking-item-departure"><i class="fa fa-plane"></i>
+                            <p class="booking-item-date"> Au choix </p>
+                        </div>
+                        <div class="booking-item-arrival"><i class="fa fa-plane fa-flip-vertical"></i>
+                            <p class="booking-item-date">  Au choix </p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-2 text-center">
+                    <span class="booking-item-price-from">A partir de</span>
+                                <span class="booking-item-price">
+                                    {{ voyage.prix|number_format(0) }}<sup style="font-size:10px">DT</sup>
+                                </span>
+                    <p class="booking-item-last-booked text-center">{{ voyage.nbrJour }} jours / {{ voyage.nbrNuit }} nuits</p>
+                    <div class="center" style="padding-top: 20px;">
+                        <a class="btn btn-primary" href="{{ path('front_voyageorganise_details',{'slug':voyage.slug}) }}">Détails</a>
+                    </div>
+                    </div>
             </div>
         </div>
-        <div class="list-item-label">
-            <h4 class="list-item-title" style="white-space: nowrap">
-                <a href="{{ path('front_voyageorganise_details',{'slug':voyage.slug}) }}" class="inverse">
-                    {% if  voyage.libelle|length >35 %}
-                        {{ voyage.libelle|slice(0, 35)|raw }} ...
-                    {% else %}
-                        {{ voyage.libelle|raw }}
-                    {% endif %}
-                </a>
-            </h4>
-            <span class="list-item-location">
-                {% if  voyage.destination.libelle|length >30 %}
-                    {{ voyage.destination.libelle|slice(0, 30)|raw }} ...
-                {% else %}
-                    {{ voyage.destination.libelle|raw }}
-                {% endif %}
-            </span>
-            <div class="list-item-meta">
-                <span class="rating-static" style="margin-top: -8px;background: inherit">A partir de</span>
-                <span class="list-item-review">{{ voyage.prix }} DT</span>
+        <div class="booking-item-details">
+            <div class="row">
+                <div class="col-md-8">
+                    {#<p>Description voyages</p>#}
+                    <h5 class="list-title">Description voyage</h5>
+                    <ul class="list">
+                        <li>{{ voyage.descriptionCourte }}</li>
+                        </ul>
+                </div>
             </div>
-            <div class="list-item-details" style="height: 60px;">
-                {% if  voyage.descriptionCourte|length >80 %}
-                    {{ voyage.descriptionCourte|slice(0, 80)|raw }} ...
-                {% else %}
-                    {{ voyage.descriptionCourte|raw }}
-                {% endif %}
-            </div>
-            <div class="clear"></div>
-            <a href="{{ path('front_voyageorganise_details',{'slug':voyage.slug}) }}" class="btn btn-block">Détails</a>
         </div>
     </div>
-</div>
+</li>

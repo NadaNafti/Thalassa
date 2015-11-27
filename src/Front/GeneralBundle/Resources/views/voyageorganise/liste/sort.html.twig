@@ -1,11 +1,13 @@
 {% set sort=app.request.get('sort') %}
 {% set dir=app.request.get('direction') %}
 {% set action=path('front_voyageorganise_sort',{'themes':app.request.get('themes'),'destinations':app.request.get('destinations'),'pays':app.request.get('pays'),'name':app.request.get('name'),}) %}
-<div class="sort-by-wrapper">
-	<div class="sort-by-text mr-15 xs-mb sm-mb" style="white-space: nowrap;">
-		Trier par:
-	</div>
-	<form method="post" action="{{ action }}">
+<div class="booking-item-dates-change mb30">
+		<div class="row">
+        <div class="col-md-2">
+            <div class="booking-sort-title">Trier Par</div>
+        </div>
+        <div class="col-md-3">
+            <form method="post" action="{{ action }}">
 		<div class="sort-option mr-15 xs-mb sm-mb">
 			<input type="hidden" name="sort" value="v.libelle">
 			<select class="form-control mySelectBoxClass " name="direction" onchange="submit()">
@@ -15,16 +17,20 @@
 			</select>
 		</div>
 	</form>
+			</div>
+		<div class="col-md-3">
 	<form method="post" action="{{ action }}">
 		<input type="hidden" name="sort" value="v.destination">
 		<div class="sort-option mr-15 xs-mb sm-mb">
 			<select class="form-control mySelectBoxClass " name="direction" onchange="submit()">
-				<option value="" selected>Déstination</option>
+				<option value="" selected>Destination</option>
 				<option value="asc" {% if sort=='v.destination' and dir=='asc' %}selected {% endif %}>Croissant</option>
-				<option value="desc" {% if sort=='v.destination' and dir=='desc' %}selected {% endif %}>Descendant</option>
+				<option value="desc" {% if sort=='v.destination' and dir=='desc' %}selected {% endif %}>Decroissant</option>
 			</select>
 		</div>
 	</form>
+		</div>
+		<div class="col-md-3">
 	<form method="post" action="{{ action }}">
 		<input type="hidden" name="sort" value="v.prix">
 		<div class="sort-option mr-15 xs-mb sm-mb">
@@ -35,5 +41,6 @@
 			</select>
 		</div>
 	</form>
-</div>
-<div class="clear mb-30"></div>
+        </div>
+		</div>
+    </div>

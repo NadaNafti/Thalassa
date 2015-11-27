@@ -1,7 +1,8 @@
 {% set sort=app.request.get('sort') %}
 {% set dir=app.request.get('direction') %}
 {% set action=path('front_hoteltunisie_sort',{'min':app.request.get('min'),'max':app.request.get('max'),'categorie':app.request.get('categorie'),'chaine':app.request.get('chaine'),'ville':app.request.get('ville'),'tag':app.request.get('tag'),'promotion':app.request.get('promotion'),'name':app.request.get('name'),}) %}
-<div class="row">
+<div class="booking-item-dates-change mb30">
+    <div class="row">
     <div class="col-md-2">
     <div class="booking-sort-title">Trier Par</div>
 </div>
@@ -43,4 +44,5 @@
         </div>
     </form>
 </div>
-</div><hr>
+</div>
+    </div>

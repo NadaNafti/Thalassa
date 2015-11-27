@@ -1,6 +1,6 @@
 <div class="col-md-3">
-    <form class="booking-item-dates-change mb30" method="post" action="{{ path('front_hoteltunisie_filtre') }}" style="padding: 0px;">
-        <div style="padding: 15px 20px;">
+    <form method="post" action="{{ path('front_hoteltunisie_filtre') }}">
+        <div class="booking-item-dates-change mb30">
         <label>Mot clé</label>
         <div class="form-group form-group-icon-left main-header-search">
             <i class="fa fa-search input-icon"></i>
@@ -62,7 +62,7 @@
                     <input class="btn btn-primary" type="submit" value="Recherche" />
                 </li>
                 <li>
-                    <h5 class="booking-filters-title" {% if app.request.get('chaine') != 'all' or true %}class="active"{% endif %}>Chaîne hôtelière</h5>
+                    <h5 class="booking-filters-title">Chaîne hôtelière</h5>
                     {% set chainesSplit = app.request.get('chaine')|split(',') %}
                     {% for chaine in chaines if chaine.hasHotelsValide %}
                         <div class="checkbox">
@@ -74,7 +74,7 @@
                     <input class="btn btn-primary" type="submit" value="Recherche" />
                 </li>
                 <li>
-                    <h5 class="booking-filters-title" {% if app.request.get('tag') != 'all' or true %}class="active"{% endif %}>Thème</h5>
+                    <h5 class="booking-filters-title">Thème</h5>
                     {% set tagsSplit = app.request.get('tag')|split(',') %}
                     {% for tag in tags if tag.hasHotelsValide  %}
                         <div class="checkbox">
