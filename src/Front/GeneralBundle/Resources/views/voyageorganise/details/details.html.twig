@@ -1,119 +1,51 @@
 {% extends ":Front:base.html.twig" %}
 {% block title %}{{ voyage }}{% endblock %}
 {% block body %}
-    <div id="page_title">
-        <div class="container clearfix">
-            <div class="page-name">{{ block('title') }}</div>
-            <div class="breadcrumb clearfix">
-                <a href="{{ path('accueil') }}">Accueil</a>
-                <a href="{{ path('front_voyageorganise_accueil') }}">Voyages Organisés</a>
-                <a href="{{ path('front_voyageorganise_liste') }}">Liste</a>
-                <span class="current-page">{{ block('title') }}</span>
-            </div>
-        </div>
-    </div>
-    <div id="content_wrapper">
-        <div class="container">
-            <div class="row clearfix pv-50">
-                <div class="col-xs-12 col-sm-8 col-md-9">
-                    <div class="detail-header clearfix">
-                        <div class="detail-header-name">
-                            <h3 class="hotel-name no-mb">{{ voyage }}</h3>
-                            <span class="hotel-location"><i class="fa-map-marker mi text-warning"></i>{{ voyage.destination }}</span>
-                        </div>
-                        <div class="detail-header-price">
-                            <span>à partir de</span> {{ voyage.prix }}
-                        </div>
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="{{ path('accueil') }}">Acceuil</a></li>
+            <li><a href="{{ path('front_voyageorganise_liste') }}">Liste Voyages Organisés</a></li>
+            <li><a class="active">{{ voyage }}</a></li>
+        </ul>
+        <div class="booking-item-details">
+            <header class="booking-item-header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h2 class="lh1em">{{ voyage }}</h2>
+                        <span class="booking-item-address margenull"><i class="fa fa-map-marker"></i> {{ voyage.destination }}</span>
                     </div>
-                    {% if voyage.photosAlbum|length > 0 %}
-                        <div id="detail-slider">
-                            <div>
-                                <div id="exposure"></div>
-                                <div class="clear"></div>	
-                            </div>
-                            <div class="panel">	
-                                <div id="left"><a href="javascript:void(0);" class="left-arrow"></a></div>				
-                                <ul id="details-slider-images">
-                                    {% for image in voyage.photosAlbum %}
-                                        <li>
-                                            <a href="{{ asset(image.assetPath) }}"><img src="{{ asset(image.assetPath) }}" alt="Detailts" title="Photo num ° {{ loop.index }}" /></a>
-                                        </li>
-                                    {% endfor %}
-{#                                    ALbum centre avec nom centre#}
-                                </ul>	
-                                <div id="right"><a href="javascript:void(0);" class="right-arrow"></a></div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                    {% endif %}
-                    <div class="clear"></div>
-                    {% include ':Front:alert.html.twig' %}
-                    <div class="clear"></div>
-                    <ul class="tabs mt-20">
-                        <li><a href="#details-tab1"  class="active">Description</a></li>
-                            {% for periode in voyage.periodes(true) %}
-                            <li><a href="#periode-{{ loop.index }}">{{ periode }}</a></li>
-                            {% endfor %}
-                    </ul>
-                    <ul id="detail-tab" class="tabs-content xss-mb">
-                        {% include 'FrontGeneralBundle:voyageorganise/details:description.html.twig' %}
-                        {% include 'FrontGeneralBundle:voyageorganise/details:periodes.html.twig' %}			
-                    </ul>
-                    <div class="clear xss-mb"></div>
+                    <div class="col-md-4">
+                            <p class="booking-item-header-price margenull" style="font-size:15px"><small>A partir de</small>
+                                <span class="booking-item-price margenull" style="font-size:30px">
+                                    {{ voyage.prix|number_format(0) }}
+                                </span><sup style="font-size:15px">DT</sup></p>
+                    </div>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-3">
-                    <div class="sidebar hotel-sidebar">
-                        <div class="sidebar-item mb-20">
-                            <div class="lp-box">
-                                <i class="text-info fa-quote-left"></i>
-                                <p class="no-mb">{{ voyage.descriptionCourte }}</p>
+            </header>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="tabbable booking-details-tabbable">
+                        <ul class="nav nav-tabs" id="myTab">
+                            <li class="active"><a href="#details-tab1" data-toggle="tab"><i class="fa fa-camera"></i>Photos</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="details-tab1">
+                                {% include 'FrontGeneralBundle:voyageorganise/details:photos.html.twig' %}
                             </div>
                         </div>
                     </div>
-                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <div class="sidebar-item mb-20">
-                            <div class="lp-box">
-                                <i class="text-info fa-lock"></i>
-                                <h4>Authentification</h4>
-                                <form action="{{ path("fos_user_security_check") }}" method="post">
-                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                                    <input type="hidden" name="_target_path" value="{{ app.request.uri() }}" />
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <div class="form-group">
-                                                <label for="first-name">Identifiant ou Email</label>
-                                                <input type="text" id="username" name="_username"  required="required" class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <div class="form-group">
-                                                <label for="first-name">Mots de passe</label>
-                                                <input type="password" id="password" name="_password"  required="required" class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <button type="submit" class="btn btn-primary" id="_submit" name="_submit"  style="float: right;">S'authentifier</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    {% endif %}
-                    {% for description in voyage.descriptions if description.visible==true and  description.lateral %}
-                        <div class="sidebar hotel-sidebar">
-                            <div class="sidebar-item mb-20">
-                                <div class="lp-box">
-                                    <h4>{{ description.libelle|title }} </h4>
-                                    {{ description.texte|raw }}  
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
+                    <div class="gap"></div>
+                    {% include 'FrontGeneralBundle:voyageorganise/details:description.html.twig' %}
+                </div>
+                <div class="col-md-4">
+                    <div class="gap gap-small"></div>
+                    <div class="gap gap-small"></div>
+                    {% include 'FrontGeneralBundle:voyageorganise/details:descriptionLateral.html.twig' %}
+
                 </div>
             </div>
         </div>
+        <div class="gap gap-small"></div>
     </div>
 {% endblock %}
 {% block jquery %}

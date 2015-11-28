@@ -1,0 +1,7 @@
+{% for description in voyage.descriptions if description.visible==true and  description.lateral %}
+    <div class="detail" style="padding: 20px">
+            <h4><a>{{ description.libelle|title }}</a></h4>
+
+            <p>{{ description.texte|raw }}</p>
+    </div>
+{% endfor %}

@@ -1,18 +1,26 @@
-<li id="details-tab1"  class="active">
-    <h1>{{ voyage }} <small>{{ voyage.nbrJour }} jours et {{ voyage.nbrNuit }} nuits</small></h1>
-    {% if voyage.periodes(true)|length >0 %}
-        <h4>Les périodes : </h4>
-        <ul class="check-in-out">
-            {% for periode in voyage.periodes(true) %}
-                <li style="width: inherit;">
-                    <i class="fa-clock-o"></i> <strong>{{ periode|title }}</strong> :  Du <strong>{{ periode.depart|date('d/m/Y') }}</strong> au <strong>{{ periode.retour|date('d/m/Y') }}</strong>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    {% for description in voyage.descriptions if description.visible==true and not description.lateral %}
-        <div class="clear mb-20"></div>
-        <h4>{{ description.libelle|title }} </h4>
-        {{ description.texte|raw }}  
-    {% endfor %}
-</li>
+<h3>Programme</h3>
+<ul class="booking-list">{% for description in voyage.descriptions if description.visible==true and not description.lateral %}
+    <li>
+        <div class="booking-item-container">
+            <div class="booking-item">
+                    <div class="col-12">
+        {% if  description.photoVisible == true and description.path is not null %}
+                        <div class="left lb-padding">
+                            <img src="{{ asset(description.assetPath) }}" alt="" class="fwimg" />
+                        </div>
+                    {% endif %}
+                    <a class="booking-item-title">{{ description.libelle }}</a>
+                    {% if description.soustitre is defined %}
+                        {% if description.soustitre is not null %}<span>{{ description.soustitre }}</span>
+                        {% endif %}
+                    {% endif %}
+                    <p>
+                        {{ description.texte|raw }}
+                    </p>
+                    </div>
+                </div>
+            </div>
+    </li>
+        <div class="gap gap-small"></div>
+{% endfor %}
+</ul>

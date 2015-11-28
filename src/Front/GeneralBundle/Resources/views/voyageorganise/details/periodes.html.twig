@@ -1,40 +1,232 @@
-{% for periode in voyage.periodes(true) %}
-    <li id="periode-{{ loop.index }}">
-        <h1>{{ periode }} </h1>
-        <p style="margin-bottom:0px"><small><i class="fa-clock-o"></i> Du <strong>{{ periode.depart|date('d/m/Y') }}</strong> au <strong>{{ periode.retour|date('d/m/Y') }}</strong></small></p>
-        <p style="margin-bottom:0px">
-            {% if periode.departGarantie %}
-                ( Départ est garantie )
-            {% else  %}
-                ( Reste encore {{ periode.min -(periode.nombreInscription+periode.nombreInscriptionInitiale) }} place(s) pour valider le voyage )
-            {% endif %}
-        </p>
-        <div class="clear mb-30"></div>
-        <h4>Liste des packs</h4>
-        <ul class="detail-item">
-            {% for pack in periode.packs %}
-                <li class="clearfix">
-                    {% if pack.path is not null %}
-                        <img src="{{ asset(pack.assetPath) }}" alt="" style="width: 230px;height: 144px" />
-                    {% else %}
-                        <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=230&h=144" alt="" />
-                    {% endif %}
-                    <div class="br2" style="min-height: 145px;">
-                        <h3>{{ pack }}</h3>
-                        <span>Les hôtels :</span>
-                        <div class="clearfix"></div>
-                        <ul class="checklist1">
-                            {% for hotel in pack.hotels %}
-                                <li>{{ hotel }} ({{ hotel.categorie }})</li>
-                                {% endfor %}
-                        </ul>
+<div class="booking-item-deails-date-location">
+    {#<ul>
+        <li>
+            <h5>Location:</h5>
+            <p>New York: JFK International Airport Federal Circle Bldf. 312, Jamaica, NY (NY), United States, 11430</p>
+        </li>
+        <li>
+            <h5>Pick Up:</h5>
+            <p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i>JFK International Airport</p>
+            <p><i class="fa fa-calendar box-icon-inline box-icon-gray"></i>Sunday, April 13 2014</p>
+            <p><i class="fa fa-clock-o box-icon-inline box-icon-gray"></i>12:00 AM</p>
+        </li>
+        <li>
+            <h5>Drop Off:</h5>
+            <p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i>JFK International Airport</p>
+            <p><i class="fa fa-calendar box-icon-inline box-icon-gray"></i>Sunday, April 20 2014</p>
+            <p><i class="fa fa-clock-o box-icon-inline box-icon-gray"></i>12:00 AM</p>
+        </li>
+    </ul>#}
+    {% for periode in voyage.periodes(true) %}
+        <h3>{{ periode }}</h3>
+        <span>{{ voyage.nbrJour }} jours / {{ voyage.nbrNuit }} nuits</span>
+        {% if voyage.type == 1 %}
+                <div class="booking-item-flight-details">
+                    <div class="booking-item-departure"><i class="fa fa-plane"></i>
+                        <p class="booking-item-date" style="padding-top: 12px;">
+                            {% if voyage.type == 1 %} {{ periode.depart |date('d/m/Y')}}
+                            {% else %} Au choix </p>
+                        {#<p class="booking-item-date">Sun, Mar 22</p>
+                        <p class="booking-item-destination">London, England, United Kingdom (LHR)</p>#}
                     </div>
-                    <div class="detail-meta">
-                        <a href="{{ path('front_voyageorganise_reservation',{'slug':voyage.slug,'pack':pack.id}) }}" class="btn">Réservation</a>
+                    <div class="booking-item-arrival" ><i class="fa fa-plane fa-flip-vertical"></i>
+                        <p class="booking-item-date" style="padding-top: 12px;">
+                            {% if voyage.type == 1 %} {{ periode.retour |date('d/m/Y')}}
+                            {% else %} Au choix </p>
+                    </div>
+                </div>
+
+    <hr>
+                {% for pack in periode.packs %}
+    <div class="gap gap-small"></div>
+        <ul class="booking-list">
+
+                <li>
+                    <div class="booking-item booking-item-small">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <a href="{{ path('front_voyageorganise_reservation',{'slug':voyage.slug,'pack':pack.id}) }}">
+                                    {% if pack.assetPath is not null %}
+                                        <img src="{{ asset(pack.assetPath) }}" alt="" class="left mr20" alt="" style="width: 96px;height: 61px" />
+                                    {% else %}
+                                        <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=96&h=61" class="left mr20" alt="" />
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <div class="col-xs-5">
+                                <h5 class="booking-item-title margenull"><a href="{{ path('front_hoteltunisie_details',{'slug':hot.slug}) }}">{{ hotel|title }}</a></h5>
+                                <ul class="icon-group booking-item-rating-stars">
+                                    {{ getStars(hot.getStars)|raw }}
+                                </ul>
+                            </div>
+                            <div class="col-xs-3 text-center">
+                                <span class="booking-item-price-from margenull">A partir de</span>
+                                <span class="booking-item-price margenull">{{ saison.prixDeBase|number_format(0) }}</span><sup style="font-size:10px">DT</sup>
+
+                            </div>
+                        </div>
                     </div>
                 </li>
             {% endfor %}
         </ul>
 
-    </li>
-{% endfor %}
+                            <br>Tarifs Hébergement
+                            <button type="button" class="collapsebtn3-b mt-5" data-toggle="collapse"
+                                    data-target="#collapse{{ loop.index }}"></button>
+                            <!-- Collapse 1 -->
+
+                            <div id="collapse{{ loop.index }}" class="in" style="height: auto;">
+                                <div class="left size14">
+                                    {% for ch in ['single','double','triple','quadruple'] %}
+                                        {% if attribute(pack, ch)  %}
+                                            Chambre {{ ch }}{% if not loop.last %}<br>{% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                                <div class="right size14">
+                                    {% for ch in ['single','double','triple','quadruple'] %}
+                                        {% if attribute(pack, ch)  %}
+                                            <span class="size12">à partir de</span> {{ attribute(pack, ch~'Vente') | number_format(0,'.','') }}<sup class="sup-super-55">DT</sup>{% if not loop.last %}<br>{% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="clearfix"></div>
+
+                            </div>
+                            <!-- End of collapse 1 -->
+
+
+                            <a href="{{ path('front_voyageorganise_reservation',{'slug':voyage.slug,'pack':pack.id}) }}" class="booknow margtop20 btnmarg">Réservez</a></div>
+                    </div>
+                {% endfor %}
+    {% endfor %}
+    <a href="#" class="btn btn-primary">Change Location & Date</a>
+</div>
+<div class="gap gap-small"></div>
+
+
+
+
+<div class="container col-md-12">
+    {% for periode in voyage.periodes(true) %}
+        <div class="pagecontainer2 paymentbox grey" style="background: linear-gradient(to bottom, #fcc216 0%,#D89938 100%);margin-top:32px">
+            <div class="cpadding1">
+                <h3 style="color:white" class="opensans-nobackground">{{ periode }}</h3>
+                <span style="color:white" class="opensans bold size14">{{ voyage.nbrJour }} jours / {{ voyage.nbrNuit }} nuits</span><br>
+            </div>
+            <div style="background-color:black" class="line3"></div>
+            <div class="hpadding30 margtop30">
+                <div>
+
+                    <div class="wh33percent left size12 bold dark">
+                        Départ
+                    </div>
+                    <div class="wh33percent left center size12 bold dark"></div>
+                    <div class="wh33percent right textright size12 bold dark">
+                        Retour
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="wh33percent left">
+                        <div style="border-color:black" class="fcircle">
+                            <span class="fdeparture"></span>
+                        </div>
+                    </div>
+                    <div class="wh33percent left">
+                        {#<div class="fcircle center">
+                            <span class="fstop"></span>
+                        </div>#}
+                    </div>
+                    <div class="wh33percent right">
+                        <div style="border-color:black" class="fcircle right">
+                            <span class="{# farrival #} fdeparture2"></span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div style="background-color:black" class="fline2px"></div>
+                    <div class="wh33percent dark left size14">
+                        {% if voyage.type == 1  %}{{ periode.depart|date('d/m/Y') }}{% else %} Au choix {% endif %}{#1:Organise,2:A la carte#}
+                    </div>
+                    <div class="wh33percent  dark right textright size14">
+                        {% if voyage.type == 1  %}{{ periode.retour|date('d/m/Y') }}{% else %} Au choix {% endif %}
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            {% if voyage.type == 2 %}
+                <div style="background-color:black" class="line1"></div>
+                <div class="hpadding20">
+                    <h2 class="opensans slim green2">Programme à la carte</h2>
+                </div>
+            {% endif %}
+            <div style="background-color:black" class="line1"></div>
+            {% for pack in periode.packs %}
+                <div>
+                    <div class="cpadding1">
+                        <span class="icon-location-b"></span>
+
+                        <h3 class="kaushan-black boldopensans-nobackground">{{ pack }}</h3>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="cpadding1 ">
+                        <a href="{{ path('front_voyageorganise_reservation',{'slug':voyage.slug,'pack':pack.id}) }}">
+                            {% if pack.assetPath is not null %}
+                                <img src="{{ asset(pack.assetPath) }}" alt="" class="left mr20" alt="" style="width: 96px;height: 61px" />
+                            {% else %}
+                                <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=96&h=61" class="left mr20" alt="" />
+                            {% endif %}
+                        </a>
+                            <span href="#" class="dark">
+                                {% for hotel in pack.hotels %}
+                                    {% if  hotel | length >20 %}<b>{{ hotel | slice(0,20) | raw }}…</b>{% if not loop.last %}<br>{% endif %}
+                                {% else %}
+                                        <b>{{ hotel }}</b>{% if not loop.last %}<br>{% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </span> <br>
+                    </div>
+
+
+                    <div class="clearfix"></div>
+                    <div class="cpadding1 ">
+
+                        <br>Tarifs Hébergement
+                        <button type="button" class="collapsebtn3-b mt-5" data-toggle="collapse"
+                                data-target="#collapse{{ loop.index }}"></button>
+                        <!-- Collapse 1 -->
+
+                        <div id="collapse{{ loop.index }}" class="in" style="height: auto;">
+                            <div class="left size14">
+                                {% for ch in ['single','double','triple','quadruple'] %}
+                                    {% if attribute(pack, ch)  %}
+                                        Chambre {{ ch }}{% if not loop.last %}<br>{% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <div class="right size14">
+                                {% for ch in ['single','double','triple','quadruple'] %}
+                                    {% if attribute(pack, ch)  %}
+                                        <span class="size12">à partir de</span> {{ attribute(pack, ch~'Vente') | number_format(0,'.','') }}<sup class="sup-super-55">DT</sup>{% if not loop.last %}<br>{% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="clearfix"></div>
+
+                        </div>
+                        <!-- End of collapse 1 -->
+
+
+                        <a href="{{ path('front_voyageorganise_reservation',{'slug':voyage.slug,'pack':pack.id}) }}" class="booknow margtop20 btnmarg">Réservez</a></div>
+                </div>
+            {% endfor %}
+
+
+            <br>
+        </div>
+    {% endfor %}
+
+
+
+</div>

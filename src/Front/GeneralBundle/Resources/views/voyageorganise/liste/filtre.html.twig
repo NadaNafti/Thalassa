@@ -19,7 +19,7 @@
 			{% for theme in themes %}
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="themes_{{ theme.id }}" {% if theme.id in themesSplit %}checked{% endif %} value="{{ theme.id }}">
+                                <input class="i-check" type="checkbox" name="themes_{{ theme.id }}" {% if theme.id in themesSplit %}checked{% endif %} value="{{ theme.id }}">
 				    {{ theme|title }}
                             </label>
                         </div>
@@ -32,7 +32,7 @@
 			{% for destination in destinations %}
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="destinations_{{ destination.id }}" {% if destination.id in categoriesSplit %}checked{% endif %} value="{{ destination.id }}">
+                                <input class="i-check" type="checkbox" name="destinations_{{ destination.id }}" {% if destination.id in categoriesSplit %}checked{% endif %} value="{{ destination.id }}">
 				    {{ destination|title }}
                             </label>
                         </div>
@@ -45,7 +45,7 @@
 			{% for pay in pays %}
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="pays_{{ pay.id }}" {% if pay.id in paysSplit %}checked{% endif %} value="{{ pay.id }}">
+                                <input class="i-check" type="checkbox" name="pays_{{ pay.id }}" {% if pay.id in paysSplit %}checked{% endif %} value="{{ pay.id }}">
 				    {{ pay|title }}
                             </label>
                         </div>
@@ -55,4 +55,5 @@
             </ul>
         </aside>
     </form>
+    <div class="gap-small gap"></div>
 </div>

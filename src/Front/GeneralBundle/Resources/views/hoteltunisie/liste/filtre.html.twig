@@ -30,13 +30,13 @@
         <aside class="booking-filters text-white">
             <h3>Filtrer Par:</h3>
             <ul class="list booking-filters-list">
-                <li>
+                {#<li>
                     <h5 class="booking-filters-title">Budget <small>Par pers & par nuitées</small></h5>
                     <input type="text" id="price-slider">
                     <input id="minSearch" type="hidden" name="minSearch" value="{{ app.request.get('min') }}">
                     <input id="maxSearch" type="hidden" name="maxSearch" value="{{ app.request.get('max') }}">
                     <input class="btn btn-primary" type="submit" value="Recherche" />
-                </li>
+                </li>#}
                 <li>
                     <h5 class="booking-filters-title">Catégorie</h5>
                     {% set categoriesSplit = app.request.get('categorie')|split(',') %}
@@ -88,6 +88,7 @@
             </ul>
         </aside>
     </form>
+    <div class="gap-small gap"></div>
 </div>
 <script type="text/javascript">
     jQuery("#price-slider").slider({from: 0, to: 1000, step: 5, smooth: true, round: 0, dimension: "&nbsp;DT", skin: "round", format: {format: "# ##0.##"},

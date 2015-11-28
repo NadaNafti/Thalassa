@@ -16,29 +16,31 @@
                     <span class="booking-item-address margenull"><i class="fa fa-map-marker"></i> {{ voyage.destination.libelle|raw }}</span>
                     <p class="booking-item-last-booked">{{ voyage.showType }}</p>
                     {% if voyage.periodes(true) | length > 0 and voyage.type == 1 %}
-                    {% set periode = voyage.firstPeriodeValide %}
-                    {% if periode is not null  %}
-                    <div class="booking-item-flight-details">
-                        <div class="booking-item-departure"><i class="fa fa-plane"></i>
-                            <p class="booking-item-date" style="padding-top: 12px;"> {{ periode.depart |date('d/m/Y')}} </p>
-                            {#<p class="booking-item-date">Sun, Mar 22</p>
-                            <p class="booking-item-destination">London, England, United Kingdom (LHR)</p>#}
-                        </div>
-                        <div class="booking-item-arrival" ><i class="fa fa-plane fa-flip-vertical"></i>
-                            <p class="booking-item-date" style="padding-top: 14px;"> {{ periode.retour |date('d/m/Y')}} </p>
-                        </div>
-                    </div>
-                    {% endif %}
+                        {% set periode = voyage.firstPeriodeValide %}
+                        {% if periode is not null  %}
+                            <div class="booking-item-flight-details">
+                                <div class="booking-item-departure"><i class="fa fa-plane"></i>
+                                    <p class="booking-item-date">Départ</p>
+                                    <p class="booking-item-date"> {{ periode.depart |date('d/m/Y')}} </p>
+                                    {#<p class="booking-item-date">Sun, Mar 22</p>
+                                    <p class="booking-item-destination">London, England, United Kingdom (LHR)</p>#}
+                                </div>
+                                <div class="booking-item-arrival" ><i class="fa fa-plane fa-flip-vertical"></i>
+                                    <p class="booking-item-date">Retour</p>
+                                    <p class="booking-item-date"> {{ periode.retour |date('d/m/Y')}} </p>
+                                </div>
+                            </div>
+                        {% endif %}
                     {% endif %}
                     {% if voyage.type == 2 %}
-                    <div class="booking-item-flight-details">
-                        <div class="booking-item-departure"><i class="fa fa-plane"></i>
-                            <p class="booking-item-date"> Au choix </p>
+                        <div class="booking-item-flight-details">
+                            <div class="booking-item-departure"><i class="fa fa-plane"></i>
+                                <p class="booking-item-date"> Au choix </p>
+                            </div>
+                            <div class="booking-item-arrival"><i class="fa fa-plane fa-flip-vertical"></i>
+                                <p class="booking-item-date">  Au choix </p>
+                            </div>
                         </div>
-                        <div class="booking-item-arrival"><i class="fa fa-plane fa-flip-vertical"></i>
-                            <p class="booking-item-date">  Au choix </p>
-                        </div>
-                    </div>
                     {% endif %}
                 </div>
                 <div class="col-md-2 text-center">
@@ -47,10 +49,10 @@
                                     {{ voyage.prix|number_format(0) }}<sup style="font-size:10px">DT</sup>
                                 </span>
                     <p class="booking-item-last-booked text-center">{{ voyage.nbrJour }} jours / {{ voyage.nbrNuit }} nuits</p>
-                    <div class="center" style="padding-top: 20px;">
+                    <div class="center" style="padding-top: 9px;">
                         <a class="btn btn-primary" href="{{ path('front_voyageorganise_details',{'slug':voyage.slug}) }}">Détails</a>
                     </div>
-                    </div>
+                </div>
             </div>
         </div>
         <div class="booking-item-details">
