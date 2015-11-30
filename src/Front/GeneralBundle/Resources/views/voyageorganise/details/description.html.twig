@@ -4,8 +4,9 @@
         <div class="booking-item-container">
             <div class="booking-item">
                     <div class="col-12">
+                        <div class="row" style="margin-left: 0px;margin-right: 0px;">
         {% if  description.photoVisible == true and description.path is not null %}
-                        <p class="f">
+                        <p class="image">
                             <img src="{{ asset(description.assetPath) }}" alt="" />
                         </p>
                     {% endif %}
@@ -14,9 +15,10 @@
                         {% if description.soustitre is not null %}<span>{{ description.soustitre }}</span>
                         {% endif %}
                     {% endif %}
-                    <p style="margin-bottom: 25px">
+                    <p>
                         {{ description.texte|raw }}
                     </p>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -25,7 +27,7 @@
 {% endfor %}
 </ul>
 <style type="text/css">
-    .f
+    .image
     {
         float:left;
         padding: 0px 15px 15px 0px;

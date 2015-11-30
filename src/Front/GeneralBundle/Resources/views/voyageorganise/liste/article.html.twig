@@ -22,8 +22,6 @@
                                 <div class="booking-item-departure"><i class="fa fa-plane"></i>
                                     <p class="booking-item-date">Départ</p>
                                     <p class="booking-item-date"> {{ periode.depart |date('d/m/Y')}} </p>
-                                    {#<p class="booking-item-date">Sun, Mar 22</p>
-                                    <p class="booking-item-destination">London, England, United Kingdom (LHR)</p>#}
                                 </div>
                                 <div class="booking-item-arrival" ><i class="fa fa-plane fa-flip-vertical"></i>
                                     <p class="booking-item-date">Retour</p>
@@ -35,10 +33,12 @@
                     {% if voyage.type == 2 %}
                         <div class="booking-item-flight-details">
                             <div class="booking-item-departure"><i class="fa fa-plane"></i>
+                                <p class="booking-item-date">Départ</p>
                                 <p class="booking-item-date"> Au choix </p>
                             </div>
                             <div class="booking-item-arrival"><i class="fa fa-plane fa-flip-vertical"></i>
-                                <p class="booking-item-date">  Au choix </p>
+                                <p class="booking-item-date">Retour</p>
+                                <p class="booking-item-date"> Au choix </p>
                             </div>
                         </div>
                     {% endif %}
@@ -46,7 +46,7 @@
                 <div class="col-md-2 text-center">
                     <span class="booking-item-price-from">A partir de</span>
                                 <span class="booking-item-price">
-                                    {{ voyage.prix|number_format(0) }}<sup style="font-size:10px">DT</sup>
+                                    {{ voyage.prix|number_format(0,'.','') }}<sup style="font-size:10px">DT</sup>
                                 </span>
                     <p class="booking-item-last-booked text-center">{{ voyage.nbrJour }} jours / {{ voyage.nbrNuit }} nuits</p>
                     <div class="center" style="padding-top: 9px;">

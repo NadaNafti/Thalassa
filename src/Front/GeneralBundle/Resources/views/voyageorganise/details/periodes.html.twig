@@ -1,22 +1,5 @@
+{% if voyage.periodes(true) | length > 0 %}
 <div class="booking-item-deails-date-location">
-    {#<ul>
-        <li>
-            <h5>Location:</h5>
-            <p>New York: JFK International Airport Federal Circle Bldf. 312, Jamaica, NY (NY), United States, 11430</p>
-        </li>
-        <li>
-            <h5>Pick Up:</h5>
-            <p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i>JFK International Airport</p>
-            <p><i class="fa fa-calendar box-icon-inline box-icon-gray"></i>Sunday, April 13 2014</p>
-            <p><i class="fa fa-clock-o box-icon-inline box-icon-gray"></i>12:00 AM</p>
-        </li>
-        <li>
-            <h5>Drop Off:</h5>
-            <p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i>JFK International Airport</p>
-            <p><i class="fa fa-calendar box-icon-inline box-icon-gray"></i>Sunday, April 20 2014</p>
-            <p><i class="fa fa-clock-o box-icon-inline box-icon-gray"></i>12:00 AM</p>
-        </li>
-    </ul>#}
     {% for periode in voyage.periodes(true) %}
         <h3>{{ periode }}</h3>
         <span>{{ voyage.nbrJour }} jours / {{ voyage.nbrNuit }} nuits</span><hr>
@@ -58,77 +41,48 @@
                     </div>
                 </div>
                 <hr>
-                <h5>Tarif Hébergements</h5>
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default" style="background-color: #F7F7F7">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-1"  style="background-color: #F7F7F7">Tarif Hébergement</a></h4>
+                        </div>
+                        <div class="panel-collapse collapse in" id="collapse-1">
+                            <ul class="order-payment-list list">
 
+                                <li>
+                                    {% for ch in ['single','double','triple','quadruple'] %}
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <p class="text-left"><span>
 
-                <ul class="booking-item-payment-price">
-                    <li>{% for ch in ['single','double','triple','quadruple'] %}
-                        <p class="booking-item-payment-price-title">
-                    {% if attribute(pack, ch)  %}
-                                Chambre {{ ch }}{% if not loop.last %}{% endif %}
-                            {% endif %} </p>
-                        <p class="booking-item-payment-price-amount">
-
-                        {% if attribute(pack, ch)  %}
-                                à partir de {{ attribute(pack, ch~'Vente') | number_format(0,'.','') }}<sup>DT</sup>{% if not loop.last %}{% endif %}
-                            {% endif %} </p>
-                        {% endfor %}
-                    </li>
-                </ul>
-
-                <a href="{{ path('front_voyageorganise_reservation',{'slug':voyage.slug,'pack':pack.id}) }}" class="btn btn-primary">Réserver</a>
-
+                                                    {% if attribute(pack, ch)  %}
+                                                Chambre {{ ch }}{% if not loop.last %}{% endif %}
+                                            {% endif %}</span></p>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <p class="text-right"><span>{% if attribute(pack, ch)  %}
+                                                à partir de {{ attribute(pack, ch~'Vente') | number_format(0,'.','') }}<sup>DT</sup>{% if not loop.last %}{% endif %}
+                                            {% endif %}</span></p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </li>
+                                </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-md-12">
+                <a href="{{ path('front_voyageorganise_reservation',{'slug':voyage.slug,'pack':pack.id}) }}" class="btn btn-primary" style="float:right">Réserver</a>
+                </div></div>
             </div>
         </li>
         {% endfor %}
     </ul>
-        {#<ul class="booking-list">
-            {% for pack in periode.packs %}
-                <li>
-                    <div class="booking-item booking-item-small">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <a href="{{ path('front_voyageorganise_reservation',{'slug':voyage.slug,'pack':pack.id}) }}">
-                                    {% if pack.assetPath is not null %}
-                                        <img src="{{ asset(pack.assetPath) }}" alt="" class="left mr20" alt="" style="width: 96px;height: 61px" />
-                                    {% else %}
-                                        <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=No%20image%20available&w=96&h=61" class="left mr20" alt="" />
-                                    {% endif %}
-                                </a>
-                            </div>
-                            <div class="col-xs-5">
-                            {% for hotel in pack.hotels %}
-                                <h5 class="booking-item-title margenull"><a href="#">{{ hotel|title }}</a></h5>
-                                <ul class="icon-group booking-item-rating-stars">
-                                    &#123;&#35;{{ getStars(hotel.getStars)|raw }}&#35;&#125;
-                                </ul>
-                                {% endfor %}
-                            </div>
-
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <h5>Tarif Hébergements</h5>
-                    {% for ch in ['single','double','triple','quadruple'] %}
-                        <li>
-                                        <p class="booking-item-payment-price-title">{% if attribute(pack, ch)  %}
-                            Chambre {{ ch }}{% if not loop.last %}{% endif %}
-                        {% endif %}</p>
-                                        <p class="booking-item-payment-price-amount">{% if attribute(pack, ch)  %}
-                                            à partir de {{ attribute(pack, ch~'Vente') | number_format(0,'.','') }}<sup class="sup-super-55">DT</sup>{% if not loop.last %}<br>{% endif %}
-                                        {% endif %}</p>
-                                    </li>
-
-
-                </li>
-            <a href="{{ path('front_voyageorganise_reservation',{'slug':voyage.slug,'pack':pack.id}) }}" class="btn btn-primary">Réserver</a>
-            {% endfor %}
-
-        </ul>#}
     <div class="gap gap-small"></div>
     {% endfor %}
     </div>
+{% endif %}
 <style type="text/css">
     hr
     {

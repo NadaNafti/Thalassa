@@ -40,7 +40,7 @@
                             {% else %}
                                 <span class="booking-item-price-from margenull">A partir de</span>     
                                 <span class="booking-item-price margenull">
-                                    {{ saison.prixDeBase|number_format(0) }}
+                                    {{ saison.prixDeBase|number_format(0,'.','') }}
                                 </span><sup style="font-size:10px">DT</sup>
                                 <span class="margenull">/{{ saison.arrBase.code }}</span>
                             {% endif %}
