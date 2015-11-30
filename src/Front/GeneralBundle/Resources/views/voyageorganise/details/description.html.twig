@@ -5,16 +5,16 @@
             <div class="booking-item">
                     <div class="col-12">
         {% if  description.photoVisible == true and description.path is not null %}
-                        <div class="left lb-padding">
-                            <img src="{{ asset(description.assetPath) }}" alt="" class="fwimg" />
-                        </div>
+                        <p class="f">
+                            <img src="{{ asset(description.assetPath) }}" alt="" />
+                        </p>
                     {% endif %}
                     <a class="booking-item-title">{{ description.libelle }}</a>
                     {% if description.soustitre is defined %}
                         {% if description.soustitre is not null %}<span>{{ description.soustitre }}</span>
                         {% endif %}
                     {% endif %}
-                    <p>
+                    <p style="margin-bottom: 25px">
                         {{ description.texte|raw }}
                     </p>
                     </div>
@@ -24,3 +24,10 @@
         <div class="gap gap-small"></div>
 {% endfor %}
 </ul>
+<style type="text/css">
+    .f
+    {
+        float:left;
+        padding: 0px 15px 15px 0px;
+    }
+</style>

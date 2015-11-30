@@ -1,4 +1,5 @@
 <div class="detail">
+    {% include ':Front:alert.html.twig' %}
     <h3>Période <small>Séjour minimum : {{ saison.minStay }} nuitée(s)</small> </h3>
     <div class="booking-item-dates-change">
         <form method="post" action="{{ path('front_hoteltunisie_edit_periode',{'slug':app.request.get('slug')}) }}">

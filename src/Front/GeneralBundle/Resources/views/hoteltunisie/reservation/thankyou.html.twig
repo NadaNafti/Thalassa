@@ -1,139 +1,158 @@
 {% extends ":Front:base.html.twig" %}
 {% block body %}
-    <div id="content_wrapper">
-	<div class="container">
-	    <div class="row clearfix pv-50">
-		<div class="col-xs-12 col-sm-8 col-md-8 xs-mb">
-		    <div class="white-bg payment-wrapper">
-                <h2 class="section-title center mb-10"><span class="text-success">Merci</span>, votre réservation a été effectuée avec succès!</h2>
-                <p class="center mb-40">Votre numéro de confirmation est <span class="text-success text-bold">{{ reservation.id }}<span></span></p>
-                <h3>Informations réservation</h3>
-                <div class="bb2 mb-30"></div>
-                <table class="table table-striped">
-                    <tbody>
-                    <tr>
-                        <td>Nom Prénom: </td>
-                        <td>{{ reservation.coordonnees.0 }}</td>
-                    </tr>
-                    <tr>
-                        <td>Hôtel: </td>
-                        <td>{{ reservation.hotel|title }}, {{ reservation.hotel.ville|title }}</td>
-                    </tr>
-                    <tr>
-                        <td>Période: </td>
-                        <td>{{ reservation.nuitees }} nuitées ({{ reservation.dateDebut|date('d/m/Y') }} - {{ reservation.dateFin|date_modify("+1 day")|date('d/m/Y') }})</td>
-                    </tr>
-                    </tbody>
-                </table>
-                {% if reservation.options|length >0 %}
-                    <h3>Options</h3>
-                    <div class="bb2 mb-20"></div>
-                    {% for option in reservation.options %}
-                    <p> - {{ getNameOption(option) }}</p>
-                    {% endfor %}
-                {% endif %}
-                <div class="bb2 mb-15"></div>
-                <div class="mb-15 center">Total: <span class="font24 text-success">{{ reservation.total }} DT</span></div>
-		    </div>
+	<div class="gap"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<i class="fa fa-check round box-icon-large box-icon-center box-icon-success mb30"></i>
+			<h3 class="text-center">Merci, votre réservation a été effectuée avec succès</h3>
+			<h5 class="text-center mb30">Votre numéro de confirmation est <span class="text-success text-bold">{{ reservation.id }}</span></h5>
 		</div>
-		<div class="col-xs-12 col-sm-4 col-md-4">
-		    <div class="sidebar hotel-sidebar">
-			<div class="sidebar-item mb-20">
-			    <div class="summary-payment">
-				<div class="summary-header mb-30">
-				    {% if reservation.hotel.photoPrincipal is not null %}
-					<img src="{{ asset(reservation.hotel.photoPrincipal.assetPath) }}" alt="" style="width: 75px;height: 65px" />
-				    {% else %}
-					<img src="https://placeholdit.imgix.net/~text?txtsize=15&txt=No%20image%20available&w=75&h=65" alt="" style="width: 75px;height: 65px" />
-				    {% endif %}
-				    <h3 class="no-mb">{{ reservation.hotel|title }}</h3>
-				    <span>{{ reservation.hotel.ville }}</span>
-				    {% if reservation.hotel.categorie.nombreEtoiles != 1 %}
-					<span class="rating-static rating-{{ reservation.hotel.categorie.nombreEtoiles*10 }}"></span>
-				    {% endif %}
-				</div>
-				<div class="bb2 mb-30"></div>
-				<table class="table table-bordered table-striped mb-30">
-				    <tr>
-					<td colspan=2><span class="text-bold">{{ reservation.nuitees }} nuitées</span>: {{ reservation.dateDebut|date('d/m/Y') }} - {{ reservation.dateFin|date_modify("+1 day")|date('d/m/Y') }}</td>
-				    </tr>
-				    {% for chambre in reservation.chambres %}
-					<tr>
-					    <td>
-						<span class="text-bold">{{ loop.index }} - {{ getNameChambre(chambre.chambre) }}</span>: en {{ chambre.arrangement.code }}<br/>
-						Nombre d'occupants
-						<button type="button" class="summary-collapse collapsed mt-5" data-toggle="collapse" data-target="#collapse1{{ loop.index }}"></button>
-						<div id="collapse1{{ loop.index }}" class="collapse">
-						    <div class="left font12 text-info">
-							Adulte
-							<br/>
-							Enfant
-						    </div>
-						    <div class="right font12 text-info">
-							{{ chambre.adultes|length }}
-							<br/>
-							{{ chambre.enfants|length }}
-						    </div><div class="clearfix"></div>
+			<div class="col-md-8 detail">
+			<ul class="order-payment-list list mb30">
+				<h4><a>Informations réservation</a></h4>
+				<li>
+					<div class="row">
+						<div class="col-xs-6">
+							<p class="text-left"><span>Nom Prénom: </span></p>
 						</div>
-						<div class="clearfix"></div>
-
-						{% if chambre.supplements|length+chambre.vues|length >0 %}
-						    Suppléments
-						    <button type="button" class="summary-collapse collapsed mt-5" data-toggle="collapse" data-target="#collapse2{{ loop.index }}"></button>
-						    <div id="collapse2{{ loop.index }}" class="collapse">
-							<div class="left font12 text-warning">
-							    {% for supp in chambre.supplements %}
-								- {{ getNameSupp(supp) }}<br>
-							    {% endfor %}
-							    {% for vue in chambre.vues %}
-								- {{ getNameVue(vue) }}<br>
-							    {% endfor %}
+						<div class="col-xs-6">
+							<p class="text-right"><span>{{ reservation.coordonnees.0 }}</span></p>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="row">
+						<div class="col-xs-6">
+							<p class="text-left"><span>Hôtel: </span></p>
+						</div>
+						<div class="col-xs-6">
+							<p class="text-right"><span>{{ reservation.hotel|title }}, {{ reservation.hotel.ville|title }}</span></p>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="row">
+						<div class="col-xs-6">
+							<p class="text-left"><span>Période: </span></p>
+						</div>
+						<div class="col-xs-6">
+							<p class="text-right"><span>{{ reservation.nuitees }} nuitée(s) ({{ reservation.dateDebut|date('d/m/Y') }} - {{ reservation.dateFin|date_modify("+1 day")|date('d/m/Y') }})</span></p>
+						</div>
+					</div>
+				</li>
+				{% if reservation.options|length >0 %}
+					<h4><a>Options</a></h4>
+					{% for option in reservation.options %}
+						<li>
+							<div class="row">
+								<div class="col-xs-12">
+									<p class="text-left"><span>{{ getNameOption(option) }}</span></p>
+								</div>
 							</div>
-							<div class="clearfix"></div>
-						    </div>
-						    <div class="clearfix"></div>
-						{% endif %}
-					    </td>
-					    <td class="center">
-						{% if reservation.surDemande %}
-                                                    Sur demande
-                                                {% else %}
-                                                    {{ chambre.getTotal }}  DT
-                                                {% endif %}
-					    </td>
-					</tr>
-				    {% endfor %}
-				    {% if not reservation.surDemande %}
-					{% if reservation.remise !=0 %}
-					    <tr>
-						<td>Remise</td>
-						<td class="center text-bold text-success">{{ reservation.remise }}</td>
-					    </tr>
-					{% endif %}
-					{% if reservation.timbre !=0 %}
-					    <tr>
-						<td>Timbre</td>
-						<td class="center text-bold text-success">{{ reservation.timbre }}</td>
-					    </tr>
-					{% endif %}
-				    {% endif %}
-				</table>
-				<div class="bb2 mb-20"></div>
-				<span class="left">Total:</span>
-				<span class="right text-success text-bold font24">
-				    {% if reservation.surDemande %}
-					Sur demande
-				    {% else %}
-					{{ reservation.total }}  DT
-				    {% endif %}
-				</span>
-				<div class="clear mb-10"></div>
-			    </div>
-			</div>
-		    </div>
+						</li>
+					{% endfor %}
+				{% endif %}
+				<li>
+					<div class="row">
+						<div class="col-xs-6">
+							<p class="text-left"><span class="font24 text-success">Total: </span></p>
+						</div>
+						<div class="col-xs-6">
+							<p class="text-right"><span class="font24 text-success">{{ reservation.total }} DT</span></p>
+						</div>
+					</div>
+				</li>
+			</ul>
 		</div>
-	    </div>
-	</div>
-    </div>
 
-{% endblock  %}
+		<div class="col-md-4">
+			<div class="booking-item-payment">
+				<header class="clearfix">
+					<a class="booking-item-payment-img" href="#">
+						{% if reservation.hotel.photoPrincipal is not null %}
+							<img src="{{ asset(reservation.hotel.photoPrincipal.assetPath) }}" alt="Image Alternative text" title={{ reservation.hotel }} />
+						{% else %}
+							<img src="https://placeholdit.imgix.net/~text?txtsize=10&txt=No%20image%20available&w=75&h=65" alt="" style="width: 75px;height: 65px"/>
+						{% endif %}
+					</a>
+
+					<h5 class="booking-item-payment-title"><a href="#">{{ reservation.hotel|title }}</a></h5>
+					<span>{{ reservation.hotel.ville }}</span>
+					<ul class="icon-group booking-item-rating-stars">
+						{{ getStars(reservation.hotel.getStars)|raw }}
+					</ul>
+				</header>
+				<ul class="booking-item-payment-details">
+					<li>
+						<h5>Réservation pour {{ reservation.nuitees }} Nuitée(s)</h5>
+						<div class="booking-item-payment-date">
+							<p class="booking-item-payment-date-day">{{ reservation.dateDebut|date('d/m/Y') }}</p>
+						</div><i class="fa fa-arrow-right booking-item-payment-date-separator"></i>
+						<div class="booking-item-payment-date">
+							<p class="booking-item-payment-date-day">{{ reservation.dateFin|date_modify("+1 day")|date('d/m/Y') }}</p>
+						</div>
+					</li>
+					<li>
+						<h5>Chambre(s)</h5>
+						{% for chambre in reservation.chambres %}
+						<p class="booking-item-payment-item-title">{{ loop.index }} - {{ getNameChambre(chambre.chambre) }} <small>en {{ chambre.arrangement.code }}</small></p>
+						<ul class="booking-item-payment-price">
+							<li>
+								<p class="booking-item-payment-price-title">Adulte</p>
+								<p class="booking-item-payment-price-amount">{{ chambre.adultes|length }}</p>
+							</li>
+							<li>
+								<p class="booking-item-payment-price-title">Enfant</p>
+								<p class="booking-item-payment-price-amount">{{ chambre.enfants|length }}</p>
+							</li>
+							<li>
+								<p class="booking-item-payment-price-title" style="color: #0a9ab8">Total chambre</p>
+								{% if reservation.surDemande %}
+									<p class="booking-item-payment-price-amount">Sur demande</p>
+								{% else %}
+									<p class="booking-item-payment-price-amount">{{ chambre.getTotal }}  DT</p>
+								{% endif %}
+							</li>
+						</ul>
+
+					</li>
+				</ul>
+				{#{% if chambre.supplements|length+chambre.vues|length >0 %}
+				Suppléments
+				<button type="button" class="summary-collapse collapsed mt-5" data-toggle="collapse" data-target="#collapse2{{ loop.index }}"></button>
+				<div id="collapse2{{ loop.index }}" class="collapse">
+					<div class="left font12 text-warning">
+						{% for supp in chambre.supplements %}
+							- {{ getNameSupp(supp) }}<br>
+						{% endfor %}
+						{% for vue in chambre.vues %}
+							- {{ getNameVue(vue) }}<br>
+						{% endfor %}
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="clearfix"></div>
+				{% endif %}#}
+				{% endfor %}
+				{% if not reservation.surDemande %}
+				{% if reservation.remise !=0 %}
+					<p class="booking-item-payment-total">Remise: <span>{{ reservation.remise }}</span>
+				{% endif %}
+				{% if reservation.timbre !=0 %}
+				<p class="booking-item-payment-total">Timbre: <span>{{ reservation.timbre }}</span>
+				{% endif %}
+				{% endif %}
+				<p class="booking-item-payment-total">Total: <span>{% if reservation.surDemande %}
+                                        Sur demande
+                                    {% else %}
+							{{ reservation.total }} DT
+						{% endif %}</span>
+				</p>
+			</div>
+		</div>
+
+	</div>
+	<div class="gap"></div>
+</div>
+{% endblock %}
