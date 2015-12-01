@@ -80,7 +80,7 @@
                             {{ form_widget(form.payment) }}
                             <h4>Revoir et réserver votre séjour</h4>
                                 <label>
-                                    <input class="i-check" type="checkbox" name="optionsCheckbox" id="optionsCheckbox1" required value="option1"> En choisissant de compléter cette réservation Je reconnais que je l'ai lu et accepté
+                                    <input class="i-check" type="checkbox" name="optionsCheckbox" id="optionsCheckbox1" required value="option1"> En choisissant de complèter cette réservation, je reconnais que je l'ai lu et accepté
                                     <a href="javascript:void(0)" class="clblue">règles et restrictions</a>,
                                     <a href="javascript:void(0" class="clblue">termes et conditions</a> et
                                     <a href="javascript:void(0" class="clblue">politique de confidentialité</a>. </label>
@@ -143,7 +143,7 @@
                                     {% if resultat.surDemande %}
                                         <p class="booking-item-payment-price-amount">Sur demande</p>
                                         {% else %}
-                            <p class="booking-item-payment-price-amount">{{ chambre.total|number_format(3,'.','') }}  DT</p>
+                            <p class="booking-item-payment-price-amount">{{ chambre.total|number_format(0,'.','') }}  DT</p>
                         {% endif %}
                         </li>
                                 </ul>

@@ -1,16 +1,254 @@
 {% extends ":Front:base.html.twig" %}
 {% block title %}Réservation{% endblock %}
+{% block body %}
+    <div class="gap"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <div class="booking-item-payment">
+                        <header class="clearfix">
 
+                            <h4><i class="fa fa-lock"></i> Authentification</h4>
+                        </header>
 
-{% block stylesheets %}
-    {{ parent() }}
-    <style>
-        label small {
-            font-size: 10px;
-            color: red;
-        }
-    </style>
+                        <form class="booking-item-payment-details" action="{{ path("fos_user_security_check") }}" method="post">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                            <input type="hidden" name="_target_path" value="{{ app.request.uri() }}"/>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="first-name">Identifiant ou Email</label>
+                                        <input type="text" id="username" name="_username" required="required" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="first-name">Mot de passe</label>
+                                        <input type="password" id="password" name="_password" required="required" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="padding-top: 26px;">
+                                    <button type="submit" class="btn btn-primary" id="_submit" name="_submit" style="float: right;">S'authentifier</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {% endif %}
+                <div class="gap gap-small"></div>
+                {% include ':Front:alert.html.twig' %}
+                <div class="detail">
+                    {{ form_start(form) }}
+                    <h3>Hébergement</h3>
+                        <ul class="booking-list">
+                            {% for ch in ['single','double','triple','quadruple'] if attribute(pack, ch) %}
+                                <li>
+                                    <div class="booking-item">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label><strong>Chambre {{ ch }}</strong></label>
+                                                <div class="form-group">
+                                                    <select data-name="{{ ch }}" name='chambre{{ ch }}' class="form-control" id="{{ ch }}">
+                                                        <option value="0">0</option>
+                                                        {% for i in 1..10 %}
+                                                            <option value="{{ i }}">{{ i }}</option>{% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 text-center" style="padding-top: 20px;">
+                                                {% if attribute(pack, ch~'Vente') >0 %}
+                                                    <span class="booking-item-price-from">A partir de</span>
+                                                    <span class="booking-item-price margenull">{{ attribute(pack, ch~'Vente')|number_format(0,'.','') }}</span><sup>DT</sup>
+                                                {% else %}
+                                                    <span class="booking-item-price" style="font-size:15px">Sur demande</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="occupants"></div>
+                                    </div>
+                                </li>
+                            {%endfor%}
+                        </ul>
+                    <hr>
+
+                    {% if pack.supplements|length >0 %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <th>Suppléments</th>
+                                    <th>Prix</th>
+                                    </thead>
+                                    {% for option in pack.supplements %}
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>< class="i-check" input type="checkbox" name="supplement{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}
+                                                            <small>Obligatoire</small>{% endif %}</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    {{ option.adulteVente|number_format(0,'.','') }} DT
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                        <hr>
+                    {% endif %}
+                    {% if periode.circuits|length >0 %}
+                        <h3 class="section-title">Circuits & excursions</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <th></th>
+                                    <th>Prix Adulte</th>
+                                    <th>Prix Enfant</th>
+                                    </thead>
+                                    {% for option in periode.circuits %}
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label><input class="i-check" type="checkbox" name="circuit{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}
+                                                            <small>Obligatoire</small>{% endif %}</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    {{ option.adulteVente }} DT
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    {{ option.enfantVente }} DT
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                        <hr>
+                    {% endif %}
+                    {% if periode.frais|length >0 %}
+                        <h3 class="section-title">Autres frais divers</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <th></th>
+                                    <th>Prix Adulte</th>
+                                    <th>Prix Enfant</th>
+                                    </thead>
+                                    {% for option in periode.frais %}
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>< class="i-check" input type="checkbox" name="frai{{ option.id }}" {% if option.obligatoire %}disabled checked {% endif %}/>{{ option.libelle }} {% if option.obligatoire %}
+                                                            <small>Obligatoire</small>{% endif %}</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    {{ option.adulteVente }} DT
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    {{ option.enfantVente }} DT
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                        <hr>
+                    {% endif %}
+
+                    <h3 class="section-title">Informations Personnelles</h3>
+                    <div style="display: none">
+                        {{ formulaire.input("col-md-2","",form.client.responsable,false) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-4","Nom & prénom ",form.client.nomPrenom,true) }}
+                        {{ formulaire.input("col-md-4","Tel 1",form.client.tel1,true) }}
+                        {{ formulaire.input("col-md-4","Email",form.client.tel2,false) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-12","Adresse",form.client.adresse,true) }}
+                    </div>
+                    <div style="display: none">
+                        {{ formulaire.input("col-md-4","Matricule Fiscale",form.client.matriculeFiscale,true) }}
+                        {{ formulaire.input("col-md-4","Registre Commercie",form.client.registreCommercie,true) }}
+                        {{ formulaire.input("col-md-4","Commentaire",form.client.commentaire,true) }}
+                    </div>
+                    <hr>
+                    <h4 class="section-title mt-40">Revoir et réserver votre séjour</h4>
+                    <div class="styled-checkbox mt-10">
+                        <label>
+                            <input class="i-check" type="checkbox" name="optionsCheckbox" id="optionsCheckbox1" required value="option1">En choisissant de complèter cette réservation, je reconnais que je l'ai lu et accepté les
+                            <a href="#" class="clblue">règles & restrictions</a>
+                            <a href="#" class="clblue">termes et conditions</a> et
+                            <a h ref="#" class="clblue">politique de confidentialité</a>. </label>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary" style="float:right">
+                            Validation <i class="fa fa-arrow-circle-right"></i>
+                        </button>
+                    </div>
+                    <div style="display: none;" >{{ form_rest(form,{'attr':{'required':false}}) }}</div>
+                    {{ form_end(form) }}
+                </div>
+                <div class="gap gap-small"></div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="gap gap-small"></div>
+                <div class="booking-item-payment">
+                    <header class="clearfix">
+                        <a class="booking-item-payment-img" href="#">
+                            {% if periode.voyage.photoPrincipal is not null %}
+                                <img src="{{ asset(periode.voyage.photoPrincipal.assetPath) }}" alt="Image Alternative text" />
+                            {% else %}
+                                <img src="https://placeholdit.imgix.net/~text?txtsize=10&txt=No%20image%20available&w=75&h=65" alt="" style="width: 75px;height: 65px"/>
+                            {% endif %}
+                        </a>
+
+                        <h5 class="booking-item-payment-title"><a href="#">{{ periode.voyage|title }}</a></h5>
+                        <span>{{ periode.voyage.destination }}</span>
+                    </header>
+                    <ul class="booking-item-payment-details">
+                        <li>
+                            <h5>Période :</h5>
+                            <div class="booking-item-payment-date">
+                                <p class="booking-item-payment-date-day">{{ periode.depart|date('d/m/Y') }}</p>
+                            </div><i class="fa fa-arrow-right booking-item-payment-date-separator"></i>
+                            <div class="booking-item-payment-date">
+                                <p class="booking-item-payment-date-day">{{ periode.retour|date('d/m/Y') }}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <h5>Pack : {{ pack }}</h5>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
 {% block jquery %}
     <script>
         $(document).ready(function () {

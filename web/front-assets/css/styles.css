@@ -4,7 +4,10 @@ body {
   font-size: 14px;
   line-height: 1.6em;
   font-weight: 400;
+  background-image: url("../img/background.png");
+  margin: 50px 100px 50px 100px;
 }
+
 a {
   color: #ed8323;
   text-decoration: none;
